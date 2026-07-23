@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ODYSSEY STAGE — play the atlas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f4f0'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23141414'/%3E%3C/svg%3E">
 <style>
   :root{
     --paper:#f2f1ec; --card:#f7f6f2; --ink:#141414; --dim:#8a8a86;
@@ -91,6 +92,20 @@
   #arrbar .abtn:hover{background:var(--ink);color:var(--paper)}
   #arrbar .abtn.red{border-color:var(--red);color:var(--red)}
   #arrbar .abtn.red:hover{background:var(--red);color:var(--paper)}
+  #arrbar .arrSlider{display:flex;flex-direction:column;align-items:center;gap:1px}
+  #arrbar .arrSlider i{font-style:normal;font-size:7.5px;letter-spacing:.14em;color:var(--dim);font-weight:700}
+  #arrbar input[type=range]{width:90px;height:26px;accent-color:#141414}
+  @media(max-width:760px){
+    #top{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    #top::-webkit-scrollbar{display:none}
+    #topRight{flex:none}
+    .chip{padding:10px 12px;font-size:10px}
+    #arrbar{left:0;right:0;bottom:64px;transform:none;flex-wrap:wrap;justify-content:center;
+      gap:8px;padding:10px 8px;border-left:none;border-right:none}
+    #arrbar .abtn{padding:11px 12px;font-size:10px;min-width:56px;text-align:center}
+    #arrbar input[type=range]{width:34vw;height:32px}
+    #arrbar #arrName{width:100%;text-align:center;max-width:none}
+  }
   #toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:30;background:var(--ink);
     color:var(--paper);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:9px 16px;
     opacity:0;transition:opacity .25s;pointer-events:none;max-width:82vw;text-align:center}
@@ -149,13 +164,16 @@
 
 <div id="arrbar">
   <span id="arrName">—</span>
+  <span class="arrSlider"><i>SIZE</i><input type="range" id="arrSize" min="25" max="300" value="100"></span>
+  <span class="arrSlider"><i>OPACITY</i><input type="range" id="arrAlpha" min="10" max="100" value="100"></span>
+  <div class="abtn" id="arrFlip">⇋ FLIP</div>
+  <div class="abtn" id="arrDup">＋ DUP</div>
   <div class="abtn" id="arrBlend">BLEND</div>
   <div class="abtn" id="arrKey">KEY</div>
-  <div class="abtn" id="arrSmaller">SIZE −</div>
-  <div class="abtn" id="arrBigger">SIZE +</div>
   <div class="abtn" id="arrHide">HIDE</div>
+  <div class="abtn red" id="arrDel">✕ DEL</div>
   <div class="abtn red" id="arrReset">RESET</div>
-  <div class="abtn red" id="arrResetAll">RESET ALL</div>
+  <div class="abtn red" id="arrResetAll">ALL</div>
 </div>
 <div id="arrmenu" style="position:fixed;z-index:40;display:none;background:#f7f6f2;
   border:2px solid #141414;box-shadow:4px 4px 0 rgba(20,20,20,.2);min-width:150px"></div>
@@ -393,7 +411,11 @@ function possessedState(cm,t){
 }
 window.__stage={ get castMods(){return castMods}, get possessed(){return possessed},
   get MODE(){return MODE}, get keys(){return keys},
-  tick:(dt,t)=>tickEmbody(dt,t) };
+  tick:(dt,t)=>tickEmbody(dt,t),
+  get RESTAGED(){return RESTAGED},
+  arrSelect:i=>{ARRANGE=true;document.getElementById("arrangeBtn").classList.add("on");
+    arrSel=i;arrRefreshBar();markDirty();},
+  safeSet };
 let embodyDrag=null, walkTarget=null;
 function embodyPointer(e){
   const cm=castMods[possessed]; if(!cm||!cm.live)return;
@@ -646,6 +668,14 @@ function scrubTo(e){ const r=sc.getBoundingClientRect();
   T=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*DUR; }
 
 /* ───────────────────────── wiring ───────────────────────── */
+/* quota-safe storage: github.io shares ONE quota across every project on
+   the domain — writes can throw. Never crash; fall back to memory. */
+const __mem={};
+function safeSet(k,v){ try{ localStorage.setItem(k,v); return true; }
+  catch(e){ try{ localStorage.removeItem("odyssey.suite.dur"); localStorage.setItem(k,v); return true; }
+  catch(_){ __mem[k]=v; if(!safeSet._warned){ safeSet._warned=1;
+    console.warn("storage full — session-only persistence"); } return false; } } }
+function safeGet(k){ return (k in __mem)?__mem[k]:localStorage.getItem(k); }
 /* ═══ ARRANGE — worldsmith grammar on the live scene ═══
    drag = move along the floor · wheel/buttons = size · chip bar = blend/key/hide.
    Overrides persist per scene and flow into PREVIS automatically. */
@@ -653,7 +683,7 @@ let ARRANGE=false, arrSel=null, arrDrag=null;
 const BLENDS=["","multiply","overlay","screen","darken","lighten","source-over"];
 const KEYS=[0,.895,.82,.72];
 function arrStoreKey(){return "odyssey.arrange."+(sceneEntry?sceneEntry.id:"?");}
-function arrSave(){ if(RESTAGED) localStorage.setItem(arrStoreKey(),JSON.stringify(RESTAGED.overrides())); markDirty(); }
+function arrSave(){ if(RESTAGED) safeSet(arrStoreKey(),JSON.stringify(RESTAGED.overrides())); markDirty(); }
 function arrLoadSaved(){ try{return JSON.parse(localStorage.getItem(arrStoreKey())||"{}");}catch(e){return{}} }
 function srcFromEvent(e){
   const r=cv.getBoundingClientRect();
@@ -676,6 +706,8 @@ function arrRefreshBar(){
   bar.classList.add("on");
   const o=(RESTAGED&&RESTAGED.overrides()[arrSel])||{};
   document.getElementById("arrName").textContent=arrSel.replace(/_/g," ");
+  document.getElementById("arrSize").value=Math.round((o.scale||1)*100);
+  document.getElementById("arrAlpha").value=Math.round((o.alpha==null?1:o.alpha)*100);
   document.getElementById("arrBlend").textContent="BLEND · "+(o.blend||"auto");
   document.getElementById("arrKey").textContent="KEY · "+(o.key?o.key.toFixed(2):"auto");
   document.getElementById("arrHide").textContent=o.hidden?"SHOW":"HIDE";
@@ -694,7 +726,7 @@ function pushArrUndo(){
 }
 document.getElementById("undoChip").onclick=async()=>{
   if(!ARR_UNDO.length||!sceneEntry){toast("NOTHING TO UNDO");return;}
-  localStorage.setItem(arrStoreKey(),ARR_UNDO.pop());
+  safeSet(arrStoreKey(),ARR_UNDO.pop());
   arrSel=null; await loadScene(sceneEntry); markDirty();
   toast("UNDONE · "+ARR_UNDO.length+" STEPS LEFT");
 };
@@ -771,15 +803,37 @@ document.getElementById("arrKey").onclick=()=>{
   const i=(KEYS.indexOf(o.key||0)+1)%KEYS.length;
   arrPatch({key:KEYS[i]||null});
 };
-document.getElementById("arrSmaller").onclick=()=>{const o=(RESTAGED&&RESTAGED.overrides()[arrSel])||{};arrPatch({scale:Math.max(.25,(o.scale||1)*.88)});};
-document.getElementById("arrBigger").onclick=()=>{const o=(RESTAGED&&RESTAGED.overrides()[arrSel])||{};arrPatch({scale:Math.min(4,(o.scale||1)*1.14)});};
+document.getElementById("arrSize").oninput=e=>{ if(!arrSel||!RESTAGED)return;
+  RESTAGED.setOverride(arrSel,{scale:+e.target.value/100}); markDirty();
+  clearTimeout(cv._ast); cv._ast=setTimeout(arrSave,350); };
+document.getElementById("arrAlpha").oninput=e=>{ if(!arrSel||!RESTAGED)return;
+  const v=+e.target.value/100;
+  RESTAGED.setOverride(arrSel,{alpha:v>=.99?null:v}); markDirty();
+  clearTimeout(cv._aat); cv._aat=setTimeout(arrSave,350); };
+document.getElementById("arrFlip").onclick=()=>{ if(!arrSel)return; pushArrUndo();
+  const o=(RESTAGED.overrides()[arrSel])||{};
+  RESTAGED.setOverride(arrSel,{flip:o.flip?null:true}); arrSave(); markDirty(); };
+document.getElementById("arrDup").onclick=()=>{ if(!arrSel)return; pushArrUndo();
+  const n=RESTAGED.cloneInstance(arrSel);
+  if(n){arrSel=n;arrSave();arrRefreshBar();markDirty();toast("DUPLICATED → "+n);} };
+document.getElementById("arrDel").onclick=()=>{ if(!arrSel)return; pushArrUndo();
+  const r=RESTAGED.removeInstance(arrSel); arrSel=null; arrSave(); arrRefreshBar(); markDirty();
+  toast(r==="removed"?"CLONE REMOVED":"HIDDEN (RESET ALL RESTORES)"); };
 document.getElementById("arrHide").onclick=()=>{const o=(RESTAGED&&RESTAGED.overrides()[arrSel])||{};arrPatch({hidden:o.hidden?null:true});};
 document.getElementById("arrReset").onclick=()=>{if(RESTAGED&&arrSel){RESTAGED.clearOverride(arrSel);arrSave();arrRefreshBar();}};
 document.getElementById("arrResetAll").onclick=()=>{if(RESTAGED){RESTAGED.clearOverrides();arrSave();arrSel=null;arrRefreshBar();toast("SCENE RESTORED TO AUTHORED LAYOUT");}};
 let arrLpT=null;
+const arrPtrs=new Map(); let pinch0=null;
 cv.addEventListener("pointerdown",e=>{
   if(MODE==="embody"){ embodyPointer(e); return; }
   if(!ARRANGE||MODE!=="play"||!RESTAGED)return;
+  arrPtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(arrPtrs.size===2&&arrSel){
+    const [a,b]=[...arrPtrs.values()];
+    const o=RESTAGED.overrides()[arrSel]||{};
+    pinch0={d:Math.hypot(a.x-b.x,a.y-b.y)||1, s:o.scale||1};
+    arrDrag=null; clearTimeout(arrLpT); return;
+  }
   const sp=srcFromEvent(e);
   const hit=arrHit(sp);
   if(hit){
@@ -795,6 +849,15 @@ cv.addEventListener("pointerdown",e=>{
 });
 addEventListener("pointerup",()=>{clearTimeout(arrLpT);arrLpT=null;});
 addEventListener("pointermove",e=>{
+  if(arrPtrs.has(e.pointerId))arrPtrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch0&&arrPtrs.size===2&&arrSel&&RESTAGED){
+    const [a,b]=[...arrPtrs.values()];
+    const d=Math.hypot(a.x-b.x,a.y-b.y)||1;
+    RESTAGED.setOverride(arrSel,{scale:Math.max(.25,Math.min(4,pinch0.s*d/pinch0.d))});
+    const sl=document.getElementById("arrSize");
+    if(sl)sl.value=Math.round((RESTAGED.overrides()[arrSel].scale||1)*100);
+    markDirty(); return;
+  }
   if(!arrDrag||!arrSel)return;
   const sp=srcFromEvent(e);
   arrDrag.moved=true;
@@ -803,7 +866,10 @@ addEventListener("pointermove",e=>{
     dz:arrDrag.dz0+(sp.y-arrDrag.sp0.y)/SRCH*.9});
   markDirty();
 });
-addEventListener("pointerup",()=>{ if(arrDrag){ if(arrDrag.moved)arrSave(); arrDrag=null; } });
+addEventListener("pointerup",e=>{ arrPtrs.delete(e.pointerId);
+  if(pinch0&&arrPtrs.size<2){ pinch0=null; arrSave(); }
+  if(arrDrag){ if(arrDrag.moved)arrSave(); arrDrag=null; } });
+addEventListener("pointercancel",e=>{ arrPtrs.delete(e.pointerId); pinch0=null; });
 cv.addEventListener("wheel",e=>{
   if(!ARRANGE||!arrSel||!RESTAGED)return;
   e.preventDefault();

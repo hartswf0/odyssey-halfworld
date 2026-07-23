@@ -786,6 +786,7 @@ export function makeRestage(sceneMod, resolveMod, resolveType, initialOverrides)
         if(dw > W*.92){ dw = W*.92; dh = dw/cut.ar; }
         og.save(); saved=true;
         og.globalCompositeOperation = p.o.blend || defBlend;
+        if(p.o.alpha!=null) og.globalAlpha = clamp(p.o.alpha, .05, 1);
         if(p.o.flip){ og.translate(p.x*2,0); og.scale(-1,1); }
         og.drawImage(cut.cv, cut.x, cut.y, cut.w, cut.h, p.x-dw/2, p.y-dh, dw, dh);
         og.restore(); saved=false;
