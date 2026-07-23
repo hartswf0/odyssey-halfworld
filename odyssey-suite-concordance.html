@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ODYSSEY SUITE — score the books</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f4f0'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23141414'/%3E%3C/svg%3E">
+<style>
+  :root{--paper:#fff;--ink:#000;--dim:#5b5b5b;--line:#000;--blue:#3aa7ff;--red:#e01b1b;--soft:#f4f4f4}
+  *{box-sizing:border-box;border-radius:0!important;margin:0;padding:0}
+  html,body{min-height:100%;background:var(--paper);color:var(--ink);
+    font:13px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  button,a,select{font:inherit;color:inherit}
+  a{text-decoration:none}
+  button,.btn,select{border:1px solid var(--line);background:var(--paper);padding:6px 9px;cursor:pointer;font-weight:700}
+  button:hover,.btn:hover{background:var(--ink);color:var(--paper)}
+  header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:auto auto minmax(0,1fr) auto auto;
+    gap:8px;align-items:center;border-bottom:2px solid var(--line);background:var(--paper);padding:7px 10px}
+  .brand{font-weight:900;letter-spacing:.08em;white-space:nowrap}
+  .dot{display:inline-block;width:6px;height:6px;background:var(--red);margin-right:8px;vertical-align:1px}
+  #play{width:36px;height:30px;display:grid;place-items:center;font-size:16px}
+  #title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
+  .time{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+  .state{font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+  main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);min-height:calc(100svh - 46px)}
+  #stageCol{border-right:1px solid var(--line);padding:8px;min-width:0}
+  #film{display:block;width:100%;aspect-ratio:16/10;border:2px solid var(--line);background:#fdfdfa}
+  .under{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-top:5px;color:var(--dim)}
+  .under b{color:var(--ink)}
+  #timeline{position:relative;height:34px;border:1px solid var(--line);margin-top:8px;overflow:hidden;cursor:crosshair}
+  .seg{position:absolute;top:17px;height:7px;background:var(--blue)}
+  .seg.alt{opacity:.45}
+  .scn{position:absolute;top:7px;height:20px;width:1px;background:#cfcfcf}
+  .cuetick{position:absolute;top:2px;height:30px;width:2px;background:var(--red)}
+  #head{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+  #chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-top:8px;border-top:1px solid var(--line)}
+  .chapter{display:grid;grid-template-columns:4ch minmax(0,1fr);gap:5px;text-align:left;border:1px solid var(--line);
+    border-top:0;background:var(--paper);padding:6px;cursor:pointer}
+  .chapter span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim);font-size:11px}
+  .chapter.on{background:var(--ink);color:var(--paper)}
+  .chapter.on span:last-child{color:var(--paper)}
+  #context{min-width:0;display:flex;flex-direction:column}
+  .panel{border-bottom:1px solid var(--line);padding:8px 10px;min-height:0}
+  .panel h2{font-size:11px;letter-spacing:.13em;border-bottom:1px solid var(--line);padding-bottom:3px;margin-bottom:6px}
+  #voice{font-size:17px;line-height:1.3;font-weight:700;overflow-wrap:anywhere;min-height:44px}
+  #screenText{margin-top:6px;color:var(--dim);font-weight:700;font-size:11px}
+  dl{display:grid;grid-template-columns:8ch minmax(0,1fr);gap:4px 8px}
+  dt{color:var(--dim)}
+  dd{margin:0;overflow-wrap:anywhere}
+  #sceneLines{max-height:26svh;overflow:auto}
+  .line{padding:4px 5px;color:var(--dim);cursor:pointer;display:flex;gap:6px;align-items:baseline}
+  .line b{color:var(--ink);flex:none}
+  .line .mkdot{width:8px;height:8px;flex:none;border:1px solid #000;display:none}
+  .line.now{background:var(--ink);color:var(--paper)}
+  .line.now b{color:var(--paper)}
+  #pbBody{max-height:30svh;overflow:auto;font-size:11.5px;line-height:1.5}
+  .pline{padding:3px 5px;color:var(--dim);cursor:pointer}
+  .pline b{color:var(--ink)}
+  .pline.now{background:var(--ink);color:var(--paper)}
+  .pline.now b{color:var(--paper)}
+  #pbBody pre{white-space:pre-wrap;font-size:10.5px;color:#333}
+  #pbMode{font-size:10px;padding:2px 7px;float:right}
+  #cueList{max-height:20svh;overflow:auto;font-size:11.5px}
+  .cue{display:flex;gap:7px;align-items:center;padding:3px 4px;border-bottom:1px dashed #ddd;cursor:pointer}
+  .cue:hover{background:var(--soft)}
+  .cue .ct{font-weight:900;color:var(--red);flex:none}
+  .cue .cw{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cue .cx{flex:none;border:1px solid #000;padding:0 5px;cursor:pointer;font-weight:900}
+  .actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+  select{max-width:100%;font-weight:400}
+  #doing .drow{display:flex;gap:8px;align-items:baseline;padding:5px 0;border-bottom:1px dashed #ddd;
+    font-size:12px;line-height:1.5;cursor:pointer}
+  #doing .drow:hover{background:var(--soft)}
+  #doing .drow b{flex:none;font-size:10.5px;letter-spacing:.06em}
+  #doing .drow span{flex:1;color:#333}
+  #inTabs{display:flex;gap:0;margin-left:8px}
+  #inTabs button{border:2px solid var(--paper);background:transparent;color:var(--paper);
+    font-size:10px;font-weight:900;padding:5px 10px}
+  #inTabs button.on{background:var(--paper);color:var(--ink)}
+  #inChat{display:none;flex-direction:column;min-height:0;height:100%}
+  #inChat.on{display:flex}
+  #inRight.off{display:none}
+  #chatLog{flex:1;min-height:0;overflow-y:auto;padding:12px 14px;-webkit-overflow-scrolling:touch}
+  .cmsg{margin:6px 0;max-width:88%;padding:8px 11px;font-size:12.5px;line-height:1.6;border:2px solid var(--line)}
+  .cmsg.you{margin-left:auto;background:var(--ink);color:var(--paper)}
+  .cmsg.them{background:var(--paper)}
+  .cmsg.them b{display:block;font-size:9px;letter-spacing:.14em;color:var(--red);margin-bottom:2px}
+  #chatIn{flex:none;display:flex;border-top:3px solid var(--line)}
+  #chatIn input{flex:1;border:none;padding:12px;font:inherit;font-size:13px;min-height:48px;outline:none}
+  #chatIn button{border:none;border-left:3px solid var(--line);background:var(--paper);
+    font-weight:900;padding:0 18px;min-height:48px}
+  #chatIn button:active{background:var(--ink);color:var(--paper)}
+  #castRow{display:flex;gap:6px;flex-wrap:wrap}
+  .castChip{border:2px solid var(--line);background:var(--paper);padding:7px 10px;cursor:pointer;
+    font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px}
+  .castChip:hover{background:var(--ink);color:var(--paper)}
+  .castChip .tdot{width:9px;height:9px;border:1px solid #000;flex:none}
+  #inspect{position:fixed;inset:0;z-index:200;background:var(--paper);display:none;
+    flex-direction:column;overflow:hidden}
+  #inspect.on{display:flex}
+  #inspect .ihead{flex:none;display:flex;align-items:center;gap:10px;padding:10px 12px;
+    border-bottom:3px solid var(--line);background:var(--ink);color:var(--paper)}
+  #inspect .ihead b{font-size:14px;letter-spacing:.06em;flex:1;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  #inspect .ihead button{border:2px solid var(--paper);background:transparent;color:var(--paper);
+    font-weight:900;padding:6px 12px}
+  #inspect .ibody{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);overflow:hidden}
+  #inspect .ileft{border-right:2px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  #inspect canvas{flex:1;min-height:0;width:100%;object-fit:contain;background:#fdfdfa}
+  #inspect .imeta{flex:none;border-top:2px solid var(--line);padding:8px 10px;font-size:11px;line-height:1.6}
+  #inspect .imeta b{letter-spacing:.05em}
+  #inspect .iright{overflow-y:auto;padding:12px 14px;-webkit-overflow-scrolling:touch}
+  #inspect .iright h3{font-size:11px;letter-spacing:.14em;border-bottom:2px solid var(--line);
+    padding-bottom:4px;margin:14px 0 8px}
+  #inspect .iright h3:first-child{margin-top:0}
+  #inspect .iperf{font-size:12px;line-height:1.6;border-left:4px solid var(--red);padding:6px 10px;
+    background:var(--soft);margin-bottom:4px}
+  #inspect .iprompt{font-size:12.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+
+  /* ── GREEK METRICAL-FORMULA RUNTIME ── */
+  #formulaWrap{background:#fff}
+  #formulaWrap>summary{cursor:pointer;font-size:11px;letter-spacing:.1em;font-weight:900;list-style:none}
+  #formulaWrap>summary::-webkit-details-marker{display:none}
+  #formulaStatus{float:right;color:var(--dim);font-weight:400;letter-spacing:0}
+  .formulaTop{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;margin-top:8px}
+  #formulaGreek{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.18;font-weight:700;overflow-wrap:anywhere}
+  #formulaId{font-size:10px;color:var(--red);font-weight:900;text-align:right;white-space:nowrap}
+  #formulaLine{margin-top:5px;font-family:Georgia,"Times New Roman",serif;font-size:13px;line-height:1.45;color:#333;overflow-wrap:anywhere}
+  #formulaMeta{margin-top:5px;color:var(--dim);font-size:10.5px;line-height:1.5}
+  #meterRail{display:grid;grid-template-columns:repeat(6,1fr);height:24px;border:1px solid var(--line);margin-top:7px}
+  .mfoot{display:grid;place-items:center;border-right:1px solid var(--line);font-size:9px;color:var(--dim);position:relative}
+  .mfoot:last-child{border-right:0}.mfoot.on{background:var(--ink);color:var(--paper)}.mfoot.edge:after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red)}
+  #formulaRefs{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+  .refChip{border:1px solid var(--line);padding:2px 5px;font-size:9px;font-weight:700;background:var(--soft)}
+  .formulaTools{display:grid;grid-template-columns:auto auto auto minmax(100px,1fr) auto;gap:4px;margin-top:7px}
+  .formulaTools button{padding:5px 7px;font-size:10px}.formulaTools input{min-width:0;border:1px solid var(--line);padding:5px 7px;font:inherit;font-size:10.5px;outline:none}
+  #formulaResults,#formulaDeepBody{margin-top:6px;max-height:24svh;overflow:auto;border-top:1px solid var(--line)}
+  #formulaResults:empty,#formulaDeepBody:empty{display:none}
+  .fresult,.focc,.fdeep{padding:5px;border-bottom:1px dashed #ddd;cursor:pointer;font-size:10.5px;line-height:1.45}
+  .fresult:hover,.focc:hover,.fdeep:hover{background:var(--soft)}
+  .fresult b,.focc b,.fdeep b{color:var(--ink)}
+  .fresult .gr,.focc .gr,.fdeep .gr{font-family:Georgia,"Times New Roman",serif;font-size:12.5px;color:var(--ink)}
+  #formulaOccs{margin-top:6px;max-height:16svh;overflow:auto;border-top:1px solid var(--line)}
+  .formulaCaveat{font-size:9px;color:var(--dim);margin-top:5px;line-height:1.4}
+  #formulaLoadBar{height:2px;background:transparent;margin-top:4px;overflow:hidden}#formulaLoadBar.on:after{content:"";display:block;width:35%;height:100%;background:var(--red);animation:fload .8s linear infinite}
+  @keyframes fload{from{transform:translateX(-100%)}to{transform:translateX(320%)}}
+
+  @media(max-width:820px){
+    main{grid-template-columns:1fr}
+    #stageCol{border-right:0;border-bottom:1px solid var(--line)}
+    #voice{font-size:15px}
+    .state{display:none}
+    #pbBody{max-height:38svh;font-size:12.5px}
+    #sceneLines{max-height:22svh}
+    .chapter{padding:8px 6px}
+    #inspect .ibody{grid-template-columns:1fr;grid-template-rows:44% 56%}
+    #inspect .ileft{border-right:0;border-bottom:2px solid var(--line)}
+    header{grid-template-columns:auto auto minmax(0,1fr) auto}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot"></span>ODYSSEY SUITE</div>
+  <button id="play" type="button" aria-label="Play">▶</button>
+  <div id="title">Loading the atlas…</div>
+  <div class="time"><span id="clock">00:00.0</span> / <span id="dur">—</span></div>
+  <div class="state" id="state">boot</div>
+</header>
+<main>
+  <section id="stageCol">
+    <canvas id="film" width="1024" height="640"></canvas>
+    <div class="under"><span id="caption">Every book scored to a track — one clock.</span>
+      <span id="sceneTag">—</span></div>
+    <div id="timeline" title="Seek"></div>
+    <div id="chapters"></div>
+  </section>
+  <aside id="context">
+    <div class="panel">
+      <h2>NOW</h2>
+      <div id="voice">Press play. M drops a cue.</div>
+      <div id="screenText">—</div>
+    </div>
+
+    <details class="panel" id="formulaWrap" open>
+      <summary>GREEK FORMULA RUNTIME <span id="formulaStatus">loading candidate network…</span></summary>
+      <div id="formulaLoadBar" class="on"></div>
+      <div class="formulaTop"><div id="formulaGreek">—</div><div id="formulaId">—</div></div>
+      <div id="meterRail" aria-label="six-foot metrical address"></div>
+      <div id="formulaLine">The current scene will activate a metrically addressed formula candidate.</div>
+      <div id="formulaMeta">—</div>
+      <div id="formulaRefs"></div>
+      <div class="formulaTools">
+        <button id="formulaPrev" type="button" title="previous scene candidate">←</button>
+        <button id="formulaAuto" type="button" title="return to scene-driven selection">AUTO</button>
+        <button id="formulaNext" type="button" title="next scene candidate">→</button>
+        <input id="formulaSearch" type="search" placeholder="Greek · Beta · formula id · class" autocomplete="off">
+        <button id="formulaDeep" type="button" title="load templates, epithets and line parallels">DEEP</button>
+      </div>
+      <div id="formulaResults"></div>
+      <div id="formulaOccs"></div>
+      <div id="formulaDeepBody"></div>
+      <div class="formulaCaveat" id="formulaCaveat">Scene links are computational candidates, not asserted exact Greek spans.</div>
+    </details>
+    <div class="panel">
+      <h2>ON STAGE — THINKING · DOING</h2>
+      <div id="doing">—</div>
+    </div>
+    <details class="panel" id="pbWrap">
+      <summary style="cursor:pointer;font-size:11px;letter-spacing:.1em;font-weight:700">
+        MUSIC PROMPT <span style="color:var(--dim);font-weight:400">· one cue per scene, one genome per book</span>
+        <button id="pbMode" type="button" style="float:right;font-size:10px;padding:2px 7px">GENOME</button>
+      </summary>
+      <div id="pbBody" style="margin-top:8px">—</div>
+    </details>
+    <div class="panel">
+      <h2>BOOK</h2>
+      <dl>
+        <dt>Book</dt><dd id="mBook">—</dd>
+        <dt>Track</dt><dd id="mTrack">—</dd>
+        <dt>Window</dt><dd id="mWindow">—</dd>
+        <dt>Scenes</dt><dd id="mScenes">—</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h2>ELEMENTS — TAP FOR THE ATLAS</h2>
+      <div id="castRow">—</div>
+    </div>
+    <div class="panel">
+      <h2>SCENES</h2>
+      <div id="sceneLines">—</div>
+    </div>
+    <div class="panel">
+      <h2>SCORE — CUES <span style="color:var(--dim);font-weight:400">(M at the moment)</span></h2>
+      <div class="actions" style="margin-bottom:6px">
+        <button id="cueBtn" type="button">● CUE NOW</button>
+        <button id="cueExp" type="button">EXPORT</button>
+      </div>
+      <div id="cueList">No cues yet — play and press M when the music says so.</div>
+    </div>
+    <div class="panel">
+      <h2>TRACK FOR THIS BOOK</h2>
+      <div class="actions">
+        <select id="albumSel"></select>
+        <select id="trackSel"></select>
+        <button id="assignBtn" type="button">ASSIGN</button>
+        <button id="fillBtn" type="button" title="deal this album's tracks across all books in order">AUTO-FILL</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>WORK</h2>
+      <div class="actions">
+        <a class="btn" id="lnStage" href="odyssey-stage.html">STAGE</a>
+        <a class="btn" id="lnPrevis" href="odyssey-previs.html">PREVIS</a>
+        <a class="btn" id="lnTl" href="odyssey-timeline.html">TIMELINE</a>
+        <a class="btn" id="lnOp" href="odyssey-operator.html">OPERATOR</a>
+      </div>
+    </div>
+  </aside>
+</main>
+<div id="inspect">
+  <div class="ihead"><b id="inName">—</b><span id="inType" style="font-size:10px;opacity:.75"></span>
+    <div id="inTabs"><button id="tabAtlas" class="on" type="button">ATLAS</button>
+      <button id="tabChat" type="button">CHAT</button></div>
+    <button id="inClose" type="button">CLOSE</button></div>
+  <div class="ibody">
+    <div class="ileft"><canvas id="inCv" width="760" height="760"></canvas>
+      <div class="imeta" id="inMeta">—</div></div>
+    <div style="display:flex;flex-direction:column;min-height:0;overflow:hidden">
+      <div class="iright" id="inRight">—</div>
+      <div id="inChat">
+        <div id="chatLog"></div>
+        <div id="apiCfg" style="display:none;border-top:3px solid var(--line);padding:10px 12px;background:var(--soft)">
+          <div style="font-size:10px;font-weight:900;letter-spacing:.1em;margin-bottom:6px">REAL TALK — PLUG IN A MODEL (OpenAI-format endpoint)</div>
+          <input id="apiUrl" type="text" placeholder="endpoint · https://api.openai.com/v1/chat/completions" style="width:100%;border:2px solid var(--line);padding:8px;font:inherit;font-size:11px;margin-bottom:5px">
+          <input id="apiModel" type="text" placeholder="model · e.g. gpt-5.6 / sol-5.6" style="width:100%;border:2px solid var(--line);padding:8px;font:inherit;font-size:11px;margin-bottom:5px">
+          <input id="apiKey" type="password" placeholder="api key (stored only on this device)" autocomplete="off" style="width:100%;border:2px solid var(--line);padding:8px;font:inherit;font-size:11px;margin-bottom:6px">
+          <button id="apiSave" type="button" style="width:100%">SAVE — REAL TALK ON</button>
+          <div style="font-size:9px;color:var(--dim);margin-top:5px">No key? The genome answers (offline). With a key, the model performs the character from its atlas card.</div>
+        </div>
+        <div id="chatIn"><button id="apiBtn" type="button" title="plug in a model" style="border:none;border-right:3px solid var(--line);padding:0 12px;font-size:14px">⚙</button>
+          <input id="chatTxt" type="text" placeholder="speak to them…" autocomplete="off">
+          <button id="chatGo" type="button">SAY</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<audio id="audio" preload="metadata"></audio>
+<script type="module">
+import * as E from "./engine/halfworld-engine.mjs";
+const $=id=>document.getElementById(id);
+const MF=await fetch("viewer/odyssey-manifest.json").then(r=>r.json());
+const AL=await fetch("audio/albums.json").then(r=>r.json());
+const assetById=new Map(MF.assets.map(a=>[a.id,a]));
+/* the LINEAGE JUKEBOX PROMPTBOOK — direct translations off the atlas:
+   # BOOK NN → genome/echo · ### OD-BXX-SYY → per-scene cue prompt */
+const PB={scenes:{},books:{}};
+try{
+  const txt=await fetch("audio/promptbook.md").then(r=>r.ok?r.text():"");
+  let curB=null,curS=null,buf=[];
+  const flush=()=>{ const t=buf.join("\n").trim();
+    if(curS)PB.scenes[curS]=t;
+    else if(curB!=null&&!PB.books[curB])PB.books[curB]=t;
+    buf=[]; };
+  for(const ln of txt.split("\n")){
+    const mB=/^# BOOK (\d+)/.exec(ln), mS=/^### (OD-B\d+-S\d+)/.exec(ln);
+    if(mB){flush();curB=+mB[1];curS=null;continue;}
+    if(mS){flush();curS=mS[1];continue;}
+    if(/^## QUICKCHECK/.test(ln)&&curS){flush();curS=null;}
+    buf.push(ln);
+  }
+  flush();
+}catch(e){}
+
+/* ── GREEK METRICAL-FORMULA CONCORDANCE: candidate-first, full corpus on demand ── */
+const CX_PATH="viewer/concordance/odyssey-scene-runtime.json";
+const CFULL_PATH="viewer/concordance/odyssey-concordance-core.json";
+const CEXT_PATH="viewer/concordance/odyssey-concordance-extended.json";
+const CPAR_PATH="viewer/concordance/odyssey-concordance-parallels.json";
+let CX=null,CFULL=null,CEXT=null,CPAR=null;
+let cxPromise=null,fullPromise=null,extPromise=null,parPromise=null;
+let formulaShift=0,formulaLock=null,formulaScene=null,formulaLastKey="",activeFormulaCtx=null;
+const loadJson=async(path)=>{const r=await fetch(path);if(!r.ok)throw new Error(path+" · "+r.status);return r.json();};
+function loadingFormula(on,label){$("formulaLoadBar").classList.toggle("on",!!on);if(label)$("formulaStatus").textContent=label;}
+function ensureCX(){if(CX)return Promise.resolve(CX);if(!cxPromise){loadingFormula(true,"loading candidate network…");cxPromise=loadJson(CX_PATH).then(j=>{CX=j;loadingFormula(false,Object.keys(j.formulas).length+" linked formulas");formulaLastKey="";return j;}).catch(e=>{loadingFormula(false,"concordance unavailable");console.warn(e);return null;});}return cxPromise;}
+function ensureFull(){if(CFULL)return Promise.resolve(CFULL);if(!fullPromise){loadingFormula(true,"loading full 62k-formula corpus…");fullPromise=loadJson(CFULL_PATH).then(j=>{CFULL=j;loadingFormula(false,Object.keys(j.formulas).length+" formulas · full corpus");return j;}).catch(e=>{loadingFormula(false,"full corpus failed");throw e;});}return fullPromise;}
+function ensureExtended(){if(CEXT)return Promise.resolve(CEXT);if(!extPromise)extPromise=loadJson(CEXT_PATH).then(j=>CEXT=j);return extPromise;}
+function ensureParallels(){if(CPAR)return Promise.resolve(CPAR);if(!parPromise)parPromise=loadJson(CPAR_PATH).then(j=>CPAR=j);return parPromise;}
+const farr=(id)=>((CX&&CX.formulas[id])||(CFULL&&CFULL.formulas[id])||null);
+const larr=(id)=>((CX&&CX.lines[String(id)])||(CFULL&&CFULL.lines[String(id)])||null);
+const oarr=(id)=>((CX&&CX.occurrences[id])||(CFULL&&CFULL.occurrences[id])||[]);
+function fobj(id){const a=farr(id);if(!a)return null;return {id,n:a[0],beta:a[1],greek:a[2],total:a[3],ody:a[4],iliad:a[5],lineCount:a[6],positionEntropy:a[7],position:a[8],stablePosition:!!a[9],functionRatio:a[10],classification:a[11],address:a[12],addressEntropy:a[13],stableAddress:!!a[14]};}
+function lobj(id){const a=larr(id);if(!a)return null;return {id:+id,corpus:a[0],book:a[1],line:a[2],ref:a[3],beta:a[4],greek:a[5],tokenCount:a[6],syllableCount:a[7],quantity:a[8],scan:a[9],status:a[10],penalty:a[11],caesura:a[12]};}
+function oobj(a){return {lineId:a[0],tokenStart:a[1],tokenEnd:a[2],startRatio:a[3],endRatio:a[4],startSyllable:a[5],endSyllable:a[6],position:a[7],startFoot:a[8],endFoot:a[9],address:a[10]};}
+function sceneConcordance(entry){return CX&&entry?CX.scenes[entry.id]:null;}
+function currentBookTarget(entry,prog){const max=(CX&&CX.meta.bookLineMax&&CX.meta.bookLineMax.O&&CX.meta.bookLineMax.O[String(entry.book)])||1;const sc=BOOKS.find(b=>b.b===entry.book);const ix=sc?Math.max(0,sc.scenes.findIndex(s=>s.id===entry.id)):0;const n=sc?Math.max(1,sc.scenes.length):1;return 1+((ix+prog)/n)*(max-1);}
+function chooseOccurrence(id,entry,prog){const all=oarr(id).map(oobj);if(!all.length)return null;const target=currentBookTarget(entry,prog);let pool=all.filter(o=>{const l=lobj(o.lineId);return l&&l.corpus==="O"&&l.book===entry.book;});if(!pool.length)pool=all.filter(o=>{const l=lobj(o.lineId);return l&&l.corpus==="O";});if(!pool.length)pool=all;pool.sort((a,b)=>{const la=lobj(a.lineId),lb=lobj(b.lineId);return Math.abs((la?la.line:0)-target)-Math.abs((lb?lb.line:0)-target);});return pool[0];}
+function resolveFormula(entry,prog){if(!CX||!entry)return null;const sc=sceneConcordance(entry),refs=(sc&&sc.f)||[];let id=formulaLock;if(!id){if(!refs.length)return null;const base=Math.min(refs.length-1,Math.floor(Math.max(0,Math.min(.9999,prog))*refs.length));id=refs[(base+formulaShift+refs.length*20)%refs.length];}const formula=fobj(id);if(!formula)return null;const occurrence=chooseOccurrence(id,entry,prog),line=occurrence?lobj(occurrence.lineId):null;return {sceneId:entry.id,scene:sc,formula,occurrence,line,refs};}
+function meterHTML(ctx){let s="";const o=ctx&&ctx.occurrence;let a=o&&o.startFoot,b=o&&o.endFoot;if(!(a>=1))a=1+Math.floor(((o&&o.startRatio)||0)*6);if(!(b>=1))b=Math.max(a,Math.ceil(((o&&o.endRatio)||1)*6));for(let i=1;i<=6;i++){const on=i>=a&&i<=b;s+='<span class="mfoot '+(on?'on ':'')+((i===a||i===b)?'edge':'')+'">'+i+'</span>';}return s;}
+function labelRef(id){const R=CX&&CX.registries;if(!R)return id.replace(/^.*\./,"");const x=(R.referents&&R.referents[id])||(R.protocols&&R.protocols[id])||(R.typeScripts&&R.typeScripts[id]);return x&&x.label||id.replace(/^.*\./,"").replaceAll("_"," ");}
+function seekFormulaLine(line){if(!line||line.corpus!=="O")return;const bi=OFF.findIndex(o=>o.bk.b===line.book);if(bi<0)return;const max=(CX&&CX.meta.bookLineMax.O[String(line.book)])||line.line;seek(OFF[bi].start+((line.line-1)/Math.max(1,max-1))*OFF[bi].dur);}
+function renderFormulaOccurrences(ctx){const box=$("formulaOccs");box.innerHTML="";if(!ctx)return;let os=oarr(ctx.formula.id).map(oobj);const current=ctx.occurrence&&ctx.occurrence.lineId;os.sort((a,b)=>{const la=lobj(a.lineId),lb=lobj(b.lineId);const pa=la&&la.corpus==="O"&&la.book===(ctx.line&&ctx.line.book)?0:1;const pb=lb&&lb.corpus==="O"&&lb.book===(ctx.line&&ctx.line.book)?0:1;return pa-pb+((a.lineId===current?-2:0)-(b.lineId===current?-2:0));});os.slice(0,10).forEach(o=>{const l=lobj(o.lineId);if(!l)return;const d=document.createElement("div");d.className="focc"+(o.lineId===current?" now":"");d.innerHTML='<b>'+l.ref+'</b> · '+(o.address||o.position||"—")+'<div class="gr">'+l.greek+'</div>';d.onclick=()=>seekFormulaLine(l);box.appendChild(d);});}
+function renderFormula(ctx){activeFormulaCtx=ctx;const g=$("formulaGreek"),id=$("formulaId"),ln=$("formulaLine"),mt=$("formulaMeta"),refs=$("formulaRefs");if(!ctx){g.textContent="—";id.textContent="—";ln.textContent=CX?"No formula candidates linked to this scene.":"Loading the concordance…";mt.textContent="—";refs.innerHTML="";$("meterRail").innerHTML=meterHTML(null);$("formulaOccs").innerHTML="";return;}const f=ctx.formula,l=ctx.line,o=ctx.occurrence;g.textContent=f.greek||f.beta||f.id;id.textContent=f.id+(formulaLock?" · LOCK":" · AUTO");ln.textContent=l?l.greek:"No occurrence line loaded.";mt.textContent=[f.n+" tokens",f.classification||"repeated phrase",f.total+"× total",f.ody+" Odyssey",f.iliad+" Iliad",(o&&o.address)||f.address||f.position,(l&&l.ref)||""].filter(Boolean).join(" · ");$("meterRail").innerHTML=meterHTML(ctx);refs.innerHTML="";const ids=[ctx.scene&&ctx.scene.t].concat((ctx.scene&&ctx.scene.p)||[],(ctx.scene&&ctx.scene.r)||[]).filter(Boolean).slice(0,12);ids.forEach(r=>{const s=document.createElement("span");s.className="refChip";s.textContent=labelRef(r);refs.appendChild(s);});$("formulaCaveat").textContent=(ctx.scene&&ctx.scene.m)||"Computational formula candidate; semantic equivalence requires adjudication.";renderFormulaOccurrences(ctx);}
+function updateFormula(entry,prog){if(!CX||!entry){renderFormula(null);return;}if(formulaScene!==entry.id){formulaScene=entry.id;formulaShift=0;formulaLock=null;$("formulaResults").innerHTML="";$("formulaDeepBody").innerHTML="";}const ctx=resolveFormula(entry,prog),key=ctx?[ctx.sceneId,ctx.formula.id,ctx.occurrence&&ctx.occurrence.lineId,formulaLock||""].join("|"):entry.id+"|none";if(key!==formulaLastKey){formulaLastKey=key;renderFormula(ctx);}}
+function drawFormulaOverlay(ctx,w,h,fc){if(!fc)return;const f=fc.formula,o=fc.occurrence;ctx.save();ctx.setTransform(1,0,0,1,0,0);const H=42,y=h-H;ctx.fillStyle="rgba(253,253,250,.94)";ctx.fillRect(0,y,w,H);ctx.fillStyle="#000";ctx.fillRect(0,y,w,1);ctx.font="700 15px Georgia,serif";ctx.textBaseline="middle";let phrase=f.greek||f.beta||f.id;while(ctx.measureText(phrase).width>w*.64&&phrase.length>8)phrase=phrase.slice(0,-2);if(phrase!==(f.greek||f.beta||f.id))phrase+="…";ctx.fillText(phrase,10,y+14);ctx.font="700 9px ui-monospace,monospace";ctx.fillStyle="#555";ctx.fillText(f.id+" · "+((o&&o.address)||f.address||f.position||"candidate"),10,y+31);const x0=w*.72,fw=(w-x0-10)/6;let a=o&&o.startFoot,b=o&&o.endFoot;if(!(a>=1))a=1+Math.floor(((o&&o.startRatio)||0)*6);if(!(b>=1))b=Math.max(a,Math.ceil(((o&&o.endRatio)||1)*6));for(let i=1;i<=6;i++){ctx.strokeStyle="#000";ctx.strokeRect(x0+(i-1)*fw,y+8,fw,24);if(i>=a&&i<=b){ctx.fillStyle=i===a||i===b?"#e01b1b":"#000";ctx.fillRect(x0+(i-1)*fw,y+8,fw,24);}ctx.fillStyle=i>=a&&i<=b?"#fff":"#000";ctx.fillText(String(i),x0+(i-.5)*fw-3,y+21);}ctx.restore();}
+function selectFormula(id){formulaLock=id;formulaLastKey="";$("formulaResults").innerHTML="";if(formulaScene&&castScene){const entry=MF.scenes.find(s=>s.id===formulaScene);if(entry)updateFormula(entry,0);}}
+async function formulaSearch(q){const box=$("formulaResults");q=(q||"").trim().toLowerCase();if(!q){box.innerHTML="";return;}box.innerHTML='<div class="fresult">loading full concordance…</div>';const db=await ensureFull();const rows=[];for(const [id,a] of Object.entries(db.formulas)){const hay=(id+" "+(a[1]||"")+" "+(a[2]||"")+" "+(a[11]||"")).toLowerCase();if(hay.includes(q)){rows.push([id,a]);if(rows.length>=40)break;}}box.innerHTML="";rows.forEach(([id,a])=>{const d=document.createElement("div");d.className="fresult";d.innerHTML='<b>'+id+'</b> · '+a[3]+'× · OD '+a[4]+' / IL '+a[5]+'<div class="gr">'+(a[2]||a[1])+'</div>';d.onclick=()=>selectFormula(id);box.appendChild(d);});if(!rows.length)box.innerHTML='<div class="fresult">No matching formula.</div>';}
+async function renderFormulaDeep(){const box=$("formulaDeepBody"),ctx=activeFormulaCtx;if(!ctx)return;box.innerHTML='<div class="fdeep">loading complete templates, epithets and parallels…</div>';await Promise.all([ensureFull(),ensureExtended(),ensureParallels()]);const out=[];const eids=CEXT.epithetByFormula[ctx.formula.id]||[];eids.slice(0,8).forEach(eid=>{const e=CEXT.epithets[eid];out.push({h:"EPITHET · "+eid,g:e[4]||e[3],m:(e[1]||"")+" · "+e[5]+"×"});});const toks=(ctx.formula.greek||"").toLowerCase().split(/\s+/).filter(x=>x.length>2);const ts=[];for(const [tid,t] of Object.entries(CEXT.templates)){const gt=(t[3]||"").toLowerCase();let score=0;toks.forEach(x=>{if(gt.includes(x))score++;});if(score)ts.push([score,t[4],tid,t]);}ts.sort((a,b)=>b[0]-a[0]||b[1]-a[1]);ts.slice(0,8).forEach(([,freq,tid,t])=>out.push({h:"TEMPLATE · "+tid,g:t[3],m:freq+"× · "+t[5]+" fillers · "+(t[8]||"")}));if(ctx.line){(CPAR.parallels[String(ctx.line.id)]||[]).slice(0,8).forEach(p=>{const l=lobj(p[0]);if(l)out.push({h:"PARALLEL · "+l.ref,g:l.greek,m:"score "+Number(p[2]).toFixed(3)+" · "+(p[3]||"")});});}box.innerHTML="";out.forEach(x=>{const d=document.createElement("div");d.className="fdeep";d.innerHTML='<b>'+x.h+'</b><div class="gr">'+x.g+'</div><span>'+x.m+'</span>';box.appendChild(d);});if(!out.length)box.innerHTML='<div class="fdeep">No extended relations for this candidate.</div>';}
+$("formulaPrev").onclick=()=>{formulaLock=null;formulaShift--;formulaLastKey="";};
+$("formulaNext").onclick=()=>{formulaLock=null;formulaShift++;formulaLastKey="";};
+$("formulaAuto").onclick=()=>{formulaLock=null;formulaShift=0;formulaLastKey="";$("formulaSearch").value="";$("formulaResults").innerHTML="";$("formulaDeepBody").innerHTML="";};
+let fsTimer=0;$("formulaSearch").addEventListener("input",e=>{clearTimeout(fsTimer);fsTimer=setTimeout(()=>formulaSearch(e.target.value),220);});
+$("formulaSearch").addEventListener("focus",()=>ensureFull().catch(()=>{}),{once:true});
+$("formulaDeep").onclick=()=>renderFormulaDeep().catch(e=>{$("formulaDeepBody").innerHTML='<div class="fdeep">'+e.message+'</div>';});
+ensureCX();
+
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
+  "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+const BOOKS=[...new Set(MF.scenes.map(s=>s.book))].sort((a,b)=>a-b)
+  .map(b=>({b, title:(MF.scenes.find(s=>s.book===b)||{}).bookTitle||"",
+            scenes:MF.scenes.filter(s=>s.book===b)}));
+const audio=$("audio"), cv=$("film"), g=cv.getContext("2d");
+const fmt=t=>{t=Math.max(0,t||0);const m=Math.floor(t/60),s=t-m*60;
+  return String(m).padStart(2,"0")+":"+(s<10?"0":"")+s.toFixed(1);};
+/* quota-safe storage: github.io shares ONE quota across every project on
+   the domain — writes can throw. Never crash; fall back to memory. */
+const __mem={};
+function safeSet(k,v){ try{ localStorage.setItem(k,v); return true; }
+  catch(e){ try{ localStorage.removeItem("odyssey.suite.dur"); localStorage.setItem(k,v); return true; }
+  catch(_){ __mem[k]=v; if(!safeSet._warned){ safeSet._warned=1;
+    console.warn("storage full — session-only persistence"); } return false; } } }
+function safeGet(k){ return (k in __mem)?__mem[k]:localStorage.getItem(k); }
+const LS=(k,d)=>{try{return JSON.parse(safeGet(k))??d;}catch(e){return d;}};
+const save=(k,v)=>safeSet(k,JSON.stringify(v));
+
+/* ── track assignment: every book gets a song; all swappable ── */
+const MAP=LS("odyssey.suite.map",{});
+function albumOf(id){return AL.albums.find(a=>a.id===id)||AL.albums[0];}
+function trackFor(bk){
+  const m=MAP[bk.b];
+  if(m){const a=albumOf(m.album);const t=a.tracks.find(t=>t.file===m.track);
+    if(t)return {album:a,track:t};}
+  /* numbered albums score their own book: track NN → book NN */
+  for(const a of AL.albums){
+    const t=a.tracks.find(t=>t.num===bk.b);
+    if(t)return {album:a,track:t};
+  }
+  const a=AL.albums[0];
+  return {album:a, track:a.tracks[(bk.b-1)%a.tracks.length]};
+}
+const urlFor=tr=>tr.album.dir+"/"+encodeURIComponent(tr.track.file);
+
+/* ── durations: probe once, cache forever ── */
+const DUR=LS("odyssey.suite.dur",{});
+function probeDur(url){
+  if(DUR[url])return Promise.resolve(DUR[url]);
+  return new Promise(res=>{
+    const a=new Audio(); a.preload="metadata"; a.src=url;
+    a.onloadedmetadata=()=>{DUR[url]=a.duration||180; save("odyssey.suite.dur",DUR); res(DUR[url]);};
+    a.onerror=()=>res(DUR[url]=180);
+  });
+}
+let OFF=[], TOTAL=0;
+async function buildClock(){
+  let t=0; OFF=[];
+  for(const bk of BOOKS){
+    const tr=trackFor(bk);
+    const d=await probeDur(urlFor(tr));
+    OFF.push({bk,tr,start:t,dur:d}); t+=d;
+  }
+  TOTAL=t; $("dur").textContent=fmt(TOTAL); buildTimeline();
+}
+const bookAt=t=>{for(let i=OFF.length-1;i>=0;i--)if(t>=OFF[i].start-0.001)return i;return 0;};
+
+/* ── the film: scenes of the book spread across its track, restaged live ── */
+const modCache=new Map();
+async function loadMod(id){
+  const a=assetById.get(id); if(!a)return null;
+  if(!modCache.has(a.path))modCache.set(a.path,import(a.path.replace(/^\//,"./")).then(m=>m.default).catch(()=>null));
+  return modCache.get(a.path);
+}
+const rsCache=new Map();
+async function restageFor(entry){
+  if(rsCache.has(entry.id))return rsCache.get(entry.id);
+  const p=(async()=>{
+    const sm=(await import(entry.path.replace(/^\//,"./"))).default;
+    const mods=new Map();
+    for(const id of entry.assets)mods.set(id,await loadMod(id));
+    const saved=LS("odyssey.arrange."+entry.id,{});
+    return E.makeRestage(sm,id=>mods.get(id),id=>(assetById.get(id)||{}).type,saved);
+  })();
+  rsCache.set(entry.id,p); return p;
+}
+const off=document.createElement("canvas"); off.width=900; off.height=560;
+const og=off.getContext("2d",{willReadFrequently:true});
+function fastDotify(gg,src,SW,SH,CW,CH,cell){
+  gg.setTransform(1,0,0,1,0,0); gg.fillStyle="#fdfdfa"; gg.fillRect(0,0,CW,CH);
+  const r=E.containRect(SW,SH,CW,CH),NB=12,rMax=cell*.62,buckets=Array.from({length:NB},()=>[]);
+  for(let y=cell/2;y<CH;y+=cell){ if((y-r.oy)<0||(y-r.oy)>=r.h)continue;
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-r.oy)/r.s)));
+    for(let x=cell/2;x<CW;x+=cell){ if((x-r.ox)<0||(x-r.ox)>=r.w)continue;
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-r.ox)/r.s))),i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255,d=1-lum; if(d<.10)continue;
+      buckets[Math.min(NB-1,Math.floor(Math.pow(d,.9)*NB*.999))].push(x,y);}}
+  gg.fillStyle="#0a0a0a";
+  for(let b=0;b<NB;b++){const pts=buckets[b];if(!pts.length)continue;
+    const rad=Math.max(.5,(b+.6)/NB*rMax);gg.beginPath();
+    for(let k=0;k<pts.length;k+=2){gg.moveTo(pts[k]+rad,pts[k+1]);gg.arc(pts[k],pts[k+1],rad,0,7);}
+    gg.fill();}
+}
+
+/* ── cues: the score — timed marks against the music ── */
+let CUES=LS("odyssey.suite.cues",[]);
+function dropCue(){
+  const t=now(), bi=bookAt(t), o=OFF[bi]; if(!o)return;
+  const {entry,local,prog}=sceneAt(bi,t-o.start);
+  const fc=activeFormulaCtx&&entry&&activeFormulaCtx.sceneId===entry.id?activeFormulaCtx:null;
+  CUES.push({g:+t.toFixed(2), book:o.bk.b, scene:entry?entry.id:null,
+    at:+(local||0).toFixed(2), prog:+(prog||0).toFixed(3), track:o.tr.track.title,
+    formula:fc?{id:fc.formula.id,greek:fc.formula.greek,ref:fc.line&&fc.line.ref,address:(fc.occurrence&&fc.occurrence.address)||fc.formula.address}:null});
+  CUES.sort((a,b)=>a.g-b.g);
+  save("odyssey.suite.cues",CUES); renderCues(); buildTimeline();
+  $("state").textContent="CUE @ "+fmt(t)+" · "+(entry?entry.id:"");
+}
+function renderCues(){
+  const box=$("cueList");
+  if(!CUES.length){box.textContent="No cues yet — play and press M when the music says so.";return;}
+  box.innerHTML="";
+  CUES.forEach((c,i)=>{
+    const d=document.createElement("div"); d.className="cue";
+    d.innerHTML=`<span class="ct">${fmt(c.g)}</span><span class="cw">${ROMAN[c.book]} · ${c.scene||"—"}${c.formula?(" · "+c.formula.id):""} · ${c.track}</span><span class="cx">X</span>`;
+    d.onclick=e=>{ if(e.target.classList.contains("cx")){CUES.splice(i,1);
+      save("odyssey.suite.cues",CUES);renderCues();buildTimeline();return;}
+      seek(c.g); };
+    box.appendChild(d);
+  });
+}
+$("cueBtn").onclick=dropCue;
+$("cueExp").onclick=()=>{
+  const data={exported:new Date().toISOString(),total:TOTAL,
+    books:OFF.map(o=>({book:o.bk.b,title:o.bk.title,track:o.tr.track.title,
+      file:o.tr.track.file,start:+o.start.toFixed(2),dur:+o.dur.toFixed(2)})),
+    cues:CUES};
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:"application/json"}));
+  a.download="odyssey_score.json"; a.click();
+};
+
+/* ── transport: one clock over N tracks ── */
+let curBook=-1, playing=false, pendingSeek=null;
+const now=()=>{const o=OFF[curBook]; return o?o.start+(audio.currentTime||0):0;};
+function setTrack(bi,localT,thenPlay){
+  const o=OFF[bi]; if(!o)return;
+  curBook=bi;
+  const url=urlFor(o.tr);
+  if(!audio.src.endsWith(url.split("/").pop())){
+    audio.src=url;
+    audio.addEventListener("loadedmetadata",()=>{
+      audio.currentTime=Math.min(localT,(audio.duration||o.dur)-.05);
+      if(thenPlay)audio.play().catch(()=>{});
+    },{once:true});
+  } else {
+    audio.currentTime=Math.min(localT,(audio.duration||o.dur)-.05);
+    if(thenPlay)audio.play().catch(()=>{});
+  }
+}
+function seek(t){
+  t=Math.max(0,Math.min(TOTAL-0.05,t));
+  setTrack(bookAt(t), t-OFF[bookAt(t)].start, playing);
+}
+audio.onended=()=>{ if(curBook<OFF.length-1)setTrack(curBook+1,0,true);
+  else{playing=false;$("play").textContent="▶";} };
+audio.onplay=()=>{playing=true;$("play").textContent="Ⅱ";};
+audio.onpause=()=>{$("play").textContent="▶";};
+$("play").onclick=()=>{ if(audio.paused){ if(curBook<0)setTrack(0,0,true);
+    else audio.play().catch(()=>{}); playing=true; }
+  else{ audio.pause(); playing=false; } };
+
+/* ── scene inside the book window ── */
+function sceneAt(bi,local){
+  const o=OFF[bi]; const sc=o.bk.scenes;
+  if(!sc.length)return {entry:null,si:0,local:0,prog:0};
+  const slice=o.dur/sc.length;
+  const si=Math.max(0,Math.min(sc.length-1,Math.floor(local/slice)));
+  const prog=(local-si*slice)/slice;
+  return {entry:sc[si],si,local:local-si*slice,prog};
+}
+
+/* ── UI builders ── */
+function buildTimeline(){
+  const tl=$("timeline"); tl.innerHTML='<div id="head"></div>';
+  if(!TOTAL)return;
+  OFF.forEach((o,i)=>{
+    const seg=document.createElement("div"); seg.className="seg"+(i%2?" alt":"");
+    seg.style.left=(o.start/TOTAL*100)+"%"; seg.style.width=(o.dur/TOTAL*100)+"%";
+    tl.appendChild(seg);
+    const n=o.bk.scenes.length;
+    for(let k=1;k<n;k++){const m=document.createElement("div"); m.className="scn";
+      m.style.left=((o.start+o.dur*k/n)/TOTAL*100)+"%"; tl.appendChild(m);}
+  });
+  CUES.forEach(c=>{const m=document.createElement("div"); m.className="cuetick";
+    m.style.left=(c.g/TOTAL*100)+"%"; tl.appendChild(m);});
+  tl.onclick=e=>{const r=tl.getBoundingClientRect(); seek((e.clientX-r.left)/r.width*TOTAL);};
+}
+function buildChapters(){
+  const box=$("chapters"); box.innerHTML="";
+  BOOKS.forEach((bk,i)=>{
+    const b=document.createElement("button"); b.className="chapter"; b.dataset.i=i;
+    b.innerHTML="<b>"+ROMAN[bk.b]+"</b><span>"+bk.title+"</span>";
+    b.onclick=()=>seek((OFF[i]?OFF[i].start:0)+0.01);
+    box.appendChild(b);
+  });
+}
+const marks=LS("odyssey.tl.marks",{});
+function buildSceneLines(bi){
+  const box=$("sceneLines"); box.innerHTML="";
+  const o=OFF[bi]; if(!o)return;
+  o.bk.scenes.forEach((sc,k)=>{
+    const d=document.createElement("div"); d.className="line"; d.dataset.k=k;
+    d.innerHTML=`<span class="mkdot" style="display:${marks[sc.id]?"inline-block":"none"};background:${marks[sc.id]||"#fff"}"></span><b>${String(k+1).padStart(2,"0")}</b><span>${sc.title}</span>`;
+    d.onclick=()=>seek(o.start+o.dur*k/o.bk.scenes.length+0.01);
+    box.appendChild(d);
+  });
+}
+function buildAlbumUI(){
+  const as=$("albumSel"); as.innerHTML="";
+  AL.albums.forEach(a=>{const opt=document.createElement("option");
+    opt.value=a.id; opt.textContent=a.name+" · "+a.tracks.length; as.appendChild(opt);});
+  as.onchange=buildTrackSel; buildTrackSel();
+}
+function buildTrackSel(){
+  const a=albumOf($("albumSel").value), ts=$("trackSel"); ts.innerHTML="";
+  a.tracks.forEach((t,i)=>{const opt=document.createElement("option");
+    opt.value=t.file; opt.textContent=String(i+1).padStart(2,"0")+" "+t.title; ts.appendChild(opt);});
+}
+$("assignBtn").onclick=async()=>{
+  const bi=curBook<0?0:curBook;
+  MAP[OFF[bi].bk.b]={album:$("albumSel").value, track:$("trackSel").value};
+  save("odyssey.suite.map",MAP);
+  const keep=OFF[bi].start;
+  await buildClock(); seek(keep+0.01); lastUi=-1;
+  $("state").textContent="BOOK "+ROMAN[OFF[bi].bk.b]+" ← "+$("trackSel").selectedOptions[0].textContent;
+};
+$("fillBtn").onclick=async()=>{
+  const a=albumOf($("albumSel").value);
+  BOOKS.forEach((bk,i)=>{
+    const t=a.tracks.find(t=>t.num===bk.b)||a.tracks[i%a.tracks.length];
+    MAP[bk.b]={album:a.id,track:t.file};});
+  save("odyssey.suite.map",MAP);
+  await buildClock(); lastUi=-1;
+  $("state").textContent="ALBUM DEALT ACROSS "+BOOKS.length+" BOOKS";
+};
+
+/* ── THE PERFORMANCE SCORE (METIS-PERFORM v2) + VOICES (AOIDOS v3) ── */
+let PT=null, VC=null;
+fetch("viewer/performance-turns.json").then(r=>r.json()).then(j=>PT=j).catch(()=>{});
+fetch("viewer/voice-cards.json").then(r=>r.json()).then(j=>VC=j).catch(()=>{});
+const turnsFor=(sceneId,who)=>((PT&&PT.byScene[sceneId])||[]).filter(t=>t.sp===who);
+
+/* ── ELEMENTS: every cast member of the playing scene, one tap from its atlas ── */
+const TYPE_C={character:"#3aa7ff",location:"#7cfc00",prop:"#ffd23f",creature:"#ff8c00",
+  ensemble:"#ff2e2e",divine_fx:"#c792ea",set_piece:"#19e6c8",environment:"#4a7dff",
+  vehicle:"#888",sound_source:"#ff6bd5",wearable:"#b8f"};
+let castScene=null;
+/* ON STAGE — what each figure is thinking/doing right now (the atlas voice) */
+function renderDoing(entry){
+  const box=$("doing"); box.innerHTML="";
+  let any=false;
+  entry.assets.forEach(id=>{
+    const a=assetById.get(id); if(!a)return;
+    if(!/character|creature|ensemble/.test(a.type))return;
+    const perf=((a.perfs||[]).find(p=>p.scene===entry.id)||{}).perf
+      ||(/Scene function:\s*([^.]+\.)/.exec(a.prompt||"")||[])[1]||"";
+    if(!perf)return;
+    any=true;
+    const d=document.createElement("div"); d.className="drow";
+    d.innerHTML="<b>"+(a.name||id)+"</b><span>"+perf+"</span>";
+    d.onclick=()=>openInspect(id,entry,true);
+    box.appendChild(d);
+  });
+  if(!any)box.textContent="— a place, not a crowd —";
+}
+function renderCast(entry){
+  const row=$("castRow"); row.innerHTML="";
+  entry.assets.forEach(id=>{
+    const a=assetById.get(id); if(!a)return;
+    const d=document.createElement("button"); d.type="button"; d.className="castChip";
+    d.innerHTML='<span class="tdot" style="background:'+(TYPE_C[a.type]||"#999")+'"></span>'+(a.name||id);
+    d.onclick=()=>openInspect(id,entry,/character|creature|ensemble/.test(a.type));
+    row.appendChild(d);
+  });
+}
+/* ── CHAT: talk with anything in the story. Replies are composed from the
+   element's own genome — perfs, prompt voice, this scene's beats and lineage —
+   scored against your words. The atlas answers; nothing is invented. ── */
+let chatWho=null, chatEntry=null, chatN=0;
+function chatPoolFor(a,entry){
+  const pool=[];
+  (a.perfs||[]).forEach(p=>pool.push({t:p.perf, tag:p.scene}));
+  const nm=(a.name||"").split(" ").pop().toLowerCase();
+  (entry.beats||[]).forEach(b=>{ if(b.toLowerCase().includes(nm))pool.push({t:b,tag:"beat"}); });
+  String(a.prompt||"").split(/(?<=\.)\s+/).forEach(x=>{const t=x.trim();
+    if(t.length>30&&t.length<200&&!/^Generate|^Visual|^Return|renderer|halfworld|`/i.test(t))pool.push({t,tag:"atlas"});});
+  const pb=PB.scenes[entry.id]||"";
+  pb.split(/(?<=\.)\s+/).forEach(x=>{const t=x.trim();
+    if(t.length>30&&t.length<200&&t.toLowerCase().includes(nm))pool.push({t,tag:"cue"});});
+  return pool.length?pool:[{t:"…",tag:""}];
+}
+const tok=s2=>new Set(String(s2).toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>2));
+let turnIx={};
+function chatReply(a,entry,q){
+  /* the score first: this character's turns in THIS scene, in playing order,
+     word-matched against what you said when possible */
+  const tns=turnsFor(entry.id,a.id);
+  if(tns.length){
+    const key=a.id+"|"+entry.id, qt2=tok(q);
+    let best=-1,bs=1;   // require ≥2 overlap to jump; else next in order
+    tns.forEach((t,i)=>{ let sc=0;
+      tok(t.payload+" "+(t.subtext||"")).forEach(w=>{if(qt2.has(w))sc++;});
+      if(sc>bs){bs=sc;best=i;} });
+    let i=best>=0?best:((turnIx[key]||0)%tns.length);
+    if(i===(turnIx[key]||0)-1) i=(turnIx[key]||0)%tns.length;   // never repeat the last turn
+    turnIx[key]=i+1;
+    const t=tns[i];
+    return { t:t.payload, tag:(t.delivery||t.act||"").slice(0,80) };
+  }
+  const pool=chatPoolFor(a,entry), qt=tok(q);
+  let best=null,bs=-1;
+  pool.forEach((p,i)=>{
+    let sc=0; tok(p.t).forEach(w=>{if(qt.has(w))sc+=2;});
+    sc+=Math.random()*.9 - (p._used?1.5:0);
+    if(sc>bs){bs=sc;best=p;}
+  });
+  best._used=true;
+  return best;
+}
+function chatAdd(who,txt,tag){
+  const log=$("chatLog");
+  const d=document.createElement("div"); d.className="cmsg "+who;
+  d.innerHTML=(who==="them"?("<b>"+($("inName").textContent)+(tag?(" · "+tag):"")+"</b>"):"")+txt;
+  log.appendChild(d); log.scrollTop=log.scrollHeight;
+}
+async function portrait(id,speak){
+  const mod=await loadMod(id); if(!mod)return;
+  const nodes=E.normStateNodes(mod);
+  let st={};
+  if(speak&&nodes.length){
+    const n=nodes.find(x=>/speak|address|tell|plea|greet|hail|voice/i.test(x.key))
+      ||nodes[(chatN++)%nodes.length];
+    st=n.prev();
+  }
+  const cv2=$("inCv"), g2=cv2.getContext("2d");
+  g2.fillStyle="#fdfdfa"; g2.fillRect(0,0,cv2.width,cv2.height);
+  const cut=E.inkCutout(mod,st,"chat"+(speak?chatN:""));
+  const sw=cut.ar>=1?Math.min(900,Math.round(460*cut.ar)):460;
+  const sh=cut.ar>=1?460:Math.min(900,Math.round(460/cut.ar));
+  const oc=document.createElement("canvas"); oc.width=sw; oc.height=sh;
+  const og2=oc.getContext("2d",{willReadFrequently:true});
+  og2.fillStyle=E.PAPER; og2.fillRect(0,0,sw,sh);
+  og2.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,0,0,sw,sh);
+  fastDotify(g2,og2.getImageData(0,0,sw,sh).data,sw,sh,cv2.width,cv2.height,3.4);
+}
+/* ── REAL TALK: any OpenAI-format endpoint performs the character from its
+   atlas card. Falls back to the genome scorer offline or on error. ── */
+let chatHist=[];
+const apiCfg=()=>LS("odyssey.chat.api",{url:"https://api.openai.com/v1/chat/completions",model:"",key:""});
+function charCard(a,entry){
+  const perfs=(a.perfs||[]).map(p=>p.scene+": "+p.perf).join("\n");
+  const cue=(PB.scenes[entry.id]||"").slice(0,500);
+  /* AOIDOS v3: voice profile + performance functions + knowledge boundary */
+  const card=VC&&VC.cards[a.id];
+  const voice=card&&VC.voices[card.voice];
+  let aoidos="";
+  if(card){
+    aoidos="\n\nYOUR VOICE ("+(card.voice||"")+"): "+(voice?(voice.essence+" "+(voice.speech||"")).slice(0,300):"")
+      +"\nYOUR PERFORMANCE FUNCTIONS:\n"+(card.functions||[]).join("\n")
+      +(card.knowledge?("\nYOUR KNOWLEDGE BOUNDARY: "+JSON.stringify(card.knowledge).slice(0,400)):"");
+  }
+  /* METIS-PERFORM: this scene's turn contracts for this speaker */
+  const tns=turnsFor(entry.id,a.id);
+  const score=tns.length?("\n\nYOUR TURNS IN THIS SCENE (content contracts — pursue these, in spirit):\n"
+    +tns.map(t=>"["+t.act+"] "+t.payload+(t.conceal.length?(" · CONCEAL: "+t.conceal.join("; ")):"")
+      +(t.delivery?(" · DELIVERY: "+t.delivery):"")).join("\n")):"";
+  return "AOIDOS-PERFORM LAW: You are the live speech engine for "+(a.name||"an element")
+    +" in an oral-epic performance of the Odyssey. Generate ONE situated character turn, never a summary. "
+    +"Every line must pursue an objective, act upon the listener, preserve your knowledge boundary, "
+    +"reveal or conceal something consequential, and leave a responseable opening. "
+    +"Speak AS the character, never as a scholar. 1–4 sentences, one dominant idea per breath. "
+    +"Silence is valid — reply with (a silent action) alone when it presses harder than words. "
+    +"Never narrate stage business inside the spoken words; instead BEGIN with one short parenthetical "
+    +"stage direction, e.g. (turns from the fire, voice low). Never use future knowledge.\n\n"
+    +"YOUR ATLAS (who you are, visually and functionally):\n"+(a.prompt||"").slice(0,900)
+    +aoidos+score
+    +"\n\nYOUR PERFORMANCE DIRECTIONS ACROSS THE FILM:\n"+perfs.slice(0,700)
+    +"\n\nTHE SCENE PLAYING NOW — "+entry.id+" · "+entry.title+":\n"+(entry.beats||[]).join(" → ")
+    +(cue?("\n\nTHE SCENE'S SOUND:\n"+cue):"")
+    +(activeFormulaCtx&&activeFormulaCtx.sceneId===entry.id?("\n\nACTIVE GREEK FORMULA CANDIDATE — "+activeFormulaCtx.formula.id
+      +"\n"+(activeFormulaCtx.formula.greek||activeFormulaCtx.formula.beta||"")
+      +"\nMETRICAL ADDRESS: "+((activeFormulaCtx.occurrence&&activeFormulaCtx.occurrence.address)||activeFormulaCtx.formula.address||"unknown")
+      +"\nTRADITIONAL PRESSURE: let this formula shape cadence, memory, and associative field; do not quote it mechanically. The scene link is computational, not an asserted exact source span."):"");
+}
+async function apiReply(a,entry,q){
+  const cfg=apiCfg();
+  const msgs=[{role:"system",content:charCard(a,entry)}]
+    .concat(chatHist.slice(-8)).concat([{role:"user",content:q}]);
+  const r=await fetch(cfg.url,{method:"POST",
+    headers:{"Content-Type":"application/json","Authorization":"Bearer "+cfg.key},
+    body:JSON.stringify({model:cfg.model||"gpt-4o-mini",messages:msgs,max_tokens:220,temperature:.9})});
+  if(!r.ok)throw new Error("api "+r.status);
+  const j=await r.json();
+  return (j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content||"").trim();
+}
+function chatSend(){
+  const inp=$("chatTxt"), q=(inp.value||"").trim(); if(!q||!chatWho)return;
+  inp.value="";
+  chatAdd("you",q); chatHist.push({role:"user",content:q});
+  const a=assetById.get(chatWho);
+  const cfg=apiCfg();
+  if(cfg.key){
+    const th=document.createElement("div"); th.className="cmsg them"; th.textContent="…";
+    $("chatLog").appendChild(th); $("chatLog").scrollTop=1e9;
+    apiReply(a,chatEntry,q).then(txt=>{
+      th.remove();
+      const m=/^\(([^)]{3,90})\)\s*/.exec(txt);
+      chatAdd("them",m?txt.slice(m[0].length):txt, m?m[1]:"live");
+      chatHist.push({role:"assistant",content:txt});
+      portrait(chatWho,true);
+    }).catch(err=>{
+      th.remove();
+      const r=chatReply(a,chatEntry,q);
+      chatAdd("them",r.t,r.tag+" · api offline");
+      portrait(chatWho,true);
+    });
+    return;
+  }
+  setTimeout(()=>{
+    const r=chatReply(a,chatEntry,q);
+    chatAdd("them",r.t,r.tag);
+    chatHist.push({role:"assistant",content:r.t});
+    portrait(chatWho,true);
+  },420+Math.random()*500);
+}
+$("apiBtn").onclick=()=>{
+  const box=$("apiCfg"), cfg=apiCfg();
+  $("apiUrl").value=cfg.url||""; $("apiModel").value=cfg.model||""; $("apiKey").value=cfg.key||"";
+  box.style.display=box.style.display==="none"?"block":"none";
+};
+$("apiSave").onclick=()=>{
+  save("odyssey.chat.api",{url:($("apiUrl").value||"").trim()||"https://api.openai.com/v1/chat/completions",
+    model:($("apiModel").value||"").trim(),key:($("apiKey").value||"").trim()});
+  $("apiCfg").style.display="none";
+  $("chatTxt").placeholder=apiCfg().key?"speak to them — real talk on…":"speak to them…";
+};
+$("chatGo").onclick=chatSend;
+$("chatTxt").addEventListener("keydown",e=>{if(e.key==="Enter")chatSend();});
+function setInTab(chat){
+  $("tabChat").classList.toggle("on",chat); $("tabAtlas").classList.toggle("on",!chat);
+  $("inChat").classList.toggle("on",chat); $("inRight").classList.toggle("off",chat);
+  if(chat&&chatWho&&!$("chatLog").children.length){
+    const a=assetById.get(chatWho);
+    const tns=chatEntry?turnsFor(chatEntry.id,chatWho):[];
+    if(tns.length){ chatAdd("them",tns[0].payload,(tns[0].delivery||tns[0].act||"").slice(0,80));
+      turnIx[chatWho+"|"+chatEntry.id]=1; }
+    else{
+      const opener=((a.perfs||[]).find(p=>p.scene===(chatEntry&&chatEntry.id))||{}).perf
+        ||((a.perfs||[])[0]||{}).perf||"…";
+      chatAdd("them",opener,chatEntry&&chatEntry.id);
+    }
+    portrait(chatWho,true);
+    $("chatTxt").focus();
+  }
+}
+$("tabAtlas").onclick=()=>setInTab(false);
+$("tabChat").onclick=()=>setInTab(true);
+
+async function openInspect(id,entry,chat){
+  chatWho=id; chatEntry=entry; $("chatLog").innerHTML=""; chatHist=[];
+  const a=assetById.get(id); if(!a)return;
+  $("inName").textContent=a.name||id;
+  $("inType").textContent=(a.type||"").toUpperCase()+" · USED "+(a.uses||1)+"× · BOOKS "+(a.books||[]).map(b=>ROMAN[b]).join(" ");
+  $("inMeta").innerHTML="<b>"+id+"</b><br>appears in: "+(a.scenes||[]).join(" · ");
+  const R=$("inRight");
+  const perfHere=((a.perfs||[]).find(p=>p.scene===entry.id)||{}).perf;
+  R.innerHTML=(perfHere?('<h3>PERFORMANCE — THIS SCENE</h3><div class="iperf">'+perfHere+"</div>"):"")
+    +((a.perfs||[]).length>1?('<h3>ALL PERFORMANCES</h3>'+(a.perfs||[]).map(p=>'<div class="iperf"><b>'+p.scene+'</b> — '+p.perf+"</div>").join("")):"")
+    +'<h3>FULL ATLAS PROMPT</h3><div class="iprompt">'+(a.prompt||"—")+"</div>";
+  $("inspect").classList.add("on");
+  setInTab(!!chat);
+  await portrait(id,!!chat);
+}
+$("inClose").onclick=()=>$("inspect").classList.remove("on");
+
+/* ── the prompt reads along with the music ── */
+let pbScene=null, pbLines=[], pbMode="scene";
+const esc=x=>String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const md=x=>esc(x).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+function pbRender(entry,book){
+  const box=$("pbBody");
+  if(pbMode==="book"){
+    box.innerHTML="<pre>"+esc(PB.books[book]||"no genome for this book")+"</pre>";
+    pbLines=[]; return;
+  }
+  const txt=entry&&PB.scenes[entry.id];
+  if(!txt){box.textContent="no lineage prompt for "+(entry?entry.id:"—");pbLines=[];return;}
+  const lines=[];
+  txt.split("\n").forEach(l=>{ l=l.trim();
+    if(!l||l==="---")return;
+    if(l.length>230) l.split(/(?<=\.)\s+(?=[A-Z])/).forEach(x=>{if(x.trim())lines.push(x.trim())});
+    else lines.push(l); });
+  pbLines=lines;
+  box.innerHTML=lines.map((l,i)=>'<div class="pline" data-i="'+i+'">'+md(l)+"</div>").join("");
+  box.querySelectorAll(".pline").forEach(d=>{
+    d.onclick=()=>{ const o=OFF[curBook<0?0:curBook]; if(!o)return;
+      const {si}=sceneAt(curBook<0?0:curBook,audio.currentTime||0);
+      const slice=o.dur/o.bk.scenes.length;
+      seek(o.start+si*slice+(+d.dataset.i/Math.max(1,pbLines.length))*slice); };
+  });
+}
+$("pbMode").onclick=()=>{ pbMode=pbMode==="scene"?"book":"scene";
+  $("pbMode").textContent=pbMode==="scene"?"GENOME":"SCENE";
+  pbScene=null; };
+
+/* ── render loop ── */
+let lastUi=-1, lastFrameKey="", lastDraw=0;
+async function tick(){
+  requestAnimationFrame(tick);
+  if(!OFF.length)return;
+  const t=now(), bi=curBook<0?0:curBook, o=OFF[bi];
+  $("clock").textContent=fmt(t);
+  $("head").style.left=Math.max(0,Math.min(100,t/TOTAL*100))+"%";
+  const {entry,si,local,prog}=sceneAt(bi,curBook<0?0:(audio.currentTime||0));
+  if(entry)updateFormula(entry,prog);
+  if(bi!==lastUi){
+    lastUi=bi;
+    document.querySelectorAll(".chapter").forEach(b=>b.classList.toggle("on",+b.dataset.i===bi));
+    $("title").textContent="BOOK "+ROMAN[o.bk.b]+" · "+o.bk.title+" — "+o.tr.track.title;
+    $("mBook").textContent=ROMAN[o.bk.b]+" · "+o.bk.title;
+    $("mTrack").textContent=o.tr.track.title+" ("+o.tr.album.name.trim()+")";
+    $("mWindow").textContent=fmt(o.start)+" – "+fmt(o.start+o.dur);
+    $("mScenes").textContent=o.bk.scenes.length+" scenes · "+(o.dur/o.bk.scenes.length).toFixed(0)+"s each";
+    buildSceneLines(bi);
+    if(OFF[bi+1])probeDur(urlFor(OFF[bi+1].tr));
+  }
+  if(entry){
+    if(pbScene!==entry.id){pbScene=entry.id;pbRender(entry,o.bk.b);
+      if(castScene!==entry.id){castScene=entry.id;renderCast(entry);renderDoing(entry);}}
+    if(pbLines.length){
+      const li=Math.min(pbLines.length-1,Math.floor(prog*pbLines.length));
+      document.querySelectorAll("#pbBody .pline").forEach(d=>{
+        const on=+d.dataset.i===li;
+        if(on&&!d.classList.contains("now"))d.scrollIntoView({block:"nearest"});
+        d.classList.toggle("now",on);});
+    }
+    $("sceneTag").textContent=entry.id+" · S"+(si+1);
+    document.querySelectorAll("#sceneLines .line").forEach(d=>d.classList.toggle("now",+d.dataset.k===si));
+    const beats=entry.beats||[];
+    const beat=beats.length?beats[Math.min(beats.length-1,Math.floor(prog*beats.length))]:"";
+    if($("voice").textContent!==beat&&beat){$("voice").textContent=beat;
+      $("screenText").textContent=entry.title+" — beat "+(Math.floor(prog*beats.length)+1)+"/"+beats.length;}
+    $("caption").innerHTML=entry.title+" · <b>"+o.tr.track.title+"</b>";
+    $("lnStage").href="odyssey-stage.html#"+entry.id;
+    $("lnOp").href="odyssey-operator.html#"+entry.id;
+    $("lnPrevis").href="odyssey-previs.html#"+entry.id;
+    $("lnTl").href="odyssey-timeline.html";
+    /* the film: restaged frame at scene-local time, ~9 fps */
+    const nowMs=performance.now();
+    const fk=entry.id+"|"+Math.floor(local*9);
+    if(fk!==lastFrameKey&&nowMs-lastDraw>90){
+      lastFrameKey=fk; lastDraw=nowMs;
+      restageFor(entry).then(rs=>{
+        if(lastFrameKey!==fk)return;
+        const T=(local/(o.dur/o.bk.scenes.length))*(rs.duration||36);
+        rs.stage(og,off.width,off.height,T);
+        const src=og.getImageData(0,0,off.width,off.height).data;
+        fastDotify(g,src,off.width,off.height,cv.width,cv.height,3.8);
+        drawFormulaOverlay(g,cv.width,cv.height,activeFormulaCtx);
+      }).catch(()=>{});
+    }
+  }
+  $("state").textContent=rsCache.size+"/"+MF.scenes.length+" scenes staged · "+CUES.length+" cues · "+(CX?Object.keys(CX.formulas).length+" formula links":"formula loading");
+}
+document.addEventListener("keydown",e=>{
+  if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  if(e.code==="Space"){e.preventDefault();$("play").click();}
+  if(e.key==="m"||e.key==="M")dropCue();
+  if(e.key==="f"){formulaLock=null;formulaShift++;formulaLastKey="";}
+  if(e.key==="F"){formulaLock=null;formulaShift--;formulaLastKey="";}
+  if(e.key==="ArrowRight")seek(now()+5);
+  if(e.key==="ArrowLeft")seek(now()-5);
+});
+window.__suite={ get OFF(){return OFF}, get TOTAL(){return TOTAL}, seek, dropCue,
+  get CUES(){return CUES}, sceneAt, now, PB, pbRender, renderCast, openInspect,
+  get concordance(){return {lite:CX,full:CFULL,extended:CEXT,parallels:CPAR}},
+  get activeFormula(){return activeFormulaCtx}, ensureFull, formulaSearch, selectFormula };
+
+buildAlbumUI(); buildChapters(); renderCues();
+await buildClock();
+$("title").textContent=BOOKS.length+" books · "+AL.albums.map(a=>a.name.trim()).join(" + ")+" · Greek formula runtime · press play";
+const t0=parseFloat(new URLSearchParams(location.search).get("t"));
+if(t0>0){ seek(t0); } else setTrack(0,0,false);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
