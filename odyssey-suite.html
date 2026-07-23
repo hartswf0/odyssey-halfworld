@@ -204,6 +204,7 @@
         <a class="btn" id="lnPrevis" href="odyssey-previs.html">PREVIS</a>
         <a class="btn" id="lnTl" href="odyssey-timeline.html">TIMELINE</a>
         <a class="btn" id="lnOp" href="odyssey-operator.html">OPERATOR</a>
+        <a class="btn" id="lnPf" href="odyssey-perform.html">AOIDOS ▸</a>
       </div>
     </div>
   </aside>
@@ -800,6 +801,7 @@ async function tick(){
     $("caption").innerHTML=entry.title+" · <b>"+o.tr.track.title+"</b>";
     $("lnStage").href="odyssey-stage.html#"+entry.id;
     $("lnOp").href="odyssey-operator.html#"+entry.id;
+    $("lnPf").href="odyssey-perform.html#"+entry.id;
     $("lnPrevis").href="odyssey-previs.html#"+entry.id;
     $("lnTl").href="odyssey-timeline.html";
     /* the film: restaged frame at scene-local time, ~9 fps */

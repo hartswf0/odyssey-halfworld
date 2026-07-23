@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AOIDOS STAGE — the score performs</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141414'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23f4f4f0'/%3E%3C/svg%3E">
+<style>
+  :root{--paper:#fff;--ink:#000;--dim:#5b5b5b;--line:#000;--red:#e01b1b;--blue:#3aa7ff;
+    --gold:#c8a800;--soft:#f4f4f4;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  *{box-sizing:border-box;border-radius:0!important;margin:0;padding:0}
+  html,body{min-height:100%;background:var(--paper);color:var(--ink);font:13px/1.45 var(--mono)}
+  button,select,input{font:inherit;color:inherit}
+  button,.btn,select{border:2px solid var(--line);background:var(--paper);padding:7px 10px;cursor:pointer;font-weight:700}
+  button:hover{background:var(--ink);color:var(--paper)}
+  header{position:sticky;top:0;z-index:30;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+    border-bottom:3px solid var(--line);background:var(--paper);padding:8px 10px}
+  .brand{font-weight:900;letter-spacing:.08em;white-space:nowrap}
+  .brand i{font-style:normal;color:var(--red)}
+  #modeSeg{display:flex;border:2px solid var(--line)}
+  #modeSeg button{border:none;border-right:2px solid var(--line);font-size:9px;letter-spacing:.06em;padding:8px 9px}
+  #modeSeg button:last-child{border-right:none}
+  #modeSeg button.on{background:var(--ink);color:var(--paper)}
+  #hstate{margin-left:auto;font-size:9px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+  main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);min-height:calc(100svh - 52px)}
+  #stageCol{border-right:2px solid var(--line);padding:8px;min-width:0;display:flex;flex-direction:column;gap:8px}
+  #film{display:block;width:100%;aspect-ratio:16/10;border:3px solid var(--line);background:#fdfdfa}
+  /* turn transport */
+  #transport{display:flex;gap:8px;align-items:center}
+  #transport button{min-height:44px}
+  #autoBtn.on{background:var(--red);color:#fff;border-color:var(--line)}
+  #turnPos{font-weight:900;font-size:12px;min-width:72px;text-align:center}
+  /* turn strip */
+  #turnStrip{display:flex;gap:5px;overflow-x:auto;padding:2px 0;scrollbar-width:none}
+  #turnStrip::-webkit-scrollbar{display:none}
+  .tchip{flex:none;border:2px solid var(--line);background:var(--paper);padding:6px 8px;cursor:pointer;
+    font-size:9px;font-weight:700;letter-spacing:.05em;display:flex;flex-direction:column;gap:1px;min-width:64px}
+  .tchip small{font-weight:400;color:var(--dim);font-size:8px}
+  .tchip.done{background:var(--soft)}
+  .tchip.now{background:var(--ink);color:var(--paper)}
+  .tchip.now small{color:#bbb}
+  /* cast rail */
+  #castRail{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+  #castRail::-webkit-scrollbar{display:none}
+  .actor{flex:none;width:86px;border:2px solid var(--line);background:#fdfdfa;position:relative;cursor:pointer}
+  .actor canvas{width:100%;aspect-ratio:3/4;display:block}
+  .actor b{display:block;font-size:7.5px;letter-spacing:.08em;padding:3px 4px;background:var(--paper);
+    border-top:2px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
+  .actor.speaking{border-color:var(--red);box-shadow:4px 4px 0 var(--red)}
+  .actor.listening{border-color:var(--blue);box-shadow:4px 4px 0 var(--blue)}
+  .actor .role{position:absolute;top:3px;left:3px;font-size:7px;font-weight:900;letter-spacing:.08em;
+    padding:1px 4px;color:#fff;display:none}
+  .actor.speaking .role{display:block;background:var(--red)}
+  .actor.listening .role{display:block;background:var(--blue)}
+  /* right column */
+  aside{min-width:0;display:flex;flex-direction:column}
+  .panel{border-bottom:2px solid var(--line);padding:10px 12px}
+  .panel h2{font-size:10px;letter-spacing:.16em;border-bottom:2px solid var(--line);padding-bottom:4px;margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:baseline}
+  .panel h2 span{font-size:8.5px;color:var(--dim);letter-spacing:.06em;font-weight:400}
+  #speakerName{font-size:15px;font-weight:900;letter-spacing:.05em}
+  #voiceTag{font-size:9px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin:2px 0 6px}
+  #actChip{display:inline-block;background:var(--ink);color:var(--paper);font-size:9px;font-weight:900;
+    letter-spacing:.1em;padding:3px 8px;margin-right:6px}
+  #tacticChip{display:inline-block;border:2px solid var(--line);font-size:9px;letter-spacing:.06em;padding:2px 7px}
+  #delivery{font-size:11px;color:var(--red);font-weight:700;margin:8px 0 6px;line-height:1.5}
+  #spoken{font-size:16px;line-height:1.55;font-weight:700;margin:6px 0;min-height:52px}
+  #spoken .breath{display:block;padding-left:14px;text-indent:-14px}
+  #spoken .breath+.breath{margin-top:3px}
+  #subtext{font-size:11px;color:var(--dim);line-height:1.55;border-left:3px solid var(--gold);padding-left:8px;margin-top:6px}
+  #concealRow{margin-top:8px;display:flex;gap:5px;flex-wrap:wrap}
+  .cn{font-size:8.5px;letter-spacing:.05em;border:2px dashed var(--red);color:var(--red);padding:3px 7px;font-weight:700}
+  #reaction{font-size:11px;line-height:1.6}
+  #reaction b{color:var(--blue)}
+  #ledger{max-height:20svh;overflow-y:auto;font-size:10.5px;line-height:1.6}
+  #ledger .rv{padding:2px 0;border-bottom:1px dashed #ddd}
+  #ledger .rv i{font-style:normal;color:var(--dim);font-size:8.5px;letter-spacing:.08em}
+  #askRow{display:flex;border:2px solid var(--line)}
+  #askRow input{flex:1;border:none;padding:11px;font:inherit;min-height:46px;outline:none}
+  #askRow button{border:none;border-left:2px solid var(--line);min-height:46px;padding:0 14px;font-weight:900}
+  #aside{font-size:11.5px;line-height:1.55;margin-top:8px;display:none;border:2px solid var(--line);padding:8px 10px;background:var(--soft)}
+  #aside b{color:var(--red);font-size:8.5px;letter-spacing:.1em;display:block;margin-bottom:3px}
+  @media(max-width:840px){
+    main{grid-template-columns:1fr}
+    #stageCol{border-right:0;border-bottom:2px solid var(--line)}
+    #spoken{font-size:14px}
+    header{padding:6px 8px;gap:6px}
+    #modeSeg button{padding:9px 7px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">AOIDOS <i>·</i> STAGE</div>
+  <select id="bookSel"></select>
+  <select id="sceneSel"></select>
+  <div id="modeSeg" title="AOIDOS multiform — how the model plays each line">
+    <button data-m="restrained" class="on">RESTRAINED</button>
+    <button data-m="elevated">ELEVATED</button>
+    <button data-m="high_pressure">HIGH</button>
+  </div>
+  <button id="apiBtn" title="plug in a model — lines generated live under the AOIDOS law">⚙</button>
+  <button id="musBtn" class="on" title="the book's track under the scene">♪</button>
+  <span id="hstate">loading the score…</span>
+</header>
+<main>
+  <section id="stageCol">
+    <canvas id="film" width="1024" height="640"></canvas>
+    <div id="transport">
+      <button id="prevBtn" title="previous turn">◀</button>
+      <button id="stepBtn" style="min-width:120px" title="SPACE — commit the next turn">NEXT TURN ▶</button>
+      <button id="autoBtn" title="the director loop runs the scene">AUTO</button>
+      <span id="turnPos">— / —</span>
+    </div>
+    <div id="turnStrip"></div>
+    <div id="castRail"></div>
+  </section>
+  <aside>
+    <div class="panel">
+      <h2>THE TURN <span id="tsStage"></span></h2>
+      <div id="speakerName">—</div>
+      <div id="voiceTag">—</div>
+      <div><span id="actChip">—</span><span id="tacticChip">—</span></div>
+      <div id="delivery">—</div>
+      <div id="spoken">Press NEXT TURN. The score performs one turn at a time.</div>
+      <div id="subtext"></div>
+      <div id="concealRow"></div>
+    </div>
+    <div class="panel">
+      <h2>REACTION WINDOW <span>the listener must register</span></h2>
+      <div id="reaction">—</div>
+    </div>
+    <div class="panel">
+      <h2>KNOWLEDGE ON STAGE <span>what the scene has revealed · what is still held</span></h2>
+      <div id="ledger">—</div>
+    </div>
+    <div class="panel">
+      <h2>INTERJECT <span>ask the current speaker — an aside, off the score</span></h2>
+      <div id="askRow"><input id="askTxt" type="text" placeholder="press them…" autocomplete="off">
+        <button id="askGo">ASK</button></div>
+      <div id="aside"></div>
+    </div>
+  </aside>
+</main>
+<audio id="mus"></audio>
+<script type="module">
+import * as E from "./engine/halfworld-engine.mjs";
+const $=id=>document.getElementById(id);
+const __mem={};
+function safeSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){__mem[k]=v;return false;}}
+function safeGet(k){return (k in __mem)?__mem[k]:localStorage.getItem(k);}
+const LS=(k,d)=>{try{return JSON.parse(safeGet(k))??d;}catch(e){return d;}};
+
+const MF=await fetch("viewer/odyssey-manifest.json").then(r=>r.json());
+const PT=await fetch("viewer/performance-turns.json").then(r=>r.json());
+const VC=await fetch("viewer/voice-cards.json").then(r=>r.json()).catch(()=>({voices:{},cards:{}}));
+const AL=await fetch("audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]}));
+const assetById=new Map(MF.assets.map(a=>[a.id,a]));
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
+  "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+
+/* ── modules + restage ── */
+const modCache=new Map();
+async function loadMod(id){const a=assetById.get(id);if(!a)return null;
+  if(!modCache.has(a.path))modCache.set(a.path,import(a.path.replace(/^\//,"./")).then(m=>m.default).catch(()=>null));
+  return modCache.get(a.path);}
+function fastDotify(g,src,SW,SH,CW,CH,cell){
+  g.setTransform(1,0,0,1,0,0);g.fillStyle="#fdfdfa";g.fillRect(0,0,CW,CH);
+  const r=E.containRect(SW,SH,CW,CH),NB=12,rMax=cell*.62,bu=Array.from({length:NB},()=>[]);
+  for(let y=cell/2;y<CH;y+=cell){if((y-r.oy)<0||(y-r.oy)>=r.h)continue;
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-r.oy)/r.s)));
+    for(let x=cell/2;x<CW;x+=cell){if((x-r.ox)<0||(x-r.ox)>=r.w)continue;
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-r.ox)/r.s))),i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255,d=1-lum;if(d<.10)continue;
+      bu[Math.min(NB-1,Math.floor(Math.pow(d,.9)*NB*.999))].push(x,y);}}
+  g.fillStyle="#0a0a0a";
+  for(let b=0;b<NB;b++){const p=bu[b];if(!p.length)continue;
+    const rad=Math.max(.5,(b+.6)/NB*rMax);g.beginPath();
+    for(let k=0;k<p.length;k+=2){g.moveTo(p[k]+rad,p[k+1]);g.arc(p[k],p[k+1],rad,0,7);}
+    g.fill();}}
+const off=document.createElement("canvas");off.width=900;off.height=560;
+const og=off.getContext("2d",{willReadFrequently:true});
+const film=$("film"),fg=film.getContext("2d");
+
+/* ── the score state ── */
+let sceneEntry=null,RS=null,turns=[],ti=-1,T=0,auto=false,autoT=null,mode="restrained";
+let ledger=[],castInst={},lastDraw=0,focus=0,focusTarget=null;
+
+/* ── book track under the scene ── */
+let musicOn=true;const MUS=$("mus");MUS.loop=true;MUS.volume=.55;
+function bookTrack(b){const M=LS("odyssey.suite.map",{}),m=M[b];
+  if(m){const a=AL.albums.find(x=>x.id===m.album);
+    if(a){const t=a.tracks.find(t=>t.file===m.track);if(t)return a.dir+"/"+encodeURIComponent(t.file);}}
+  for(const a of AL.albums){const t=a.tracks.find(t=>t.num===b);if(t)return a.dir+"/"+encodeURIComponent(t.file);}
+  const a=AL.albums[0];if(!a)return null;
+  return a.dir+"/"+encodeURIComponent(a.tracks[(b-1)%a.tracks.length].file);}
+$("musBtn").onclick=()=>{musicOn=!musicOn;$("musBtn").classList.toggle("on",musicOn);
+  if(musicOn){MUS.play().catch(()=>{});}else MUS.pause();};
+addEventListener("pointerdown",()=>{if(musicOn&&MUS.src&&MUS.paused)MUS.play().catch(()=>{});},{capture:true,once:true});
+
+/* ── scene loading ── */
+function buildSelectors(){
+  const books=[...new Set(MF.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+  $("bookSel").innerHTML=books.map(b=>`<option value="${b}">BOOK ${ROMAN[b]}</option>`).join("");
+  $("bookSel").onchange=()=>{buildSceneSel(+$("bookSel").value);loadScene(MF.scenes.find(s=>s.book===+$("bookSel").value));};
+  $("sceneSel").onchange=()=>loadScene(MF.scenes.find(s=>s.id===$("sceneSel").value));
+}
+function buildSceneSel(b){
+  $("sceneSel").innerHTML=MF.scenes.filter(s=>s.book===b)
+    .map(s=>`<option value="${s.id}">${s.id.slice(-3)} · ${s.title}</option>`).join("");
+}
+async function loadScene(entry){
+  if(!entry)return;
+  sceneEntry=entry;$("sceneSel").value=entry.id;
+  stopAuto();ti=-1;ledger=[];T=0;focus=0;focusTarget=null;
+  const sm=(await import(entry.path.replace(/^\//,"./"))).default;
+  const mods=new Map();
+  for(const id of entry.assets)mods.set(id,await loadMod(id));
+  RS=E.makeRestage(sm,id=>mods.get(id),id=>(assetById.get(id)||{}).type,LS("odyssey.arrange."+entry.id,{}));
+  castInst={};(sm.cast||[]).forEach(c=>{castInst[c.asset]=c.instance;});
+  turns=(PT.byScene[entry.id]||[]);
+  $("hstate").textContent=entry.id+" · "+turns.length+" TURNS ON THE SCORE";
+  buildTurnStrip();buildCastRail();renderTurnHud(null);renderLedger();
+  const tr=bookTrack(entry.book);
+  if(tr){if(!MUS.src.endsWith(tr.split("/").pop()))MUS.src=tr;if(musicOn)MUS.play().catch(()=>{});}
+}
+function buildTurnStrip(){
+  const st=$("turnStrip");st.innerHTML="";
+  turns.forEach((t,i)=>{
+    const c=document.createElement("div");
+    c.className="tchip"+(i<ti?" done":i===ti?" now":"");
+    c.innerHTML="<span>"+(t.spName||t.sp.split(".").pop()).split(" ")[0].toUpperCase()+"</span><small>"+t.act+"</small>";
+    c.onclick=()=>gotoTurn(i);
+    st.appendChild(c);
+  });
+  $("turnPos").textContent=(ti+1)+" / "+turns.length;
+}
+async function buildCastRail(){
+  const rail=$("castRail");rail.innerHTML="";
+  const cur=turns[ti];
+  for(const id of sceneEntry.assets){
+    const a=assetById.get(id);if(!a)continue;
+    if(!/character|creature|ensemble/.test(a.type))continue;
+    const d=document.createElement("div");
+    d.className="actor"+(cur&&cur.sp===id?" speaking":cur&&cur.ad===id?" listening":"");
+    d.innerHTML='<span class="role">'+(cur&&cur.sp===id?"SPEAKS":"HEARS")+'</span><canvas width="172" height="230"></canvas><b>'+(a.name||id)+"</b>";
+    d.onclick=()=>askOf=id;
+    rail.appendChild(d);
+    loadMod(id).then(mod=>{if(!mod)return;
+      let st={};
+      if(cur&&cur.sp===id){const nodes=E.normStateNodes(mod);
+        const n=nodes.find(x=>/speak|address|tell|plea|greet|hail|voice/i.test(x.key))||nodes[0];
+        if(n)st=n.prev();}
+      const cut=E.inkCutout(mod,st,"rail"+(cur?ti:""));
+      const cv2=d.querySelector("canvas"),g2=cv2.getContext("2d");
+      const sw=cut.ar>=1?Math.round(300*cut.ar):300,sh=cut.ar>=1?300:Math.round(300/cut.ar);
+      const oc=document.createElement("canvas");oc.width=sw;oc.height=sh;
+      const og2=oc.getContext("2d",{willReadFrequently:true});
+      og2.fillStyle=E.PAPER;og2.fillRect(0,0,sw,sh);
+      og2.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,0,0,sw,sh);
+      fastDotify(g2,og2.getImageData(0,0,sw,sh).data,sw,sh,cv2.width,cv2.height,2.4);
+    });
+  }
+}
+
+/* ── the AOIDOS law for live generation ── */
+const apiCfg=()=>LS("odyssey.chat.api",{url:"https://api.openai.com/v1/chat/completions",model:"",key:""});
+$("apiBtn").onclick=()=>{
+  const cfg=apiCfg();
+  const url=prompt("OpenAI-format endpoint",cfg.url||"https://api.openai.com/v1/chat/completions");if(url===null)return;
+  const model=prompt("model (e.g. gpt-5.6 / sol-5.6)",cfg.model||"");if(model===null)return;
+  const key=prompt("api key (device-only)",cfg.key||"");if(key===null)return;
+  safeSet("odyssey.chat.api",JSON.stringify({url:url.trim(),model:model.trim(),key:key.trim()}));
+  $("hstate").textContent=key?"REAL TALK ON — lines generated under the law":"score playback (no key)";
+};
+function turnPrompt(t,forMode){
+  const a=assetById.get(t.sp)||{};
+  const card=VC.cards[t.sp],voice=card&&VC.voices[card.voice];
+  return "AOIDOS-PERFORM LAW. You are the live speech engine for "+(t.spName||a.name)
+    +" in an oral-epic performance. Generate EXACTLY ONE situated spoken turn — never a summary, never narration inside the spoken words.\n"
+    +"MODE: "+forMode+" ("+(forMode==="restrained"?"minimal words, maximum pressure":forMode==="elevated"?"denser traditional resonance":"immediate conflict or emotional force")+").\n"
+    +"SPEECH ACT: "+t.act+" · TACTIC: "+(t.tactic||"—")+" · ADDRESSEE: "+((assetById.get(t.ad)||{}).name||t.ad)+".\n"
+    +"CONTENT CONTRACT (express this, never quote a translation): "+t.payload+"\n"
+    +(t.subtext?("SUBTEXT (preserve, do not state): "+t.subtext+"\n"):"")
+    +(t.conceal.length?("MUST CONCEAL: "+t.conceal.join("; ")+"\n"):"")
+    +"DELIVERY: "+(t.delivery||"—")+"\n"
+    +(voice?("VOICE: "+(voice.essence||"").slice(0,200)+"\n"):"")
+    +(card?("PERFORMANCE FUNCTIONS: "+(card.functions||[]).slice(0,3).join(" · ")+"\n"):"")
+    +"Reply as JSON only: {\"direction\":\"short parenthetical stage direction\",\"line\":\"the spoken words, 1-4 sentences\",\"breaths\":[\"breath unit 1\",\"...\"]}";
+}
+async function generateLine(t){
+  const cfg=apiCfg();if(!cfg.key)return null;
+  try{
+    const r=await fetch(cfg.url,{method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+cfg.key},
+      body:JSON.stringify({model:cfg.model||"gpt-4o-mini",max_tokens:260,temperature:.9,
+        messages:[{role:"system",content:turnPrompt(t,mode)},{role:"user",content:"Perform the turn now."}]})});
+    if(!r.ok)throw 0;
+    const j=await r.json();
+    const raw=(j.choices&&j.choices[0]&&j.choices[0].message.content||"").trim();
+    const m=raw.match(/\{[\s\S]*\}/);
+    if(m){const o=JSON.parse(m[0]);return{direction:o.direction,line:o.line,breaths:o.breaths};}
+    return{direction:"",line:raw,breaths:null};
+  }catch(e){return null;}
+}
+
+/* ── committing a turn ── */
+function breathSplit(s){
+  return String(s||"").split(/(?<=[,;:.!?])\s+/).filter(x=>x.trim()).slice(0,6);
+}
+async function commitTurn(i){
+  if(i<0||i>=turns.length)return;
+  ti=i;const t=turns[i];
+  focusTarget=castInst[t.sp]||null;focus=0;
+  buildTurnStrip();buildCastRail();
+  const a=assetById.get(t.sp)||{};
+  const card=VC.cards[t.sp];
+  $("speakerName").textContent=t.spName||a.name||t.sp;
+  $("voiceTag").textContent=(card?card.voice:"")+"  →  "+((assetById.get(t.ad)||{}).name||t.ad||"the room");
+  $("actChip").textContent=t.act||"—";
+  $("tacticChip").textContent=t.tactic||t.mode||"—";
+  $("delivery").textContent="("+(t.delivery||"—")+")";
+  $("tsStage").textContent="TURN "+(i+1)+"/"+turns.length;
+  $("subtext").textContent=t.subtext||"";
+  $("subtext").style.display=t.subtext?"block":"none";
+  $("concealRow").innerHTML=(t.conceal||[]).map(c=>'<span class="cn">CONCEALS · '+c+"</span>").join("");
+  /* spoken text: the law generates live if plugged in; else the contract performs */
+  $("spoken").innerHTML='<span style="color:var(--dim)">…</span>';
+  const gen=await generateLine(t);
+  if(ti!==i)return;
+  const line=gen?gen.line:t.payload;
+  const dir=gen&&gen.direction?gen.direction:null;
+  if(dir)$("delivery").textContent="("+dir.replace(/^\(|\)$/g,"")+")";
+  const breaths=(gen&&gen.breaths&&gen.breaths.length?gen.breaths:breathSplit(line));
+  $("spoken").innerHTML=breaths.map(b=>'<span class="breath">'+b+"</span>").join("");
+  /* reaction window */
+  const adName=(assetById.get(t.ad)||{}).name||t.ad||"the room";
+  $("reaction").innerHTML="<b>"+adName+"</b> must register before the next turn — "
+    +(t.act==="ASK"||t.act==="REQUEST"?"an answer is owed.":
+      t.act==="COMMAND"||t.act==="CONSENT"?"obedience, refusal, or delay.":
+      t.mode!=="SPOKEN_LINE"?"this was action, not speech — the silence presses.":
+      "agreement, resistance, or a held breath.");
+  /* ledger */
+  (t.reveal||[]).forEach(r=>{if(!ledger.some(l=>l.t===r))ledger.push({t:r,k:"REVEALED",by:t.spName||a.name});});
+  (t.conceal||[]).forEach(c=>{if(!ledger.some(l=>l.t===c))ledger.push({t:c,k:"HELD",by:t.spName||a.name});});
+  renderLedger();
+  if(auto){clearTimeout(autoT);
+    const ms=2600+Math.min(6000,line.length*34);
+    autoT=setTimeout(()=>{if(ti<turns.length-1)commitTurn(ti+1);else stopAuto();},ms);}
+}
+function renderLedger(){
+  const l=$("ledger");
+  if(!ledger.length){l.textContent="— nothing committed yet —";return;}
+  l.innerHTML=ledger.map(x=>'<div class="rv"><i>'+x.k+" · "+(x.by||"")+"</i> — "
+    +(x.k==="HELD"?('<span style="color:var(--red)">'+x.t+"</span>"):x.t)+"</div>").join("");
+}
+function renderTurnHud(){}
+function gotoTurn(i){stopAuto();ledger=ledger.slice(0,0);
+  for(let k=0;k<i;k++){const t=turns[k];
+    (t.reveal||[]).forEach(r=>{if(!ledger.some(l=>l.t===r))ledger.push({t:r,k:"REVEALED",by:t.spName});});
+    (t.conceal||[]).forEach(c=>{if(!ledger.some(l=>l.t===c))ledger.push({t:c,k:"HELD",by:t.spName});});}
+  commitTurn(i);}
+function stopAuto(){auto=false;clearTimeout(autoT);$("autoBtn").classList.remove("on");}
+$("stepBtn").onclick=()=>{stopAuto();commitTurn(Math.min(turns.length-1,ti+1));};
+$("prevBtn").onclick=()=>{stopAuto();gotoTurn(Math.max(0,ti-1));};
+$("autoBtn").onclick=()=>{auto=!auto;$("autoBtn").classList.toggle("on",auto);
+  if(auto)commitTurn(ti<0?0:Math.min(turns.length-1,ti+1));else clearTimeout(autoT);};
+document.querySelectorAll("#modeSeg button").forEach(b=>{
+  b.onclick=()=>{mode=b.dataset.m;
+    document.querySelectorAll("#modeSeg button").forEach(x=>x.classList.toggle("on",x===b));};
+});
+addEventListener("keydown",e=>{
+  if(/INPUT|SELECT/.test(e.target.tagName))return;
+  if(e.code==="Space"){e.preventDefault();$("stepBtn").click();}
+  if(e.key==="ArrowLeft")$("prevBtn").click();
+  if(e.key==="ArrowRight")$("stepBtn").click();
+});
+
+/* ── interject: press the current speaker off the score ── */
+let askOf=null;
+const tok=s=>new Set(String(s).toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>2));
+$("askGo").onclick=async()=>{
+  const q=($("askTxt").value||"").trim();if(!q)return;$("askTxt").value="";
+  const who=askOf||(turns[ti]&&turns[ti].sp)||sceneEntry.assets.find(id=>/character/.test((assetById.get(id)||{}).type));
+  const a=assetById.get(who);if(!a)return;
+  const box=$("aside");box.style.display="block";
+  box.innerHTML="<b>"+(a.name||who)+" · ASIDE</b>…";
+  const cfg=apiCfg();
+  if(cfg.key){
+    const t=turns[ti]||{sp:who,spName:a.name,ad:"",act:"REPLY",payload:"react to what was just said",conceal:[],delivery:""};
+    const gen=await generateLine({...t,sp:who,spName:a.name,payload:"Answer this interjection from the audience-director, in character, within your knowledge: \""+q+"\"",act:"REPLY"});
+    if(gen){box.innerHTML="<b>"+(a.name||who)+" · ASIDE "+(gen.direction?("· "+gen.direction):"")+"</b>"+gen.line;return;}
+  }
+  /* offline: their best-matching turn or perf */
+  const mine=(PT.byScene[sceneEntry.id]||[]).filter(t=>t.sp===who);
+  const qt=tok(q);let best=null,bs=0;
+  mine.forEach(t=>{let sc=0;tok(t.payload+" "+(t.subtext||"")).forEach(w=>{if(qt.has(w))sc++;});
+    if(sc>bs){bs=sc;best=t;}});
+  const perf=((a.perfs||[]).find(p=>p.scene===sceneEntry.id)||{}).perf;
+  box.innerHTML="<b>"+(a.name||who)+" · ASIDE</b>"+(best?best.payload:(perf||"…"));
+};
+$("askTxt").addEventListener("keydown",e=>{if(e.key==="Enter")$("askGo").click();});
+
+/* ── the film: restage with a camera that finds the speaker ── */
+let last=0;
+function loop(ms){
+  requestAnimationFrame(loop);
+  const dt=Math.min(.08,(ms-last)/1000||.016);last=ms;
+  if(!RS)return;
+  T=(T+dt)%(RS.duration||36);
+  focus=Math.min(1,focus+dt*1.4);
+  if(ms-lastDraw<100)return;lastDraw=ms;
+  RS.stage(og,off.width,off.height,T);
+  let crop={x:0,y:0,w:off.width,h:off.height};
+  if(focusTarget){
+    const p=RS.layout(off.width,off.height,T).find(q=>q.instance===focusTarget);
+    if(p){
+      const e2=focus<.5?2*focus*focus:1-Math.pow(-2*focus+2,2)/2;
+      const zh=off.height*(1-.34*e2);
+      const zw=zh*off.width/off.height;
+      const fx=Math.max(zw/2,Math.min(off.width-zw/2,p.x));
+      const fy=Math.max(zh/2,Math.min(off.height-zh/2,p.y-p.h*.6));
+      crop={x:fx-zw/2,y:fy-zh/2,w:zw,h:zh};
+    }
+  }
+  const cc=document.createElement("canvas");cc.width=off.width;cc.height=off.height;
+  cc.getContext("2d").drawImage(off,crop.x,crop.y,crop.w,crop.h,0,0,off.width,off.height);
+  fastDotify(fg,cc.getContext("2d",{willReadFrequently:true}).getImageData(0,0,off.width,off.height).data,
+    off.width,off.height,film.width,film.height,3.8);
+}
+requestAnimationFrame(loop);
+
+/* boot */
+window.__perf={ get turns(){return turns}, get ti(){return ti}, commitTurn, gotoTurn,
+  loadScene, get ledger(){return ledger}, get sceneEntry(){return sceneEntry} };
+buildSelectors();
+const deep=location.hash.replace("#","");
+const dScene=MF.scenes.find(s=>s.id===deep);
+const first=dScene||MF.scenes[0];
+$("bookSel").value=first.book;buildSceneSel(first.book);
+await loadScene(first);
+</script>
+</body>
+</html>
