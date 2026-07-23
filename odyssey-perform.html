@@ -81,12 +81,26 @@
   #askRow button{border:none;border-left:2px solid var(--line);min-height:46px;padding:0 14px;font-weight:900}
   #aside{font-size:11.5px;line-height:1.55;margin-top:8px;display:none;border:2px solid var(--line);padding:8px 10px;background:var(--soft)}
   #aside b{color:var(--red);font-size:8.5px;letter-spacing:.1em;display:block;margin-bottom:3px}
+  #pathTrail{font-size:9px;letter-spacing:.06em;color:var(--dim);padding:2px 0;white-space:nowrap;
+    overflow-x:auto;scrollbar-width:none}
+  #pathTrail b{color:var(--red)}
+  .choice{display:block;width:100%;text-align:left;margin-top:6px;padding:11px 12px;font-size:11px;
+    line-height:1.4;border:2px solid var(--line);background:var(--paper)}
+  .choice:hover{background:var(--ink);color:var(--paper)}
+  .choice small{display:block;font-weight:400;color:inherit;opacity:.6;font-size:9px}
+  .choice.score{border-width:3px}
   @media(max-width:840px){
     main{grid-template-columns:1fr}
     #stageCol{border-right:0;border-bottom:2px solid var(--line)}
     #spoken{font-size:14px}
     header{padding:6px 8px;gap:6px}
     #modeSeg button{padding:9px 7px}
+    #transport button{min-height:52px;flex:1}
+    #turnPos{min-width:56px}
+    .choice{padding:14px 12px;font-size:12px}
+    .panel{padding:10px}
+    #spoken{font-size:15px}
+    .actor{width:74px}
   }
 </style>
 </head>
@@ -102,6 +116,7 @@
   </div>
   <button id="apiBtn" title="plug in a model — lines generated live under the AOIDOS law">⚙</button>
   <button id="musBtn" class="on" title="the book's track under the scene">♪</button>
+  <button id="voxBtn" class="on" title="the characters speak aloud">🔊</button>
   <span id="hstate">loading the score…</span>
 </header>
 <main>
@@ -113,6 +128,7 @@
       <button id="autoBtn" title="the director loop runs the scene">AUTO</button>
       <span id="turnPos">— / —</span>
     </div>
+    <div id="pathTrail"></div>
     <div id="turnStrip"></div>
     <div id="castRail"></div>
   </section>
@@ -183,9 +199,48 @@ const off=document.createElement("canvas");off.width=900;off.height=560;
 const og=off.getContext("2d",{willReadFrequently:true});
 const film=$("film"),fg=film.getContext("2d");
 
+/* ── SPEECH: the characters speak. Voice profiles map to pitch/rate so
+   Zeus does not sound like Hermes. Music ducks under the voice. ── */
+let voxOn=true;
+const synth=window.speechSynthesis;
+function hashV(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))|0;return (h>>>0)/4294967295;}
+const VOICE_MAP={DIVINE_SOVEREIGN:{p:.55,r:.82},DIVINE_STRATEGIST:{p:1.05,r:.98},
+  DIVINE_MESSENGER:{p:1.3,r:1.12},DIVINE_FORCE:{p:.45,r:.78},
+  RETURNING_STRATEGIST:{p:.82,r:.92},EMERGING_HEIR:{p:1.12,r:1.02}};
+function voiceFor(profileId){
+  if(VOICE_MAP[profileId])return VOICE_MAP[profileId];
+  const h=hashV(profileId||"x");
+  return {p:.6+h*.8, r:.85+((h*7)%1)*.25};
+}
+let _speakEnd=null;
+function speak(line,profileId,onEnd){
+  _speakEnd=onEnd||null;
+  if(!voxOn||!synth||!line){ if(onEnd)onEnd(); return; }
+  try{
+    synth.cancel();
+    const u=new SpeechSynthesisUtterance(line);
+    const v=voiceFor(profileId);
+    u.pitch=v.p; u.rate=v.r; u.volume=1;
+    MUS.volume=.14;
+    u.onend=()=>{ MUS.volume=.55; const f=_speakEnd; _speakEnd=null; if(f)f(); };
+    u.onerror=u.onend;
+    synth.speak(u);
+  }catch(e){ MUS.volume=.55; if(onEnd)onEnd(); }
+}
+$("voxBtn").onclick=()=>{voxOn=!voxOn;$("voxBtn").classList.toggle("on",voxOn);
+  if(!voxOn&&synth)synth.cancel();};
+
 /* ── the score state ── */
 let sceneEntry=null,RS=null,turns=[],ti=-1,T=0,auto=false,autoT=null,mode="restrained";
 let ledger=[],castInst={},lastDraw=0,focus=0,focusTarget=null;
+let visited=new Set(),trail=[];
+function nextInScore(){ for(let k=0;k<turns.length;k++)if(!visited.has(k))return k; return -1; }
+function renderTrail(){
+  $("pathTrail").innerHTML=trail.length
+    ?("PATH · "+trail.map((k,i)=>(i===trail.length-1?"<b>T"+(k+1)+"</b>":"T"+(k+1))).join(" → ")
+      +(visited.size>=turns.length?" · <b>SCENE COMPLETE</b>":""))
+    :"PATH · — the garden is unwalked —";
+}
 
 /* ── book track under the scene ── */
 let musicOn=true;const MUS=$("mus");MUS.loop=true;MUS.volume=.55;
@@ -214,6 +269,7 @@ async function loadScene(entry){
   if(!entry)return;
   sceneEntry=entry;$("sceneSel").value=entry.id;
   stopAuto();ti=-1;ledger=[];T=0;focus=0;focusTarget=null;
+  visited=new Set();trail=[];if(synth)synth.cancel();
   const sm=(await import(entry.path.replace(/^\//,"./"))).default;
   const mods=new Map();
   for(const id of entry.assets)mods.set(id,await loadMod(id));
@@ -229,9 +285,9 @@ function buildTurnStrip(){
   const st=$("turnStrip");st.innerHTML="";
   turns.forEach((t,i)=>{
     const c=document.createElement("div");
-    c.className="tchip"+(i<ti?" done":i===ti?" now":"");
+    c.className="tchip"+(visited.has(i)&&i!==ti?" done":i===ti?" now":"");
     c.innerHTML="<span>"+(t.spName||t.sp.split(".").pop()).split(" ")[0].toUpperCase()+"</span><small>"+t.act+"</small>";
-    c.onclick=()=>gotoTurn(i);
+    c.onclick=()=>{stopAuto();commitTurn(i);};
     st.appendChild(c);
   });
   $("turnPos").textContent=(ti+1)+" / "+turns.length;
@@ -245,7 +301,9 @@ async function buildCastRail(){
     const d=document.createElement("div");
     d.className="actor"+(cur&&cur.sp===id?" speaking":cur&&cur.ad===id?" listening":"");
     d.innerHTML='<span class="role">'+(cur&&cur.sp===id?"SPEAKS":"HEARS")+'</span><canvas width="172" height="230"></canvas><b>'+(a.name||id)+"</b>";
-    d.onclick=()=>askOf=id;
+    d.onclick=()=>{ askOf=id;
+      const k=turns.findIndex((x,j)=>!visited.has(j)&&x.sp===id);
+      if(k>=0){stopAuto();commitTurn(k);} };
     rail.appendChild(d);
     loadMod(id).then(mod=>{if(!mod)return;
       let st={};
@@ -312,6 +370,7 @@ function breathSplit(s){
 async function commitTurn(i){
   if(i<0||i>=turns.length)return;
   ti=i;const t=turns[i];
+  visited.add(i);trail.push(i);renderTrail();
   focusTarget=castInst[t.sp]||null;focus=0;
   buildTurnStrip();buildCastRail();
   const a=assetById.get(t.sp)||{};
@@ -334,20 +393,56 @@ async function commitTurn(i){
   if(dir)$("delivery").textContent="("+dir.replace(/^\(|\)$/g,"")+")";
   const breaths=(gen&&gen.breaths&&gen.breaths.length?gen.breaths:breathSplit(line));
   $("spoken").innerHTML=breaths.map(b=>'<span class="breath">'+b+"</span>").join("");
-  /* reaction window */
-  const adName=(assetById.get(t.ad)||{}).name||t.ad||"the room";
-  $("reaction").innerHTML="<b>"+adName+"</b> must register before the next turn — "
-    +(t.act==="ASK"||t.act==="REQUEST"?"an answer is owed.":
-      t.act==="COMMAND"||t.act==="CONSENT"?"obedience, refusal, or delay.":
-      t.mode!=="SPOKEN_LINE"?"this was action, not speech — the silence presses.":
-      "agreement, resistance, or a held breath.");
+  /* SPEAK — unless this turn is embodied action */
+  const spoken=(t.mode==="SPOKEN_LINE"||!t.mode)?line:null;
+  const afterVoice=()=>{ if(auto&&ti===i){ clearTimeout(autoT);
+    autoT=setTimeout(()=>{ const n=nextInScore(); if(n>=0)commitTurn(n); else stopAuto(); }, 900); } };
+  if(spoken)speak(spoken,(VC.cards[t.sp]||{}).voice,afterVoice);
+  /* THE GARDEN: the reaction window is a fork */
+  buildChoices(t,i);
   /* ledger */
   (t.reveal||[]).forEach(r=>{if(!ledger.some(l=>l.t===r))ledger.push({t:r,k:"REVEALED",by:t.spName||a.name});});
   (t.conceal||[]).forEach(c=>{if(!ledger.some(l=>l.t===c))ledger.push({t:c,k:"HELD",by:t.spName||a.name});});
   renderLedger();
-  if(auto){clearTimeout(autoT);
-    const ms=2600+Math.min(6000,line.length*34);
-    autoT=setTimeout(()=>{if(ti<turns.length-1)commitTurn(ti+1);else stopAuto();},ms);}
+  if(auto&&(!spoken||!voxOn||!synth)){clearTimeout(autoT);
+    const ms=2200+Math.min(6000,line.length*30);
+    autoT=setTimeout(()=>{const n=nextInScore();if(n>=0)commitTurn(n);else stopAuto();},ms);}
+}
+/* ── the garden of forking paths: each reaction is a choice of who moves ── */
+function buildChoices(t,i){
+  const box=$("reaction");box.innerHTML="";
+  const adName=(assetById.get(t.ad)||{}).name||t.ad||"the room";
+  const press=(t.act==="ASK"||t.act==="REQUEST")?"an answer is owed":
+    (t.act==="COMMAND"||t.act==="CONSENT")?"obedience, refusal, or delay":
+    (t.mode!=="SPOKEN_LINE")?"the action presses without words":"agreement, resistance, or a held breath";
+  const head=document.createElement("div");
+  head.innerHTML="<b>"+adName+"</b> must register — "+press+".";
+  head.style.marginBottom="4px";box.appendChild(head);
+  if(visited.size>=turns.length){
+    const d=document.createElement("div");
+    d.innerHTML="<b>SCENE COMPLETE.</b> Path walked: "+trail.map(k=>"T"+(k+1)).join(" → ");
+    box.appendChild(d);return;
+  }
+  const mk=(label,sub,go,score)=>{const b=document.createElement("button");
+    b.className="choice"+(score?" score":"");
+    b.innerHTML=label+(sub?("<small>"+sub+"</small>"):"");
+    b.onclick=()=>{stopAuto();go();};box.appendChild(b);};
+  const seen=new Set();
+  const nx=nextInScore();
+  if(nx>=0){seen.add(nx);
+    mk("▸ THE SCORE — "+(turns[nx].spName||"")+" · "+turns[nx].act,
+       (turns[nx].payload||"").slice(0,90),()=>commitTurn(nx),true);}
+  const li=turns.findIndex((x,k)=>!visited.has(k)&&!seen.has(k)&&x.sp===t.ad);
+  if(li>=0){seen.add(li);
+    mk("⤷ "+(turns[li].spName||adName)+" SEIZES THE FLOOR · "+turns[li].act,
+       (turns[li].payload||"").slice(0,90),()=>commitTurn(li));}
+  const oi=turns.findIndex((x,k)=>!visited.has(k)&&!seen.has(k)&&x.sp!==t.sp&&x.sp!==t.ad);
+  if(oi>=0){seen.add(oi);
+    mk("⚡ "+(turns[oi].spName||"ANOTHER")+" INTERRUPTS · "+turns[oi].act,
+       (turns[oi].payload||"").slice(0,90),()=>commitTurn(oi));}
+  mk("… SILENCE HOLDS","the pressure passes unanswered — the score resumes",()=>{
+    ledger.push({t:"a silence held after "+(t.spName||"")+"'s "+t.act,k:"SILENCE",by:adName});
+    renderLedger();const n=nextInScore();if(n>=0)commitTurn(n);});
 }
 function renderLedger(){
   const l=$("ledger");
@@ -356,16 +451,13 @@ function renderLedger(){
     +(x.k==="HELD"?('<span style="color:var(--red)">'+x.t+"</span>"):x.t)+"</div>").join("");
 }
 function renderTurnHud(){}
-function gotoTurn(i){stopAuto();ledger=ledger.slice(0,0);
-  for(let k=0;k<i;k++){const t=turns[k];
-    (t.reveal||[]).forEach(r=>{if(!ledger.some(l=>l.t===r))ledger.push({t:r,k:"REVEALED",by:t.spName});});
-    (t.conceal||[]).forEach(c=>{if(!ledger.some(l=>l.t===c))ledger.push({t:c,k:"HELD",by:t.spName});});}
-  commitTurn(i);}
+function gotoTurn(i){stopAuto();commitTurn(i);}
 function stopAuto(){auto=false;clearTimeout(autoT);$("autoBtn").classList.remove("on");}
-$("stepBtn").onclick=()=>{stopAuto();commitTurn(Math.min(turns.length-1,ti+1));};
-$("prevBtn").onclick=()=>{stopAuto();gotoTurn(Math.max(0,ti-1));};
+
+$("stepBtn").onclick=()=>{stopAuto();const n=nextInScore();if(n>=0)commitTurn(n);};
+$("prevBtn").onclick=()=>{stopAuto();if(trail.length>1){trail.pop();const k=trail.pop();commitTurn(k);}else if(trail.length===1){commitTurn(trail.pop());}};
 $("autoBtn").onclick=()=>{auto=!auto;$("autoBtn").classList.toggle("on",auto);
-  if(auto)commitTurn(ti<0?0:Math.min(turns.length-1,ti+1));else clearTimeout(autoT);};
+  if(auto){const n=nextInScore();if(n>=0)commitTurn(n);else stopAuto();}else clearTimeout(autoT);};
 document.querySelectorAll("#modeSeg button").forEach(b=>{
   b.onclick=()=>{mode=b.dataset.m;
     document.querySelectorAll("#modeSeg button").forEach(x=>x.classList.toggle("on",x===b));};
