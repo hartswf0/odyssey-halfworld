@@ -1,0 +1,267 @@
+{
+  "book": 8,
+  "jobs": [
+    {
+      "id": "location.phaeacian-assembly-ground",
+      "type": "LOCATION",
+      "name": "Phaeacian assembly ground",
+      "prompt": "Phaeacian assembly ground (LOCATION). civic gathering near harbor with king's place, public tiers, ship route, and palace connection. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B08-S01: civic gathering near harbor with king's place, public tiers, ship route, and palace connection"
+      ]
+    },
+    {
+      "id": "character.athena-as-herald",
+      "type": "CHARACTER",
+      "name": "Athena as herald",
+      "prompt": "Athena as herald (CHARACTER). mobile civic voice recruiting curiosity while concealing divine authorship. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B08-S01: mobile civic voice recruiting curiosity while concealing divine authorship"
+      ]
+    },
+    {
+      "id": "ensemble.phaeacian-sailors",
+      "type": "ENSEMBLE",
+      "name": "Phaeacian sailors",
+      "prompt": "Phaeacian sailors (ENSEMBLE). fifty-two specialists launching, masting, provisioning, and inspecting a fast convoy ship. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B08-S01: fifty-two specialists launching, masting, provisioning, and inspecting a fast convoy ship"
+      ]
+    },
+    {
+      "id": "vehicle.phaeacian-convoy-ship",
+      "type": "VEHICLE",
+      "name": "Phaeacian convoy ship",
+      "prompt": "Phaeacian convoy ship (VEHICLE). sleek vessel with supernatural navigation potential, crew stations, guest bed, and homeward route state. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B08-S01: sleek vessel with supernatural navigation potential, crew stations, guest bed, and homeward route state"
+      ]
+    },
+    {
+      "id": "character.demodocus",
+      "type": "CHARACTER",
+      "name": "Demodocus",
+      "prompt": "Demodocus (CHARACTER). blind inspired bard locating the lyre, projecting song, and remaining unaware of the stranger's private collapse. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B08-S02: blind inspired bard locating the lyre, projecting song, and remaining unaware of the stranger's private collapse",
+        "OD-B08-S05: bard performing an exact story that proves divine inspiration"
+      ]
+    },
+    {
+      "id": "prop.demodocuss-lyre",
+      "type": "PROP",
+      "name": "Demodocus's lyre",
+      "prompt": "Demodocus's lyre (PROP). ornate instrument with carry, tune, play, pause, and song-cue states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B08-S02: ornate instrument with carry, tune, play, pause, and song-cue states"
+      ]
+    },
+    {
+      "id": "ensemble.feast-listeners",
+      "type": "ENSEMBLE",
+      "name": "Feast listeners",
+      "prompt": "Feast listeners (ENSEMBLE). silent audience oriented to the bard while one hidden reaction escapes most of them. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B08-S02: silent audience oriented to the bard while one hidden reaction escapes most of them"
+      ]
+    },
+    {
+      "id": "location.phaeacian-athletic-field",
+      "type": "LOCATION",
+      "name": "Phaeacian athletic field",
+      "prompt": "Phaeacian athletic field (LOCATION). marked zones for races, wrestling, jump, boxing, discus throws, spectators, and distance markers. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B08-S03: marked zones for races, wrestling, jump, boxing, discus throws, spectators, and distance markers"
+      ]
+    },
+    {
+      "id": "character.euryalus",
+      "type": "CHARACTER",
+      "name": "Euryalus",
+      "prompt": "Euryalus (CHARACTER). talented youth whose careless insult triggers the demonstration. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B08-S03: talented youth whose careless insult triggers the demonstration",
+        "OD-B08-S04: pride softened into formal apology and gift transfer"
+      ]
+    },
+    {
+      "id": "character.laodamas",
+      "type": "CHARACTER",
+      "name": "Laodamas",
+      "prompt": "Laodamas (CHARACTER). courteous prince inviting participation and later supporting reconciliation. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B08-S03: courteous prince inviting participation and later supporting reconciliation"
+      ]
+    },
+    {
+      "id": "prop.discus",
+      "type": "PROP",
+      "name": "Discus",
+      "prompt": "Discus (PROP). heavy throwing disk with grip, wind-up, flight arc, ground strike, mark, and retrieval states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B08-S03: heavy throwing disk with grip, wind-up, flight arc, ground strike, mark, and retrieval states"
+      ]
+    },
+    {
+      "id": "ensemble.phaeacian-dancers",
+      "type": "ENSEMBLE",
+      "name": "Phaeacian dancers",
+      "prompt": "Phaeacian dancers (ENSEMBLE). high-skill circle performers with leap, spin, ball-pass, catch, and formation controls. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B08-S04: high-skill circle performers with leap, spin, ball-pass, catch, and formation controls"
+      ]
+    },
+    {
+      "id": "prop.dance-ball",
+      "type": "PROP",
+      "name": "Dance ball",
+      "prompt": "Dance ball (PROP). bright hand ball with vertical toss, partner arc, blind exchange, and dropped-ball recovery. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B08-S04: bright hand ball with vertical toss, partner arc, blind exchange, and dropped-ball recovery"
+      ]
+    },
+    {
+      "id": "divine-fx.ares-aphrodite-hephaestus-song-tableau",
+      "type": "DIVINE_FX",
+      "name": "Ares-Aphrodite-Hephaestus song tableau",
+      "prompt": "Ares-Aphrodite-Hephaestus song tableau (DIVINE_FX). comic myth visualization with bed, invisible net, trapped lovers, arriving gods, and release. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B08-S04: comic myth visualization with bed, invisible net, trapped lovers, arriving gods, and release"
+      ]
+    },
+    {
+      "id": "prop.bronze-sword-with-ivory-hilt",
+      "type": "PROP",
+      "name": "Bronze sword with ivory hilt",
+      "prompt": "Bronze sword with ivory hilt (PROP). sheathable gift weapon with carry, present, accept, wear, and continuity states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B08-S04: sheathable gift weapon with carry, present, accept, wear, and continuity states"
+      ]
+    },
+    {
+      "id": "divine-fx.trojan-sack-memory",
+      "type": "DIVINE_FX",
+      "name": "Trojan sack memory",
+      "prompt": "Trojan sack memory (DIVINE_FX). wooden horse opening, warriors descending, city fire, combat, and captive grief layered behind song. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B08-S05: wooden horse opening, warriors descending, city fire, combat, and captive grief layered behind song"
+      ]
+    },
+    {
+      "id": "location.feast-hall-at-attentive-silence",
+      "type": "LOCATION",
+      "name": "Feast hall at attentive silence",
+      "prompt": "Feast hall at attentive silence (LOCATION). same palace hall with music stopped, all gazes converged, and narrative-seat focus. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B08-S05: same palace hall with music stopped, all gazes converged, and narrative-seat focus"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B08-S01",
+      "n": 41,
+      "title": "The Phaeacian Assembly and the Ship",
+      "beats": [
+        "At dawn Athena moves through the city in a herald's form, calling the people to assembly.",
+        "She makes Odysseus appear larger and more impressive as he enters.",
+        "Alcinous orders fifty-two sailors to prepare a ship and invites the nobles to feast.",
+        "The people ready the vessel while the palace fills for celebration."
+      ],
+      "composePrompt": "Build `OD-B08-S01` — **The Phaeacian Assembly and the Ship** — as one editable Halfworld stage. Required instances: Phaeacian assembly ground, Athena as herald, Odysseus, Phaeacian sailors, Phaeacian convoy ship. Stage this action in causal order: At dawn Athena moves through the city in a herald's form, calling the people to assembly. She makes Odysseus appear larger and more impressive as he enters. Alcinous orders fifty-two sailors to prepare a ship and invites the nobles to feast. The people ready the vessel while the palace fills for celebration. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The people ready the vessel while the palace fills for celebration.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.phaeacian-assembly-ground",
+        "character.athena-as-herald",
+        "character.odysseus",
+        "ensemble.phaeacian-sailors",
+        "vehicle.phaeacian-convoy-ship"
+      ]
+    },
+    {
+      "id": "OD-B08-S02",
+      "n": 42,
+      "title": "Demodocus Sings of the Quarrel",
+      "beats": [
+        "At the feast the blind bard Demodocus receives his lyre and sings of a quarrel between Odysseus and Achilles.",
+        "Odysseus repeatedly hides his face in his cloak and weeps.",
+        "Alcinous alone notices and stops the song by proposing athletic games.",
+        "The company moves from the hall to the contest field."
+      ],
+      "composePrompt": "Build `OD-B08-S02` — **Demodocus Sings of the Quarrel** — as one editable Halfworld stage. Required instances: Demodocus, Odysseus, Alcinous, Demodocus's lyre, Feast listeners. Stage this action in causal order: At the feast the blind bard Demodocus receives his lyre and sings of a quarrel between Odysseus and Achilles. Odysseus repeatedly hides his face in his cloak and weeps. Alcinous alone notices and stops the song by proposing athletic games. The company moves from the hall to the contest field. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The company moves from the hall to the contest field.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.demodocus",
+        "character.odysseus",
+        "character.alcinous",
+        "prop.demodocuss-lyre",
+        "ensemble.feast-listeners"
+      ]
+    },
+    {
+      "id": "OD-B08-S03",
+      "n": 43,
+      "title": "The Athletic Challenge",
+      "beats": [
+        "Phaeacian youths compete in running, wrestling, jumping, discus, and boxing.",
+        "Laodamas invites Odysseus; Euryalus insults him as a merchant without athletic skill.",
+        "Angered, Odysseus hurls a discus beyond every mark and challenges the athletes.",
+        "Alcinous calms the confrontation and shifts the display toward dance and song."
+      ],
+      "composePrompt": "Build `OD-B08-S03` — **The Athletic Challenge** — as one editable Halfworld stage. Required instances: Phaeacian athletic field, Odysseus, Euryalus, Laodamas, Discus. Stage this action in causal order: Phaeacian youths compete in running, wrestling, jumping, discus, and boxing. Laodamas invites Odysseus; Euryalus insults him as a merchant without athletic skill. Angered, Odysseus hurls a discus beyond every mark and challenges the athletes. Alcinous calms the confrontation and shifts the display toward dance and song. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Alcinous calms the confrontation and shifts the display toward dance and song.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.phaeacian-athletic-field",
+        "character.odysseus",
+        "character.euryalus",
+        "character.laodamas",
+        "prop.discus"
+      ]
+    },
+    {
+      "id": "OD-B08-S04",
+      "n": 44,
+      "title": "The Dance and the Net of Hephaestus",
+      "beats": [
+        "Demodocus sings how Ares and Aphrodite were trapped in Hephaestus's invisible net.",
+        "Phaeacian dancers perform a ball dance with precise leaps and exchanges.",
+        "Odysseus praises their unmatched movement.",
+        "The nobles offer gifts; Euryalus apologizes and gives a bronze sword."
+      ],
+      "composePrompt": "Build `OD-B08-S04` — **The Dance and the Net of Hephaestus** — as one editable Halfworld stage. Required instances: Phaeacian dancers, Dance ball, Ares-Aphrodite-Hephaestus song tableau, Euryalus, Bronze sword with ivory hilt. Stage this action in causal order: Demodocus sings how Ares and Aphrodite were trapped in Hephaestus's invisible net. Phaeacian dancers perform a ball dance with precise leaps and exchanges. Odysseus praises their unmatched movement. The nobles offer gifts; Euryalus apologizes and gives a bronze sword. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The nobles offer gifts; Euryalus apologizes and gives a bronze sword.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "ensemble.phaeacian-dancers",
+        "prop.dance-ball",
+        "divine-fx.ares-aphrodite-hephaestus-song-tableau",
+        "character.euryalus",
+        "prop.bronze-sword-with-ivory-hilt"
+      ]
+    },
+    {
+      "id": "OD-B08-S05",
+      "n": 45,
+      "title": "The Trojan Horse Song and the Name",
+      "beats": [
+        "Odysseus gives Demodocus a choice cut of meat and asks for the song of the wooden horse.",
+        "The bard sings the Greeks' emergence, the sack, and Odysseus's attack on Deiphobus's house.",
+        "Odysseus weeps like a captive woman over a fallen husband.",
+        "Alcinous stops the music and asks the stranger for his name, homeland, and reason for grief.",
+        "Odysseus prepares to narrate his wanderings."
+      ],
+      "composePrompt": "Build `OD-B08-S05` — **The Trojan Horse Song and the Name** — as one editable Halfworld stage. Required instances: Odysseus, Demodocus, Alcinous, Trojan sack memory, Feast hall at attentive silence. Stage this action in causal order: Odysseus gives Demodocus a choice cut of meat and asks for the song of the wooden horse. The bard sings the Greeks' emergence, the sack, and Odysseus's attack on Deiphobus's house. Odysseus weeps like a captive woman over a fallen husband. Alcinous stops the music and asks the stranger for his name, homeland, and reason for grief. Odysseus prepares to narrate his wanderings. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus prepares to narrate his wanderings.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.demodocus",
+        "character.alcinous",
+        "divine-fx.trojan-sack-memory",
+        "location.feast-hall-at-attentive-silence"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus",
+    "character.alcinous"
+  ]
+}

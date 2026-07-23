@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>render-harness</title>
+<style>html,body{margin:0;background:#777}#stage{display:block;margin:0 auto}</style>
+</head><body>
+<canvas id="stage"></canvas>
+<script type="module">
+/* Loads one asset module + the engine, renders it to the canvas at the
+   requested size/pipeline, runs the contract validator, and parks the
+   result on window.__RESULT__ for the Playwright driver to read. */
+import { renderAsset, RENDER_PIPELINES } from "/engine/halfworld-engine.mjs";
+import { validateAsset } from "/engine/asset-contract.mjs";
+
+const q = new URLSearchParams(location.search);
+const modPath = q.get("mod");
+const pipeline = q.get("pipeline") || "MESH";
+const W = +(q.get("w")||660), H = +(q.get("h")||880), DPR = +(q.get("dpr")||2);
+const stateName = q.get("state") || "";
+
+const cv = document.getElementById("stage");
+cv.width = W*DPR; cv.height = H*DPR;
+cv.style.width = W+"px"; cv.style.height = H+"px";
+
+(async ()=>{
+  const out = { mod:modPath, pipeline, ok:false, errors:[], warnings:[], validate:null };
+  try{
+    const m = await import(modPath);
+    const asset = m.asset || m.default;
+    const v = validateAsset(asset);
+    out.validate = v;
+    let st = asset.preview ? asset.preview() : {};
+    if (stateName && asset.states && asset.states.nodes && asset.states.nodes[stateName]){
+      // the state node's preview wins (incl. its own pose/expression)
+      st = { ...st, ...(asset.states.nodes[stateName].preview||{}), status: stateName.toUpperCase() };
+    }
+    renderAsset(cv, asset, { pipeline, state: st, DPR, big:true });
+    out.ok = v.ok;
+    out.errors = v.errors; out.warnings = v.warnings;
+    out.dataURL = cv.toDataURL("image/png");
+  }catch(e){
+    out.errors.push("THROW: "+(e && e.stack ? e.stack.split("\n").slice(0,4).join(" | ") : String(e)));
+    // paint an error card so the PNG shows the failure
+    const g=cv.getContext("2d"); g.fillStyle="#fff"; g.fillRect(0,0,cv.width,cv.height);
+    g.strokeStyle="#c00"; g.lineWidth=6; g.strokeRect(6,6,cv.width-12,cv.height-12);
+    g.fillStyle="#c00"; g.font=`${18*DPR}px monospace`; g.fillText("RENDER ERROR", 24*DPR, 40*DPR);
+    g.fillStyle="#333"; g.font=`${11*DPR}px monospace`;
+    (out.errors.join(" ").match(/.{1,60}/g)||[]).slice(0,10).forEach((ln,i)=> g.fillText(ln, 24*DPR, (70+i*16)*DPR));
+    out.dataURL = cv.toDataURL("image/png");
+  }
+  window.__RESULT__ = out;
+  window.__DONE__ = true;
+})();
+</script>
+</body></html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ODYSSEY SYNTHCINE — the scene as a room</title>
+<style>
+  :root{
+    --paper:#f2f1ec; --card:#f7f6f2; --ink:#141414; --dim:#8a8a86;
+    --faint:#d8d6cf; --red:#e01b1b; --blue:#0033cc;
+    --mono:ui-monospace,'SF Mono','IBM Plex Mono',Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;overflow:hidden;background:var(--paper);font-family:var(--mono);color:var(--ink)}
+
+  #top{position:fixed;inset:0 0 auto 0;height:46px;z-index:20;display:flex;align-items:center;gap:12px;
+    padding:0 14px;background:var(--paper);border-bottom:2px solid var(--ink)}
+  .glyph{display:grid;grid-template-columns:repeat(3,5px);gap:3px;flex:none}
+  .glyph i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+  .glyph i.r{background:var(--red)}
+  #brand{font-size:10px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;white-space:nowrap}
+  #brand em{font-style:normal;color:var(--dim);font-weight:400}
+  #bookSel,#sceneSel{border:1px solid var(--faint);background:var(--card);font-family:var(--mono);
+    font-size:10px;padding:6px 8px;letter-spacing:.08em;max-width:300px}
+  #topRight{margin-left:auto;display:flex;gap:6px}
+  .chip{border:1px solid var(--faint);background:var(--card);cursor:pointer;font-size:9px;
+    letter-spacing:.2em;text-transform:uppercase;padding:6px 10px;color:var(--dim);user-select:none;white-space:nowrap}
+  .chip:hover{border-color:var(--ink);color:var(--ink)}
+
+  #stage{position:fixed;inset:46px 0 0 0;padding:10px;overflow:hidden}
+  #grid{height:100%;display:grid;gap:10px}
+  .tile{position:relative;background:#fdfdfa;overflow:hidden;cursor:pointer;border:2px solid var(--ink);display:flex}
+  .tile canvas{width:100%;height:100%;display:block}
+  .tile .name{position:absolute;left:0;top:0;font-size:9px;font-weight:700;letter-spacing:.16em;
+    padding:5px 8px;pointer-events:none;color:var(--ink);text-transform:uppercase;mix-blend-mode:multiply}
+  .tile .st{position:absolute;left:8px;bottom:6px;right:8px;pointer-events:none;display:flex;align-items:center;gap:6px}
+  .tile .st i{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-style:normal}
+  .tile .st u{flex:1;height:3px;background:#ddd;text-decoration:none;display:block}
+  .tile .st u b{display:block;height:100%;background:var(--red);width:30%}
+  .tile.sel{border-color:var(--blue);border-width:3px}
+  .tile.driven{border-color:var(--red);border-width:3px}
+
+  /* focus */
+  #focus{position:fixed;inset:56px 10px 10px 10px;background:var(--paper);border:3px solid var(--ink);
+    display:none;z-index:30}
+  #focus.open{display:flex}
+  #fclose{position:absolute;right:10px;top:10px;z-index:4;border:2px solid var(--ink);
+    background:#fff;font-size:10px;font-weight:700;letter-spacing:.14em;padding:7px 11px;cursor:pointer;font-family:var(--mono)}
+  #focusStage{flex:1;min-height:0;display:grid;grid-template-columns:1.4fr 1fr}
+  #focusWrap{position:relative;background:#fdfdfa;border-right:3px solid var(--ink);overflow:hidden}
+  #focusCv{width:100%;height:100%;display:block}
+  #focusSide{display:flex;flex-direction:column;min-height:0;overflow-y:auto;padding:16px}
+  #fname{font-size:15px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+  #fmeta{font-size:9px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;margin-top:6px}
+  #focusSide h3{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin:16px 0 7px}
+  .btnRow{display:flex;gap:6px;flex-wrap:wrap}
+  .fbtn{border:2px solid var(--ink);background:var(--card);cursor:pointer;font-size:9px;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;padding:7px 11px;font-family:var(--mono)}
+  .fbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+  .fbtn.rec.on{background:var(--red);border-color:var(--red)}
+  #camStat{font-size:9px;color:var(--dim);letter-spacing:.06em;align-self:center}
+  #stateBar{display:flex;flex-wrap:wrap;gap:4px}
+  #stateBar button{border:1.5px solid #bbb;background:var(--card);cursor:pointer;font-size:8px;font-weight:700;
+    letter-spacing:.06em;padding:5px 7px;text-transform:uppercase;font-family:var(--mono)}
+  #stateBar button:hover{border-color:var(--ink)}
+  #stateBar button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  #fhint{font-size:9px;color:var(--dim);line-height:1.7;margin-top:14px}
+
+  #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:40;background:var(--ink);
+    color:var(--paper);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:9px 16px;
+    opacity:0;transition:opacity .25s;pointer-events:none;max-width:80vw;text-align:center}
+  #toast.show{opacity:1}
+  #boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--paper)}
+  #boot .b{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--dim);animation:pulse 1.4s infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  @media(max-width:820px){ #focusStage{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+    #focusWrap{border-right:0;border-bottom:3px solid var(--ink)} }
+</style>
+</head>
+<body>
+
+<div id="top">
+  <div class="glyph"><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></div>
+  <div id="brand">ODYSSEY SYNTHCINE <em>&middot; the scene as a room</em></div>
+  <select id="bookSel"></select>
+  <select id="sceneSel"></select>
+  <div id="topRight">
+    <div class="chip" id="previsLink">PREVIS ↗</div>
+    <div class="chip" id="stageLink">STAGE ↗</div>
+  </div>
+</div>
+
+<div id="stage"><div id="grid"></div></div>
+
+<div id="focus">
+  <button id="fclose">CLOSE</button>
+  <div id="focusStage">
+    <div id="focusWrap"><canvas id="focusCv"></canvas></div>
+    <div id="focusSide">
+      <div id="fname">—</div>
+      <div id="fmeta"></div>
+      <h3>DRIVE</h3>
+      <div class="btnRow">
+        <button class="fbtn rec" id="playAsBtn">📷 PLAY AS</button>
+        <button class="fbtn" id="auditionBtn">AUDITION</button>
+        <span id="camStat"></span>
+      </div>
+      <h3>STATES</h3>
+      <div id="stateBar"></div>
+      <div id="fhint">Click a state to hold it · <b>AUDITION</b> cycles every state ·
+        <b>PLAY AS</b> drives the face with your camera (brows, jaw, smile, gaze) ·
+        hold <b>T</b> to talk · <b>1–9</b> states · <b>ESC</b> back to the room.
+        The room behind them is the scene's own location.</div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="boot"><div class="b">LOADING THE ROOM…</div></div>
+
+<script type="module">
+/* ============================================================
+   ODYSSEY SYNTHCINE — every character of a scene, alive in its
+   own tile, standing in the scene's own location. Focus one to
+   go closer: hold states, audition the whole vocabulary, or
+   drive the face with your camera. Optimized per scene: only
+   this scene's cast, this scene's set, this scene's states.
+   ============================================================ */
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+let MAN=null, assetById=new Map();
+let book=2, sceneEntry=null, sceneMod=null;
+let TILES=[];                     // [{c, mod, a, cv, g, off, og, stateIdx, mode:'auto'|'hold', el}]
+let FOCUS=-1, AUDITION=false, audT=0;
+let talkHold=false;
+const modCache=new Map();
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+let toastT=0;
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2400);}
+async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+  if(modCache.has(p))return modCache.get(p);
+  const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
+const seedOf=s=>{let h=0;for(const ch of s)h=(h*31+ch.charCodeAt(0))|0;return (h>>>0)/4294967295;};
+
+/* ── batched dotify (MESH) ── */
+const NB=12,_buckets=Array.from({length:NB},()=>[]);
+function dotify(gg,src,SW,SH,CW,CH,cellBase){
+  const s=Math.min(CW/SW,CH/SH),ox=(CW-SW*s)/2,oy=(CH-SH*s)/2,w=SW*s,h=SH*s;
+  const cell=Math.max(3,cellBase);
+  gg.setTransform(1,0,0,1,0,0);
+  gg.fillStyle="#fdfdfa";gg.fillRect(0,0,CW,CH);
+  gg.strokeStyle="rgba(0,0,0,.08)";gg.lineWidth=1;gg.beginPath();
+  for(let y=cell*.45;y<CH;y+=Math.max(3,cell*.72)){gg.moveTo(0,y);gg.lineTo(CW,y);}
+  gg.stroke();
+  const maxR=cell*.62*1.05;
+  for(const b of _buckets)b.length=0;
+  const x0=Math.max(cell/2,ox+cell/2),x1=Math.min(CW,ox+w-cell/2);
+  const y0=Math.max(cell/2,oy+cell/2),y1=Math.min(CH,oy+h-cell/2);
+  for(let y=y0;y<=y1;y+=cell){
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-oy)/s)));
+    for(let x=x0;x<=x1;x+=cell){
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-ox)/s))),i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255,d=1-lum;if(d<.10)continue;
+      const rad=Math.pow(d,.9)*maxR,k=Math.min(NB-1,Math.max(0,Math.round(rad/maxR*(NB-1))));
+      _buckets[k].push(x,y);
+    }
+  }
+  gg.fillStyle="#0a0a0a";
+  for(let k=0;k<NB;k++){const b=_buckets[k];if(!b.length)continue;
+    const rad=Math.max(.3,(k+.5)/NB*maxR);gg.beginPath();
+    for(let i=0;i<b.length;i+=2){gg.moveTo(b[i]+rad,b[i+1]);gg.arc(b[i],b[i+1],rad,0,7);}
+    gg.fill();}
+}
+
+/* ── the scene's own room behind each performer ── */
+let locCanvas=null;   // 1120x760 solid render of the location
+async function buildLocation(){
+  locCanvas=null;
+  const locId=(sceneMod.cast||[]).map(c=>c.asset)
+    .find(id=>(assetById.get(id)||{}).type==="location");
+  if(!locId)return;
+  try{
+    const mod=await imp(assetById.get(locId).path);
+    const cv=document.createElement("canvas");cv.width=1120;cv.height=760;
+    const g=cv.getContext("2d");
+    g.fillStyle="#fff";g.fillRect(0,0,1120,760);
+    mod.draw(g,1120,760,{ ...(mod.preview?mod.preview():{}), t:2, card:false });
+    locCanvas=cv;
+  }catch(e){}
+}
+function paintRoom(og,OW,OH,anchorX,wash){
+  og.fillStyle="#ffffff";og.fillRect(0,0,OW,OH);
+  if(locCanvas){
+    const ch=760, cw=ch*OW/OH;
+    const cx=clamp(anchorX*1120, cw/2, 1120-cw/2);
+    og.imageSmoothingEnabled=true;
+    og.drawImage(locCanvas, cx-cw/2, 0, cw, ch, 0, 0, OW, OH);
+  }
+  og.fillStyle="rgba(255,255,255,"+wash+")";og.fillRect(0,0,OW,OH);
+}
+
+/* ── camera face capture (drives the focused performer) ── */
+let capOn=false,capReady=false,faceLM=null,capVid=null,capStream=null,capNeutral=null,capLastT=-1;
+const CAP={};
+async function captureSet(on){
+  if(!on){capOn=false;$("playAsBtn").classList.remove("on");$("playAsBtn").textContent="📷 PLAY AS";
+    $("camStat").textContent="";
+    if(capStream){capStream.getTracks().forEach(t=>t.stop());capStream=null;}
+    TILES.forEach(t=>t.el.classList.remove("driven"));return;}
+  if(capOn)return;
+  toast("LOADING FACE MODEL…");$("camStat").textContent="loading…";
+  try{
+    if(!capReady){
+      const vision=await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14");
+      const fs=await vision.FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+      faceLM=await vision.FaceLandmarker.createFromOptions(fs,{
+        baseOptions:{modelAssetPath:"https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task"},
+        runningMode:"VIDEO",outputFaceBlendshapes:true,numFaces:1});
+      capReady=true;
+    }
+    if(!capVid){capVid=document.createElement("video");capVid.autoplay=true;capVid.playsInline=true;capVid.muted=true;}
+    capStream=await navigator.mediaDevices.getUserMedia({video:{width:320,height:240,facingMode:"user"},audio:false});
+    capVid.srcObject=capStream;await capVid.play();
+    capNeutral=null;capOn=true;
+    $("playAsBtn").classList.add("on");$("playAsBtn").textContent="⏹ STOP";
+    $("camStat").textContent="face live — you are "+(TILES[FOCUS]?TILES[FOCUS].a.name:"");
+    if(TILES[FOCUS])TILES[FOCUS].el.classList.add("driven");
+    toast("YOUR FACE DRIVES "+(TILES[FOCUS]?TILES[FOCUS].a.name:""));
+    capLoop();
+  }catch(e){$("camStat").textContent="camera unavailable";toast("CAMERA UNAVAILABLE");}
+}
+function capLoop(){
+  if(!capOn)return;requestAnimationFrame(capLoop);
+  if(!capVid||capVid.readyState<2||capVid.currentTime===capLastT)return;
+  capLastT=capVid.currentTime;
+  try{
+    const r=faceLM.detectForVideo(capVid,performance.now());
+    const lm=r.faceLandmarks&&r.faceLandmarks[0];
+    if(lm){
+      const pL=lm[33],pR=lm[263],nose=lm[1];
+      const iod=Math.hypot(pR.x-pL.x,pR.y-pL.y)||.001;
+      const yaw=((1-nose.x)-((1-pL.x)+(1-pR.x))/2)/iod, pitch=(nose.y-(pL.y+pR.y)/2)/iod;
+      if(!capNeutral)capNeutral={yaw,pitch};
+      CAP.gx=clamp((yaw-capNeutral.yaw)*3.2,-1,1);
+      CAP.gy=clamp((pitch-capNeutral.pitch)*2.6,-1,1);
+    }
+    const bs=r.faceBlendshapes&&r.faceBlendshapes[0];
+    if(bs){
+      const G=n=>{const c=bs.categories.find(c=>c.categoryName===n);return c?c.score:0};
+      const ease=(k,v,a=.5)=>{CAP[k]=(CAP[k]||0)+(v-(CAP[k]||0))*a};
+      ease("jaw",G("jawOpen"));
+      ease("smile",(G("mouthSmileLeft")+G("mouthSmileRight"))/2);
+      ease("frown",(G("mouthFrownLeft")+G("mouthFrownRight"))/2);
+      ease("browUp",G("browInnerUp"));
+      ease("browKnit",(G("browDownLeft")+G("browDownRight"))/2);
+      ease("eyeWide",(G("eyeWideLeft")+G("eyeWideRight"))/2);
+      ease("eyeNarrow",(G("eyeSquintLeft")+G("eyeSquintRight"))/2);
+      ease("mouthPucker",G("mouthPucker"));
+    }
+  }catch(e){}
+}
+
+/* ── performer state ── */
+function nodesOf(tile){
+  return tile.mod.states&&tile.mod.states.nodes?Object.keys(tile.mod.states.nodes):[];
+}
+function stateOf(tile,now){
+  const nodes=nodesOf(tile);
+  let idx=tile.stateIdx;
+  if(tile.mode==="auto"&&nodes.length>1){
+    idx=(Math.floor(seedOf(tile.c.instance)*97)+Math.floor(now/3.4+seedOf(tile.c.instance)*3))%nodes.length;
+  }
+  const key=nodes[Math.min(idx,Math.max(0,nodes.length-1))];
+  const node=key?tile.mod.states.nodes[key]:null;
+  const st={ ...(tile.mod.preview?tile.mod.preview():{}), ...(node&&node.preview?node.preview:{}),
+    band:tile.c.band, t:now };
+  if(tile.c.pose&&!(node&&node.preview&&node.preview.pose))st.pose=st.pose||tile.c.pose;
+  delete st.status;delete st.progress;
+  /* camera drives the focused performer */
+  if(capOn&&TILES[FOCUS]===tile){
+    for(const k of ["jaw","smile","frown","browUp","browKnit","eyeWide","eyeNarrow","mouthPucker"])
+      if(typeof CAP[k]==="number")st[k]=CAP[k];
+    if(CAP.gx!=null)st.gaze={x:CAP.gx,y:CAP.gy||0};
+  }
+  if(talkHold&&TILES[FOCUS]===tile)
+    st.jaw=Math.max(st.jaw||0,.18+.5*Math.abs(Math.sin(now*10))*(.4+.6*Math.abs(Math.sin(now*23))));
+  return {st, key};
+}
+
+/* ── grid + tiles ── */
+function drivable(c){
+  const t=(assetById.get(c.asset)||{}).type||"";
+  return /character|ensemble|creature/.test(t);
+}
+async function buildTiles(){
+  const grid=$("grid");grid.innerHTML="";TILES=[];FOCUS=-1;AUDITION=false;
+  const cast=(sceneMod.cast||[]).filter(drivable);
+  const n=Math.max(1,cast.length);
+  const cols=n<=2?n:n<=4?2:n<=6?3:4;
+  grid.style.gridTemplateColumns=`repeat(${cols},1fr)`;
+  for(const c of cast){
+    const a=assetById.get(c.asset);if(!a)continue;
+    let mod=null;try{mod=await imp(a.path);}catch(e){continue;}
+    const el=document.createElement("div");el.className="tile";
+    el.innerHTML=`<canvas></canvas><div class="name">${a.name}</div>
+      <div class="st"><i>—</i><u><b></b></u></div>`;
+    grid.appendChild(el);
+    const cv=el.querySelector("canvas");
+    const off=document.createElement("canvas");off.width=330;off.height=440;
+    const tile={c,mod,a,el,cv,g:cv.getContext("2d"),off,
+      og:off.getContext("2d",{willReadFrequently:true}),
+      stateIdx:0,mode:"auto"};
+    el.onclick=()=>openFocus(TILES.indexOf(tile));
+    TILES.push(tile);
+  }
+}
+function fitTile(tile){
+  const r=tile.cv.getBoundingClientRect();if(!r.width)return false;
+  const w=Math.round(r.width*1.4),h=Math.round(r.height*1.4);
+  if(tile.cv.width!==w||tile.cv.height!==h){tile.cv.width=w;tile.cv.height=h;}
+  return true;
+}
+function renderTile(tile,now){
+  if(!fitTile(tile))return;
+  const OW=tile.off.width,OH=tile.off.height,og=tile.og;
+  paintRoom(og,OW,OH,(tile.c.anchor&&tile.c.anchor.x)??.5,.34);
+  const {st,key}=stateOf(tile,now);
+  /* ground shadow + performer, waist-up-ish framing in the tile */
+  const h=OH*1.06, w=h*660/880, x=OW/2-w/2, y=OH*1.0-h*.985;
+  og.fillStyle="rgba(20,20,20,.12)";
+  og.beginPath();og.ellipse(OW/2,OH*.965,w*.3,w*.06,0,0,7);og.fill();
+  og.save();og.translate(x,y);
+  try{tile.mod.draw(og,w,h,{...st,card:false});}catch(e){}
+  og.restore();
+  const img=og.getImageData(0,0,OW,OH).data;
+  dotify(tile.g,img,OW,OH,tile.cv.width,tile.cv.height,3.4);
+  const lab=tile.el.querySelector(".st i");
+  if(lab)lab.textContent=(capOn&&TILES[FOCUS]===tile)?"● you":(key||"—");
+}
+const focusOff=document.createElement("canvas");focusOff.width=560;focusOff.height=760;
+const focusOG=focusOff.getContext("2d",{willReadFrequently:true});
+function renderFocus(now){
+  const tile=TILES[FOCUS];if(!tile)return;
+  const cv=$("focusCv"),r=cv.getBoundingClientRect();if(!r.width)return;
+  const w=Math.round(r.width*1.5),h=Math.round(r.height*1.5);
+  if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;}
+  const OW=focusOff.width,OH=focusOff.height,og=focusOG;
+  paintRoom(og,OW,OH,(tile.c.anchor&&tile.c.anchor.x)??.5,.26);
+  const {st}=stateOf(tile,now);
+  /* CLOSE framing: head + torso fill the frame; slow breathing push */
+  const push=1+.03*Math.sin(now*.35+seedOf(tile.c.instance)*6);
+  const fh=OH*1.62*push, fw=fh*660/880;
+  const x=OW/2-fw/2, y=-fh*.03;
+  og.save();og.translate(x,y);
+  try{tile.mod.draw(og,fw,fh,{...st,card:false});}catch(e){}
+  og.restore();
+  const img=og.getImageData(0,0,OW,OH).data;
+  dotify(cv.getContext("2d"),img,OW,OH,cv.width,cv.height,4.2);
+}
+
+/* ── focus panel ── */
+function openFocus(i){
+  FOCUS=i;const tile=TILES[i];if(!tile)return;
+  $("focus").classList.add("open");
+  TILES.forEach((t,k)=>t.el.classList.toggle("sel",k===i));
+  $("fname").textContent=tile.a.name;
+  $("fmeta").textContent=tile.a.type.replace(/_/g," ")+" · "+tile.a.id
+    +" · appears "+(tile.a.uses||1)+"×";
+  const bar=$("stateBar");bar.innerHTML="";
+  nodesOf(tile).forEach((k,idx)=>{
+    const b=document.createElement("button");
+    b.textContent=(idx+1)+" "+k;
+    b.className=(tile.mode==="hold"&&tile.stateIdx===idx)?"on":"";
+    b.onclick=()=>{AUDITION=false;$("auditionBtn").classList.remove("on");
+      tile.mode="hold";tile.stateIdx=idx;refreshStateBar();};
+    bar.appendChild(b);
+  });
+  if(capOn){$("camStat").textContent="face live — you are "+tile.a.name;
+    TILES.forEach(t=>t.el.classList.remove("driven"));tile.el.classList.add("driven");}
+}
+function refreshStateBar(){
+  const tile=TILES[FOCUS];if(!tile)return;
+  [...$("stateBar").children].forEach((b,idx)=>
+    b.classList.toggle("on",tile.mode==="hold"&&tile.stateIdx===idx));
+}
+function closeFocus(){
+  $("focus").classList.remove("open");
+  TILES.forEach(t=>t.el.classList.remove("sel"));
+  if(AUDITION){AUDITION=false;$("auditionBtn").classList.remove("on");}
+  FOCUS=-1;
+}
+$("fclose").onclick=closeFocus;
+$("auditionBtn").onclick=function(){
+  AUDITION=!AUDITION;this.classList.toggle("on",AUDITION);
+  const tile=TILES[FOCUS];if(tile&&AUDITION){tile.mode="hold";audT=0;}
+};
+$("playAsBtn").onclick=()=>captureSet(!capOn);
+
+/* ── loop: round-robin tiles + focused every frame ── */
+let last=0,rr=0;
+function loop(ms){
+  requestAnimationFrame(loop);
+  const now=ms/1000;last=now;
+  if(!TILES.length)return;
+  if(AUDITION&&FOCUS>=0){
+    audT+=1;const tile=TILES[FOCUS];
+    if(audT>90){audT=0;tile.stateIdx=(tile.stateIdx+1)%Math.max(1,nodesOf(tile).length);refreshStateBar();}
+  }
+  const focusOpen=$("focus").classList.contains("open");
+  if(focusOpen){
+    renderFocus(now);
+    /* keep two background tiles ticking so the room stays alive */
+    for(let k=0;k<2;k++){rr=(rr+1)%TILES.length;if(rr!==FOCUS)renderTile(TILES[rr],now);}
+  }else{
+    /* update up to 3 tiles per frame, round-robin — the whole room breathes */
+    const per=TILES.length<=3?TILES.length:3;
+    for(let k=0;k<per;k++){rr=(rr+1)%TILES.length;renderTile(TILES[rr],now);}
+  }
+}
+
+/* ── navigation ── */
+function buildSelectors(){
+  const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+  $("bookSel").innerHTML=books.map(b=>`<option value="${b}"${b===book?" selected":""}>BOOK ${ROMAN[b]} — ${(MAN.scenes.find(s=>s.book===b)||{}).bookTitle||""}</option>`).join("");
+  const list=MAN.scenes.filter(s=>s.book===book);
+  $("sceneSel").innerHTML=list.map(s=>`<option value="${s.id}"${sceneEntry&&s.id===sceneEntry.id?" selected":""}>${s.id} · ${s.title}</option>`).join("");
+}
+$("bookSel").onchange=e=>{book=+e.target.value;loadScene(MAN.scenes.find(s=>s.book===book).id);};
+$("sceneSel").onchange=e=>loadScene(e.target.value);
+$("previsLink").onclick=()=>window.open("/odyssey-previs.html#"+(sceneEntry?sceneEntry.id:""),"_blank");
+$("stageLink").onclick=()=>window.open("/odyssey-stage.html#"+(sceneEntry?sceneEntry.id:""),"_blank");
+
+async function loadScene(id){
+  const entry=MAN.scenes.find(s=>s.id===id);if(!entry)return;
+  sceneEntry=entry;book=entry.book;
+  closeFocus();captureSet(false);
+  toast("CASTING "+id+"…");
+  try{
+    sceneMod=await imp(entry.path);
+    await buildLocation();
+    await buildTiles();
+    buildSelectors();
+    location.hash=id;
+    toast(entry.title+" · "+TILES.length+" PERFORMERS — CLICK ONE TO GO CLOSER");
+  }catch(e){console.error(e);toast("FAILED: "+id);}
+}
+
+addEventListener("keydown",e=>{
+  if(e.target&&/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  const K=e.key;
+  if(K==="Escape")closeFocus();
+  if((K==="t"||K==="T"))talkHold=true;
+  if((K==="a"||K==="A")&&FOCUS>=0)$("auditionBtn").click();
+  if((K==="c"||K==="C")&&FOCUS>=0)captureSet(!capOn);
+  if(/^[1-9]$/.test(K)&&FOCUS>=0){
+    const tile=TILES[FOCUS],n=nodesOf(tile).length,idx=+K-1;
+    if(idx<n){AUDITION=false;$("auditionBtn").classList.remove("on");
+      tile.mode="hold";tile.stateIdx=idx;refreshStateBar();}
+  }
+});
+addEventListener("keyup",e=>{if(e.key==="t"||e.key==="T")talkHold=false;});
+
+/* ── boot ── */
+(async()=>{
+  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  for(const a of MAN.assets)assetById.set(a.id,a);
+  const want=(location.hash||"").replace("#","").toUpperCase();
+  const first=MAN.scenes.find(s=>s.id===want)||MAN.scenes.find(s=>s.book===2)||MAN.scenes[0];
+  $("boot").remove();
+  await loadScene(first.id);
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

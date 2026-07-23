@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ODYSSEY — walk the book</title>
+<style>
+  :root{
+    --paper:#f2f1ec; --card:#f7f6f2; --ink:#141414; --dim:#8a8a86;
+    --faint:#d8d6cf; --red:#e01b1b; --blue:#0033cc;
+    --mono:ui-monospace,'SF Mono','IBM Plex Mono',Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;overflow:hidden;background:var(--paper);font-family:var(--mono);color:var(--ink)}
+  #top{position:fixed;inset:0 0 auto 0;height:44px;z-index:20;display:flex;align-items:center;gap:12px;
+    padding:0 14px;background:var(--paper);border-bottom:2px solid var(--ink)}
+  .glyph{display:grid;grid-template-columns:repeat(3,5px);gap:3px;flex:none}
+  .glyph i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+  .glyph i.r{background:var(--red)}
+  #brand{font-size:10px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;white-space:nowrap}
+  #brand em{font-style:normal;color:var(--dim);font-weight:400}
+  #bookSel{border:1px solid var(--faint);background:var(--card);font-family:var(--mono);
+    font-size:10px;padding:6px 8px;letter-spacing:.08em}
+  #prog{margin-left:auto;font-size:9px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+  #cv{position:fixed;inset:44px 0 0 0;width:100%;height:calc(100% - 44px);display:block;cursor:crosshair}
+
+  #caption{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:15;max-width:min(640px,86vw);
+    background:rgba(247,246,242,.95);border:2px solid var(--ink);padding:10px 14px;font-size:12px;line-height:1.5;
+    box-shadow:5px 5px 0 rgba(20,20,20,.12);display:none}
+  #caption.on{display:block}
+  #caption b{color:var(--red);font-size:9px;letter-spacing:.16em;display:block;text-transform:uppercase;margin-bottom:3px}
+  #sceneTitle{position:fixed;left:50%;top:58px;transform:translateX(-50%);z-index:15;
+    font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);
+    background:rgba(247,246,242,.9);border:1px solid var(--ink);padding:6px 14px}
+  #hint{position:fixed;left:0;right:0;bottom:0;height:30px;z-index:15;display:flex;align-items:center;
+    justify-content:center;gap:20px;background:var(--paper);border-top:1px solid var(--ink);
+    font-size:8.5px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+  #boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--paper)}
+  #boot .b{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--dim);animation:pulse 1.4s infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  /* touch deck — appears on coarse pointers */
+  #touch{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));justify-content:space-between;
+    pointer-events:none}
+  @media(pointer:coarse){ #touch{display:flex} }
+  #touch .tg{display:flex;gap:8px;pointer-events:auto}
+  #touch button{width:56px;height:56px;border:2px solid var(--ink);background:rgba(247,246,242,.88);
+    font-family:var(--mono);font-size:15px;font-weight:900;color:var(--ink);border-radius:0;
+    -webkit-tap-highlight-color:transparent;touch-action:none}
+  #touch button:active{background:var(--ink);color:var(--paper)}
+  #touch button small{display:block;font-size:7px;letter-spacing:.1em;font-weight:700}
+</style>
+</head>
+<body>
+<div id="top">
+  <div class="glyph"><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></div>
+  <div id="brand">ODYSSEY <em>&middot; walk the book</em></div>
+  <select id="bookSel"></select>
+  <button id="musBtn" type="button" style="border:1px solid var(--faint);background:var(--card);
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;padding:6px 10px;cursor:pointer">♪ ON</button>
+  <div id="prog"></div>
+</div>
+<canvas id="cv"></canvas>
+<div id="touch">
+  <div class="tg"><button data-k="ArrowLeft">◀</button><button data-k="ArrowRight">▶</button></div>
+  <div class="tg"><button data-k="e">E<small>PERF</small></button>
+    <button data-k="c">C<small>CHAT</small></button>
+    <button data-k="f">F<small>DUEL</small></button></div>
+</div>
+<div id="sceneTitle"></div>
+<div id="caption"></div>
+<div id="hint"><span>←→ / A D · WALK</span><span>CLICK GROUND · WALK THERE</span><span>E · TALK</span><span>1–5 · ACT</span></div>
+<div id="boot"><div class="b">BUILDING THE ROAD…</div></div>
+
+<script type="module">
+/* ============================================================
+   ODYSSEY GAME — every book is a level. You are Odysseus: the
+   real rig, walking. Each scene of the book is a stretch of road
+   with its own location behind it and its cast standing in it,
+   spaced out, alive. Walk up to someone and press E — they answer
+   with their actual performance line from the atlas.
+   Nothing assembled, nothing stacked: a place you walk through.
+   ============================================================ */
+import { keyedModuleCanvas } from "/engine/halfworld-engine.mjs";
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"];
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+const seedOf=s=>{let h=0;for(const ch of s)h=(h*31+ch.charCodeAt(0))|0;return (h>>>0)/4294967295;};
+const modCache=new Map();
+async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+  if(modCache.has(p))return modCache.get(p);
+  const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
+
+let MAN=null, assetById=new Map();
+let book=1, SEGS=[];              // [{scene, loc(canvas), npcs:[{a,mod,wx,state...}], beat}]
+const SEGW=1900;                  // world px per scene
+let player=null;                  // {mod, wx, vx, faceLeft, pose, gestureUntil}
+let camX=0, talkNPC=null;
+
+const cv=$("cv"), g=cv.getContext("2d");
+const VW=1280, VH=760;
+const off=document.createElement("canvas"); off.width=VW; off.height=VH;
+const og=off.getContext("2d",{willReadFrequently:true});
+function fit(){
+  const r=cv.getBoundingClientRect();
+  cv.width=Math.round(r.width*1.3); cv.height=Math.round(r.height*1.3);
+}
+addEventListener("resize",fit);
+
+/* batched dotify */
+const NB=13,_b=Array.from({length:NB},()=>[]);
+function dotify(){
+  const CW=cv.width,CH=cv.height;
+  const s=Math.min(CW/VW,CH/VH),ox=(CW-VW*s)/2,oy=(CH-VH*s)/2;
+  g.setTransform(1,0,0,1,0,0);
+  g.fillStyle="#fdfdfa";g.fillRect(0,0,CW,CH);
+  const cell=Math.max(3,4.4);
+  g.strokeStyle="rgba(0,0,0,.08)";g.lineWidth=1;g.beginPath();
+  for(let y=cell*.45;y<CH;y+=Math.max(3,cell*.72)){g.moveTo(0,y);g.lineTo(CW,y);}
+  g.stroke();
+  const img=og.getImageData(0,0,VW,VH).data;
+  const maxR=cell*.62*1.05;
+  for(const b of _b)b.length=0;
+  const x0=Math.max(cell/2,ox),x1=Math.min(CW,ox+VW*s),y0=Math.max(cell/2,oy),y1=Math.min(CH,oy+VH*s);
+  for(let y=y0;y<=y1;y+=cell){
+    const sy=clamp(Math.floor((y-oy)/s),0,VH-1);
+    for(let x=x0;x<=x1;x+=cell){
+      const sx=clamp(Math.floor((x-ox)/s),0,VW-1),i=(sy*VW+sx)*4;
+      const lum=(img[i]*.299+img[i+1]*.587+img[i+2]*.114)/255,d=1-lum;if(d<.10)continue;
+      const rad=Math.pow(d,.9)*maxR,k=Math.min(NB-1,Math.max(0,Math.round(rad/maxR*(NB-1))));
+      _b[k].push(x,y);
+    }
+  }
+  g.fillStyle="#0a0a0a";
+  for(let k=0;k<NB;k++){const b=_b[k];if(!b.length)continue;
+    const rad=Math.max(.3,(k+.5)/NB*maxR);g.beginPath();
+    for(let i=0;i<b.length;i+=2){g.moveTo(b[i]+rad,b[i+1]);g.arc(b[i],b[i+1],rad,0,7);}
+    g.fill();}
+}
+
+/* ── build the road for a book ── */
+async function buildBook(b){
+  $("boot").style.display="grid";
+  SEGS=[]; talkNPC=null; hideCaption();
+  const scenes=MAN.scenes.filter(s=>s.book===b);
+  for(const sc of scenes){
+    const seg={scene:sc, loc:null, npcs:[]};
+    // the scene's own location, rendered once
+    const locId=(sc.assets||[]).find(id=>(assetById.get(id)||{}).type==="location");
+    if(locId){
+      try{
+        const mod=await imp(assetById.get(locId).path);
+        const c=document.createElement("canvas");c.width=1120;c.height=760;
+        const cg=c.getContext("2d");
+        cg.fillStyle="#fff";cg.fillRect(0,0,1120,760);
+        mod.draw(cg,1120,760,{...(mod.preview?mod.preview():{}),t:2,card:false});
+        seg.loc=c;
+      }catch(e){}
+    }
+    // sparse cast: drivable characters, max 4, never the player himself
+    const ids=(sc.assets||[]).filter(id=>{
+      const t=(assetById.get(id)||{}).type||"";
+      return /character|ensemble|creature/.test(t) && !/odysseus$/.test(id);
+    }).slice(0,4);
+    for(let i=0;i<ids.length;i++){
+      const a=assetById.get(ids[i]);if(!a)continue;
+      let mod=null;try{mod=await imp(a.path);}catch(e){continue;}
+      seg.npcs.push({a,mod,
+        wx:SEGS.length*SEGW + SEGW*(.30+.55*(i+.5)/ids.length),
+        seed:seedOf(a.id), talking:0});
+    }
+    SEGS.push(seg);
+  }
+  // the player: Odysseus, the real rig
+  if(!player){
+    const ody=MAN.assets.find(a=>a.id==="character.odysseus");
+    const mod=await imp(ody.path);
+    player={mod, wx:SEGW*.12, vx:0, faceLeft:false, walkTo:null, gesture:null, gestureUntil:0};
+  }
+  player.wx=SEGW*.12; player.walkTo=null; camX=0;
+  $("prog").textContent="BOOK "+ROMAN[b]+" · "+scenes.length+" SCENES";
+  $("boot").style.display="none";
+  showTitle();
+  showCircle(b);
+  playBookMusic(b);
+}
+function segAt(wx){return SEGS[clamp(Math.floor(wx/SEGW),0,SEGS.length-1)];}
+function showTitle(){
+  const seg=segAt(player.wx);if(!seg)return;
+  $("sceneTitle").textContent=seg.scene.id+" · "+seg.scene.title;
+}
+function showCaption(head,text){
+  const el=$("caption");el.innerHTML="<b>"+head+"</b>"+text;el.classList.add("on");
+}
+function hideCaption(){$("caption").classList.remove("on");}
+
+/* ── procedural FOLEY: steps, speech, blows — synthesized, no assets ── */
+let FAC=null;
+function fac(){ FAC=FAC||new (window.AudioContext||window.webkitAudioContext)();
+  if(FAC.state==="suspended")FAC.resume(); return FAC; }
+function ftone(f,type,dur,vol,slide){ try{ const a=fac(),t=a.currentTime;
+  const o=a.createOscillator(),g=a.createGain();
+  o.type=type; o.frequency.setValueAtTime(f,t);
+  if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(20,slide),t+dur);
+  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); g.connect(a.destination); o.start(t); o.stop(t+dur+.02);
+}catch(e){} }
+function fnoise(dur,vol,fc){ try{ const a=fac(),t=a.currentTime;
+  const n=Math.floor(a.sampleRate*dur), buf=a.createBuffer(1,n,a.sampleRate), d=buf.getChannelData(0);
+  for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+  const src=a.createBufferSource(); src.buffer=buf;
+  const f=a.createBiquadFilter(); f.type="lowpass"; f.frequency.value=fc||900;
+  const g=a.createGain(); g.gain.value=vol;
+  src.connect(f); f.connect(g); g.connect(a.destination); src.start(t);
+}catch(e){} }
+let stepT=0, stepAlt=false;
+function foleyStep(){ stepAlt=!stepAlt;
+  fnoise(.07,.16,stepAlt?820:640); ftone(stepAlt?88:72,"sine",.06,.10); }
+function foleyTalk(n){ for(let i=0;i<(n||4);i++)
+  setTimeout(()=>ftone(190+Math.random()*160,"square",.05,.05),i*(70+Math.random()*60)); }
+function foleyStrike(){ fnoise(.10,.30,500); ftone(120,"triangle",.10,.22,60); }
+function foleyHurt(){ ftone(260,"sawtooth",.16,.14,90); }
+function foleyWin(){ [220,330,440].forEach((f,i)=>setTimeout(()=>ftone(f,"triangle",.20,.14),i*110)); }
+function foleyLose(){ [300,220,140].forEach((f,i)=>setTimeout(()=>ftone(f,"sine",.24,.14),i*130)); }
+function foleyBook(){ ftone(60,"sine",1.4,.16,220); fnoise(.9,.08,300); }
+addEventListener("pointerdown",()=>{ try{fac();}catch(e){} },{once:true,capture:true});
+
+/* ── the book's track scores the level (same clock family as the suite) ── */
+let AL=null, musicOn=true, MAUD=new Audio(), musBook=0;
+MAUD.loop=true; MAUD.volume=.75;
+const LSJ=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d;}catch(e){return d;}};
+async function albums(){ if(!AL)AL=await fetch("/audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})); return AL; }
+async function bookTrackUrl(b){
+  const A=await albums(); const MAPm=LSJ("odyssey.suite.map",{});
+  const m=MAPm[b];
+  if(m){const a=A.albums.find(x=>x.id===m.album);
+    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file), title:t.title};}}
+  for(const a of A.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file), title:t.title};}
+  const a=A.albums[0]; if(!a)return null;
+  const t=a.tracks[(b-1)%a.tracks.length]; return {url:"/"+a.dir+"/"+encodeURIComponent(t.file), title:t.title};
+}
+async function playBookMusic(b){
+  const tr=await bookTrackUrl(b); if(!tr)return;
+  musBook=b;
+  if(!MAUD.src.endsWith(tr.url.split("/").pop()))MAUD.src=tr.url;
+  if(musicOn)MAUD.play().catch(()=>{});   // autoplay may defer to first gesture
+  $("musBtn").textContent=musicOn?("♪ "+tr.title.slice(0,16).toUpperCase()):"♪ OFF";
+}
+addEventListener("pointerdown",()=>{ if(musicOn&&MAUD.src&&MAUD.paused)MAUD.play().catch(()=>{}); },{capture:true});
+
+/* both rig shapes → [{key, prev()}] */
+function normNodes(mod){
+  const raw=mod&&mod.states&&mod.states.nodes;
+  if(!raw)return [];
+  if(Array.isArray(raw))
+    return raw.map((n,i)=>({key:(n&&(n.key||n.label))||("s"+i),
+      prev:()=>typeof n.preview==="function"?(n.preview()||{}):(n.preview||n||{})}));
+  return Object.entries(raw).map(([k,v])=>({key:k,
+    prev:()=>typeof (v||{}).preview==="function"?(v.preview()||{}):((v||{}).preview||v||{})}));
+}
+
+/* ── the magic circle: each book is its own game ──
+   circle = the temporary perfect order · spoil = what shatters it */
+const RULES={
+  1:{t:"THE COUNCIL GAME",r:"Speak only as one who believes the absent king lives.",s:"Naming Odysseus dead ends the assembly."},
+  2:{t:"THE SPEAKER'S STAFF",r:"Hold the floor: whoever gestures grandest is heard.",s:"Grief that breaks decorum scatters the crowd."},
+  3:{t:"THE HOST'S TABLE",r:"No question before the feast; stories are payment.",s:"Asking a guest's name too soon."},
+  4:{t:"THE RECOGNITION GAME",r:"Everyone knows, no one says. Circle the truth.",s:"Weeping openly names the missing."},
+  5:{t:"THE RAFT RULE",r:"Everything the island gives may be lashed; nothing may be kept.",s:"Refusing the sea when the wind turns."},
+  6:{t:"BALL AT THE RIVER",r:"Play the washing game; strangers enter only through play.",s:"Fleeing the circle of the girls' game."},
+  7:{t:"THE SUPPLIANT'S SEAT",r:"Kneel at the hearth first, be seated second, be fed third.",s:"Standing before the queen acknowledges you."},
+  8:{t:"THE GAMES OF SCHERIA",r:"Contest is courtesy: throw, sing, dance, yield.",s:"Mocking a guest turns sport to insult."},
+  9:{t:"THE GUEST GAME REVERSED",r:"In the cave the host eats the guests. Wits beat law.",s:"Telling the giant your true name."},
+  10:{t:"THE WITCH'S HOUSE",r:"Eat nothing offered; the herb keeps you yourself.",s:"Forgetting the year is passing."},
+  11:{t:"THE BLOOD RITE",r:"Only fed shades speak; one question per ghost.",s:"Embracing what has no body."},
+  12:{t:"THE BOUND HELMSMAN",r:"Hear the song only tied; wax for every other ear.",s:"Begging to be untied counts as untying."},
+  13:{t:"THE LANDING DISGUISE",r:"Home must be entered as a stranger; lie beautifully.",s:"Recognizing the land aloud before the goddess allows."},
+  14:{t:"THE LOYALTY TEST",r:"The beggar praises the absent master; the host must not know.",s:"Claiming the master's seat too early."},
+  15:{t:"THE RETURN ROAD",r:"Travel at the god's hour; gifts bind the giver.",s:"Refusing an omen read in birds."}};
+function showCircle(b){
+  const R=RULES[b];if(!R)return;
+  showCaption("BOOK "+ROMAN[b]+" · "+R.t, R.r+"<br><span style='color:#8a8a86'>SPOIL-SPORT: "+R.s+"</span>"+
+    "<br><span style='color:#8a8a86'>E PERF · C CHAT · F DUEL · 1–5 ACT</span>");
+  clearTimeout(showCircle._t); showCircle._t=setTimeout(hideCaption,7000);
+}
+
+/* ── chat: composed from the atlas genome (perfs + prompt + beats) ── */
+function chatPool(n,seg){
+  if(n._pool)return n._pool;
+  const lines=[];
+  (n.a.perfs||[]).forEach(p=>lines.push(p.perf));
+  const nm=(n.a.name||"").split(" ").pop().toLowerCase();
+  (seg.scene.beats||[]).forEach(b=>{ if(b.toLowerCase().includes(nm))lines.push(b); });
+  String(n.a.prompt||"").split(/(?<=\.)\s+/).forEach(x=>{
+    const t=x.trim();
+    if(t.length>40&&t.length<170&&!/^Generate|^Visual|^Return|halfworld|renderer|`/i.test(t))lines.push(t);
+  });
+  n._pool=lines.length?lines:["…"]; n._ci=0;
+  return n._pool;
+}
+function nearestNpc(range=260){
+  const seg=segAt(player.wx);if(!seg)return null;
+  let best=null,bd=range;
+  for(const n of seg.npcs){const d=Math.abs(n.wx-player.wx);if(d<bd){bd=d;best=n;}}
+  return best&&{n:best,seg};
+}
+function chat(){
+  const hit=nearestNpc();if(!hit){hideCaption();return;}
+  const {n,seg}=hit;
+  const pool=chatPool(n,seg);
+  const line=pool[n._ci%pool.length]; n._ci++;
+  talkNPC=n; n.talking=perfNow()+6; foleyTalk(7);
+  showCaption(n.a.name+" · "+((n._ci)%pool.length+1)+"/"+pool.length, line+
+    "<br><span style='color:#8a8a86'>C AGAIN · F DUEL</span>");
+}
+
+/* ── duel: tension inside the circle — first to 0 hearts yields ── */
+let DUEL=null;
+const H=(k)=>"♥".repeat(k)+"·".repeat(3-k);
+function duel(){
+  const hit=nearestNpc(300);
+  if(!hit){DUEL=null;hideCaption();return;}
+  const {n,seg}=hit;
+  if(!DUEL||DUEL.n!==n){ DUEL={n,php:3,nhp:3}; n.talking=0;
+    showCaption("DUEL · ODYSSEUS "+H(3)+" vs "+H(3)+" "+n.a.name,
+      "The circle is drawn. F STRIKES. Walk away to break the spell.");
+    return; }
+  // a strike round
+  const pn=normNodes(player.mod);
+  const strike=pn.find(x=>/strike|draw|aim|attack|swing|fight|raise|defi|bow|spear/i.test(x.key))||pn[Math.floor(Math.random()*pn.length)];
+  if(strike){player.gesture=strike.prev();player.gestureUntil=perfNow()+1.1;}
+  const nn=normNodes(n.mod);
+  const hitLanded=Math.random()<.62, counter=Math.random()<.45;
+  if(hitLanded){DUEL.nhp=Math.max(0,DUEL.nhp-1);foleyStrike();}
+  if(counter){DUEL.php=Math.max(0,DUEL.php-1);setTimeout(foleyHurt,150);}
+  const react=nn.find(x=>/recoil|fear|fall|plea|defend|flinch|grief|wound/i.test(x.key))||nn[Math.floor(Math.random()*nn.length)];
+  if(react){n.forced=react; n.forcedUntil=perfNow()+1.2;}
+  if(DUEL.nhp<=0){
+    const perf=(n.a.perfs||[])[0];
+    foleyWin();
+    showCaption(n.a.name+" YIELDS", (perf?perf.perf:"The circle closes; order returns.")+
+      "<br><span style='color:#8a8a86'>the game is over — the world resumes</span>");
+    DUEL=null; return;
+  }
+  if(DUEL.php<=0){
+    foleyLose();
+    showCaption("ODYSSEUS FALLS", "The road picks him back up — the play-world endures."+
+      "<br><span style='color:#8a8a86'>F to draw the circle again</span>");
+    DUEL=null; return;
+  }
+  showCaption("DUEL · ODYSSEUS "+H(DUEL.php)+" vs "+H(DUEL.nhp)+" "+n.a.name,
+    hitLanded?(counter?"Blows trade — both reel.":"A clean strike!"):(counter?"Countered!":"Both miss — the tension holds."));
+}
+
+window.__game={ get player(){return player}, get SEGS(){return SEGS},
+  chat:()=>chat(), duel:()=>duel(), talk:()=>talk() };
+/* ── input ── */
+const keys={};
+addEventListener("keydown",e=>{
+  if(e.target&&/INPUT|SELECT/.test(e.target.tagName))return;
+  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
+  keys[K]=true;
+  if(K==="e"||K==="E")talk();
+  if(K==="c"||K==="C")chat();
+  if(K==="f"||K==="F")duel();
+  if(/^[1-5]$/.test(K)){
+    const pn=normNodes(player.mod);
+    const node=pn[Math.min(+K-1,pn.length-1)];
+    if(node){player.gesture=node.prev();player.gestureUntil=perfNow()+2.2;}
+  }
+});
+document.querySelectorAll("#touch button").forEach(b=>{
+  const k=b.dataset.k;
+  const dn=e=>{e.preventDefault();
+    if(k==="e")talk(); else if(k==="c")chat(); else if(k==="f")duel();
+    else keys[k]=true;};
+  const up=e=>{e.preventDefault(); if(k.startsWith("Arrow"))keys[k]=false;};
+  b.addEventListener("pointerdown",dn);
+  b.addEventListener("pointerup",up);
+  b.addEventListener("pointercancel",up);
+  b.addEventListener("pointerleave",up);
+});
+addEventListener("keyup",e=>{
+  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
+  keys[K]=false;
+});
+let pendingNpc=null, npcLpT=null, lastTapNpc=null;
+function npcAt(wx){
+  const seg=segAt(wx); if(!seg)return null;
+  let best=null,bd=140;
+  for(const n of seg.npcs){const d=Math.abs(n.wx-wx);if(d<bd){bd=d;best=n;}}
+  return best;
+}
+cv.addEventListener("pointerdown",e=>{
+  const r=cv.getBoundingClientRect();
+  const fx=(e.clientX-r.left)/r.width;
+  const wx=camX+fx*VW;
+  const npc=npcAt(wx);
+  clearTimeout(npcLpT); npcLpT=null;
+  if(npc){
+    const near=Math.abs(npc.wx-player.wx)<260;
+    if(near){
+      npcLpT=setTimeout(()=>{npcLpT=null;duel();},480);   // hold = draw the circle
+    } else {
+      player.walkTo=npc.wx-100; pendingNpc=npc; lastTapNpc=null;
+      showCaption(npc.a.name,"walking over…");
+    }
+    return;
+  }
+  pendingNpc=null;
+  player.walkTo=wx;
+});
+cv.addEventListener("pointerup",e=>{
+  if(!npcLpT)return;                                     // long-press already fired (duel)
+  clearTimeout(npcLpT); npcLpT=null;
+  const r=cv.getBoundingClientRect();
+  const wx=camX+((e.clientX-r.left)/r.width)*VW;
+  const npc=npcAt(wx); if(!npc)return;
+  if(Math.abs(npc.wx-player.wx)<260){
+    if(lastTapNpc===npc)chat(); else {talk(); lastTapNpc=npc;}
+  }
+});
+const perfNow=()=>performance.now()/1000;
+
+/* ── talk: the nearest NPC answers with their real atlas performance ── */
+function talk(){
+  const seg=segAt(player.wx);if(!seg)return;
+  let best=null,bd=260;
+  for(const n of seg.npcs){const d=Math.abs(n.wx-player.wx);if(d<bd){bd=d;best=n;}}
+  if(!best){hideCaption();talkNPC=null;return;}
+  talkNPC=best; best.talking=perfNow()+6; foleyTalk(5);
+  const perf=(best.a.perfs||[]).find(p=>p.scene===seg.scene.id);
+  showCaption(best.a.name, perf?perf.perf:(seg.scene.beats&&seg.scene.beats[0])||"…");
+}
+
+/* ── NPC state: idle rotation, face the player when near, speak when talking ── */
+function npcState(n,now,seg){
+  const nodes=normNodes(n.mod);
+  let node=null;
+  const near=Math.abs(n.wx-player.wx)<300;
+  if(n.forced&&now<n.forcedUntil){ node=n.forced; }
+  else if(now<n.talking){
+    node=nodes.find(x=>/speak|address|tell|plea|greet|hail/i.test(x.key))||nodes[1]||nodes[0];
+  }else if(nodes.length>1){
+    node=nodes[(Math.floor(seedOf(n.a.id)*97)+Math.floor(now/4.2))%nodes.length];
+  }else node=nodes[0];
+  const st={...(n.mod.preview?n.mod.preview():{}),...(node?node.prev():{}),t:now};
+  if(near){
+    st.gaze={x:clamp((player.wx-n.wx)/300,-1,1)*.6,y:.05};
+  }
+  delete st.status;delete st.progress;
+  return st;
+}
+
+/* ── loop ── */
+let last=0;
+function loop(ms){
+  requestAnimationFrame(loop);
+  const now=ms/1000, dt=Math.min(.06,now-last||.016); last=now;
+  if(!SEGS.length||!player)return;
+
+  /* move */
+  const SPEED=430;
+  let dir=0;
+  if(keys.ArrowRight||keys.d||keys.D)dir=1;
+  if(keys.ArrowLeft||keys.a||keys.A)dir=-1;
+  if(dir!==0)player.walkTo=null;
+  if(pendingNpc&&Math.abs(player.wx-pendingNpc.wx)<250){
+    player.walkTo=null; const n=pendingNpc; pendingNpc=null; lastTapNpc=n; talk();
+  }
+  if(player.walkTo!=null){
+    stepT+=dt; if(stepT>.27){stepT=0;foleyStep();}
+    const dx=player.walkTo-player.wx;
+    if(Math.abs(dx)<12)player.walkTo=null;
+    else dir=Math.sign(dx);
+  }
+  const maxX=SEGS.length*SEGW-160;
+  if(dir!==0){
+    player.wx=clamp(player.wx+dir*SPEED*dt,120,maxX);
+    stepT+=dt; if(stepT>.27){stepT=0;foleyStep();}
+    if(player.wx>=maxX-4&&dir>0&&!buildBook._busy){
+      const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+      const bi=books.indexOf(book);
+      buildBook._busy=true;
+      const next=books[(bi+1)%books.length];
+      showCaption("ROAD'S END","BOOK "+ROMAN[next]+" begins…");
+      foleyBook();
+      setTimeout(async()=>{ book=next; $("bookSel").value=book;
+        await buildBook(book); buildBook._busy=false; },900);
+    }
+    player.faceLeft=dir<0;
+    if(talkNPC){hideCaption();talkNPC=null;}
+  }
+  player.moving=dir!==0;
+  camX=clamp(player.wx-VW*.45,0,Math.max(0,SEGS.length*SEGW-VW));
+  showTitle();
+
+  /* ── compose the frame ── */
+  const seg=segAt(player.wx), segIdx=SEGS.indexOf(seg);
+  og.fillStyle="#ffffff";og.fillRect(0,0,VW,VH);
+  if(seg.loc){
+    // gentle parallax: the set slides slower than the road
+    const u=(player.wx-segIdx*SEGW)/SEGW;
+    const shift=(u-.5)*140;
+    og.imageSmoothingEnabled=true;
+    og.drawImage(seg.loc,0,0,1120,760,-90-shift,0,VW+180,VH);
+    og.fillStyle="rgba(255,255,255,.22)";og.fillRect(0,0,VW,VH);
+  }else{
+    og.strokeStyle="#c9c7c0";og.lineWidth=2;
+    og.beginPath();og.moveTo(0,VH*.52);og.lineTo(VW,VH*.52);og.stroke();
+  }
+  const groundY=VH*.93;
+
+  /* NPCs of this segment and neighbors */
+  const draws=[];
+  for(let si=Math.max(0,segIdx-1);si<=Math.min(SEGS.length-1,segIdx+1);si++){
+    for(const n of SEGS[si].npcs){
+      const sx=n.wx-camX;
+      if(sx<-300||sx>VW+300)continue;
+      draws.push({kind:"npc",n,sx});
+    }
+  }
+  draws.push({kind:"player",sx:player.wx-camX});
+  for(const d of draws){
+    if(d.kind==="npc"){
+      const n=d.n, h=VH*.50, w=h*660/880;
+      og.fillStyle="rgba(20,20,20,.13)";
+      og.beginPath();og.ellipse(d.sx,groundY,w*.32,w*.07,0,0,7);og.fill();
+      const st=npcState(n,now,seg);
+      try{
+        const keyed=keyedModuleCanvas(n.mod,w,h,st,"game");
+        og.drawImage(keyed,d.sx-w/2,groundY-h);
+      }catch(e){}
+      // name over the near one
+      if(Math.abs(n.wx-player.wx)<300){
+        og.fillStyle="#141414";
+        og.font="700 15px "+getComputedStyle(document.body).fontFamily;
+        og.textAlign="center";
+        og.fillText(n.a.name,d.sx,groundY-h-14);
+      }
+    }else{
+      /* the player — the real rig, walking */
+      const h=VH*.56, w=h*660/880;
+      og.fillStyle="rgba(20,20,20,.16)";
+      og.beginPath();og.ellipse(d.sx,groundY,w*.30,w*.07,0,0,7);og.fill();
+      let st;
+      if(player.gesture&&now<player.gestureUntil){
+        st={...player.gesture,t:now};
+      }else if(player.moving){
+        st={pose:"walk_neutral",band:"profile",t:now};
+      }else{
+        st={...(player.mod.preview?player.mod.preview():{}),t:now};
+      }
+      delete st.status;delete st.progress;
+      og.save();
+      og.translate(d.sx,groundY);
+      if(player.faceLeft&&player.moving)og.scale(-1,1);
+      og.translate(-w/2,-h);
+      try{player.mod.draw(og,w,h,{...st,card:false});}catch(e){}
+      og.restore();
+    }
+  }
+  dotify();
+  $("prog").textContent="BOOK "+ROMAN[book]+" · SCENE "+(segIdx+1)+"/"+SEGS.length
+    +(segIdx===SEGS.length-1&&player.wx>maxX-200?" · END OF BOOK →":"");
+}
+
+/* ── boot ── */
+(async()=>{
+  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  for(const a of MAN.assets)assetById.set(a.id,a);
+  const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+  $("bookSel").innerHTML=books.map(b=>`<option value="${b}"${b===book?" selected":""}>BOOK ${ROMAN[b]} — ${(MAN.scenes.find(s=>s.book===b)||{}).bookTitle||""}</option>`).join("");
+  $("bookSel").onchange=e=>{book=+e.target.value;buildBook(book);};
+  $("musBtn").onclick=()=>{ musicOn=!musicOn;
+    if(musicOn){ MAUD.play().catch(()=>{}); playBookMusic(book); }
+    else { MAUD.pause(); $("musBtn").textContent="♪ OFF"; } };
+  const want=+((location.hash||"").replace("#",""))||1;
+  book=books.includes(want)?want:books[0];
+  $("bookSel").value=book;
+  fit();
+  await buildBook(book);
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

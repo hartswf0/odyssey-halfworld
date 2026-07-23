@@ -1,0 +1,247 @@
+{
+  "book": 13,
+  "jobs": [
+    {
+      "id": "ensemble.phaeacian-convoy-crew",
+      "type": "ENSEMBLE",
+      "name": "Phaeacian convoy crew",
+      "prompt": "Phaeacian convoy crew (ENSEMBLE). silent expert sailors loading gifts, rowing, navigating, lifting the sleeping passenger, and departing. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B13-S01: silent expert sailors loading gifts, rowing, navigating, lifting the sleeping passenger, and departing"
+      ]
+    },
+    {
+      "id": "prop.gift-chest-and-treasures",
+      "type": "PROP",
+      "name": "Gift chest and treasures",
+      "prompt": "Gift chest and treasures (PROP). sealed collection of bronze, gold, and clothing with inventory persistence and concealment state. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B13-S01: sealed collection of bronze, gold, and clothing with inventory persistence and concealment state"
+      ]
+    },
+    {
+      "id": "location.phorcys-harbor",
+      "type": "LOCATION",
+      "name": "Phorcys harbor",
+      "prompt": "Phorcys harbor (LOCATION). sheltered Ithacan inlet with twin headlands, olive tree, nymph cave, sand landing, and inland path. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B13-S01: sheltered Ithacan inlet with twin headlands, olive tree, nymph cave, sand landing, and inland path"
+      ]
+    },
+    {
+      "id": "character.athena-as-shepherd",
+      "type": "CHARACTER",
+      "name": "Athena as shepherd",
+      "prompt": "Athena as shepherd (CHARACTER). young local figure amused by the hero's reflexive deception. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B13-S02: young local figure amused by the hero's reflexive deception"
+      ]
+    },
+    {
+      "id": "divine-fx.ithacan-concealment-mist",
+      "type": "DIVINE_FX",
+      "name": "Ithacan concealment mist",
+      "prompt": "Ithacan concealment mist (DIVINE_FX). landmark-obscuring field that makes a known landscape read as foreign until released. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B13-S02: landmark-obscuring field that makes a known landscape read as foreign until released"
+      ]
+    },
+    {
+      "id": "prop.gift-inventory",
+      "type": "PROP",
+      "name": "Gift inventory",
+      "prompt": "Gift inventory (PROP). countable treasure group with unload, spread, count, reclose, and hide states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B13-S02: countable treasure group with unload, spread, count, reclose, and hide states"
+      ]
+    },
+    {
+      "id": "divine-fx.shepherd-to-goddess-transformation",
+      "type": "DIVINE_FX",
+      "name": "Shepherd-to-goddess transformation",
+      "prompt": "Shepherd-to-goddess transformation (DIVINE_FX). costume, scale, posture, and light transition without changing canonical identity. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B13-S03: costume, scale, posture, and light transition without changing canonical identity"
+      ]
+    },
+    {
+      "id": "environment.ithaca-revealed",
+      "type": "ENVIRONMENT",
+      "name": "Ithaca revealed",
+      "prompt": "Ithaca revealed (ENVIRONMENT). mist withdrawal exposing harbor, Neriton, nymph cave, olive, and familiar terrain in ordered layers. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B13-S03: mist withdrawal exposing harbor, Neriton, nymph cave, olive, and familiar terrain in ordered layers"
+      ]
+    },
+    {
+      "id": "location.nymph-cave",
+      "type": "LOCATION",
+      "name": "Nymph cave",
+      "prompt": "Nymph cave (LOCATION). sacred dual-entrance cavern with storage recesses, weaving stonework, water jars, treasure cache, and sealable door. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B13-S04: sacred dual-entrance cavern with storage recesses, weaving stonework, water jars, treasure cache, and sealable door"
+      ]
+    },
+    {
+      "id": "prop.cave-sealing-stone",
+      "type": "PROP",
+      "name": "Cave sealing stone",
+      "prompt": "Cave sealing stone (PROP). divinely movable door stone with open, loaded, sealed, hidden, and reopened states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B13-S04: divinely movable door stone with open, loaded, sealed, hidden, and reopened states"
+      ]
+    },
+    {
+      "id": "set-piece.suitor-count-plan",
+      "type": "SET_PIECE",
+      "name": "Suitor-count plan",
+      "prompt": "Suitor-count plan (SET_PIECE). operational projection of palace population, loyalists, weapons, and approach routes. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B13-S04: operational projection of palace population, loyalists, weapons, and approach routes"
+      ]
+    },
+    {
+      "id": "character.odysseus-as-old-beggar",
+      "type": "CHARACTER",
+      "name": "Odysseus as old beggar",
+      "prompt": "Odysseus as old beggar (CHARACTER). canonical Odysseus variant with aged surface, altered carriage, weak silhouette, and full hidden combat capacity. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B13-S05: canonical Odysseus variant with aged surface, altered carriage, weak silhouette, and full hidden combat capacity"
+      ]
+    },
+    {
+      "id": "wearable.beggar-rags",
+      "type": "WEARABLE",
+      "name": "Beggar rags",
+      "prompt": "Beggar rags (WEARABLE). separate filthy tunic, hide cloak, patched bag strap, and continuity-reversible costume layers. separate reusable costume or body-worn layer with equip, remove, attachment, deformation, ownership, and continuity states.",
+      "perfs": [
+        "OD-B13-S05: separate filthy tunic, hide cloak, patched bag strap, and continuity-reversible costume layers"
+      ]
+    },
+    {
+      "id": "prop.beggar-staff-and-bag",
+      "type": "PROP",
+      "name": "Beggar staff and bag",
+      "prompt": "Beggar staff and bag (PROP). walking support and carried pouch with grip, lean, set down, conceal, and later discard states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B13-S05: walking support and carried pouch with grip, lean, set down, conceal, and later discard states"
+      ]
+    },
+    {
+      "id": "divine-fx.disguise-transformation",
+      "type": "DIVINE_FX",
+      "name": "Disguise transformation",
+      "prompt": "Disguise transformation (DIVINE_FX). reversible body-surface and proportion modifier preserving skeleton, identity, wounds, and animation tracks. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B13-S05: reversible body-surface and proportion modifier preserving skeleton, identity, wounds, and animation tracks"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B13-S01",
+      "n": 80,
+      "title": "The Phaeacians Carry Odysseus Home",
+      "beats": [
+        "Odysseus finishes his tale and the Phaeacians sit in silence.",
+        "Alcinous orders additional gifts packed in a chest and the farewell feast begins.",
+        "At sunset Odysseus boards the convoy ship and lies on a prepared bed in the stern.",
+        "The ship runs faster than a hawk while he sleeps and reaches Ithaca before dawn.",
+        "The crew carries the sleeping man and his treasure onto the shore."
+      ],
+      "composePrompt": "Build `OD-B13-S01` — **The Phaeacians Carry Odysseus Home** — as one editable Halfworld stage. Required instances: Odysseus, Phaeacian convoy crew, Phaeacian convoy ship, Gift chest and treasures, Phorcys harbor. Stage this action in causal order: Odysseus finishes his tale and the Phaeacians sit in silence. Alcinous orders additional gifts packed in a chest and the farewell feast begins. At sunset Odysseus boards the convoy ship and lies on a prepared bed in the stern. The ship runs faster than a hawk while he sleeps and reaches Ithaca before dawn. The crew carries the sleeping man and his treasure onto the shore. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The crew carries the sleeping man and his treasure onto the shore.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "ensemble.phaeacian-convoy-crew",
+        "vehicle.phaeacian-convoy-ship",
+        "prop.gift-chest-and-treasures",
+        "location.phorcys-harbor"
+      ]
+    },
+    {
+      "id": "OD-B13-S02",
+      "n": 81,
+      "title": "Odysseus Wakes on an Unknown Shore",
+      "beats": [
+        "Odysseus wakes after the ship has gone and fails to recognize Ithaca because Athena covers it in mist.",
+        "He counts the Phaeacian gifts and fears he has been cheated or abandoned elsewhere.",
+        "He walks the unfamiliar shore grieving and searching for signs.",
+        "Athena approaches disguised as a young shepherd."
+      ],
+      "composePrompt": "Build `OD-B13-S02` — **Odysseus Wakes on an Unknown Shore** — as one editable Halfworld stage. Required instances: Odysseus, Athena as shepherd, Ithacan concealment mist, Gift inventory. Stage this action in causal order: Odysseus wakes after the ship has gone and fails to recognize Ithaca because Athena covers it in mist. He counts the Phaeacian gifts and fears he has been cheated or abandoned elsewhere. He walks the unfamiliar shore grieving and searching for signs. Athena approaches disguised as a young shepherd. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena approaches disguised as a young shepherd.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.athena-as-shepherd",
+        "divine-fx.ithacan-concealment-mist",
+        "prop.gift-inventory"
+      ]
+    },
+    {
+      "id": "OD-B13-S03",
+      "n": 82,
+      "title": "The Cretan Lie Meets Its Match",
+      "beats": [
+        "The shepherd tells Odysseus he is in Ithaca and the hero suppresses his joy.",
+        "He invents a Cretan identity and a story of killing a king's son and fleeing by Phoenician ship.",
+        "Athena laughs, changes to her divine form, and praises his incurable cunning.",
+        "Odysseus tests her loyalty and complains that she abandoned him after Troy.",
+        "She explains that Poseidon's anger required concealment rather than open rescue."
+      ],
+      "composePrompt": "Build `OD-B13-S03` — **The Cretan Lie Meets Its Match** — as one editable Halfworld stage. Required instances: Odysseus, Athena, Shepherd-to-goddess transformation, Ithaca revealed. Stage this action in causal order: The shepherd tells Odysseus he is in Ithaca and the hero suppresses his joy. He invents a Cretan identity and a story of killing a king's son and fleeing by Phoenician ship. Athena laughs, changes to her divine form, and praises his incurable cunning. Odysseus tests her loyalty and complains that she abandoned him after Troy. She explains that Poseidon's anger required concealment rather than open rescue. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—She explains that Poseidon's anger required concealment rather than open rescue.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.athena",
+        "divine-fx.shepherd-to-goddess-transformation",
+        "environment.ithaca-revealed"
+      ]
+    },
+    {
+      "id": "OD-B13-S04",
+      "n": 83,
+      "title": "The Treasure Is Hidden",
+      "beats": [
+        "Athena helps Odysseus carry the gifts into the cave of the nymphs.",
+        "She seals the cave entrance with a stone and sits with him beneath the olive tree.",
+        "They count the suitors and devise a concealment strategy.",
+        "Athena tells him to go first to Eumaeus while she retrieves Telemachus from Sparta."
+      ],
+      "composePrompt": "Build `OD-B13-S04` — **The Treasure Is Hidden** — as one editable Halfworld stage. Required instances: Nymph cave, Odysseus, Athena, Cave sealing stone, Suitor-count plan. Stage this action in causal order: Athena helps Odysseus carry the gifts into the cave of the nymphs. She seals the cave entrance with a stone and sits with him beneath the olive tree. They count the suitors and devise a concealment strategy. Athena tells him to go first to Eumaeus while she retrieves Telemachus from Sparta. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena tells him to go first to Eumaeus while she retrieves Telemachus from Sparta.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.nymph-cave",
+        "character.odysseus",
+        "character.athena",
+        "prop.cave-sealing-stone",
+        "set-piece.suitor-count-plan"
+      ]
+    },
+    {
+      "id": "OD-B13-S05",
+      "n": 84,
+      "title": "Athena Makes the Beggar",
+      "beats": [
+        "Athena touches Odysseus with her wand and shrivels his skin, hair, and limbs.",
+        "She clouds his eyes, dresses him in filthy rags, and gives him a staff and patched bag.",
+        "The transformed king is instructed to test servants without being recognized.",
+        "Athena departs for Sparta and Odysseus walks toward Eumaeus's farm."
+      ],
+      "composePrompt": "Build `OD-B13-S05` — **Athena Makes the Beggar** — as one editable Halfworld stage. Required instances: Odysseus as old beggar, Athena, Beggar rags, Beggar staff and bag, Disguise transformation. Stage this action in causal order: Athena touches Odysseus with her wand and shrivels his skin, hair, and limbs. She clouds his eyes, dresses him in filthy rags, and gives him a staff and patched bag. The transformed king is instructed to test servants without being recognized. Athena departs for Sparta and Odysseus walks toward Eumaeus's farm. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena departs for Sparta and Odysseus walks toward Eumaeus's farm.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-old-beggar",
+        "character.athena",
+        "wearable.beggar-rags",
+        "prop.beggar-staff-and-bag",
+        "divine-fx.disguise-transformation"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus",
+    "vehicle.phaeacian-convoy-ship",
+    "character.athena"
+  ]
+}

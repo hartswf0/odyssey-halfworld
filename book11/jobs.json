@@ -1,0 +1,420 @@
+{
+  "book": 11,
+  "jobs": [
+    {
+      "id": "location.cimmerian-shore-and-underworld-pit",
+      "type": "LOCATION",
+      "name": "Cimmerian shore and underworld pit",
+      "prompt": "Cimmerian shore and underworld pit (LOCATION). sunless coast with beached ship, dark grove, river meeting, ritual trench, sacrifice zone, and ghost perimeter. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B11-S01: sunless coast with beached ship, dark grove, river meeting, ritual trench, sacrifice zone, and ghost perimeter"
+      ]
+    },
+    {
+      "id": "ensemble.crew-ritual-assistants",
+      "type": "ENSEMBLE",
+      "name": "Crew ritual assistants",
+      "prompt": "Crew ritual assistants (ENSEMBLE). digging, handling sheep, pouring offerings, burning, praying, and withdrawing from the ghost ring. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B11-S01: digging, handling sheep, pouring offerings, burning, praying, and withdrawing from the ghost ring"
+      ]
+    },
+    {
+      "id": "ensemble.gathering-shades",
+      "type": "ENSEMBLE",
+      "name": "Gathering shades",
+      "prompt": "Gathering shades (ENSEMBLE). transparent dead of varied ages and wounds drawn toward blood but held outside the sword boundary. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B11-S01: transparent dead of varied ages and wounds drawn toward blood but held outside the sword boundary"
+      ]
+    },
+    {
+      "id": "creature.black-ewe-and-ram",
+      "type": "CREATURE",
+      "name": "Black ewe and ram",
+      "prompt": "Black ewe and ram (CREATURE). sacrificial pair with handling, cut, blood-flow, fallen, and offering states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B11-S01: sacrificial pair with handling, cut, blood-flow, fallen, and offering states"
+      ]
+    },
+    {
+      "id": "character.elpenors-shade",
+      "type": "CHARACTER",
+      "name": "Elpenor's shade",
+      "prompt": "Elpenor's shade (CHARACTER). newly dead, confused but specific, pleading for memory and material completion. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S02: newly dead, confused but specific, pleading for memory and material completion"
+      ]
+    },
+    {
+      "id": "prop.elpenors-oar",
+      "type": "PROP",
+      "name": "Elpenor's oar",
+      "prompt": "Elpenor's oar (PROP). crew oar with ship-use, carried, grave-marker, planted, and continuity-complete states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B11-S02: crew oar with ship-use, carried, grave-marker, planted, and continuity-complete states"
+      ]
+    },
+    {
+      "id": "set-piece.blood-pit-boundary",
+      "type": "SET_PIECE",
+      "name": "Blood-pit boundary",
+      "prompt": "Blood-pit boundary (SET_PIECE). ritual trench maintaining drink permission and separation between speaker and waiting dead. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B11-S02: ritual trench maintaining drink permission and separation between speaker and waiting dead"
+      ]
+    },
+    {
+      "id": "character.tiresiass-shade",
+      "type": "CHARACTER",
+      "name": "Tiresias's shade",
+      "prompt": "Tiresias's shade (CHARACTER). blind prophet gaining temporary clarity from blood and delivering a structured conditional future. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S03: blind prophet gaining temporary clarity from blood and delivering a structured conditional future"
+      ]
+    },
+    {
+      "id": "divine-fx.prophecy-path",
+      "type": "DIVINE_FX",
+      "name": "Prophecy path",
+      "prompt": "Prophecy path (DIVINE_FX). branching future visualization keyed to cattle spared versus cattle killed, then continuing inland with the oar. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B11-S03: branching future visualization keyed to cattle spared versus cattle killed, then continuing inland with the oar"
+      ]
+    },
+    {
+      "id": "prop.golden-staff-of-tiresias",
+      "type": "PROP",
+      "name": "Golden staff of Tiresias",
+      "prompt": "Golden staff of Tiresias (PROP). underworld authority object with carry, ground-contact, point, and prophecy-emphasis states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B11-S03: underworld authority object with carry, ground-contact, point, and prophecy-emphasis states"
+      ]
+    },
+    {
+      "id": "character.anticleias-shade",
+      "type": "CHARACTER",
+      "name": "Anticleia's shade",
+      "prompt": "Anticleia's shade (CHARACTER). loving mother speaking domestic truth and explaining her death without bodily contact. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S04: loving mother speaking domestic truth and explaining her death without bodily contact"
+      ]
+    },
+    {
+      "id": "divine-fx.intangible-embrace-effect",
+      "type": "DIVINE_FX",
+      "name": "Intangible embrace effect",
+      "prompt": "Intangible embrace effect (DIVINE_FX). three contact attempts where shade disperses through arms and reforms, preserving emotional timing. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B11-S04: three contact attempts where shade disperses through arms and reforms, preserving emotional timing"
+      ]
+    },
+    {
+      "id": "divine-fx.ithaca-family-memory",
+      "type": "DIVINE_FX",
+      "name": "Ithaca family memory",
+      "prompt": "Ithaca family memory (DIVINE_FX). Penelope at loom, Telemachus at feast, and Laertes on the farm appearing as distant domestic fragments. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B11-S04: Penelope at loom, Telemachus at feast, and Laertes on the farm appearing as distant domestic fragments"
+      ]
+    },
+    {
+      "id": "ensemble.heroines-shades",
+      "type": "ENSEMBLE",
+      "name": "Heroines' shades",
+      "prompt": "Heroines' shades (ENSEMBLE). individual female ancestors entering one at a time from a waiting chorus and returning after testimony. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B11-S05: individual female ancestors entering one at a time from a waiting chorus and returning after testimony"
+      ]
+    },
+    {
+      "id": "divine-fx.genealogy-field",
+      "type": "DIVINE_FX",
+      "name": "Genealogy field",
+      "prompt": "Genealogy field (DIVINE_FX). names, kinship lines, divine encounters, births, and deaths connecting each speaker without modern text-heavy display. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B11-S05: names, kinship lines, divine encounters, births, and deaths connecting each speaker without modern text-heavy display"
+      ]
+    },
+    {
+      "id": "sound-source.underworld-chorus",
+      "type": "SOUND_SOURCE",
+      "name": "Underworld chorus",
+      "prompt": "Underworld chorus (SOUND_SOURCE). layered whispers and kinship names receding whenever one shade takes focus. addressable diegetic sound emitter with position, intensity, rhythm, start/stop states, and relation to visible action.",
+      "perfs": [
+        "OD-B11-S05: layered whispers and kinship names receding whenever one shade takes focus"
+      ]
+    },
+    {
+      "id": "character.agamemnons-shade",
+      "type": "CHARACTER",
+      "name": "Agamemnon's shade",
+      "prompt": "Agamemnon's shade (CHARACTER). murdered king reliving humiliation, rage, and paternal uncertainty. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S06: murdered king reliving humiliation, rage, and paternal uncertainty"
+      ]
+    },
+    {
+      "id": "divine-fx.murder-feast-memory",
+      "type": "DIVINE_FX",
+      "name": "Murder feast memory",
+      "prompt": "Murder feast memory (DIVINE_FX). banquet becoming ambush, bodies falling, Cassandra reaching, and doors closing. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B11-S06: banquet becoming ambush, bodies falling, Cassandra reaching, and doors closing"
+      ]
+    },
+    {
+      "id": "character.clytemnestra-and-aegisthus-memory-variants",
+      "type": "CHARACTER",
+      "name": "Clytemnestra and Aegisthus memory variants",
+      "prompt": "Clytemnestra and Aegisthus memory variants (CHARACTER). conspirators acting within Agamemnon's account rather than independent present speakers. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S06: conspirators acting within Agamemnon's account rather than independent present speakers"
+      ]
+    },
+    {
+      "id": "character.achilless-shade",
+      "type": "CHARACTER",
+      "name": "Achilles's shade",
+      "prompt": "Achilles's shade (CHARACTER). great warrior speaking with stripped-down regret, then revived by news of his son. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S07: great warrior speaking with stripped-down regret, then revived by news of his son"
+      ]
+    },
+    {
+      "id": "character.ajaxs-shade",
+      "type": "CHARACTER",
+      "name": "Ajax's shade",
+      "prompt": "Ajax's shade (CHARACTER). massive silent figure refusing eye contact or speech over the armor judgment. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S07: massive silent figure refusing eye contact or speech over the armor judgment"
+      ]
+    },
+    {
+      "id": "character.patroclus-and-antilochus",
+      "type": "CHARACTER",
+      "name": "Patroclus and Antilochus",
+      "prompt": "Patroclus and Antilochus (CHARACTER). quiet companion shades framing Achilles's arrival. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S07: quiet companion shades framing Achilles's arrival"
+      ]
+    },
+    {
+      "id": "divine-fx.neoptolemus-at-troy-memory",
+      "type": "DIVINE_FX",
+      "name": "Neoptolemus-at-Troy memory",
+      "prompt": "Neoptolemus-at-Troy memory (DIVINE_FX). young warrior in council, horse, combat, and unharmed departure states. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B11-S07: young warrior in council, horse, combat, and unharmed departure states"
+      ]
+    },
+    {
+      "id": "character.minos",
+      "type": "CHARACTER",
+      "name": "Minos",
+      "prompt": "Minos (CHARACTER). seated underworld judge receiving disputes with golden scepter. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S08: seated underworld judge receiving disputes with golden scepter"
+      ]
+    },
+    {
+      "id": "ensemble.tityus-tantalus-and-sisyphus",
+      "type": "ENSEMBLE",
+      "name": "Tityus, Tantalus, and Sisyphus",
+      "prompt": "Tityus, Tantalus, and Sisyphus (ENSEMBLE). three distinct punishment rigs driven by looping procedural constraints. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B11-S08: three distinct punishment rigs driven by looping procedural constraints"
+      ]
+    },
+    {
+      "id": "character.heracless-phantom",
+      "type": "CHARACTER",
+      "name": "Heracles's phantom",
+      "prompt": "Heracles's phantom (CHARACTER). armed dark double speaking from the dead while divine Heracles remains absent. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B11-S08: armed dark double speaking from the dead while divine Heracles remains absent"
+      ]
+    },
+    {
+      "id": "location.punishment-landscape",
+      "type": "LOCATION",
+      "name": "Punishment landscape",
+      "prompt": "Punishment landscape (LOCATION). separable zones for judgment, hunting, vulture attack, receding water/fruit, and rolling stone. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B11-S08: separable zones for judgment, hunting, vulture attack, receding water/fruit, and rolling stone"
+      ]
+    },
+    {
+      "id": "environment.closing-ghost-surge",
+      "type": "ENVIRONMENT",
+      "name": "Closing ghost surge",
+      "prompt": "Closing ghost surge (ENVIRONMENT). rising density, sound, and approach pressure that triggers the living crew's flight. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B11-S08: rising density, sound, and approach pressure that triggers the living crew's flight"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B11-S01",
+      "n": 65,
+      "title": "The Blood Pit Opens",
+      "beats": [
+        "The ship reaches the misty land of the Cimmerians at Ocean's edge.",
+        "Odysseus digs a trench, pours libations, sacrifices sheep, and holds the spirits back with his sword.",
+        "The dead gather in multitudes, crying around the blood.",
+        "Odysseus waits for Tiresias before allowing any other shade to drink."
+      ],
+      "composePrompt": "Build `OD-B11-S01` — **The Blood Pit Opens** — as one editable Halfworld stage. Required instances: Cimmerian shore and underworld pit, Odysseus, Crew ritual assistants, Gathering shades, Black ewe and ram. Stage this action in causal order: The ship reaches the misty land of the Cimmerians at Ocean's edge. Odysseus digs a trench, pours libations, sacrifices sheep, and holds the spirits back with his sword. The dead gather in multitudes, crying around the blood. Odysseus waits for Tiresias before allowing any other shade to drink. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus waits for Tiresias before allowing any other shade to drink.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.cimmerian-shore-and-underworld-pit",
+        "character.odysseus",
+        "ensemble.crew-ritual-assistants",
+        "ensemble.gathering-shades",
+        "creature.black-ewe-and-ram"
+      ]
+    },
+    {
+      "id": "OD-B11-S02",
+      "n": 66,
+      "title": "Elpenor Asks for Burial",
+      "beats": [
+        "Elpenor's unburied ghost approaches first and Odysseus weeps in recognition.",
+        "The shade explains his roof fall and begs for funeral rites on Aeaea.",
+        "He asks that his oar be planted over the mound as a sign of his life.",
+        "Odysseus promises to perform the burial after returning from the dead."
+      ],
+      "composePrompt": "Build `OD-B11-S02` — **Elpenor Asks for Burial** — as one editable Halfworld stage. Required instances: Elpenor's shade, Odysseus, Elpenor's oar, Blood-pit boundary. Stage this action in causal order: Elpenor's unburied ghost approaches first and Odysseus weeps in recognition. The shade explains his roof fall and begs for funeral rites on Aeaea. He asks that his oar be planted over the mound as a sign of his life. Odysseus promises to perform the burial after returning from the dead. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus promises to perform the burial after returning from the dead.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.elpenors-shade",
+        "character.odysseus",
+        "prop.elpenors-oar",
+        "set-piece.blood-pit-boundary"
+      ]
+    },
+    {
+      "id": "OD-B11-S03",
+      "n": 67,
+      "title": "Tiresias Names the Cost",
+      "beats": [
+        "Tiresias drinks the blood and recognizes Odysseus.",
+        "He warns that Poseidon pursues him for blinding Polyphemus.",
+        "He orders the crew to spare the Sun's cattle or face shipwreck and total loss.",
+        "He foretells Odysseus's lone return, the suitors' punishment, and a final inland journey carrying an oar.",
+        "After a distant sacrifice to Poseidon, death will come gently in old age."
+      ],
+      "composePrompt": "Build `OD-B11-S03` — **Tiresias Names the Cost** — as one editable Halfworld stage. Required instances: Tiresias's shade, Odysseus, Prophecy path, Golden staff of Tiresias. Stage this action in causal order: Tiresias drinks the blood and recognizes Odysseus. He warns that Poseidon pursues him for blinding Polyphemus. He orders the crew to spare the Sun's cattle or face shipwreck and total loss. He foretells Odysseus's lone return, the suitors' punishment, and a final inland journey carrying an oar. After a distant sacrifice to Poseidon, death will come gently in old age. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—After a distant sacrifice to Poseidon, death will come gently in old age.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.tiresiass-shade",
+        "character.odysseus",
+        "divine-fx.prophecy-path",
+        "prop.golden-staff-of-tiresias"
+      ]
+    },
+    {
+      "id": "OD-B11-S04",
+      "n": 68,
+      "title": "Anticleia and the Three Embraces",
+      "beats": [
+        "Odysseus permits his mother Anticleia to drink and she recognizes him.",
+        "She describes Penelope's fidelity, Telemachus's position, and Laertes's isolated grief.",
+        "She reveals that longing for Odysseus, not disease, caused her death.",
+        "Odysseus tries three times to embrace her, but his arms pass through the shade."
+      ],
+      "composePrompt": "Build `OD-B11-S04` — **Anticleia and the Three Embraces** — as one editable Halfworld stage. Required instances: Anticleia's shade, Odysseus, Intangible embrace effect, Ithaca family memory. Stage this action in causal order: Odysseus permits his mother Anticleia to drink and she recognizes him. She describes Penelope's fidelity, Telemachus's position, and Laertes's isolated grief. She reveals that longing for Odysseus, not disease, caused her death. Odysseus tries three times to embrace her, but his arms pass through the shade. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus tries three times to embrace her, but his arms pass through the shade.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.anticleias-shade",
+        "character.odysseus",
+        "divine-fx.intangible-embrace-effect",
+        "divine-fx.ithaca-family-memory"
+      ]
+    },
+    {
+      "id": "OD-B11-S05",
+      "n": 69,
+      "title": "The Heroines of the Past",
+      "beats": [
+        "Odysseus lets a succession of famous women drink and identify their lineages.",
+        "Tyro tells of Poseidon and her river-born sons.",
+        "Antiope, Alcmene, Megara, Epicaste, Chloris, Leda, Iphimedeia, Phaedra, Ariadne, Maera, Clymene, and Eriphyle appear.",
+        "The sequence becomes a living genealogy of desire, birth, crime, and death."
+      ],
+      "composePrompt": "Build `OD-B11-S05` — **The Heroines of the Past** — as one editable Halfworld stage. Required instances: Heroines' shades, Odysseus, Genealogy field, Underworld chorus. Stage this action in causal order: Odysseus lets a succession of famous women drink and identify their lineages. Tyro tells of Poseidon and her river-born sons. Antiope, Alcmene, Megara, Epicaste, Chloris, Leda, Iphimedeia, Phaedra, Ariadne, Maera, Clymene, and Eriphyle appear. The sequence becomes a living genealogy of desire, birth, crime, and death. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The sequence becomes a living genealogy of desire, birth, crime, and death.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "ensemble.heroines-shades",
+        "character.odysseus",
+        "divine-fx.genealogy-field",
+        "sound-source.underworld-chorus"
+      ]
+    },
+    {
+      "id": "OD-B11-S06",
+      "n": 70,
+      "title": "Agamemnon's Warning",
+      "beats": [
+        "Agamemnon drinks and tells how Aegisthus and Clytemnestra murdered him at a feast.",
+        "He describes Cassandra's death and his wife's refusal even to close his eyes.",
+        "He warns Odysseus to return secretly and distrust women.",
+        "He asks about Orestes, but Odysseus has no news."
+      ],
+      "composePrompt": "Build `OD-B11-S06` — **Agamemnon's Warning** — as one editable Halfworld stage. Required instances: Agamemnon's shade, Odysseus, Murder feast memory, Clytemnestra and Aegisthus memory variants. Stage this action in causal order: Agamemnon drinks and tells how Aegisthus and Clytemnestra murdered him at a feast. He describes Cassandra's death and his wife's refusal even to close his eyes. He warns Odysseus to return secretly and distrust women. He asks about Orestes, but Odysseus has no news. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He asks about Orestes, but Odysseus has no news.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.agamemnons-shade",
+        "character.odysseus",
+        "divine-fx.murder-feast-memory",
+        "character.clytemnestra-and-aegisthus-memory-variants"
+      ]
+    },
+    {
+      "id": "OD-B11-S07",
+      "n": 71,
+      "title": "Achilles Chooses Life in Retrospect",
+      "beats": [
+        "Achilles approaches with Patroclus, Antilochus, and Ajax nearby.",
+        "Odysseus praises his honor among the dead, but Achilles rejects death's glory.",
+        "He asks about Peleus and Neoptolemus.",
+        "Odysseus recounts Neoptolemus's courage at Troy; Achilles strides away rejoicing.",
+        "Ajax alone refuses reconciliation and withdraws in silence."
+      ],
+      "composePrompt": "Build `OD-B11-S07` — **Achilles Chooses Life in Retrospect** — as one editable Halfworld stage. Required instances: Achilles's shade, Odysseus, Ajax's shade, Patroclus and Antilochus, Neoptolemus-at-Troy memory. Stage this action in causal order: Achilles approaches with Patroclus, Antilochus, and Ajax nearby. Odysseus praises his honor among the dead, but Achilles rejects death's glory. He asks about Peleus and Neoptolemus. Odysseus recounts Neoptolemus's courage at Troy; Achilles strides away rejoicing. Ajax alone refuses reconciliation and withdraws in silence. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Ajax alone refuses reconciliation and withdraws in silence.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.achilless-shade",
+        "character.odysseus",
+        "character.ajaxs-shade",
+        "character.patroclus-and-antilochus",
+        "divine-fx.neoptolemus-at-troy-memory"
+      ]
+    },
+    {
+      "id": "OD-B11-S08",
+      "n": 72,
+      "title": "Judges, Punishments, and Flight",
+      "beats": [
+        "Odysseus sees Minos judging the dead and Orion hunting shades of animals.",
+        "He sees Tityus attacked by vultures, Tantalus unable to drink or eat, and Sisyphus pushing his stone.",
+        "Heracles's phantom speaks while the hero himself feasts among gods.",
+        "The dead crowd closer and Odysseus fears Persephone may send a monster.",
+        "He retreats to the ship and sails back across Ocean."
+      ],
+      "composePrompt": "Build `OD-B11-S08` — **Judges, Punishments, and Flight** — as one editable Halfworld stage. Required instances: Minos, Tityus, Tantalus, and Sisyphus, Heracles's phantom, Punishment landscape, Closing ghost surge. Stage this action in causal order: Odysseus sees Minos judging the dead and Orion hunting shades of animals. He sees Tityus attacked by vultures, Tantalus unable to drink or eat, and Sisyphus pushing his stone. Heracles's phantom speaks while the hero himself feasts among gods. The dead crowd closer and Odysseus fears Persephone may send a monster. He retreats to the ship and sails back across Ocean. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He retreats to the ship and sails back across Ocean.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.minos",
+        "ensemble.tityus-tantalus-and-sisyphus",
+        "character.heracless-phantom",
+        "location.punishment-landscape",
+        "environment.closing-ghost-surge"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus"
+  ]
+}

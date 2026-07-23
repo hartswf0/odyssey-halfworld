@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ODYSSEY TABLE — periodic atlas</title>
+<style>
+  :root{
+    --paper:#f2f1ec; --card:#f7f6f2; --ink:#141414; --dim:#8a8a86;
+    --faint:#d8d6cf; --red:#e01b1b; --blue:#0033cc;
+    --c-location:#0033cc; --c-set_piece:#4455aa; --c-environment:#2f7f5a;
+    --c-vehicle:#6a5acd; --c-character:#141414; --c-creature:#8a5a00;
+    --c-ensemble:#555; --c-prop:#888; --c-wearable:#a06090;
+    --c-divine_fx:#e01b1b; --c-sound_source:#b09000; --c-scene:#0033cc;
+    --mono:ui-monospace,'SF Mono','IBM Plex Mono',Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);font-family:var(--mono);color:var(--ink)}
+
+  #top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--ink);
+    padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  #brand{font-size:11px;font-weight:700;letter-spacing:.42em;text-transform:uppercase;margin-right:8px}
+  #brand em{font-style:normal;color:var(--dim);font-weight:400}
+  .chip{border:1px solid var(--faint);background:var(--card);cursor:pointer;font-size:9px;
+    letter-spacing:.2em;text-transform:uppercase;padding:6px 10px;color:var(--dim);user-select:none;white-space:nowrap}
+  .chip:hover{border-color:var(--ink);color:var(--ink)}
+  .chip.on{border-color:var(--ink);color:var(--ink);box-shadow:inset 0 -2px 0 var(--red)}
+  .chip.print{border-color:var(--red);color:var(--red);margin-left:auto}
+  .chip.print:hover{background:var(--red);color:var(--paper)}
+  #q{border:1px solid var(--faint);background:var(--card);padding:6px 10px;font-size:10px;
+    font-family:var(--mono);outline:none;letter-spacing:.06em;width:150px}
+  #q:focus{border-color:var(--ink)}
+  #count{font-size:9px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+  .row{display:flex;flex-wrap:wrap;gap:5px;align-items:center;width:100%}
+  .rowLabel{font-size:8px;letter-spacing:.26em;color:var(--red);text-transform:uppercase;font-weight:700;margin-right:4px}
+
+  /* ── PERIODIC TABLE ── */
+  #table{padding:16px}
+  .section{margin-bottom:26px}
+  .secHead{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);
+    padding-bottom:5px;margin-bottom:10px}
+  .secHead .rn{font-size:20px;font-weight:900;letter-spacing:.1em}
+  .secHead .st{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .secHead .sc{margin-left:auto;font-size:9px;color:var(--dim);letter-spacing:.16em}
+  .cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px}
+  .cell{position:relative;border:1.5px solid var(--faint);background:var(--card);cursor:pointer;
+    padding:6px 7px 5px;min-height:88px;display:flex;flex-direction:column;transition:transform .08s}
+  .cell:hover{border-color:var(--ink);transform:translateY(-2px);z-index:2}
+  .cell .num{font-size:8px;color:var(--dim);letter-spacing:.08em;display:flex;justify-content:space-between}
+  .cell .num b{color:var(--blue);font-weight:700}
+  .cell .sym{font-size:26px;font-weight:900;letter-spacing:.02em;line-height:1.1;margin:2px 0 1px}
+  .cell .nm{font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+    line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .cell .tbar{position:absolute;left:0;top:0;bottom:0;width:3px}
+  .cell.scene{grid-column:span 2;background:#eef1fb;border-color:#c9d2ee}
+  .cell.scene:hover{border-color:var(--blue)}
+  .cell.scene .sym{font-size:13px;letter-spacing:.14em;color:var(--blue)}
+  .cell.scene .nm{-webkit-line-clamp:3;font-size:8px}
+
+  /* hover preview */
+  #peek{position:fixed;z-index:40;width:190px;background:var(--card);border:2px solid var(--ink);
+    box-shadow:5px 5px 0 rgba(20,20,20,.18);pointer-events:none;display:none}
+  #peek canvas{display:block;width:100%;background:#fdfdfa}
+  #peek .pl{font-size:8px;letter-spacing:.14em;padding:4px 7px;text-transform:uppercase;border-top:1px solid var(--faint)}
+
+  /* ── CARDS view (print) ── */
+  #grid{display:none;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding:18px}
+  body[data-view="cards"] #grid{display:grid}
+  body[data-view="cards"] #table{display:none}
+  .cardBox{background:var(--card);border:1px solid var(--faint);cursor:pointer}
+  .cardBox canvas{display:block;width:100%;aspect-ratio:3/4;background:#fdfdfa}
+  .cardBox.scene canvas{aspect-ratio:1120/760}
+  .meta{display:flex;gap:8px;align-items:baseline;padding:7px 10px;border-top:1px solid var(--faint)}
+  .meta .nm{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .meta .tp{font-size:8px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-left:auto;white-space:nowrap}
+  .meta .bk{font-size:8px;color:var(--blue);letter-spacing:.1em;white-space:nowrap}
+
+  /* ── DETAIL SHEET ── */
+  #sheet{position:fixed;inset:0;z-index:50;background:rgba(20,20,18,.55);display:none;
+    align-items:center;justify-content:center;padding:20px}
+  #sheet.open{display:flex}
+  #sheetCard{background:var(--paper);border:3px solid var(--ink);width:min(1080px,96vw);
+    max-height:92vh;display:flex;overflow:hidden}
+  #sheetLeft{flex:0 0 44%;border-right:2px solid var(--ink);background:#fdfdfa;position:relative;
+    display:flex;align-items:center;justify-content:center;min-height:300px}
+  #sheetLeft canvas{width:100%;height:auto;max-height:92vh;object-fit:contain;display:block}
+  #sheetRight{flex:1;min-width:0;overflow-y:auto;padding:18px 20px}
+  #sheetRight h2{font-size:15px;letter-spacing:.2em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline}
+  #sheetRight h2 .x{margin-left:auto;cursor:pointer;color:var(--dim);font-size:16px}
+  #sheetRight h2 .x:hover{color:var(--red)}
+  #sheetRight .sub{font-size:9px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin:6px 0 12px}
+  #sheetRight h3{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin:16px 0 7px}
+  #sheetRight .promptBox{font-size:10.5px;line-height:1.7;background:var(--card);
+    border:1px solid var(--faint);border-left:3px solid var(--blue);padding:10px 12px;
+    white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto}
+  #sheetRight .beat{font-size:10.5px;line-height:1.6;padding:5px 0 5px 24px;position:relative;border-bottom:1px solid var(--faint)}
+  #sheetRight .beat::before{content:attr(data-n);position:absolute;left:0;top:5px;font-weight:900;color:var(--blue);font-size:10px}
+  .needGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px}
+  .need{border:1px solid var(--faint);background:var(--card);padding:6px 8px;cursor:pointer;position:relative}
+  .need:hover{border-color:var(--ink)}
+  .need .nsym{font-size:15px;font-weight:900}
+  .need .nnm{font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;line-height:1.3}
+  .need .ntp{font-size:7px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase}
+  .need.missing{border-color:var(--red)}
+  .need.missing::after{content:"NOT BUILT";position:absolute;right:5px;top:5px;font-size:6.5px;color:var(--red);letter-spacing:.1em}
+  .linkRow{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+  .lbtn{border:2px solid var(--ink);background:var(--card);cursor:pointer;font-size:9px;
+    letter-spacing:.18em;text-transform:uppercase;padding:9px 13px;font-family:var(--mono);text-decoration:none;color:var(--ink)}
+  .lbtn:hover{background:var(--ink);color:var(--paper)}
+  .lbtn.red{border-color:var(--red);color:var(--red)}
+  .lbtn.red:hover{background:var(--red);color:var(--paper)}
+  .sceneTag{display:inline-block;border:1px solid var(--faint);padding:3px 7px;margin:2px;
+    font-size:8.5px;letter-spacing:.12em;cursor:pointer;color:var(--dim)}
+  .sceneTag:hover{border-color:var(--blue);color:var(--blue)}
+
+  #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:60;background:var(--ink);
+    color:var(--paper);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:9px 16px;
+    opacity:0;transition:opacity .25s;pointer-events:none}
+  #toast.show{opacity:1}
+
+  @media print{
+    @page{margin:8mm}
+    body{background:#fff}
+    #top,#toast,#peek,#sheet{display:none!important}
+    body[data-view="table"] #table{display:block}
+    .cells{grid-template-columns:repeat(8,1fr)}
+    .section{break-inside:avoid-page}
+    #grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6mm;padding:0}
+    body[data-view="cards"] #grid{display:grid}
+    .cardBox{border:none;background:#fff;break-inside:avoid;page-break-inside:avoid}
+    .meta{border-top:none}
+  }
+</style>
+</head>
+<body data-view="table">
+
+<div id="top">
+  <div id="brand">ODYSSEY TABLE <em>&middot; periodic atlas &middot; worlds that don't exist yet</em></div>
+  <div class="chip on" id="vTable">TABLE</div>
+  <div class="chip" id="vCards">CARDS</div>
+  <input id="q" placeholder="search…">
+  <span id="count"></span>
+  <div class="chip print" id="printBtn">⎙ PRINT</div>
+  <div class="row"><span class="rowLabel">BOOK</span><span id="bookChips" class="row" style="width:auto"></span></div>
+  <div class="row">
+    <span class="rowLabel">SORT</span><span id="sortChips" class="row" style="width:auto"></span>
+    <span class="rowLabel" style="margin-left:12px">TYPE</span><span id="typeChips" class="row" style="width:auto"></span>
+  </div>
+</div>
+
+<div id="table"></div>
+<div id="grid"></div>
+
+<div id="peek"><canvas width="190" height="253"></canvas><div class="pl"></div></div>
+
+<div id="sheet"><div id="sheetCard">
+  <div id="sheetLeft"><canvas id="sheetCv"></canvas></div>
+  <div id="sheetRight"></div>
+</div></div>
+
+<div id="toast"></div>
+
+<script type="module">
+import { renderAsset, renderScene } from "/engine/halfworld-engine.mjs";
+
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+const TYPES=["location","set_piece","environment","vehicle","character","creature","ensemble","prop","wearable","divine_fx","sound_source"];
+let MAN=null, byId=new Map(), sceneById=new Map();
+let VIEW="table", SORT="book", fBook=0, fTypes=new Set(), q="";
+const modCache=new Map(); let toastT=0;
+const $=id=>document.getElementById(id);
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2400);}
+async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+  if(modCache.has(p))return modCache.get(p);
+  const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
+function sym(name){
+  const w=String(name).trim().split(/[\s'-]+/).filter(Boolean);
+  if(w.length>=2)return w[0][0].toUpperCase()+w[1][0].toLowerCase();
+  return w[0].slice(0,2)[0].toUpperCase()+(w[0][1]||"").toLowerCase();
+}
+const typeColor=t=>getComputedStyle(document.documentElement).getPropertyValue("--c-"+t)||"#141414";
+
+/* ── filtering ── */
+function assetList(){
+  return MAN.assets.filter(a=>{
+    if(fTypes.size&&!fTypes.has(a.type))return false;
+    if(fBook&&!(a.books||[]).includes(fBook))return false;
+    if(q&&!(a.name+" "+a.id).toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+function sceneList(){
+  return MAN.scenes.filter(s=>{
+    if(fTypes.size)return false;
+    if(fBook&&s.book!==fBook)return false;
+    if(q&&!(s.title+" "+s.id).toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+
+/* ── PERIODIC TABLE ── */
+function cellHTML(a,idx){
+  return `<div class="cell" data-kind="asset" data-id="${a.id}">
+    <span class="tbar" style="background:${typeColor(a.type)}"></span>
+    <div class="num"><span>${a.uses||1}×</span><b>${(a.books||[]).map(b=>ROMAN[b]).join("·")}</b></div>
+    <div class="sym">${sym(a.name)}</div>
+    <div class="nm">${a.name}</div></div>`;
+}
+function sceneCellHTML(s){
+  return `<div class="cell scene" data-kind="scene" data-id="${s.id}">
+    <span class="tbar" style="background:var(--blue)"></span>
+    <div class="num"><span>${s.id}</span><b>${s.assets.length} ASSETS</b></div>
+    <div class="sym">SC ${s.id.slice(-2)}</div>
+    <div class="nm">${s.title}</div></div>`;
+}
+function buildTable(){
+  const host=$("table"); host.innerHTML="";
+  const assets=assetList(), scenes=sceneList();
+  $("count").textContent=(assets.length+scenes.length)+" ELEMENTS";
+  const section=(rn,st,items)=>{
+    if(!items.trim())return;
+    const el=document.createElement("div");el.className="section";
+    el.innerHTML=`<div class="secHead"><span class="rn">${rn}</span><span class="st">${st}</span></div>
+      <div class="cells">${items}</div>`;
+    host.appendChild(el);
+  };
+  if(SORT==="book"){
+    const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+    for(const b of books){
+      if(fBook&&b!==fBook)continue;
+      const sc=scenes.filter(s=>s.book===b);
+      const as=assets.filter(a=>(a.books||[]).includes(b));
+      if(!sc.length&&!as.length)continue;
+      const bt=(MAN.scenes.find(s=>s.book===b)||{}).bookTitle||"";
+      section("BOOK "+ROMAN[b], bt+" · "+sc.length+" scenes · "+as.length+" assets",
+        sc.map(sceneCellHTML).join("")+as.map(cellHTML).join(""));
+    }
+  }else if(SORT==="type"){
+    for(const t of TYPES){
+      const as=assets.filter(a=>a.type===t);
+      if(!as.length)continue;
+      section(t.replace(/_/g," ").toUpperCase(), as.length+" elements", as.map(cellHTML).join(""));
+    }
+    if(scenes.length)section("SCENES", scenes.length+" stages", scenes.map(sceneCellHTML).join(""));
+  }else{
+    const sorted=assets.slice().sort(SORT==="uses"
+      ? (a,b)=>(b.uses||0)-(a.uses||0)
+      : (a,b)=>a.name.localeCompare(b.name));
+    section(SORT==="uses"?"BY APPEARANCES":"A — Ω",
+      SORT==="uses"?"the continuity spine first":"every element alphabetically",
+      sorted.map(cellHTML).join("")+(SORT==="uses"?"":scenes.map(sceneCellHTML).join("")));
+  }
+  host.querySelectorAll(".cell").forEach(el=>{
+    el.onclick=()=>openSheet(el.dataset.kind,el.dataset.id);
+    el.onmouseenter=e=>peekShow(el,e);
+    el.onmousemove=e=>peekMove(e);
+    el.onmouseleave=peekHide;
+  });
+}
+
+/* ── hover peek (lazy live render) ── */
+const peek=$("peek"), peekCv=peek.querySelector("canvas"), peekLabel=peek.querySelector(".pl");
+const peekCache=new Map(); let peekToken=0;
+async function peekShow(el,e){
+  const kind=el.dataset.kind, id=el.dataset.id, tok=++peekToken;
+  peek.style.display="block"; peekMove(e);
+  const item=kind==="scene"?sceneById.get(id):byId.get(id);
+  peekLabel.textContent=kind==="scene"?item.title:item.name;
+  const g=peekCv.getContext("2d");
+  if(peekCache.has(id)){g.drawImage(peekCache.get(id),0,0);return;}
+  g.fillStyle="#fdfdfa";g.fillRect(0,0,peekCv.width,peekCv.height);
+  try{
+    const mod=await imp(item.path);
+    if(tok!==peekToken)return;
+    const tmp=document.createElement("canvas");tmp.width=190;tmp.height=253;
+    if(kind==="scene")renderScene(tmp,mod,{pipeline:"MESH",t:(mod.duration||36)*.5,DPR:.8,card:false});
+    else renderAsset(tmp,mod,{pipeline:"MESH",big:false,DPR:.8,card:false});
+    peekCache.set(id,tmp);
+    if(tok===peekToken)g.drawImage(tmp,0,0);
+  }catch(_){}
+}
+function peekMove(e){
+  const x=Math.min(innerWidth-206,e.clientX+16), y=Math.min(innerHeight-300,e.clientY+14);
+  peek.style.left=x+"px";peek.style.top=y+"px";
+}
+function peekHide(){peek.style.display="none";peekToken++;}
+
+/* ── CARDS view ── */
+const rendered=new Set();
+const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){io.unobserve(e.target);renderBox(e.target);}},{rootMargin:"400px"});
+async function renderBox(box){
+  if(rendered.has(box.dataset.id))return; rendered.add(box.dataset.id);
+  const cnv=box.querySelector("canvas");
+  try{
+    const item=box.dataset.kind==="scene"?sceneById.get(box.dataset.id):byId.get(box.dataset.id);
+    const mod=await imp(item.path);
+    if(box.dataset.kind==="scene"){cnv.width=1120*1.4;cnv.height=760*1.4;
+      renderScene(cnv,mod,{pipeline:"MESH",t:(mod.duration||36)*.9,DPR:1.6,card:true});}
+    else{cnv.width=660*1.5;cnv.height=880*1.5;
+      renderAsset(cnv,mod,{pipeline:"MESH",big:true,DPR:1.6,card:true});}
+  }catch(_){}
+}
+function buildCards(){
+  const grid=$("grid");grid.innerHTML="";rendered.clear();
+  const list=[...sceneList().map(s=>({kind:"scene",...s})),...assetList().map(a=>({kind:"asset",...a}))];
+  $("count").textContent=list.length+" CARDS";
+  for(const it of list){
+    const box=document.createElement("div");
+    box.className="cardBox"+(it.kind==="scene"?" scene":"");
+    box.dataset.id=it.id;box.dataset.kind=it.kind;
+    const bk=it.kind==="scene"?"BOOK "+ROMAN[it.book]:(it.books||[]).map(b=>ROMAN[b]).join("·");
+    box.innerHTML=`<canvas></canvas><div class="meta">
+      <span class="nm">${it.kind==="scene"?it.title:it.name}</span>
+      <span class="bk">${bk}</span>
+      <span class="tp">${it.kind==="scene"?it.id:it.type.replace(/_/g," ")}</span></div>`;
+    box.onclick=()=>openSheet(it.kind,it.id);
+    grid.appendChild(box);io.observe(box);
+  }
+}
+
+/* ── DETAIL SHEET ── */
+async function openSheet(kind,id){
+  peekHide();
+  const sheet=$("sheet"), right=$("sheetRight"), cv=$("sheetCv");
+  sheet.classList.add("open");
+  const item=kind==="scene"?sceneById.get(id):byId.get(id);
+  if(!item)return;
+  if(kind==="scene"){
+    cv.width=1120*1.5;cv.height=760*1.5;
+    right.innerHTML=`
+      <h2>${item.title}<span class="x" id="shx">✕</span></h2>
+      <div class="sub">${item.id} · BOOK ${ROMAN[item.book]} — ${item.bookTitle} · ${item.assets.length} required assets</div>
+      <div class="linkRow">
+        <a class="lbtn red" href="/odyssey-previs.html#${item.id}">▶ PREVIS THE CUT</a>
+        <a class="lbtn" href="/odyssey-stage.html#${item.id}">OPEN IN STAGE</a>
+      </div>
+      <h3>BEATS</h3>
+      ${item.beats.map((b,i)=>`<div class="beat" data-n="${i+1}">${b}</div>`).join("")}
+      <h3>REQUIRED ASSETS — the shot manifest</h3>
+      <div class="needGrid">${item.assets.map(aid=>{
+        const a=byId.get(aid);
+        if(!a)return `<div class="need missing"><div class="nsym">${sym(aid.split(".")[1]||"?")}</div>
+          <div class="nnm">${aid.split(".")[1].replace(/-/g," ")}</div>
+          <div class="ntp">${aid.split(".")[0]}</div></div>`;
+        return `<div class="need" data-asset="${a.id}">
+          <div class="nsym" style="color:${typeColor(a.type)}">${sym(a.name)}</div>
+          <div class="nnm">${a.name}</div><div class="ntp">${a.type.replace(/_/g," ")} · ${a.uses}×</div></div>`;
+      }).join("")}</div>
+      <h3>FULL ATLAS PROMPT</h3>
+      <div class="promptBox">${(item.composePrompt||"—").replace(/</g,"&lt;")}</div>
+      <h3>EXIT STATE</h3>
+      <div class="promptBox" style="border-left-color:var(--red)">${(item.exitState||"—").replace(/</g,"&lt;")}</div>`;
+    try{const mod=await imp(item.path);
+      renderScene(cv,mod,{pipeline:"MESH",t:(mod.duration||36)*.6,DPR:1.6,card:true});}catch(_){}
+  }else{
+    cv.width=660*1.6;cv.height=880*1.6;
+    right.innerHTML=`
+      <h2>${item.name}<span class="x" id="shx">✕</span></h2>
+      <div class="sub">${item.id} · ${item.type.replace(/_/g," ")} · appears ${item.uses}× · books ${(item.books||[]).map(b=>ROMAN[b]).join(" · ")||"—"}</div>
+      <h3>APPEARS IN</h3>
+      <div>${(item.scenes||[]).map(sid=>`<span class="sceneTag" data-scene="${sid}">${sid}</span>`).join("")||"—"}</div>
+      ${item.perfs&&item.perfs.length?`<h3>PERFORMANCES</h3>${item.perfs.slice(0,6).map(p=>
+        `<div class="beat" data-n="${p.scene.slice(-2)}">${p.perf}</div>`).join("")}`:""}
+      <h3>FULL ATLAS PROMPT</h3>
+      <div class="promptBox">${(item.prompt||"—").replace(/</g,"&lt;")}</div>`;
+    try{const mod=await imp(item.path);
+      renderAsset(cv,mod,{pipeline:"MESH",big:true,DPR:1.6,card:true});}catch(_){}
+  }
+  right.querySelector("#shx").onclick=()=>sheet.classList.remove("open");
+  right.querySelectorAll("[data-asset]").forEach(el=>el.onclick=()=>openSheet("asset",el.dataset.asset));
+  right.querySelectorAll("[data-scene]").forEach(el=>el.onclick=()=>{
+    const sid=el.dataset.scene;
+    if(sceneById.has(sid))openSheet("scene",sid);
+    else toast(sid+" — NOT BUILT YET (BOOKS XVI–XXIV PENDING)");
+  });
+}
+$("sheet").addEventListener("click",e=>{if(e.target.id==="sheet")$("sheet").classList.remove("open");});
+addEventListener("keydown",e=>{if(e.key==="Escape")$("sheet").classList.remove("open");});
+
+/* ── chips ── */
+function build(){VIEW==="table"?buildTable():buildCards();}
+function buildChips(){
+  const bc=$("bookChips");bc.innerHTML="";
+  const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+  const all=document.createElement("span");all.className="chip"+(fBook===0?" on":"");all.textContent="ALL";
+  all.onclick=()=>{fBook=0;buildChips();build();};bc.appendChild(all);
+  for(const b of books){const el=document.createElement("span");
+    el.className="chip"+(fBook===b?" on":"");el.textContent=ROMAN[b];
+    el.onclick=()=>{fBook=(fBook===b?0:b);buildChips();build();};bc.appendChild(el);}
+  const sc=$("sortChips");sc.innerHTML="";
+  for(const[k,l]of[["book","BY BOOK"],["type","BY TYPE"],["uses","BY USES"],["name","A–Ω"]]){
+    const el=document.createElement("span");el.className="chip"+(SORT===k?" on":"");el.textContent=l;
+    el.onclick=()=>{SORT=k;buildChips();build();};sc.appendChild(el);}
+  const tc=$("typeChips");tc.innerHTML="";
+  for(const t of TYPES){const el=document.createElement("span");
+    el.className="chip"+(fTypes.has(t)?" on":"");el.textContent=t.replace(/_/g," ");
+    el.style.borderLeftColor=typeColor(t);el.style.borderLeftWidth="3px";
+    el.onclick=()=>{fTypes.has(t)?fTypes.delete(t):fTypes.add(t);buildChips();build();};tc.appendChild(el);}
+}
+$("vTable").onclick=()=>{VIEW="table";document.body.dataset.view="table";
+  $("vTable").classList.add("on");$("vCards").classList.remove("on");build();};
+$("vCards").onclick=()=>{VIEW="cards";document.body.dataset.view="cards";
+  $("vCards").classList.add("on");$("vTable").classList.remove("on");build();};
+$("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();build();});
+$("printBtn").onclick=async()=>{
+  if(VIEW==="cards"){
+    const boxes=[...document.querySelectorAll(".cardBox")];
+    toast("RENDERING "+boxes.length+" CARDS FOR PRINT…");
+    for(const b of boxes){io.unobserve(b);await renderBox(b);}
+  }
+  toast("PRINTING…");setTimeout(()=>window.print(),200);
+};
+
+(async()=>{
+  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  for(const a of MAN.assets)byId.set(a.id,a);
+  for(const s of MAN.scenes)sceneById.set(s.id,s);
+  buildChips();build();
+  toast(MAN.assets.length+" ELEMENTS · "+MAN.scenes.length+" SCENES — CLICK ANY CELL");
+})();
+</script>
+</body>
+</html>

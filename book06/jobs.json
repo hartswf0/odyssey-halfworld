@@ -1,0 +1,230 @@
+{
+  "book": 6,
+  "jobs": [
+    {
+      "id": "character.nausicaa",
+      "type": "CHARACTER",
+      "name": "Nausicaa",
+      "prompt": "Nausicaa (CHARACTER). young princess moving from dream susceptibility to practical initiative and concealed anticipation. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B06-S01: young princess moving from dream susceptibility to practical initiative and concealed anticipation",
+        "OD-B06-S02: energetic leader at work, then relaxed central player in the ball game",
+        "OD-B06-S03: initially startled but divinely steadied, listening alone while her companions scatter",
+        "OD-B06-S04: admiration held inside careful public instructions designed to protect her reputation"
+      ]
+    },
+    {
+      "id": "divine-fx.athena-as-dream-companion",
+      "type": "DIVINE_FX",
+      "name": "Athena as dream companion",
+      "prompt": "Athena as dream companion (DIVINE_FX). familiar-girl likeness entering sleep, speaking close, and vanishing at awakening. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B06-S01: familiar-girl likeness entering sleep, speaking close, and vanishing at awakening"
+      ]
+    },
+    {
+      "id": "location.phaeacian-royal-chamber",
+      "type": "LOCATION",
+      "name": "Phaeacian royal chamber",
+      "prompt": "Phaeacian royal chamber (LOCATION). protected bedroom with attendants, doorways, dream-entry field, and morning transition. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B06-S01: protected bedroom with attendants, doorways, dream-entry field, and morning transition"
+      ]
+    },
+    {
+      "id": "vehicle.laundry-wagon",
+      "type": "VEHICLE",
+      "name": "Laundry wagon",
+      "prompt": "Laundry wagon (VEHICLE). mule-drawn cart with clothing load, food basket, oil flask, passenger position, and river-road motion. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B06-S01: mule-drawn cart with clothing load, food basket, oil flask, passenger position, and river-road motion"
+      ]
+    },
+    {
+      "id": "prop.laundry-bundles",
+      "type": "PROP",
+      "name": "Laundry bundles",
+      "prompt": "Laundry bundles (PROP). sorted royal garments with dirty, washed, spread, dried, folded, and cart-loaded states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B06-S01: sorted royal garments with dirty, washed, spread, dried, folded, and cart-loaded states"
+      ]
+    },
+    {
+      "id": "location.river-washing-pools",
+      "type": "LOCATION",
+      "name": "River washing pools",
+      "prompt": "River washing pools (LOCATION). shallow basins, clothes-spreading beach, mule grazing zone, picnic area, ball court, and forest edge. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B06-S02: shallow basins, clothes-spreading beach, mule grazing zone, picnic area, ball court, and forest edge"
+      ]
+    },
+    {
+      "id": "ensemble.nausicaas-maids",
+      "type": "ENSEMBLE",
+      "name": "Nausicaa's maids",
+      "prompt": "Nausicaa's maids (ENSEMBLE). coordinated washers, bathers, eaters, and players with a sudden fear-scatter formation. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B06-S02: coordinated washers, bathers, eaters, and players with a sudden fear-scatter formation",
+        "OD-B06-S03: flight response from a clustered game formation, then gradual return under command"
+      ]
+    },
+    {
+      "id": "prop.laundry-ball",
+      "type": "PROP",
+      "name": "Laundry ball",
+      "prompt": "Laundry ball (PROP). hand-sized ball with throw, catch, miss, water-impact, retrieve, and attention-trigger states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B06-S02: hand-sized ball with throw, catch, miss, water-impact, retrieve, and attention-trigger states"
+      ]
+    },
+    {
+      "id": "character.sleeping-odysseus-under-leaves",
+      "type": "CHARACTER",
+      "name": "Sleeping Odysseus under leaves",
+      "prompt": "Sleeping Odysseus under leaves (CHARACTER). hidden, salt-crusted body shifting from deep sleep to alert listening. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B06-S02: hidden, salt-crusted body shifting from deep sleep to alert listening"
+      ]
+    },
+    {
+      "id": "prop.leafy-modesty-branch",
+      "type": "PROP",
+      "name": "Leafy modesty branch",
+      "prompt": "Leafy modesty branch (PROP). large branch with hand grip, body-cover alignment, lower, and discard states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B06-S03: large branch with hand grip, body-cover alignment, lower, and discard states"
+      ]
+    },
+    {
+      "id": "divine-fx.athenas-courage-field",
+      "type": "DIVINE_FX",
+      "name": "Athena's courage field",
+      "prompt": "Athena's courage field (DIVINE_FX). subtle stabilization of Nausicaa's stance and gaze without visible divine appearance. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B06-S03: subtle stabilization of Nausicaa's stance and gaze without visible divine appearance"
+      ]
+    },
+    {
+      "id": "character.odysseus-restored",
+      "type": "CHARACTER",
+      "name": "Odysseus restored",
+      "prompt": "Odysseus restored (CHARACTER). same canonical body moving from grime and concealment to bathed dignity and controlled beauty. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B06-S04: same canonical body moving from grime and concealment to bathed dignity and controlled beauty"
+      ]
+    },
+    {
+      "id": "prop.phaeacian-tunic-and-cloak",
+      "type": "PROP",
+      "name": "Phaeacian tunic and cloak",
+      "prompt": "Phaeacian tunic and cloak (PROP). borrowed clothing with folded, offered, worn, wet, and continuity-return states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B06-S04: borrowed clothing with folded, offered, worn, wet, and continuity-return states"
+      ]
+    },
+    {
+      "id": "divine-fx.athenas-beautification",
+      "type": "DIVINE_FX",
+      "name": "Athena's beautification",
+      "prompt": "Athena's beautification (DIVINE_FX). proportional and surface transformation that preserves identity and rig. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B06-S04: proportional and surface transformation that preserves identity and rig"
+      ]
+    },
+    {
+      "id": "location.road-from-river-to-scheria",
+      "type": "LOCATION",
+      "name": "Road from river to Scheria",
+      "prompt": "Road from river to Scheria (LOCATION). route with wagon lead, follower distance lane, Athena grove waiting point, walls, harbor, and palace direction. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B06-S04: route with wagon lead, follower distance lane, Athena grove waiting point, walls, harbor, and palace direction"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B06-S01",
+      "n": 33,
+      "title": "Athena Enters Nausicaa's Dream",
+      "beats": [
+        "Athena reaches the palace of Alcinous and enters Nausicaa's chamber in the likeness of a friend.",
+        "She reproaches the princess for leaving fine clothes unwashed before marriage.",
+        "Nausicaa wakes, asks her father for a wagon, and conceals the marriage motive.",
+        "Alcinous orders the mule cart prepared; her mother packs food, wine, and oil."
+      ],
+      "composePrompt": "Build `OD-B06-S01` — **Athena Enters Nausicaa's Dream** — as one editable Halfworld stage. Required instances: Nausicaa, Athena as dream companion, Phaeacian royal chamber, Laundry wagon, Laundry bundles. Stage this action in causal order: Athena reaches the palace of Alcinous and enters Nausicaa's chamber in the likeness of a friend. She reproaches the princess for leaving fine clothes unwashed before marriage. Nausicaa wakes, asks her father for a wagon, and conceals the marriage motive. Alcinous orders the mule cart prepared; her mother packs food, wine, and oil. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Alcinous orders the mule cart prepared; her mother packs food, wine, and oil.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.nausicaa",
+        "divine-fx.athena-as-dream-companion",
+        "location.phaeacian-royal-chamber",
+        "vehicle.laundry-wagon",
+        "prop.laundry-bundles"
+      ]
+    },
+    {
+      "id": "OD-B06-S02",
+      "n": 34,
+      "title": "Laundry and Ball at the River",
+      "beats": [
+        "Nausicaa and her maids drive to the washing pools, unharness the mules, and tread the clothes clean.",
+        "They spread garments on the shore, bathe, eat, and play ball while the clothes dry.",
+        "Athena deflects the ball into deep water; the girls cry out.",
+        "The shout wakes Odysseus beneath the leaves."
+      ],
+      "composePrompt": "Build `OD-B06-S02` — **Laundry and Ball at the River** — as one editable Halfworld stage. Required instances: River washing pools, Nausicaa, Nausicaa's maids, Laundry ball, Sleeping Odysseus under leaves. Stage this action in causal order: Nausicaa and her maids drive to the washing pools, unharness the mules, and tread the clothes clean. They spread garments on the shore, bathe, eat, and play ball while the clothes dry. Athena deflects the ball into deep water; the girls cry out. The shout wakes Odysseus beneath the leaves. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The shout wakes Odysseus beneath the leaves.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.river-washing-pools",
+        "character.nausicaa",
+        "ensemble.nausicaas-maids",
+        "prop.laundry-ball",
+        "character.sleeping-odysseus-under-leaves"
+      ]
+    },
+    {
+      "id": "OD-B06-S03",
+      "n": 35,
+      "title": "The Naked Stranger Emerges",
+      "beats": [
+        "Odysseus debates whether to clasp Nausicaa's knees or speak from a distance.",
+        "Covering himself with a leafy branch, he emerges like a mountain lion.",
+        "The maids flee, but Athena keeps Nausicaa steady.",
+        "Odysseus praises her tactfully, asks for clothing and directions, and avoids touching her.",
+        "Nausicaa answers with courage and assigns the maids to help him."
+      ],
+      "composePrompt": "Build `OD-B06-S03` — **The Naked Stranger Emerges** — as one editable Halfworld stage. Required instances: Odysseus, Nausicaa, Nausicaa's maids, Leafy modesty branch, Athena's courage field. Stage this action in causal order: Odysseus debates whether to clasp Nausicaa's knees or speak from a distance. Covering himself with a leafy branch, he emerges like a mountain lion. The maids flee, but Athena keeps Nausicaa steady. Odysseus praises her tactfully, asks for clothing and directions, and avoids touching her. Nausicaa answers with courage and assigns the maids to help him. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Nausicaa answers with courage and assigns the maids to help him.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.nausicaa",
+        "ensemble.nausicaas-maids",
+        "prop.leafy-modesty-branch",
+        "divine-fx.athenas-courage-field"
+      ]
+    },
+    {
+      "id": "OD-B06-S04",
+      "n": 36,
+      "title": "Bath, Clothing, and the Road to Town",
+      "beats": [
+        "The maids place food, oil, and clothing beside the river and withdraw while Odysseus washes.",
+        "Athena makes him appear taller, stronger, and more radiant; Nausicaa admires him.",
+        "He eats while the women fold and load the dry clothes.",
+        "Nausicaa explains how to follow at a distance, wait in Athena's grove, and supplicate Queen Arete first."
+      ],
+      "composePrompt": "Build `OD-B06-S04` — **Bath, Clothing, and the Road to Town** — as one editable Halfworld stage. Required instances: Odysseus restored, Nausicaa, Phaeacian tunic and cloak, Athena's beautification, Road from river to Scheria. Stage this action in causal order: The maids place food, oil, and clothing beside the river and withdraw while Odysseus washes. Athena makes him appear taller, stronger, and more radiant; Nausicaa admires him. He eats while the women fold and load the dry clothes. Nausicaa explains how to follow at a distance, wait in Athena's grove, and supplicate Queen Arete first. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Nausicaa explains how to follow at a distance, wait in Athena's grove, and supplicate Queen Arete first.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-restored",
+        "character.nausicaa",
+        "prop.phaeacian-tunic-and-cloak",
+        "divine-fx.athenas-beautification",
+        "location.road-from-river-to-scheria"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus"
+  ]
+}

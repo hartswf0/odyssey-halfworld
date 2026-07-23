@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Odyssey World Studio</title>
+<style>
+  :root{
+    --paper:#fbfaf7; --ink:#111; --dim:#777; --faint:#d7d4cc;
+    --red:#f02222; --blue:#225cff; --yellow:#e5b800;
+    --safe-b:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  button,input{font:inherit;color:inherit}
+  button{appearance:none;border:0;background:transparent;padding:0;cursor:pointer}
+  button:focus-visible,input:focus-visible{outline:1px dotted var(--red);outline-offset:4px}
+  #app{position:fixed;inset:0;display:grid;grid-template-rows:44px 1fr auto;background:var(--paper)}
+  #topbar{position:relative;z-index:10;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;padding:0 16px;border-bottom:1px solid rgba(0,0,0,.16);background:rgba(251,250,247,.92);backdrop-filter:blur(10px)}
+  #brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.12em;white-space:nowrap}
+  .dotmark{width:24px;height:24px;display:grid;grid-template-columns:repeat(4,3px);grid-auto-rows:3px;gap:3px;place-content:center}
+  .dotmark i{display:block;width:3px;height:3px;border-radius:50%;background:var(--ink)}
+  .dotmark i:nth-child(3),.dotmark i:nth-child(6),.dotmark i:nth-child(11){background:var(--red)}
+  #worldCrumbs{display:flex;justify-content:center;align-items:center;gap:10px;min-width:0}
+  #worldCrumbs button{width:6px;height:6px;border-radius:50%;background:var(--faint)}
+  #worldCrumbs button.on{background:var(--red)}
+  #modes{display:flex;align-items:center;gap:24px;white-space:nowrap}
+  #modes button{height:44px;letter-spacing:.1em;position:relative}
+  #modes button.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ink)}
+  #modes #runBtn.on{color:var(--red)}
+  #modes #runBtn.on::after{background:var(--red)}
+  #stageWrap{position:relative;min-height:0;overflow:hidden;touch-action:none}
+  #world{display:block;width:100%;height:100%;background:var(--paper);cursor:crosshair}
+  #depthRail{position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:8;display:flex;flex-direction:column;align-items:center;gap:13px}
+  #depthRail::before{content:"";position:absolute;top:4px;bottom:4px;width:1px;background:var(--faint);z-index:-1}
+  #depthRail button{width:10px;height:10px;border-radius:50%;border:1px solid var(--ink);background:var(--paper);position:relative}
+  #depthRail button.on{background:var(--red);border-color:var(--red)}
+  #depthRail button.hidden{opacity:.22}
+  #depthName{position:absolute;left:28px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:left top;letter-spacing:.14em;color:var(--dim);white-space:nowrap;pointer-events:none}
+  #selectionLine{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:7;max-width:72vw;text-align:center;letter-spacing:.08em;pointer-events:none;text-shadow:0 1px var(--paper),0 -1px var(--paper)}
+  #selectionLine b{color:var(--red)}
+  #hint{position:absolute;right:16px;bottom:68px;z-index:7;color:var(--dim);text-align:right;pointer-events:none;max-width:40ch}
+  #bookLine{position:absolute;left:30px;top:12px;z-index:7;color:var(--dim);font-size:9px;letter-spacing:.08em;pointer-events:none}
+  #bookLine b{color:var(--red);font-weight:600}
+  #generation{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:9;display:none;align-items:center;gap:18px;pointer-events:none}
+  #generation.on{display:flex}
+  #generation span{width:7px;height:7px;border-radius:50%;background:var(--faint)}
+  #generation span.on{background:var(--red)}
+  #generation em{font-style:normal;color:var(--dim);letter-spacing:.12em}
+  #historyDots{position:absolute;left:56px;right:56px;bottom:12px;height:16px;z-index:7;display:flex;justify-content:center;gap:9px;align-items:center}
+  #historyDots button{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+  #historyDots button.on{background:var(--red);transform:scale(1.6)}
+  #commandDock{position:relative;z-index:12;padding:8px 16px calc(10px + var(--safe-b));background:linear-gradient(to bottom,rgba(251,250,247,.35),var(--paper) 28%)}
+  #command{max-width:980px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;border-bottom:1px solid var(--ink);padding:7px 0}
+  #commandPrefix{color:var(--red);font-weight:900}
+  #commandInput{border:0;background:transparent;min-width:0;width:100%;padding:0;outline:0;caret-color:var(--red)}
+  #commandInput::placeholder{color:#aaa}
+  #commandSubmit{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:17px}
+  #commandSubmit:hover{background:var(--ink);color:var(--paper)}
+  #microHelp{max-width:980px;margin:6px auto 0;display:flex;justify-content:space-between;gap:12px;color:var(--dim);font-size:10px;letter-spacing:.06em}
+  #startChoice{position:absolute;inset:0;z-index:30;display:grid;place-items:center;background:rgba(251,250,247,.96)}
+  #startChoice.off{display:none}
+  #startInner{text-align:center}
+  #startInner h1{font-size:13px;letter-spacing:.18em;margin:0 0 8px}
+  #startInner p{color:var(--dim);letter-spacing:.1em;font-size:10px;margin:0 0 30px}
+  #startOptions{display:flex;gap:54px;justify-content:center}
+  .startOption{display:grid;justify-items:center;gap:12px;letter-spacing:.12em}
+  .seed{width:48px;height:48px;position:relative}
+  .seed::before,.seed::after{content:"";position:absolute;border-radius:50%;border:1px dotted var(--ink)}
+  .seed::before{inset:15px}
+  .seed::after{inset:4px}
+  .seed.many{background:radial-gradient(circle,var(--ink) 0 1.2px,transparent 1.3px);background-size:9px 9px;border-radius:50%}
+  .seed.spine{background:conic-gradient(from 0deg,transparent 0 40%,rgba(34,92,255,.55) 40% 60%,transparent 60%);border-radius:50%}
+  .startOption:hover .seed::before{background:var(--red);border-color:var(--red)}
+  #notice{position:absolute;left:50%;bottom:100px;transform:translateX(-50%);z-index:20;opacity:0;transition:opacity .2s;pointer-events:none;color:var(--paper);background:var(--ink);padding:5px 8px}
+  #notice.on{opacity:1}
+  @media(max-width:700px){
+    #topbar{padding:0 10px}
+    #brand span{display:none}
+    #modes{gap:14px}
+    #modes button{font-size:11px}
+    #hint{display:none}
+    #depthRail{left:8px;gap:9px}
+    #selectionLine{top:10px;font-size:10px}
+    #commandDock{padding-left:10px;padding-right:10px}
+    #microHelp span:nth-child(2){display:none}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div id="brand" title="Odyssey World Studio">
+      <span class="dotmark" aria-hidden="true"></span><span>ODYSSEY WORLD STUDIO</span>
+    </div>
+    <nav id="worldCrumbs" aria-label="World depth"></nav>
+    <nav id="modes" aria-label="Modes">
+      <button id="worldMode" class="on" type="button">WORLD</button>
+      <button id="libraryMode" type="button">LIBRARY</button>
+      <button id="runBtn" type="button">RUN</button>
+    </nav>
+  </header>
+
+  <main id="stageWrap">
+    <canvas id="world" aria-label="Odyssey world canvas"></canvas>
+    <div id="depthRail" aria-label="Asset layers"></div>
+    <div id="depthName"></div>
+    <div id="selectionLine"></div>
+    <div id="bookLine"></div>
+    <div id="hint">tap to focus · double tap a scene to enter its cast · drag to place · pinch or shift-wheel to scale · type a name to summon</div>
+    <div id="generation"><span></span><span></span><span></span><span></span><em>SUMMONING</em></div>
+    <div id="historyDots"></div>
+    <div id="notice"></div>
+
+    <section id="startChoice" aria-label="Choose starting world">
+      <div id="startInner">
+        <h1>THE ODYSSEY · 307 ASSETS · 93 SCENES</h1>
+        <p>EVERY DOT IS A HALFWORLD ASSET · EVERY SCENE IS A WORLD</p>
+        <div id="startOptions">
+          <button class="startOption" data-start="nothing" type="button"><span class="seed"></span><span>NOTHING</span></button>
+          <button class="startOption" data-start="tableau" type="button"><span class="seed many"></span><span>MARQUEE TABLEAU</span></button>
+          <button class="startOption" data-start="spine" type="button"><span class="seed spine"></span><span>SCENE SPINE</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="commandDock">
+    <form id="command" autocomplete="off">
+      <span id="commandPrefix">/</span>
+      <input id="commandInput" name="command" aria-label="Summon or operate" placeholder="polyphemus · circe · book 9 · scene od-b09-s06 · tableau" spellcheck="false">
+      <button id="commandSubmit" type="submit" aria-label="Run command">→</button>
+    </form>
+    <div id="microHelp">
+      <span>SPACE run · ESC outward · A animate · L next layer · DEL remove · ENTER enter scene</span>
+      <span>the whole atlas is in the library · pick a layer, then LIBRARY</span>
+    </div>
+  </footer>
+</div>
+
+<script type="module">
+"use strict";
+
+/* ================================================================
+   ODYSSEY WORLD STUDIO
+   The Atlantis recursive dot-field, stripped to one purpose:
+   viewing and staging the 307 Halfworld assets + 93 scenes of the
+   Odyssey atlas. Each asset module is rendered offscreen in solid
+   tones and sampled into a dot cloud; scenes are enterable worlds
+   that spawn their cast.
+   Serve from the project root (module imports need an origin):
+     node harness/serve.mjs   →   http://127.0.0.1:8877/odyssey-world-studio.html
+   ================================================================ */
+
+const TYPES = [
+  {dir:"location",     label:"LOCATIONS"},
+  {dir:"set_piece",    label:"SET PIECES"},
+  {dir:"environment",  label:"ENVIRONMENTS"},
+  {dir:"vehicle",      label:"VEHICLES"},
+  {dir:"character",    label:"CHARACTERS"},
+  {dir:"creature",     label:"CREATURES"},
+  {dir:"ensemble",     label:"ENSEMBLES"},
+  {dir:"prop",         label:"PROPS"},
+  {dir:"wearable",     label:"WEARABLES"},
+  {dir:"divine_fx",    label:"DIVINE FX"},
+  {dir:"sound_source", label:"SOUND"},
+  {dir:"scene",        label:"SCENES"},
+];
+const MAX_HISTORY = 40;
+const MAX_INSTANCES = 220;
+const MAX_DOTS = 2400;
+
+const $ = id => document.getElementById(id);
+const canvas = $("world");
+const ctx = canvas.getContext("2d", {alpha:false});
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const mod=(n,m)=>((n%m)+m)%m;
+let idCounter=0; const uid=p=>p+"_"+(++idCounter).toString(36);
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]);
+
+const state = {
+  mode:"world", running:false, time:0, lastTick:performance.now(),
+  activeDepth:4, visibleDepths:TYPES.map(()=>true),
+  selectedId:null, placingEntryId:null, bookFilter:0,
+  worldStack:["root"], currentWorldId:"root", worlds:new Map(),
+  registry:new Map(),          // entryId -> {id,name,type,path,books,points,color,...}
+  history:[], historyIndex:-1,
+  hitTargets:[], libraryTargets:[],
+  camera:{yaw:-0.55,pitch:0.52,zoom:1,panX:0,panY:30,dist:10},
+  gesture:{pointers:new Map(),mode:null,startX:0,startY:0,lastX:0,lastY:0,startDistance:0,startScale:1,selectedStart:null},
+  pointer:{x:0,y:0,inside:true},
+};
+
+function makeWorld(id,name){return {id,name,instances:[],created:Date.now()}}
+function currentWorld(){return state.worlds.get(state.currentWorldId)}
+function selectedInstance(){return currentWorld()?.instances.find(i=>i.id===state.selectedId)||null}
+function selectedEntry(){const i=selectedInstance();return i?state.registry.get(i.entryId):null}
+function typeIndex(dir){return TYPES.findIndex(t=>t.dir===dir)}
+function colorFor(entry){
+  if(entry.type==="scene")return "blue";
+  if(entry.type==="divine_fx")return "red";
+  if(entry.type==="sound_source")return "yellow";
+  return "ink";
+}
+
+/* ---------------- registry: load the atlas manifest ---------------- */
+async function loadRegistry(){
+  const man = await fetch("/viewer/odyssey-manifest.json",{cache:"no-store"}).then(r=>r.json());
+  for(const a of man.assets){
+    state.registry.set(a.id,{...a, points:null, _loading:null, color:null});
+  }
+  for(const s of man.scenes){
+    state.registry.set("scene."+s.id,{
+      id:"scene."+s.id, name:s.title, type:"scene", path:s.path,
+      books:[s.book], sceneId:s.id, cast:s.assets, points:null, _loading:null,
+    });
+  }
+  for(const e of state.registry.values()) e.color=colorFor(e);
+  toast(man.assetCount+" ASSETS · "+man.sceneCount+" SCENES LOADED");
+}
+
+/* ---- sample an asset/scene module into a normalized dot cloud ---- */
+async function samplePoints(entry){
+  if(entry.points) return entry.points;
+  if(entry._loading) return entry._loading;
+  entry._loading = (async()=>{
+    const off=document.createElement("canvas");
+    const isScene = entry.type==="scene";
+    off.width = isScene?176:120;
+    off.height= isScene?120:160;
+    const g=off.getContext("2d",{willReadFrequently:true});
+    g.fillStyle="#fff"; g.fillRect(0,0,off.width,off.height);
+    try{
+      const modl = await import(entry.path);
+      if(isScene){ const sc=modl.scene||modl.default; sc.stage(g,off.width,off.height,8); }
+      else { const a=modl.asset||modl.default; a.draw(g,off.width,off.height,a.preview?a.preview():{}); }
+    }catch(err){ console.warn("draw failed",entry.id,err); }
+    const d=g.getImageData(0,0,off.width,off.height).data;
+    const raw=[];
+    for(let y=0;y<off.height;y+=2){
+      for(let x=0;x<off.width;x+=2){
+        const q=(y*off.width+x)*4;
+        const lum=(d[q]*.299+d[q+1]*.587+d[q+2]*.114)/255;
+        if(lum<.86) raw.push([x,y,clamp(1-lum,.2,1)]);
+      }
+    }
+    // fallback: an empty draw becomes a faint ring so the dot still exists
+    if(raw.length<8){
+      const pts=[]; for(let i=0;i<32;i++){const a=i/32*Math.PI*2;pts.push([Math.cos(a)*.7,Math.sin(a)*.7,.6])}
+      entry.points=pts; entry._loading=null; return pts;
+    }
+    // normalize by bounding box, preserve aspect, fit in -1..1
+    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    for(const p of raw){ if(p[0]<x0)x0=p[0]; if(p[0]>x1)x1=p[0]; if(p[1]<y0)y0=p[1]; if(p[1]>y1)y1=p[1]; }
+    const w=Math.max(1,x1-x0), h=Math.max(1,y1-y0), s=2/Math.max(w,h);
+    const cx=(x0+x1)/2, cy=(y0+y1)/2;
+    let pts=raw.map(p=>[(p[0]-cx)*s,(p[1]-cy)*s,p[2]]);
+    if(pts.length>MAX_DOTS){ const step=pts.length/MAX_DOTS; const out=[]; for(let i=0;i<pts.length;i+=step)out.push(pts[Math.floor(i)]); pts=out; }
+    entry.points=pts; entry._loading=null; return pts;
+  })();
+  return entry._loading;
+}
+
+/* ---- full-clarity sprite: render the module large, stamp a crisp
+   halftone (same dot law as the engine's dotifyField) onto a TRANSPARENT
+   supersampled canvas, cropped to content. Used as a billboard whenever an
+   instance is big enough on screen; the dot cloud remains the far-distance
+   LOD. This is what closes the gap to the real card renders. ---- */
+async function sampleSprite(entry){
+  if(entry.sprite!==undefined && !entry._sprLoading) return entry.sprite;
+  if(entry._sprLoading) return entry._sprLoading;
+  entry._sprLoading=(async()=>{
+    const isScene = entry.type==="scene";
+    const SW=isScene?560:340, SH=isScene?380:453;
+    const off=document.createElement("canvas"); off.width=SW; off.height=SH;
+    const g=off.getContext("2d",{willReadFrequently:true});
+    g.fillStyle="#fff"; g.fillRect(0,0,SW,SH);
+    try{
+      const modl = await import(entry.path);
+      if(isScene){ const sc=modl.scene||modl.default; sc.stage(g,SW,SH,8); }
+      else { const a=modl.asset||modl.default; a.draw(g,SW,SH,a.preview?a.preview():{}); }
+    }catch(err){ console.warn("sprite draw failed",entry.id,err); }
+    const d=g.getImageData(0,0,SW,SH).data;
+    let x0=SW,y0=SH,x1=0,y1=0,found=false;
+    for(let y=0;y<SH;y+=2)for(let x=0;x<SW;x+=2){
+      const q=(y*SW+x)*4, lum=(d[q]*.299+d[q+1]*.587+d[q+2]*.114)/255;
+      if(lum<.9){found=true;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
+    }
+    if(!found){ entry.sprite=null; entry._sprLoading=null; return null; }
+    x0=Math.max(0,x0-4);y0=Math.max(0,y0-4);x1=Math.min(SW-1,x1+4);y1=Math.min(SH-1,y1+4);
+    const cw=x1-x0+1, ch=y1-y0+1, SS=2.2, cell=3;
+    const spr=document.createElement("canvas");
+    spr.width=Math.max(2,Math.round(cw*SS)); spr.height=Math.max(2,Math.round(ch*SS));
+    const sg=spr.getContext("2d");
+    const inkFor = entry.color==="blue"?"#10307a":entry.color==="red"?"#7a1010":"#0a0a0a";
+    sg.fillStyle=inkFor;
+    for(let y=y0;y<=y1;y+=cell)for(let x=x0;x<=x1;x+=cell){
+      const q=(y*SW+x)*4, lum=(d[q]*.299+d[q+1]*.587+d[q+2]*.114)/255, dk=1-lum;
+      if(dk<.1)continue;
+      sg.beginPath(); sg.arc((x-x0+cell/2)*SS,(y-y0+cell/2)*SS,Math.pow(dk,.9)*cell*.62*SS,0,Math.PI*2); sg.fill();
+    }
+    entry.sprite={cv:spr,w:cw,h:ch};
+    entry._sprLoading=null; return entry.sprite;
+  })();
+  return entry._sprLoading;
+}
+
+/* ---------------- world instances ---------------- */
+function addInstance(entry,x=0,z=0,opts={}){
+  const w=currentWorld();
+  if(!w||w.instances.length>=MAX_INSTANCES){toast("WORLD IS FULL");return null}
+  const layer = entry.type==="scene"?typeIndex("scene"):typeIndex(entry.type);
+  const i={
+    id:uid("inst"), entryId:entry.id, x,z,y:0,baseX:x,baseZ:z,
+    scale:opts.scale??1.35, rot:0, layer:layer<0?0:layer,
+    anim:opts.anim||"none", phase:Math.random()*Math.PI*2, created:Date.now(),
+  };
+  w.instances.push(i);
+  state.selectedId=i.id; state.activeDepth=i.layer; state.visibleDepths[i.layer]=true;
+  samplePoints(entry);
+  updateDepthUI(); updateSelectionUI(); commitHistory("place "+entry.name);
+  return i;
+}
+function spiralPos(){
+  const n=currentWorld()?.instances.length||0, ang=n*2.399963, r=Math.min(3.4,.3+Math.sqrt(n+1)*.5);
+  return {x:Math.cos(ang)*r, z:Math.sin(ang)*r};
+}
+
+/* ---------------- scene worlds (enter a scene → its cast) ---------------- */
+function enterScene(entry){
+  if(entry.type!=="scene")return;
+  if(!entry.childWorldId||!state.worlds.has(entry.childWorldId)){
+    const id=uid("world"), w=makeWorld(id,entry.name);
+    state.worlds.set(id,w); entry.childWorldId=id;
+    const cast=(entry.cast||[]).map(cid=>state.registry.get(cid)).filter(Boolean);
+    cast.forEach((e,n)=>{
+      const ang=n/Math.max(1,cast.length)*Math.PI*2-1.3, r=e.type==="location"?0:2.6;
+      const li=typeIndex(e.type);
+      w.instances.push({id:uid("inst"),entryId:e.id,x:Math.cos(ang)*r,z:Math.sin(ang)*r,y:0,baseX:0,baseZ:0,scale:e.type==="location"?2.6:1.2,rot:0,layer:li<0?0:li,anim:"none",phase:Math.random()*6.28,created:Date.now()});
+      samplePoints(e);
+    });
+  }
+  state.worldStack.push(entry.childWorldId);
+  state.currentWorldId=entry.childWorldId; state.selectedId=null;
+  state.camera.panX=0; state.camera.panY=30; state.camera.zoom=1;
+  updateCrumbs(); updateSelectionUI(); commitHistory("enter "+entry.name);
+  toast("INSIDE "+entry.name);
+}
+function leaveWorld(){
+  if(state.worldStack.length<=1)return;
+  state.worldStack.pop();
+  state.currentWorldId=state.worldStack[state.worldStack.length-1];
+  state.selectedId=null; updateCrumbs(); updateSelectionUI(); commitHistory("outward");
+}
+
+/* ---------------- projection + drawing ---------------- */
+function resize(){
+  const r=canvas.getBoundingClientRect();
+  const dpr=Math.min(2,window.devicePixelRatio||1);
+  canvas.width=Math.max(1,Math.round(r.width*dpr));
+  canvas.height=Math.max(1,Math.round(r.height*dpr));
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  canvas._w=r.width; canvas._h=r.height;
+}
+window.addEventListener("resize",resize,{passive:true});
+
+function project(x,y,z){
+  const c=Math.cos(state.camera.yaw),s=Math.sin(state.camera.yaw);
+  const cp=Math.cos(state.camera.pitch),sp=Math.sin(state.camera.pitch);
+  const x1=c*x-s*z,z1=s*x+c*z;
+  const y2=cp*y-sp*z1,z2=sp*y+cp*z1;
+  const depth=Math.max(2.5,state.camera.dist-z2);
+  const f=860/depth*state.camera.zoom;
+  return {x:canvas._w/2+x1*f+state.camera.panX,y:canvas._h*.48-y2*f+state.camera.panY,f,depth};
+}
+function screenToGround(sx,sy){
+  const f=860/state.camera.dist*state.camera.zoom;
+  const x1=(sx-canvas._w/2-state.camera.panX)/f;
+  const y2=-(sy-canvas._h*.48-state.camera.panY)/f;
+  const sp=Math.sin(state.camera.pitch)||.001;
+  const z1=-y2/sp;
+  const c=Math.cos(state.camera.yaw),s=Math.sin(state.camera.yaw);
+  return {x:c*x1+s*z1,z:-s*x1+c*z1};
+}
+function drawDot(x,y,r,color="ink",alpha=1){
+  ctx.globalAlpha=alpha;
+  ctx.fillStyle=color==="red"?"#f02222":color==="blue"?"#225cff":color==="yellow"?"#e5b800":"#111";
+  ctx.beginPath();ctx.arc(x,y,Math.max(.45,r),0,Math.PI*2);ctx.fill();
+  ctx.globalAlpha=1;
+}
+function drawGround(){
+  ctx.strokeStyle="rgba(0,0,0,.13)";ctx.lineWidth=1;ctx.setLineDash([1,5]);
+  for(let z=-7;z<=7;z++){ctx.beginPath();for(let x=-8;x<=8;x+=.5){const p=project(x,0,z);x===-8?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)}ctx.stroke()}
+  for(let x=-8;x<=8;x++){ctx.beginPath();for(let z=-7;z<=7;z+=.5){const p=project(x,0,z);z===-7?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)}ctx.stroke()}
+  ctx.setLineDash([]);
+}
+function animatedTransform(inst,time){
+  let x=inst.x,z=inst.z,s=inst.scale,y=inst.y;
+  const t=time+inst.phase;
+  if(inst.anim==="pulse")s*=1+.12*Math.sin(t*2.3);
+  else if(inst.anim==="orbit"){x=inst.baseX+Math.cos(t*.65)*1.2;z=inst.baseZ+Math.sin(t*.65)*1.2}
+  else if(inst.anim==="drift"){x+=Math.sin(t*.4)*.65;z+=Math.cos(t*.27)*.55;y=.12+.12*Math.sin(t)}
+  else if(inst.anim==="rise")y=Math.max(0,mod(t*.35,2.5));
+  return {x,z,s,y};
+}
+function drawInstance(inst,time){
+  if(!state.visibleDepths[inst.layer])return;
+  const entry=state.registry.get(inst.entryId); if(!entry)return;
+  const tr=animatedTransform(inst,time);
+  const p=project(tr.x,tr.y,tr.z);
+  const dd=Math.abs(inst.layer-state.activeDepth);
+  const alpha=dd===0?1:dd===1?.5:.22;
+  const resolved=tr.s*p.f;
+  const selected=inst.id===state.selectedId;
+  const color=selected?"red":entry.color;
+
+  if(resolved<11||!entry.points){
+    if(!entry.points)samplePoints(entry);
+    drawDot(p.x,p.y,selected?4:2.2,color,alpha);
+    state.hitTargets.push({inst,x:p.x,y:p.y,r:12,depth:p.depth});
+    return;
+  }
+  /* full-clarity billboard when close enough — the sprite is the same
+     halftone law as the engine renders, so zoomed-in quality matches the
+     real cards instead of the 2.4k-dot cloud */
+  if(resolved>=30){
+    const spr=entry.sprite;
+    if(spr===undefined) sampleSprite(entry);
+    if(spr){
+      const dotScaleS=clamp(resolved*.36,7,360);
+      const maxDim=Math.max(spr.w,spr.h);
+      const scl=(dotScaleS*2)/maxDim;
+      ctx.save(); ctx.globalAlpha=alpha;
+      ctx.translate(p.x,p.y); ctx.rotate(inst.rot);
+      ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality="high";
+      ctx.drawImage(spr.cv,-spr.w*scl/2,-spr.h*scl/2,spr.w*scl,spr.h*scl);
+      ctx.restore(); ctx.globalAlpha=1;
+      if(selected){
+        ctx.strokeStyle="#f02222";ctx.lineWidth=1;ctx.setLineDash([2,4]);
+        ctx.beginPath();ctx.ellipse(p.x,p.y+spr.h*scl*.5,Math.max(12,spr.w*scl*.6),Math.max(4,spr.w*scl*.12),0,0,Math.PI*2);ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle="#f02222";ctx.font="10px ui-monospace,monospace";ctx.textAlign="center";
+        ctx.fillText(entry.name,p.x,p.y+spr.h*scl*.62+14);
+      }
+      state.hitTargets.push({inst,x:p.x,y:p.y,r:Math.max(22,Math.max(spr.w,spr.h)*scl*.6),depth:p.depth});
+      return;
+    }
+  }
+  const pts=entry.points;
+  const dotScale=clamp(resolved*.36,7,118);
+  const step=resolved>145?1:resolved>72?2:3;
+  for(let i=0;i<pts.length;i+=step){
+    const q=pts[i];
+    const ca=Math.cos(inst.rot),sa=Math.sin(inst.rot);
+    const rx=q[0]*ca-q[1]*sa, ry=q[0]*sa+q[1]*ca;
+    drawDot(p.x+rx*dotScale,p.y+ry*dotScale,.7+q[2]*.95,color,alpha*(.55+q[2]*.45));
+  }
+  if(selected){
+    ctx.strokeStyle="#f02222";ctx.lineWidth=1;ctx.setLineDash([2,4]);
+    ctx.beginPath();ctx.ellipse(p.x,p.y+dotScale*.62,Math.max(12,dotScale*.72),Math.max(4,dotScale*.18),0,0,Math.PI*2);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle="#f02222";ctx.font="10px ui-monospace,monospace";ctx.textAlign="center";
+    ctx.fillText(entry.name,p.x,p.y+dotScale*1.32);
+  }
+  state.hitTargets.push({inst,x:p.x,y:p.y,r:Math.max(22,dotScale*1.25),depth:p.depth});
+}
+function drawWorldMode(time){
+  drawGround();
+  const w=currentWorld(); if(!w)return;
+  if(w.instances.length===0){
+    const c=project(0,0,0);
+    ctx.strokeStyle="rgba(0,0,0,.42)";ctx.setLineDash([1,4]);
+    ctx.beginPath();ctx.arc(c.x,c.y,11,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    drawDot(c.x,c.y,1.8,"red",1);
+    ctx.fillStyle="#777";ctx.textAlign="center";ctx.font="10px ui-monospace";
+    ctx.fillText("TYPE A NAME, OR OPEN THE LIBRARY",c.x,c.y+26);
+  }
+  const ordered=w.instances.slice().sort((a,b)=>project(a.x,a.y,a.z).depth-project(b.x,b.y,b.z).depth).reverse();
+  ordered.forEach(i=>drawInstance(i,time));
+  if(state.placingEntryId){
+    const e=state.registry.get(state.placingEntryId);
+    if(e){
+      const g=screenToGround(state.pointer.x,state.pointer.y);
+      drawInstanceGhost(e,g.x,g.z,time);
+    }
+  }
+}
+function drawInstanceGhost(entry,x,z,time){
+  const p=project(x,0,z);
+  const dotScale=clamp(1.35*p.f*.36,7,118);
+  const pts=entry.points;
+  if(!pts){samplePoints(entry);drawDot(p.x,p.y,4,"red",.7);return}
+  for(let i=0;i<pts.length;i+=3){
+    const q=pts[i];
+    drawDot(p.x+q[0]*dotScale,p.y+q[1]*dotScale,.8,"red",.4);
+  }
+}
+
+/* ---------------- library mode ---------------- */
+function libraryEntries(){
+  const dir=TYPES[state.activeDepth].dir;
+  let list=[...state.registry.values()].filter(e=>e.type===dir);
+  if(state.bookFilter)list=list.filter(e=>(e.books||[]).includes(state.bookFilter));
+  list.sort((a,b)=>a.name.localeCompare(b.name));
+  return list;
+}
+function drawLibraryMode(time){
+  const list=libraryEntries();
+  const cx=canvas._w/2, cy=canvas._h/2;
+  state.libraryTargets=[];
+  const perRing=14;
+  list.forEach((entry,i)=>{
+    const ring=Math.floor(i/perRing)+1, pos=i%perRing;
+    const count=Math.min(perRing,list.length-(ring-1)*perRing);
+    const angle=pos/count*Math.PI*2-1.2+time*.015*ring;
+    const radius=Math.min(canvas._w,canvas._h)*(.11+ring*.09);
+    const x=cx+Math.cos(angle)*radius, y=cy+Math.sin(angle)*radius;
+    const near=Math.hypot(state.pointer.x-x,state.pointer.y-y)<58;
+    if(near){
+      if(!entry.points){samplePoints(entry);drawDot(x,y,4,"red",.9)}
+      else{
+        const s=34;
+        for(let p=0;p<entry.points.length;p+=2){const q=entry.points[p];drawDot(x+q[0]*s,y+q[1]*s,.7,entry.color,.9)}
+      }
+      ctx.fillStyle="#111";ctx.textAlign="center";ctx.font="11px ui-monospace,monospace";
+      ctx.fillText(entry.name,x,y+52);
+      ctx.fillStyle="#777";ctx.font="9px ui-monospace,monospace";
+      ctx.fillText((entry.books&&entry.books.length?"BOOK "+entry.books.join(","):"")+"  ·  TAP TO PLACE",x,y+64);
+    } else drawDot(x,y,3,entry.color,.85);
+    state.libraryTargets.push({entry,x,y,r:near?58:18});
+  });
+  ctx.fillStyle="#777";ctx.textAlign="center";ctx.font="11px ui-monospace,monospace";
+  ctx.fillText(TYPES[state.activeDepth].label+" · "+list.length+(state.bookFilter?" · BOOK "+state.bookFilter:""),cx,cy-4);
+  ctx.font="9px ui-monospace,monospace";
+  ctx.fillText("CHANGE LAYER ON THE LEFT RAIL · `book N` TO FILTER",cx,cy+12);
+}
+
+/* ---------------- render loop ---------------- */
+function render(now){
+  const dt=Math.min(.05,(now-state.lastTick)/1000); state.lastTick=now;
+  if(state.running)state.time+=dt;
+  ctx.fillStyle="#fbfaf7"; ctx.fillRect(0,0,canvas._w,canvas._h);
+  state.hitTargets=[];
+  if(state.mode==="library")drawLibraryMode(state.time);
+  else drawWorldMode(state.time);
+  requestAnimationFrame(render);
+}
+
+/* ---------------- UI ---------------- */
+function buildDepthUI(){
+  const rail=$("depthRail"); rail.innerHTML="";
+  TYPES.forEach((t,i)=>{
+    const b=document.createElement("button"); b.type="button";
+    b.title=t.label+" · click focus · alt-click visibility";
+    b.onclick=e=>{ if(e.altKey)state.visibleDepths[i]=!state.visibleDepths[i]; else state.activeDepth=i; updateDepthUI(); };
+    rail.appendChild(b);
+  });
+  updateDepthUI();
+}
+function updateDepthUI(){
+  [...$("depthRail").children].forEach((b,i)=>{b.classList.toggle("on",i===state.activeDepth);b.classList.toggle("hidden",!state.visibleDepths[i])});
+  $("depthName").textContent=TYPES[state.activeDepth].label;
+  updateBookLine();
+}
+function updateBookLine(){
+  const n=libraryEntries().length;
+  $("bookLine").innerHTML=`<b>${TYPES[state.activeDepth].label}</b> · ${n} IN LIBRARY${state.bookFilter?` · <b>BOOK ${state.bookFilter}</b>`:""}`;
+}
+function updateSelectionUI(){
+  const i=selectedInstance(), e=selectedEntry();
+  if(!i||!e){$("selectionLine").textContent=state.mode==="library"?"HOVER A DOT · TAP TO PLACE IT IN THE WORLD":"";return}
+  const books=e.books&&e.books.length?" · book "+e.books.join(","):"";
+  $("selectionLine").innerHTML=`<b>${escapeHTML(e.name)}</b> · ${TYPES[i.layer]?.label.toLowerCase()||e.type}${books} · ${i.anim} · ${i.scale.toFixed(2)}×${e.type==="scene"?" · ENTER TO OPEN CAST":""}`;
+}
+function updateCrumbs(){
+  const box=$("worldCrumbs"); box.innerHTML="";
+  state.worldStack.forEach((id,i)=>{
+    const b=document.createElement("button"); b.type="button";
+    b.className=i===state.worldStack.length-1?"on":"";
+    b.title=state.worlds.get(id)?.name||id;
+    b.onclick=()=>{state.worldStack=state.worldStack.slice(0,i+1);state.currentWorldId=id;state.selectedId=null;updateCrumbs();updateSelectionUI()};
+    box.appendChild(b);
+  });
+}
+function toast(text){
+  const n=$("notice"); n.textContent=text; n.classList.add("on");
+  clearTimeout(toast._t); toast._t=setTimeout(()=>n.classList.remove("on"),1500);
+}
+function showGeneration(){
+  const el=$("generation"),dots=[...el.querySelectorAll("span")];
+  el.classList.add("on"); dots.forEach(d=>d.classList.remove("on"));
+  let i=0; const timer=setInterval(()=>{dots.forEach((d,n)=>d.classList.toggle("on",n<=i));i++;if(i>=dots.length){clearInterval(timer);setTimeout(()=>el.classList.remove("on"),160)}},110);
+}
+
+/* ---------------- history ---------------- */
+function commitHistory(reason){
+  const w=currentWorld(); if(!w)return;
+  const snap={reason,worldId:w.id,instances:JSON.parse(JSON.stringify(w.instances))};
+  state.history=state.history.slice(0,state.historyIndex+1); state.history.push(snap);
+  if(state.history.length>MAX_HISTORY)state.history.shift();
+  state.historyIndex=state.history.length-1; buildHistoryDots();
+}
+function restoreHistory(index){
+  const snap=state.history[index]; if(!snap)return;
+  const w=state.worlds.get(snap.worldId); if(!w)return;
+  state.currentWorldId=snap.worldId;
+  w.instances=JSON.parse(JSON.stringify(snap.instances));
+  snap.instances.forEach(i=>{const e=state.registry.get(i.entryId);if(e)samplePoints(e)});
+  state.selectedId=null; state.historyIndex=index;
+  updateCrumbs(); updateSelectionUI(); buildHistoryDots();
+}
+function undo(){if(state.historyIndex>0)restoreHistory(state.historyIndex-1)}
+function buildHistoryDots(){
+  const box=$("historyDots"); box.innerHTML="";
+  state.history.forEach((h,i)=>{
+    const b=document.createElement("button"); b.type="button";
+    b.className=i===state.historyIndex?"on":""; b.title=h.reason;
+    b.onclick=()=>restoreHistory(i); box.appendChild(b);
+  });
+}
+
+/* ---------------- commands ---------------- */
+function fuzzyFind(text){
+  const t=text.toLowerCase().trim();
+  let best=null,bs=0;
+  for(const e of state.registry.values()){
+    const name=e.name.toLowerCase(), id=e.id.toLowerCase();
+    let score=0;
+    if(name===t||id.endsWith("."+t.replace(/\s+/g,"-")))score=100;
+    else if(name.includes(t))score=60+Math.max(0,20-name.length+t.length);
+    else if(id.includes(t.replace(/\s+/g,"-")))score=50;
+    else{
+      const words=t.split(/\s+/).filter(Boolean);
+      const hit=words.filter(wd=>name.includes(wd)).length;
+      if(hit)score=hit*18;
+    }
+    if(score>bs){bs=score;best=e}
+  }
+  return bs>=18?best:null;
+}
+async function executeCommand(raw){
+  const text=raw.trim().replace(/^\//,""); if(!text)return;
+  const lower=text.toLowerCase();
+  if(lower==="run"||lower==="play"){toggleRun();return}
+  if(lower==="undo"){undo();return}
+  if(lower==="out"||lower==="back"){leaveWorld();return}
+  if(lower==="clear"){currentWorld().instances=[];state.selectedId=null;commitHistory("clear");updateSelectionUI();return}
+  if(lower==="tableau"){placeTableau();return}
+  if(lower==="spine"){placeSpine();return}
+  if(lower==="library"){setMode("library");return}
+  if(lower==="world"){setMode("world");return}
+  let m=lower.match(/^book\s+(\d+)$/);
+  if(m){state.bookFilter=+m[1];updateBookLine();toast("FILTER · BOOK "+m[1]+" — OPEN THE LIBRARY");return}
+  if(lower==="book off"||lower==="all books"){state.bookFilter=0;updateBookLine();toast("BOOK FILTER OFF");return}
+  m=lower.match(/^layer\s+(.+)$/);
+  if(m){const i=TYPES.findIndex(t=>t.label.toLowerCase().startsWith(m[1].trim()));if(i>=0){state.activeDepth=i;updateDepthUI()}return}
+  m=lower.match(/^(?:scene\s+)?(od-b\d+-s\d+)$/);
+  if(m){
+    const e=state.registry.get("scene."+m[1].toUpperCase());
+    if(e){showGeneration();await samplePoints(e);const p=spiralPos();addInstance(e,p.x,p.z,{scale:2});toast(e.name+" PLACED · ENTER TO OPEN");return}
+  }
+  const found=fuzzyFind(lower.replace(/^(place|summon|generate)\s+/,""));
+  if(!found){toast("NOTHING IN THE ATLAS MATCHES");return}
+  showGeneration();
+  await samplePoints(found);
+  const p=spiralPos();
+  const inst=addInstance(found,p.x,p.z,{scale:found.type==="location"?2.2:found.type==="scene"?2:1.35});
+  if(inst){const pr=project(inst.x,0,inst.z);state.camera.panX+=canvas._w*.5-pr.x;state.camera.panY+=canvas._h*.56-pr.y}
+  toast(found.name+" PLACED");
+}
+
+/* ---------------- curated starts ---------------- */
+const TABLEAU=[
+  "location.polyphemuss-cave","character.polyphemus","character.odysseus",
+  "creature.lead-ram","prop.cheese-racks-and-milk-vessels","prop.cave-blocking-stone",
+  "character.circe","character.penelope","character.telemachus","character.eumaeus",
+  "vehicle.black-ithacan-ship","character.tiresiass-shade",
+];
+async function placeTableau(){
+  const w=currentWorld();
+  TABLEAU.forEach((id,n)=>{
+    const e=state.registry.get(id); if(!e)return;
+    const ang=n/TABLEAU.length*Math.PI*2-1.4;
+    const r=e.type==="location"?0:2.4+(n%3)*.8;
+    const li=typeIndex(e.type);
+    w.instances.push({id:uid("inst"),entryId:id,x:Math.cos(ang)*r,z:Math.sin(ang)*r,y:0,baseX:0,baseZ:0,scale:e.type==="location"?3:1.25,rot:0,layer:li<0?0:li,anim:n%4===3?"pulse":"none",phase:Math.random()*6.28,created:Date.now()});
+    samplePoints(e);
+  });
+  commitHistory("tableau"); toast("MARQUEE TABLEAU PLACED");
+}
+async function placeSpine(){
+  const w=currentWorld();
+  const scenes=[...state.registry.values()].filter(e=>e.type==="scene")
+    .sort((a,b)=>a.sceneId.localeCompare(b.sceneId,undefined,{numeric:true}));
+  scenes.forEach((e,n)=>{
+    const ang=n*.42, r=1.1+n*.062;
+    w.instances.push({id:uid("inst"),entryId:e.id,x:Math.cos(ang)*r,z:Math.sin(ang)*r,y:0,baseX:0,baseZ:0,scale:.85,rot:0,layer:typeIndex("scene"),anim:"none",phase:0,created:Date.now()});
+  });
+  state.activeDepth=typeIndex("scene"); updateDepthUI();
+  commitHistory("scene spine");
+  toast(scenes.length+" SCENES · ZOOM IN · DOUBLE-TAP TO ENTER ONE");
+}
+
+/* ---------------- interaction ---------------- */
+function nearestHit(x,y){let best=null,bd=1e9;for(const h of state.hitTargets){const d=Math.hypot(x-h.x,y-h.y);if(d<h.r&&d<bd){best=h;bd=d}}return best}
+function nearestLibrary(x,y){let best=null,bd=1e9;for(const h of state.libraryTargets){const d=Math.hypot(x-h.x,y-h.y);if(d<h.r&&d<bd){best=h;bd=d}}return best}
+
+canvas.addEventListener("pointerdown",e=>{
+  canvas.setPointerCapture(e.pointerId);
+  state.gesture.pointers.set(e.pointerId,{x:e.offsetX,y:e.offsetY});
+  state.pointer={x:e.offsetX,y:e.offsetY,inside:true};
+  const g=state.gesture; g.startX=g.lastX=e.offsetX; g.startY=g.lastY=e.offsetY;
+  if(g.pointers.size===2){
+    const p=[...g.pointers.values()]; g.mode="pinch";
+    g.startDistance=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
+    g.startScale=selectedInstance()?.scale||state.camera.zoom; return;
+  }
+  if(state.mode==="library"){
+    const h=nearestLibrary(e.offsetX,e.offsetY);
+    if(h){state.placingEntryId=h.entry.id;samplePoints(h.entry);setMode("world");toast("PLACE "+h.entry.name);return}
+    return;
+  }
+  if(state.placingEntryId){
+    const p=screenToGround(e.offsetX,e.offsetY);
+    const en=state.registry.get(state.placingEntryId);
+    if(en)addInstance(en,p.x,p.z,{scale:en.type==="location"?2.4:en.type==="scene"?2:1.35});
+    state.placingEntryId=null; return;
+  }
+  const hit=nearestHit(e.offsetX,e.offsetY);
+  if(hit){state.selectedId=hit.inst.id;g.mode="move";g.selectedStart={x:hit.inst.x,z:hit.inst.z,scale:hit.inst.scale};updateSelectionUI()}
+  else{state.selectedId=null;g.mode="orbit";updateSelectionUI()}
+});
+canvas.addEventListener("pointermove",e=>{
+  state.pointer={x:e.offsetX,y:e.offsetY,inside:true};
+  if(state.gesture.pointers.has(e.pointerId))state.gesture.pointers.set(e.pointerId,{x:e.offsetX,y:e.offsetY});
+  const g=state.gesture;
+  if(g.pointers.size===2&&g.mode==="pinch"){
+    const p=[...g.pointers.values()],d=Math.max(10,Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y)),ratio=d/g.startDistance;
+    const i=selectedInstance();
+    if(i)i.scale=clamp(g.startScale*ratio,.15,8); else state.camera.zoom=clamp(g.startScale*ratio,.3,4);
+    updateSelectionUI(); return;
+  }
+  if(!g.pointers.has(e.pointerId)||g.pointers.size!==1)return;
+  const dx=e.offsetX-g.lastX,dy=e.offsetY-g.lastY; g.lastX=e.offsetX;g.lastY=e.offsetY;
+  if(g.mode==="orbit"){state.camera.yaw+=dx*.006;state.camera.pitch=clamp(state.camera.pitch+dy*.004,.12,1.2)}
+  else if(g.mode==="move"){
+    const i=selectedInstance(); if(!i)return;
+    const a=screenToGround(g.startX,g.startY),b=screenToGround(e.offsetX,e.offsetY);
+    i.x=g.selectedStart.x+(b.x-a.x); i.z=g.selectedStart.z+(b.z-a.z); i.baseX=i.x; i.baseZ=i.z;
+  }
+});
+function endPointer(e){
+  const g=state.gesture;
+  if(g.mode==="move"&&Math.hypot(e.offsetX-g.startX,e.offsetY-g.startY)>3)commitHistory("place");
+  g.pointers.delete(e.pointerId); if(g.pointers.size===0)g.mode=null;
+}
+canvas.addEventListener("pointerup",endPointer);
+canvas.addEventListener("pointercancel",endPointer);
+canvas.addEventListener("pointerleave",()=>state.pointer.inside=false);
+canvas.addEventListener("dblclick",e=>{
+  const h=nearestHit(e.offsetX,e.offsetY);
+  if(h){
+    state.selectedId=h.inst.id; updateSelectionUI();
+    const en=state.registry.get(h.inst.entryId);
+    if(en?.type==="scene")enterScene(en);
+    else toast(en?en.name+" · "+(en.books?.length?"BOOK "+en.books.join(","):en.type.toUpperCase()):"");
+  }
+});
+canvas.addEventListener("wheel",e=>{
+  e.preventDefault();
+  const i=selectedInstance();
+  if(i&&(e.shiftKey||e.ctrlKey)){i.scale=clamp(i.scale*Math.exp(-e.deltaY*.0015),.15,8);updateSelectionUI()}
+  else state.camera.zoom=clamp(state.camera.zoom*Math.exp(-e.deltaY*.0012),.25,4);
+},{passive:false});
+
+function cycleAnimation(){
+  const i=selectedInstance(); if(!i)return;
+  const modes=["none","pulse","orbit","drift","rise"];
+  i.anim=modes[(modes.indexOf(i.anim)+1)%modes.length];
+  i.baseX=i.x;i.baseZ=i.z; commitHistory("animate "+i.anim); updateSelectionUI();
+}
+function nextLayer(){
+  const i=selectedInstance();
+  if(!i){state.activeDepth=(state.activeDepth+1)%TYPES.length;updateDepthUI();return}
+  i.layer=(i.layer+1)%TYPES.length; state.activeDepth=i.layer;
+  commitHistory("layer"); updateDepthUI(); updateSelectionUI();
+}
+function removeSelected(){
+  const w=currentWorld(); if(!w||!state.selectedId)return;
+  const n=w.instances.findIndex(i=>i.id===state.selectedId); if(n<0)return;
+  w.instances.splice(n,1); state.selectedId=null;
+  commitHistory("remove"); updateSelectionUI();
+}
+function toggleRun(){
+  state.running=!state.running;
+  $("runBtn").classList.toggle("on",state.running);
+  $("runBtn").textContent=state.running?"STOP":"RUN";
+}
+function setMode(m){
+  state.mode=m;
+  $("worldMode").classList.toggle("on",m==="world");
+  $("libraryMode").classList.toggle("on",m==="library");
+  updateSelectionUI();
+}
+
+$("command").addEventListener("submit",e=>{e.preventDefault();const v=$("commandInput").value;$("commandInput").value="";executeCommand(v)});
+$("worldMode").onclick=()=>setMode("world");
+$("libraryMode").onclick=()=>setMode("library");
+$("runBtn").onclick=toggleRun;
+$("startChoice").addEventListener("click",async e=>{
+  const b=e.target.closest("[data-start]"); if(!b)return;
+  $("startChoice").classList.add("off");
+  if(b.dataset.start==="tableau")placeTableau();
+  else if(b.dataset.start==="spine")placeSpine();
+  commitHistory("start");
+});
+document.addEventListener("keydown",e=>{
+  const typing=/INPUT|TEXTAREA/.test(e.target.tagName);
+  if(e.code==="Space"&&!typing){e.preventDefault();toggleRun()}
+  else if(e.key==="Escape"&&!typing)leaveWorld();
+  else if((e.key==="a"||e.key==="A")&&!typing)cycleAnimation();
+  else if((e.key==="l"||e.key==="L")&&!typing)nextLayer();
+  else if((e.key==="Delete"||e.key==="Backspace")&&!typing)removeSelected();
+  else if((e.key==="z"||e.key==="Z")&&(e.ctrlKey||e.metaKey)&&!typing){e.preventDefault();undo()}
+  else if(e.key==="/"&&!typing){e.preventDefault();$("commandInput").focus()}
+  else if(e.key==="Enter"&&!typing){const en=selectedEntry();if(en?.type==="scene")enterScene(en)}
+});
+
+/* ---------------- boot ---------------- */
+async function init(){
+  const mark=$("brand").querySelector(".dotmark");
+  for(let i=0;i<16;i++)mark.appendChild(document.createElement("i"));
+  state.worlds.set("root",makeWorld("root","ITHACA FIELD"));
+  resize(); buildDepthUI(); updateCrumbs(); updateSelectionUI();
+  requestAnimationFrame(render);
+  await loadRegistry();
+  updateBookLine();
+}
+init();
+</script>
+</body>
+</html>

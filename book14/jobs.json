@@ -1,0 +1,200 @@
+{
+  "book": 14,
+  "jobs": [
+    {
+      "id": "location.eumaeuss-pig-farm",
+      "type": "LOCATION",
+      "name": "Eumaeus's pig farm",
+      "prompt": "Eumaeus's pig farm (LOCATION). remote fenced yard with hut, pig pens, sleeping areas, spring path, gate, dog range, fire, and visitor seat. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B14-S01: remote fenced yard with hut, pig pens, sleeping areas, spring path, gate, dog range, fire, and visitor seat"
+      ]
+    },
+    {
+      "id": "character.odysseus-as-beggar",
+      "type": "CHARACTER",
+      "name": "Odysseus as beggar",
+      "prompt": "Odysseus as beggar (CHARACTER). experienced fighter performing immediate submission to survive the dogs and preserve disguise. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B14-S01: experienced fighter performing immediate submission to survive the dogs and preserve disguise",
+        "OD-B14-S02: testing loyalty while enduring dismissal of his truthful prediction",
+        "OD-B14-S03: improvisational storyteller modulating detail, vulnerability, and strategically placed truths",
+        "OD-B14-S04: indirect requester embedding present need inside a flattering wartime anecdote"
+      ]
+    },
+    {
+      "id": "character.eumaeus",
+      "type": "CHARACTER",
+      "name": "Eumaeus",
+      "prompt": "Eumaeus (CHARACTER). weathered swineherd moving from protective action into instinctive hospitality. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B14-S01: weathered swineherd moving from protective action into instinctive hospitality",
+        "OD-B14-S02: loyal servant speaking grief, anger, skepticism, and generosity without knowing whom he serves",
+        "OD-B14-S03: absorbed and compassionate listener maintaining one firm boundary of disbelief",
+        "OD-B14-S04: quick reader of the tale who gives warmth without exposing the stranger's dependency"
+      ]
+    },
+    {
+      "id": "creature.guard-dogs",
+      "type": "CREATURE",
+      "name": "Guard dogs",
+      "prompt": "Guard dogs (CREATURE). four aggressive dogs with detect, charge, surround, stone-scatter, recall, and settle states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B14-S01: four aggressive dogs with detect, charge, surround, stone-scatter, recall, and settle states"
+      ]
+    },
+    {
+      "id": "creature.pig-herd",
+      "type": "CREATURE",
+      "name": "Pig herd",
+      "prompt": "Pig herd (CREATURE). large managed herd with pen grouping, feeding, selected-slaughter, escape prevention, and night states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B14-S01: large managed herd with pen grouping, feeding, selected-slaughter, escape prevention, and night states"
+      ]
+    },
+    {
+      "id": "prop.farm-meal",
+      "type": "PROP",
+      "name": "Farm meal",
+      "prompt": "Farm meal (PROP). wooden table, pork portions, bread, wine cup, and fair-share division states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B14-S02: wooden table, pork portions, bread, wine cup, and fair-share division states"
+      ]
+    },
+    {
+      "id": "divine-fx.absent-master-memory",
+      "type": "DIVINE_FX",
+      "name": "Absent-master memory",
+      "prompt": "Absent-master memory (DIVINE_FX). brief images of Odysseus's former care for Eumaeus and the estate animals. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B14-S02: brief images of Odysseus's former care for Eumaeus and the estate animals"
+      ]
+    },
+    {
+      "id": "divine-fx.cretan-life-story-field",
+      "type": "DIVINE_FX",
+      "name": "Cretan life-story field",
+      "prompt": "Cretan life-story field (DIVINE_FX). modular memory-like scenes of Crete, Troy, Egypt, slavery, Thesprotia, and escape marked as narrated constructs. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B14-S03: modular memory-like scenes of Crete, Troy, Egypt, slavery, Thesprotia, and escape marked as narrated constructs"
+      ]
+    },
+    {
+      "id": "environment.hut-fire",
+      "type": "ENVIRONMENT",
+      "name": "Hut fire",
+      "prompt": "Hut fire (ENVIRONMENT). steady low fire controlling warmth, facial reveal, food cooking, and night transition. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B14-S03: steady low fire controlling warmth, facial reveal, food cooking, and night transition"
+      ]
+    },
+    {
+      "id": "wearable.heavy-swineherd-cloak",
+      "type": "WEARABLE",
+      "name": "Heavy swineherd cloak",
+      "prompt": "Heavy swineherd cloak (WEARABLE). thick garment with folded, offered, wrapped, sleeping-cover, wet, and returned states. separate reusable costume or body-worn layer with equip, remove, attachment, deformation, ownership, and continuity states.",
+      "perfs": [
+        "OD-B14-S04: thick garment with folded, offered, wrapped, sleeping-cover, wet, and returned states"
+      ]
+    },
+    {
+      "id": "environment.night-rain-and-cold",
+      "type": "ENVIRONMENT",
+      "name": "Night rain and cold",
+      "prompt": "Night rain and cold (ENVIRONMENT). wind, rain, darkness, fire response, animal huddling, and exposure-pressure field. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B14-S04: wind, rain, darkness, fire response, animal huddling, and exposure-pressure field"
+      ]
+    },
+    {
+      "id": "ensemble.returning-herdsmen",
+      "type": "ENSEMBLE",
+      "name": "Returning herdsmen",
+      "prompt": "Returning herdsmen (ENSEMBLE). farm workers driving pigs, closing pens, eating, and settling for night. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B14-S04: farm workers driving pigs, closing pens, eating, and settling for night"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B14-S01",
+      "n": 85,
+      "title": "The Dogs at Eumaeus's Yard",
+      "beats": [
+        "Odysseus approaches Eumaeus's remote pig farm in disguise.",
+        "Four savage dogs rush him and he drops his staff and sits to avoid attack.",
+        "Eumaeus runs out, scatters the dogs with stones, and brings the stranger inside.",
+        "He offers his own seat and prepares two young pigs for a meal."
+      ],
+      "composePrompt": "Build `OD-B14-S01` — **The Dogs at Eumaeus's Yard** — as one editable Halfworld stage. Required instances: Eumaeus's pig farm, Odysseus as beggar, Eumaeus, Guard dogs, Pig herd. Stage this action in causal order: Odysseus approaches Eumaeus's remote pig farm in disguise. Four savage dogs rush him and he drops his staff and sits to avoid attack. Eumaeus runs out, scatters the dogs with stones, and brings the stranger inside. He offers his own seat and prepares two young pigs for a meal. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He offers his own seat and prepares two young pigs for a meal.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.eumaeuss-pig-farm",
+        "character.odysseus-as-beggar",
+        "character.eumaeus",
+        "creature.guard-dogs",
+        "creature.pig-herd"
+      ]
+    },
+    {
+      "id": "OD-B14-S02",
+      "n": 86,
+      "title": "The Swineherd Laments His Master",
+      "beats": [
+        "Eumaeus apologizes for the humble food and curses the suitors who consume Odysseus's best animals.",
+        "He speaks of the absent king with loyalty and refuses to believe hopeful travelers' stories.",
+        "Odysseus swears that the master will return within the year.",
+        "Eumaeus rejects the prediction but continues to honor the stranger."
+      ],
+      "composePrompt": "Build `OD-B14-S02` — **The Swineherd Laments His Master** — as one editable Halfworld stage. Required instances: Eumaeus, Odysseus as beggar, Farm meal, Absent-master memory. Stage this action in causal order: Eumaeus apologizes for the humble food and curses the suitors who consume Odysseus's best animals. He speaks of the absent king with loyalty and refuses to believe hopeful travelers' stories. Odysseus swears that the master will return within the year. Eumaeus rejects the prediction but continues to honor the stranger. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Eumaeus rejects the prediction but continues to honor the stranger.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.eumaeus",
+        "character.odysseus-as-beggar",
+        "prop.farm-meal",
+        "divine-fx.absent-master-memory"
+      ]
+    },
+    {
+      "id": "OD-B14-S03",
+      "n": 87,
+      "title": "The Cretan Tale at the Hut",
+      "beats": [
+        "At Eumaeus's request the beggar invents a long life as a Cretan warrior and raider.",
+        "He tells of Troy, a disastrous Egyptian raid, enslavement, escape, and a Thesprotian report of Odysseus.",
+        "The tale mixes precise truth with false identity and tests what Eumaeus will accept.",
+        "Eumaeus pities the stranger but still refuses the claim that Odysseus is near."
+      ],
+      "composePrompt": "Build `OD-B14-S03` — **The Cretan Tale at the Hut** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Eumaeus, Cretan life-story field, Hut fire. Stage this action in causal order: At Eumaeus's request the beggar invents a long life as a Cretan warrior and raider. He tells of Troy, a disastrous Egyptian raid, enslavement, escape, and a Thesprotian report of Odysseus. The tale mixes precise truth with false identity and tests what Eumaeus will accept. Eumaeus pities the stranger but still refuses the claim that Odysseus is near. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Eumaeus pities the stranger but still refuses the claim that Odysseus is near.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.eumaeus",
+        "divine-fx.cretan-life-story-field",
+        "environment.hut-fire"
+      ]
+    },
+    {
+      "id": "OD-B14-S04",
+      "n": 88,
+      "title": "The Cloak Test",
+      "beats": [
+        "Night turns cold and wet as Eumaeus's herdsmen return.",
+        "Odysseus tells a story of tricking Odysseus into obtaining a cloak during the war.",
+        "Eumaeus understands the indirect request and lends the stranger a heavy cloak.",
+        "He sleeps near the pigs himself, guarding the herd through the storm."
+      ],
+      "composePrompt": "Build `OD-B14-S04` — **The Cloak Test** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Eumaeus, Heavy swineherd cloak, Night rain and cold, Returning herdsmen. Stage this action in causal order: Night turns cold and wet as Eumaeus's herdsmen return. Odysseus tells a story of tricking Odysseus into obtaining a cloak during the war. Eumaeus understands the indirect request and lends the stranger a heavy cloak. He sleeps near the pigs himself, guarding the herd through the storm. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He sleeps near the pigs himself, guarding the herd through the storm.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.eumaeus",
+        "wearable.heavy-swineherd-cloak",
+        "environment.night-rain-and-cold",
+        "ensemble.returning-herdsmen"
+      ]
+    }
+  ],
+  "existing": []
+}

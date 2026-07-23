@@ -1,0 +1,285 @@
+{
+  "book": 3,
+  "jobs": [
+    {
+      "id": "location.pylos-sacrificial-beach",
+      "type": "LOCATION",
+      "name": "Pylos sacrificial beach",
+      "prompt": "Pylos sacrificial beach (LOCATION). broad shore with nine crowd divisions, altar fires, moored-ship zone, feast rows, and Nestor's central place. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B03-S01: broad shore with nine crowd divisions, altar fires, moored-ship zone, feast rows, and Nestor's central place"
+      ]
+    },
+    {
+      "id": "ensemble.nestor-and-pylian-host",
+      "type": "ENSEMBLE",
+      "name": "Nestor and Pylian host",
+      "prompt": "Nestor and Pylian host (ENSEMBLE). royal family, priests, attendants, and thousands of citizens organized around sacrifice. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B03-S01: royal family, priests, attendants, and thousands of citizens organized around sacrifice"
+      ]
+    },
+    {
+      "id": "creature.black-bulls-and-altar-fires",
+      "type": "CREATURE",
+      "name": "Black bulls and altar fires",
+      "prompt": "Black bulls and altar fires (CREATURE). sacrificial herd plus procedural fire, smoke, ritual handling, and feast transition. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B03-S01: sacrificial herd plus procedural fire, smoke, ritual handling, and feast transition"
+      ]
+    },
+    {
+      "id": "character.nestor",
+      "type": "CHARACTER",
+      "name": "Nestor",
+      "prompt": "Nestor (CHARACTER). aged king shifting from host to vast living archive of the war. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B03-S02: aged king shifting from host to vast living archive of the war",
+        "OD-B03-S03: narrator mapping strategic choices with regret and exact route memory",
+        "OD-B03-S04: mentor using a remembered revenge as both warning and model",
+        "OD-B03-S05: awed host immediately converting revelation into prayer and ritual action"
+      ]
+    },
+    {
+      "id": "divine-fx.troy-memory-field",
+      "type": "DIVINE_FX",
+      "name": "Troy-memory field",
+      "prompt": "Troy-memory field (DIVINE_FX). layered recollection of ships, councils, fallen heroes, and divided routes behind Nestor's narration. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B03-S02: layered recollection of ships, councils, fallen heroes, and divided routes behind Nestor's narration"
+      ]
+    },
+    {
+      "id": "ensemble.divided-achaean-fleet",
+      "type": "ENSEMBLE",
+      "name": "Divided Achaean fleet",
+      "prompt": "Divided Achaean fleet (ENSEMBLE). ship groups separating, turning back, and vanishing along alternate sea lanes. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B03-S03: ship groups separating, turning back, and vanishing along alternate sea lanes"
+      ]
+    },
+    {
+      "id": "character.agamemnon-and-menelaus-memory-variants",
+      "type": "CHARACTER",
+      "name": "Agamemnon and Menelaus memory variants",
+      "prompt": "Agamemnon and Menelaus memory variants (CHARACTER). brothers arguing before a drunken army at sunset. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B03-S03: brothers arguing before a drunken army at sunset"
+      ]
+    },
+    {
+      "id": "character.odysseus-memory-variant",
+      "type": "CHARACTER",
+      "name": "Odysseus memory variant",
+      "prompt": "Odysseus memory variant (CHARACTER). wily commander reversing his ships to support Agamemnon. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B03-S03: wily commander reversing his ships to support Agamemnon"
+      ]
+    },
+    {
+      "id": "set-piece.sea-route-map",
+      "type": "SET_PIECE",
+      "name": "Sea-route map",
+      "prompt": "Sea-route map (SET_PIECE). Troy, Tenedos, Chios, Euboea, Argos, and Pylos connected by animated route branches. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B03-S03: Troy, Tenedos, Chios, Euboea, Argos, and Pylos connected by animated route branches"
+      ]
+    },
+    {
+      "id": "divine-fx.orestes-and-aegisthus-memory-tableau",
+      "type": "DIVINE_FX",
+      "name": "Orestes and Aegisthus memory tableau",
+      "prompt": "Orestes and Aegisthus memory tableau (DIVINE_FX). compressed revenge image with murder, return, and repayment as distinct states. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B03-S04: compressed revenge image with murder, return, and repayment as distinct states"
+      ]
+    },
+    {
+      "id": "divine-fx.athena-to-sea-eagle-transformation",
+      "type": "DIVINE_FX",
+      "name": "Athena-to-sea-eagle transformation",
+      "prompt": "Athena-to-sea-eagle transformation (DIVINE_FX). Mentor form resolving into a great bird and crossing above the sacrificial gathering. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B03-S05: Mentor form resolving into a great bird and crossing above the sacrificial gathering"
+      ]
+    },
+    {
+      "id": "location.nestors-palace-and-courtyard",
+      "type": "LOCATION",
+      "name": "Nestor's palace and courtyard",
+      "prompt": "Nestor's palace and courtyard (LOCATION). royal compound with guest sleeping, bathing, sacrifice, chariot preparation, and departure zones. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B03-S05: royal compound with guest sleeping, bathing, sacrifice, chariot preparation, and departure zones"
+      ]
+    },
+    {
+      "id": "creature.gilded-heifer-ritual",
+      "type": "CREATURE",
+      "name": "Gilded heifer ritual",
+      "prompt": "Gilded heifer ritual (CREATURE). heifer with horn-gilding, procession, sacrifice, and feast states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B03-S05: heifer with horn-gilding, procession, sacrifice, and feast states"
+      ]
+    },
+    {
+      "id": "vehicle.pylian-chariot",
+      "type": "VEHICLE",
+      "name": "Pylian chariot",
+      "prompt": "Pylian chariot (VEHICLE). two-wheeled royal chariot with yoke, reins, passenger positions, luggage anchors, road vibration, stop, and gallop states. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B03-S06: two-wheeled royal chariot with yoke, reins, passenger positions, luggage anchors, road vibration, stop, and gallop states"
+      ]
+    },
+    {
+      "id": "character.pisistratus",
+      "type": "CHARACTER",
+      "name": "Pisistratus",
+      "prompt": "Pisistratus (CHARACTER). competent young prince driving, hosting, and forming an easy peer bond. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B03-S06: competent young prince driving, hosting, and forming an easy peer bond"
+      ]
+    },
+    {
+      "id": "creature.matched-horse-team",
+      "type": "CREATURE",
+      "name": "Matched horse team",
+      "prompt": "Matched horse team (CREATURE). paired full-maned horses with harness, walk, trot, gallop, halt, and fatigue channels. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B03-S06: paired full-maned horses with harness, walk, trot, gallop, halt, and fatigue channels"
+      ]
+    },
+    {
+      "id": "location.pylos-to-sparta-road",
+      "type": "LOCATION",
+      "name": "Pylos-to-Sparta road",
+      "prompt": "Pylos-to-Sparta road (LOCATION). scrolling route through gates, open country, Phera lodging, wheatlands, and mountain-ringed approach. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B03-S06: scrolling route through gates, open country, Phera lodging, wheatlands, and mountain-ringed approach"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B03-S01",
+      "n": 14,
+      "title": "Arrival at Poseidon's Sacrifice",
+      "beats": [
+        "At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon.",
+        "Telemachus hesitates to approach Nestor; Athena urges him past his shyness.",
+        "Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup.",
+        "Athena prays to Poseidon and passes the cup to Telemachus."
+      ],
+      "composePrompt": "Build `OD-B03-S01` — **Arrival at Poseidon's Sacrifice** — as one editable Halfworld stage. Required instances: Pylos sacrificial beach, Telemachus, Athena as Mentor, Nestor and Pylian host, Black bulls and altar fires. Stage this action in causal order: At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon. Telemachus hesitates to approach Nestor; Athena urges him past his shyness. Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup. Athena prays to Poseidon and passes the cup to Telemachus. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena prays to Poseidon and passes the cup to Telemachus.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.pylos-sacrificial-beach",
+        "character.telemachus",
+        "character.athena-as-mentor",
+        "ensemble.nestor-and-pylian-host",
+        "creature.black-bulls-and-altar-fires"
+      ]
+    },
+    {
+      "id": "OD-B03-S02",
+      "n": 15,
+      "title": "Telemachus Questions Nestor",
+      "beats": [
+        "After the meal Nestor asks the strangers who they are and whether they are traders or raiders.",
+        "Telemachus identifies himself and asks for the unsoftened truth about Odysseus.",
+        "Nestor remembers Troy and praises Odysseus's unequalled cunning.",
+        "He begins the account of the quarrel that split the returning Greek fleet."
+      ],
+      "composePrompt": "Build `OD-B03-S02` — **Telemachus Questions Nestor** — as one editable Halfworld stage. Required instances: Telemachus, Nestor, Athena as Mentor, Troy-memory field. Stage this action in causal order: After the meal Nestor asks the strangers who they are and whether they are traders or raiders. Telemachus identifies himself and asks for the unsoftened truth about Odysseus. Nestor remembers Troy and praises Odysseus's unequalled cunning. He begins the account of the quarrel that split the returning Greek fleet. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He begins the account of the quarrel that split the returning Greek fleet.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.telemachus",
+        "character.nestor",
+        "character.athena-as-mentor",
+        "divine-fx.troy-memory-field"
+      ]
+    },
+    {
+      "id": "OD-B03-S03",
+      "n": 16,
+      "title": "The Broken Return from Troy",
+      "beats": [
+        "Nestor recounts the feud between Agamemnon and Menelaus after Troy fell.",
+        "Half the fleet sailed; Odysseus turned back to support Agamemnon.",
+        "Nestor, Diomedes, and Menelaus escaped by a difficult route and reached home.",
+        "Nestor admits he learned Odysseus's later fate only through scattered reports."
+      ],
+      "composePrompt": "Build `OD-B03-S03` — **The Broken Return from Troy** — as one editable Halfworld stage. Required instances: Nestor, Divided Achaean fleet, Agamemnon and Menelaus memory variants, Odysseus memory variant, Sea-route map. Stage this action in causal order: Nestor recounts the feud between Agamemnon and Menelaus after Troy fell. Half the fleet sailed; Odysseus turned back to support Agamemnon. Nestor, Diomedes, and Menelaus escaped by a difficult route and reached home. Nestor admits he learned Odysseus's later fate only through scattered reports. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Nestor admits he learned Odysseus's later fate only through scattered reports.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.nestor",
+        "ensemble.divided-achaean-fleet",
+        "character.agamemnon-and-menelaus-memory-variants",
+        "character.odysseus-memory-variant",
+        "set-piece.sea-route-map"
+      ]
+    },
+    {
+      "id": "OD-B03-S04",
+      "n": 17,
+      "title": "Orestes as the Measure",
+      "beats": [
+        "Nestor tells how Aegisthus murdered Agamemnon and how Orestes later took revenge.",
+        "He urges Telemachus to become a son whose deed will be sung.",
+        "Telemachus wishes for the power to punish the suitors but doubts the gods will grant it.",
+        "Athena rebukes his despair and insists a willing god can save a mortal."
+      ],
+      "composePrompt": "Build `OD-B03-S04` — **Orestes as the Measure** — as one editable Halfworld stage. Required instances: Nestor, Telemachus, Athena as Mentor, Orestes and Aegisthus memory tableau. Stage this action in causal order: Nestor tells how Aegisthus murdered Agamemnon and how Orestes later took revenge. He urges Telemachus to become a son whose deed will be sung. Telemachus wishes for the power to punish the suitors but doubts the gods will grant it. Athena rebukes his despair and insists a willing god can save a mortal. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena rebukes his despair and insists a willing god can save a mortal.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.nestor",
+        "character.telemachus",
+        "character.athena-as-mentor",
+        "divine-fx.orestes-and-aegisthus-memory-tableau"
+      ]
+    },
+    {
+      "id": "OD-B03-S05",
+      "n": 18,
+      "title": "Athena Reveals Herself at Pylos",
+      "beats": [
+        "Night approaches and Nestor invites the guests to his palace.",
+        "Athena refuses and suddenly flies away in the form of a sea-eagle.",
+        "Nestor recognizes divine favor and prays to Athena.",
+        "At dawn a heifer is sacrificed; Telemachus is bathed and dressed for departure."
+      ],
+      "composePrompt": "Build `OD-B03-S05` — **Athena Reveals Herself at Pylos** — as one editable Halfworld stage. Required instances: Athena-to-sea-eagle transformation, Nestor, Telemachus, Nestor's palace and courtyard, Gilded heifer ritual. Stage this action in causal order: Night approaches and Nestor invites the guests to his palace. Athena refuses and suddenly flies away in the form of a sea-eagle. Nestor recognizes divine favor and prays to Athena. At dawn a heifer is sacrificed; Telemachus is bathed and dressed for departure. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—At dawn a heifer is sacrificed; Telemachus is bathed and dressed for departure.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "divine-fx.athena-to-sea-eagle-transformation",
+        "character.nestor",
+        "character.telemachus",
+        "location.nestors-palace-and-courtyard",
+        "creature.gilded-heifer-ritual"
+      ]
+    },
+    {
+      "id": "OD-B03-S06",
+      "n": 19,
+      "title": "The Chariot Road to Sparta",
+      "beats": [
+        "Nestor orders horses harnessed and provisions loaded for Telemachus.",
+        "Pisistratus takes the reins beside him and drives out of Pylos.",
+        "They spend the night at Phera under Diocles's hospitality.",
+        "At dawn they continue through wheatlands toward Lacedaemon."
+      ],
+      "composePrompt": "Build `OD-B03-S06` — **The Chariot Road to Sparta** — as one editable Halfworld stage. Required instances: Pylian chariot, Telemachus, Pisistratus, Matched horse team, Pylos-to-Sparta road. Stage this action in causal order: Nestor orders horses harnessed and provisions loaded for Telemachus. Pisistratus takes the reins beside him and drives out of Pylos. They spend the night at Phera under Diocles's hospitality. At dawn they continue through wheatlands toward Lacedaemon. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—At dawn they continue through wheatlands toward Lacedaemon.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "vehicle.pylian-chariot",
+        "character.telemachus",
+        "character.pisistratus",
+        "creature.matched-horse-team",
+        "location.pylos-to-sparta-road"
+      ]
+    }
+  ],
+  "existing": [
+    "character.telemachus",
+    "character.athena-as-mentor"
+  ]
+}

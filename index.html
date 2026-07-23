@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ODYSSEY HALFWORLD — the film is the program</title>
+<style>
+  :root{
+    --paper:#f2f1ec; --card:#f7f6f2; --ink:#141414; --dim:#8a8a86;
+    --faint:#d8d6cf; --red:#e01b1b; --blue:#0033cc;
+    --mono:ui-monospace,'SF Mono','IBM Plex Mono',Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--mono);line-height:1.7}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 18px 120px}
+
+  /* masthead */
+  #mast{border-bottom:2px solid var(--ink);padding:34px 0 0}
+  .glyph{display:grid;grid-template-columns:repeat(3,6px);gap:4px;width:26px;margin-bottom:14px}
+  .glyph i{width:6px;height:6px;border-radius:50%;background:var(--ink)}
+  .glyph i.r{background:var(--red)}
+  #mast h1{font-size:clamp(22px,5vw,40px);letter-spacing:.14em;font-weight:900;line-height:1.15}
+  #mast .sub{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin:10px 0 4px}
+  #mast .meta{font-size:10px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;
+    display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 18px}
+  #mast .meta b{color:var(--ink)}
+
+  /* film strip */
+  #strip{border-top:1px solid var(--ink);border-bottom:2px solid var(--ink);background:#101010;
+    padding:14px 0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #strip::-webkit-scrollbar{display:none}
+  #stripIn{display:flex;gap:10px;padding:0 14px;width:max-content}
+  .cel{flex:none;width:118px;background:#fdfdfa;border-radius:2px;position:relative;
+    box-shadow:0 0 0 1px #000}
+  .cel::before,.cel::after{content:'';position:absolute;left:6px;right:6px;height:5px;
+    background:repeating-linear-gradient(90deg,#101010 0 7px,transparent 7px 16px)}
+  .cel::before{top:-10px}.cel::after{bottom:-10px}
+  .cel canvas{width:100%;height:82px;display:block}
+  .cel span{display:block;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 5px;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  section{padding-top:44px}
+  h2{font-size:13px;letter-spacing:.3em;text-transform:uppercase;display:flex;gap:10px;align-items:center;margin-bottom:16px}
+  h2 .n{color:var(--red);font-weight:900}
+  h2::after{content:'';flex:1;border-top:1px solid var(--faint)}
+  p{font-size:13px;max-width:76ch;margin-bottom:12px}
+  p b{letter-spacing:.04em}
+  .lead{font-size:14.5px}
+
+  /* experiments index */
+  #exps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:6px}
+  .exp{border:2px solid var(--ink);background:var(--card);padding:12px 13px;display:block;color:var(--ink)}
+  .exp:hover{background:var(--ink);color:var(--paper);text-decoration:none}
+  .exp:hover .en{color:var(--red)}
+  .exp .en{font-size:9px;letter-spacing:.24em;color:var(--red);font-weight:900}
+  .exp b{display:block;font-size:12px;letter-spacing:.14em;margin:4px 0 5px;text-transform:uppercase}
+  .exp span{font-size:10px;line-height:1.55;color:inherit;opacity:.75;display:block}
+
+  /* figures = the behind-the-scenes film */
+  figure{border:2px solid var(--ink);background:#fdfdfa;margin:18px 0 8px;position:relative}
+  figure canvas{width:100%;display:block;background:#fdfdfa}
+  figure .live{position:absolute;top:8px;right:10px;font-size:8.5px;letter-spacing:.22em;
+    color:var(--red);font-weight:900;display:flex;align-items:center;gap:5px}
+  figure .live i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:bl 1.1s infinite}
+  @keyframes bl{50%{opacity:.25}}
+  figcaption{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+    border-top:1px solid var(--faint);padding:7px 10px;background:var(--card)}
+  figcaption b{color:var(--ink)}
+  .eq{border-left:3px solid var(--blue);background:var(--card);padding:10px 14px;margin:12px 0;
+    font-size:12px;line-height:1.9;overflow-x:auto;white-space:pre}
+  .stats{display:flex;gap:0;flex-wrap:wrap;border:2px solid var(--ink);margin:14px 0}
+  .stats div{flex:1 1 110px;padding:12px 8px;text-align:center;border-right:1px solid var(--faint)}
+  .stats div:last-child{border-right:none}
+  .stats b{display:block;font-size:22px;font-weight:900}
+  .stats span{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  /* the agent floor — same paper tone as the page, legible */
+  #agfloor{border:2px solid var(--ink);background:var(--card);padding:12px;margin:18px 0 8px}
+  #agfloor .aghead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+    color:var(--ink);font-size:9px;letter-spacing:.22em;padding:0 2px 10px;text-transform:uppercase;font-weight:700}
+  #agfloor .aghead i{font-style:normal;color:var(--red);font-weight:900;animation:bl 1.1s infinite}
+  #aglog{font-size:9.5px;color:#333;letter-spacing:.05em;border:1px dashed var(--faint);
+    background:var(--paper);padding:7px 10px;margin-bottom:12px;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis}
+  #aglog b{color:var(--red);letter-spacing:.14em}
+  #aglanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
+  .agl{background:var(--paper);border:1.5px solid var(--ink);display:flex;flex-direction:column;min-height:0}
+  .agl .ahd{font-size:8.5px;letter-spacing:.14em;color:var(--dim);padding:7px 9px;
+    border-bottom:1px solid var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    text-transform:uppercase}
+  .agl .ahd b{color:var(--ink)}
+  .agl .aphase{font-size:8px;letter-spacing:.18em;color:var(--red);padding:6px 9px 0;
+    text-transform:uppercase;font-weight:700}
+  .agl .aprompt{font-size:9.5px;line-height:1.6;color:#333;padding:6px 9px;height:76px;overflow:hidden;
+    word-break:break-word}
+  .agl .athink{font-size:9px;line-height:1.55;color:var(--blue);padding:0 9px 5px;height:52px;
+    overflow:hidden;word-break:break-word}
+  .agl .acode{font-size:9px;line-height:1.55;color:#1b1b1b;background:#edebe3;margin:0 9px;
+    padding:6px 8px;height:112px;overflow:hidden;white-space:pre;border:1px solid var(--faint)}
+  .agl .aprint{display:flex;gap:10px;align-items:flex-start;padding:8px 9px}
+  .agl .aprint canvas{width:96px;height:128px;background:#fdfdfa;border:1.5px solid var(--ink);flex:none}
+  .agl .tok{font-size:8.5px;letter-spacing:.12em;color:var(--dim);line-height:2}
+  .agl .tok b{color:var(--ink)}
+  .agl .stamp{font-size:8.5px;letter-spacing:.18em;font-weight:900;color:var(--dim)}
+  .agl .stamp.ok{color:#0a7d43}
+  .agl .stamp.bad{color:var(--red)}
+  #agfeat{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin-bottom:10px}
+  #agsel{display:flex;gap:5px;align-items:center}
+  #agsel button{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+    font:inherit;font-size:8.5px;font-weight:700;padding:3px 9px;cursor:pointer;letter-spacing:.1em}
+  #agsel button.on{background:var(--ink);color:var(--paper)}
+  #agswarm{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}
+  .swc{background:var(--paper);border:1px solid var(--faint);padding:5px;display:flex;
+    flex-direction:column;gap:3px}
+  .swc canvas{width:100%;aspect-ratio:3/4;background:#fdfdfa;border:1px solid var(--ink);display:block}
+  .swc .sid{font-size:7px;letter-spacing:.06em;color:#333;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis}
+  .swc .stk{font-size:7px;color:var(--dim);display:flex;justify-content:space-between}
+  .swc .stk b{color:#0a7d43;font-weight:700}
+  .swc.done{border-color:#0a7d43}
+  /* the belt: verified work leaves the floor and joins the atlas */
+  #agbelt{margin-top:12px;border-top:2px solid var(--ink);padding-top:9px}
+  #agbelt .blab{font-size:8.5px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;
+    margin-bottom:7px;font-weight:700}
+  #agbelt .blab b{color:#0a7d43}
+  #beltrow{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  #beltrow::-webkit-scrollbar{display:none}
+  .bitem{flex:none;width:62px;animation:slidein .45s ease-out}
+  @keyframes slidein{from{transform:translateX(-14px);opacity:0}to{transform:none;opacity:1}}
+  .bitem canvas{width:100%;aspect-ratio:3/4;border:1px solid var(--ink);background:#fdfdfa;display:block}
+  .bitem span{display:block;font-size:6.5px;letter-spacing:.04em;color:var(--dim);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-top:2px}
+  #foot{margin-top:60px;border-top:2px solid var(--ink);padding-top:14px;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  code{background:var(--card);border:1px solid var(--faint);padding:1px 5px;font-size:11.5px}
+</style>
+</head>
+<body>
+
+<div id="mast"><div class="wrap">
+  <div class="glyph"><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></div>
+  <h1>ODYSSEY HALFWORLD</h1>
+  <div class="sub">a procedural halftone atlas of the odyssey · the film is the program</div>
+  <div class="meta">
+    <span>BOOKS <b>I–XV LIVE</b> · XVI–XXIV SPECIFIED</span>
+    <span><b>307</b> ASSETS</span><span><b>93</b> SCENES</span>
+    <span>ENGINE <b>hw-engine/1.1.0</b></span>
+    <span><a href="/README.md">README (PAPER)</a></span>
+  </div>
+</div></div>
+<div id="strip"><div id="stripIn"></div></div>
+
+<div class="wrap">
+
+<section id="ambition">
+  <h2><span class="n">00</span> AMBITION</h2>
+  <p class="lead">Adapting all 24 books of the <i>Odyssey</i> would classically demand thousands
+  of drawings or a generative-video budget. The claim of this project: <b>a drawing described
+  precisely enough is an asset, and an asset that is code can be re-posed, re-lit, re-staged,
+  re-cut and re-played forever at zero marginal cost.</b> No raster media is stored. Every
+  character, location, prop, creature, ensemble and divine effect is a small JavaScript module
+  that draws itself; every scene is a program that directs those modules; one shared post-pass
+  reduces the whole composed field to black dots on warm paper. Because the film <i>is</i> its
+  source, the same 400 files are simultaneously a card catalog, a periodic table, a previs
+  deck with an EDL, a performance-capture stage, a walkable game — and this page, where the
+  methods themselves play as a film. Every asset ships with the complete natural-language
+  prompt that generated it: <b>the film's genome travels inside the film.</b></p>
+</section>
+
+<section id="experiments">
+  <h2><span class="n">01</span> INDEX OF EXPERIMENTS</h2>
+  <div id="exps">
+    <a class="exp" href="/odyssey-world-studio.html"><span class="en">E1 · WORLD</span><b>World Studio</b><span>the whole atlas as one navigable world; sprite-LOD billboards at distance</span></a>
+    <a class="exp" href="/odyssey-stage.html"><span class="en">E2 · STAGE</span><b>Stage · Embody · Arrange</b><span>play any scene live; possess a character (WASD, states, talk); drag / scale / blend every element — saved per scene</span></a>
+    <a class="exp" href="/viewer/cards.html"><span class="en">E3 · TABLE</span><b>Odyssey Table</b><span>periodic table of 307 elements by book / type / uses; full atlas prompts; printable cards</span></a>
+    <a class="exp" href="/odyssey-previs.html"><span class="en">E4 · PREVIS</span><b>Study the Cut</b><span>every scene compiled into shots: establish, lineup, CUs, coverage; SMPTE + copyable EDL</span></a>
+    <a class="exp" href="/odyssey-synthcine.html"><span class="en">E5 · SYNTHCINE</span><b>Performance Lab</b><span>per-scene render lab; your face drives facial channels via MediaPipe</span></a>
+    <a class="exp" href="/odyssey-game.html"><span class="en">E6 · GAME</span><b>Walk the Book</b><span>each book a level; you are Odysseus; talk (E) and the cast answer with their atlas performance lines</span></a>
+    <a class="exp" href="/odyssey-timeline.html"><span class="en">E7 · TIMELINE</span><b>Timeline / Score</b><span>every scene a row: watch it live, see its assets beneath, mark, mute, reorder, export — built for scoring</span></a>
+    <a class="exp" href="/odyssey-suite.html"><span class="en">E8 · SUITE</span><b>Suite Player / Score</b><span>every book scored by a track — one clock, swappable albums, live scene film, drop cues with M</span></a>
+    <a class="exp" href="/odyssey-operator.html"><span class="en">E9 · OPERATOR</span><b>Operator Console</b><span>OP-style deck: book spine, scene strip, live board, cue drops on the shared suite clock — jump to the suite at the exact second</span></a>
+    <a class="exp" href="/viewer/index.html"><span class="en">E0 · VIEWER</span><b>Asset Viewer</b><span>the raw catalog: one asset, full resolution, all states</span></a>
+  </div>
+</section>
+
+<section id="dotlaw">
+  <h2><span class="n">02</span> METHOD I — THE DOT LAW</h2>
+  <p>Asset modules draw in <b>solid continuous tone</b> — warm paper <code>#f4f4f0</code>, hard
+  black contour, one blue accent — and never draw dots. The halftone exists only in the final
+  shared pass <code>dotifyField</code>, which samples the composed field on a square lattice of
+  pitch Δ and prints one disc per cell:</p>
+  <div class="eq">L = (0.299·R + 0.587·G + 0.114·B) / 255        luminance
+d = 1 − L                                        darkness
+d &lt; 0.10   →  print nothing                      (the paper threshold)
+else       →  disc of radius  r = d^0.9 · Δ · 0.62 · gain</div>
+  <p>One dotify per frame means every element — god, wave, wall — passes the same lattice and
+  unifies into one print. Watch the law arrive: the same drawing, lattice pitch Δ sweeping.</p>
+  <figure data-fig="dotlaw"><div class="live"><i></i>LIVE</div><canvas width="960" height="540"></canvas>
+  <figcaption><b>FIGURE 1</b> — the dot law. solid tone → lattice sample → discs. Δ = <b id="f1d">—</b></figcaption></figure>
+</section>
+
+<section id="beflix">
+  <h2><span class="n">03</span> METHOD II — BEFLIX LINEAGE</h2>
+  <p>BEFLIX (Bell Flicks, Ken Knowlton, Bell Labs 1963) modeled a film as a 252×184 mosaic of
+  cells holding ink levels 0–7, mutated by operations — PAINT, LINE, ZOOM, DISSOLVE — and the
+  camera photographed the mosaic. Halfworld is the same machine with three substitutions: the
+  cell grid is the dot lattice Δ; the ink level is continuous darkness d; the operation set is
+  the full canvas API wielded by asset programs. The engine carries an eight-step quantizer,
+  <code>inkLevel(l), l ∈ 0..7</code>, as a direct homage. As in BEFLIX, <b>the negative never
+  existed</b> — re-running the program is re-shooting the film.</p>
+  <figure data-fig="beflix"><div class="live"><i></i>LIVE</div><canvas width="960" height="480"></canvas>
+  <figcaption><b>FIGURE 2</b> — a region of Figure 1 as a BEFLIX cell mosaic: the scanline writes ink levels 0–7, then each cell resolves to its disc.</figcaption></figure>
+</section>
+
+<section id="keying">
+  <h2><span class="n">04</span> METHOD III — DOT-LAW KEYING</h2>
+  <p>Layered cutouts occlude as rectangles — the "window" problem. The fix is a corollary of the
+  law: any pixel with L ≥ 0.90 prints no ink, so <b>a region too light to print has no right to
+  occlude</b>. Each cast module passes through <code>borderKey</code>, a border-connected flood
+  (O(N), explicit stack):</p>
+  <div class="eq">passable(p) =  α(p) &lt; 10                          unpainted
+            ∨  L(p)·α + (1−α) ≥ θ ,  θ = 0.895      too light to print
+flood from all four borders; every reached light pixel → α := 0</div>
+  <p>Border-connectivity is the point: enclosed whites — eyes, teeth, highlights inside ink —
+  are unreachable from the border and survive. The wipe below crosses one composite: left of the
+  bar the figure is placed raw (its paper field occludes the hall); right of the bar it is keyed.</p>
+  <figure data-fig="keying"><div class="live"><i></i>LIVE</div><canvas width="960" height="540"></canvas>
+  <figcaption><b>FIGURE 3</b> — RAW ⟷ KEYED. the flood eats the border-connected paper; the eyes survive.</figcaption></figure>
+</section>
+
+<section id="restage">
+  <h2><span class="n">05</span> METHOD IV — RESTAGE: ONE FLOOR, LIVE PERFORMANCE</h2>
+  <p>Scenes authored as collages are rebuilt at runtime: the location alone paints the field;
+  every other cast member becomes a keyed cutout on one perspective floor, with depth from its
+  authored feet-line, an anti-crowding relaxation, per-beat state rotation, and gaze bent toward
+  whoever the timeline says is acting. Panels of light field — divine fx, sound, ensembles —
+  composite with <b>multiply</b>, so their paper melts into the set instead of hanging as
+  windows.</p>
+  <div class="eq">d  = clamp((a_y − 0.42)/0.58, 0.08, 1)         depth (0 far → 1 near)
+y  = H·(0.50 + 0.46·d^1.08)                     foot line
+h  = H·s·(0.60 + 0.50·d)·k                      k = 1.08 figures | 0.92 props
+pairs with |d_i−d_j| ≤ 0.30 :  |x_j−x_i| ≥ 0.30·(w_i+w_j)   (3 relax passes)
+divine_fx | sound | ensemble → multiply :  C = C_top · C_under</div>
+  <figure data-fig="restage"><div class="live"><i></i>LIVE</div><canvas width="960" height="600"></canvas>
+  <figcaption><b>FIGURE 4</b> — <b id="f4t">OD-B01-S01</b> restaged live; every few seconds the diagnosis layer surfaces: depth grid, foot lines, layout boxes.</figcaption></figure>
+</section>
+
+<section id="camera">
+  <h2><span class="n">06</span> METHOD V — THE CAMERA IS A CROP</h2>
+  <p>All close shots are crops of the live restaged field — never of standalone previews, whose
+  lighting the scene cannot know. For a subject placed by <code>layout()</code> at (x, y, w, h):</p>
+  <div class="eq">frame_h = 0.92·h (figures) | 1.35·h (props)
+zoom(u) = 1 − 0.26·ease(u)
+crop_h  = clamp(frame_h·zoom, 0.30·SRCH, 0.96·SRCH)
+focus   = (x, y − 0.74·h)                        faces, not navels</div>
+  <figure data-fig="camera"><div class="live"><i></i>LIVE</div><canvas width="960" height="540"></canvas>
+  <figcaption><b>FIGURE 5</b> — the previs camera punching in on <b id="f5t">—</b>, cycling targets from the cast.</figcaption></figure>
+</section>
+
+<section id="pipeline">
+  <h2><span class="n">07</span> METHOD VI — HOW 400 FILES WERE GENERATED</h2>
+  <p><b>1 · Job synthesis.</b> <code>gen-book-jobs.mjs &lt;book&gt;</code> reads the book's scene
+  breakdown and emits one job per missing asset and scene.
+  <b>2 · Agentic fan-out.</b> A workflow dispatches each job to a subagent carrying the full
+  atlas prompt — visual grammar, scene function, required states, the asset contract. The agent
+  writes the module; a verifier renders it headlessly and rejects contract violations.
+  <b>3 · Scene assembly.</b> Scene agents receive cast + beats and author
+  <code>cast / timeline / stage</code>.
+  <b>4 · Manifest.</b> <code>build-odyssey-studio-manifest.mjs</code> re-joins everything —
+  including every generation prompt, verbatim. The atlas is reproducible <i>in distribution</i>:
+  re-running a job yields a different but contract-equal drawing.</p>
+  <p><b>The economics, measured from the shipped files.</b> An asset job goes in as a
+  ~<b>194-token</b> prompt (median; the atlas grammar + scene function + required states + the
+  contract) and comes back as a drawing program of median <b>294 lines ≈ 3,500 tokens</b>
+  (largest: 566 lines). A scene job returns ~154 lines ≈ 2,000 tokens of cast, timeline and
+  staging. The whole atlas — 307 assets + 94 scene programs — is
+  <b>≈ 1.27 million tokens of executable drawing</b>, generated by waves of subagents fanned
+  out in parallel, each blind to the others, disciplined only by the contract. A verifier
+  renders every module headlessly; a contract violation (painted background, missing states,
+  off-palette color) sends the job back to the queue with the violation appended to its prompt.</p>
+  <p><b>Watch it print.</b> Because an asset <i>is</i> its code, generation is literally
+  printing: as the module streams line by line, the drawing it describes comes into being
+  beneath the print head. The two featured lanes below show the full loop — verbatim prompt in,
+  shipped code out, tokens metered both ways — while the swarm behind them runs the same loop
+  compressed. Set the floor to 48 agents to feel what a book-sized batch was like.</p>
+  <div id="agfloor">
+    <div class="aghead">
+      <span><i>●</i> FIGURE 6 · THE PRINTING FLOOR</span>
+      <span id="agsel">AGENTS
+        <button data-n="4">4</button><button data-n="12" class="on">12</button>
+        <button data-n="24">24</button><button data-n="48">48</button></span>
+      <span id="agstat">0 JOBS · 0 TOK IN · 0 TOK OUT</span>
+    </div>
+    <div id="aglog"><b>FOREMAN</b> · booting the floor…</div>
+    <div id="agfeat"></div>
+    <div id="agswarm"></div>
+    <div id="agbelt"><div class="blab">CONVEYOR — VERIFIED WORK SHIPS INTO THE ATLAS → <b id="beltn">0</b></div>
+      <div id="beltrow"></div></div>
+  </div>
+  <p style="margin-top:26px"><b>Then the scene is reassembled.</b> A scene agent receives only
+  the cast manifest and the beats. At runtime the restage puts the pieces back together the
+  same way every time: the location alone paints the field; each cast member is dot-law keyed
+  (its unprintable paper made transparent) and set down at its authored anchor — the x it was
+  given and a depth d derived from its feet line — sized by the perspective floor, pushed apart
+  by three relaxation passes wherever two bodies at the same depth would stack. Only when every
+  piece stands in place does the single dotify pass run, and the assembly stops being a
+  collage of parts and becomes one print. Figure 7 replays this assembly for a real scene,
+  annotated with the actual anchors and depths.</p>
+  <figure data-fig="assembly"><div class="live"><i></i>LIVE</div><canvas width="960" height="600"></canvas>
+  <figcaption><b>FIGURE 7</b> — reassembly of <b>OD-B01-S01</b>: location field → keyed cast placed by anchor + depth → relaxation → one dotify pass.</figcaption></figure>
+  <div class="stats">
+    <div><b>307</b><span>assets live</span></div>
+    <div><b>93</b><span>scene programs</span></div>
+    <div><b>15/24</b><span>books built</span></div>
+    <div><b>11</b><span>asset types</span></div>
+    <div><b>100%</b><span>prompts retained</span></div>
+    <div><b>0</b><span>raster files</span></div>
+  </div>
+</section>
+
+<div id="foot">ODYSSEY HALFWORLD · methods render live from <code>engine/halfworld-engine.mjs</code> —
+this page is not illustrated with the film, it is illustrated <b>by</b> the film.
+· <a href="/README.md">README</a> · <a href="/odyssey-timeline.html">TIMELINE</a></div>
+</div>
+
+<script type="module">
+import * as E from "/engine/halfworld-engine.mjs";
+const MF = await fetch("/viewer/odyssey-manifest.json").then(r=>r.json());
+const assetById = new Map(MF.assets.map(a=>[a.id,a]));
+const modCache = new Map();
+async function loadMod(id){
+  const a = assetById.get(id); if(!a) return null;
+  if(!modCache.has(a.path)) modCache.set(a.path,(await import(a.path)).default);
+  return modCache.get(a.path);
+}
+
+/* batched dotifier — one path fill per radius bucket */
+function fastDotify(g, src, SW, SH, CW, CH, cell, gain=1){
+  g.setTransform(1,0,0,1,0,0);
+  g.fillStyle="#fdfdfa"; g.fillRect(0,0,CW,CH);
+  const r=E.containRect(SW,SH,CW,CH);
+  g.fillStyle="rgba(0,0,0,.09)"; g.beginPath();
+  for(let y=cell*.5;y<CH;y+=cell*1.4){ for(let x=cell*.5;x<CW;x+=cell*1.4){ g.moveTo(x+.6,y); g.arc(x,y,.6,0,7);} }
+  g.fill();
+  const NB=12, buckets=Array.from({length:NB},()=>[]);
+  const rMax=cell*.62*gain;
+  for(let y=cell/2;y<CH;y+=cell){
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-r.oy)/r.s))); if((y-r.oy)<0||(y-r.oy)>=r.h)continue;
+    for(let x=cell/2;x<CW;x+=cell){
+      if((x-r.ox)<0||(x-r.ox)>=r.w)continue;
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-r.ox)/r.s))), i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255, d=1-lum; if(d<.10)continue;
+      const rad=Math.pow(d,.9)*rMax;
+      buckets[Math.min(NB-1,Math.floor(rad/rMax*NB))].push(x,y);
+    }
+  }
+  g.fillStyle="#0a0a0a";
+  for(let b2=0;b2<NB;b2++){
+    const pts=buckets[b2]; if(!pts.length)continue;
+    const rad=(b2+.6)/NB*rMax; g.beginPath();
+    for(let k=0;k<pts.length;k+=2){ g.moveTo(pts[k]+rad,pts[k+1]); g.arc(pts[k],pts[k+1],rad,0,7); }
+    g.fill();
+  }
+}
+function solidCanvas(mod, w, h, state){
+  const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+  const g=cv.getContext("2d",{willReadFrequently:true});
+  g.fillStyle=E.PAPER; g.fillRect(0,0,w,h);
+  try{ mod.draw(g,w,h,{...(mod.preview?mod.preview():{}),...state,card:false}); }catch(e){}
+  return cv;
+}
+
+/* ── film strip: one cel per asset type + heroes ── */
+(async ()=>{
+  const picks=["character.odysseus","character.athena","character.polyphemus","location.olympian-council-hall",
+    "creature.scylla","divine-fx.poseidons-absence","ensemble.assembly-of-gods","character.zeus",
+    "character.penelope","character.telemachus","vehicle.phaeacian-ship","character.circe",
+    "prop.great-bow-of-odysseus","character.calypso","location.calypsos-island-cave","creature.sirens"]
+    .filter(id=>assetById.has(id));
+  while(picks.length<16){ const a=MF.assets[Math.floor(Math.random()*MF.assets.length)]; if(!picks.includes(a.id))picks.push(a.id); }
+  const holder=document.getElementById("stripIn");
+  for(const id of picks){
+    const cel=document.createElement("div"); cel.className="cel";
+    const c=document.createElement("canvas"); c.width=236; c.height=164;
+    const s=document.createElement("span"); s.textContent=(assetById.get(id)||{}).name||id;
+    cel.append(c,s); holder.append(cel);
+    loadMod(id).then(mod=>{ if(!mod)return;
+      const off=solidCanvas(mod,330,440,{});
+      const src=off.getContext("2d").getImageData(0,0,330,440).data;
+      fastDotify(c.getContext("2d"),src,330,440,236,164,3.2);
+    }).catch(()=>{});
+  }
+})();
+
+/* ── figure runner: only animate what is on screen ── */
+const FIGS={};
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  const f=FIGS[e.target.dataset.fig]; if(f) f.on=e.isIntersecting;
+}),{threshold:.15});
+document.querySelectorAll("figure[data-fig]").forEach(el=>io.observe(el));
+function runner(name, setup){
+  const el=document.querySelector(`figure[data-fig=${name}]`);
+  const cv=el.querySelector("canvas"), g=cv.getContext("2d");
+  const f={on:false,cv,g,t0:performance.now()};
+  FIGS[name]=f;
+  setup(f).then(tick=>{
+    const loop=()=>{ if(f.on){ try{ tick((performance.now()-f.t0)/1000); }catch(e){} } requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }).catch(err=>console.warn(name,err));
+}
+
+/* FIG 1 — dot law: Δ sweeps */
+runner("dotlaw", async f=>{
+  const mod=await loadMod("character.odysseus")||await loadMod(MF.assets.find(a=>a.type==="character").id);
+  const SW=760,SH=430;
+  const off=document.createElement("canvas"); off.width=SW; off.height=SH;
+  const og=off.getContext("2d",{willReadFrequently:true});
+  og.fillStyle=E.PAPER; og.fillRect(0,0,SW,SH);
+  const fig=solidCanvas(mod,330,430,{});
+  og.drawImage(fig,215,0);
+  const src=og.getImageData(0,0,SW,SH).data;
+  let last=-1;
+  return t=>{
+    const u=(Math.sin(t*.5)+1)/2;                 // 0..1..0
+    const cell=Math.round(3+(1-u)*17);            // 20 → 3
+    if(cell===last)return; last=cell;
+    fastDotify(f.g,src,SW,SH,f.cv.width,f.cv.height,cell);
+    document.getElementById("f1d").textContent=cell+" px";
+  };
+});
+
+/* FIG 2 — BEFLIX mosaic: scanline writes ink levels, cells resolve to discs */
+runner("beflix", async f=>{
+  const mod=await loadMod("character.odysseus")||await loadMod(MF.assets.find(a=>a.type==="character").id);
+  const off=solidCanvas(mod,330,440,{});
+  const src=off.getContext("2d",{willReadFrequently:true}).getImageData(0,0,330,440).data;
+  const COLS=30,ROWS=15, x0=90,y0=60,rw=150,rh=150;   // crop: the face region
+  const grid=[];
+  for(let j=0;j<ROWS;j++)for(let i=0;i<COLS;i++){
+    const sx=Math.floor(x0+(i+.5)/COLS*rw), sy=Math.floor(y0+(j+.5)/ROWS*rh), p=(sy*330+sx)*4;
+    const lum=(src[p]*.299+src[p+1]*.587+src[p+2]*.114)/255;
+    grid.push(Math.min(7,Math.round((1-lum)*7)));
+  }
+  const CW=f.cv.width,CH=f.cv.height, cw=CW/COLS, ch=CH/ROWS;
+  return t=>{
+    const g=f.g;
+    g.setTransform(1,0,0,1,0,0); g.fillStyle="#fdfdfa"; g.fillRect(0,0,CW,CH);
+    const sweep=(t*.14)%1.6;                       // scanline position 0..1.6 (pause tail)
+    const head=Math.min(1,sweep)*COLS*ROWS;
+    g.strokeStyle="rgba(0,0,0,.12)"; g.lineWidth=1; g.beginPath();
+    for(let i=1;i<COLS;i++){g.moveTo(i*cw,0);g.lineTo(i*cw,CH);}
+    for(let j=1;j<ROWS;j++){g.moveTo(0,j*ch);g.lineTo(CW,j*ch);}
+    g.stroke();
+    for(let j=0;j<ROWS;j++)for(let i=0;i<COLS;i++){
+      const k=j*COLS+i, v=grid[k], cx=i*cw+cw/2, cy=j*ch+ch/2;
+      const age=head-k;                            // cells behind the scanhead resolve
+      if(age<0)continue;
+      if(age<COLS*1.5){                            // fresh: show the ink level digit
+        g.fillStyle=v?"#141414":"#b9b7ae"; g.font="700 "+Math.round(ch*.42)+"px ui-monospace";
+        g.textAlign="center"; g.textBaseline="middle"; g.fillText(v,cx,cy);
+      } else if(v){                                // resolved: the disc
+        g.fillStyle="#0a0a0a"; g.beginPath();
+        g.arc(cx,cy,(v/7)**.9*Math.min(cw,ch)*.44,0,7); g.fill();
+      }
+    }
+    if(sweep<1){ const hx=(head%COLS)*cw, hy=Math.floor(head/COLS)*ch;
+      g.fillStyle="#e01b1b"; g.fillRect(hx-1,hy,3,ch); }
+  };
+});
+
+/* FIG 3 — keying wipe over a real location */
+runner("keying", async f=>{
+  const loc=await loadMod("location.olympian-council-hall")||await loadMod(MF.assets.find(a=>a.type==="location").id);
+  const chr=await loadMod("character.zeus")||await loadMod(MF.assets.find(a=>a.type==="character").id);
+  const SW=880,SH=500;
+  const back=document.createElement("canvas"); back.width=SW; back.height=SH;
+  const bg=back.getContext("2d",{willReadFrequently:true});
+  bg.fillStyle=E.PAPER; bg.fillRect(0,0,SW,SH);
+  try{ loc.draw(bg,SW,SH,{...(loc.preview?loc.preview():{}),card:false,t:1}); }catch(e){}
+  bg.fillStyle="rgba(255,255,255,.20)"; bg.fillRect(0,0,SW,SH);
+  const fw=260, fh=350, fx=SW/2-fw/2, fy=SH-fh-20;
+  const raw=solidCanvas(chr,fw,fh,{});                        // paper field intact → window
+  const keyed=E.keyedModuleCanvas(chr,fw,fh,{},"docfig");     // dot-law keyed
+  const off=document.createElement("canvas"); off.width=SW; off.height=SH;
+  const og=off.getContext("2d",{willReadFrequently:true});
+  return t=>{
+    const split=SW*(.5+.42*Math.sin(t*.55));
+    og.drawImage(back,0,0);
+    og.save(); og.beginPath(); og.rect(0,0,split,SH); og.clip(); og.drawImage(raw,fx,fy); og.restore();
+    og.save(); og.beginPath(); og.rect(split,0,SW-split,SH); og.clip(); og.drawImage(keyed,fx,fy); og.restore();
+    const src=og.getImageData(0,0,SW,SH).data;
+    fastDotify(f.g,src,SW,SH,f.cv.width,f.cv.height,4);
+    const g=f.g, r=E.containRect(SW,SH,f.cv.width,f.cv.height), bx=r.ox+split*r.s;
+    g.fillStyle="#e01b1b"; g.fillRect(bx-1.5,0,3,f.cv.height);
+    g.font="700 11px ui-monospace"; g.fillStyle="#141414";
+    g.textAlign="left"; g.fillText("RAW (occludes)",r.ox+10,22);
+    g.textAlign="right"; g.fillText("KEYED (dot law)",r.ox+r.w-10,22);
+  };
+});
+
+/* FIG 4 + FIG 5 share one restaged scene */
+const SCENE_ID="OD-B01-S01";
+async function buildRestage(){
+  const entry=MF.scenes.find(s=>s.id===SCENE_ID);
+  const sceneMod=(await import(entry.path)).default;
+  await Promise.all(entry.assets.map(loadMod));
+  const rs=E.makeRestage(sceneMod,
+    id=>modCache.get((assetById.get(id)||{}).path),
+    id=>(assetById.get(id)||{}).type, {});
+  return {rs,entry};
+}
+const RSP=buildRestage();
+
+runner("restage", async f=>{
+  const {rs}=await RSP;
+  const SW=900,SH=560;
+  const off=document.createElement("canvas"); off.width=SW; off.height=SH;
+  const og=off.getContext("2d",{willReadFrequently:true});
+  return t=>{
+    const T=t%(rs.duration||36);
+    rs.stage(og,SW,SH,T);
+    const src=og.getImageData(0,0,SW,SH).data;
+    fastDotify(f.g,src,SW,SH,f.cv.width,f.cv.height,4);
+    if(Math.sin(t*.45)>.25){                       // the diagnosis layer surfaces
+      const g=f.g, r=E.containRect(SW,SH,f.cv.width,f.cv.height);
+      g.strokeStyle="rgba(0,51,204,.55)"; g.lineWidth=1; g.setLineDash([4,4]); g.beginPath();
+      for(let dd=.2;dd<=1;dd+=.2){ const y=r.oy+SH*(.50+.46*Math.pow(dd,1.08))*r.s;
+        g.moveTo(r.ox,y); g.lineTo(r.ox+r.w,y); }
+      g.stroke(); g.setLineDash([]);
+      rs.layout(SW,SH,T).forEach(p=>{
+        g.strokeStyle=p.figure?"#0033cc":"#e01b1b";
+        g.strokeRect(r.ox+(p.x-p.w/2)*r.s, r.oy+(p.y-p.h)*r.s, p.w*r.s, p.h*r.s);
+        g.fillStyle="rgba(0,51,204,.9)"; g.font="700 9px ui-monospace"; g.textAlign="center";
+        g.fillText("d="+p.d.toFixed(2), r.ox+p.x*r.s, r.oy+p.y*r.s+12);
+      });
+    }
+  };
+});
+
+runner("camera", async f=>{
+  const {rs}=await RSP;
+  const SW=900,SH=560, SHOT=4.2;
+  const off=document.createElement("canvas"); off.width=SW; off.height=SH;
+  const og=off.getContext("2d",{willReadFrequently:true});
+  const ease=u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+  return t=>{
+    const T=t%(rs.duration||36);
+    const ps=rs.layout(SW,SH,T).filter(p=>p.figure);
+    if(!ps.length)return;
+    const p=ps[Math.floor(t/SHOT)%ps.length], u=(t%SHOT)/SHOT;
+    rs.stage(og,SW,SH,T);
+    const zoom=1-.26*ease(Math.min(1,u*1.3));
+    let ch=Math.max(SH*.30,Math.min(SH*.96,p.h*.92*zoom)), cw=ch*SW/SH;
+    let fx=Math.max(cw/2,Math.min(SW-cw/2,p.x)), fy=Math.max(ch/2,Math.min(SH-ch/2,p.y-p.h*.74));
+    const crop=document.createElement("canvas"); crop.width=SW; crop.height=SH;
+    crop.getContext("2d").drawImage(off,fx-cw/2,fy-ch/2,cw,ch,0,0,SW,SH);
+    const src=crop.getContext("2d",{willReadFrequently:true}).getImageData(0,0,SW,SH).data;
+    fastDotify(f.g,src,SW,SH,f.cv.width,f.cv.height,4.2);
+    document.getElementById("f5t").textContent=(p.instance||"").replace(/_/g," ").toUpperCase();
+  };
+});
+
+/* ── THE PRINTING FLOOR — real prompts, real code, images printing line by
+   line as their programs stream. Token meters are chars/4 of the actual
+   artifacts. Swarm size is the user's choice (4..48). ── */
+(async()=>{
+  const floor=document.getElementById("agfloor");
+  let visible=false;
+  new IntersectionObserver(es=>es.forEach(e=>visible=e.isIntersecting),{threshold:.08}).observe(floor);
+  const pool=MF.assets.filter(a=>a.prompt&&a.prompt.length>200);
+  const codeCache=new Map();
+  const codeOf=a=>{ if(!codeCache.has(a.path))
+      codeCache.set(a.path,fetch(a.path).then(r=>r.text()).catch(()=>""));
+    return codeCache.get(a.path); };
+  const printCache=new Map();
+  const WIDE_T=/ensemble|set_piece|vehicle|environment|location|divine_fx|sound_source/;
+  function srcDims(t){ if(WIDE_T.test(t||""))return [440,300];
+    if(t==="prop"||t==="wearable")return [360,360]; return [300,400]; }
+  async function printCanvas(a,W,H){
+    const k=a.id+"|"+W;
+    if(printCache.has(k))return printCache.get(k);
+    const mod=(await import(a.path)).default;
+    const cut=E.inkCutout(mod,{},"floor");
+    const sw=cut.ar>=1?Math.min(760,Math.round(340*cut.ar)):340;
+    const sh=cut.ar>=1?340:Math.min(760,Math.round(340/cut.ar));
+    const off=document.createElement("canvas"); off.width=sw; off.height=sh;
+    const g2=off.getContext("2d",{willReadFrequently:true});
+    g2.fillStyle=E.PAPER; g2.fillRect(0,0,sw,sh);
+    g2.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,0,0,sw,sh);
+    const src=g2.getImageData(0,0,sw,sh).data;
+    const cv=document.createElement("canvas");cv.width=W;cv.height=H;
+    fastDotify(cv.getContext("2d"),src,sw,sh,W,H,Math.max(1.8,W/80));
+    if(printCache.size>140){let n=0;for(const kk of printCache.keys()){printCache.delete(kk);if(++n>40)break;}}
+    printCache.set(k,cv); return cv;
+  }
+  function drawPrint(g,W,H,pc,prog){
+    g.fillStyle="#fdfdfa"; g.fillRect(0,0,W,H);
+    const hp=Math.floor(prog*H);
+    if(hp>0)g.drawImage(pc,0,0,pc.width,pc.height*prog,0,0,W,hp);
+    if(prog<1){ g.fillStyle="#e01b1b"; g.fillRect(0,hp,W,2); }
+  }
+  const FLOOR={jobs:0,tin:0,tout:0};
+  const statEl=document.getElementById("agstat");
+  const fmtk=n=>n>=1000?(n/1000).toFixed(1)+"k":String(n);
+  function stat(){statEl.textContent=FLOOR.jobs+" JOBS · "+fmtk(FLOOR.tin)+" TOK IN · "+fmtk(FLOOR.tout)+" TOK OUT";}
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const pick=()=>pool[Math.floor(Math.random()*pool.length)];
+
+  /* featured lanes: the full loop, slow enough to read */
+  function mkFeat(i){
+    const el=document.createElement("div"); el.className="agl";
+    el.innerHTML=`<div class="ahd">AGENT-${String(i+1).padStart(2,"0")} · <b class="job">idle</b></div>
+      <div class="aphase">…</div><div class="aprompt"></div>
+      <div class="athink"></div><pre class="acode"></pre>
+      <div class="aprint"><canvas width="192" height="256"></canvas>
+        <span class="tok">IN <b class="ti">0</b> tok<br>OUT <b class="to">0</b> tok<br>
+        <span class="stamp">—</span></span></div>`;
+    document.getElementById("agfeat").append(el);
+    return { job:el.querySelector(".job"), phase:el.querySelector(".aphase"),
+      pr:el.querySelector(".aprompt"), think:el.querySelector(".athink"),
+      code:el.querySelector(".acode"),
+      cvn:el.querySelector("canvas"), ti:el.querySelector(".ti"), to:el.querySelector(".to"),
+      stamp:el.querySelector(".stamp") };
+  }
+  async function runFeat(L,delay){
+    await sleep(delay);
+    while(true){
+      if(!visible){await sleep(600);continue;}
+      const a=pick();
+      L.job.textContent=a.id; L.stamp.textContent="—"; L.stamp.className="stamp";
+      L.ti.textContent="0"; L.to.textContent="0";
+      const g=L.cvn.getContext("2d"); g.fillStyle="#fdfdfa"; g.fillRect(0,0,192,256);
+      /* 1 — prompt in (tokens metered as it arrives) */
+      L.phase.textContent="1 · PROMPT → AGENT";
+      const ptxt=a.prompt, show=ptxt.slice(0,430);
+      for(let k=0;k<show.length&&visible;k+=8){
+        L.pr.textContent=show.slice(0,k)+"▌";
+        L.ti.textContent=Math.ceil((k/show.length)*ptxt.length/4);
+        await sleep(15);
+      }
+      L.pr.textContent=show+" …"; L.ti.textContent=Math.ceil(ptxt.length/4);
+      /* 2 — the agent thinks out loud: its plan IS the module's own comments */
+      const src=await codeOf(a), lines=src.split("\n");
+      L.phase.textContent="2 · AGENT PLANS THE DRAWING";
+      const plan=lines.map(l=>l.trim()).filter(l=>/^(\/\/|\/\*|\*)/.test(l))
+        .map(l=>l.replace(/^(\/\/|\/\*+|\*+\/?)\s?/,"").trim())
+        .filter(x=>x.length>5&&!/^-|^=|^─/.test(x)).slice(0,4);
+      L.think.textContent="";
+      const ptext="PLAN · "+plan.join(" → ");
+      for(let k=0;k<ptext.length&&visible;k+=5){
+        L.think.textContent=ptext.slice(0,k)+"▌"; await sleep(18); }
+      L.think.textContent=ptext;
+      /* 3 — the module streams AND the image prints beneath the head */
+      const pc=await printCanvas(a,192,256).catch(()=>null);
+      L.phase.textContent="3 · CODE STREAMS — THE IMAGE PRINTS";
+      for(let k=0;k<lines.length&&visible;k+=2){
+        const from=Math.max(0,k-10);
+        L.code.textContent=lines.slice(from,k+1).join("\n");
+        L.to.textContent=fmtk(Math.ceil((k/lines.length)*src.length/4));
+        if(pc)drawPrint(g,192,256,pc,k/lines.length);
+        await sleep(26);
+      }
+      L.code.textContent=lines.slice(-11).join("\n")+"\n// "+lines.length+" lines shipped";
+      L.to.textContent=fmtk(Math.ceil(src.length/4));
+      if(pc)drawPrint(g,192,256,pc,1);
+      /* 4 — verify + ship onto the belt */
+      L.phase.textContent="4 · VERIFIED — CONTRACT-EQUAL";
+      L.stamp.textContent="✓ SHIPPED"; L.stamp.className="stamp ok";
+      FLOOR.jobs++; FLOOR.tin+=Math.ceil(ptxt.length/4); FLOOR.tout+=Math.ceil(src.length/4); stat();
+      if(pc)ship(pc,a);
+      await sleep(2200);
+    }
+  }
+
+  /* the swarm: same loop, compressed — every cell prints its own drawing */
+  const swarmEl=document.getElementById("agswarm");
+  let cells=[], swarmGen=0;
+  function buildSwarm(n){
+    swarmGen++; swarmEl.innerHTML=""; cells=[];
+    for(let i=0;i<n;i++){
+      const el=document.createElement("div"); el.className="swc";
+      el.innerHTML=`<span class="sid">…</span><canvas width="96" height="128"></canvas>
+        <span class="stk"><span class="i">·</span><b class="o">·</b></span>`;
+      swarmEl.append(el);
+      cells.push({el,sid:el.querySelector(".sid"),cv:el.querySelector("canvas"),
+        i:el.querySelector(".i"),o:el.querySelector(".o")});
+      runCell(cells[i], i*230+Math.random()*400, swarmGen);
+    }
+  }
+  async function runCell(C,delay,gen){
+    await sleep(delay);
+    while(gen===swarmGen){
+      if(!visible){await sleep(700);continue;}
+      const a=pick();
+      C.el.classList.remove("done");
+      C.sid.textContent=a.id.split(".")[1]||a.id;
+      C.i.textContent=Math.ceil(a.prompt.length/4)+"→";
+      let pc=null,src="";
+      try{ [pc,src]=await Promise.all([printCanvas(a,96,128),codeOf(a)]); }catch(e){}
+      const tout=Math.ceil(src.length/4);
+      const g=C.cv.getContext("2d");
+      const dur=2200+Math.random()*2600, t0=performance.now();
+      while(gen===swarmGen){
+        const u=Math.min(1,(performance.now()-t0)/dur);
+        if(pc)drawPrint(g,96,128,pc,u);
+        C.o.textContent=fmtk(Math.ceil(u*tout));
+        if(u>=1)break;
+        await sleep(70);
+      }
+      C.el.classList.add("done");
+      FLOOR.jobs++; FLOOR.tin+=Math.ceil(a.prompt.length/4); FLOOR.tout+=tout; stat();
+      if(pc)ship(pc,a);
+      await sleep(700+Math.random()*900);
+    }
+  }
+  /* the conveyor: every verified print leaves the floor stage-left */
+  const beltRow=document.getElementById("beltrow"); let beltN=0;
+  function ship(pc,a){
+    const d=document.createElement("div"); d.className="bitem";
+    const c=document.createElement("canvas"); c.width=pc.width; c.height=pc.height;
+    c.getContext("2d").drawImage(pc,0,0);
+    const sp=document.createElement("span"); sp.textContent=a.id.split(".")[1]||a.id;
+    d.append(c,sp); beltRow.prepend(d);
+    while(beltRow.children.length>34)beltRow.lastChild.remove();
+    beltN++; document.getElementById("beltn").textContent=beltN;
+  }
+  /* foreman log — the process as it actually ran, narrated with real jobs */
+  const logEl=document.getElementById("aglog");
+  const ri=n=>1+Math.floor(Math.random()*n);
+  const FOREMAN=[
+    ()=>`gen-book-jobs.mjs ${ri(15)} → scene breakdown read · ${2+ri(10)} assets missing · dispatching wave of ${6+ri(8)} subagents`,
+    ()=>`brief → subagent: <b>${pick().id}</b> · atlas grammar + scene function + contract · ~${180+ri(90)} tok`,
+    ()=>`subagent returns ${140+ri(400)} lines · handing to verifier`,
+    ()=>`verifier: render.mjs <b>${pick().id}</b> → headless frame ✓ palette ✓ states ✓ no painted background → SHIP`,
+    ()=>`reject: <b>${pick().id}</b> — field occludes as a rectangle · violation appended to prompt · re-queued`,
+    ()=>`scene agent: <b>${MF.scenes[Math.floor(Math.random()*MF.scenes.length)].id}</b> receives cast + beats → authors cast / timeline / stage`,
+    ()=>`manifest: build-odyssey-studio-manifest.mjs → 307 assets · 93 scenes rejoined · every prompt verbatim`,
+    ()=>`wave complete · ${8+ri(6)}/${8+ri(6)} contract-equal on first pass · next book queued`];
+  let fi=0;
+  setInterval(()=>{ if(!visible)return;
+    logEl.innerHTML="<b>FOREMAN</b> · "+FOREMAN[fi%FOREMAN.length]()+
+      (Math.random()<.5?"":" · "+FOREMAN[Math.floor(Math.random()*FOREMAN.length)]());
+    fi++; },2800);
+  document.querySelectorAll("#agsel button").forEach(b=>{
+    b.onclick=()=>{document.querySelectorAll("#agsel button").forEach(x=>x.classList.toggle("on",x===b));
+      buildSwarm(+b.dataset.n);};
+  });
+  runFeat(mkFeat(0),0); runFeat(mkFeat(1),2600);
+  buildSwarm(12);
+})();
+
+/* ── FIGURE 7: scene reassembly — anchors, depth, relaxation, one dotify ── */
+runner("assembly", async f=>{
+  const {rs}=await RSP;
+  const SW=900,SH=560;
+  const off=document.createElement("canvas"); off.width=SW; off.height=SH;
+  const og=off.getContext("2d",{willReadFrequently:true});
+  const placed=rs.layout(SW,SH,3);                 // far → near
+  const loc=rs.loc;
+  const INTRO=2, PER=1.6, RELAX=2, PRINT=3.4;
+  const cycle=INTRO+placed.length*PER+RELAX+PRINT;
+  return t=>{
+    const g=f.g, CW=f.cv.width, CH=f.cv.height;
+    const ph=t%cycle;
+    const shown = ph<INTRO?0:Math.min(placed.length,Math.floor((ph-INTRO)/PER)+1);
+    const inRelax = ph>=INTRO+placed.length*PER && ph<INTRO+placed.length*PER+RELAX;
+    const inPrint = ph>=INTRO+placed.length*PER+RELAX;
+    /* compose in solid tone — the assembly bench */
+    og.fillStyle=E.PAPER; og.fillRect(0,0,SW,SH);
+    if(loc){ try{ loc.mod.draw(og,SW,SH,{...(loc.mod.preview?loc.mod.preview():{}),card:false,t:2}); }catch(e){}
+      og.fillStyle="rgba(255,255,255,.20)"; og.fillRect(0,0,SW,SH); }
+    for(let k=0;k<shown;k++){
+      const p=placed[k];
+      og.fillStyle="rgba(20,20,20,.13)";
+      og.beginPath(); og.ellipse(p.x,p.y+2,p.w*.33,p.w*.075,0,0,7); og.fill();
+      try{
+        const PAD=.22, kc=E.keyedModuleCanvas(p.it.mod,p.w,p.h,{},"asm",.895,PAD);
+        og.globalCompositeOperation="darken";
+        og.drawImage(kc,p.x-p.w/2-Math.round(p.w*PAD),p.y-p.h-Math.round(p.h*PAD));
+        og.globalCompositeOperation="source-over";
+      }catch(e){}
+    }
+    const r=E.containRect(SW,SH,CW,CH);
+    if(inPrint){
+      const src=og.getImageData(0,0,SW,SH).data;
+      fastDotify(g,src,SW,SH,CW,CH,4);
+      g.fillStyle="#141414"; g.font="700 12px ui-monospace"; g.textAlign="left";
+      g.fillText("ONE DOTIFY PASS — the assembly becomes one print", r.ox+12, r.oy+24);
+      return;
+    }
+    g.setTransform(1,0,0,1,0,0);
+    g.fillStyle="#fdfdfa"; g.fillRect(0,0,CW,CH);
+    g.drawImage(off,0,0,SW,SH,r.ox,r.oy,r.w,r.h);
+    g.font="700 11px ui-monospace"; g.textAlign="left";
+    g.fillStyle="#e01b1b";
+    if(ph<INTRO){ g.fillText("JOB "+rs.id+" · CAST OF "+placed.length+" + LOCATION — assembling in solid tone…", r.ox+12, r.oy+24); }
+    else if(inRelax){
+      g.fillText("RELAX ×3 — same-depth pairs pushed apart until gap ≥ 0.30·(w₁+w₂)", r.ox+12, r.oy+24);
+      g.strokeStyle="#0033cc"; g.setLineDash([4,4]);
+      placed.forEach(p=>{ g.strokeRect(r.ox+(p.x-p.w/2)*r.s, r.oy+(p.y-p.h)*r.s, p.w*r.s, p.h*r.s); });
+      g.setLineDash([]);
+    } else if(shown>0){
+      const p=placed[shown-1];
+      g.strokeStyle="#0033cc"; g.lineWidth=2; g.setLineDash([5,5]);
+      g.strokeRect(r.ox+(p.x-p.w/2)*r.s, r.oy+(p.y-p.h)*r.s, p.w*r.s, p.h*r.s);
+      g.setLineDash([]);
+      const lbl=p.instance+" · x="+(p.x/SW).toFixed(2)+" · d="+p.d.toFixed(2)+" · keyed θ=.895 · darken";
+      const lx=Math.min(r.ox+r.w-8-g.measureText(lbl).width, Math.max(r.ox+8, r.ox+(p.x-p.w/2)*r.s));
+      g.fillStyle="#0033cc"; g.fillText(lbl, lx, Math.max(r.oy+40, r.oy+(p.y-p.h)*r.s-8));
+      g.fillStyle="#e01b1b";
+      g.fillText("PLACE "+shown+"/"+placed.length+" — keyed cutout set on the perspective floor", r.ox+12, r.oy+24);
+    }
+  };
+});
+</script>
+</body>
+</html>

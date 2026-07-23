@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>render-scene-harness</title>
+<style>html,body{margin:0;background:#777}#stage{display:block;margin:0 auto}</style></head><body>
+<canvas id="stage"></canvas>
+<script type="module">
+import { renderScene } from "/engine/halfworld-engine.mjs";
+import { validateScene } from "/scenes/_scene-contract.mjs";
+const q=new URLSearchParams(location.search);
+const modPath=q.get("mod"), pipeline=q.get("pipeline")||"MESH";
+const W=+(q.get("w")||1120), H=+(q.get("h")||760), DPR=+(q.get("dpr")||2), t=+(q.get("t")||8);
+const cv=document.getElementById("stage"); cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+"px"; cv.style.height=H+"px";
+(async()=>{
+  const out={mod:modPath,ok:false,errors:[],warnings:[]};
+  try{
+    const m=await import(modPath); const scene=m.scene||m.default;
+    const v=validateScene(scene); out.errors=v.errors; out.warnings=v.warnings;
+    renderScene(cv, scene, { pipeline, t, DPR });
+    out.ok=v.ok; out.dataURL=cv.toDataURL("image/png");
+  }catch(e){
+    out.errors.push("THROW: "+(e&&e.stack?e.stack.split("\n").slice(0,4).join(" | "):String(e)));
+    const g=cv.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);g.strokeStyle="#c00";g.lineWidth=6;g.strokeRect(6,6,cv.width-12,cv.height-12);
+    g.fillStyle="#c00";g.font=`${18*DPR}px monospace`;g.fillText("SCENE RENDER ERROR",24*DPR,40*DPR);
+    g.fillStyle="#333";g.font=`${11*DPR}px monospace`;(out.errors.join(" ").match(/.{1,70}/g)||[]).slice(0,10).forEach((l,i)=>g.fillText(l,24*DPR,(70+i*16)*DPR));
+    out.dataURL=cv.toDataURL("image/png");
+  }
+  window.__RESULT__=out; window.__DONE__=true;
+})();
+</script></body></html>

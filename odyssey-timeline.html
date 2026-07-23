@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>ODYSSEY TIMELINE — every scene a row</title>
+<style>
+  :root{--bg:#0a0a0c;--ink:#f2f2ee;--dim:rgba(242,242,238,.5);--line:rgba(242,242,238,.22);
+    --hot:#9fe7ff;--red:#ff2e2e;--grn:#7cfc00;
+    --mono:ui-monospace,SFMono-Regular,'IBM Plex Mono',Menlo,monospace}
+  *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;
+    scrollbar-width:thin;scrollbar-color:rgba(159,231,255,.45) #0a0a0c}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-track{background:#0a0a0c}
+  ::-webkit-scrollbar-thumb{background:rgba(159,231,255,.3);border-radius:6px;border:2px solid #0a0a0c}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--mono)}
+  body{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+
+  #bar{position:sticky;top:0;z-index:30;display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+    padding:8px 10px;background:rgba(10,10,12,.96);border-bottom:1px solid var(--line);
+    backdrop-filter:blur(6px)}
+  #bar b{font-size:12px;font-weight:800;letter-spacing:.08em;margin-right:2px}
+  #bar b em{font-style:normal;color:var(--dim);font-weight:400;font-size:9px;letter-spacing:.18em}
+  #bar select,#bar button{border:1px solid var(--line);border-radius:8px;background:transparent;
+    color:var(--ink);font:inherit;font-size:10px;font-weight:700;padding:6px 10px;cursor:pointer;
+    letter-spacing:.05em}
+  #bar button.on{border-color:var(--hot);color:var(--hot)}
+  #bar button.pri{background:var(--ink);color:#000}
+  #stat{flex:1;text-align:right;font-size:9px;color:var(--dim);white-space:nowrap;overflow:hidden;min-width:70px}
+  #brushes{display:flex;gap:5px;align-items:center}
+  .chip{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+  .chip.on{outline:2px solid var(--hot);outline-offset:1px}
+
+  /* lanes — each scene is a COLUMN, gel-monte style */
+  #rows{flex:1;min-height:0;display:flex;gap:8px;padding:8px;overflow-x:auto;overflow-y:hidden;
+    align-items:stretch;-webkit-overflow-scrolling:touch}
+  .row{flex:0 0 min(70vw,244px);display:flex;flex-direction:column;border:1px solid var(--line);
+    border-radius:10px;background:#000;overflow:hidden;position:relative;min-height:0}
+  .row.muted{opacity:.35}
+  .row.playing{border-color:var(--hot);box-shadow:0 0 18px rgba(159,231,255,.22)}
+  .rhd{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 9px 6px;
+    border-bottom:1px solid var(--line);background:#0a0a0c}
+  .rhd .bk{font-size:9.5px;color:var(--hot);font-weight:800;letter-spacing:.12em}
+  .rhd .du{font-size:8.5px;color:var(--dim);margin-left:auto}
+  .rhd .ti{font-size:10.5px;font-weight:800;letter-spacing:.04em;width:100%;line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:29px}
+  .rhd .mk{width:10px;height:10px;border-radius:50%;border:1px solid #000;display:none}
+  .rhd button{border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--dim);
+    font:inherit;font-size:9px;font-weight:800;padding:4px 8px;cursor:pointer;flex:none}
+  .rhd button:hover,.rhd button.on{border-color:var(--hot);color:var(--hot)}
+  .note{font-size:9.5px;color:#ffd23f;padding:5px 10px;display:none;white-space:pre-wrap;
+    word-break:break-word;border-bottom:1px dashed rgba(255,210,63,.3)}
+  /* the column body: monitor on top, asset bands beneath, beats at the foot */
+  .strip{display:flex;flex-direction:column;gap:7px;overflow-y:auto;overflow-x:hidden;
+    padding:8px;flex:1;min-height:0;scrollbar-width:none;overscroll-behavior:contain}
+  .strip::-webkit-scrollbar{display:none}
+  .mon{flex:none;width:100%;border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;background:#050505;position:relative;cursor:pointer}
+  .mon canvas{width:100%;aspect-ratio:16/10;display:block}
+  .mon .mtag{position:absolute;left:6px;top:5px;font-size:8px;letter-spacing:.16em;color:var(--hot);
+    text-shadow:0 1px 2px #000;font-weight:800}
+  .mon .mplay{position:absolute;inset:0;display:grid;place-items:center;font-size:26px;
+    color:rgba(255,255,255,.85);text-shadow:0 2px 8px #000;pointer-events:none}
+  .mon.live .mplay{display:none}
+  .mon .scrub{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.14)}
+  .mon .scrub i{display:block;height:100%;width:0%;background:var(--hot)}
+  .ass{flex:none;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+    background:#0d0d10;cursor:pointer;position:relative;transition:border-color .12s}
+  .ass:hover{border-color:var(--hot)}
+  .ass canvas{width:100%;aspect-ratio:16/11;display:block;background:#0d0d10}
+  .ass .tb{position:absolute;left:0;right:0;top:0;height:3px}
+  .ass span{display:block;font-size:8px;letter-spacing:.08em;text-transform:uppercase;
+    padding:4px 6px;color:var(--dim);background:#0a0a0c;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis}
+  .bts{flex:none;border:1px dashed var(--line);border-radius:8px;padding:8px 10px;
+    font-size:9.5px;line-height:1.65;color:#c9cec7}
+  .bts b{color:var(--ink);display:block;letter-spacing:.16em;font-size:8.5px;margin-bottom:4px}
+
+  /* loupe overlay */
+  #loupe{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.88);display:none;
+    align-items:center;justify-content:center;padding:16px}
+  #loupe.on{display:flex}
+  #lcard{width:min(94vw,460px);max-height:92vh;overflow-y:auto;background:#0d0d10;
+    border:1px solid var(--hot);border-radius:12px}
+  #lcard canvas{width:100%;aspect-ratio:3/4;display:block;background:#0d0d10}
+  #lcard .lp{padding:10px 14px 16px;font-size:10.5px;line-height:1.65}
+  #lcard .lp b{display:block;color:var(--hot);font-size:12px;letter-spacing:.1em;margin-bottom:4px}
+  #lcard .lp i{font-style:normal;color:var(--dim);font-size:9px;display:block;margin-bottom:8px}
+  #lcard .lp .perf{color:#ffd23f;margin:8px 0}
+  #lcard .lp .prm{color:#c9cec7;font-size:9.5px;white-space:pre-wrap;word-break:break-word;
+    border-top:1px dashed var(--line);padding-top:8px;margin-top:8px;max-height:30vh;overflow-y:auto}
+  #codeOv{position:fixed;inset:0;z-index:80;background:rgba(5,5,7,.97);display:none;
+    flex-direction:column;padding:0}
+  #codeOv.on{display:flex}
+  #codeOv .ch{flex:none;display:flex;align-items:center;gap:10px;padding:10px 14px;
+    border-bottom:1px solid var(--hot);color:var(--hot);font-size:11px;font-weight:800;letter-spacing:.1em}
+  #codeOv .ch button{margin-left:auto;border:1px solid var(--hot);background:transparent;color:var(--hot);
+    font:inherit;font-weight:800;padding:6px 12px;border-radius:6px;cursor:pointer}
+  #codeOv .cb{flex:1;min-height:0;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch}
+  #codeOv h4{font-size:10px;letter-spacing:.18em;color:#ffd23f;margin:16px 0 6px}
+  #codeOv h4:first-child{margin-top:0}
+  #codeOv .txt{font-size:11.5px;line-height:1.65;color:#dcdcd6;white-space:pre-wrap;word-break:break-word}
+  #codeOv pre{font-size:10.5px;line-height:1.55;color:#7fdc9a;background:#0a0d0a;
+    border:1px solid rgba(127,220,154,.25);padding:10px;overflow-x:auto}
+  #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;background:#111;
+    border:1px solid var(--hot);color:var(--ink);font-size:9.5px;letter-spacing:.18em;
+    text-transform:uppercase;padding:9px 16px;border-radius:9px;opacity:0;transition:opacity .25s;
+    pointer-events:none;max-width:86vw;text-align:center}
+  #toast.show{opacity:1}
+  #boot{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:var(--bg)}
+  #boot .b{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--dim);
+    animation:pulse 1.4s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <b>ODYSSEY <em>· TIMELINE</em></b>
+  <select id="bookSel"></select>
+  <button id="playBook" class="pri" title="play every scene of the book in order">▶ BOOK</button>
+  <button id="autoBtn" class="on" title="the column most in view plays itself">AUTO</button>
+  <button id="musBtn" class="on" title="the book's track plays under playback">♪</button>
+  <div id="brushes" title="pick a color, then tap ● on rows to score them">
+    <span class="chip" data-c="#c0392b" style="background:#c0392b"></span>
+    <span class="chip" data-c="#e67e22" style="background:#e67e22"></span>
+    <span class="chip" data-c="#f1c40f" style="background:#f1c40f"></span>
+    <span class="chip" data-c="#0a7d43" style="background:#0a7d43"></span>
+    <span class="chip" data-c="#2457a0" style="background:#2457a0"></span>
+    <span class="chip" data-c="clear" style="display:grid;place-items:center;font-size:8px;color:var(--dim)">X</span>
+  </div>
+  <button id="expBtn" title="export order + marks + notes + mutes as JSON">EXPORT</button>
+  <span id="stat"></span>
+</div>
+
+<div id="rows"></div>
+<div id="codeOv"><div class="ch"><span id="covTitle">—</span><button id="covClose" type="button">CLOSE</button></div>
+  <div class="cb" id="covBody"></div></div>
+<div id="loupe"><div id="lcard"></div></div>
+<div id="toast"></div>
+<div id="boot"><div class="b">LOADING THE ATLAS…</div></div>
+
+<script type="module">
+import * as E from "/engine/halfworld-engine.mjs";
+const $=s=>document.querySelector(s);
+const MF=await fetch("/viewer/odyssey-manifest.json").then(r=>r.json());
+const assetById=new Map(MF.assets.map(a=>[a.id,a]));
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
+  "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+const TYPE_C={character:"#9fe7ff",location:"#7cfc00",prop:"#ffd23f",creature:"#ff8c00",
+  ensemble:"#ff2e2e",divine_fx:"#c792ea",set_piece:"#19e6c8",environment:"#4a7dff",
+  vehicle:"#e0e0e0",sound_source:"#ff6bd5",wearable:"#b8f"};
+
+const modCache=new Map();
+async function loadMod(id){
+  const a=assetById.get(id); if(!a)return null;
+  if(!modCache.has(a.path))modCache.set(a.path,import(a.path).then(m=>m.default).catch(()=>null));
+  return modCache.get(a.path);
+}
+/* batched dotifier */
+function fastDotify(g,src,SW,SH,CW,CH,cell){
+  g.setTransform(1,0,0,1,0,0);
+  g.fillStyle="#fdfdfa"; g.fillRect(0,0,CW,CH);
+  const r=E.containRect(SW,SH,CW,CH), NB=12, rMax=cell*.62, buckets=Array.from({length:NB},()=>[]);
+  for(let y=cell/2;y<CH;y+=cell){
+    if((y-r.oy)<0||(y-r.oy)>=r.h)continue;
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-r.oy)/r.s)));
+    for(let x=cell/2;x<CW;x+=cell){
+      if((x-r.ox)<0||(x-r.ox)>=r.w)continue;
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-r.ox)/r.s))), i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255, d=1-lum; if(d<.10)continue;
+      buckets[Math.min(NB-1,Math.floor(Math.pow(d,.9)*NB*.999))].push(x,y);
+    }
+  }
+  g.fillStyle="#0a0a0a";
+  for(let b=0;b<NB;b++){const pts=buckets[b]; if(!pts.length)continue;
+    const rad=Math.max(.5,(b+.6)/NB*rMax); g.beginPath();
+    for(let k=0;k<pts.length;k+=2){g.moveTo(pts[k]+rad,pts[k+1]);g.arc(pts[k],pts[k+1],rad,0,7);}
+    g.fill();}
+}
+const WIDE_T=/ensemble|set_piece|vehicle|environment|location|divine_fx|sound_source/;
+function srcDims(type){
+  if(WIDE_T.test(type||""))return [440,300];
+  if(type==="prop"||type==="wearable")return [360,360];
+  return [300,400];
+}
+function solidCanvas(mod,w,h){
+  const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+  const g=cv.getContext("2d",{willReadFrequently:true});
+  g.fillStyle=E.PAPER; g.fillRect(0,0,w,h);
+  try{ mod.draw(g,w,h,{...(mod.preview?mod.preview():{}),card:false}); }catch(e){}
+  return cv;
+}
+
+/* ── persistent score state ── */
+const LS=k=>{try{return JSON.parse(localStorage.getItem(k)||"{}");}catch(e){return{}}};
+const marks=LS("odyssey.tl.marks"), notes=LS("odyssey.tl.notes"), mutes=LS("odyssey.tl.mute");
+const orders=LS("odyssey.tl.order");
+const save=()=>{localStorage.setItem("odyssey.tl.marks",JSON.stringify(marks));
+  localStorage.setItem("odyssey.tl.notes",JSON.stringify(notes));
+  localStorage.setItem("odyssey.tl.mute",JSON.stringify(mutes));
+  localStorage.setItem("odyssey.tl.order",JSON.stringify(orders));};
+let BRUSH=null;
+let toastT=null;
+function toast(m){$("#toast").textContent=m;$("#toast").classList.add("show");
+  clearTimeout(toastT);toastT=setTimeout(()=>$("#toast").classList.remove("show"),2200);}
+
+/* ── the book's track plays under playback (same mapping as the suite) ── */
+let AL=null, musicOn=true, musBook=0;
+const TAUD=new Audio(); TAUD.loop=true; TAUD.volume=.75;
+async function albums(){ if(!AL)AL=await fetch("/audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})); return AL; }
+async function bookTrack(b){
+  const A=await albums(); const M=LS("odyssey.suite.map",{});
+  const m=M[b];
+  if(m){const a=A.albums.find(x=>x.id===m.album);
+    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file),title:t.title};}}
+  for(const a of A.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file),title:t.title};}
+  const a=A.albums[0]; if(!a)return null;
+  const t=a.tracks[(b-1)%a.tracks.length]; return {url:"/"+a.dir+"/"+encodeURIComponent(t.file),title:t.title};
+}
+async function scoreFor(b){
+  if(!musicOn)return;
+  const tr=await bookTrack(b); if(!tr)return;
+  musBook=b;
+  if(!TAUD.src.endsWith(tr.url.split("/").pop()))TAUD.src=tr.url;
+  TAUD.play().catch(()=>{});
+  toast("♪ "+tr.title.toUpperCase()+" — BOOK "+ROMAN[b]);
+}
+$("#musBtn").onclick=()=>{ musicOn=!musicOn; $("#musBtn").classList.toggle("on",musicOn);
+  if(!musicOn)TAUD.pause(); else if(PLAYER.on&&PLAYER.row)scoreFor(PLAYER.row.entry.book); };
+
+/* ── SEE THE TEXT + CODE that made each thing (verification view) ── */
+const escT=x=>String(x??"").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+async function openCode(kind,obj){
+  $("#codeOv").classList.add("on");
+  $("#covTitle").textContent=(kind==="scene"?obj.id+" · "+obj.title:obj.name||obj.id);
+  const src=await fetch(obj.path).then(r=>r.text()).catch(()=>"// unavailable");
+  const lines=src.split("\n").length;
+  let html="";
+  if(kind==="scene"){
+    html+="<h4>BEATS — WHAT HAPPENS</h4><div class='txt'>"+ (obj.beats||[]).map((b,i)=>(i+1)+". "+escT(b)).join("<br>")+"</div>";
+    if(obj.composePrompt)html+="<h4>COMPOSE PROMPT — WHAT WAS ASKED</h4><div class='txt'>"+escT(obj.composePrompt)+"</div>";
+    if(obj.exitState)html+="<h4>EXIT STATE — THE HANDOFF</h4><div class='txt'>"+escT(obj.exitState)+"</div>";
+  } else {
+    if(obj.prompt)html+="<h4>ATLAS PROMPT — WHAT WAS ASKED</h4><div class='txt'>"+escT(obj.prompt)+"</div>";
+    if((obj.perfs||[]).length)html+="<h4>PERFORMANCES</h4><div class='txt'>"+obj.perfs.map(p=>"<b>"+p.scene+"</b> — "+escT(p.perf)).join("<br>")+"</div>";
+  }
+  html+="<h4>THE CODE THAT SHIPPED — "+lines+" LINES · "+obj.path+"</h4><pre>"+escT(src)+"</pre>";
+  $("#covBody").innerHTML=html;
+  $("#covBody").scrollTop=0;
+}
+$("#covClose").onclick=()=>$("#codeOv").classList.remove("on");
+
+/* ── one live player at a time ── */
+const PLAYER={row:null,rs:null,t:0,last:0,dur:36,on:false,seq:false};
+const off=document.createElement("canvas"); off.width=760; off.height=475;
+const og=off.getContext("2d",{willReadFrequently:true});
+async function buildRestage(entry){
+  const sceneMod=(await import(entry.path)).default;
+  await Promise.all(entry.assets.map(loadMod));
+  const mods=new Map(); for(const id of entry.assets)mods.set(id,await loadMod(id));
+  const saved=(()=>{try{return JSON.parse(localStorage.getItem("odyssey.arrange."+entry.id)||"{}")}catch(e){return{}}})();
+  return E.makeRestage(sceneMod,id=>mods.get(id),id=>(assetById.get(id)||{}).type,saved);
+}
+async function playRow(row,seq){
+  stopPlayer(false);
+  row.el.classList.add("playing"); row.monEl.classList.add("live");
+  PLAYER.row=row; PLAYER.on=true; PLAYER.seq=!!seq; PLAYER.t=0; PLAYER.last=performance.now();
+  if(!row.rs)row.rs=await buildRestage(row.entry);
+  PLAYER.rs=row.rs; PLAYER.dur=row.rs.duration||36;
+  if(musBook!==row.entry.book||TAUD.paused)scoreFor(row.entry.book);
+  if(seq)row.el.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+}
+function stopPlayer(clearSeq=true){
+  if(PLAYER.row){PLAYER.row.el.classList.remove("playing");PLAYER.row.monEl.classList.remove("live");}
+  PLAYER.on=false;PLAYER.row=null;PLAYER.rs=null;TAUD.pause();
+  if(clearSeq){PLAYER.seq=false;$("#playBook").classList.remove("on");$("#playBook").textContent="▶ BOOK";}
+}
+function tick(now){
+  requestAnimationFrame(tick);
+  if(!PLAYER.on||!PLAYER.rs||!PLAYER.row)return;
+  PLAYER.t+=Math.min(.1,(now-PLAYER.last)/1000); PLAYER.last=now;
+  const row=PLAYER.row;
+  try{
+    PLAYER.rs.stage(og,off.width,off.height,PLAYER.t%PLAYER.dur);
+    const src=og.getImageData(0,0,off.width,off.height).data;
+    fastDotify(row.monG,src,off.width,off.height,row.monCv.width,row.monCv.height,3.4);
+  }catch(e){}
+  row.scrubEl.style.width=((PLAYER.t%PLAYER.dur)/PLAYER.dur*100)+"%";
+  if(PLAYER.t>=PLAYER.dur){
+    if(PLAYER.seq){advanceSeq(row);}
+    else PLAYER.t=0;
+  }
+}
+requestAnimationFrame(tick);
+function advanceSeq(fromRow){
+  const list=ROWS.filter(r=>!mutes[r.entry.id]);
+  const i=list.indexOf(fromRow);
+  if(i>=0&&i<list.length-1)playRow(list[i+1],true);
+  else{stopPlayer();toast("END OF BOOK");}
+}
+
+/* ── build rows ── */
+const ROWS=[];
+const books=[...new Set(MF.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+const sel=$("#bookSel");
+books.forEach(b=>{const o=document.createElement("option");o.value=b;
+  o.textContent="BOOK "+ROMAN[b]+" — "+(MF.scenes.find(s=>s.book===b)||{}).bookTitle;sel.append(o);});
+const oAll=document.createElement("option");oAll.value="all";oAll.textContent="ALL 93 SCENES";sel.append(oAll);
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  const row=ROWS.find(r=>r.el===e.target);
+  if(row&&e.isIntersecting&&!row.thumbed){row.thumbed=true;renderThumbs(row);}
+}),{root:null,rootMargin:"400px"});
+let AUTO=true;
+const ioPlay=new IntersectionObserver(es=>{
+  es.forEach(e=>{const row=ROWS.find(r=>r.el===e.target); if(row)row.vis=e.intersectionRatio;});
+  if(!AUTO||PLAYER.seq)return;
+  const best=ROWS.filter(r=>!mutes[r.entry.id]&&(r.vis||0)>.75)
+    .sort((a,b)=>(b.vis||0)-(a.vis||0))[0];
+  if(best&&PLAYER.row!==best)playRow(best,false);
+},{threshold:[0,.4,.75,.95]});
+
+async function renderThumbs(row){
+  /* monitor poster: location solid render */
+  const locId=row.entry.assets.find(id=>(assetById.get(id)||{}).type==="location")||row.entry.assets[0];
+  loadMod(locId).then(mod=>{ if(!mod)return;
+    const oc=document.createElement("canvas"); oc.width=560; oc.height=350;
+    const g2=oc.getContext("2d",{willReadFrequently:true});
+    g2.fillStyle=E.PAPER; g2.fillRect(0,0,560,350);
+    try{mod.draw(g2,560,350,{...(mod.preview?mod.preview():{}),card:false,t:1});}catch(e){}
+    const src=g2.getImageData(0,0,560,350).data;
+    fastDotify(row.monG,src,560,350,row.monCv.width,row.monCv.height,3.2);
+  });
+  /* asset thumbs — the INK CUTOUT is the frame: cropping is impossible */
+  row.entry.assets.forEach(id=>{
+    const cvn=row.thumbCvs.get(id); if(!cvn)return;
+    loadMod(id).then(mod=>{ if(!mod)return;
+      const cut=E.inkCutout(mod,{},"tl");
+      const sw=cut.ar>=1?Math.min(720,Math.round(320*cut.ar)):320;
+      const sh=cut.ar>=1?320:Math.min(720,Math.round(320/cut.ar));
+      const oc=document.createElement("canvas"); oc.width=sw; oc.height=sh;
+      const g2=oc.getContext("2d",{willReadFrequently:true});
+      g2.fillStyle=E.PAPER; g2.fillRect(0,0,sw,sh);
+      g2.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,0,0,sw,sh);
+      const src=g2.getImageData(0,0,sw,sh).data;
+      fastDotify(cvn.getContext("2d"),src,sw,sh,cvn.width,cvn.height,2.6);
+    });
+  });
+}
+
+function fmts(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+function sceneList(book){
+  let list=book==="all"?MF.scenes.slice():MF.scenes.filter(s=>s.book===+book);
+  const key=String(book), ord=orders[key];
+  if(ord)list.sort((a,b)=>(ord.indexOf(a.id)+1||99)-(ord.indexOf(b.id)+1||99));
+  return list;
+}
+function build(){
+  stopPlayer();
+  const book=sel.value;
+  const holder=$("#rows"); holder.innerHTML=""; ROWS.length=0;
+  const list=sceneList(book);
+  list.forEach((entry,n)=>{
+    const el=document.createElement("div");
+    el.className="row"+(mutes[entry.id]?" muted":"");
+    const mk=marks[entry.id];
+    el.innerHTML=`
+      <div class="rhd">
+        <span class="bk">${ROMAN[entry.book]}·${String(n+1).padStart(2,"0")}</span>
+        <span class="mk" style="background:${mk||"none"};display:${mk?"block":"none"}"></span>
+        <span class="ti">${entry.title}</span>
+        <span class="du">${entry.assets.length}A</span>
+        <button data-a="mark" title="score mark">●</button>
+        <button data-a="note" title="scoring note">✎</button>
+        <button data-a="up" title="earlier">▲</button>
+        <button data-a="dn" title="later">▼</button>
+        <button data-a="mute" class="${mutes[entry.id]?"on":""}" title="skip in playback">${mutes[entry.id]?"SKIP":"ON"}</button>
+        <button data-a="code" title="see the prompt + code that made this scene">{}</button>
+      </div>
+      <div class="note" style="display:${notes[entry.id]?"block":"none"}">${notes[entry.id]||""}</div>
+      <div class="strip">
+        <div class="mon"><canvas width="600" height="375"></canvas>
+          <span class="mtag">${entry.id}</span><div class="mplay">▶</div>
+          <div class="scrub"><i></i></div></div>
+      </div>`;
+    const strip=el.querySelector(".strip");
+    const thumbCvs=new Map();
+    entry.assets.forEach(id=>{
+      const a=assetById.get(id)||{name:id,type:"prop"};
+      const d=document.createElement("div"); d.className="ass";
+      d.innerHTML=`<div class="tb" style="background:${TYPE_C[a.type]||"#888"}"></div>
+        <canvas width="352" height="242"></canvas><span>${a.name||id}</span>`;
+      d.onclick=()=>openLoupe(id,entry);
+      strip.append(d); thumbCvs.set(id,d.querySelector("canvas"));
+    });
+    const bts=document.createElement("div"); bts.className="bts";
+    bts.innerHTML="<b>BEATS</b>"+(entry.beats||[]).map((b,i)=>(i+1)+". "+b).join("<br>");
+    strip.append(bts);
+    const row={entry,el,monEl:el.querySelector(".mon"),monCv:el.querySelector(".mon canvas"),
+      scrubEl:el.querySelector(".scrub i"),thumbCvs,thumbed:false,rs:null};
+    try{ /* score cues from the SUITE appear as red ticks on the monitor */
+      const scr=el.querySelector(".scrub");
+      JSON.parse(localStorage.getItem("odyssey.suite.cues")||"[]")
+        .filter(c=>c.scene===entry.id&&c.prog!=null).forEach(c=>{
+          const tk=document.createElement("b");
+          tk.style.cssText="position:absolute;left:"+(c.prog*100)+"%;top:-4px;width:2px;height:12px;background:var(--red)";
+          scr.appendChild(tk);});
+    }catch(e){}
+    row.monG=row.monCv.getContext("2d");
+    row.monEl.onclick=()=>{ if(PLAYER.row===row&&PLAYER.on)stopPlayer(); else playRow(row,false); };
+    el.querySelector("[data-a=mark]").onclick=()=>{
+      if(!BRUSH){toast("PICK A COLOR FIRST (TOP BAR)");return;}
+      if(BRUSH==="clear")delete marks[entry.id]; else marks[entry.id]=BRUSH;
+      save();
+      const m=el.querySelector(".mk");
+      m.style.display=marks[entry.id]?"block":"none"; m.style.background=marks[entry.id]||"none";
+    };
+    el.querySelector("[data-a=note]").onclick=()=>{
+      const t=prompt("SCORING NOTE — "+entry.id+" ("+entry.title+")",notes[entry.id]||"");
+      if(t==null)return;
+      if(t.trim())notes[entry.id]=t.trim(); else delete notes[entry.id];
+      save();
+      const nb=el.querySelector(".note");
+      nb.textContent=notes[entry.id]||""; nb.style.display=notes[entry.id]?"block":"none";
+    };
+    el.querySelector("[data-a=mute]").onclick=()=>{
+      mutes[entry.id]=!mutes[entry.id]; if(!mutes[entry.id])delete mutes[entry.id];
+      save(); build();
+    };
+    el.querySelector("[data-a=code]").onclick=()=>openCode("scene",entry);
+    el.querySelector("[data-a=up]").onclick=()=>reorder(book,entry.id,-1);
+    el.querySelector("[data-a=dn]").onclick=()=>reorder(book,entry.id,1);
+    holder.append(el); ROWS.push(row); io.observe(el); ioPlay.observe(el);
+  });
+  $("#stat").textContent=list.length+" SCENES · "+list.reduce((s,e)=>s+e.assets.length,0)+" PLACEMENTS";
+}
+function reorder(book,id,dir){
+  const key=String(book);
+  const ids=sceneList(book).map(s=>s.id);
+  const i=ids.indexOf(id), j=i+dir;
+  if(j<0||j>=ids.length)return;
+  [ids[i],ids[j]]=[ids[j],ids[i]];
+  orders[key]=ids; save(); build();
+  toast("MOVED "+id+(dir<0?" EARLIER":" LATER"));
+}
+sel.onchange=build;
+
+$("#autoBtn").onclick=()=>{AUTO=!AUTO;$("#autoBtn").classList.toggle("on",AUTO);
+  if(!AUTO&&!PLAYER.seq)stopPlayer(false);
+  toast(AUTO?"AUTO — the column in view plays itself":"AUTO OFF — tap monitors to play");};
+$("#playBook").onclick=()=>{
+  if(PLAYER.seq){stopPlayer();return;}
+  const list=ROWS.filter(r=>!mutes[r.entry.id]);
+  if(!list.length)return;
+  $("#playBook").classList.add("on"); $("#playBook").textContent="■ STOP";
+  playRow(list[0],true);
+};
+document.querySelectorAll("#brushes .chip").forEach(ch=>{
+  ch.onclick=()=>{const c=ch.dataset.c, on=BRUSH===c;
+    BRUSH=on?null:c;
+    document.querySelectorAll("#brushes .chip").forEach(x=>x.classList.toggle("on",x===ch&&!on));
+    toast(BRUSH?(BRUSH==="clear"?"ERASER — tap ● on a row":"BRUSH ON — tap ● on rows to score"):"BRUSH OFF");};
+});
+$("#expBtn").onclick=()=>{
+  const book=sel.value;
+  const data={exported:new Date().toISOString(),book,
+    order:sceneList(book).map(s=>s.id),
+    scenes:sceneList(book).map(s=>({id:s.id,title:s.title,book:s.book,
+      mark:marks[s.id]||null,note:notes[s.id]||null,muted:!!mutes[s.id],
+      assets:s.assets,beats:s.beats}))};
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:"application/json"}));
+  a.download="odyssey_timeline_"+book+".json"; a.click();
+  toast("EXPORTED SCORE SHEET");
+};
+
+/* ── loupe: one asset, big, with its prompt + this scene's performance ── */
+function openLoupe(id,entry){
+  const a=assetById.get(id)||{};
+  const perf=((a.perfs||[]).find(p=>p.scene===entry.id)||{}).perf;
+  const lc=$("#lcard");
+  lc.innerHTML=`<canvas width="640" height="853"></canvas><div class="lp">
+    <b>${a.name||id}</b>
+    <i>${(a.type||"").toUpperCase()} · used ${a.uses||1}× · books ${(a.books||[]).map(b=>ROMAN[b]).join(", ")}</i>
+    ${perf?`<div class="perf">IN ${entry.id}: ${perf}</div>`:""}
+    <button id="lcode" style="width:100%;margin:8px 0;border:1px solid var(--hot);background:transparent;color:var(--hot);font:inherit;font-weight:800;padding:8px;border-radius:7px;cursor:pointer">{} PROMPT + CODE</button>
+    <div class="prm">${(a.prompt||"").slice(0,1600)}</div></div>`;
+  lc.querySelector("#lcode").onclick=()=>openCode("asset",a);
+  $("#loupe").classList.add("on");
+  loadMod(id).then(mod=>{ if(!mod)return;
+    const cut=E.inkCutout(mod,{},"lp");
+    const sw=cut.ar>=1?Math.min(880,Math.round(440*cut.ar)):440;
+    const sh=cut.ar>=1?440:Math.min(880,Math.round(440/cut.ar));
+    const oc=document.createElement("canvas"); oc.width=sw; oc.height=sh;
+    const g2=oc.getContext("2d",{willReadFrequently:true});
+    g2.fillStyle=E.PAPER; g2.fillRect(0,0,sw,sh);
+    g2.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,0,0,sw,sh);
+    const src=g2.getImageData(0,0,sw,sh).data;
+    fastDotify(lc.querySelector("canvas").getContext("2d"),src,sw,sh,640,853,3.2);
+  });
+}
+$("#loupe").onclick=e=>{ if(e.target.id==="loupe")$("#loupe").classList.remove("on"); };
+
+build();
+$("#boot").remove();
+</script>
+</body>
+</html>

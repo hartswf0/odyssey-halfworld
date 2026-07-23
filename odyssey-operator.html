@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OPERATOR · ODYSSEY</title>
+<style>
+  :root{ --k:#000; --w:#fff; --aA:#0033cc; --aB:#c8a800; --aC:#e60000; --pad:env(safe-area-inset-bottom,0px); }
+  *{ box-sizing:border-box; margin:0; }
+  html,body{ height:100%; }
+  body{ background:var(--w); color:var(--k); font:13px/1.4 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    display:flex; flex-direction:column; height:100dvh; overflow:hidden; -webkit-font-smoothing:none; }
+  #bar{ flex:none; display:flex; gap:8px; align-items:center; padding:8px 10px;
+    padding-top:max(8px,env(safe-area-inset-top)); background:var(--k); color:var(--w); overflow-x:auto; }
+  #bar::-webkit-scrollbar{ display:none; }
+  #bar b{ font-weight:900; letter-spacing:.08em; white-space:nowrap; }
+  #bar b i{ font-style:normal; color:var(--aC); }
+  #bar .sp{ flex:1; }
+  .ic{ border:2px solid var(--w); background:transparent; color:var(--w); font:inherit; font-size:10px;
+    font-weight:700; letter-spacing:.06em; padding:6px 9px; cursor:pointer; white-space:nowrap; flex:none; }
+  .ic:hover{ background:var(--w); color:var(--k); }
+  .ic.on{ background:var(--aC); border-color:var(--aC); }
+  #clockLbl{ font-size:10px; white-space:nowrap; opacity:.85; }
+  /* spine */
+  #spine{ flex:none; display:flex; overflow-x:auto; background:var(--w); border-bottom:3px solid var(--k); }
+  #spine::-webkit-scrollbar{ display:none; }
+  .bk{ flex:1 0 auto; min-width:44px; border-right:2px solid var(--k); padding:6px 4px; text-align:center;
+    cursor:pointer; font-weight:900; font-size:12px; }
+  .bk small{ display:block; font-weight:700; font-size:8px; opacity:.55; }
+  .bk.on{ background:var(--k); color:var(--w); }
+  .bk.off{ opacity:.25; cursor:default; }
+  /* nest breadcrumb */
+  #nest{ flex:none; display:flex; align-items:stretch; background:var(--k); color:var(--w);
+    overflow-x:auto; min-height:36px; }
+  #nest::-webkit-scrollbar{ display:none; }
+  .crumb{ display:flex; flex-direction:column; justify-content:center; padding:4px 12px;
+    border-right:2px solid rgba(255,255,255,.25); white-space:nowrap; }
+  .crumb .cl{ font-size:13px; font-weight:900; }
+  .crumb .cw{ font-size:8px; opacity:.6; letter-spacing:.06em; }
+  .crumb.here{ background:var(--w); color:var(--k); }
+  /* strip */
+  #strip{ flex:none; display:flex; gap:6px; padding:6px 8px; overflow-x:auto; background:var(--w);
+    border-bottom:3px solid var(--k); align-items:center; min-height:64px; }
+  #strip::-webkit-scrollbar{ display:none; }
+  .tlc{ position:relative; flex:none; width:74px; height:50px; border:3px solid var(--k); background:#fff;
+    cursor:pointer; overflow:hidden; }
+  .tlc canvas{ position:absolute; inset:0; width:100%; height:100%; }
+  .tlc .n{ position:absolute; top:-1px; left:-1px; z-index:2; background:var(--k); color:var(--w);
+    font-size:9px; font-weight:900; padding:1px 4px; }
+  .tlc.on{ outline:3px solid var(--aC); outline-offset:1px; }
+  .tlc .cue{ position:absolute; bottom:0; width:3px; height:12px; background:var(--aC); z-index:2; }
+  /* board */
+  #stage{ flex:1; min-height:0; background:var(--k); display:flex; align-items:center; justify-content:center; padding:6px; }
+  #boardWrap{ position:relative; box-shadow:0 0 0 3px var(--k); background:#fff; }
+  canvas#board{ display:block; background:#fdfdfa; }
+  #coach{ position:absolute; left:50%; top:8px; transform:translateX(-50%); background:var(--k); color:var(--w);
+    border:2px solid var(--w); font:700 10px/1.4 ui-monospace,monospace; letter-spacing:.08em; padding:6px 12px;
+    text-transform:uppercase; max-width:92%; text-align:center; pointer-events:none; }
+  /* draw tools — OP instruments on the board */
+  #tools{ flex:none; display:flex; gap:8px; align-items:center; padding:5px 8px; background:var(--w);
+    border-top:3px solid var(--k); overflow-x:auto; }
+  #tools::-webkit-scrollbar{ display:none; }
+  .tg{ display:flex; border:2px solid var(--k); flex:none; }
+  .tg button{ border:none; border-right:2px solid var(--k); background:var(--w); color:var(--k);
+    font:inherit; font-size:10px; font-weight:900; letter-spacing:.04em; padding:7px 10px; cursor:pointer; }
+  .tg button:last-child{ border-right:none; }
+  .tg button.on{ background:var(--k); color:var(--w); }
+  .tone{ width:26px; }
+  .tone i{ display:block; margin:0 auto; background:#000; border-radius:50%; }
+  #tools input[type=range]{ width:80px; flex:none; }
+  #tools .lab{ font-size:8px; font-weight:700; letter-spacing:.1em; opacity:.5; flex:none; }
+  /* transport */
+  #transport{ flex:none; display:flex; gap:8px; align-items:center; padding:7px 10px; background:var(--w);
+    border-top:3px solid var(--k); }
+  #transport button{ border:3px solid var(--k); background:var(--w); font:inherit; font-weight:900; font-size:12px;
+    padding:8px 14px; cursor:pointer; box-shadow:3px 3px 0 var(--k); }
+  #transport button:active{ transform:translate(3px,3px); box-shadow:none; }
+  #transport button.on{ background:var(--aC); color:#fff; border-color:var(--k); }
+  #scrub{ flex:1; position:relative; height:26px; border:3px solid var(--k); cursor:crosshair; background:#fff; }
+  #scrub .fill{ position:absolute; left:0; top:0; bottom:0; width:0%; background:repeating-linear-gradient(135deg,#000 0 6px,#333 6px 10px); }
+  #scrub .ct{ position:absolute; top:-2px; bottom:-2px; width:3px; background:var(--aC); }
+  #tc{ font-size:11px; font-weight:900; min-width:110px; text-align:center; white-space:nowrap; }
+  /* verbs */
+  #verbs{ flex:none; display:flex; border-top:3px solid var(--k); background:var(--w); padding-bottom:var(--pad); }
+  .verb{ flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; padding:8px 2px;
+    border-right:3px solid var(--k); color:var(--k); text-decoration:none; font-size:8.5px; font-weight:700;
+    letter-spacing:.05em; text-transform:uppercase; cursor:pointer; }
+  .verb:last-child{ border-right:none; }
+  .verb b{ font-size:16px; }
+  .verb.vA:active{ background:var(--aB); } .verb.vB:active{ background:var(--aA); color:#fff; }
+  .verb.vC:active{ background:var(--aC); color:#fff; } .verb.vD:active,.verb.vE:active{ background:var(--k); color:#fff; }
+  #toast{ position:fixed; left:50%; top:calc(env(safe-area-inset-top) + 52px); transform:translateX(-50%);
+    background:var(--k); color:var(--w); font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+    padding:8px 14px; border:3px solid var(--k); box-shadow:4px 4px 0 rgba(0,0,0,.4); opacity:0; transition:opacity .15s;
+    pointer-events:none; z-index:99; white-space:nowrap; }
+  #toast.on{ opacity:1; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <b>OPERATOR <i>·</i> ODYSSEY</b>
+  <span id="clockLbl">building clock…</span>
+  <span class="sp"></span>
+  <button class="ic" id="cueBtn" type="button" title="M — drop a score cue at this musical moment">● CUE</button>
+  <button class="ic" id="suiteBtn" type="button" title="open the suite player at this exact time">SUITE ▸</button>
+</div>
+<div id="spine"></div>
+<div id="nest"></div>
+<div id="strip"></div>
+<div id="stage"><div id="boardWrap"><canvas id="board" width="1024" height="640"></canvas>
+  <div id="coach" hidden></div></div></div>
+<div id="tools">
+  <div class="tg" id="toolGrp">
+    <button data-t="off" class="on" type="button">✋ OFF</button>
+    <button data-t="pen" type="button">PEN</button>
+    <button data-t="box" type="button">BOX</button>
+    <button data-t="erase" type="button">ERASE</button>
+    <button id="clearBtn" type="button">CLEAR</button>
+  </div>
+  <span class="lab">TONE</span>
+  <div class="tg" id="toneGrp">
+    <button class="tone" data-ink="1" type="button"><i style="width:5px;height:5px"></i></button>
+    <button class="tone on" data-ink="2" type="button"><i style="width:9px;height:9px"></i></button>
+    <button class="tone" data-ink="3" type="button"><i style="width:13px;height:13px"></i></button>
+  </div>
+  <span class="lab">SIZE</span>
+  <input type="range" id="sizeR" min="2" max="26" value="7">
+</div>
+<div id="transport">
+  <button id="playBtn" type="button">▶</button>
+  <span id="tc">0.0 / 36.0</span>
+  <div id="scrub"><div class="fill" id="scrubFill"></div></div>
+</div>
+<div id="verbs">
+  <a class="verb vA" id="vA"><b>A</b>AUTHOR</a>
+  <a class="verb vB" id="vB"><b>B</b>BRANCH</a>
+  <a class="verb vC" id="vC"><b>C</b>CREW</a>
+  <a class="verb vD" id="vD"><b>D</b>DIRECT</a>
+  <a class="verb vE" id="vE"><b>E</b>SCORE</a>
+</div>
+<div id="toast"></div>
+
+<script type="module">
+import * as E from "/engine/halfworld-engine.mjs";
+const $=id=>document.getElementById(id);
+const MF=await fetch("/viewer/odyssey-manifest.json").then(r=>r.json());
+const AL=await fetch("/audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]}));
+const assetById=new Map(MF.assets.map(a=>[a.id,a]));
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
+  "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d;}catch(e){return d;}};
+const BOOKS=[...new Set(MF.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+let book=9, sceneEntry=null, RS=null, T=0, DUR=36, playing=false;
+const modCache=new Map();
+async function loadMod(id){ const a=assetById.get(id); if(!a)return null;
+  if(!modCache.has(a.path))modCache.set(a.path,import(a.path).then(m=>m.default).catch(()=>null));
+  return modCache.get(a.path); }
+function toast(m){$("toast").textContent=m;$("toast").classList.add("on");
+  clearTimeout(toast._t);toast._t=setTimeout(()=>$("toast").classList.remove("on"),1600);}
+
+/* ── the SUITE CLOCK, recomputed here so cues land on the shared timeline ── */
+const MAP=LS("odyssey.suite.map",{}), DURC=LS("odyssey.suite.dur",{});
+function trackFor(b){
+  const m=MAP[b];
+  if(m){const a=AL.albums.find(x=>x.id===m.album);
+    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {album:a,track:t};}}
+  for(const a of AL.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {album:a,track:t};}
+  const a=AL.albums[0]; return a?{album:a,track:a.tracks[(b-1)%a.tracks.length]}:null;
+}
+const urlFor=tr=>"/"+tr.album.dir+"/"+encodeURIComponent(tr.track.file);
+function probeDur(url){ if(DURC[url])return Promise.resolve(DURC[url]);
+  return new Promise(res=>{const a=new Audio();a.preload="metadata";a.src=url;
+    a.onloadedmetadata=()=>{DURC[url]=a.duration||180;
+      localStorage.setItem("odyssey.suite.dur",JSON.stringify(DURC));res(DURC[url]);};
+    a.onerror=()=>res(180);}); }
+let OFF=[], TOTAL=0, clockReady=false;
+(async()=>{ let t=0;
+  for(const b of BOOKS){ const tr=trackFor(b); if(!tr){OFF.push({b,tr:null,start:t,dur:180});t+=180;continue;}
+    const d=await probeDur(urlFor(tr)); OFF.push({b,tr,start:t,dur:d}); t+=d; }
+  TOTAL=t; clockReady=true;
+  $("clockLbl").textContent="SUITE CLOCK "+fmt(TOTAL)+" · "+BOOKS.length+" BOOKS";
+})();
+const fmt=t=>{t=Math.max(0,t||0);const m=Math.floor(t/60),s=t-m*60;
+  return String(m).padStart(2,"0")+":"+(s<10?"0":"")+s.toFixed(1);};
+function globalNow(){ // this scene's musical moment on the suite clock
+  if(!clockReady||!sceneEntry)return 0;
+  const o=OFF.find(x=>x.b===book); if(!o)return 0;
+  const sc=MF.scenes.filter(s=>s.book===book);
+  const si=sc.findIndex(s=>s.id===sceneEntry.id);
+  const slice=o.dur/Math.max(1,sc.length);
+  return o.start + si*slice + (T/Math.max(1,DUR))*slice;
+}
+
+/* ── dotify (batched) ── */
+function fastDotify(g,src,SW,SH,CW,CH,cell){
+  g.setTransform(1,0,0,1,0,0); g.fillStyle="#fdfdfa"; g.fillRect(0,0,CW,CH);
+  const r=E.containRect(SW,SH,CW,CH),NB=12,rMax=cell*.62,bu=Array.from({length:NB},()=>[]);
+  for(let y=cell/2;y<CH;y+=cell){ if((y-r.oy)<0||(y-r.oy)>=r.h)continue;
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-r.oy)/r.s)));
+    for(let x=cell/2;x<CW;x+=cell){ if((x-r.ox)<0||(x-r.ox)>=r.w)continue;
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-r.ox)/r.s))),i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255,d=1-lum; if(d<.10)continue;
+      bu[Math.min(NB-1,Math.floor(Math.pow(d,.9)*NB*.999))].push(x,y);}}
+  g.fillStyle="#0a0a0a";
+  for(let b=0;b<NB;b++){const p=bu[b];if(!p.length)continue;
+    const rad=Math.max(.5,(b+.6)/NB*rMax);g.beginPath();
+    for(let k=0;k<p.length;k+=2){g.moveTo(p[k]+rad,p[k+1]);g.arc(p[k],p[k+1],rad,0,7);}
+    g.fill();}
+}
+const off=document.createElement("canvas"); off.width=900; off.height=560;
+const og=off.getContext("2d",{willReadFrequently:true});
+const board=$("board"), bg=board.getContext("2d");
+
+/* ── build book / strip / scene ── */
+function buildSpine(){
+  const sp=$("spine"); sp.innerHTML="";
+  for(let b=1;b<=24;b++){
+    const n=MF.scenes.filter(s=>s.book===b).length;
+    const el=document.createElement("div");
+    el.className="bk"+(n?"":" off")+(b===book?" on":"");
+    el.innerHTML=ROMAN[b]+"<small>"+(n?n+" SC":"—")+"</small>";
+    if(n)el.onclick=()=>{book=b;buildSpine();buildStrip();loadScene(MF.scenes.find(s=>s.book===b));};
+    sp.appendChild(el);
+  }
+}
+const CUES=()=>LS("odyssey.suite.cues",[]);
+function buildStrip(){
+  const st=$("strip"); st.innerHTML="";
+  MF.scenes.filter(s=>s.book===book).forEach((sc,i)=>{
+    const c=document.createElement("div"); c.className="tlc"+(sceneEntry&&sc.id===sceneEntry.id?" on":"");
+    c.dataset.id=sc.id;
+    c.innerHTML='<canvas width="148" height="100"></canvas><span class="n">'+(i+1)+"</span>";
+    CUES().filter(q=>q.scene===sc.id&&q.prog!=null).forEach(q=>{
+      const tk=document.createElement("i"); tk.className="cue"; tk.style.left=(q.prog*100)+"%";
+      c.appendChild(tk); });
+    c.onclick=()=>loadScene(sc);
+    st.appendChild(c);
+    const locId=(sc.assets||[]).find(id=>(assetById.get(id)||{}).type==="location")||sc.assets[0];
+    loadMod(locId).then(mod=>{ if(!mod)return;
+      const oc=document.createElement("canvas"); oc.width=440; oc.height=300;
+      const g2=oc.getContext("2d",{willReadFrequently:true});
+      g2.fillStyle=E.PAPER; g2.fillRect(0,0,440,300);
+      try{mod.draw(g2,440,300,{...(mod.preview?mod.preview():{}),card:false,t:1});}catch(e){}
+      const src=g2.getImageData(0,0,440,300).data;
+      fastDotify(c.querySelector("canvas").getContext("2d"),src,440,300,148,100,2.2);
+    });
+  });
+}
+function buildNest(){
+  const n=$("nest"); n.innerHTML="";
+  const sc=MF.scenes.filter(s=>s.book===book);
+  const si=sceneEntry?sc.findIndex(s=>s.id===sceneEntry.id):0;
+  const parts=[["e1","atlas",false],["d"+book,"book · "+ROMAN[book],false],
+    ["c"+(si+1),"scene · "+(sceneEntry?sceneEntry.id:"—"),true],
+    ["t"+T.toFixed(1),"seconds",false]];
+  parts.forEach(([cl,cw,here])=>{
+    const d=document.createElement("div"); d.className="crumb"+(here?" here":"");
+    d.innerHTML='<span class="cl">'+cl+'</span><span class="cw">'+cw+"</span>";
+    n.appendChild(d);
+  });
+}
+async function loadScene(entry){
+  if(!entry)return;
+  sceneEntry=entry; T=0; playing=false; $("playBtn").classList.remove("on"); $("playBtn").textContent="▶";
+  document.querySelectorAll(".tlc").forEach(c=>c.classList.toggle("on",c.dataset.id===entry.id));
+  const sm=(await import(entry.path)).default;
+  const mods=new Map();
+  for(const id of entry.assets)mods.set(id,await loadMod(id));
+  const saved=LS("odyssey.arrange."+entry.id,{});
+  RS=E.makeRestage(sm,id=>mods.get(id),id=>(assetById.get(id)||{}).type,saved);
+  DUR=RS.duration||36;
+  annoLoad();
+  buildNest(); draw(true);
+  $("vA").href="odyssey-stage.html#"+entry.id;
+  $("vB").href="odyssey-previs.html#"+entry.id;
+  $("vC").href="odyssey-game.html";
+  $("vD").href="odyssey-timeline.html";
+  toast(entry.id+" · "+entry.title);
+}
+
+/* ── board loop ── */
+let lastKey="", last=0;
+function draw(force){
+  if(!RS)return;
+  const key=sceneEntry.id+"|"+Math.floor(T*8);
+  if(!force&&key===lastKey)return;
+  lastKey=key;
+  RS.stage(og,off.width,off.height,T);
+  const src=og.getImageData(0,0,off.width,off.height).data;
+  fastDotify(bg,src,off.width,off.height,board.width,board.height,3.8);
+  bg.drawImage(anno,0,0);
+  /* cue ticks on the scrub */
+  $("scrubFill").style.width=(T/DUR*100)+"%";
+  $("tc").textContent=T.toFixed(1)+" / "+DUR.toFixed(1);
+  buildNest();
+}
+function loop(ms){
+  requestAnimationFrame(loop);
+  const dt=Math.min(.08,(ms-last)/1000||.016); last=ms;
+  if(playing){ T+=dt; if(T>=DUR)T=0; draw(); }
+}
+requestAnimationFrame(loop);
+function fitBoard(){
+  const st=$("stage"); const aw=st.clientWidth-12, ah=st.clientHeight-12;
+  const s=Math.min(aw/1024, ah/640);
+  board.style.width=Math.floor(1024*s)+"px"; board.style.height=Math.floor(640*s)+"px";
+}
+addEventListener("resize",fitBoard);
+
+/* ── DRAW: the operator's pen. Strokes live on an annotation layer per
+   scene (vectors, persisted), composited over the dotified film. ── */
+const anno=document.createElement("canvas"); anno.width=1024; anno.height=640;
+const ag=anno.getContext("2d");
+let TOOL="off", INK=2, SIZE=7, strokes=[], stroking=null;
+const INK_A=[0,.32,.62,1];
+function annoKey(){ return "odyssey.op.draw."+(sceneEntry?sceneEntry.id:"?"); }
+function annoLoad(){ strokes=LS(annoKey(),[]); redrawAnno(); }
+function annoSave(){ localStorage.setItem(annoKey(),JSON.stringify(strokes.slice(-300))); }
+function strokeStyle(st){ ag.lineCap="round"; ag.lineJoin="round";
+  ag.lineWidth=st.s*(st.ink===1?.7:st.ink===3?1.5:1);
+  ag.strokeStyle="rgba(10,10,10,"+INK_A[st.ink]+")"; }
+function drawStroke(st){
+  if(st.t==="e"){ ag.save(); ag.globalCompositeOperation="destination-out";
+    ag.lineCap="round"; ag.lineJoin="round"; ag.lineWidth=st.s*2.2; ag.strokeStyle="#000";
+    ag.beginPath(); st.pts.forEach((p,i)=>i?ag.lineTo(p[0],p[1]):ag.moveTo(p[0],p[1])); ag.stroke(); ag.restore(); return; }
+  strokeStyle(st);
+  if(st.t==="b"){ const a=st.pts[0],b=st.pts[st.pts.length-1];
+    ag.strokeRect(Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.abs(b[0]-a[0]),Math.abs(b[1]-a[1])); return; }
+  ag.beginPath(); st.pts.forEach((p,i)=>i?ag.lineTo(p[0],p[1]):ag.moveTo(p[0],p[1])); ag.stroke();
+}
+function redrawAnno(){ ag.clearRect(0,0,1024,640); strokes.forEach(drawStroke); }
+function boardXY(e){ const r=board.getBoundingClientRect();
+  return [ (e.clientX-r.left)*(1024/r.width), (e.clientY-r.top)*(640/r.height) ]; }
+board.addEventListener("pointerdown",e=>{
+  if(TOOL==="off")return;
+  e.preventDefault(); try{board.setPointerCapture(e.pointerId);}catch(_){}
+  stroking={t:TOOL==="pen"?"p":TOOL==="box"?"b":"e", ink:INK, s:SIZE, pts:[boardXY(e)]};
+});
+board.addEventListener("pointermove",e=>{
+  if(!stroking)return;
+  const p=boardXY(e), last=stroking.pts[stroking.pts.length-1];
+  if(Math.hypot(p[0]-last[0],p[1]-last[1])<3)return;
+  stroking.pts.push(p);
+  if(stroking.t!=="b"){ drawStroke({...stroking,pts:[last,p]}); draw(true); }
+});
+function endStroke(){ if(!stroking)return;
+  if(stroking.pts.length>1||stroking.t==="b"){ strokes.push(stroking);
+    if(stroking.t==="b"||stroking.t==="e")redrawAnno();
+    annoSave(); }
+  stroking=null; draw(true);
+}
+board.addEventListener("pointerup",endStroke);
+board.addEventListener("pointercancel",endStroke);
+document.querySelectorAll("#toolGrp button[data-t]").forEach(b=>{
+  b.onclick=()=>{ TOOL=b.dataset.t;
+    document.querySelectorAll("#toolGrp button[data-t]").forEach(x=>x.classList.toggle("on",x===b));
+    board.style.cursor=TOOL==="off"?"default":"crosshair";
+    toast(TOOL==="off"?"HAND — board is safe":TOOL.toUpperCase()+" — draw on the film"); };
+});
+$("clearBtn").onclick=()=>{ strokes=[]; redrawAnno(); annoSave(); draw(true); toast("ANNOTATIONS CLEARED"); };
+document.querySelectorAll("#toneGrp .tone").forEach(b=>{
+  b.onclick=()=>{ INK=+b.dataset.ink;
+    document.querySelectorAll("#toneGrp .tone").forEach(x=>x.classList.toggle("on",x===b)); };
+});
+$("sizeR").oninput=e=>SIZE=+e.target.value;
+
+/* ── transport + cues ── */
+$("playBtn").onclick=()=>{ playing=!playing;
+  $("playBtn").classList.toggle("on",playing); $("playBtn").textContent=playing?"⏸":"▶"; };
+$("scrub").onclick=e=>{ const r=$("scrub").getBoundingClientRect();
+  T=Math.max(0,Math.min(DUR,(e.clientX-r.left)/r.width*DUR)); draw(true); };
+function scrubCues(){
+  document.querySelectorAll("#scrub .ct").forEach(x=>x.remove());
+  if(!sceneEntry)return;
+  CUES().filter(q=>q.scene===sceneEntry.id&&q.prog!=null).forEach(q=>{
+    const tk=document.createElement("div"); tk.className="ct"; tk.style.left=(q.prog*100)+"%";
+    $("scrub").appendChild(tk); });
+}
+function dropCue(){
+  if(!clockReady){toast("CLOCK STILL BUILDING");return;}
+  if(!sceneEntry)return;
+  const g=globalNow(), prog=T/Math.max(1,DUR);
+  const cues=CUES();
+  const o=OFF.find(x=>x.b===book);
+  cues.push({g:+g.toFixed(2),book,scene:sceneEntry.id,at:+(g-(o?o.start:0)).toFixed(2),
+    prog:+prog.toFixed(3),track:o&&o.tr?o.tr.track.title:"—"});
+  cues.sort((a,b)=>a.g-b.g);
+  localStorage.setItem("odyssey.suite.cues",JSON.stringify(cues));
+  scrubCues(); buildStrip();
+  toast("CUE @ "+fmt(g)+" · "+sceneEntry.id);
+}
+$("cueBtn").onclick=dropCue;
+$("suiteBtn").onclick=()=>{ location.href="odyssey-suite.html?t="+globalNow().toFixed(1); };
+$("vE").onclick=()=>{ location.href="odyssey-suite.html?t="+globalNow().toFixed(1); };
+addEventListener("keydown",e=>{
+  if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
+  if(K===" "){e.preventDefault();$("playBtn").click();}
+  if(K==="m"||K==="M")dropCue();
+  if(K==="ArrowRight"){T=Math.min(DUR,T+2);draw(true);}
+  if(K==="ArrowLeft"){T=Math.max(0,T-2);draw(true);}
+});
+
+/* boot */
+window.__op={ get RS(){return RS}, get T(){return T}, set T(v){T=v;draw(true);},
+  get sceneEntry(){return sceneEntry}, loadScene, globalNow, draw };
+buildSpine();
+const deep=location.hash.replace("#",""), dScene=MF.scenes.find(s=>s.id===deep);
+if(dScene)book=dScene.book;
+buildSpine(); buildStrip(); fitBoard();
+await loadScene(dScene||MF.scenes.find(s=>s.book===book));
+scrubCues();
+</script>
+</body>
+</html>

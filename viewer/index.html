@@ -1,0 +1,87 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ODYSSEY · HALFWORLD asset atlas</title>
+<style>
+:root{--paper:#f4f4f0;--ink:#141414;--dim:#8a8a86;--a:#0033cc}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;padding:12px 18px;background:var(--paper);border-bottom:2px solid var(--ink)}
+header h1{font-size:12px;font-weight:900;letter-spacing:.30em;text-transform:uppercase}
+header .sub{font-size:10px;color:var(--dim);letter-spacing:.1em}
+.controls{margin-left:auto;display:flex;gap:6px}
+.controls button{appearance:none;border:2px solid var(--ink);background:#fff;font:900 10px Helvetica;letter-spacing:.12em;padding:7px 11px;cursor:pointer}
+.controls button.on{background:var(--ink);color:var(--paper)}
+h2.section{font:900 11px Helvetica;letter-spacing:.24em;text-transform:uppercase;padding:22px 18px 6px;color:var(--ink)}
+h2.section span{color:var(--dim);font-size:9px;margin-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;padding:6px 18px 24px}
+.grid.scenes{grid-template-columns:repeat(auto-fill,minmax(420px,1fr))}
+.cell{border:2px solid var(--ink);background:#fff;position:relative;overflow:hidden}
+.cell canvas{width:100%;display:block;background:#fff}
+.cell .cap{position:absolute;left:0;bottom:0;right:0;font:800 8px Helvetica;letter-spacing:.06em;padding:4px 6px;color:var(--dim);background:rgba(255,255,255,.85);pointer-events:none;text-transform:uppercase}
+.cell.err{border-color:#c00}
+.empty{padding:40px 18px;color:var(--dim);font:700 12px Helvetica}
+</style></head>
+<body>
+<header>
+  <h1>Odyssey · Halfworld</h1>
+  <span class="sub" id="counts">loading…</span>
+  <div class="controls" id="pipes">
+    <button data-p="MESH" class="on">MESH</button>
+    <button data-p="GRID">GRID</button>
+    <button data-p="SHEET">SHEET</button>
+  </div>
+</header>
+<main id="main"><div class="empty">Loading manifest…</div></main>
+
+<script type="module">
+import { renderAsset, renderScene } from "/engine/halfworld-engine.mjs";
+let PIPE = "MESH";
+const TYPE_ORDER = ["scene","character","creature","location","set_piece","environment","prop","vehicle","wearable","ensemble","divine_fx","sound_source"];
+
+async function loadManifest(){
+  try{ const r = await fetch("/viewer/manifest.json",{cache:"no-store"}); return await r.json(); }
+  catch(e){ return { assets:[], scenes:[] }; }
+}
+function cell(label){
+  const d=document.createElement("div"); d.className="cell";
+  const cv=document.createElement("canvas"); d.appendChild(cv);
+  const cap=document.createElement("div"); cap.className="cap"; cap.textContent=label; d.appendChild(cap);
+  return {d,cv};
+}
+async function renderOne(cv, kind, path){
+  try{
+    const m = await import(path);
+    if (kind==="scene"){ const scene=m.scene||m.default; cv.width=1120; cv.height=760; renderScene(cv, scene, {pipeline:PIPE, t:8, DPR:1}); }
+    else { const asset=m.asset||m.default; cv.width=660; cv.height=880; renderAsset(cv, asset, {pipeline:PIPE, DPR:1}); }
+    return true;
+  }catch(e){
+    const g=cv.getContext("2d"); cv.width=660; cv.height=380; g.fillStyle="#fff"; g.fillRect(0,0,cv.width,cv.height);
+    g.strokeStyle="#c00"; g.lineWidth=4; g.strokeRect(4,4,cv.width-8,cv.height-8);
+    g.fillStyle="#c00"; g.font="14px monospace"; g.fillText("LOAD ERROR", 16, 30);
+    g.fillStyle="#444"; g.font="10px monospace";
+    (String(e.message||e).match(/.{1,64}/g)||[]).slice(0,8).forEach((l,i)=>g.fillText(l,16,52+i*14));
+    return false;
+  }
+}
+async function build(){
+  const man = await loadManifest();
+  document.getElementById("counts").textContent = `${man.assetCount||0} assets · ${man.sceneCount||0} scenes · Book 1`;
+  const main = document.getElementById("main"); main.innerHTML="";
+  const groups = {}; TYPE_ORDER.forEach(t=>groups[t]=[]);
+  (man.scenes||[]).forEach(s=>groups.scene.push({kind:"scene", label:s.id, path:s.path}));
+  (man.assets||[]).forEach(a=>{ (groups[a.type]||(groups[a.type]=[])).push({kind:"asset", label:`${a.type} · ${a.slug}`, path:a.path}); });
+  for (const t of TYPE_ORDER){
+    const items = groups[t]; if(!items||!items.length) continue;
+    const h=document.createElement("h2"); h.className="section"; h.innerHTML=`${t.replace(/_/g," ")} <span>${items.length}</span>`; main.appendChild(h);
+    const g=document.createElement("div"); g.className="grid"+(t==="scene"?" scenes":""); main.appendChild(g);
+    for (const it of items){ const {d,cv}=cell(it.label); g.appendChild(d); const ok=await renderOne(cv,it.kind,it.path); if(!ok)d.classList.add("err"); }
+  }
+  if (!main.children.length) main.innerHTML='<div class="empty">No assets yet. Run a build, then <code>node harness/build-manifest.mjs</code> and reload.</div>';
+}
+document.querySelectorAll("#pipes button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#pipes button").forEach(x=>x.classList.toggle("on",x===b));
+  PIPE=b.dataset.p; build();
+});
+build();
+</script>
+</body></html>

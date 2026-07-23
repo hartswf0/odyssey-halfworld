@@ -1,0 +1,208 @@
+{
+  "book": 7,
+  "jobs": [
+    {
+      "id": "location.scheria-city-and-harbor",
+      "type": "LOCATION",
+      "name": "Scheria city and harbor",
+      "prompt": "Scheria city and harbor (LOCATION). walled seafaring city with twin harbors, ship sheds, market, Poseidon temple, streets, palace approach, and crowd lanes. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B07-S01: walled seafaring city with twin harbors, ship sheds, market, Poseidon temple, streets, palace approach, and crowd lanes"
+      ]
+    },
+    {
+      "id": "character.athena-as-pitcher-girl",
+      "type": "CHARACTER",
+      "name": "Athena as pitcher girl",
+      "prompt": "Athena as pitcher girl (CHARACTER). local child disguise walking beside him with concise route and political instruction. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B07-S01: local child disguise walking beside him with concise route and political instruction"
+      ]
+    },
+    {
+      "id": "divine-fx.concealing-mist",
+      "type": "DIVINE_FX",
+      "name": "Concealing mist",
+      "prompt": "Concealing mist (DIVINE_FX). mobile opacity field attached to Odysseus that prevents citizen attention but preserves his own vision. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B07-S01: mobile opacity field attached to Odysseus that prevents citizen attention but preserves his own vision"
+      ]
+    },
+    {
+      "id": "prop.water-pitcher",
+      "type": "PROP",
+      "name": "Water pitcher",
+      "prompt": "Water pitcher (PROP). ordinary carried vessel stabilizing Athena's local disguise. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B07-S01: ordinary carried vessel stabilizing Athena's local disguise"
+      ]
+    },
+    {
+      "id": "location.alcinouss-palace",
+      "type": "LOCATION",
+      "name": "Alcinous's palace",
+      "prompt": "Alcinous's palace (LOCATION). bronze-walled royal complex with golden doors, silver posts, living halls, hearth, guest route, and royal seats. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B07-S02: bronze-walled royal complex with golden doors, silver posts, living halls, hearth, guest route, and royal seats"
+      ]
+    },
+    {
+      "id": "location.phaeacian-orchard-and-garden",
+      "type": "LOCATION",
+      "name": "Phaeacian orchard and garden",
+      "prompt": "Phaeacian orchard and garden (LOCATION). perpetually fruitful pears, pomegranates, apples, figs, olives, vines, beds, and twin springs with seasonal states active at once. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B07-S02: perpetually fruitful pears, pomegranates, apples, figs, olives, vines, beds, and twin springs with seasonal states active at once"
+      ]
+    },
+    {
+      "id": "creature.gold-and-silver-guardian-dogs",
+      "type": "CREATURE",
+      "name": "Gold-and-silver guardian dogs",
+      "prompt": "Gold-and-silver guardian dogs (CREATURE). immortal metal hounds with watch, orient, allow, and bar states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B07-S02: immortal metal hounds with watch, orient, allow, and bar states"
+      ]
+    },
+    {
+      "id": "ensemble.palace-working-women",
+      "type": "ENSEMBLE",
+      "name": "Palace working women",
+      "prompt": "Palace working women (ENSEMBLE). weavers and grinders performing synchronized skilled labor inside the splendid architecture. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B07-S02: weavers and grinders performing synchronized skilled labor inside the splendid architecture"
+      ]
+    },
+    {
+      "id": "character.arete",
+      "type": "CHARACTER",
+      "name": "Arete",
+      "prompt": "Arete (CHARACTER). powerful queen receiving the central appeal before speaking. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B07-S03: powerful queen receiving the central appeal before speaking",
+        "OD-B07-S04: forensic observer reading textile authorship before testing the stranger's account"
+      ]
+    },
+    {
+      "id": "character.alcinous",
+      "type": "CHARACTER",
+      "name": "Alcinous",
+      "prompt": "Alcinous (CHARACTER). host king initially stunned, then restoring ritual order and promising transport. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B07-S03: host king initially stunned, then restoring ritual order and promising transport",
+        "OD-B07-S04: admiring host expanding hospitality into an optional marriage offer"
+      ]
+    },
+    {
+      "id": "character.echeneus",
+      "type": "CHARACTER",
+      "name": "Echeneus",
+      "prompt": "Echeneus (CHARACTER). old counselor breaking collective silence with a hospitality correction. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B07-S03: old counselor breaking collective silence with a hospitality correction"
+      ]
+    },
+    {
+      "id": "set-piece.royal-hearth",
+      "type": "SET_PIECE",
+      "name": "Royal hearth",
+      "prompt": "Royal hearth (SET_PIECE). fire, ash bed, kneeling area, rise-assist anchor, and guest-seat transition. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B07-S03: fire, ash bed, kneeling area, rise-assist anchor, and guest-seat transition"
+      ]
+    },
+    {
+      "id": "prop.recognized-garments",
+      "type": "PROP",
+      "name": "Recognized garments",
+      "prompt": "Recognized garments (PROP). clothing carrying maker metadata, household ownership, and narrative continuity from river to palace. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B07-S04: clothing carrying maker metadata, household ownership, and narrative continuity from river to palace"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B07-S01",
+      "n": 37,
+      "title": "Athena Hides the Walk through Scheria",
+      "beats": [
+        "Nausicaa reaches the palace while Odysseus waits in Athena's grove.",
+        "He enters the city wrapped in a divine mist.",
+        "Athena appears as a young girl carrying a pitcher and guides him through streets and harbor.",
+        "She describes the Phaeacians, warns him not to question passersby, and directs him to Arete."
+      ],
+      "composePrompt": "Build `OD-B07-S01` — **Athena Hides the Walk through Scheria** — as one editable Halfworld stage. Required instances: Scheria city and harbor, Odysseus, Athena as pitcher girl, Concealing mist, Water pitcher. Stage this action in causal order: Nausicaa reaches the palace while Odysseus waits in Athena's grove. He enters the city wrapped in a divine mist. Athena appears as a young girl carrying a pitcher and guides him through streets and harbor. She describes the Phaeacians, warns him not to question passersby, and directs him to Arete. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—She describes the Phaeacians, warns him not to question passersby, and directs him to Arete.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.scheria-city-and-harbor",
+        "character.odysseus",
+        "character.athena-as-pitcher-girl",
+        "divine-fx.concealing-mist",
+        "prop.water-pitcher"
+      ]
+    },
+    {
+      "id": "OD-B07-S02",
+      "n": 38,
+      "title": "The Palace and the Gardens",
+      "beats": [
+        "Odysseus stops before Alcinous's palace, dazzled by bronze walls, golden doors, and guardian dogs.",
+        "He observes the fifty women weaving and grinding within.",
+        "Outside, an orchard and garden bear fruit through every season.",
+        "He crosses the threshold under mist and finds the royal feast in progress."
+      ],
+      "composePrompt": "Build `OD-B07-S02` — **The Palace and the Gardens** — as one editable Halfworld stage. Required instances: Alcinous's palace, Phaeacian orchard and garden, Gold-and-silver guardian dogs, Palace working women, Odysseus. Stage this action in causal order: Odysseus stops before Alcinous's palace, dazzled by bronze walls, golden doors, and guardian dogs. He observes the fifty women weaving and grinding within. Outside, an orchard and garden bear fruit through every season. He crosses the threshold under mist and finds the royal feast in progress. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He crosses the threshold under mist and finds the royal feast in progress.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.alcinouss-palace",
+        "location.phaeacian-orchard-and-garden",
+        "creature.gold-and-silver-guardian-dogs",
+        "ensemble.palace-working-women",
+        "character.odysseus"
+      ]
+    },
+    {
+      "id": "OD-B07-S03",
+      "n": 39,
+      "title": "Supplication at Arete's Knees",
+      "beats": [
+        "Athena's mist falls away only when Odysseus reaches Arete.",
+        "He clasps her knees and asks passage home, then sits humbly in the ashes by the hearth.",
+        "The hall remains silent until the elder Echeneus tells Alcinous to raise the suppliant.",
+        "Odysseus is seated beside the king, fed, and promised a convoy home."
+      ],
+      "composePrompt": "Build `OD-B07-S03` — **Supplication at Arete's Knees** — as one editable Halfworld stage. Required instances: Odysseus, Arete, Alcinous, Echeneus, Royal hearth. Stage this action in causal order: Athena's mist falls away only when Odysseus reaches Arete. He clasps her knees and asks passage home, then sits humbly in the ashes by the hearth. The hall remains silent until the elder Echeneus tells Alcinous to raise the suppliant. Odysseus is seated beside the king, fed, and promised a convoy home. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus is seated beside the king, fed, and promised a convoy home.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.arete",
+        "character.alcinous",
+        "character.echeneus",
+        "set-piece.royal-hearth"
+      ]
+    },
+    {
+      "id": "OD-B07-S04",
+      "n": 40,
+      "title": "Arete Recognizes Her Work",
+      "beats": [
+        "After the Phaeacians leave, Arete recognizes the clothes Odysseus wears as garments from her household.",
+        "She asks who he is and how he obtained them.",
+        "Odysseus tells of Calypso, the storm, Nausicaa, and his choice not to follow the princess directly.",
+        "Alcinous praises his restraint, offers marriage, and renews the promise of safe passage at dawn."
+      ],
+      "composePrompt": "Build `OD-B07-S04` — **Arete Recognizes Her Work** — as one editable Halfworld stage. Required instances: Arete, Odysseus, Alcinous, Recognized garments. Stage this action in causal order: After the Phaeacians leave, Arete recognizes the clothes Odysseus wears as garments from her household. She asks who he is and how he obtained them. Odysseus tells of Calypso, the storm, Nausicaa, and his choice not to follow the princess directly. Alcinous praises his restraint, offers marriage, and renews the promise of safe passage at dawn. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Alcinous praises his restraint, offers marriage, and renews the promise of safe passage at dawn.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.arete",
+        "character.odysseus",
+        "character.alcinous",
+        "prop.recognized-garments"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus"
+  ]
+}

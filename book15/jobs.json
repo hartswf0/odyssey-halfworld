@@ -1,0 +1,224 @@
+{
+  "book": 15,
+  "jobs": [
+    {
+      "id": "set-piece.ambush-avoidance-map",
+      "type": "SET_PIECE",
+      "name": "Ambush-avoidance map",
+      "prompt": "Ambush-avoidance map (SET_PIECE). Sparta-to-Pylos road, harbor, island route, Same strait danger zone, and Eumaeus landing point. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B15-S01: Sparta-to-Pylos road, harbor, island route, Same strait danger zone, and Eumaeus landing point"
+      ]
+    },
+    {
+      "id": "vehicle.gift-laden-chariot",
+      "type": "VEHICLE",
+      "name": "Gift-laden chariot",
+      "prompt": "Gift-laden chariot (VEHICLE). returning road vehicle with added treasure anchors and urgent travel state. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B15-S02: returning road vehicle with added treasure anchors and urgent travel state"
+      ]
+    },
+    {
+      "id": "character.theoclymenus",
+      "type": "CHARACTER",
+      "name": "Theoclymenus",
+      "prompt": "Theoclymenus (CHARACTER). alert fugitive seer carrying urgency, social rank, and omen sensitivity. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B15-S03: alert fugitive seer carrying urgency, social rank, and omen sensitivity",
+        "OD-B15-S05: seer immediately translating predator and prey into dynastic prediction"
+      ]
+    },
+    {
+      "id": "ensemble.telemachuss-crew",
+      "type": "ENSEMBLE",
+      "name": "Telemachus's crew",
+      "prompt": "Telemachus's crew (ENSEMBLE). experienced returning sailors loading gifts and executing a fast departure. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B15-S03: experienced returning sailors loading gifts and executing a fast departure"
+      ]
+    },
+    {
+      "id": "location.pylos-harbor",
+      "type": "LOCATION",
+      "name": "Pylos harbor",
+      "prompt": "Pylos harbor (LOCATION). ship beach, chariot arrival, crew staging, farewell edge, and open-sea route. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B15-S03: ship beach, chariot arrival, crew staging, farewell edge, and open-sea route"
+      ]
+    },
+    {
+      "id": "divine-fx.athenas-homeward-wind",
+      "type": "DIVINE_FX",
+      "name": "Athena's homeward wind",
+      "prompt": "Athena's homeward wind (DIVINE_FX). steady force avoiding the ambush route and driving the ship overnight. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B15-S03: steady force avoiding the ambush route and driving the ship overnight"
+      ]
+    },
+    {
+      "id": "character.child-eumaeus-memory-variant",
+      "type": "CHARACTER",
+      "name": "Child Eumaeus memory variant",
+      "prompt": "Child Eumaeus memory variant (CHARACTER). royal child carried into abduction and sale without losing canonical identity. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B15-S04: royal child carried into abduction and sale without losing canonical identity"
+      ]
+    },
+    {
+      "id": "ensemble.phoenician-traders",
+      "type": "ENSEMBLE",
+      "name": "Phoenician traders",
+      "prompt": "Phoenician traders (ENSEMBLE). merchants conducting seduction, secret loading, voyage, and slave sale. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B15-S04: merchants conducting seduction, secret loading, voyage, and slave sale"
+      ]
+    },
+    {
+      "id": "location.island-of-syria-memory",
+      "type": "LOCATION",
+      "name": "Island of Syria memory",
+      "prompt": "Island of Syria memory (LOCATION). prosperous small kingdom, royal house, harbor, trader ship, and abduction route. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B15-S04: prosperous small kingdom, royal house, harbor, trader ship, and abduction route"
+      ]
+    },
+    {
+      "id": "creature.hawk-and-dove-omen",
+      "type": "CREATURE",
+      "name": "Hawk and dove omen",
+      "prompt": "Hawk and dove omen (CREATURE). fast aerial strike crossing the prince's right side with visible prey capture. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B15-S05: fast aerial strike crossing the prince's right side with visible prey capture"
+      ]
+    },
+    {
+      "id": "location.secret-ithacan-landing",
+      "type": "LOCATION",
+      "name": "Secret Ithacan landing",
+      "prompt": "Secret Ithacan landing (LOCATION). rural shore with disembark point, farm path, townward ship lane, and no-suitor visibility. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B15-S05: rural shore with disembark point, farm path, townward ship lane, and no-suitor visibility"
+      ]
+    },
+    {
+      "id": "vehicle.returning-ship-and-crew",
+      "type": "VEHICLE",
+      "name": "Returning ship and crew",
+      "prompt": "Returning ship and crew (VEHICLE). vessel splitting from its passenger and continuing to the main harbor with gifts and news. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B15-S05: vessel splitting from its passenger and continuing to the main harbor with gifts and news"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B15-S01",
+      "n": 89,
+      "title": "Athena Wakes Telemachus",
+      "beats": [
+        "Athena appears to Telemachus in Sparta and orders him to return before Penelope is forced to marry.",
+        "She warns that the suitors wait in ambush and gives a route that avoids the strait.",
+        "She tells him to land secretly and go first to Eumaeus's hut.",
+        "Telemachus wakes Pisistratus and prepares to depart at dawn."
+      ],
+      "composePrompt": "Build `OD-B15-S01` — **Athena Wakes Telemachus** — as one editable Halfworld stage. Required instances: Athena, Telemachus, Pisistratus, Ambush-avoidance map. Stage this action in causal order: Athena appears to Telemachus in Sparta and orders him to return before Penelope is forced to marry. She warns that the suitors wait in ambush and gives a route that avoids the strait. She tells him to land secretly and go first to Eumaeus's hut. Telemachus wakes Pisistratus and prepares to depart at dawn. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Telemachus wakes Pisistratus and prepares to depart at dawn.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.athena",
+        "character.telemachus",
+        "character.pisistratus",
+        "set-piece.ambush-avoidance-map"
+      ]
+    },
+    {
+      "id": "OD-B15-S02",
+      "n": 90,
+      "title": "Farewell from Menelaus and Helen",
+      "beats": [
+        "Telemachus and Pisistratus take leave of Menelaus after the king insists on gifts and a final meal.",
+        "Helen gives a robe and reads a bird omen as Odysseus's imminent revenge.",
+        "The chariot travels back through Phera to Pylos.",
+        "Telemachus asks Pisistratus to take him directly to the ship so Nestor cannot delay him with hospitality."
+      ],
+      "composePrompt": "Build `OD-B15-S02` — **Farewell from Menelaus and Helen** — as one editable Halfworld stage. Required instances: Telemachus, Menelaus, Helen, Pisistratus, Gift-laden chariot. Stage this action in causal order: Telemachus and Pisistratus take leave of Menelaus after the king insists on gifts and a final meal. Helen gives a robe and reads a bird omen as Odysseus's imminent revenge. The chariot travels back through Phera to Pylos. Telemachus asks Pisistratus to take him directly to the ship so Nestor cannot delay him with hospitality. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Telemachus asks Pisistratus to take him directly to the ship so Nestor cannot delay him with hospitality.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.telemachus",
+        "character.menelaus",
+        "character.helen",
+        "character.pisistratus",
+        "vehicle.gift-laden-chariot"
+      ]
+    },
+    {
+      "id": "OD-B15-S03",
+      "n": 91,
+      "title": "Theoclymenus Joins the Voyage",
+      "beats": [
+        "At the Pylian harbor Telemachus orders the crew to ready the ship.",
+        "The fugitive seer Theoclymenus approaches and asks for passage after killing a kinsman.",
+        "Telemachus accepts him and places him aboard.",
+        "The ship leaves under Athena's wind and sails through the night toward Ithaca."
+      ],
+      "composePrompt": "Build `OD-B15-S03` — **Theoclymenus Joins the Voyage** — as one editable Halfworld stage. Required instances: Telemachus, Theoclymenus, Telemachus's crew, Pylos harbor, Athena's homeward wind. Stage this action in causal order: At the Pylian harbor Telemachus orders the crew to ready the ship. The fugitive seer Theoclymenus approaches and asks for passage after killing a kinsman. Telemachus accepts him and places him aboard. The ship leaves under Athena's wind and sails through the night toward Ithaca. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The ship leaves under Athena's wind and sails through the night toward Ithaca.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.telemachus",
+        "character.theoclymenus",
+        "ensemble.telemachuss-crew",
+        "location.pylos-harbor",
+        "divine-fx.athenas-homeward-wind"
+      ]
+    },
+    {
+      "id": "OD-B15-S04",
+      "n": 92,
+      "title": "Eumaeus Tells His Own Story",
+      "beats": [
+        "At the hut Odysseus suggests going to the palace to seek work, but Eumaeus refuses to expose him to the suitors.",
+        "The beggar asks about Laertes, Anticleia, and Eumaeus's origins.",
+        "Eumaeus tells how Phoenician traders abducted him from the island of Syria after corrupting a slave woman.",
+        "Laertes bought him in Ithaca and the royal household raised him."
+      ],
+      "composePrompt": "Build `OD-B15-S04` — **Eumaeus Tells His Own Story** — as one editable Halfworld stage. Required instances: Eumaeus, Odysseus as beggar, Child Eumaeus memory variant, Phoenician traders, Island of Syria memory. Stage this action in causal order: At the hut Odysseus suggests going to the palace to seek work, but Eumaeus refuses to expose him to the suitors. The beggar asks about Laertes, Anticleia, and Eumaeus's origins. Eumaeus tells how Phoenician traders abducted him from the island of Syria after corrupting a slave woman. Laertes bought him in Ithaca and the royal household raised him. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Laertes bought him in Ithaca and the royal household raised him.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.eumaeus",
+        "character.odysseus-as-beggar",
+        "character.child-eumaeus-memory-variant",
+        "ensemble.phoenician-traders",
+        "location.island-of-syria-memory"
+      ]
+    },
+    {
+      "id": "OD-B15-S05",
+      "n": 93,
+      "title": "Telemachus Lands in Secret",
+      "beats": [
+        "As the ship approaches Ithaca, a hawk tears a dove beside Telemachus.",
+        "Theoclymenus reads the omen as proof that Odysseus's line will remain supreme.",
+        "Telemachus orders the crew to take the ship to town while he lands near Eumaeus's farm.",
+        "He entrusts Theoclymenus to Piraeus and walks inland alone."
+      ],
+      "composePrompt": "Build `OD-B15-S05` — **Telemachus Lands in Secret** — as one editable Halfworld stage. Required instances: Telemachus, Theoclymenus, Hawk and dove omen, Secret Ithacan landing, Returning ship and crew. Stage this action in causal order: As the ship approaches Ithaca, a hawk tears a dove beside Telemachus. Theoclymenus reads the omen as proof that Odysseus's line will remain supreme. Telemachus orders the crew to take the ship to town while he lands near Eumaeus's farm. He entrusts Theoclymenus to Piraeus and walks inland alone. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He entrusts Theoclymenus to Piraeus and walks inland alone.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.telemachus",
+        "character.theoclymenus",
+        "creature.hawk-and-dove-omen",
+        "location.secret-ithacan-landing",
+        "vehicle.returning-ship-and-crew"
+      ]
+    }
+  ],
+  "existing": [
+    "character.athena",
+    "character.telemachus",
+    "character.pisistratus",
+    "character.menelaus",
+    "character.helen",
+    "character.eumaeus",
+    "character.odysseus-as-beggar"
+  ]
+}

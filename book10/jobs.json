@@ -1,0 +1,423 @@
+{
+  "book": 10,
+  "jobs": [
+    {
+      "id": "location.aeolia-floating-island",
+      "type": "LOCATION",
+      "name": "Aeolia floating island",
+      "prompt": "Aeolia floating island (LOCATION). bronze-walled island with palace, family feast, harbor, wind-storage chamber, and floating sea boundary. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B10-S01: bronze-walled island with palace, family feast, harbor, wind-storage chamber, and floating sea boundary"
+      ]
+    },
+    {
+      "id": "character.aeolus",
+      "type": "CHARACTER",
+      "name": "Aeolus",
+      "prompt": "Aeolus (CHARACTER). generous wind-keeper becoming horrified and absolute when the failed guests return. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B10-S01: generous wind-keeper becoming horrified and absolute when the failed guests return"
+      ]
+    },
+    {
+      "id": "prop.bag-of-winds",
+      "type": "PROP",
+      "name": "Bag of winds",
+      "prompt": "Bag of winds (PROP). oxhide container with bound neck, calm sealed state, bulging pressure, tamper, opened eruption, and empty states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B10-S01: oxhide container with bound neck, calm sealed state, bulging pressure, tamper, opened eruption, and empty states"
+      ]
+    },
+    {
+      "id": "environment.confined-winds",
+      "type": "ENVIRONMENT",
+      "name": "Confined winds",
+      "prompt": "Confined winds (ENVIRONMENT). multiple directional forces stored in one object and released as a chaotic combined blast. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B10-S01: multiple directional forces stored in one object and released as a chaotic combined blast"
+      ]
+    },
+    {
+      "id": "location.telepylus-harbor",
+      "type": "LOCATION",
+      "name": "Telepylus harbor",
+      "prompt": "Telepylus harbor (LOCATION). narrow cliff-ringed basin with single entrance, inner moorings, outer anchorage, city path, and high attack ledges. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B10-S02: narrow cliff-ringed basin with single entrance, inner moorings, outer anchorage, city path, and high attack ledges"
+      ]
+    },
+    {
+      "id": "ensemble.laestrygonian-giants",
+      "type": "ENSEMBLE",
+      "name": "Laestrygonian giants",
+      "prompt": "Laestrygonian giants (ENSEMBLE). citywide giant population converging to throw rocks, spear sailors, and haul victims away. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B10-S02: citywide giant population converging to throw rocks, spear sailors, and haul victims away"
+      ]
+    },
+    {
+      "id": "character.antiphates-and-queen",
+      "type": "CHARACTER",
+      "name": "Antiphates and queen",
+      "prompt": "Antiphates and queen (CHARACTER). cannibal king and colossal queen initiating the attack from a domestic interior. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B10-S02: cannibal king and colossal queen initiating the attack from a domestic interior"
+      ]
+    },
+    {
+      "id": "vehicle.destroyed-fleet",
+      "type": "VEHICLE",
+      "name": "Destroyed fleet",
+      "prompt": "Destroyed fleet (VEHICLE). eleven trapped ships with impact, splinter, sinking, crew-loss, and wreckage states. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B10-S02: eleven trapped ships with impact, splinter, sinking, crew-loss, and wreckage states"
+      ]
+    },
+    {
+      "id": "location.aeaea-coast-and-forest",
+      "type": "LOCATION",
+      "name": "Aeaea coast and forest",
+      "prompt": "Aeaea coast and forest (LOCATION). ship beach, rest camp, high lookout, stag trail, dense forest path, and distant palace smoke. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B10-S03: ship beach, rest camp, high lookout, stag trail, dense forest path, and distant palace smoke"
+      ]
+    },
+    {
+      "id": "character.eurylochus",
+      "type": "CHARACTER",
+      "name": "Eurylochus",
+      "prompt": "Eurylochus (CHARACTER). cautious second-in-command leading the selected group with increasing suspicion. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B10-S03: cautious second-in-command leading the selected group with increasing suspicion",
+        "OD-B10-S04: hidden observer freezing in dread, then fleeing without entering",
+        "OD-B10-S07: traumatized dissenter resisting the return and then following under threat"
+      ]
+    },
+    {
+      "id": "ensemble.surviving-crew",
+      "type": "ENSEMBLE",
+      "name": "Surviving crew",
+      "prompt": "Surviving crew (ENSEMBLE). single-ship remnant dividing into two equal operational groups. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B10-S03: single-ship remnant dividing into two equal operational groups"
+      ]
+    },
+    {
+      "id": "creature.great-stag",
+      "type": "CREATURE",
+      "name": "Great stag",
+      "prompt": "Great stag (CREATURE). large deer with drinking, alert, struck, carried, butchered, and feast states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B10-S03: large deer with drinking, alert, struck, carried, butchered, and feast states"
+      ]
+    },
+    {
+      "id": "location.circes-forest-palace",
+      "type": "LOCATION",
+      "name": "Circe's forest palace",
+      "prompt": "Circe's forest palace (LOCATION). stone house in a clearing with loom hall, dining zone, transformation floor, animal yard, pig pens, and forest approaches. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B10-S04: stone house in a clearing with loom hall, dining zone, transformation floor, animal yard, pig pens, and forest approaches"
+      ]
+    },
+    {
+      "id": "character.circe",
+      "type": "CHARACTER",
+      "name": "Circe",
+      "prompt": "Circe (CHARACTER). beautiful singing host becoming precise alchemist, wand operator, and jailer. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B10-S04: beautiful singing host becoming precise alchemist, wand operator, and jailer",
+        "OD-B10-S06: confidence collapsing into recognition, fear, seduction, oath, and revised hospitality",
+        "OD-B10-S07: restorer applying controlled counter-transformation and later presiding over prolonged ease",
+        "OD-B10-S08: unresisting guide who replaces the hoped-for route home with a darker necessary route"
+      ]
+    },
+    {
+      "id": "creature.crew-to-swine-variants",
+      "type": "CREATURE",
+      "name": "Crew-to-swine variants",
+      "prompt": "Crew-to-swine variants (CREATURE). human performers mapped into pig bodies while preserving identity, gaze, memory, and later restoration. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B10-S04: human performers mapped into pig bodies while preserving identity, gaze, memory, and later restoration"
+      ]
+    },
+    {
+      "id": "creature.enchanted-wolves-and-lions",
+      "type": "CREATURE",
+      "name": "Enchanted wolves and lions",
+      "prompt": "Enchanted wolves and lions (CREATURE). dangerous silhouettes behaving like tame dogs around arriving humans. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B10-S04: dangerous silhouettes behaving like tame dogs around arriving humans"
+      ]
+    },
+    {
+      "id": "character.hermes-as-young-man",
+      "type": "CHARACTER",
+      "name": "Hermes as young man",
+      "prompt": "Hermes as young man (CHARACTER). friendly roadside guide revealing divine knowledge and tactical sequence. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B10-S05: friendly roadside guide revealing divine knowledge and tactical sequence"
+      ]
+    },
+    {
+      "id": "prop.moly-plant",
+      "type": "PROP",
+      "name": "Moly plant",
+      "prompt": "Moly plant (PROP). rare black-rooted white flower with rooted, divinely uprooted, held, ingested, and protection-active states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B10-S05: rare black-rooted white flower with rooted, divinely uprooted, held, ingested, and protection-active states"
+      ]
+    },
+    {
+      "id": "location.forest-meeting-path",
+      "type": "LOCATION",
+      "name": "Forest meeting path",
+      "prompt": "Forest meeting path (LOCATION). narrow transitional route between ship camp and Circe's palace with hidden divine arrival anchor. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B10-S05: narrow transitional route between ship camp and Circe's palace with hidden divine arrival anchor"
+      ]
+    },
+    {
+      "id": "prop.circes-wand",
+      "type": "PROP",
+      "name": "Circe's wand",
+      "prompt": "Circe's wand (PROP). transformation tool with point, strike, spell discharge, failed spell, restore, and idle states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B10-S06: transformation tool with point, strike, spell discharge, failed spell, restore, and idle states"
+      ]
+    },
+    {
+      "id": "prop.drugged-cup",
+      "type": "PROP",
+      "name": "Drugged cup",
+      "prompt": "Drugged cup (PROP). mixed food-and-potion vessel with serve, consume, spell-trigger, and nullified states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B10-S06: mixed food-and-potion vessel with serve, consume, spell-trigger, and nullified states"
+      ]
+    },
+    {
+      "id": "divine-fx.binding-oath-field",
+      "type": "DIVINE_FX",
+      "name": "Binding oath field",
+      "prompt": "Binding oath field (DIVINE_FX). visible covenant state that disables Circe's hostile operations toward Odysseus. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B10-S06: visible covenant state that disables Circe's hostile operations toward Odysseus"
+      ]
+    },
+    {
+      "id": "ensemble.restored-crew",
+      "type": "ENSEMBLE",
+      "name": "Restored crew",
+      "prompt": "Restored crew (ENSEMBLE). individual identities transitioning from pigs to renewed humans, then feasting through a year-cycle. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B10-S07: individual identities transitioning from pigs to renewed humans, then feasting through a year-cycle"
+      ]
+    },
+    {
+      "id": "environment.one-year-feast-cycle",
+      "type": "ENVIRONMENT",
+      "name": "One-year feast cycle",
+      "prompt": "One-year feast cycle (ENVIRONMENT). compressed seasonal passage across repeated meals, rest, clothing, and growing impatience. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B10-S07: compressed seasonal passage across repeated meals, rest, clothing, and growing impatience"
+      ]
+    },
+    {
+      "id": "character.elpenor",
+      "type": "CHARACTER",
+      "name": "Elpenor",
+      "prompt": "Elpenor (CHARACTER). young drunken crewman with sleep, startled rise, misstep, fall, death, and ghost continuity. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B10-S08: young drunken crewman with sleep, startled rise, misstep, fall, death, and ghost continuity"
+      ]
+    },
+    {
+      "id": "set-piece.underworld-route-instructions",
+      "type": "SET_PIECE",
+      "name": "Underworld route instructions",
+      "prompt": "Underworld route instructions (SET_PIECE). Ocean, Persephone's grove, meeting rivers, trench location, and return path as an animated map. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B10-S08: Ocean, Persephone's grove, meeting rivers, trench location, and return path as an animated map"
+      ]
+    },
+    {
+      "id": "divine-fx.circes-sailing-wind",
+      "type": "DIVINE_FX",
+      "name": "Circe's sailing wind",
+      "prompt": "Circe's sailing wind (DIVINE_FX). steady directional force attached to the black ship toward the edge of the world. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B10-S08: steady directional force attached to the black ship toward the edge of the world"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B10-S01",
+      "n": 57,
+      "title": "Aeolus and the Bag of Winds",
+      "beats": [
+        "Aeolus hosts Odysseus for a month and listens to the story of Troy.",
+        "He gives a sealed oxhide bag containing every adverse wind and releases the west wind for Ithaca.",
+        "After nine days Ithaca appears, but Odysseus falls asleep at the helm.",
+        "The crew opens the bag, believing it contains treasure, and the winds blast them back to Aeolia.",
+        "Aeolus refuses further aid, judging Odysseus hated by the gods."
+      ],
+      "composePrompt": "Build `OD-B10-S01` — **Aeolus and the Bag of Winds** — as one editable Halfworld stage. Required instances: Aeolia floating island, Aeolus, Odysseus, Bag of winds, Confined winds. Stage this action in causal order: Aeolus hosts Odysseus for a month and listens to the story of Troy. He gives a sealed oxhide bag containing every adverse wind and releases the west wind for Ithaca. After nine days Ithaca appears, but Odysseus falls asleep at the helm. The crew opens the bag, believing it contains treasure, and the winds blast them back to Aeolia. Aeolus refuses further aid, judging Odysseus hated by the gods. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Aeolus refuses further aid, judging Odysseus hated by the gods.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.aeolia-floating-island",
+        "character.aeolus",
+        "character.odysseus",
+        "prop.bag-of-winds",
+        "environment.confined-winds"
+      ]
+    },
+    {
+      "id": "OD-B10-S02",
+      "n": 58,
+      "title": "The Laestrygonian Harbor",
+      "beats": [
+        "The fleet enters a narrow harbor ringed by cliffs; Odysseus alone moors outside.",
+        "Three scouts meet a giant girl who directs them to her parents' house.",
+        "The queen summons Antiphates, who seizes and eats one scout.",
+        "Laestrygonians mass on the cliffs, spear crews like fish, and crush the trapped ships with boulders.",
+        "Odysseus cuts his cable and escapes with only his own ship."
+      ],
+      "composePrompt": "Build `OD-B10-S02` — **The Laestrygonian Harbor** — as one editable Halfworld stage. Required instances: Telepylus harbor, Laestrygonian giants, Antiphates and queen, Odysseus, Destroyed fleet. Stage this action in causal order: The fleet enters a narrow harbor ringed by cliffs; Odysseus alone moors outside. Three scouts meet a giant girl who directs them to her parents' house. The queen summons Antiphates, who seizes and eats one scout. Laestrygonians mass on the cliffs, spear crews like fish, and crush the trapped ships with boulders. Odysseus cuts his cable and escapes with only his own ship. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus cuts his cable and escapes with only his own ship.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.telepylus-harbor",
+        "ensemble.laestrygonian-giants",
+        "character.antiphates-and-queen",
+        "character.odysseus",
+        "vehicle.destroyed-fleet"
+      ]
+    },
+    {
+      "id": "OD-B10-S03",
+      "n": 59,
+      "title": "Scouts on Aeaea",
+      "beats": [
+        "The lone ship reaches Aeaea and the exhausted survivors rest for two days.",
+        "Odysseus climbs a lookout and sees smoke inland, then kills a great stag for food.",
+        "He divides the crew into two groups and draws lots.",
+        "Eurylochus leads twenty-two men toward Circe's house while Odysseus remains with the ship."
+      ],
+      "composePrompt": "Build `OD-B10-S03` — **Scouts on Aeaea** — as one editable Halfworld stage. Required instances: Aeaea coast and forest, Odysseus, Eurylochus, Surviving crew, Great stag. Stage this action in causal order: The lone ship reaches Aeaea and the exhausted survivors rest for two days. Odysseus climbs a lookout and sees smoke inland, then kills a great stag for food. He divides the crew into two groups and draws lots. Eurylochus leads twenty-two men toward Circe's house while Odysseus remains with the ship. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Eurylochus leads twenty-two men toward Circe's house while Odysseus remains with the ship.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.aeaea-coast-and-forest",
+        "character.odysseus",
+        "character.eurylochus",
+        "ensemble.surviving-crew",
+        "creature.great-stag"
+      ]
+    },
+    {
+      "id": "OD-B10-S04",
+      "n": 60,
+      "title": "Circe Transforms the Crew",
+      "beats": [
+        "The scouts find Circe singing at her loom while enchanted wolves and lions fawn around them.",
+        "All but Eurylochus enter; Circe serves drugged food and strikes them with her wand.",
+        "The men become pigs in body while retaining human minds.",
+        "Circe shuts them in pens and throws them acorns.",
+        "Eurylochus runs back to the ship and reports the disappearance."
+      ],
+      "composePrompt": "Build `OD-B10-S04` — **Circe Transforms the Crew** — as one editable Halfworld stage. Required instances: Circe's forest palace, Circe, Eurylochus, Crew-to-swine variants, Enchanted wolves and lions. Stage this action in causal order: The scouts find Circe singing at her loom while enchanted wolves and lions fawn around them. All but Eurylochus enter; Circe serves drugged food and strikes them with her wand. The men become pigs in body while retaining human minds. Circe shuts them in pens and throws them acorns. Eurylochus runs back to the ship and reports the disappearance. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Eurylochus runs back to the ship and reports the disappearance.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.circes-forest-palace",
+        "character.circe",
+        "character.eurylochus",
+        "creature.crew-to-swine-variants",
+        "creature.enchanted-wolves-and-lions"
+      ]
+    },
+    {
+      "id": "OD-B10-S05",
+      "n": 61,
+      "title": "Hermes Gives the Moly",
+      "beats": [
+        "Odysseus arms himself and heads alone toward Circe's house despite Eurylochus's protest.",
+        "Hermes meets him in the form of a young man and explains Circe's trap.",
+        "He pulls the black-rooted, white-flowered moly from the earth and gives it to Odysseus.",
+        "Hermes instructs him to resist the drug, draw his sword, and force Circe to swear an oath."
+      ],
+      "composePrompt": "Build `OD-B10-S05` — **Hermes Gives the Moly** — as one editable Halfworld stage. Required instances: Odysseus, Hermes as young man, Moly plant, Forest meeting path. Stage this action in causal order: Odysseus arms himself and heads alone toward Circe's house despite Eurylochus's protest. Hermes meets him in the form of a young man and explains Circe's trap. He pulls the black-rooted, white-flowered moly from the earth and gives it to Odysseus. Hermes instructs him to resist the drug, draw his sword, and force Circe to swear an oath. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Hermes instructs him to resist the drug, draw his sword, and force Circe to swear an oath.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.hermes-as-young-man",
+        "prop.moly-plant",
+        "location.forest-meeting-path"
+      ]
+    },
+    {
+      "id": "OD-B10-S06",
+      "n": 62,
+      "title": "Odysseus Defeats Circe's Spell",
+      "beats": [
+        "Circe serves Odysseus the drugged mixture and strikes him with her wand.",
+        "The moly protects him; he draws his sword and rushes her.",
+        "Circe recognizes the foretold man, kneels, and offers her bed.",
+        "Odysseus requires the binding oath that she will not unman or harm him.",
+        "After the oath, attendants bathe and feast him, but he refuses to eat while his crew remain imprisoned."
+      ],
+      "composePrompt": "Build `OD-B10-S06` — **Odysseus Defeats Circe's Spell** — as one editable Halfworld stage. Required instances: Odysseus, Circe, Circe's wand, Drugged cup, Binding oath field. Stage this action in causal order: Circe serves Odysseus the drugged mixture and strikes him with her wand. The moly protects him; he draws his sword and rushes her. Circe recognizes the foretold man, kneels, and offers her bed. Odysseus requires the binding oath that she will not unman or harm him. After the oath, attendants bathe and feast him, but he refuses to eat while his crew remain imprisoned. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—After the oath, attendants bathe and feast him, but he refuses to eat while his crew remain imprisoned.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.circe",
+        "prop.circes-wand",
+        "prop.drugged-cup",
+        "divine-fx.binding-oath-field"
+      ]
+    },
+    {
+      "id": "OD-B10-S07",
+      "n": 63,
+      "title": "The Men Restored",
+      "beats": [
+        "Circe leads Odysseus to the pigsties and applies a second drug.",
+        "The swine regain human form, younger and more handsome than before.",
+        "They recognize Odysseus and embrace him in tears; even Circe is moved.",
+        "Odysseus retrieves the remaining crew and ship stores, though Eurylochus warns against returning.",
+        "The men live in Circe's halls for a year until they demand the journey resume."
+      ],
+      "composePrompt": "Build `OD-B10-S07` — **The Men Restored** — as one editable Halfworld stage. Required instances: Circe, Restored crew, Odysseus, Eurylochus, One-year feast cycle. Stage this action in causal order: Circe leads Odysseus to the pigsties and applies a second drug. The swine regain human form, younger and more handsome than before. They recognize Odysseus and embrace him in tears; even Circe is moved. Odysseus retrieves the remaining crew and ship stores, though Eurylochus warns against returning. The men live in Circe's halls for a year until they demand the journey resume. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The men live in Circe's halls for a year until they demand the journey resume.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.circe",
+        "ensemble.restored-crew",
+        "character.odysseus",
+        "character.eurylochus",
+        "environment.one-year-feast-cycle"
+      ]
+    },
+    {
+      "id": "OD-B10-S08",
+      "n": 64,
+      "title": "The Road to the Dead",
+      "beats": [
+        "Odysseus asks Circe to honor her promise of homeward passage.",
+        "She says he must first consult Tiresias in the land of the dead.",
+        "Circe gives directions to Ocean's edge and the ritual for summoning spirits.",
+        "Elpenor, sleeping on the roof, wakes confused, falls, and dies unnoticed.",
+        "The crew launches in grief while Circe sends a favorable wind."
+      ],
+      "composePrompt": "Build `OD-B10-S08` — **The Road to the Dead** — as one editable Halfworld stage. Required instances: Circe, Odysseus, Elpenor, Underworld route instructions, Circe's sailing wind. Stage this action in causal order: Odysseus asks Circe to honor her promise of homeward passage. She says he must first consult Tiresias in the land of the dead. Circe gives directions to Ocean's edge and the ritual for summoning spirits. Elpenor, sleeping on the roof, wakes confused, falls, and dies unnoticed. The crew launches in grief while Circe sends a favorable wind. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The crew launches in grief while Circe sends a favorable wind.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.circe",
+        "character.odysseus",
+        "character.elpenor",
+        "set-piece.underworld-route-instructions",
+        "divine-fx.circes-sailing-wind"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus"
+  ]
+}

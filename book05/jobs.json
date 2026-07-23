@@ -1,0 +1,305 @@
+{
+  "book": 5,
+  "jobs": [
+    {
+      "id": "prop.hermess-wand",
+      "type": "PROP",
+      "name": "Hermes's wand",
+      "prompt": "Hermes's wand (PROP). divine staff with carry, point, sleep, wake, and travel states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B05-S01: divine staff with carry, point, sleep, wake, and travel states"
+      ]
+    },
+    {
+      "id": "location.ogygia-cavern-and-grove",
+      "type": "LOCATION",
+      "name": "Ogygia cavern and grove",
+      "prompt": "Ogygia cavern and grove (LOCATION). lush island cave with hearth, loom, vines, four springs, bird-filled woods, shore route, and raft-building zone. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B05-S01: lush island cave with hearth, loom, vines, four springs, bird-filled woods, shore route, and raft-building zone"
+      ]
+    },
+    {
+      "id": "divine-fx.sea-crossing-flight",
+      "type": "DIVINE_FX",
+      "name": "Sea-crossing flight",
+      "prompt": "Sea-crossing flight (DIVINE_FX). low rapid travel field that lets Hermes skim wave crests without touching them. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B05-S01: low rapid travel field that lets Hermes skim wave crests without touching them"
+      ]
+    },
+    {
+      "id": "character.calypso",
+      "type": "CHARACTER",
+      "name": "Calypso",
+      "prompt": "Calypso (CHARACTER). self-possessed immortal moving through welcome, outrage, wounded attachment, and reluctant compliance. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B05-S02: self-possessed immortal moving through welcome, outrage, wounded attachment, and reluctant compliance",
+        "OD-B05-S03: lover and jailer attempting tenderness, persuasion, and dignified release",
+        "OD-B05-S04: supplier and observer helping without taking over the mortal work"
+      ]
+    },
+    {
+      "id": "prop.calypsos-loom",
+      "type": "PROP",
+      "name": "Calypso's loom",
+      "prompt": "Calypso's loom (PROP). standing weaving apparatus with active cloth, shuttle, pause, and abandoned-work states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B05-S02: standing weaving apparatus with active cloth, shuttle, pause, and abandoned-work states"
+      ]
+    },
+    {
+      "id": "prop.ambrosia-and-nectar-service",
+      "type": "PROP",
+      "name": "Ambrosia and nectar service",
+      "prompt": "Ambrosia and nectar service (PROP). divine hospitality vessels with set, pour, drink, and clear states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B05-S02: divine hospitality vessels with set, pour, drink, and clear states"
+      ]
+    },
+    {
+      "id": "location.ogygia-shore",
+      "type": "LOCATION",
+      "name": "Ogygia shore",
+      "prompt": "Ogygia shore (LOCATION). rocky lookout with fixed weeping position, horizon sightline, cave path, and future launch point. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B05-S03: rocky lookout with fixed weeping position, horizon sightline, cave path, and future launch point"
+      ]
+    },
+    {
+      "id": "divine-fx.oath-of-styx",
+      "type": "DIVINE_FX",
+      "name": "Oath of Styx",
+      "prompt": "Oath of Styx (DIVINE_FX). solemn environmental darkening and binding gesture marking an irreversible divine promise. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B05-S03: solemn environmental darkening and binding gesture marking an irreversible divine promise"
+      ]
+    },
+    {
+      "id": "vehicle.odysseuss-raft",
+      "type": "VEHICLE",
+      "name": "Odysseus's raft",
+      "prompt": "Odysseus's raft (VEHICLE). modular timber raft with construction stages, mast, sail, fence, steering oar, ballast, cargo anchors, and damage states. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B05-S04: modular timber raft with construction stages, mast, sail, fence, steering oar, ballast, cargo anchors, and damage states"
+      ]
+    },
+    {
+      "id": "prop.shipbuilding-tool-set",
+      "type": "PROP",
+      "name": "Shipbuilding tool set",
+      "prompt": "Shipbuilding tool set (PROP). axe, adze, augers, measuring line, cords, and sail cloth as separate grip-ready objects. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B05-S04: axe, adze, augers, measuring line, cords, and sail cloth as separate grip-ready objects"
+      ]
+    },
+    {
+      "id": "location.ogygia-timber-grove",
+      "type": "LOCATION",
+      "name": "Ogygia timber grove",
+      "prompt": "Ogygia timber grove (LOCATION). harvestable tree zone linked to worksite and shore by drag routes. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B05-S04: harvestable tree zone linked to worksite and shore by drag routes"
+      ]
+    },
+    {
+      "id": "character.poseidon",
+      "type": "CHARACTER",
+      "name": "Poseidon",
+      "prompt": "Poseidon (CHARACTER). distant sea-god operating storm, wave, and wind as extensions of anger. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B05-S05: distant sea-god operating storm, wave, and wind as extensions of anger"
+      ]
+    },
+    {
+      "id": "character.ino-leucothea",
+      "type": "CHARACTER",
+      "name": "Ino-Leucothea",
+      "prompt": "Ino-Leucothea (CHARACTER). sea-bird arrival transforming into a compassionate marine goddess and offering survival instructions. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B05-S05: sea-bird arrival transforming into a compassionate marine goddess and offering survival instructions"
+      ]
+    },
+    {
+      "id": "vehicle.storm-torn-raft",
+      "type": "VEHICLE",
+      "name": "Storm-torn raft",
+      "prompt": "Storm-torn raft (VEHICLE). raft with intact, rolling, dismasted, scattered, regripped, and abandoned states. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B05-S05: raft with intact, rolling, dismasted, scattered, regripped, and abandoned states"
+      ]
+    },
+    {
+      "id": "environment.four-wind-storm",
+      "type": "ENVIRONMENT",
+      "name": "Four-wind storm",
+      "prompt": "Four-wind storm (ENVIRONMENT). multi-directional cloud, wind, rain, lightning, and wave system with Poseidon as source. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B05-S05: multi-directional cloud, wind, rain, lightning, and wave system with Poseidon as source"
+      ]
+    },
+    {
+      "id": "location.scherian-coast-and-river-mouth",
+      "type": "LOCATION",
+      "name": "Scherian coast and river mouth",
+      "prompt": "Scherian coast and river mouth (LOCATION). dangerous reef coast transitioning to sheltered estuary, bank, woodland edge, and olive-bush refuge. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B05-S06: dangerous reef coast transitioning to sheltered estuary, bank, woodland edge, and olive-bush refuge"
+      ]
+    },
+    {
+      "id": "divine-fx.river-god",
+      "type": "DIVINE_FX",
+      "name": "River god",
+      "prompt": "River god (DIVINE_FX). localized current intelligence that calms water around the supplicant and opens a landing path. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B05-S06: localized current intelligence that calms water around the supplicant and opens a landing path"
+      ]
+    },
+    {
+      "id": "prop.inos-veil",
+      "type": "PROP",
+      "name": "Ino's veil",
+      "prompt": "Ino's veil (PROP). light protective cloth with wear, flotation-aid, remove, and return-to-sea states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B05-S06: light protective cloth with wear, flotation-aid, remove, and return-to-sea states"
+      ]
+    },
+    {
+      "id": "set-piece.olive-leaf-shelter",
+      "type": "SET_PIECE",
+      "name": "Olive leaf shelter",
+      "prompt": "Olive leaf shelter (SET_PIECE). paired wild and cultivated olive growth with crawl-in anchor, leaf-cover state, and rain/wind protection. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B05-S06: paired wild and cultivated olive growth with crawl-in anchor, leaf-cover state, and rain/wind protection"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B05-S01",
+      "n": 27,
+      "title": "Hermes Carries the Decree",
+      "beats": [
+        "The gods meet again and Athena presses the case of Odysseus and Telemachus.",
+        "Zeus orders Hermes to tell Calypso that Odysseus must depart without divine escort.",
+        "Hermes straps on his sandals, takes his wand, and skims across the sea.",
+        "He reaches Ogygia, enters Calypso's fragrant cavern, and finds her weaving at the fire."
+      ],
+      "composePrompt": "Build `OD-B05-S01` — **Hermes Carries the Decree** — as one editable Halfworld stage. Required instances: Olympian council hall, Hermes, Hermes's wand, Ogygia cavern and grove, Sea-crossing flight. Stage this action in causal order: The gods meet again and Athena presses the case of Odysseus and Telemachus. Zeus orders Hermes to tell Calypso that Odysseus must depart without divine escort. Hermes straps on his sandals, takes his wand, and skims across the sea. He reaches Ogygia, enters Calypso's fragrant cavern, and finds her weaving at the fire. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He reaches Ogygia, enters Calypso's fragrant cavern, and finds her weaving at the fire.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.olympian-council-hall",
+        "character.hermes",
+        "prop.hermess-wand",
+        "location.ogygia-cavern-and-grove",
+        "divine-fx.sea-crossing-flight"
+      ]
+    },
+    {
+      "id": "OD-B05-S02",
+      "n": 28,
+      "title": "Calypso Receives the Order",
+      "beats": [
+        "Calypso recognizes Hermes, offers ambrosia and nectar, and asks his purpose.",
+        "Hermes reports Zeus's command and warns her against divine anger.",
+        "Calypso denounces the gods' jealousy toward goddesses who love mortal men.",
+        "She agrees to release Odysseus but says she cannot escort him herself."
+      ],
+      "composePrompt": "Build `OD-B05-S02` — **Calypso Receives the Order** — as one editable Halfworld stage. Required instances: Calypso, Hermes, Calypso's loom, Ambrosia and nectar service. Stage this action in causal order: Calypso recognizes Hermes, offers ambrosia and nectar, and asks his purpose. Hermes reports Zeus's command and warns her against divine anger. Calypso denounces the gods' jealousy toward goddesses who love mortal men. She agrees to release Odysseus but says she cannot escort him herself. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—She agrees to release Odysseus but says she cannot escort him herself.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.calypso",
+        "character.hermes",
+        "prop.calypsos-loom",
+        "prop.ambrosia-and-nectar-service"
+      ]
+    },
+    {
+      "id": "OD-B05-S03",
+      "n": 29,
+      "title": "Odysseus Distrusts Freedom",
+      "beats": [
+        "Calypso finds Odysseus weeping on the shore and tells him to build a raft for home.",
+        "He suspects a trap and demands a binding oath that she will not plan his ruin.",
+        "Calypso swears by earth, sky, and Styx and offers practical help.",
+        "At supper she argues that immortality with her surpasses Penelope; Odysseus tactfully refuses the comparison's consequence."
+      ],
+      "composePrompt": "Build `OD-B05-S03` — **Odysseus Distrusts Freedom** — as one editable Halfworld stage. Required instances: Odysseus, Calypso, Ogygia shore, Oath of Styx. Stage this action in causal order: Calypso finds Odysseus weeping on the shore and tells him to build a raft for home. He suspects a trap and demands a binding oath that she will not plan his ruin. Calypso swears by earth, sky, and Styx and offers practical help. At supper she argues that immortality with her surpasses Penelope; Odysseus tactfully refuses the comparison's consequence. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—At supper she argues that immortality with her surpasses Penelope; Odysseus tactfully refuses the comparison's consequence.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.calypso",
+        "location.ogygia-shore",
+        "divine-fx.oath-of-styx"
+      ]
+    },
+    {
+      "id": "OD-B05-S04",
+      "n": 30,
+      "title": "Building the Raft",
+      "beats": [
+        "Calypso leads Odysseus to tall trees and gives him axe, adze, augers, cloth, and cord.",
+        "He fells, trims, bores, joins, decks, and fences the timbers over four days.",
+        "He rigs mast, yard, sail, steering oar, and ballast.",
+        "Calypso bathes and clothes him, loads food and water, and sends a warm wind behind the raft."
+      ],
+      "composePrompt": "Build `OD-B05-S04` — **Building the Raft** — as one editable Halfworld stage. Required instances: Odysseus, Calypso, Odysseus's raft, Shipbuilding tool set, Ogygia timber grove. Stage this action in causal order: Calypso leads Odysseus to tall trees and gives him axe, adze, augers, cloth, and cord. He fells, trims, bores, joins, decks, and fences the timbers over four days. He rigs mast, yard, sail, steering oar, and ballast. Calypso bathes and clothes him, loads food and water, and sends a warm wind behind the raft. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Calypso bathes and clothes him, loads food and water, and sends a warm wind behind the raft.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.calypso",
+        "vehicle.odysseuss-raft",
+        "prop.shipbuilding-tool-set",
+        "location.ogygia-timber-grove"
+      ]
+    },
+    {
+      "id": "OD-B05-S05",
+      "n": 31,
+      "title": "Poseidon Breaks the Sea",
+      "beats": [
+        "For seventeen days Odysseus steers by the stars until Scheria rises ahead.",
+        "Poseidon sees him, gathers clouds, and strikes the sea with a four-wind storm.",
+        "The raft rolls; Odysseus is swept away and barely regains it.",
+        "Ino gives him an immortal veil and orders him to abandon the raft and swim.",
+        "Athena restrains the winds except the north wind that drives him shoreward."
+      ],
+      "composePrompt": "Build `OD-B05-S05` — **Poseidon Breaks the Sea** — as one editable Halfworld stage. Required instances: Odysseus, Poseidon, Ino-Leucothea, Storm-torn raft, Four-wind storm. Stage this action in causal order: For seventeen days Odysseus steers by the stars until Scheria rises ahead. Poseidon sees him, gathers clouds, and strikes the sea with a four-wind storm. The raft rolls; Odysseus is swept away and barely regains it. Ino gives him an immortal veil and orders him to abandon the raft and swim. Athena restrains the winds except the north wind that drives him shoreward. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena restrains the winds except the north wind that drives him shoreward.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.poseidon",
+        "character.ino-leucothea",
+        "vehicle.storm-torn-raft",
+        "environment.four-wind-storm"
+      ]
+    },
+    {
+      "id": "OD-B05-S06",
+      "n": 32,
+      "title": "The River Accepts the Castaway",
+      "beats": [
+        "Odysseus swims for two nights and days while waves hurl him toward a reef-lined coast.",
+        "Athena shows him a river mouth free of rocks and wind.",
+        "He prays to the river god, who stills the current and receives him.",
+        "Odysseus returns Ino's veil to the sea, crawls ashore, and hides beneath two intertwined olive bushes.",
+        "He buries himself in leaves and Athena seals him in sleep."
+      ],
+      "composePrompt": "Build `OD-B05-S06` — **The River Accepts the Castaway** — as one editable Halfworld stage. Required instances: Scherian coast and river mouth, Odysseus, River god, Ino's veil, Olive leaf shelter. Stage this action in causal order: Odysseus swims for two nights and days while waves hurl him toward a reef-lined coast. Athena shows him a river mouth free of rocks and wind. He prays to the river god, who stills the current and receives him. Odysseus returns Ino's veil to the sea, crawls ashore, and hides beneath two intertwined olive bushes. He buries himself in leaves and Athena seals him in sleep. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He buries himself in leaves and Athena seals him in sleep.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.scherian-coast-and-river-mouth",
+        "character.odysseus",
+        "divine-fx.river-god",
+        "prop.inos-veil",
+        "set-piece.olive-leaf-shelter"
+      ]
+    }
+  ],
+  "existing": [
+    "location.olympian-council-hall",
+    "character.hermes",
+    "character.odysseus"
+  ]
+}

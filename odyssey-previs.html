@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ODYSSEY PREVIS — study the cut</title>
+<style>
+  :root{
+    --paper:#f2f1ec; --card:#f7f6f2; --ink:#141414; --dim:#8a8a86;
+    --faint:#d8d6cf; --red:#e01b1b; --blue:#0033cc;
+    --mono:ui-monospace,'SF Mono','IBM Plex Mono',Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;overflow:hidden;background:var(--paper);font-family:var(--mono);color:var(--ink)}
+
+  #top{position:fixed;inset:0 0 auto 0;height:46px;z-index:20;display:flex;align-items:center;gap:12px;
+    padding:0 14px;background:var(--paper);border-bottom:1px solid var(--ink)}
+  .glyph{display:grid;grid-template-columns:repeat(3,5px);gap:3px;flex:none}
+  .glyph i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+  .glyph i.r{background:var(--red)}
+  #brand{font-size:10px;font-weight:700;letter-spacing:.38em;text-transform:uppercase;white-space:nowrap}
+  #brand em{font-style:normal;color:var(--dim);font-weight:400}
+  #bookSel,#sceneSel{border:1px solid var(--faint);background:var(--card);font-family:var(--mono);
+    font-size:10px;padding:6px 8px;letter-spacing:.08em;max-width:300px}
+  #topRight{margin-left:auto;display:flex;gap:6px}
+  .chip{border:1px solid var(--faint);background:var(--card);cursor:pointer;font-size:9px;
+    letter-spacing:.2em;text-transform:uppercase;padding:6px 10px;color:var(--dim);user-select:none;white-space:nowrap}
+  .chip:hover{border-color:var(--ink);color:var(--ink)}
+  .chip.on{border-color:var(--ink);color:var(--ink);box-shadow:inset 0 -2px 0 var(--red)}
+
+  #main{position:fixed;top:46px;left:0;right:340px;bottom:150px;display:flex;flex-direction:column;background:#101010}
+  #frameWrap{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center}
+  #frame{max-width:100%;max-height:100%;background:#fdfdfa;display:block}
+  /* slate overlays */
+  #slateTL{position:absolute;left:14px;top:10px;font-size:9.5px;letter-spacing:.18em;color:#eee;text-transform:uppercase}
+  #slateTL b{color:#fff;font-weight:700}
+  #slateTR{position:absolute;right:14px;top:10px;font-size:9.5px;letter-spacing:.14em;color:#eee}
+  #caption{position:absolute;left:8%;right:8%;bottom:12px;text-align:center;font-size:12px;line-height:1.55;
+    color:#fff;text-shadow:0 1px 3px #000;letter-spacing:.03em}
+  #caption b{color:#ffd75e;font-weight:700;letter-spacing:.14em;font-size:9px;display:block;text-transform:uppercase;margin-bottom:2px}
+
+  /* board strip */
+  #boards{position:fixed;left:0;right:340px;bottom:46px;height:104px;z-index:15;background:var(--paper);
+    border-top:1px solid var(--ink);display:flex;gap:6px;padding:8px 10px;overflow-x:auto;align-items:stretch}
+  .board{flex:none;width:118px;cursor:pointer;border:2px solid var(--faint);background:#fff;position:relative;display:flex;flex-direction:column}
+  .board:hover{border-color:var(--ink)}
+  .board.on{border-color:var(--red)}
+  .board canvas{width:100%;height:62px;display:block;background:#fdfdfa;object-fit:cover}
+  .board .bl{display:flex;justify-content:space-between;padding:3px 5px;font-size:7.5px;letter-spacing:.1em;color:var(--dim)}
+  .board .bl b{color:var(--ink)}
+  .board .bt{position:absolute;left:4px;top:3px;background:var(--ink);color:#fff;font-size:7px;
+    letter-spacing:.12em;padding:2px 4px}
+  .board.on .bt{background:var(--red)}
+
+  /* transport */
+  #bottom{position:fixed;left:0;right:340px;bottom:0;height:46px;z-index:20;background:var(--paper);
+    border-top:1px solid var(--ink);display:flex;align-items:center;gap:10px;padding:0 12px}
+  #tc{font-size:10px;letter-spacing:.1em;min-width:190px}
+  #tc b{color:var(--red)}
+  #cutbar{flex:1;height:22px;cursor:pointer;position:relative;background:#eceae4;border:1px solid var(--faint)}
+  #hint{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+
+  /* context panel */
+  #side{position:fixed;top:46px;right:0;bottom:0;width:340px;z-index:16;background:var(--card);
+    border-left:1px solid var(--ink);overflow-y:auto;padding:14px}
+  #side h3{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin:14px 0 7px;
+    display:flex;align-items:center;gap:6px}
+  #side h3:first-child{margin-top:0}
+  #side h3 .dot{width:5px;height:5px;border-radius:50%;background:var(--red)}
+  #sceneTitle{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
+  #sceneMeta{font-size:8.5px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;margin-top:3px}
+  .beat{font-size:10px;line-height:1.55;padding:5px 0 5px 20px;position:relative;border-bottom:1px solid var(--faint);color:#444}
+  .beat::before{content:attr(data-n);position:absolute;left:0;top:5px;font-weight:900;color:var(--blue);font-size:9px}
+  .beat.now{color:var(--ink);background:#fdf6e0}
+  .shotRow{display:flex;gap:6px;align-items:baseline;font-size:9px;padding:4px 0;border-bottom:1px solid var(--faint);cursor:pointer}
+  .shotRow:hover{color:var(--red)}
+  .shotRow.on{color:var(--red);font-weight:700}
+  .shotRow .n{flex:none;width:22px;font-weight:900}
+  .shotRow .k{flex:none;width:52px;letter-spacing:.1em}
+  .shotRow .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.04em}
+  .shotRow .d{flex:none;color:var(--dim)}
+  .needRow{display:flex;gap:6px;align-items:center;font-size:8.5px;padding:3px 0;color:#444}
+  .needRow .sq{width:8px;height:8px;flex:none}
+  .promptBox{font-size:9.5px;line-height:1.65;background:var(--paper);border:1px solid var(--faint);
+    border-left:3px solid var(--blue);padding:9px 10px;white-space:pre-wrap;word-break:break-word;
+    max-height:180px;overflow-y:auto}
+  .btnRow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .btn{border:2px solid var(--ink);background:var(--paper);cursor:pointer;font-size:8.5px;
+    letter-spacing:.16em;text-transform:uppercase;padding:8px 11px;font-family:var(--mono)}
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn.red{border-color:var(--red);color:var(--red)}
+  .btn.red:hover{background:var(--red);color:var(--paper)}
+
+  #toast{position:fixed;left:40%;bottom:60px;transform:translateX(-50%);z-index:30;background:var(--ink);
+    color:var(--paper);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:9px 16px;
+    opacity:0;transition:opacity .25s;pointer-events:none;max-width:70vw;text-align:center}
+  #toast.show{opacity:1}
+  #boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--paper)}
+  #boot .b{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--dim);animation:pulse 1.4s infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  @media(max-width:980px){ #side{display:none} #main,#boards,#bottom{right:0} }
+</style>
+</head>
+<body>
+
+<div id="top">
+  <div class="glyph"><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i></div>
+  <div id="brand">ODYSSEY PREVIS <em>&middot; study the cut</em></div>
+  <select id="bookSel"></select>
+  <select id="sceneSel"></select>
+  <div id="topRight">
+    <div class="chip on" id="restageChip" title="one ground plane · keyed cutouts · live performance">RESTAGE</div>
+    <div class="chip on" id="lineupChip" title="open the cut with the full asset line-up">LINEUP</div>
+    <div class="chip on" id="coverageChip" title="insert a coverage shot for every asset the cut skips">COVERAGE</div>
+    <div class="chip" id="tableLink">TABLE ↗</div>
+    <div class="chip" id="stageLink">STAGE ↗</div>
+  </div>
+</div>
+
+<div id="main">
+  <div id="frameWrap">
+    <canvas id="frame"></canvas>
+    <div id="slateTL"></div>
+    <div id="slateTR"></div>
+    <div id="caption"></div>
+  </div>
+</div>
+
+<div id="boards"></div>
+
+<div id="bottom">
+  <div class="chip" id="playBtn">▶ PLAY THE CUT</div>
+  <div id="tc">—</div>
+  <canvas id="cutbar"></canvas>
+  <div id="hint">SPACE PLAY · ←→ SHOT · ↑↓ SCENE</div>
+</div>
+
+<div id="side">
+  <h3><span class="dot"></span>SCENE</h3>
+  <div id="sceneTitle">—</div>
+  <div id="sceneMeta"></div>
+  <h3><span class="dot"></span>BEATS</h3>
+  <div id="beatList"></div>
+  <h3><span class="dot"></span>SHOT LIST</h3>
+  <div id="shotList"></div>
+  <div class="btnRow">
+    <div class="btn" id="copyShots">COPY SHOT LIST</div>
+    <div class="btn red" id="copyEDL">COPY EDL</div>
+  </div>
+  <h3><span class="dot"></span>ASSET MANIFEST</h3>
+  <div id="needList"></div>
+  <h3><span class="dot"></span>FULL ATLAS PROMPT</h3>
+  <div class="promptBox" id="promptBox">—</div>
+  <h3><span class="dot"></span>EXIT STATE</h3>
+  <div class="promptBox" id="exitBox" style="border-left-color:var(--red)">—</div>
+</div>
+
+<div id="toast"></div>
+<div id="boot"><div class="b">LOADING THE CUT…</div></div>
+
+<script type="module">
+/* ============================================================
+   ODYSSEY PREVIS — the atlas as a film.
+   Every scene is compiled into a SHOT SEQUENCE:
+     WIDE   = the whole living stage (scene.stage at scene time)
+     CU     = a cutout — the actual asset module, framed close,
+              posed by the timeline op that motivates the cut
+     INSERT = prop / fx cutout at its cue
+   The cut plays through scene time; captions carry the beats.
+   ============================================================ */
+import { keyedModuleCanvas, makeRestage } from "/engine/halfworld-engine.mjs";
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+const FPS=24;
+let LINEUP_ON=true, COVERAGE_ON=true, RESTAGE_ON=true, RESTAGED=null;
+const CTX_TYPES=new Set(["divine_fx","sound_source","environment"]);
+let MAN=null, assetById=new Map();
+let book=9, sceneEntry=null, sceneMod=null, castByInstance=new Map();
+let SHOTS=[], cur=0, playing=false, shotT=0;   // shotT = seconds into current shot
+const modCache=new Map();
+const $=id=>document.getElementById(id);
+let toastT=0;
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2400);}
+async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+  if(modCache.has(p))return modCache.get(p);
+  const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+function smpte(sec){
+  const f=Math.floor((sec%1)*FPS), s=Math.floor(sec);
+  return "01:"+String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")+":"+String(f).padStart(2,"0");
+}
+
+/* ── canvas / compositor ── */
+const SRCW=1120, SRCH=760;
+const frame=$("frame"), fg=frame.getContext("2d");
+const off=document.createElement("canvas"); off.width=SRCW; off.height=SRCH;
+const og=off.getContext("2d",{willReadFrequently:true});
+const off2=document.createElement("canvas"); off2.width=SRCW; off2.height=SRCH;
+const og2=off2.getContext("2d",{willReadFrequently:true});
+function fit(){
+  const wrap=$("frameWrap").getBoundingClientRect();
+  const s=Math.min((wrap.width-24)/SRCW,(wrap.height-24)/SRCH);
+  frame.width=Math.max(2,Math.round(SRCW*s*1.25)); frame.height=Math.max(2,Math.round(SRCH*s*1.25));
+  frame.style.width=Math.round(SRCW*s)+"px"; frame.style.height=Math.round(SRCH*s)+"px";
+  dirty=true;
+}
+addEventListener("resize",fit);
+
+/* batched dotify (MESH) — same dot law as the engine, realtime */
+const NB=14, _buckets=Array.from({length:NB},()=>[]);
+function fastDotify(gg,src,SW,SH,CW,CH){
+  const s=Math.min(CW/SW,CH/SH), ox=(CW-SW*s)/2, oy=(CH-SH*s)/2, w=SW*s, h=SH*s;
+  const cell=Math.max(3,5*1.1*.82);
+  gg.setTransform(1,0,0,1,0,0);
+  gg.fillStyle="#fdfdfa";gg.fillRect(0,0,CW,CH);
+  gg.strokeStyle="rgba(0,0,0,.08)";gg.lineWidth=1;gg.beginPath();
+  for(let y=cell*.45;y<CH;y+=Math.max(3,cell*.72)){gg.moveTo(0,y);gg.lineTo(CW,y);}
+  gg.stroke();
+  const maxR=cell*.62*1.05;
+  for(const b of _buckets)b.length=0;
+  const x0=Math.max(cell/2,ox+cell/2),x1=Math.min(CW,ox+w-cell/2);
+  const y0=Math.max(cell/2,oy+cell/2),y1=Math.min(CH,oy+h-cell/2);
+  for(let y=y0;y<=y1;y+=cell){
+    const sy=Math.max(0,Math.min(SH-1,Math.floor((y-oy)/s)));
+    for(let x=x0;x<=x1;x+=cell){
+      const sx=Math.max(0,Math.min(SW-1,Math.floor((x-ox)/s))),i=(sy*SW+sx)*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255,d=1-lum;if(d<.10)continue;
+      const rad=Math.pow(d,.9)*maxR,k=Math.min(NB-1,Math.max(0,Math.round(rad/maxR*(NB-1))));
+      _buckets[k].push(x,y);
+    }
+  }
+  gg.fillStyle="#0a0a0a";
+  for(let k=0;k<NB;k++){const b=_buckets[k];if(!b.length)continue;
+    const rad=Math.max(.3,(k+.5)/NB*maxR);gg.beginPath();
+    for(let i=0;i<b.length;i+=2){gg.moveTo(b[i]+rad,b[i+1]);gg.arc(b[i],b[i+1],rad,0,7);}
+    gg.fill();}
+}
+
+/* ── shot compiler: scene → sequence ── */
+function beatAt(t){
+  const n=(sceneEntry.beats||[]).length;if(!n)return -1;
+  return Math.min(n-1,Math.floor(t/(sceneMod.duration||36)*n));
+}
+function compileShots(){
+  const dur=sceneMod.duration||36;
+  const cast=sceneMod.cast||[];
+  castByInstance=new Map(cast.map(c=>[c.instance,c]));
+  const ops=(sceneMod.timeline||[]).filter(o=>o.op!=="timeline.capture")
+    .slice().sort((a,b)=>a.at-b.at);
+  const shots=[];
+  const push=s=>shots.push(s);
+  const typeOf=aid=>(assetById.get(aid)||{}).type||aid.split(".")[0].replace(/-/g,"_");
+  const shownAssets=new Set();
+  /* 1 · establish */
+  push({kind:"WIDE",label:"ESTABLISH",t0:0,t1:Math.min(4,dur*.14+1.5),target:null});
+  /* 1b · the manifest as a shot — every cutout, side by side */
+  if(LINEUP_ON&&cast.length>1)
+    push({kind:"LINEUP",label:"THE MANIFEST · "+cast.length+" ASSETS",t0:0,t1:2.8,target:null});
+  /* 2 · one shot per motivating op, merged when same target back-to-back */
+  let prevTarget=null, cuRun=0;
+  for(let i=0;i<ops.length;i++){
+    const op=ops[i], next=ops[i+1];
+    const c=castByInstance.get(op.target); if(!c)continue;
+    const ty=typeOf(c.asset);
+    const isFx=/^fx\./.test(op.op)||CTX_TYPES.has(ty);
+    const t0=Math.max(op.at,0), t1=clamp(next?next.at:t0+3, t0+1.4, t0+6);
+    if(op.target===prevTarget&&shots.length){ shots[shots.length-1].t1=t1; continue; }
+    prevTarget=op.target;
+    /* re-establish after a long run of closeups */
+    if(++cuRun>3){ push({kind:"WIDE",label:"RE-ESTABLISH",t0,t1:Math.min(t0+2.2,dur),target:null}); cuRun=0; }
+    shownAssets.add(c.asset);
+    push({kind:isFx?"INSERT":"CU",label:c.asset.split(".")[1].replace(/-/g," ").toUpperCase(),
+      t0,t1,target:op.target,asset:c.asset,ctx:CTX_TYPES.has(ty),
+      state:{ pose:(op.args&&op.args.pose)||c.pose, band:c.band,
+              gaze:(op.args&&op.args.gaze)||c.gaze }});
+  }
+  /* 2b · coverage — every asset the cut skipped gets its close-up:
+     the props, the vehicles, the fx nobody ever sees up close */
+  if(COVERAGE_ON){
+    for(const c of cast){
+      if(shownAssets.has(c.asset))continue;
+      const ty=typeOf(c.asset);
+      if(ty==="location")continue;               // the set itself is the wides
+      const t0=clamp(dur*.55,0,Math.max(0,dur-3));
+      push({kind:"INSERT",coverage:true,ctx:CTX_TYPES.has(ty),
+        label:c.asset.split(".")[1].replace(/-/g," ").toUpperCase()+" · COVERAGE",
+        t0,t1:t0+1.8,target:c.instance,asset:c.asset,
+        state:{ pose:c.pose, band:c.band, gaze:c.gaze }});
+    }
+  }
+  /* 3 · final wide */
+  push({kind:"WIDE",label:"EXIT STATE",t0:Math.max(0,dur-4),t1:dur,target:null,final:true});
+  /* recording timeline: cut runtime is the sum of shot windows */
+  let rec=0;
+  for(const s of shots){ s.dur=Math.max(.8,s.t1-s.t0); s.rec0=rec; rec+=s.dur; }
+  shots.total=rec;
+  return shots;
+}
+
+/* ── draw one shot frame; u = seconds into shot ── */
+async function drawShot(shot,u,targetCtx,W,H){
+  og.fillStyle="#ffffff";og.fillRect(0,0,SRCW,SRCH);
+  if(shot.kind==="WIDE"){
+    const t=clamp(shot.t0+u,0,sceneMod.duration||36);
+    try{activeStage()(og,SRCW,SRCH,t);}catch(_){}
+  }else if(shot.kind==="LINEUP"){
+    /* the whole cast, dot-law keyed, shoulder to shoulder on one baseline —
+       a reference line-up card of everything this scene cost */
+    const cast=(sceneMod.cast||[]);
+    const n=cast.length, y0=SRCH*.85, hgt=SRCH*(n>6?.5:.62);
+    const slot=(SRCW-120)/Math.max(1,n);
+    const drift=1+.05*clamp(u/shot.dur,0,1);
+    for(let i=0;i<n;i++){
+      const c=cast[i], a=assetById.get(c.asset); if(!a)continue;
+      const mod=modCache.get(a.path.startsWith("/")?a.path:"/"+a.path); if(!mod)continue;
+      const h=hgt*drift, w=h*660/880;
+      try{
+        const keyed=keyedModuleCanvas(mod,w,h,{pose:c.pose,band:c.band,gaze:c.gaze,t:.4},"lineup");
+        og.drawImage(keyed,60+slot*(i+.5)-w/2,y0-h);
+      }catch(_){}
+    }
+    og.strokeStyle="#141414";og.lineWidth=3;
+    og.beginPath();og.moveTo(50,y0+10);og.lineTo(SRCW-50,y0+10);og.stroke();
+  }else{
+    const a=assetById.get(shot.asset);
+    const path=a?a.path:("assets/"+shot.asset.split(".")[0].replace(/-/g,"_")+"/"+shot.asset.split(".")[1]+".mjs");
+    let mod=null; try{ mod=await imp(path); }catch(_){ }
+    if(!mod){ const img0=og.getImageData(0,0,SRCW,SRCH).data; fastDotify(targetCtx,img0,SRCW,SRCH,W,H); return; }
+    /* EVERY close shot is a CAMERA PUNCH-IN on the live restaged world:
+       the location stays behind the character, the scene keeps performing
+       inside the close-up, and the zoom is a real camera move framed on
+       the head — never a floating card in white. */
+    const c=shot.target?castByInstance.get(shot.target):null;
+    const t=clamp(shot.t0+u,0,sceneMod.duration||36);
+    let punched=false;
+    if(RESTAGE_ON&&RESTAGED&&c){
+      const p=RESTAGED.layout(SRCW,SRCH,t).find(q=>q.instance===shot.target);
+      if(p){
+        og2.fillStyle="#ffffff";og2.fillRect(0,0,SRCW,SRCH);
+        try{RESTAGED.stage(og2,SRCW,SRCH,t);}catch(_){}
+        const ease=x=>x*x*(3-2*x);
+        const zoom=1-.26*ease(clamp(u/shot.dur,0,1));         // push in over the shot
+        /* frame: head-and-shoulders for figures; for props/vehicles/fx the
+           WHOLE object stays in frame — wide things lose information cropped */
+        const frameH = p.figure ? p.h*.92 : p.h*1.2;
+        const minChForW = p.figure ? 0 : (p.w*1.3)*SRCH/SRCW;
+        let ch=clamp(Math.max(frameH*zoom, minChForW), SRCH*.30, SRCH*.96);
+        let cw=ch*SRCW/SRCH;
+        if(cw>SRCW){cw=SRCW;ch=cw*SRCH/SRCW;}
+        const focusY = p.figure ? p.y-p.h*.74 : p.y-p.h*.55;   // eyes / center of mass
+        const fx=clamp(p.x, cw/2, SRCW-cw/2);
+        const fy=clamp(focusY, ch/2, SRCH-ch/2);
+        og.imageSmoothingEnabled=true;og.imageSmoothingQuality="high";
+        og.drawImage(off2, fx-cw/2, fy-ch/2, cw, ch, 0,0,SRCW,SRCH);
+        punched=true;
+      }
+    }
+    if(!punched&&shot.ctx&&c){
+      og2.fillStyle="#ffffff";og2.fillRect(0,0,SRCW,SRCH);
+      try{activeStage()(og2,SRCW,SRCH,t);}catch(_){}
+      const zoom=1+.18*clamp(u/shot.dur,0,1);
+      let cw=SRCW*clamp((c.scale||.4)*1.5,.30,.85)/zoom, ch=cw*SRCH/SRCW;
+      const fx=clamp((c.anchor?c.anchor.x:.5)*SRCW, cw/2, SRCW-cw/2);
+      const fy=clamp(((c.anchor?c.anchor.y:.5)-(c.scale||.4)*.45)*SRCH, ch/2, SRCH-ch/2);
+      og.imageSmoothingEnabled=true;og.imageSmoothingQuality="high";
+      og.drawImage(off2, fx-cw/2, fy-ch/2, cw, ch, 0,0,SRCW,SRCH);
+      punched=true;
+    }
+    if(!punched){
+      /* fallback: framed cutout with push-in */
+      const k=1+.13*clamp(u/shot.dur,0,1);
+      const h=SRCH*1.24*k, w=h*660/880;
+      const x=SRCW/2-w/2, y=SRCH*.06-((k-1)*h*.45);
+      og.save();og.translate(x,y);
+      og.beginPath();og.rect(-x,-y,SRCW,SRCH);og.clip();
+      try{ mod.draw(og,w,h,{ ...(mod.preview?mod.preview():{}), ...shot.state, t:shot.t0+u, card:false }); }catch(_){}
+      og.restore();
+    }
+  }
+  const img=og.getImageData(0,0,SRCW,SRCH).data;
+  fastDotify(targetCtx,img,SRCW,SRCH,W,H);
+}
+
+/* ── boards (storyboard strip) ── */
+async function buildBoards(){
+  const host=$("boards"); host.innerHTML="";
+  SHOTS.forEach((s,i)=>{
+    const el=document.createElement("div");
+    el.className="board"+(i===cur?" on":"");
+    el.innerHTML=`<span class="bt">${i+1} · ${s.kind}</span><canvas width="236" height="124"></canvas>
+      <div class="bl"><b>${s.label.slice(0,14)}</b><span>${s.dur.toFixed(1)}s</span></div>`;
+    el.onclick=()=>{gotoShot(i);};
+    host.appendChild(el); s._board=el;
+  });
+  /* render thumbs sequentially (midpoint of each shot) */
+  const tOff=document.createElement("canvas");tOff.width=SRCW;tOff.height=SRCH;
+  for(const s of SHOTS){
+    const cnv=s._board.querySelector("canvas"), g=cnv.getContext("2d");
+    try{ await drawShot(s,s.dur*.5,g,cnv.width,cnv.height); }catch(_){}
+  }
+}
+
+/* ── side panel ── */
+function buildSide(){
+  $("sceneTitle").textContent=sceneEntry.title;
+  $("sceneMeta").textContent=sceneEntry.id+" · BOOK "+ROMAN[sceneEntry.book]+" — "+(sceneEntry.bookTitle||"")
+    +" · "+SHOTS.length+" SHOTS · "+SHOTS.total.toFixed(0)+"s CUT";
+  $("beatList").innerHTML=(sceneEntry.beats||[]).map((b,i)=>
+    `<div class="beat" data-n="${i+1}" id="beat${i}">${b}</div>`).join("")||"—";
+  $("shotList").innerHTML=SHOTS.map((s,i)=>
+    `<div class="shotRow${i===cur?" on":""}" data-i="${i}"><span class="n">${i+1}</span>
+     <span class="k">${s.kind}</span><span class="t">${s.label}</span>
+     <span class="d">${s.dur.toFixed(1)}s</span></div>`).join("");
+  document.querySelectorAll(".shotRow").forEach(el=>el.onclick=()=>gotoShot(+el.dataset.i));
+  $("needList").innerHTML=(sceneEntry.assets||[]).map(aid=>{
+    const a=assetById.get(aid);
+    return `<div class="needRow"><span class="sq" style="background:${a?"#141414":"#e01b1b"}"></span>
+      <span>${a?a.name:aid+" — NOT BUILT"}</span>
+      <span style="color:var(--dim);margin-left:auto">${a?a.type.replace(/_/g," "):""}</span></div>`;
+  }).join("");
+  $("promptBox").textContent=sceneEntry.composePrompt||"—";
+  $("exitBox").textContent=sceneEntry.exitState||"—";
+}
+function refreshSideState(){
+  document.querySelectorAll(".shotRow").forEach((el,i)=>el.classList.toggle("on",i===cur));
+  const s=SHOTS[cur]; if(!s)return;
+  const bi=beatAt(s.t0+shotT);
+  (sceneEntry.beats||[]).forEach((_,i)=>{
+    const el=$("beat"+i); if(el)el.classList.toggle("now",i===bi);
+  });
+  SHOTS.forEach((sh,i)=>sh._board&&sh._board.classList.toggle("on",i===cur));
+}
+
+/* ── transport / loop ── */
+let dirty=true,last=0,rendering=false;
+function gotoShot(i){cur=clamp(i,0,SHOTS.length-1);shotT=0;dirty=true;refreshSideState();}
+function setPlaying(v){playing=v;$("playBtn").textContent=v?"❚❚ PAUSE":"▶ PLAY THE CUT";}
+async function loop(ms){
+  requestAnimationFrame(loop);
+  const now=ms/1000, dt=Math.min(.1,now-last); last=now;
+  if(!sceneMod||!SHOTS.length)return;
+  if(playing){shotT+=dt;dirty=true;
+    if(shotT>=SHOTS[cur].dur){
+      if(cur<SHOTS.length-1)gotoShot(cur+1);
+      else{setPlaying(false);gotoShot(0);}
+    }
+  }
+  if(!dirty||rendering){drawCutbar();return;}
+  dirty=false;rendering=true;
+  const s=SHOTS[cur];
+  try{ await drawShot(s,shotT,fg,frame.width,frame.height); }catch(_){}
+  rendering=false;
+  /* slate + caption */
+  const rec=s.rec0+shotT;
+  $("slateTL").innerHTML=`<b>SHOT ${cur+1}/${SHOTS.length}</b> · ${s.kind} · ${s.label}`;
+  $("slateTR").textContent=smpte(rec)+" · scene t="+(s.t0+Math.min(shotT,s.dur)).toFixed(1)+"s";
+  const bi=beatAt(s.t0+shotT);
+  $("caption").innerHTML=s.final
+    ? `<b>EXIT STATE</b>${(sceneEntry.exitState||"").slice(0,180)}`
+    : (bi>=0?`<b>BEAT ${bi+1}</b>${sceneEntry.beats[bi]}`:"");
+  $("tc").innerHTML=`<b>${smpte(rec)}</b> / ${smpte(SHOTS.total)} · SHOT ${cur+1}`;
+  refreshSideState();
+  drawCutbar();
+}
+/* cut bar: one segment per shot */
+const cutbar=$("cutbar"), cbg=cutbar.getContext("2d");
+function drawCutbar(){
+  const r=cutbar.getBoundingClientRect();
+  if(cutbar.width!==Math.round(r.width*2)){cutbar.width=Math.round(r.width*2);cutbar.height=44;}
+  const W=cutbar.width,H=cutbar.height;
+  cbg.clearRect(0,0,W,H);
+  if(!SHOTS.length)return;
+  for(let i=0;i<SHOTS.length;i++){
+    const s=SHOTS[i],x=s.rec0/SHOTS.total*W,w=s.dur/SHOTS.total*W;
+    cbg.fillStyle=s.kind==="WIDE"?"#b9c4e6":s.kind==="INSERT"?"#e6d5b9":"#d8d6cf";
+    cbg.fillRect(x+1,6,Math.max(2,w-2),H-12);
+    if(i===cur){cbg.strokeStyle="#e01b1b";cbg.lineWidth=3;cbg.strokeRect(x+1,6,Math.max(2,w-2),H-12);}
+  }
+  const px=(SHOTS[cur].rec0+Math.min(shotT,SHOTS[cur].dur))/SHOTS.total*W;
+  cbg.fillStyle="#e01b1b";cbg.fillRect(px-1.5,0,3,H);
+}
+cutbar.addEventListener("pointerdown",e=>{
+  const r=cutbar.getBoundingClientRect();
+  const t=clamp((e.clientX-r.left)/r.width,0,1)*SHOTS.total;
+  const i=SHOTS.findIndex(s=>t>=s.rec0&&t<s.rec0+s.dur);
+  if(i>=0){cur=i;shotT=t-SHOTS[i].rec0;dirty=true;refreshSideState();}
+});
+
+/* ── exports ── */
+function shotListText(){
+  const L=["ODYSSEY PREVIS · "+sceneEntry.id+" — "+sceneEntry.title,
+    "BOOK "+ROMAN[sceneEntry.book]+" · "+SHOTS.length+" shots · "+SHOTS.total.toFixed(1)+"s @ "+FPS+"fps",""];
+  SHOTS.forEach((s,i)=>{
+    L.push(String(i+1).padStart(2,"0")+"  "+smpte(s.rec0)+" → "+smpte(s.rec0+s.dur)
+      +"  "+s.kind.padEnd(7)+" "+s.label
+      +(s.kind!=="WIDE"?"  [asset "+s.asset+(s.state&&s.state.pose?" · pose "+s.state.pose:"")+"]":"  [scene t "+s.t0.toFixed(1)+"–"+s.t1.toFixed(1)+"s]"));
+  });
+  return L.join("\n");
+}
+function edlText(){
+  const L=["TITLE: "+sceneEntry.id+" — "+sceneEntry.title.replace(/[^\w ]/g,""),"FCM: NON-DROP FRAME",""];
+  SHOTS.forEach((s,i)=>{
+    const si=smpte(s.t0),so=smpte(s.t0+s.dur),ri=smpte(s.rec0),ro=smpte(s.rec0+s.dur);
+    L.push(String(i+1).padStart(3,"0")+"  AX       V     C        "+si+" "+so+" "+ri+" "+ro);
+    L.push("* FROM CLIP NAME: "+(s.kind==="WIDE"?sceneEntry.id+"_STAGE":s.asset));
+    L.push("");
+  });
+  return L.join("\n");
+}
+$("copyShots").onclick=()=>{navigator.clipboard.writeText(shotListText());toast("SHOT LIST COPIED");};
+$("copyEDL").onclick=()=>{navigator.clipboard.writeText(edlText());toast("EDL COPIED — CONFORM READY");};
+$("playBtn").onclick=()=>setPlaying(!playing);
+function recut(){
+  if(!sceneMod)return;
+  SHOTS=compileShots();cur=0;shotT=0;dirty=true;setPlaying(false);
+  buildSide();buildBoards();
+  toast(SHOTS.length+" SHOTS · "+SHOTS.total.toFixed(0)+"s");
+}
+$("restageChip").onclick=function(){RESTAGE_ON=!RESTAGE_ON;this.classList.toggle("on",RESTAGE_ON);recut();};
+$("lineupChip").onclick=function(){LINEUP_ON=!LINEUP_ON;this.classList.toggle("on",LINEUP_ON);recut();};
+$("coverageChip").onclick=function(){COVERAGE_ON=!COVERAGE_ON;this.classList.toggle("on",COVERAGE_ON);recut();};
+$("tableLink").onclick=()=>window.open("/viewer/cards.html","_blank");
+$("stageLink").onclick=()=>window.open("/odyssey-stage.html#"+(sceneEntry?sceneEntry.id:""),"_blank");
+
+/* ── navigation ── */
+function buildSelectors(){
+  const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
+  $("bookSel").innerHTML=books.map(b=>`<option value="${b}"${b===book?" selected":""}>BOOK ${ROMAN[b]} — ${(MAN.scenes.find(s=>s.book===b)||{}).bookTitle||""}</option>`).join("");
+  buildSceneSel();
+}
+function buildSceneSel(){
+  const list=MAN.scenes.filter(s=>s.book===book);
+  $("sceneSel").innerHTML=list.map(s=>`<option value="${s.id}"${sceneEntry&&s.id===sceneEntry.id?" selected":""}>${s.id} · ${s.title}</option>`).join("");
+}
+$("bookSel").onchange=e=>{book=+e.target.value;buildSceneSel();loadScene(MAN.scenes.find(s=>s.book===book).id);};
+$("sceneSel").onchange=e=>loadScene(e.target.value);
+
+function activeStage(){
+  return (RESTAGE_ON&&RESTAGED)?RESTAGED.stage:sceneMod.stage.bind(sceneMod);
+}
+async function loadScene(id){
+  const entry=MAN.scenes.find(s=>s.id===id); if(!entry)return;
+  sceneEntry=entry; book=entry.book;
+  setPlaying(false); toast("CUTTING "+id+"…");
+  try{
+    sceneMod=await imp(entry.path);
+    /* preload cast modules so CU shots draw synchronously after first pass */
+    for(const c of (sceneMod.cast||[])){
+      const a=assetById.get(c.asset); if(a)await imp(a.path).catch(()=>null);
+    }
+    RESTAGED=null;
+    try{
+      RESTAGED=makeRestage(sceneMod,
+        aid=>{const a=assetById.get(aid);return a?modCache.get(a.path.startsWith("/")?a.path:"/"+a.path):null;},
+        aid=>(assetById.get(aid)||{}).type,
+        (()=>{try{return JSON.parse(localStorage.getItem("odyssey.arrange."+entry.id)||"{}");}catch(e){return{}}})());
+    }catch(e){console.warn("restage failed",e);}
+    SHOTS=compileShots(); cur=0; shotT=0; dirty=true;
+    location.hash=id;
+    buildSelectors(); buildSide(); buildBoards();
+    toast(id+" · "+SHOTS.length+" SHOTS · "+SHOTS.total.toFixed(0)+"s — SPACE TO PLAY");
+  }catch(e){console.error(e);toast("FAILED: "+id);}
+}
+
+addEventListener("keydown",e=>{
+  if(e.target&&/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key==="Up"?"ArrowUp":e.key==="Down"?"ArrowDown":e.key;
+  if(K===" "){e.preventDefault();setPlaying(!playing);}
+  if(K==="ArrowRight")gotoShot(cur+1);
+  if(K==="ArrowLeft")gotoShot(cur-1);
+  if(K==="ArrowDown"||K==="ArrowUp"){
+    const list=MAN.scenes;
+    const i=list.findIndex(s=>s.id===sceneEntry.id);
+    const n=list[clamp(i+(K==="ArrowDown"?1:-1),0,list.length-1)];
+    if(n&&n.id!==sceneEntry.id)loadScene(n.id);
+  }
+});
+
+/* ── boot ── */
+(async()=>{
+  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  for(const a of MAN.assets)assetById.set(a.id,a);
+  const want=(location.hash||"").replace("#","").toUpperCase();
+  const first=MAN.scenes.find(s=>s.id===want)||MAN.scenes.find(s=>s.book===9)||MAN.scenes[0];
+  fit();
+  $("boot").remove();
+  await loadScene(first.id);
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

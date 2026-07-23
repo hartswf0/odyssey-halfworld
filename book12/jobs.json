@@ -1,0 +1,372 @@
+{
+  "book": 12,
+  "jobs": [
+    {
+      "id": "location.aeaea-funeral-shore",
+      "type": "LOCATION",
+      "name": "Aeaea funeral shore",
+      "prompt": "Aeaea funeral shore (LOCATION). beach with pyre area, burial mound, ship landing, feast setup, and forest-palace route. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B12-S01: beach with pyre area, burial mound, ship landing, feast setup, and forest-palace route"
+      ]
+    },
+    {
+      "id": "ensemble.crew",
+      "type": "ENSEMBLE",
+      "name": "Crew",
+      "prompt": "Crew (ENSEMBLE). mourners gathering wood, carrying body, burning, mounding earth, and planting the marker. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B12-S01: mourners gathering wood, carrying body, burning, mounding earth, and planting the marker"
+      ]
+    },
+    {
+      "id": "prop.elpenors-body-and-oar",
+      "type": "PROP",
+      "name": "Elpenor's body and oar",
+      "prompt": "Elpenor's body and oar (PROP). corpse continuity object plus oar transferring from ship tool to grave sign. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B12-S01: corpse continuity object plus oar transferring from ship tool to grave sign"
+      ]
+    },
+    {
+      "id": "set-piece.danger-route-map",
+      "type": "SET_PIECE",
+      "name": "Danger-route map",
+      "prompt": "Danger-route map (SET_PIECE). sequential sea corridor with Siren meadow, Wandering Rocks alternative, Scylla cliff, Charybdis fig tree, and Sun island. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B12-S02: sequential sea corridor with Siren meadow, Wandering Rocks alternative, Scylla cliff, Charybdis fig tree, and Sun island"
+      ]
+    },
+    {
+      "id": "prop.instruction-props",
+      "type": "PROP",
+      "name": "Instruction props",
+      "prompt": "Instruction props (PROP). beeswax, binding ropes, sacrificial gear, and steering references linked to future cues. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B12-S02: beeswax, binding ropes, sacrificial gear, and steering references linked to future cues"
+      ]
+    },
+    {
+      "id": "location.sirens-island",
+      "type": "LOCATION",
+      "name": "Sirens' island",
+      "prompt": "Sirens' island (LOCATION). low meadow coast with unseen bones, singing positions, calm-water radius, and safe-passage boundary. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B12-S03: low meadow coast with unseen bones, singing positions, calm-water radius, and safe-passage boundary"
+      ]
+    },
+    {
+      "id": "ensemble.crew-at-the-oars",
+      "type": "ENSEMBLE",
+      "name": "Crew at the oars",
+      "prompt": "Crew at the oars (ENSEMBLE). wax-deaf rowers maintaining cadence while ignoring their commander's release signals. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B12-S03: wax-deaf rowers maintaining cadence while ignoring their commander's release signals"
+      ]
+    },
+    {
+      "id": "ensemble.the-sirens",
+      "type": "ENSEMBLE",
+      "name": "The Sirens",
+      "prompt": "The Sirens (ENSEMBLE). paired or plural singers with still bodies, irresistible vocal projection, and no pursuit beyond range. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B12-S03: paired or plural singers with still bodies, irresistible vocal projection, and no pursuit beyond range"
+      ]
+    },
+    {
+      "id": "prop.mast-ropes-and-beeswax",
+      "type": "PROP",
+      "name": "Mast ropes and beeswax",
+      "prompt": "Mast ropes and beeswax (PROP). binding and hearing-block assets with apply, secure, tighten, cut, and remove states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B12-S03: binding and hearing-block assets with apply, secure, tighten, cut, and remove states"
+      ]
+    },
+    {
+      "id": "creature.scylla",
+      "type": "CREATURE",
+      "name": "Scylla",
+      "prompt": "Scylla (CREATURE). six-headed cliff monster with hidden den, telescoping necks, independent targeting, seize, lift, devour, and retract states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B12-S04: six-headed cliff monster with hidden den, telescoping necks, independent targeting, seize, lift, devour, and retract states"
+      ]
+    },
+    {
+      "id": "environment.charybdis",
+      "type": "ENVIRONMENT",
+      "name": "Charybdis",
+      "prompt": "Charybdis (ENVIRONMENT). cyclical sea vortex with inhale, exposed seabed, erupting spray, release, suction radius, and sound field. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B12-S04: cyclical sea vortex with inhale, exposed seabed, erupting spray, release, suction radius, and sound field"
+      ]
+    },
+    {
+      "id": "ensemble.six-seized-sailors",
+      "type": "ENSEMBLE",
+      "name": "Six seized sailors",
+      "prompt": "Six seized sailors (ENSEMBLE). individual victims pulled from active rowing positions while calling Odysseus by name. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B12-S04: individual victims pulled from active rowing positions while calling Odysseus by name"
+      ]
+    },
+    {
+      "id": "location.narrow-monster-strait",
+      "type": "LOCATION",
+      "name": "Narrow monster strait",
+      "prompt": "Narrow monster strait (LOCATION). Scylla cliff, Charybdis side, fig-tree marker, ship lane, spray occlusion, and exit threshold. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B12-S04: Scylla cliff, Charybdis side, fig-tree marker, ship lane, spray occlusion, and exit threshold"
+      ]
+    },
+    {
+      "id": "location.thrinacia",
+      "type": "LOCATION",
+      "name": "Thrinacia",
+      "prompt": "Thrinacia (LOCATION). sunlit island with landing cove, sacred pastures, separate cattle and sheep herds, prayer place, camp, and storm-blocked sea. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B12-S05: sunlit island with landing cove, sacred pastures, separate cattle and sheep herds, prayer place, camp, and storm-blocked sea"
+      ]
+    },
+    {
+      "id": "creature.helioss-cattle-and-sheep",
+      "type": "CREATURE",
+      "name": "Helios's cattle and sheep",
+      "prompt": "Helios's cattle and sheep (CREATURE). immortal unaging herds with count persistence, divine ownership, graze, observe, slaughter, and omen states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B12-S05: immortal unaging herds with count persistence, divine ownership, graze, observe, slaughter, and omen states"
+      ]
+    },
+    {
+      "id": "environment.month-long-contrary-winds",
+      "type": "ENVIRONMENT",
+      "name": "Month-long contrary winds",
+      "prompt": "Month-long contrary winds (ENVIRONMENT). persistent offshore storm field preventing launch while food stores visibly decline. procedural world force with source, direction, intensity, affected region, sound behavior, and animatable state channels.",
+      "perfs": [
+        "OD-B12-S05: persistent offshore storm field preventing launch while food stores visibly decline"
+      ]
+    },
+    {
+      "id": "character.sleeping-odysseus",
+      "type": "CHARACTER",
+      "name": "Sleeping Odysseus",
+      "prompt": "Sleeping Odysseus (CHARACTER). removed leader held in supernatural sleep until the act is irreversible. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B12-S06: removed leader held in supernatural sleep until the act is irreversible"
+      ]
+    },
+    {
+      "id": "ensemble.crew-sacrificial-group",
+      "type": "ENSEMBLE",
+      "name": "Crew sacrificial group",
+      "prompt": "Crew sacrificial group (ENSEMBLE). starving sailors performing distorted ritual, slaughter, fire tending, and forced feasting. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B12-S06: starving sailors performing distorted ritual, slaughter, fire tending, and forced feasting"
+      ]
+    },
+    {
+      "id": "creature.sacred-cattle",
+      "type": "CREATURE",
+      "name": "Sacred cattle",
+      "prompt": "Sacred cattle (CREATURE). selected animals with kill followed by supernatural hide-crawl and meat-voice states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B12-S06: selected animals with kill followed by supernatural hide-crawl and meat-voice states"
+      ]
+    },
+    {
+      "id": "divine-fx.helioss-complaint",
+      "type": "DIVINE_FX",
+      "name": "Helios's complaint",
+      "prompt": "Helios's complaint (DIVINE_FX). island report rising to the sun god and then to Zeus as a punishment request. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B12-S06: island report rising to the sun god and then to Zeus as a punishment request"
+      ]
+    },
+    {
+      "id": "divine-fx.zeuss-thunderbolt",
+      "type": "DIVINE_FX",
+      "name": "Zeus's thunderbolt",
+      "prompt": "Zeus's thunderbolt (DIVINE_FX). cloud buildup, mast strike, fire, shockwave, crew fall, and vessel-fracture trigger. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B12-S07: cloud buildup, mast strike, fire, shockwave, crew fall, and vessel-fracture trigger"
+      ]
+    },
+    {
+      "id": "vehicle.final-black-ship",
+      "type": "VEHICLE",
+      "name": "Final black ship",
+      "prompt": "Final black ship (VEHICLE). single surviving vessel with launch, sailing, lightning impact, mast break, hull separation, debris, and lost states. separable vehicle with boarding points, passenger anchors, moving parts, locomotion states, and collision boundaries.",
+      "perfs": [
+        "OD-B12-S07: single surviving vessel with launch, sailing, lightning impact, mast break, hull separation, debris, and lost states"
+      ]
+    },
+    {
+      "id": "ensemble.drowning-crew",
+      "type": "ENSEMBLE",
+      "name": "Drowning crew",
+      "prompt": "Drowning crew (ENSEMBLE). men thrown like seabirds, separated from supports, and removed one by one by the sea. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B12-S07: men thrown like seabirds, separated from supports, and removed one by one by the sea"
+      ]
+    },
+    {
+      "id": "set-piece.fig-tree-above-charybdis",
+      "type": "SET_PIECE",
+      "name": "Fig tree above Charybdis",
+      "prompt": "Fig tree above Charybdis (SET_PIECE). high graspable branches with hang duration, vortex cycle, released debris target, and drop timing. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B12-S07: high graspable branches with hang duration, vortex cycle, released debris target, and drop timing"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B12-S01",
+      "n": 73,
+      "title": "Elpenor's Funeral",
+      "beats": [
+        "The ship returns to Aeaea and the exhausted crew sleeps on shore.",
+        "At dawn they retrieve Elpenor's body, burn it with his armor, and raise a mound.",
+        "They plant his oar at the top as promised.",
+        "Circe arrives with food, wine, and knowledge that they have returned from death."
+      ],
+      "composePrompt": "Build `OD-B12-S01` — **Elpenor's Funeral** — as one editable Halfworld stage. Required instances: Aeaea funeral shore, Odysseus, Crew, Elpenor's body and oar, Circe. Stage this action in causal order: The ship returns to Aeaea and the exhausted crew sleeps on shore. At dawn they retrieve Elpenor's body, burn it with his armor, and raise a mound. They plant his oar at the top as promised. Circe arrives with food, wine, and knowledge that they have returned from death. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Circe arrives with food, wine, and knowledge that they have returned from death.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.aeaea-funeral-shore",
+        "character.odysseus",
+        "ensemble.crew",
+        "prop.elpenors-body-and-oar",
+        "character.circe"
+      ]
+    },
+    {
+      "id": "OD-B12-S02",
+      "n": 74,
+      "title": "Circe Maps the Dangers",
+      "beats": [
+        "Circe privately explains the Sirens, Scylla, Charybdis, and Thrinacia.",
+        "She gives exact procedures for wax, binding, steering, sacrifice, and restraint.",
+        "Odysseus asks whether he can fight Scylla; Circe condemns his appetite for combat.",
+        "At dawn the crew launches under a favorable wind."
+      ],
+      "composePrompt": "Build `OD-B12-S02` — **Circe Maps the Dangers** — as one editable Halfworld stage. Required instances: Circe, Odysseus, Danger-route map, Instruction props. Stage this action in causal order: Circe privately explains the Sirens, Scylla, Charybdis, and Thrinacia. She gives exact procedures for wax, binding, steering, sacrifice, and restraint. Odysseus asks whether he can fight Scylla; Circe condemns his appetite for combat. At dawn the crew launches under a favorable wind. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—At dawn the crew launches under a favorable wind.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.circe",
+        "character.odysseus",
+        "set-piece.danger-route-map",
+        "prop.instruction-props"
+      ]
+    },
+    {
+      "id": "OD-B12-S03",
+      "n": 75,
+      "title": "The Sirens' Song",
+      "beats": [
+        "The wind dies as the ship approaches the Sirens' island.",
+        "Odysseus softens wax and seals every crewman's ears.",
+        "The men bind him upright to the mast and row past the flowered shore.",
+        "The Sirens promise total knowledge; Odysseus struggles and signals to be released.",
+        "Perimedes and Eurylochus tighten the ropes until the song fades."
+      ],
+      "composePrompt": "Build `OD-B12-S03` — **The Sirens' Song** — as one editable Halfworld stage. Required instances: Sirens' island, Odysseus, Crew at the oars, The Sirens, Mast ropes and beeswax. Stage this action in causal order: The wind dies as the ship approaches the Sirens' island. Odysseus softens wax and seals every crewman's ears. The men bind him upright to the mast and row past the flowered shore. The Sirens promise total knowledge; Odysseus struggles and signals to be released. Perimedes and Eurylochus tighten the ropes until the song fades. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Perimedes and Eurylochus tighten the ropes until the song fades.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.sirens-island",
+        "character.odysseus",
+        "ensemble.crew-at-the-oars",
+        "ensemble.the-sirens",
+        "prop.mast-ropes-and-beeswax"
+      ]
+    },
+    {
+      "id": "OD-B12-S04",
+      "n": 76,
+      "title": "Between Scylla and Charybdis",
+      "beats": [
+        "The crew hears Charybdis roar and sees spray rising from the whirlpool.",
+        "Odysseus keeps Scylla secret and orders the men to row hard along her cliff.",
+        "He arms himself despite Circe's warning and searches the rock face.",
+        "Scylla's six heads strike, lifting six screaming men from the ship.",
+        "The survivors pass beyond both monsters while watching their companions die above them."
+      ],
+      "composePrompt": "Build `OD-B12-S04` — **Between Scylla and Charybdis** — as one editable Halfworld stage. Required instances: Scylla, Charybdis, Odysseus, Six seized sailors, Narrow monster strait. Stage this action in causal order: The crew hears Charybdis roar and sees spray rising from the whirlpool. Odysseus keeps Scylla secret and orders the men to row hard along her cliff. He arms himself despite Circe's warning and searches the rock face. Scylla's six heads strike, lifting six screaming men from the ship. The survivors pass beyond both monsters while watching their companions die above them. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The survivors pass beyond both monsters while watching their companions die above them.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "creature.scylla",
+        "environment.charybdis",
+        "character.odysseus",
+        "ensemble.six-seized-sailors",
+        "location.narrow-monster-strait"
+      ]
+    },
+    {
+      "id": "OD-B12-S05",
+      "n": 77,
+      "title": "The Island of the Sun",
+      "beats": [
+        "The exhausted crew sees the cattle and sheep of Helios on Thrinacia.",
+        "Odysseus orders them to sail past, but Eurylochus accuses him of mercilessness.",
+        "The men swear to touch no livestock and land for one night.",
+        "A month of storm winds traps them while stores diminish.",
+        "Odysseus repeatedly reminds them of the oath."
+      ],
+      "composePrompt": "Build `OD-B12-S05` — **The Island of the Sun** — as one editable Halfworld stage. Required instances: Thrinacia, Odysseus, Eurylochus, Helios's cattle and sheep, Month-long contrary winds. Stage this action in causal order: The exhausted crew sees the cattle and sheep of Helios on Thrinacia. Odysseus orders them to sail past, but Eurylochus accuses him of mercilessness. The men swear to touch no livestock and land for one night. A month of storm winds traps them while stores diminish. Odysseus repeatedly reminds them of the oath. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus repeatedly reminds them of the oath.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "location.thrinacia",
+        "character.odysseus",
+        "character.eurylochus",
+        "creature.helioss-cattle-and-sheep",
+        "environment.month-long-contrary-winds"
+      ]
+    },
+    {
+      "id": "OD-B12-S06",
+      "n": 78,
+      "title": "The Cattle Are Slaughtered",
+      "beats": [
+        "When food is gone, Odysseus withdraws inland to pray and the gods put him to sleep.",
+        "Eurylochus persuades the crew to sacrifice the best cattle rather than starve.",
+        "They substitute oak leaves for barley and water for wine, kill the animals, and roast the meat.",
+        "The hides crawl and the meat bellows on the spits.",
+        "Lampetie tells Helios, who demands punishment from Zeus."
+      ],
+      "composePrompt": "Build `OD-B12-S06` — **The Cattle Are Slaughtered** — as one editable Halfworld stage. Required instances: Eurylochus, Sleeping Odysseus, Crew sacrificial group, Sacred cattle, Helios's complaint. Stage this action in causal order: When food is gone, Odysseus withdraws inland to pray and the gods put him to sleep. Eurylochus persuades the crew to sacrifice the best cattle rather than starve. They substitute oak leaves for barley and water for wine, kill the animals, and roast the meat. The hides crawl and the meat bellows on the spits. Lampetie tells Helios, who demands punishment from Zeus. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Lampetie tells Helios, who demands punishment from Zeus.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.eurylochus",
+        "character.sleeping-odysseus",
+        "ensemble.crew-sacrificial-group",
+        "creature.sacred-cattle",
+        "divine-fx.helioss-complaint"
+      ]
+    },
+    {
+      "id": "OD-B12-S07",
+      "n": 79,
+      "title": "Zeus Destroys the Last Ship",
+      "beats": [
+        "Odysseus wakes, smells the meat, and condemns the act, but the crew feasts for six days.",
+        "On the seventh day the wind falls and the ship leaves Thrinacia.",
+        "Zeus gathers a black cloud and strikes the mast with lightning.",
+        "The ship shatters and every crewman drowns; Odysseus lashes keel and mast together.",
+        "Driven back to Charybdis, he hangs from the fig tree until the timbers reemerge, then drifts alone to Calypso."
+      ],
+      "composePrompt": "Build `OD-B12-S07` — **Zeus Destroys the Last Ship** — as one editable Halfworld stage. Required instances: Odysseus, Zeus's thunderbolt, Final black ship, Drowning crew, Fig tree above Charybdis. Stage this action in causal order: Odysseus wakes, smells the meat, and condemns the act, but the crew feasts for six days. On the seventh day the wind falls and the ship leaves Thrinacia. Zeus gathers a black cloud and strikes the mast with lightning. The ship shatters and every crewman drowns; Odysseus lashes keel and mast together. Driven back to Charybdis, he hangs from the fig tree until the timbers reemerge, then drifts alone to Calypso. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Driven back to Charybdis, he hangs from the fig tree until the timbers reemerge, then drifts alone to Calypso.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "divine-fx.zeuss-thunderbolt",
+        "vehicle.final-black-ship",
+        "ensemble.drowning-crew",
+        "set-piece.fig-tree-above-charybdis"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus",
+    "character.circe",
+    "character.eurylochus"
+  ]
+}
