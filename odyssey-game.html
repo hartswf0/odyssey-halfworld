@@ -81,13 +81,13 @@
    with their actual performance line from the atlas.
    Nothing assembled, nothing stacked: a place you walk through.
    ============================================================ */
-import { keyedModuleCanvas } from "/engine/halfworld-engine.mjs";
+import { keyedModuleCanvas } from "./engine/halfworld-engine.mjs";
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"];
 const $=id=>document.getElementById(id);
 const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
 const seedOf=s=>{let h=0;for(const ch of s)h=(h*31+ch.charCodeAt(0))|0;return (h>>>0)/4294967295;};
 const modCache=new Map();
-async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+async function imp(path){const p=path.replace(/^\//,"./");
   if(modCache.has(p))return modCache.get(p);
   const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
 
@@ -229,15 +229,15 @@ addEventListener("pointerdown",()=>{ try{fac();}catch(e){} },{once:true,capture:
 let AL=null, musicOn=true, MAUD=new Audio(), musBook=0;
 MAUD.loop=true; MAUD.volume=.75;
 const LSJ=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d;}catch(e){return d;}};
-async function albums(){ if(!AL)AL=await fetch("/audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})); return AL; }
+async function albums(){ if(!AL)AL=await fetch("audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})); return AL; }
 async function bookTrackUrl(b){
   const A=await albums(); const MAPm=LSJ("odyssey.suite.map",{});
   const m=MAPm[b];
   if(m){const a=A.albums.find(x=>x.id===m.album);
-    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file), title:t.title};}}
-  for(const a of A.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file), title:t.title};}
+    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {url:a.dir+"/"+encodeURIComponent(t.file), title:t.title};}}
+  for(const a of A.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {url:a.dir+"/"+encodeURIComponent(t.file), title:t.title};}
   const a=A.albums[0]; if(!a)return null;
-  const t=a.tracks[(b-1)%a.tracks.length]; return {url:"/"+a.dir+"/"+encodeURIComponent(t.file), title:t.title};
+  const t=a.tracks[(b-1)%a.tracks.length]; return {url:a.dir+"/"+encodeURIComponent(t.file), title:t.title};
 }
 async function playBookMusic(b){
   const tr=await bookTrackUrl(b); if(!tr)return;
@@ -567,7 +567,7 @@ function loop(ms){
 
 /* ── boot ── */
 (async()=>{
-  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  MAN=await (await fetch("viewer/odyssey-manifest.json")).json();
   for(const a of MAN.assets)assetById.set(a.id,a);
   const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
   $("bookSel").innerHTML=books.map(b=>`<option value="${b}"${b===book?" selected":""}>BOOK ${ROMAN[b]} — ${(MAN.scenes.find(s=>s.book===b)||{}).bookTitle||""}</option>`).join("");

@@ -162,7 +162,7 @@
 <div id="toast"></div>
 
 <script type="module">
-import { renderAsset, renderScene } from "/engine/halfworld-engine.mjs";
+import { renderAsset, renderScene } from "../engine/halfworld-engine.mjs";
 
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 const TYPES=["location","set_piece","environment","vehicle","character","creature","ensemble","prop","wearable","divine_fx","sound_source"];
@@ -172,7 +172,7 @@ const modCache=new Map(); let toastT=0;
 const $=id=>document.getElementById(id);
 function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");
   clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2400);}
-async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+async function imp(path){const p="../"+String(path).replace(/^(\.\.\/|\/)/,"");
   if(modCache.has(p))return modCache.get(p);
   const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
 function sym(name){
@@ -333,8 +333,8 @@ async function openSheet(kind,id){
       <h2>${item.title}<span class="x" id="shx">✕</span></h2>
       <div class="sub">${item.id} · BOOK ${ROMAN[item.book]} — ${item.bookTitle} · ${item.assets.length} required assets</div>
       <div class="linkRow">
-        <a class="lbtn red" href="/odyssey-previs.html#${item.id}">▶ PREVIS THE CUT</a>
-        <a class="lbtn" href="/odyssey-stage.html#${item.id}">OPEN IN STAGE</a>
+        <a class="lbtn red" href="../odyssey-previs.html#${item.id}">▶ PREVIS THE CUT</a>
+        <a class="lbtn" href="../odyssey-stage.html#${item.id}">OPEN IN STAGE</a>
       </div>
       <h3>BEATS</h3>
       ${item.beats.map((b,i)=>`<div class="beat" data-n="${i+1}">${b}</div>`).join("")}
@@ -414,7 +414,7 @@ $("printBtn").onclick=async()=>{
 };
 
 (async()=>{
-  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  MAN=await (await fetch("odyssey-manifest.json")).json();
   for(const a of MAN.assets)byId.set(a.id,a);
   for(const s of MAN.scenes)sceneById.set(s.id,s);
   buildChips();build();

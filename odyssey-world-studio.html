@@ -206,7 +206,7 @@ function colorFor(entry){
 
 /* ---------------- registry: load the atlas manifest ---------------- */
 async function loadRegistry(){
-  const man = await fetch("/viewer/odyssey-manifest.json",{cache:"no-store"}).then(r=>r.json());
+  const man = await fetch("viewer/odyssey-manifest.json",{cache:"no-store"}).then(r=>r.json());
   for(const a of man.assets){
     state.registry.set(a.id,{...a, points:null, _loading:null, color:null});
   }
@@ -232,7 +232,7 @@ async function samplePoints(entry){
     const g=off.getContext("2d",{willReadFrequently:true});
     g.fillStyle="#fff"; g.fillRect(0,0,off.width,off.height);
     try{
-      const modl = await import(entry.path);
+      const modl = await import(entry.path.replace(/^\//,"./"));
       if(isScene){ const sc=modl.scene||modl.default; sc.stage(g,off.width,off.height,8); }
       else { const a=modl.asset||modl.default; a.draw(g,off.width,off.height,a.preview?a.preview():{}); }
     }catch(err){ console.warn("draw failed",entry.id,err); }
@@ -277,7 +277,7 @@ async function sampleSprite(entry){
     const g=off.getContext("2d",{willReadFrequently:true});
     g.fillStyle="#fff"; g.fillRect(0,0,SW,SH);
     try{
-      const modl = await import(entry.path);
+      const modl = await import(entry.path.replace(/^\//,"./"));
       if(isScene){ const sc=modl.scene||modl.default; sc.stage(g,SW,SH,8); }
       else { const a=modl.asset||modl.default; a.draw(g,SW,SH,a.preview?a.preview():{}); }
     }catch(err){ console.warn("sprite draw failed",entry.id,err); }
@@ -640,7 +640,7 @@ function fuzzyFind(text){
   return bs>=18?best:null;
 }
 async function executeCommand(raw){
-  const text=raw.trim().replace(/^\//,""); if(!text)return;
+  const text=raw.trim().replace(/^\//,"./"); if(!text)return;
   const lower=text.toLowerCase();
   if(lower==="run"||lower==="play"){toggleRun();return}
   if(lower==="undo"){undo();return}

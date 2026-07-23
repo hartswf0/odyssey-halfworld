@@ -164,7 +164,7 @@
 
 <script type="module">
 import { RENDER_PIPELINES, compositePipeline, drawCard, PAPER2, INK, clamp01, keyedModuleCanvas, makeRestage }
-  from "/engine/halfworld-engine.mjs";
+  from "./engine/halfworld-engine.mjs";
 
 /* ───────────────────────── state ───────────────────────── */
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
@@ -206,7 +206,7 @@ let toastT=0;
 function toast(t){ const el=$("toast"); el.textContent=t; el.classList.add("show");
   clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2400); }
 async function imp(path){
-  const p = path.startsWith("/")?path:"/"+path;
+  const p = path.replace(/^\//,"./");
   if (modCache.has(p)) return modCache.get(p);
   const m = await import(p); const mod = m.default||m.asset||m.scene||m;
   modCache.set(p,mod); return mod;
@@ -826,7 +826,7 @@ $("pipeBtn").onclick=function(){
   pipeName=order[(order.indexOf(pipeName)+1)%order.length];
   this.textContent=pipeName; toast("PIPELINE: "+pipeName); markDirty();
 };
-$("cardsLink").onclick=()=>window.open("/viewer/cards.html","_blank");
+$("cardsLink").onclick=()=>window.open("viewer/cards.html","_blank");
 
 addEventListener("keydown",e=>{
   if(e.target&&/INPUT|TEXTAREA/.test(e.target.tagName))return;
@@ -856,7 +856,7 @@ addEventListener("keyup",e=>{ const K=e.key==="Right"?"ArrowRight":e.key==="Left
 /* ───────────────────────── boot ───────────────────────── */
 (async()=>{
   fit();
-  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  MAN=await (await fetch("viewer/odyssey-manifest.json")).json();
   for(const a of MAN.assets) assetById.set(a.id,a);
   const want=(location.hash||"").replace("#","").toUpperCase();
   const deep=MAN.scenes.find(s=>s.id===want);

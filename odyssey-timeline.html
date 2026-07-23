@@ -141,9 +141,9 @@
 <div id="boot"><div class="b">LOADING THE ATLAS…</div></div>
 
 <script type="module">
-import * as E from "/engine/halfworld-engine.mjs";
+import * as E from "./engine/halfworld-engine.mjs";
 const $=s=>document.querySelector(s);
-const MF=await fetch("/viewer/odyssey-manifest.json").then(r=>r.json());
+const MF=await fetch("viewer/odyssey-manifest.json").then(r=>r.json());
 const assetById=new Map(MF.assets.map(a=>[a.id,a]));
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
@@ -154,7 +154,7 @@ const TYPE_C={character:"#9fe7ff",location:"#7cfc00",prop:"#ffd23f",creature:"#f
 const modCache=new Map();
 async function loadMod(id){
   const a=assetById.get(id); if(!a)return null;
-  if(!modCache.has(a.path))modCache.set(a.path,import(a.path).then(m=>m.default).catch(()=>null));
+  if(!modCache.has(a.path))modCache.set(a.path,import(a.path.replace(/^\//,"./")).then(m=>m.default).catch(()=>null));
   return modCache.get(a.path);
 }
 /* batched dotifier */
@@ -208,15 +208,15 @@ function toast(m){$("#toast").textContent=m;$("#toast").classList.add("show");
 /* ── the book's track plays under playback (same mapping as the suite) ── */
 let AL=null, musicOn=true, musBook=0;
 const TAUD=new Audio(); TAUD.loop=true; TAUD.volume=.75;
-async function albums(){ if(!AL)AL=await fetch("/audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})); return AL; }
+async function albums(){ if(!AL)AL=await fetch("audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})); return AL; }
 async function bookTrack(b){
   const A=await albums(); const M=LS("odyssey.suite.map",{});
   const m=M[b];
   if(m){const a=A.albums.find(x=>x.id===m.album);
-    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file),title:t.title};}}
-  for(const a of A.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {url:"/"+a.dir+"/"+encodeURIComponent(t.file),title:t.title};}
+    if(a){const t=a.tracks.find(t=>t.file===m.track); if(t)return {url:a.dir+"/"+encodeURIComponent(t.file),title:t.title};}}
+  for(const a of A.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {url:a.dir+"/"+encodeURIComponent(t.file),title:t.title};}
   const a=A.albums[0]; if(!a)return null;
-  const t=a.tracks[(b-1)%a.tracks.length]; return {url:"/"+a.dir+"/"+encodeURIComponent(t.file),title:t.title};
+  const t=a.tracks[(b-1)%a.tracks.length]; return {url:a.dir+"/"+encodeURIComponent(t.file),title:t.title};
 }
 async function scoreFor(b){
   if(!musicOn)return;
@@ -234,7 +234,7 @@ const escT=x=>String(x??"").replace(/&/g,"&amp;").replace(/</g,"&lt;");
 async function openCode(kind,obj){
   $("#codeOv").classList.add("on");
   $("#covTitle").textContent=(kind==="scene"?obj.id+" · "+obj.title:obj.name||obj.id);
-  const src=await fetch(obj.path).then(r=>r.text()).catch(()=>"// unavailable");
+  const src=await fetch(obj.path.replace(/^\//,"./")).then(r=>r.text()).catch(()=>"// unavailable");
   const lines=src.split("\n").length;
   let html="";
   if(kind==="scene"){
@@ -256,7 +256,7 @@ const PLAYER={row:null,rs:null,t:0,last:0,dur:36,on:false,seq:false};
 const off=document.createElement("canvas"); off.width=760; off.height=475;
 const og=off.getContext("2d",{willReadFrequently:true});
 async function buildRestage(entry){
-  const sceneMod=(await import(entry.path)).default;
+  const sceneMod=(await import(entry.path.replace(/^\//,"./"))).default;
   await Promise.all(entry.assets.map(loadMod));
   const mods=new Map(); for(const id of entry.assets)mods.set(id,await loadMod(id));
   const saved=(()=>{try{return JSON.parse(localStorage.getItem("odyssey.arrange."+entry.id)||"{}")}catch(e){return{}}})();

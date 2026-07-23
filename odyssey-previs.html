@@ -168,7 +168,7 @@
      INSERT = prop / fx cutout at its cue
    The cut plays through scene time; captions carry the beats.
    ============================================================ */
-import { keyedModuleCanvas, makeRestage } from "/engine/halfworld-engine.mjs";
+import { keyedModuleCanvas, makeRestage } from "./engine/halfworld-engine.mjs";
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 const FPS=24;
 let LINEUP_ON=true, COVERAGE_ON=true, RESTAGE_ON=true, RESTAGED=null;
@@ -181,7 +181,7 @@ const $=id=>document.getElementById(id);
 let toastT=0;
 function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");
   clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove("show"),2400);}
-async function imp(path){const p=path.startsWith("/")?path:"/"+path;
+async function imp(path){const p=path.replace(/^\//,"./");
   if(modCache.has(p))return modCache.get(p);
   const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
 const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
@@ -312,7 +312,7 @@ async function drawShot(shot,u,targetCtx,W,H){
     const drift=1+.05*clamp(u/shot.dur,0,1);
     for(let i=0;i<n;i++){
       const c=cast[i], a=assetById.get(c.asset); if(!a)continue;
-      const mod=modCache.get(a.path.startsWith("/")?a.path:"/"+a.path); if(!mod)continue;
+      const mod=modCache.get(a.path.replace(/^\//,"./")); if(!mod)continue;
       const h=hgt*drift, w=h*660/880;
       try{
         const keyed=keyedModuleCanvas(mod,w,h,{pose:c.pose,band:c.band,gaze:c.gaze,t:.4},"lineup");
@@ -323,7 +323,7 @@ async function drawShot(shot,u,targetCtx,W,H){
     og.beginPath();og.moveTo(50,y0+10);og.lineTo(SRCW-50,y0+10);og.stroke();
   }else{
     const a=assetById.get(shot.asset);
-    const path=a?a.path:("assets/"+shot.asset.split(".")[0].replace(/-/g,"_")+"/"+shot.asset.split(".")[1]+".mjs");
+    const path=a?a.path:("./assets/"+shot.asset.split(".")[0].replace(/-/g,"_")+"/"+shot.asset.split(".")[1]+".mjs");
     let mod=null; try{ mod=await imp(path); }catch(_){ }
     if(!mod){ const img0=og.getImageData(0,0,SRCW,SRCH).data; fastDotify(targetCtx,img0,SRCW,SRCH,W,H); return; }
     /* EVERY close shot is a CAMERA PUNCH-IN on the live restaged world:
@@ -519,8 +519,8 @@ function recut(){
 $("restageChip").onclick=function(){RESTAGE_ON=!RESTAGE_ON;this.classList.toggle("on",RESTAGE_ON);recut();};
 $("lineupChip").onclick=function(){LINEUP_ON=!LINEUP_ON;this.classList.toggle("on",LINEUP_ON);recut();};
 $("coverageChip").onclick=function(){COVERAGE_ON=!COVERAGE_ON;this.classList.toggle("on",COVERAGE_ON);recut();};
-$("tableLink").onclick=()=>window.open("/viewer/cards.html","_blank");
-$("stageLink").onclick=()=>window.open("/odyssey-stage.html#"+(sceneEntry?sceneEntry.id:""),"_blank");
+$("tableLink").onclick=()=>window.open("viewer/cards.html","_blank");
+$("stageLink").onclick=()=>window.open("odyssey-stage.html#"+(sceneEntry?sceneEntry.id:""),"_blank");
 
 /* ── navigation ── */
 function buildSelectors(){
@@ -551,7 +551,7 @@ async function loadScene(id){
     RESTAGED=null;
     try{
       RESTAGED=makeRestage(sceneMod,
-        aid=>{const a=assetById.get(aid);return a?modCache.get(a.path.startsWith("/")?a.path:"/"+a.path):null;},
+        aid=>{const a=assetById.get(aid);return a?modCache.get(a.path.replace(/^\//,"./")):null;},
         aid=>(assetById.get(aid)||{}).type,
         (()=>{try{return JSON.parse(localStorage.getItem("odyssey.arrange."+entry.id)||"{}");}catch(e){return{}}})());
     }catch(e){console.warn("restage failed",e);}
@@ -578,7 +578,7 @@ addEventListener("keydown",e=>{
 
 /* ── boot ── */
 (async()=>{
-  MAN=await (await fetch("/viewer/odyssey-manifest.json")).json();
+  MAN=await (await fetch("viewer/odyssey-manifest.json")).json();
   for(const a of MAN.assets)assetById.set(a.id,a);
   const want=(location.hash||"").replace("#","").toUpperCase();
   const first=MAN.scenes.find(s=>s.id===want)||MAN.scenes.find(s=>s.book===9)||MAN.scenes[0];

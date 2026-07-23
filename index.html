@@ -147,7 +147,7 @@
     <span>BOOKS <b>I–XV LIVE</b> · XVI–XXIV SPECIFIED</span>
     <span><b>307</b> ASSETS</span><span><b>93</b> SCENES</span>
     <span>ENGINE <b>hw-engine/1.1.0</b></span>
-    <span><a href="/README.md">README (PAPER)</a></span>
+    <span><a href="README.md">README (PAPER)</a></span>
   </div>
 </div></div>
 <div id="strip"><div id="stripIn"></div></div>
@@ -172,16 +172,16 @@
 <section id="experiments">
   <h2><span class="n">01</span> INDEX OF EXPERIMENTS</h2>
   <div id="exps">
-    <a class="exp" href="/odyssey-world-studio.html"><span class="en">E1 · WORLD</span><b>World Studio</b><span>the whole atlas as one navigable world; sprite-LOD billboards at distance</span></a>
-    <a class="exp" href="/odyssey-stage.html"><span class="en">E2 · STAGE</span><b>Stage · Embody · Arrange</b><span>play any scene live; possess a character (WASD, states, talk); drag / scale / blend every element — saved per scene</span></a>
-    <a class="exp" href="/viewer/cards.html"><span class="en">E3 · TABLE</span><b>Odyssey Table</b><span>periodic table of 307 elements by book / type / uses; full atlas prompts; printable cards</span></a>
-    <a class="exp" href="/odyssey-previs.html"><span class="en">E4 · PREVIS</span><b>Study the Cut</b><span>every scene compiled into shots: establish, lineup, CUs, coverage; SMPTE + copyable EDL</span></a>
-    <a class="exp" href="/odyssey-synthcine.html"><span class="en">E5 · SYNTHCINE</span><b>Performance Lab</b><span>per-scene render lab; your face drives facial channels via MediaPipe</span></a>
-    <a class="exp" href="/odyssey-game.html"><span class="en">E6 · GAME</span><b>Walk the Book</b><span>each book a level; you are Odysseus; talk (E) and the cast answer with their atlas performance lines</span></a>
-    <a class="exp" href="/odyssey-timeline.html"><span class="en">E7 · TIMELINE</span><b>Timeline / Score</b><span>every scene a row: watch it live, see its assets beneath, mark, mute, reorder, export — built for scoring</span></a>
-    <a class="exp" href="/odyssey-suite.html"><span class="en">E8 · SUITE</span><b>Suite Player / Score</b><span>every book scored by a track — one clock, swappable albums, live scene film, drop cues with M</span></a>
-    <a class="exp" href="/odyssey-operator.html"><span class="en">E9 · OPERATOR</span><b>Operator Console</b><span>OP-style deck: book spine, scene strip, live board, cue drops on the shared suite clock — jump to the suite at the exact second</span></a>
-    <a class="exp" href="/viewer/index.html"><span class="en">E0 · VIEWER</span><b>Asset Viewer</b><span>the raw catalog: one asset, full resolution, all states</span></a>
+    <a class="exp" href="odyssey-world-studio.html"><span class="en">E1 · WORLD</span><b>World Studio</b><span>the whole atlas as one navigable world; sprite-LOD billboards at distance</span></a>
+    <a class="exp" href="odyssey-stage.html"><span class="en">E2 · STAGE</span><b>Stage · Embody · Arrange</b><span>play any scene live; possess a character (WASD, states, talk); drag / scale / blend every element — saved per scene</span></a>
+    <a class="exp" href="viewer/cards.html"><span class="en">E3 · TABLE</span><b>Odyssey Table</b><span>periodic table of 307 elements by book / type / uses; full atlas prompts; printable cards</span></a>
+    <a class="exp" href="odyssey-previs.html"><span class="en">E4 · PREVIS</span><b>Study the Cut</b><span>every scene compiled into shots: establish, lineup, CUs, coverage; SMPTE + copyable EDL</span></a>
+    <a class="exp" href="odyssey-synthcine.html"><span class="en">E5 · SYNTHCINE</span><b>Performance Lab</b><span>per-scene render lab; your face drives facial channels via MediaPipe</span></a>
+    <a class="exp" href="odyssey-game.html"><span class="en">E6 · GAME</span><b>Walk the Book</b><span>each book a level; you are Odysseus; talk (E) and the cast answer with their atlas performance lines</span></a>
+    <a class="exp" href="odyssey-timeline.html"><span class="en">E7 · TIMELINE</span><b>Timeline / Score</b><span>every scene a row: watch it live, see its assets beneath, mark, mute, reorder, export — built for scoring</span></a>
+    <a class="exp" href="odyssey-suite.html"><span class="en">E8 · SUITE</span><b>Suite Player / Score</b><span>every book scored by a track — one clock, swappable albums, live scene film, drop cues with M</span></a>
+    <a class="exp" href="odyssey-operator.html"><span class="en">E9 · OPERATOR</span><b>Operator Console</b><span>OP-style deck: book spine, scene strip, live board, cue drops on the shared suite clock — jump to the suite at the exact second</span></a>
+    <a class="exp" href="viewer/index.html"><span class="en">E0 · VIEWER</span><b>Asset Viewer</b><span>the raw catalog: one asset, full resolution, all states</span></a>
   </div>
 </section>
 
@@ -322,17 +322,17 @@ focus   = (x, y − 0.74·h)                        faces, not navels</div>
 
 <div id="foot">ODYSSEY HALFWORLD · methods render live from <code>engine/halfworld-engine.mjs</code> —
 this page is not illustrated with the film, it is illustrated <b>by</b> the film.
-· <a href="/README.md">README</a> · <a href="/odyssey-timeline.html">TIMELINE</a></div>
+· <a href="README.md">README</a> · <a href="odyssey-timeline.html">TIMELINE</a></div>
 </div>
 
 <script type="module">
-import * as E from "/engine/halfworld-engine.mjs";
-const MF = await fetch("/viewer/odyssey-manifest.json").then(r=>r.json());
+import * as E from "./engine/halfworld-engine.mjs";
+const MF = await fetch("viewer/odyssey-manifest.json").then(r=>r.json());
 const assetById = new Map(MF.assets.map(a=>[a.id,a]));
 const modCache = new Map();
 async function loadMod(id){
   const a = assetById.get(id); if(!a) return null;
-  if(!modCache.has(a.path)) modCache.set(a.path,(await import(a.path)).default);
+  if(!modCache.has(a.path)) modCache.set(a.path,(await import(a.path.replace(/^\//,"./"))).default);
   return modCache.get(a.path);
 }
 
@@ -504,7 +504,7 @@ runner("keying", async f=>{
 const SCENE_ID="OD-B01-S01";
 async function buildRestage(){
   const entry=MF.scenes.find(s=>s.id===SCENE_ID);
-  const sceneMod=(await import(entry.path)).default;
+  const sceneMod=(await import(entry.path.replace(/^\//,"./"))).default;
   await Promise.all(entry.assets.map(loadMod));
   const rs=E.makeRestage(sceneMod,
     id=>modCache.get((assetById.get(id)||{}).path),
@@ -572,7 +572,7 @@ runner("camera", async f=>{
   const pool=MF.assets.filter(a=>a.prompt&&a.prompt.length>200);
   const codeCache=new Map();
   const codeOf=a=>{ if(!codeCache.has(a.path))
-      codeCache.set(a.path,fetch(a.path).then(r=>r.text()).catch(()=>""));
+      codeCache.set(a.path,fetch(a.path.replace(/^\//,"./")).then(r=>r.text()).catch(()=>""));
     return codeCache.get(a.path); };
   const printCache=new Map();
   const WIDE_T=/ensemble|set_piece|vehicle|environment|location|divine_fx|sound_source/;
@@ -581,7 +581,7 @@ runner("camera", async f=>{
   async function printCanvas(a,W,H){
     const k=a.id+"|"+W;
     if(printCache.has(k))return printCache.get(k);
-    const mod=(await import(a.path)).default;
+    const mod=(await import(a.path.replace(/^\//,"./"))).default;
     const cut=E.inkCutout(mod,{},"floor");
     const sw=cut.ar>=1?Math.min(760,Math.round(340*cut.ar)):340;
     const sh=cut.ar>=1?340:Math.min(760,Math.round(340/cut.ar));

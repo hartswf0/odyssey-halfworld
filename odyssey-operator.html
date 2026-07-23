@@ -141,10 +141,10 @@
 <div id="toast"></div>
 
 <script type="module">
-import * as E from "/engine/halfworld-engine.mjs";
+import * as E from "./engine/halfworld-engine.mjs";
 const $=id=>document.getElementById(id);
-const MF=await fetch("/viewer/odyssey-manifest.json").then(r=>r.json());
-const AL=await fetch("/audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]}));
+const MF=await fetch("viewer/odyssey-manifest.json").then(r=>r.json());
+const AL=await fetch("audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]}));
 const assetById=new Map(MF.assets.map(a=>[a.id,a]));
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
@@ -153,7 +153,7 @@ const BOOKS=[...new Set(MF.scenes.map(s=>s.book))].sort((a,b)=>a-b);
 let book=9, sceneEntry=null, RS=null, T=0, DUR=36, playing=false;
 const modCache=new Map();
 async function loadMod(id){ const a=assetById.get(id); if(!a)return null;
-  if(!modCache.has(a.path))modCache.set(a.path,import(a.path).then(m=>m.default).catch(()=>null));
+  if(!modCache.has(a.path))modCache.set(a.path,import(a.path.replace(/^\//,"./")).then(m=>m.default).catch(()=>null));
   return modCache.get(a.path); }
 function toast(m){$("toast").textContent=m;$("toast").classList.add("on");
   clearTimeout(toast._t);toast._t=setTimeout(()=>$("toast").classList.remove("on"),1600);}
@@ -167,7 +167,7 @@ function trackFor(b){
   for(const a of AL.albums){const t=a.tracks.find(t=>t.num===b); if(t)return {album:a,track:t};}
   const a=AL.albums[0]; return a?{album:a,track:a.tracks[(b-1)%a.tracks.length]}:null;
 }
-const urlFor=tr=>"/"+tr.album.dir+"/"+encodeURIComponent(tr.track.file);
+const urlFor=tr=>tr.album.dir+"/"+encodeURIComponent(tr.track.file);
 function probeDur(url){ if(DURC[url])return Promise.resolve(DURC[url]);
   return new Promise(res=>{const a=new Audio();a.preload="metadata";a.src=url;
     a.onloadedmetadata=()=>{DURC[url]=a.duration||180;
@@ -263,7 +263,7 @@ async function loadScene(entry){
   if(!entry)return;
   sceneEntry=entry; T=0; playing=false; $("playBtn").classList.remove("on"); $("playBtn").textContent="▶";
   document.querySelectorAll(".tlc").forEach(c=>c.classList.toggle("on",c.dataset.id===entry.id));
-  const sm=(await import(entry.path)).default;
+  const sm=(await import(entry.path.replace(/^\//,"./"))).default;
   const mods=new Map();
   for(const id of entry.assets)mods.set(id,await loadMod(id));
   const saved=LS("odyssey.arrange."+entry.id,{});

@@ -34,12 +34,12 @@ h2.section span{color:var(--dim);font-size:9px;margin-left:8px}
 <main id="main"><div class="empty">Loading manifest…</div></main>
 
 <script type="module">
-import { renderAsset, renderScene } from "/engine/halfworld-engine.mjs";
+import { renderAsset, renderScene } from "../engine/halfworld-engine.mjs";
 let PIPE = "MESH";
 const TYPE_ORDER = ["scene","character","creature","location","set_piece","environment","prop","vehicle","wearable","ensemble","divine_fx","sound_source"];
 
 async function loadManifest(){
-  try{ const r = await fetch("/viewer/manifest.json",{cache:"no-store"}); return await r.json(); }
+  try{ const r = await fetch("manifest.json",{cache:"no-store"}); return await r.json(); }
   catch(e){ return { assets:[], scenes:[] }; }
 }
 function cell(label){
@@ -50,7 +50,7 @@ function cell(label){
 }
 async function renderOne(cv, kind, path){
   try{
-    const m = await import(path);
+    const m = await import("../"+String(path).replace(/^(\.\.\/|\/)/,""));
     if (kind==="scene"){ const scene=m.scene||m.default; cv.width=1120; cv.height=760; renderScene(cv, scene, {pipeline:PIPE, t:8, DPR:1}); }
     else { const asset=m.asset||m.default; cv.width=660; cv.height=880; renderAsset(cv, asset, {pipeline:PIPE, DPR:1}); }
     return true;
