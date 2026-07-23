@@ -4,7 +4,7 @@
    to seize the shifting Old Man of the Sea, and how to bear the reek of the
    seal-skins she tucks the men under (ambrosia under the nose).
    Atlas: OD-B04-S05 — instructs the ambush and neutralizes the seals' stench. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* A bespoke signature pose: she TEACHES — one arm extended low, palm turned
    to lay out the plan (offering the seal-skins / drawing the trap in the air),

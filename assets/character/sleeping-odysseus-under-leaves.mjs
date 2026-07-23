@@ -6,7 +6,7 @@
    a leaf-litter drift is drawn over the lower body, and the FACE carries
    the performance: closed lids -> half-open -> alert listening.
    Scene: OD-B06-S02 (hidden body shifting from deep sleep to alert). */
-import { makeFigure, HERO_POSES, INK, clamp01, rnd } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES, INK, clamp01, rnd } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#c9bda6", hairColor:"#241d16",      // pale, salt-drained skin

@@ -20,15 +20,15 @@
    The wind FX supplies the whole night backdrop; the ship carries the sail the
    wind fills; the crew band pours the libations of the exit state.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import westWind   from "/assets/divine_fx/athenas-west-wind.mjs";
-import ship       from "/assets/vehicle/black-ithacan-ship.mjs";
-import athena     from "/assets/character/athena-as-mentor.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import crew       from "/assets/ensemble/volunteer-crew.mjs";
+import westWind   from "../assets/divine_fx/athenas-west-wind.mjs";
+import ship       from "../assets/vehicle/black-ithacan-ship.mjs";
+import athena     from "../assets/character/athena-as-mentor.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import crew       from "../assets/ensemble/volunteer-crew.mjs";
 
 export const scene = {
   id:"OD-B02-S07",

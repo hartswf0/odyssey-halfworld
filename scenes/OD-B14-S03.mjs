@@ -25,14 +25,14 @@
               hand shaping the tale; and EUMAEUS at the left rim, leaning in to
               listen, warming to pity but hardening against the one claim too far.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import hutfire from "/assets/environment/hut-fire.mjs";
-import cretan  from "/assets/divine_fx/cretan-life-story-field.mjs";
-import eumaeus from "/assets/character/eumaeus.mjs";
-import beggar  from "/assets/character/odysseus-as-beggar.mjs";
+import hutfire from "../assets/environment/hut-fire.mjs";
+import cretan  from "../assets/divine_fx/cretan-life-story-field.mjs";
+import eumaeus from "../assets/character/eumaeus.mjs";
+import beggar  from "../assets/character/odysseus-as-beggar.mjs";
 
 const clamp01 = x => x < 0 ? 0 : x > 1 ? 1 : x;
 

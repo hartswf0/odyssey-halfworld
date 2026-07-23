@@ -7,7 +7,7 @@
    collision boundaries (node footprints), a depth layer, and alternate states
    (branches lighting: gathering / dispersing / homeward).
    Atlas: OD-B03-S03 — nodes connected by animated route branches. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* normalized chart coordinates (0..1) — anchors + draw share these.
    Laid out as a fan opening from Troy (NE) toward mainland Greece (SW). */

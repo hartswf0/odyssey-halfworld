@@ -11,7 +11,7 @@
    Light protective cloth: near-paper base tone with a bright sheen band for the
    shimmer, dark longitudinal fold seams for the weave, hard black contour.
    Atlas: scale, grip/contact anchors, ownership, collision, states. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   baseLvl:3,      // ink level of the cloth body (light — it is gossamer)

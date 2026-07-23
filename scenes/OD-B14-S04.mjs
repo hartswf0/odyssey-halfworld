@@ -27,15 +27,15 @@
      FRONT-RIGHT — the HEAVY SWINEHERD CLOAK itself: offered, then wrapped, then
               draped as the sleeping-cover over the settled stranger.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import night from "/assets/environment/night-rain-and-cold.mjs";
-import herdsmen from "/assets/ensemble/returning-herdsmen.mjs";
-import eumaeus from "/assets/character/eumaeus.mjs";
-import beggar from "/assets/character/odysseus-as-beggar.mjs";
-import cloak from "/assets/wearable/heavy-swineherd-cloak.mjs";
+import night from "../assets/environment/night-rain-and-cold.mjs";
+import herdsmen from "../assets/ensemble/returning-herdsmen.mjs";
+import eumaeus from "../assets/character/eumaeus.mjs";
+import beggar from "../assets/character/odysseus-as-beggar.mjs";
+import cloak from "../assets/wearable/heavy-swineherd-cloak.mjs";
 
 export const scene = {
   id:"OD-B14-S04",

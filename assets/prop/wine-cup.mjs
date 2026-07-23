@@ -14,7 +14,7 @@
    Ivy-wood = a MID tone body; the dark hollow interior + the darker wine read
    the fill in monochrome. Scale, grip/support/contact anchors, ownership, and
    collision box declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   scale:1.35,        // OVERSIZED — this vessel dominates the frame

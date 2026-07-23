@@ -13,8 +13,8 @@
    grave OPEN mouth. So Zeus ships his own bespoke poses in the shared POSE
    registry, each one fusing a knit/heavy brow + an open decreeing jaw + a
    gesturing arm. That is what lets the card actually EMOTE. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Zeus poses: brow + jaw + arm authored together ----
    Registered into the shared rig registry (same module instance the hero

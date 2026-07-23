@@ -6,7 +6,7 @@
    a transformation floor, an animal yard, walled pig pens, forest approaches.
    Composition: bg forest / mid stone house / fg clearing; walkable ground,
    walled pens, thresholds, placement + camera anchors. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.52,        // where the clearing floor meets the mid ground

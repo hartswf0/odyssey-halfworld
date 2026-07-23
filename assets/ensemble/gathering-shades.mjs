@@ -16,7 +16,7 @@
    the sword-line holds them out), depth, and a single `nearest` channel selecting the
    one shade pulled closest to the rim. The living hero + the sword's owner are NOT
    baked in — only the diegetic blood-pit + the laid sword that mark the boundary. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

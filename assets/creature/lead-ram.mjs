@@ -18,7 +18,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B09-S10 — the largest animal with the underside anchor and the
    extended pause beneath the Cyclops' searching hand. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

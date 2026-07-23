@@ -16,13 +16,13 @@
 
    Verify: node harness/render-scene.mjs scenes/OD-B01-S02.mjs --t 8
    ============================================================ */
-import athena  from "/assets/character/athena.mjs";
-import hermes  from "/assets/character/hermes.mjs";
-import sandals from "/assets/prop/golden-winged-sandals.mjs";
-import spear   from "/assets/prop/athenas-bronze-spear.mjs";
-import descent from "/assets/divine_fx/olympus-to-ithaca-descent.mjs";
-import { placeInstance, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import athena  from "../assets/character/athena.mjs";
+import hermes  from "../assets/character/hermes.mjs";
+import sandals from "../assets/prop/golden-winged-sandals.mjs";
+import spear   from "../assets/prop/athenas-bronze-spear.mjs";
+import descent from "../assets/divine_fx/olympus-to-ithaca-descent.mjs";
+import { placeInstance, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 export const scene = {
   id:"OD-B01-S02",

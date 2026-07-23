@@ -13,7 +13,7 @@
    halftone. The newcomers/crew are NOT baked in — only a faint shore-threshold
    glyph on the left the whole cluster gently turns toward. The single blue mark
    rides the lotus nectar-centers (the narcotic that makes them forget the way home). */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

@@ -6,7 +6,7 @@
    Composes the hero rig TWICE, one victim per side, each tilted as it hangs.
    States: grabbed / impact / lifeless / removed.
    Atlas scene: OD-B09-S07 — individual victim performers in the man-eater's grasp. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
 
 // Sailor A — the younger crewman: lean, short dark hair, no beard, a touch smaller.
 const paramsA = {

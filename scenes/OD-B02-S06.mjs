@@ -19,15 +19,15 @@
      store)  ->  Eurycleia (right of the aisle)  ->  Telemachus (left of the
      aisle, commanding).
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import storeroom   from "/assets/location/palace-storeroom.mjs";
-import wineJars    from "/assets/prop/travel-wine-jars.mjs";
-import barleyBags  from "/assets/prop/barley-bags.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
-import eurycleia   from "/assets/character/eurycleia.mjs";
+import storeroom   from "../assets/location/palace-storeroom.mjs";
+import wineJars    from "../assets/prop/travel-wine-jars.mjs";
+import barleyBags  from "../assets/prop/barley-bags.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
+import eurycleia   from "../assets/character/eurycleia.mjs";
 
 export const scene = {
   id:"OD-B02-S06",

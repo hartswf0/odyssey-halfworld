@@ -32,15 +32,15 @@
    The song at the loom, the drugged food, the wand-strike, the penned swine and
    the lone survivor's flight — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace from "/assets/location/circes-forest-palace.mjs";
-import beasts from "/assets/creature/enchanted-wolves-and-lions.mjs";
-import swine  from "/assets/creature/crew-to-swine-variants.mjs";
-import circe  from "/assets/character/circe.mjs";
-import eurylochus from "/assets/character/eurylochus.mjs";
+import palace from "../assets/location/circes-forest-palace.mjs";
+import beasts from "../assets/creature/enchanted-wolves-and-lions.mjs";
+import swine  from "../assets/creature/crew-to-swine-variants.mjs";
+import circe  from "../assets/character/circe.mjs";
+import eurylochus from "../assets/character/eurylochus.mjs";
 
 export const scene = {
   id:"OD-B10-S04",

@@ -12,7 +12,7 @@
    ship-use / carried / grave-marker / planted / continuity-complete.
    Atlas: isolated reusable object; scale, grip/support/contact anchors,
    ownership, collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   length:700,     // oar length along its axis in source px (fits 660x880)

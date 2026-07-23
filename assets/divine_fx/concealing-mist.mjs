@@ -22,7 +22,7 @@
    The mist is drawn as overlapping SOLID light puffs forming a ring (the engine
    POST pass dithers them into a soft cloud); do NOT pre-dither. Engine
    primitives only, solid grays + hard contour. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

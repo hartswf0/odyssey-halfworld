@@ -5,7 +5,7 @@
    contour into the offscreen ctx; the engine dotify pass supplies the halftone.
    Do NOT bake characters in.
    Atlas: OD-B09-S03 — gentle coast, landing beach, inland path, food field, ship route. */
-import { makePen, toneSolid, inkLevel, INK, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   seaLevel:0.30,       // sea/sky horizon as fraction of H

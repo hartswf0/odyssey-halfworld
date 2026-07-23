@@ -15,7 +15,7 @@
      abandoned · bare waterlogged wreckage, low and empty
    Atlas: reusable boarded object; board/grip/dock anchors, moving/broken parts,
    collision. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   logCount:6,           // logs in the intact bundle

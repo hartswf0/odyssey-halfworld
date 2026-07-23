@@ -20,15 +20,15 @@
               from the hut on the right, stone cocked, warding the dogs off — then,
               at the exit, turning his kind open-handed welcome on the stranger.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import farm from "/assets/location/eumaeuss-pig-farm.mjs";
-import pigs from "/assets/creature/pig-herd.mjs";
-import dogs from "/assets/creature/guard-dogs.mjs";
-import beggar from "/assets/character/odysseus-as-beggar.mjs";
-import eumaeus from "/assets/character/eumaeus.mjs";
+import farm from "../assets/location/eumaeuss-pig-farm.mjs";
+import pigs from "../assets/creature/pig-herd.mjs";
+import dogs from "../assets/creature/guard-dogs.mjs";
+import beggar from "../assets/character/odysseus-as-beggar.mjs";
+import eumaeus from "../assets/character/eumaeus.mjs";
 
 export const scene = {
   id:"OD-B14-S01",

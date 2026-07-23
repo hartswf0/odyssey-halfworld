@@ -11,7 +11,7 @@
    halftone. Gloomy: dark void overhead, pale plain, dark structures.
    Atlas: OD-B11-S08 — separable zones for judgment / hunting / vulture /
    receding water-fruit / rolling stone. */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.40,          // fraction of H where the void meets the plain

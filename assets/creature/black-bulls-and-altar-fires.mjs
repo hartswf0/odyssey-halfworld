@@ -11,7 +11,7 @@
    supplies the dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B03-S01 — sacrificial herd + procedural fire, smoke, ritual
    handling, feast transition. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 

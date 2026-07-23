@@ -7,7 +7,7 @@
    (charged aura) -> target (the council) -> visible consequence (disturbance).
    Animate everything over state.t. Solid grays + hard contour only; the engine
    POST pass supplies the halftone (do NOT pre-dither). */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   seatLevel:   0.62,   // y of the seat (where the god would sit) as frac of H

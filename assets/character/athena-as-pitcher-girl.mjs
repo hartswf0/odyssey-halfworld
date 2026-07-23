@@ -22,8 +22,8 @@
    over bare legs, a shoulder-borne pitcher (drawn after the figure so it reads
    crisp), and the divine bright-eye catchlight painted last. All solid grays —
    the engine's dotify POST pass supplies the halftone, so no pre-dithering. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#f0e4d1", hairColor:"#4b3a26",              // fresh youthful skin, warm short hair

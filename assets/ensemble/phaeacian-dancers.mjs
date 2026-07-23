@@ -11,7 +11,7 @@
    Atlas OD-B08-S04 (high-skill circle performers with leap, spin, ball-pass,
    catch, formation controls). Matches the reference card look: crisp monochrome
    figures, clean contour, good tonal range. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

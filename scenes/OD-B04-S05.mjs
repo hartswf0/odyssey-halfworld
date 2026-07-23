@@ -27,15 +27,15 @@
    the chain shows the metamorphosis; the two figures hold the causal center —
    the grapple that wrings the news of Odysseus from the sea.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import beach     from "/assets/location/seal-beach.mjs";
-import eidothea  from "/assets/character/eidothea.mjs";
-import chain     from "/assets/divine_fx/proteus-transformation-chain.mjs";
-import proteus   from "/assets/character/proteus.mjs";
-import menelaus  from "/assets/character/menelaus.mjs";
+import beach     from "../assets/location/seal-beach.mjs";
+import eidothea  from "../assets/character/eidothea.mjs";
+import chain     from "../assets/divine_fx/proteus-transformation-chain.mjs";
+import proteus   from "../assets/character/proteus.mjs";
+import menelaus  from "../assets/character/menelaus.mjs";
 
 // the six links of the metamorphosis, in the order Proteus cycles them
 const MORPH = ["lion","serpent","leopard","boar","water","tree"];

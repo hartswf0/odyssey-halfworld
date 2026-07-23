@@ -20,8 +20,8 @@
    actually emotes. The lyre is a capability layer, cradled upright against the
    chest (the flat rig splays any "reach" sideways, so it anchors to the torso,
    not the hands) and RAISED in the song states. Stowed on the back turn. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Demodocus poses: brow + head-lift + arms on the lyre together.
    Convention: negative headPitch/neckPitch lifts the chin (the inspired,

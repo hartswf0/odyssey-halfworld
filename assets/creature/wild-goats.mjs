@@ -12,7 +12,7 @@
    hard contour; the engine POST pass supplies the dot-matrix halftone — do NOT
    pre-dither.
    Atlas: OD-B09-S04 — herd grazing, alarm, running, hunting, kill, carried-carcass. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 

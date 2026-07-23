@@ -8,7 +8,7 @@
    cut logs in the foreground. NO baked characters — anchors only.
    Atlas: cavern + grove + hearth + loom + vines + four springs + woods +
    shore route + raft clearing. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.36,       // sky/sea meeting line as fraction of H

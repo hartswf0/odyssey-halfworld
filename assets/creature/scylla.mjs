@@ -21,7 +21,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B12-S04 — six-headed cliff monster, telescoping necks,
    independent targeting, seize / lift / devour / retract. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

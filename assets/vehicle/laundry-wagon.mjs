@@ -15,7 +15,7 @@
    (wheel spinning, bed rocking, road-dust and the mule stepping out).
    Atlas: reusable boarded object; board/seat/load anchors, spoked wheel,
    motion states, capacity, collision. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   spokes:8,            // light spoked road-wheel

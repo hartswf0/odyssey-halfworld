@@ -11,7 +11,7 @@
    NO characters baked in.
    Atlas: OD-B07-S01 — walled seafaring city with twin harbors, ship sheds,
    market, temple, streets, palace approach, crowd lanes. */
-import { makePen, toneSolid, inkLevel, INK, lerp, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, lerp, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   wallTop:0.27,        // top of the city wall (fraction of H)

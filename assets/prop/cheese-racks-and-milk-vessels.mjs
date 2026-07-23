@@ -14,7 +14,7 @@
    The wood frame + pail staves are the dark metals of tone; the cheese sides are
    a mid tone, cheese tops + milk the brightest (near paper) so the food reads.
    Scale, grip/support/contact anchors, ownership and collision box in 0..1. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   postX:[0.135, 0.865],   // rack upright posts (fraction of W)

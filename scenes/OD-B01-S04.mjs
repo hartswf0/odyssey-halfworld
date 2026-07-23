@@ -15,14 +15,14 @@
    the near foreground; the feast bed DUCKS in the background so the pair can
    speak. The engine runs ONE dotify + scene card over the whole stage.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
-import mentes  from "/assets/character/athena-as-mentes.mjs";
-import prince  from "/assets/character/telemachus.mjs";
-import chair   from "/assets/prop/guest-chair-and-footstool.mjs";
-import vessels from "/assets/prop/golden-pitcher-and-silver-basin.mjs";
-import feast   from "/assets/sound_source/feast-noise.mjs";
+import mentes  from "../assets/character/athena-as-mentes.mjs";
+import prince  from "../assets/character/telemachus.mjs";
+import chair   from "../assets/prop/guest-chair-and-footstool.mjs";
+import vessels from "../assets/prop/golden-pitcher-and-silver-basin.mjs";
+import feast   from "../assets/sound_source/feast-noise.mjs";
 
 export const scene = {
   id:"OD-B01-S04",

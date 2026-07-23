@@ -14,7 +14,7 @@
      OD-B14-S02 — testing loyalty while enduring dismissal
      OD-B14-S03 — improvisational storyteller modulating detail and truths
      OD-B14-S04 — indirect requester embedding need inside a wartime anecdote */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke Book-14 beggar poses: register additively onto the shared rig.
    The library carries no "old fighter dropping to placate the dogs" or

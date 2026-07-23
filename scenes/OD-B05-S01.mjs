@@ -24,15 +24,15 @@
    Olympus (the order) on the left, Ogygia (the arrival) on the right, the sea
    between them — the whole errand read on one clock.
    ============================================================ */
-import { placeInstance, clamp, clamp01, lerp, smooth } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp, clamp01, lerp, smooth } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import hall   from "/assets/location/olympian-council-hall.mjs";
-import cavern from "/assets/location/ogygia-cavern-and-grove.mjs";
-import flight from "/assets/divine_fx/sea-crossing-flight.mjs";
-import hermes from "/assets/character/hermes.mjs";
-import wand   from "/assets/prop/hermess-wand.mjs";
+import hall   from "../assets/location/olympian-council-hall.mjs";
+import cavern from "../assets/location/ogygia-cavern-and-grove.mjs";
+import flight from "../assets/divine_fx/sea-crossing-flight.mjs";
+import hermes from "../assets/character/hermes.mjs";
+import wand   from "../assets/prop/hermess-wand.mjs";
 
 export const scene = {
   id:"OD-B05-S01",

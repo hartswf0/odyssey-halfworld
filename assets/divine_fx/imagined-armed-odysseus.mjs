@@ -11,7 +11,7 @@
    The apparition is drawn as pure CONTOUR over near-paper fill so the engine
    POST pass renders it as a translucent line-image, not a solid body. Solid
    grays + hard contour only; do NOT pre-dither. Animate over state.t. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   gateLevel:   0.14,   // top of the gateposts as frac of H

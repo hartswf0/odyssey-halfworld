@@ -30,16 +30,16 @@
    One clock: the collapse, the heated drive, the twist and roar, the neighbours'
    calling, and the blind groping all fold onto the master time.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import cave     from "/assets/location/polyphemuss-cave.mjs";
-import cyclopes from "/assets/ensemble/cyclopes-outside.mjs";
-import blinding from "/assets/divine_fx/eye-blinding-effect.mjs";
-import bearers  from "/assets/ensemble/four-stake-bearers.mjs";
-import polyphemus from "/assets/character/polyphemus.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import cave     from "../assets/location/polyphemuss-cave.mjs";
+import cyclopes from "../assets/ensemble/cyclopes-outside.mjs";
+import blinding from "../assets/divine_fx/eye-blinding-effect.mjs";
+import bearers  from "../assets/ensemble/four-stake-bearers.mjs";
+import polyphemus from "../assets/character/polyphemus.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B09-S09",

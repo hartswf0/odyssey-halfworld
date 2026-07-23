@@ -12,7 +12,7 @@
    fill drives the belly bulge; tilt / strap / pour / bowl / sag flags carry
    the rest. Grip / spout / contact anchors + a collision box are declared in
    0..1 space. Ownership: Maron's gift, held by Odysseus. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   legNubs:3,          // tied-off goat leg stubs read the hide as a goatskin

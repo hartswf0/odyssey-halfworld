@@ -6,7 +6,7 @@
    SOLID grays + hard contour into the offscreen ctx — the engine dotify pass supplies
    the halftone. No characters are baked in; only placement / camera anchors.
    Atlas: OD-B02-S05 — foaming waterline, prayer position, harbor view, town path, launch route. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.24,       // sea/sky meeting line as fraction of H

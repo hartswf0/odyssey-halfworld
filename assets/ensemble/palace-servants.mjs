@@ -6,7 +6,7 @@
    dotify POST pass supplies the halftone. Do NOT bake in named characters.
    Atlas OD-B01-S03 — attendants mixing wine, cleaning tables, carving meat,
    opening paths. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- the four hall tasks the scene requires ---- */
 const TASKS = ["pour-wine","clean-table","carve-meat","open-path"];

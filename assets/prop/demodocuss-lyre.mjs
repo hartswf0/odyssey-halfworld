@@ -14,7 +14,7 @@
    base pivot and tilted per state, so grip/contact anchors stay meaningful.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   strings:7,          // seven-string phorminx

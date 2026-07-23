@@ -17,7 +17,7 @@
    Drawn in SOLID grays + hard contour; the engine dotify POST pass supplies the
    halftone. Do NOT bake named characters in — every member is an addressable,
    identical-template gaunt sailor. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

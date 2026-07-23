@@ -7,7 +7,7 @@
    hard contour into the offscreen ctx; the engine dotify POST pass supplies the
    halftone. Do NOT bake in named characters.
    Atlas OD-B14-S04 — workers driving pigs, closing pens, eating, settling for night. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- the four evening chores the scene requires ---- */
 const TASKS = ["drive","pen","eat","settle"];

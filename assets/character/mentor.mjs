@@ -10,8 +10,8 @@
    jaw + a gesturing arm, because the scene-state mouth overlay alone can only
    bend a smile/frown line and never a furious open mouth. The staff is drawn
    BEHIND the figure so the near arm reads as gripping it. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Mentor poses: brow + jaw + arm authored together ---- */
 const P = (id, n, opt = {}) => { POSES[id] = { id, label: id, group: "mentor", n, opt }; };

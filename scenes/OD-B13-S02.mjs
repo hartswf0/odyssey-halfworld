@@ -26,14 +26,14 @@
    One clock holds the concealed home, the counted gifts, the mortal's grief,
    and the goddess's disguised approach on the same foreign beach.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import concealmentMist from "/assets/divine_fx/ithacan-concealment-mist.mjs";
-import giftInventory    from "/assets/prop/gift-inventory.mjs";
-import odysseus         from "/assets/character/odysseus.mjs";
-import athenaShepherd   from "/assets/character/athena-as-shepherd.mjs";
+import concealmentMist from "../assets/divine_fx/ithacan-concealment-mist.mjs";
+import giftInventory    from "../assets/prop/gift-inventory.mjs";
+import odysseus         from "../assets/character/odysseus.mjs";
+import athenaShepherd   from "../assets/character/athena-as-shepherd.mjs";
 
 const ATHENA_IN = 30;   // the shepherd only appears at beat 4
 

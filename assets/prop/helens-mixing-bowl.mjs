@@ -13,7 +13,7 @@
    The krater is a fired terracotta body (mid tone) with a dark interior and a
    dark wine surface — the tonal steps separate lip / body / wine / stand.
    Grip / support / contact / pour anchors declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   rimHalf:0.315,     // mouth half-width (fraction of W)

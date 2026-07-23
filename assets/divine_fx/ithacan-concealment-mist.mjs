@@ -27,7 +27,7 @@
    (the engine POST pass dithers them into a soft fog); do NOT pre-dither. Engine
    primitives only, solid grays + hard contour. Keep the sky band light so the
    card LABEL stays legible. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, smooth } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, smooth } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

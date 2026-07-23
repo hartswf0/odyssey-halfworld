@@ -7,7 +7,7 @@
    fanned around the speaker, flanking feast tables, and a central hearth — plus
    a focus point, placement anchors and camera anchors.
    Atlas: OD-B09-S01 — quiet chamber, guest as focal speaker, radial audience. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.54,     // horizon / floor line as fraction of H

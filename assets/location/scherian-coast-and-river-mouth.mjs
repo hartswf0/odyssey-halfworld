@@ -8,7 +8,7 @@
    Do NOT bake characters in.
    Atlas: OD-B05-S06 — reef coast -> sheltered estuary, bank, woodland edge,
    olive-bush refuge. */
-import { makePen, toneSolid, inkLevel, INK, lerp, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, lerp, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.32,        // sea/land horizon as fraction of H

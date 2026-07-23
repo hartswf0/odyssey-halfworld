@@ -8,7 +8,7 @@
    walkable zones, entrances/exits and camera anchors. Do NOT bake characters in.
    Atlas: OD-B06-S02 — basins, clothes beach, mule zone, picnic, ball court,
    forest edge with leaf hollow. */
-import { makePen, toneSolid, inkLevel, INK, lerp, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, lerp, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   forestBase:0.27,     // forest crown reaches down to this fraction of H

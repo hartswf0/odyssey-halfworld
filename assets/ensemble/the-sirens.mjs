@@ -14,7 +14,7 @@
    — the members are an interchangeable trio.
    Atlas OD-B12-S03 (plural singers, still bodies, irresistible vocal
    projection, no pursuit beyond range). */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

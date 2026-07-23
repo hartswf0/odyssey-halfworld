@@ -5,7 +5,7 @@
    (OD-B08-S03); his pride then softens into a formal apology + gift
    transfer (OD-B08-S04). Composes the shared hero rig; registers three
    bespoke poses (cocky idle / dismissive flick / apology bow). */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses: mutate the shared table ADDITIVELY ---- */
 // cocky idle — arms crossed, weight cocked onto one hip, chin lifted,

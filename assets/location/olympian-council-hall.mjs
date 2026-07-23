@@ -6,7 +6,7 @@
    halftone), declare depth layers, walkable zones, entrances/exits, camera
    anchors, and alternate states. Do NOT bake characters in.
    Atlas: OD-B01-S01 — central throne, radial god-places, sky threshold, portal. */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   columns:6,            // radial places, one column per god-seat pair

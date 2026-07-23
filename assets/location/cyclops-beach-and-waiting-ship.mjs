@@ -10,7 +10,7 @@
    standing off in the deep water. NO baked characters — anchors + zones only.
    Atlas: cave-to-shore path · hidden crew · loading area · launch water ·
    safe-distance marker · waiting ship · empty navigable set. */
-import { makePen, toneSolid, inkLevel, INK, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.28,       // sea / sky meeting line as fraction of H

@@ -26,15 +26,15 @@
                 helping carry, then seated planning, then parting as she points
                 him to Eumaeus and turns for Sparta and Telemachus.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import cave from "/assets/location/nymph-cave.mjs";
-import stone from "/assets/prop/cave-sealing-stone.mjs";
-import plan from "/assets/set_piece/suitor-count-plan.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import athena from "/assets/character/athena.mjs";
+import cave from "../assets/location/nymph-cave.mjs";
+import stone from "../assets/prop/cave-sealing-stone.mjs";
+import plan from "../assets/set_piece/suitor-count-plan.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import athena from "../assets/character/athena.mjs";
 
 export const scene = {
   id:"OD-B13-S04",

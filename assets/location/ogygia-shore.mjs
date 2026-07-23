@@ -7,7 +7,7 @@
    Do NOT bake characters in.
    Atlas: OD-B05-S03 — rocky lookout, weeping position, horizon sightline,
    cave path, launch point. */
-import { makePen, toneSolid, inkLevel, INK, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.38,        // sea horizon as fraction of H (the sightline)

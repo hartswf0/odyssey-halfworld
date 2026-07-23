@@ -8,7 +8,7 @@
    seam/hatch thresholds, occlusion order, and placement/camera anchors. No
    baked figures.
    Atlas: OD-B04-S04. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   ribs:6,              // curved frame beams from near mouth to far stern

@@ -12,7 +12,7 @@
    fill drives the belly bulge; pressure / tamper / windOut / sag flags carry
    the rest, animated over t. Grip / mouth / contact anchors + a collision box
    are declared in 0..1 space. Ownership: Aeolus' gift, held by Odysseus. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   cordWraps:3,        // number of silver-cord turns cinching the gathered neck

@@ -8,7 +8,7 @@
    point — the open contemptuous shrug/wave and the numbers-are-on-our-side
    grin.
    Atlas Book 2: OD-B02-S04. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#e0c8a6", hairColor:"#2a2016",

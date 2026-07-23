@@ -3,7 +3,7 @@
    shows how a CHARACTER composes the engine figure rig, declares anchors,
    a state machine, animation channels, and a neutral preview.
    Atlas: appears in 63 scenes — the continuity spine of the whole poem. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#cdb89a", hairColor:"#241d16",

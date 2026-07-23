@@ -7,7 +7,7 @@
    markers. Spectator crowd edges frame the back and both sides. No baked
    characters — only marked event zones + placement anchors.
    Atlas: OD-B08-S03 — the Phaeacians hold games to honour their guest. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 

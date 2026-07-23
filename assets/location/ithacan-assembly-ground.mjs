@@ -5,7 +5,7 @@
    central speaker's stone, town exits cut through left & right, and a visible
    route climbing to the palace on the hill behind. Do NOT bake characters in.
    Atlas: OD-B02-S01 — Telemachus calls the first assembly in twenty years. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   tiers:4,              // rings of crowd seating at the back

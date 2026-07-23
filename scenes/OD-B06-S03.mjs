@@ -29,15 +29,15 @@
    The debate, the emergence, the flight, the divine steadying, and the courteous
    plea all held on one clock: the whole encounter read in one still.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import maids        from "/assets/ensemble/nausicaas-maids.mjs";
-import nausicaa     from "/assets/character/nausicaa.mjs";
-import courageField from "/assets/divine_fx/athenas-courage-field.mjs";
-import odysseus     from "/assets/character/odysseus.mjs";
-import branch       from "/assets/prop/leafy-modesty-branch.mjs";
+import maids        from "../assets/ensemble/nausicaas-maids.mjs";
+import nausicaa     from "../assets/character/nausicaa.mjs";
+import courageField from "../assets/divine_fx/athenas-courage-field.mjs";
+import odysseus     from "../assets/character/odysseus.mjs";
+import branch       from "../assets/prop/leafy-modesty-branch.mjs";
 
 export const scene = {
   id:"OD-B06-S03",

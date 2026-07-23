@@ -15,7 +15,7 @@
    POST pass supplies the halftone. Do NOT bake named characters in.
    Atlas OD-B13-S01 — silent expert sailors loading gifts, rowing, navigating,
    lifting the sleeping passenger, departing. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const norm = v => { const m=Math.hypot(v.x,v.y)||1; return { x:v.x/m, y:v.y/m }; };

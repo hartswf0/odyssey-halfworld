@@ -20,7 +20,7 @@
      clutch — the seize/downbeat, talons cinched, goose thrashing, arc short
    SOLID grays + hard contour ONLY; the engine POST pass supplies the halftone.
    Do NOT pre-dither. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

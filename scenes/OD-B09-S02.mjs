@@ -30,15 +30,15 @@
    The sack, the ignored order, the day-long fight and the costly escape — all
    held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import ismarus from "/assets/location/ismarus-coast-and-town.mjs";
-import cicones from "/assets/ensemble/cicones-army.mjs";
-import fleet   from "/assets/vehicle/twelve-ship-fleet.mjs";
-import crews   from "/assets/ensemble/odysseuss-fleet-crews.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import ismarus from "../assets/location/ismarus-coast-and-town.mjs";
+import cicones from "../assets/ensemble/cicones-army.mjs";
+import fleet   from "../assets/vehicle/twelve-ship-fleet.mjs";
+import crews   from "../assets/ensemble/odysseuss-fleet-crews.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 /* pose-token -> asset state, for the ensemble/vehicle instances the timeline
    drives with actor.pose ops (kept in the asset's own vocabulary). */

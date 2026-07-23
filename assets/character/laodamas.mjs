@@ -19,8 +19,8 @@
    ships bespoke poses into the shared POSE registry the hero figure reads. A slim
    princely fillet is drawn on top afterward in solid grays + hard contour so the
    engine POST pass halftones it with the rest of the figure. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Laodamas poses: brow + gaze + arm authored together ----
    Convention: armRUpper near -1.0 offers the right hand forward/up in welcome;

@@ -10,7 +10,7 @@
    in SOLID grays + hard contour; the engine dotify pass supplies the halftone.
    Do NOT bake the omen source as a character — it is a small diagrammatic sign
    the heads turn toward. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

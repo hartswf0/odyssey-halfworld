@@ -12,7 +12,7 @@
    altered carriage, weak silhouette, full hidden combat capacity.
    Shares Odysseus' skin/beard identity, greyed and withered, so it reads as
    the same man wearing old age like a costume. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke aged-beggar poses: register additively onto the shared rig ----
    The library has no decrepit-elder stances, so we author them: a stooped

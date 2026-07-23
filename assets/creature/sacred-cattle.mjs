@@ -26,7 +26,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B12-S06 — selected animals, kill, then supernatural hide-crawl and
    meat-voice states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

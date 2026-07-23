@@ -19,8 +19,8 @@
    brow + gaze + arm authored TOGETHER. So (like nestor/halitherses) he ships
    bespoke poses into the shared POSE registry the hero figure reads, so the card
    and every state genuinely EMOTE. A golden circlet is drawn on top afterward. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Menelaus poses: brow + gaze + arm authored together ----
    Convention (mirrors nestor): armRUpper near -1.0 offers the right hand forward;

@@ -12,7 +12,7 @@
    dotify POST pass supplies the halftone. No named character is baked in.
    Atlas OD-B15-S03 — experienced returning sailors loading gifts and executing
    a fast departure. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

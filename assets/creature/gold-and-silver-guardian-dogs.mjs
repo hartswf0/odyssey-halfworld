@@ -9,7 +9,7 @@
    supplies the dot-matrix halftone — do NOT pre-dither).
    States watch / orient / allow / bar. Collision zones per hound.
    Atlas: OD-B07-S02 — immortal metal hounds with watch, orient, allow, bar. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 

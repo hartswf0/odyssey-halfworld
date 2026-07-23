@@ -7,7 +7,7 @@
    the engine dotify pass supplies the halftone. Tones kept low + a faint offset
    "echo" on the palace so the whole set reads slightly recollected.
    Atlas: OD-B15-S04 — prosperous small kingdom, royal house, harbor, trader ship, abduction route. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   shoreLevel:0.64,     // waterline as fraction of H

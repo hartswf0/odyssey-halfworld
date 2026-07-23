@@ -14,7 +14,7 @@
    burst from the mouth as Circe's charm takes), and NULLIFIED (Hermes' moly
    guard: the sinister field is broken by a bright steady ring + a moly sprig,
    the shimmer struck through, the cup harmless). */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   scale:1.0,

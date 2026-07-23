@@ -9,7 +9,7 @@
      HONORED  — footstool forward, cushion + a cloth draped over the back
    Drawn in a light oblique 3/4 so seat, back-slats, legs and the stool all
    read as one carpentered set. Contact / support / grip anchors in 0..1. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   owner:"guest",        // ownership: offered to a visiting guest

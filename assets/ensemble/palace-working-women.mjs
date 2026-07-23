@@ -12,7 +12,7 @@
    halftone. No named character is baked in.
    Atlas OD-B07-S02 — weavers and grinders performing synchronized skilled
    labor inside the architecture. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const TAU = Math.PI*2;

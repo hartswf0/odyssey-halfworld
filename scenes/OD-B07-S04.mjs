@@ -30,15 +30,15 @@
    Recognition, question, tale, and the king's generous ruling all held on one
    clock: the household weaving read from river to hall in a single still.
    ============================================================ */
-import { placeInstance, clamp01 } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01 } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace    from "/assets/location/alcinouss-palace.mjs";
-import garments  from "/assets/prop/recognized-garments.mjs";
-import alcinous  from "/assets/character/alcinous.mjs";
-import arete     from "/assets/character/arete.mjs";
-import odysseus  from "/assets/character/odysseus.mjs";
+import palace    from "../assets/location/alcinouss-palace.mjs";
+import garments  from "../assets/prop/recognized-garments.mjs";
+import alcinous  from "../assets/character/alcinous.mjs";
+import arete     from "../assets/character/arete.mjs";
+import odysseus  from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B07-S04",

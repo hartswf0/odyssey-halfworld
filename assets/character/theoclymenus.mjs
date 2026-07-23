@@ -21,8 +21,8 @@
    mouth. So Theoclymenus ships bespoke poses into the shared POSE registry,
    each fusing a raised/knit brow + a strained gaze + a reading/pointing arm.
    That is what makes the card EMOTE as a seer, not a mannequin. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Theoclymenus poses: brow + gaze + arm authored together ----
    Registered into the shared rig registry (same module instance the hero

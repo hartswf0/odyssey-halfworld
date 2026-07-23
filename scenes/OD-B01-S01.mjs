@@ -16,14 +16,14 @@
    from foreground-right. The assembly's collective attention sweeps from Zeus to
    Athena on the master clock (beat 2 -> beat 3). */
 
-import hall     from "/assets/location/olympian-council-hall.mjs";
-import zeus     from "/assets/character/zeus.mjs";
-import athena   from "/assets/character/athena.mjs";
-import assembly from "/assets/ensemble/assembly-of-gods.mjs";
-import absence  from "/assets/divine_fx/poseidons-absence.mjs";
+import hall     from "../assets/location/olympian-council-hall.mjs";
+import zeus     from "../assets/character/zeus.mjs";
+import athena   from "../assets/character/athena.mjs";
+import assembly from "../assets/ensemble/assembly-of-gods.mjs";
+import absence  from "../assets/divine_fx/poseidons-absence.mjs";
 
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 const clamp01 = x => x<0?0:(x>1?1:x);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

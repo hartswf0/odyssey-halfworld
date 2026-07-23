@@ -6,7 +6,7 @@
    Atlas: OD-B07-S02 — bronze-walled royal complex: golden double doors, silver
    door-posts, a great living hall with a central hearth, a guest route running
    from the threshold to the royal thrones, gleaming metal surfaces. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.70,      // horizon / floor line as fraction of H

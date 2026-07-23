@@ -23,14 +23,14 @@
    The drinking, Tyro's telling, the turning succession and the whole surfacing
    into a living genealogy of desire, birth, crime and death — one clock, one still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import chorus from "/assets/sound_source/underworld-chorus.mjs";
-import genealogy from "/assets/divine_fx/genealogy-field.mjs";
-import heroines from "/assets/ensemble/heroines-shades.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import chorus from "../assets/sound_source/underworld-chorus.mjs";
+import genealogy from "../assets/divine_fx/genealogy-field.mjs";
+import heroines from "../assets/ensemble/heroines-shades.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B11-S05",

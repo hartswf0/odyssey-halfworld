@@ -31,15 +31,15 @@
    The waiting man, his concealment, the guiding child, and the palace she points
    him toward all held on one clock: the whole hidden walk read in one still.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import city      from "/assets/location/scheria-city-and-harbor.mjs";
-import odysseus  from "/assets/character/odysseus.mjs";
-import mist      from "/assets/divine_fx/concealing-mist.mjs";
-import athena    from "/assets/character/athena-as-pitcher-girl.mjs";
-import pitcher   from "/assets/prop/water-pitcher.mjs";
+import city      from "../assets/location/scheria-city-and-harbor.mjs";
+import odysseus  from "../assets/character/odysseus.mjs";
+import mist      from "../assets/divine_fx/concealing-mist.mjs";
+import athena    from "../assets/character/athena-as-pitcher-girl.mjs";
+import pitcher   from "../assets/prop/water-pitcher.mjs";
 
 export const scene = {
   id:"OD-B07-S01",

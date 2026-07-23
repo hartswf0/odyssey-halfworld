@@ -24,15 +24,15 @@
      FRONT  — the given equipment laid at the edges: the filthy BEGGAR RAGS and
               the BEGGAR STAFF AND BAG she hands the transformed king.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import disguise from "/assets/divine_fx/disguise-transformation.mjs";
-import rags from "/assets/wearable/beggar-rags.mjs";
-import staffbag from "/assets/prop/beggar-staff-and-bag.mjs";
-import athena from "/assets/character/athena.mjs";
-import beggar from "/assets/character/odysseus-as-old-beggar.mjs";
+import disguise from "../assets/divine_fx/disguise-transformation.mjs";
+import rags from "../assets/wearable/beggar-rags.mjs";
+import staffbag from "../assets/prop/beggar-staff-and-bag.mjs";
+import athena from "../assets/character/athena.mjs";
+import beggar from "../assets/character/odysseus-as-old-beggar.mjs";
 
 export const scene = {
   id:"OD-B13-S05",

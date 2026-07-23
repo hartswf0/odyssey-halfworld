@@ -26,15 +26,15 @@
    One clock: the welcome, the order, the goddess's protest, and her reluctant
    yielding all fold onto the master time.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import location from "/assets/location/ogygia-cavern-and-grove.mjs";
-import loom     from "/assets/prop/calypsos-loom.mjs";
-import service  from "/assets/prop/ambrosia-and-nectar-service.mjs";
-import calypso  from "/assets/character/calypso.mjs";
-import hermes   from "/assets/character/hermes.mjs";
+import location from "../assets/location/ogygia-cavern-and-grove.mjs";
+import loom     from "../assets/prop/calypsos-loom.mjs";
+import service  from "../assets/prop/ambrosia-and-nectar-service.mjs";
+import calypso  from "../assets/character/calypso.mjs";
+import hermes   from "../assets/character/hermes.mjs";
 
 export const scene = {
   id:"OD-B05-S02",

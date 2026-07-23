@@ -17,7 +17,7 @@
    its cue-leader, so the runtime can highlight the single item a later scene
    calls back to. Each object declares a grip anchor in 0..1 space; the board
    declares its collision bounds + ownership. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   boardX0:44, boardY0:56, boardX1:616, boardY1:824,   // layout-board rect (src px)

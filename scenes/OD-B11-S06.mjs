@@ -30,14 +30,14 @@
    The telling, the remembered ambush, the two conspirators, the warning and the
    unanswered question about the son — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import agamemnon from "/assets/character/agamemnons-shade.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import feastMemory from "/assets/divine_fx/murder-feast-memory.mjs";
-import conspirators from "/assets/character/clytemnestra-and-aegisthus-memory-variants.mjs";
+import agamemnon from "../assets/character/agamemnons-shade.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import feastMemory from "../assets/divine_fx/murder-feast-memory.mjs";
+import conspirators from "../assets/character/clytemnestra-and-aegisthus-memory-variants.mjs";
 
 export const scene = {
   id:"OD-B11-S06",

@@ -20,14 +20,14 @@
      telemachus character.telemachus                    (asks for the truth)
      nestor     character.nestor                        (host -> living archive)
    ============================================================ */
-import beach      from "/assets/location/pylos-sacrificial-beach.mjs";
-import troy       from "/assets/divine_fx/troy-memory-field.mjs";
-import mentor     from "/assets/character/athena-as-mentor.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import nestor     from "/assets/character/nestor.mjs";
+import beach      from "../assets/location/pylos-sacrificial-beach.mjs";
+import troy       from "../assets/divine_fx/troy-memory-field.mjs";
+import mentor     from "../assets/character/athena-as-mentor.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import nestor     from "../assets/character/nestor.mjs";
 
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 const clamp01 = x => x<0?0:(x>1?1:x);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

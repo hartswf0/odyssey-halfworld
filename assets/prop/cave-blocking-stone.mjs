@@ -11,7 +11,7 @@
    dotify pass supplies the halftone. Do NOT pre-dither.
    Atlas: isolated reusable object; declared scale, contact anchors, ownership,
    collision, and all scene-required states. Matches the STONE SLAB/BARRIER card. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   slabInk:4,        // mid-gray granite body of the disc

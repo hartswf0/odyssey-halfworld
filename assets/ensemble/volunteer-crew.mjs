@@ -7,7 +7,7 @@
    dotify POST pass supplies the halftone. Do NOT bake named characters in.
    Atlas OD-B02-S07 — coordinated carriers and rowers handling stores, mast,
    halyards, oars, cups, libations for the black ship's night launch. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

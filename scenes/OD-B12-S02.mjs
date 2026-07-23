@@ -27,14 +27,14 @@
    The private lesson, the exact procedures, the rejected appetite for combat,
    and the dawn launch under a fair wind — all held on one clock in one still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import dangerMap    from "/assets/set_piece/danger-route-map.mjs";
-import instructions from "/assets/prop/instruction-props.mjs";
-import circe        from "/assets/character/circe.mjs";
-import odysseus     from "/assets/character/odysseus.mjs";
+import dangerMap    from "../assets/set_piece/danger-route-map.mjs";
+import instructions from "../assets/prop/instruction-props.mjs";
+import circe        from "../assets/character/circe.mjs";
+import odysseus     from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B12-S02",

@@ -6,7 +6,7 @@
    sly and persuasive, this variant is martial: set brow, level gaze, a
    commanding arm thrown out to reverse the fleet.
    Atlas: OD-B03-S03 — "wily commander reversing his ships to support Agamemnon". */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#cdb89a", hairColor:"#241d16",

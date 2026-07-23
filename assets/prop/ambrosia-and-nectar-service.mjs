@@ -13,7 +13,7 @@
    tonal contrast separates the vessels in monochrome, and the ambrosia mound /
    nectar surface are the brightest tones (near paper) so the divine food reads.
    Scale, grip/support/contact anchors, ownership and collision box in 0..1. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   trayTopY:0.640,    // back edge of the tray surface (fraction of H)

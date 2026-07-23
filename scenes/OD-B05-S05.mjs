@@ -23,15 +23,15 @@
    The tempest laid over the whole stage; its maker above, his victim below, and
    the sea-goddess's mercy between them.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import storm    from "/assets/environment/four-wind-storm.mjs";
-import poseidon from "/assets/character/poseidon.mjs";
-import raft     from "/assets/vehicle/storm-torn-raft.mjs";
-import ino      from "/assets/character/ino-leucothea.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import storm    from "../assets/environment/four-wind-storm.mjs";
+import poseidon from "../assets/character/poseidon.mjs";
+import raft     from "../assets/vehicle/storm-torn-raft.mjs";
+import ino      from "../assets/character/ino-leucothea.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B05-S05",

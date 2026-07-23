@@ -20,7 +20,7 @@
    POST pass supplies the dot-matrix halftone. Do NOT pre-dither. The living arms
    are the darkest, hardest shapes; the shade is pale with a crisp thin contour so
    she reads as a hole of light in the gloom; wisps are pale flecks rising off her. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, smooth } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, smooth } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

@@ -25,14 +25,14 @@
    from a shuffling entrance to a watchful stoop to disciplined observation to
    coiled, concealed force — the story she is telling, played in the memory set.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import troy    from "/assets/location/troy-interior-memory-set.mjs";
-import beggar  from "/assets/character/odysseus-as-trojan-beggar.mjs";
-import bowl    from "/assets/prop/helens-mixing-bowl.mjs";
-import helen   from "/assets/character/helen.mjs";
+import troy    from "../assets/location/troy-interior-memory-set.mjs";
+import beggar  from "../assets/character/odysseus-as-trojan-beggar.mjs";
+import bowl    from "../assets/prop/helens-mixing-bowl.mjs";
+import helen   from "../assets/character/helen.mjs";
 
 export const scene = {
   id:"OD-B04-S03",

@@ -11,7 +11,7 @@
    moves DOWN the warp as more cloth is made, exposing fewer loose threads.
    Atlas: isolated reusable object; scale, support/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   postW:34,             // width of each upright post

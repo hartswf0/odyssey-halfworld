@@ -24,15 +24,15 @@
      FRONT-LEFT  — TELEMACHUS: the prince who takes the omen, orders the ship
                    townward, and walks inland alone toward Eumaeus's farm.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import landing from "/assets/location/secret-ithacan-landing.mjs";
-import ship from "/assets/vehicle/returning-ship-and-crew.mjs";
-import omen from "/assets/creature/hawk-and-dove-omen.mjs";
-import theoclymenus from "/assets/character/theoclymenus.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
+import landing from "../assets/location/secret-ithacan-landing.mjs";
+import ship from "../assets/vehicle/returning-ship-and-crew.mjs";
+import omen from "../assets/creature/hawk-and-dove-omen.mjs";
+import theoclymenus from "../assets/character/theoclymenus.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
 
 export const scene = {
   id:"OD-B15-S05",

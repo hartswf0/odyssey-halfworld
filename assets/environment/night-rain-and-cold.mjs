@@ -13,7 +13,7 @@
 
    Drawn in SOLID grays + hard black contour (engine primitives only); the
    engine POST pass supplies the dot-matrix halftone. Do NOT pre-dither. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

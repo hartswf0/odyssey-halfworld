@@ -11,7 +11,7 @@
    flower" — extended in an open, offering gesture. The only trace of the god
    left showing is a subtle divine gleam kindled in one eye (drawn on top of
    the rig after it renders). A "friendly youth" who happens to know too much. */
-import { makeFigure, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#d7c3a4", hairColor:"#2a2016",        // same youthful skin + dark hair as base Hermes

@@ -17,7 +17,7 @@
    grieving-yet-furious brow (raised AND knit), a raging open jaw or a
    bitter-set mouth, and a gripping/warning arm. That is what lets the card
    actually EMOTE — a bitter warning wrapped around an anguished rage. */
-import { makeFigure, HERO_POSES, INK, gray } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES, INK, gray } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke Agamemnon poses (additive; shared table) ----
    Conventions: right arm carries the gesture (warns / grips / clenches); left

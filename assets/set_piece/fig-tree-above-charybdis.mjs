@@ -8,7 +8,7 @@
    branches / hang-point / debris-below (vortex suck<->spew over t).
    Atlas: OD-B12-S07 — high graspable branches, hang duration, vortex cycle,
    released debris target, drop timing. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 /* ---- normalized layout (anchors + draw share these fractions of W,H) ---- */
 const L = {

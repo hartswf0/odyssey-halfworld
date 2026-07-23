@@ -4,7 +4,7 @@
    Built on the engine hero rig. Youthful silhouette: slighter build,
    shorter stature, beardless, dark short hair, princely tunic + cloak.
    Atlas Book 1 scenes: OD-B01-S03..S06. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#d8c3a2", hairColor:"#2a2118",

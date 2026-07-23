@@ -31,17 +31,17 @@
    The second drug, the men made new, the weeping embrace, Eurylochus's warning
    and the year that follows — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
-import { clamp01 } from "/engine/halfworld-engine.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
+import { clamp01 } from "../engine/halfworld-engine.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace from "/assets/location/circes-forest-palace.mjs";
-import feastCycle from "/assets/environment/one-year-feast-cycle.mjs";
-import restoredCrew from "/assets/ensemble/restored-crew.mjs";
-import circe from "/assets/character/circe.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import eurylochus from "/assets/character/eurylochus.mjs";
+import palace from "../assets/location/circes-forest-palace.mjs";
+import feastCycle from "../assets/environment/one-year-feast-cycle.mjs";
+import restoredCrew from "../assets/ensemble/restored-crew.mjs";
+import circe from "../assets/character/circe.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import eurylochus from "../assets/character/eurylochus.mjs";
 
 export const scene = {
   id:"OD-B10-S07",

@@ -23,7 +23,7 @@
                        glint, a scooping hand sweeping up under it, ground line).
    Scale, grip / contact / support anchors, ownership and a circular collision
    footprint are declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   cx:0.50,          // ball centre x (fraction of W) — centred

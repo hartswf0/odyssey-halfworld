@@ -7,7 +7,7 @@
    Solid grays + hard contour only — the engine dotify pass supplies halftone.
    Atlas: OD-B01-S03 — swaggering young nobles gambling, eating, drinking,
    ignoring the stranger. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   rows:2,               // formation depth: background + foreground benches

@@ -31,15 +31,15 @@
                 him, the fugitive seer bowed and both hands offered, begging
                 passage, then boarded.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import harbor from "/assets/location/pylos-harbor.mjs";
-import wind from "/assets/divine_fx/athenas-homeward-wind.mjs";
-import crew from "/assets/ensemble/telemachuss-crew.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import theoclymenus from "/assets/character/theoclymenus.mjs";
+import harbor from "../assets/location/pylos-harbor.mjs";
+import wind from "../assets/divine_fx/athenas-homeward-wind.mjs";
+import crew from "../assets/ensemble/telemachuss-crew.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import theoclymenus from "../assets/character/theoclymenus.mjs";
 
 export const scene = {
   id:"OD-B15-S03",

@@ -24,15 +24,15 @@
        -> Odysseus foreground, the working hands — felling, joining, rigging,
           and at last standing to his launched raft.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import grove    from "/assets/location/ogygia-timber-grove.mjs";
-import raft     from "/assets/vehicle/odysseuss-raft.mjs";
-import tools    from "/assets/prop/shipbuilding-tool-set.mjs";
-import calypso  from "/assets/character/calypso.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import grove    from "../assets/location/ogygia-timber-grove.mjs";
+import raft     from "../assets/vehicle/odysseuss-raft.mjs";
+import tools    from "../assets/prop/shipbuilding-tool-set.mjs";
+import calypso  from "../assets/character/calypso.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B05-S04",

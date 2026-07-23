@@ -8,7 +8,7 @@
    the halftone. Do NOT bake named characters in.
    Atlas OD-B04-S07 — armed selected men provisioning, boarding, rowing, and
    watching a narrow channel where they mean to ambush Telemachus. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

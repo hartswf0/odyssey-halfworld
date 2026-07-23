@@ -8,7 +8,7 @@
    with crowded moorings -> fg entrance + outer anchorage. Named zones/anchors.
    Atlas: OD-B10-S02 — narrow cliff-ringed basin, single entrance, inner moorings,
    outer anchorage, city path, high attack ledges. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   rimLevel:0.24,        // cliff-top rim (fraction of H) — attack ledges sit here

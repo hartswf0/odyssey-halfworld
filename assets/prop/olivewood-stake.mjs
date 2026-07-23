@@ -14,7 +14,7 @@
    overlays or rotate the whole stake about the grip pivot.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   length:660,     // stake length in source px (fits 660x880 at any angle)

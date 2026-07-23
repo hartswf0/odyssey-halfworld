@@ -5,8 +5,8 @@
    then draws back in astonishment. Built on the engine hero rig with a custom
    veil hood (in front) and a long hair drape (behind), both in solid grays so
    the engine's dotify POST pass supplies the halftone. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#e0d9cb", hairColor:"#33291f",

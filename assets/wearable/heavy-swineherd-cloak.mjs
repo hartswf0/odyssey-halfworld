@@ -13,7 +13,7 @@
    (draped over a sleeping form) / wet (rain-soaked, dripping) / returned (folded
    back, given up). Ownership + normalized 0..1 attach anchors.
    Scene OD-B14-S04: thick garment, folded/offered/wrapped/sleeping-cover/wet/returned. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   drapeFolds:4,     // soft vertical drape folds across the body

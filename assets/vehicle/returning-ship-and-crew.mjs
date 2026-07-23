@@ -18,7 +18,7 @@
                            far horizon, the shore now empty.
    Board/ride/dock/pilot anchors, gift + passenger + harbour anchors, collision
    box, motion states. Reuses the black-ship silhouette. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   oarPairs:9,           // oars along the shown side

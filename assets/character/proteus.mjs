@@ -18,8 +18,8 @@
    water, the raised stillness of a tree — need brow + gaze + arm authored
    TOGETHER, so Proteus ships bespoke poses into the shared POSE registry (the
    same instance the hero figure reads) so the card and every state EMOTE. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Proteus poses: brow + gaze + arm authored together ----
    Convention: he is very old and slightly stooped (small +spineLean at rest);

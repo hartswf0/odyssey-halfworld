@@ -9,7 +9,7 @@
    engine dotify pass supplies the halftone. Declares placement anchors, collision
    boundaries (node footprints), a depth layer, and alternate states.
    Atlas: OD-B10-S08 — Ocean, grove, meeting rivers, trench, return as an animated map. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* normalized chart coordinates (0..1) — anchors + draw share these.
    Laid out as a DESCENT: land on Ocean (top-left) and work down and inward to

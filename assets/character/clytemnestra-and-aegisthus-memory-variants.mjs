@@ -11,7 +11,7 @@
    draws the queen's dagger as a prop pinned to her striking hand. The engine
    POST pass supplies the halftone dots.
    Atlas scene: OD-B11-S06 — conspirators acting WITHIN Agamemnon's account. */
-import { makeFigure, INK, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI * 2;
 

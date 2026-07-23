@@ -12,7 +12,7 @@
    roast with a bright fat-cap highlight; bread + cup surface sit lighter so the
    spread separates in monochrome. Scale, grip/support/contact anchors,
    ownership and collision box declared in 0..1. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   tableTopY:0.400,     // back edge of the table surface (fraction of H)

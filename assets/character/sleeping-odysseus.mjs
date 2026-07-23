@@ -10,7 +10,7 @@
    sleeping-under-leaves variant: rocks not litter, a longer open recline, a
    supernatural glow instead of a buried body.
    Scene: OD-B12-S06 (removed leader held asleep until the act is irreversible). */
-import { makeFigure, HERO_POSES, INK, gray, clamp01 } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES, INK, gray, clamp01 } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#cdb89a", hairColor:"#241d16",       // same identity as odysseus.mjs

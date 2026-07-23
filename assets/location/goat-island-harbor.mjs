@@ -5,7 +5,7 @@
    -> fg still harbor water + beach strand. Named zones/anchors for scene placement.
    Atlas: OD-B09-S04 — hidden deep harbor, beach camp, hunting slopes, freshwater
    spring, channel lookout, ship departure point. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   channelLevel:0.34,    // far channel-mouth waterline (fraction of H)

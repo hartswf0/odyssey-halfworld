@@ -25,14 +25,14 @@
      FRONT-LEFT (low) — PISISTRATUS, Nestor's son, being shaken awake in the
               grey before dawn to make the departure.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import map from "/assets/set_piece/ambush-avoidance-map.mjs";
-import athena from "/assets/character/athena.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import pisistratus from "/assets/character/pisistratus.mjs";
+import map from "../assets/set_piece/ambush-avoidance-map.mjs";
+import athena from "../assets/character/athena.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import pisistratus from "../assets/character/pisistratus.mjs";
 
 export const scene = {
   id:"OD-B15-S01",

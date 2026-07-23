@@ -203,7 +203,7 @@ function drawTracked(g, text, track){ // letterspaced text at current origin
    rig by default; the sketch rig below (makeSketchFigure) is retained only
    as a fallback.
    ============================================================ */
-import { makeHeroFigure, POSES as HERO_POSES, POSE_IDS, POSE_ALIAS } from "/engine/figure-hero.mjs";
+import { makeHeroFigure, POSES as HERO_POSES, POSE_IDS, POSE_ALIAS } from "./figure-hero.mjs";
 export { HERO_POSES, POSE_IDS, POSE_ALIAS };
 
 export function makeFigure(spec={}){

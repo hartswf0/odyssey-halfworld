@@ -27,15 +27,15 @@
    The dangerous reef, the safe estuary, the god's mercy, the returned veil, and
    the leaf refuge all held on one clock: the whole landfall read in one still.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import coast    from "/assets/location/scherian-coast-and-river-mouth.mjs";
-import riverGod from "/assets/divine_fx/river-god.mjs";
-import shelter  from "/assets/set_piece/olive-leaf-shelter.mjs";
-import veil     from "/assets/prop/inos-veil.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import coast    from "../assets/location/scherian-coast-and-river-mouth.mjs";
+import riverGod from "../assets/divine_fx/river-god.mjs";
+import shelter  from "../assets/set_piece/olive-leaf-shelter.mjs";
+import veil     from "../assets/prop/inos-veil.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B05-S06",

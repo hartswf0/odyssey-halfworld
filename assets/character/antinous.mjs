@@ -4,7 +4,7 @@
    jabbing finger — the confident predator who reframes his own greed as a
    grievance against Penelope.
    Atlas scene: OD-B02-S02 — the confident accuser. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses: the accusatory jab + the commanding sneer stance.
    Registered additively onto the shared rig table so the runtime can drive

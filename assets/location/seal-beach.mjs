@@ -9,7 +9,7 @@
    No human characters are baked in; only placement / camera anchors.
    Atlas: OD-B04-S05 — Egyptian shore, seal herd, hiding hollows, surf boundary,
    noon arrival, grapple zone. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.30,       // sea/sky meeting line as fraction of H

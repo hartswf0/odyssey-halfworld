@@ -18,7 +18,7 @@
    pass supplies the dot-matrix halftone. Do NOT pre-dither. The network is drawn at
    LOW ink so it reads as faint recollection; only the source node + the traced
    bloodline carry a hard, crisp mark. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

@@ -9,7 +9,7 @@
    the engine dotify pass supplies the halftone. No characters are baked in;
    only placement / camera / waypoint anchors.
    Atlas: OD-B03-S06 — gates, open country, Phera lodging, wheatlands, mountain-ringed approach. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.50,        // fields/sky meeting line as fraction of H

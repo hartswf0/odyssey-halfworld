@@ -29,15 +29,15 @@
    The claim, the mockery, the lie, the seizing-and-dashing, and the sated sleep —
    all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import caveFloor from "/assets/set_piece/cave-floor-and-blood-state.mjs";
-import polyphemus from "/assets/character/polyphemus.mjs";
-import seizedSailors from "/assets/character/two-seized-sailors.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import terrifiedSailors from "/assets/ensemble/terrified-sailors.mjs";
+import caveFloor from "../assets/set_piece/cave-floor-and-blood-state.mjs";
+import polyphemus from "../assets/character/polyphemus.mjs";
+import seizedSailors from "../assets/character/two-seized-sailors.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import terrifiedSailors from "../assets/ensemble/terrified-sailors.mjs";
 
 export const scene = {
   id:"OD-B09-S07",

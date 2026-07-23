@@ -20,7 +20,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B11-S01 — sacrificial pair with handling / cut / blood-flow /
    fallen / offering states, articulated legs/head/horns, near-black fleece. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

@@ -11,7 +11,7 @@
    anchors stay meaningful as it moves. When sheathed, the blade region is
    drawn as the scabbard instead of the bare blade; the ivory hilt stays proud.
    Tone plan (atlas): blade dark-mid, scabbard mid, hilt BRIGHT ivory. */
-import { makePen, toneSolid, inkLevel, INK, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   length:600,        // full object length in source px (fits 660x880 at any angle)

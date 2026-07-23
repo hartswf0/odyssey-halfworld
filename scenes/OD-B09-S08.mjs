@@ -33,16 +33,16 @@
    The abandoned killing, the sealed dawn, the worked and hidden stake, the
    drawn lots and the offered wine with the false name — all one clock, one still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import cave    from "/assets/location/polyphemuss-cave.mjs";
-import helpers from "/assets/ensemble/four-chosen-helpers.mjs";
-import poly    from "/assets/character/polyphemus.mjs";
-import stake   from "/assets/prop/olivewood-stake.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import cup     from "/assets/prop/wine-cup.mjs";
+import cave    from "../assets/location/polyphemuss-cave.mjs";
+import helpers from "../assets/ensemble/four-chosen-helpers.mjs";
+import poly    from "../assets/character/polyphemus.mjs";
+import stake   from "../assets/prop/olivewood-stake.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import cup     from "../assets/prop/wine-cup.mjs";
 
 /* semantic pose -> full asset preview (real hero-pose ids + expression channels).
    Scene ops set pose by these keys; stage() folds the matching preview. */

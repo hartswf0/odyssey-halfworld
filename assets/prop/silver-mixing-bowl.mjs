@@ -16,7 +16,7 @@
    the foot moldings and girdle bands read the ornament in monochrome.
    Scale, grip/support/contact anchors, ownership, and collision box declared
    in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   rimHalf:0.235,     // flaring mouth half-width (fraction of W)

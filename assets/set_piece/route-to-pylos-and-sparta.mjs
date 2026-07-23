@@ -6,7 +6,7 @@
    Declares placement anchors, collision boundaries (marker zones), a depth
    layer, and alternate states (plotting / plotted / father-resolved).
    Atlas: OD-B01-S05 — diagrammatic journey projection. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* normalized map coordinates (0..1) — anchors + draw share these */
 const PT = {

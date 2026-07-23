@@ -9,7 +9,7 @@
    right divided by age (lambs / kids); the giant's raised sleeping-ledge at
    back-left; shadowy recesses in the deep corners. NO baked characters —
    anchors + zones only. Matches the reference CAVE INTERIOR + CHEESE RACK cards. */
-import { makePen, toneSolid, inkLevel, INK, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   vaultPeak:0.06,      // ceiling apex as fraction of H (high = tall vault)

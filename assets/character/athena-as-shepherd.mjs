@@ -21,8 +21,8 @@
    drawn around the figure so it reads crisp, and the divine bright-eye
    catchlight is painted last. All solid grays + hard contour — the engine's
    dotify POST pass supplies the halftone, so nothing is pre-dithered. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 // HERDSMAN shell: a slight, delicate youth. Clean-shaven and short-haired to
 // read YOUNG and quick, fresh warm skin, a short tunic with a herder's cloak

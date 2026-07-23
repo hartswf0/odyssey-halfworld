@@ -9,7 +9,7 @@
    Do NOT bake in named characters.
    Atlas OD-B04-S01 — kinsmen, brides, grooms, bard, tumblers, servants,
    stable attendants in layered celebration. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- the celebrant roles the scene requires ---- */
 const ROLES = ["kinsman","bride","groom","bard","tumbler","servant","stable"];

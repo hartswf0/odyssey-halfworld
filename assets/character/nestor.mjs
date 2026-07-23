@@ -18,8 +18,8 @@
    awe of prayer — need brow + gaze + arm authored TOGETHER. So Nestor ships
    bespoke poses into the shared POSE registry (the same module instance the
    hero figure reads) so the card and every state actually EMOTE. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Nestor poses: brow + gaze + arm authored together ----
    Convention (mirrors halitherses): negative headPitch + negative gazeY casts

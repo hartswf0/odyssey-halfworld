@@ -13,7 +13,7 @@
      TRANSFORM(the net lifts, the mesh peels off, the lovers released)
    Solid grays + hard contour only; the engine POST pass supplies the halftone —
    do NOT pre-dither. Engine primitives only. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp, smooth } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp, smooth } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

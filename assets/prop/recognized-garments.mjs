@@ -20,7 +20,7 @@
                  glint marks + metadata ticks (household ownership being read),
                  a fragment of cloth behind it for context.
    Contact / grip / mark anchors in 0..1; ownership + collision box. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   cloakFolds:3,      // slabs in the folded cloak (broad, heavy)

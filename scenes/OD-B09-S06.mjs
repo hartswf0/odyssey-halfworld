@@ -29,15 +29,15 @@
    held on one clock in a single still. Exit: the fire reveals the hidden men and
    the giant demands their identity.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import stone from "/assets/prop/cave-blocking-stone.mjs";
-import flock from "/assets/creature/cyclops-flock.mjs";
-import expedition from "/assets/ensemble/odysseuss-expedition.mjs";
-import fire from "/assets/environment/fire-and-dry-logs.mjs";
-import polyphemus from "/assets/character/polyphemus.mjs";
+import stone from "../assets/prop/cave-blocking-stone.mjs";
+import flock from "../assets/creature/cyclops-flock.mjs";
+import expedition from "../assets/ensemble/odysseuss-expedition.mjs";
+import fire from "../assets/environment/fire-and-dry-logs.mjs";
+import polyphemus from "../assets/character/polyphemus.mjs";
 
 const clamp01 = x => (x < 0 ? 0 : x > 1 ? 1 : x);
 const ramp = (t, a, b) => clamp01((t - a) / (b - a));

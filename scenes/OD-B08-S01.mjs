@@ -29,14 +29,14 @@
 
    Verify:  node harness/render-scene.mjs scenes/OD-B08-S01.mjs --t 8
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
-import ground   from "/assets/location/phaeacian-assembly-ground.mjs";
-import ship     from "/assets/vehicle/phaeacian-convoy-ship.mjs";
-import sailors  from "/assets/ensemble/phaeacian-sailors.mjs";
-import herald   from "/assets/character/athena-as-herald.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import ground   from "../assets/location/phaeacian-assembly-ground.mjs";
+import ship     from "../assets/vehicle/phaeacian-convoy-ship.mjs";
+import sailors  from "../assets/ensemble/phaeacian-sailors.mjs";
+import herald   from "../assets/character/athena-as-herald.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 const MODS = {
   "location.phaeacian-assembly-ground": ground,

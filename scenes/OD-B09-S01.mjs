@@ -27,13 +27,13 @@
    The praise, the named name, the longed-for home and the opening of the grief
    — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import feastHall from "/assets/location/phaeacian-feast-hall.mjs";
-import ithacaMemory from "/assets/divine_fx/ithaca-memory-landscape.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import feastHall from "../assets/location/phaeacian-feast-hall.mjs";
+import ithacaMemory from "../assets/divine_fx/ithaca-memory-landscape.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B09-S01",

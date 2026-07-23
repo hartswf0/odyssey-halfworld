@@ -10,7 +10,7 @@
    Atlas OD-B09-S05 — awed explorers quickly becoming anxious advocates for
    theft and withdrawal: they marvel, then gesture to snatch the cheeses and
    flee back toward the daylight of the cave-mouth. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

@@ -8,7 +8,7 @@
    the engine dotify pass supplies the halftone. States lit / embers. Declares
    placement/collision, kneel + rise-assist + seat anchors, and a depth layer.
    Atlas: OD-B07-S03 — fire, ash bed, kneeling area, rise-assist anchor, guest-seat transition. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 /* ---- normalized layout (anchors + draw share these fractions of W,H) ---- */
 const L = {

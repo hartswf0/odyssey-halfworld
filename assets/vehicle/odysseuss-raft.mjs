@@ -14,7 +14,7 @@
    Poseidon's storm wrenching the timbers apart.
    Atlas: reusable boarded object; board/ride/pilot/dock anchors, construction
    + motion states, capacity, collision, damage. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   nLogs:9,          // timbers across the raft

@@ -16,7 +16,7 @@
    grays + hard contour; the engine dotify pass supplies the halftone. The
    guest (Telemachos) is NOT baked in — a lower-left FOCUS pole marks where he
    lands; only the altar and the host are drawn. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

@@ -32,15 +32,15 @@
    The gift of meat, the exact song, the hidden weeping, the halted music and
    the asked name — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import feastHall from "/assets/location/feast-hall-at-attentive-silence.mjs";
-import trojanMemory from "/assets/divine_fx/trojan-sack-memory.mjs";
-import demodocus from "/assets/character/demodocus.mjs";
-import alcinous from "/assets/character/alcinous.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import feastHall from "../assets/location/feast-hall-at-attentive-silence.mjs";
+import trojanMemory from "../assets/divine_fx/trojan-sack-memory.mjs";
+import demodocus from "../assets/character/demodocus.mjs";
+import alcinous from "../assets/character/alcinous.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B08-S05",

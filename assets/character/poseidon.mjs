@@ -12,8 +12,8 @@
    a hard-knit brow + a bared open-mouthed roar + the trident arm. The trident
    and churning sea are drawn as a props layer OVER the figure, anchored to the
    grip hand the rig reports, so they follow whatever pose is driven. */
-import { makeFigure, gray, shade, INK, LW } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, gray, shade, INK, LW } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Poseidon poses: brow + jaw + trident arm authored together ----
    Registered into the shared rig registry (the same module instance the hero

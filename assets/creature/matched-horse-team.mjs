@@ -10,7 +10,7 @@
    arch and head carriage. Drawn in SOLID grays + hard contour; the engine POST
    pass supplies the dot-matrix halftone.
    Atlas: OD-B03-S06 — paired full-maned horses with harness; walk/trot/gallop/halt/fatigue. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const norm = (x,y)=>{ const n=Math.hypot(x,y)||1; return {x:x/n,y:y/n}; };

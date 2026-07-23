@@ -28,14 +28,14 @@
    The named land, the transformation, the liar and the goddess who out-knows him —
    all held on one clock in a single still.
    ============================================================ */
-import { placeInstance, clamp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import ithaca from "/assets/environment/ithaca-revealed.mjs";
-import transform from "/assets/divine_fx/shepherd-to-goddess-transformation.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import athena from "/assets/character/athena.mjs";
+import ithaca from "../assets/environment/ithaca-revealed.mjs";
+import transform from "../assets/divine_fx/shepherd-to-goddess-transformation.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import athena from "../assets/character/athena.mjs";
 
 const clamp01 = x => clamp(x, 0, 1);
 

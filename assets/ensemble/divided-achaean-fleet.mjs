@@ -11,7 +11,7 @@
    and a turnBack amount. Drawn in SOLID grays + hard contour into the
    offscreen ctx; the engine dotify POST pass supplies the halftone. Do NOT
    bake named characters/heroes in — these are anonymous hulls. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

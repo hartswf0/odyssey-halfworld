@@ -12,7 +12,7 @@
    (the seduced nurse is a scene actor, not part of this ensemble).
    Atlas OD-B15-S04 — Phoenician merchants: seduction, secret loading of goods
    and a child, the voyage, the slave-sale. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

@@ -15,7 +15,7 @@
    Solid grays + contour into the offscreen ctx; the engine POST pass supplies
    the halftone (do NOT pre-dither). Ghost strata are LOW ink with thin tonal
    contour so they stay faint; only the song source carries a hard, crisp mark. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

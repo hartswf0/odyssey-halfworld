@@ -9,7 +9,7 @@
    source (west edge) / direction (eastward) / intensity / affected region.
    Solid grays + hard contour only — the engine POST pass supplies the halftone
    (do NOT pre-dither). */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 

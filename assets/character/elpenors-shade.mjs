@@ -8,7 +8,7 @@
    face — newly dead, confused but specific, begging for burial and memory.
    Built on the engine hero rig; registers bespoke reaching/drift poses.
    Atlas: OD-B11-S02 (the first shade at the pit — pleads for completion). */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses (additive; shared table). Distinct ids so they never
    collide with the living Elpenor's tumble poses. ---- */

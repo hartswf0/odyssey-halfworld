@@ -19,8 +19,8 @@
    bespoke poses into the shared POSE registry the hero figure reads, so the card
    and every state genuinely EMOTE. The circlet is drawn on top in solid grays +
    hard contour so the engine POST pass halftones it with the rest of the figure. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Aeolus poses: brow + gaze + arm authored together ----
    Convention (mirrors alcinous): armRUpper near -1.0 offers the right hand

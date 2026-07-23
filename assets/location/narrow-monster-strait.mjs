@@ -11,7 +11,7 @@
    in SOLID grays + hard black contour with engine primitives; the engine POST
    pass supplies the dot-matrix halftone. Do NOT pre-dither. The whirlpool swirl
    and the spray breathe over state.t. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

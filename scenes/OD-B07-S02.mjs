@@ -27,15 +27,15 @@
    The dazzling metalwork, the labor within, the fruit without, and the guarded
    threshold he crosses — all held on one clock, the whole arrival in one still.
    ============================================================ */
-import { placeInstance, clamp01 } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01 } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace   from "/assets/location/alcinouss-palace.mjs";
-import orchard  from "/assets/location/phaeacian-orchard-and-garden.mjs";
-import dogs     from "/assets/creature/gold-and-silver-guardian-dogs.mjs";
-import women    from "/assets/ensemble/palace-working-women.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import palace   from "../assets/location/alcinouss-palace.mjs";
+import orchard  from "../assets/location/phaeacian-orchard-and-garden.mjs";
+import dogs     from "../assets/creature/gold-and-silver-guardian-dogs.mjs";
+import women    from "../assets/ensemble/palace-working-women.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B07-S02",

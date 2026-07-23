@@ -7,7 +7,7 @@
    the head of the ground, and a colonnaded PALACE CONNECTION with its road on
    the left. Do NOT bake characters in.
    Atlas: OD-B08-S01 — the Phaeacians assemble; a ship is readied for Odysseus. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   tiers:4,               // rings of rising public seating at the back of the bowl

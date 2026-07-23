@@ -16,7 +16,7 @@
    The inventory list is the single source of truth for the count; each state
    places the SAME items so the array stays consistent. Item / count / stow
    contact anchors, ownership, and a collision box declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* the countable array — the ONE source of truth for what is being tallied.
    Each entry is one gift with a type + a size (fraction of W/H). */

@@ -13,8 +13,8 @@
    Atlas:
      OD-B02-S05 — familiar elder form carrying divine confidence + command.
      OD-B02-S07 — secret organizer, pilot, source of supernatural propulsion. */
-import { makeFigure, INK, ACCENT } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Mentor poses: brow + gaze + arm authored together ----
    The hero rig reads expressive facial channels ONLY from the composed pose

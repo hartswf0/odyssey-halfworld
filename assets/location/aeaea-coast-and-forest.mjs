@@ -9,7 +9,7 @@
    with a thread of smoke rising. NO baked characters — anchors + zones only.
    Atlas: ship beach · rest camp · high lookout · stag trail · dense forest path ·
    distant palace smoke · empty navigable set. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skyLevel:0.24,        // sky / distant-land haze line as fraction of H

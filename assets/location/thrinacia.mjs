@@ -6,7 +6,7 @@
    place -> fg landing cove + beach camp. Named zones/anchors for scene placement.
    Atlas: OD-B12-S05 — sunlit island, landing cove, sacred pastures, separate
    cattle and sheep herds, prayer place, camp, storm-blocked sea beyond. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   seaLevel:0.27,       // far storm-sea horizon (fraction of H)

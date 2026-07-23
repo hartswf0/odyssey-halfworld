@@ -21,15 +21,15 @@
    night-unravel, then the shroud forced to completion (beat 3) — while Antinous
    turns from the accusing jab (beats 1-2) to the flat command (beat 4). */
 
-import ground   from "/assets/location/ithacan-assembly-ground.mjs";
-import memory   from "/assets/divine_fx/torchlit-night-memory.mjs";
-import shroud   from "/assets/prop/laertess-shroud-and-loom.mjs";
-import penelope from "/assets/character/penelope-at-the-loom.mjs";
-import antinous from "/assets/character/antinous.mjs";
-import telem    from "/assets/character/telemachus.mjs";
+import ground   from "../assets/location/ithacan-assembly-ground.mjs";
+import memory   from "../assets/divine_fx/torchlit-night-memory.mjs";
+import shroud   from "../assets/prop/laertess-shroud-and-loom.mjs";
+import penelope from "../assets/character/penelope-at-the-loom.mjs";
+import antinous from "../assets/character/antinous.mjs";
+import telem    from "../assets/character/telemachus.mjs";
 
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 export const scene = {
   id:"OD-B02-S02",

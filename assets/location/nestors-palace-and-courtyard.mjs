@@ -10,7 +10,7 @@
    baked in.
    Atlas: OD-B03-S05 — guest sleeping / bathing / sacrifice / chariot-prep /
    departure zones of a royal compound. */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.68,     // courtyard ground horizon as fraction of H

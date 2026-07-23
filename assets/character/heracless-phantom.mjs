@@ -24,7 +24,7 @@
    held threat: draw -> loom -> the words spoken from the dead -> the level
    hunter's glare. The bow + arrow are a bespoke prop anchored to the body so
    they read cleanly across poses. */
-import { makeFigure, HERO_POSES, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES, INK } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke Heracles-phantom poses (additive; shared table). Distinct ids
    so they never collide with any other performer's poses. Convention: the

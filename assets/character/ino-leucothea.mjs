@@ -20,8 +20,8 @@
        offering hand (read from the rig's returned anchor), her giving gesture
    The signature beats need brow/jaw/reach combos the base poses don't carry, so
    they are registered as bespoke poses on the shared POSES table. */
-import { makeFigure, INK, gray, shade } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray, shade } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#e7ddca", hairColor:"#2a251d",

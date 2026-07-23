@@ -26,8 +26,8 @@
    head + arm authored TOGETHER. So Echeneus ships bespoke poses into the shared
    POSE registry (the same module instance the hero figure reads) so the card and
    every state actually EMOTE. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Echeneus poses: spine + head + staff-grip + gesture together ----
    Convention (mirrors nestor/aegyptius): the LEFT arm hangs near-vertical to

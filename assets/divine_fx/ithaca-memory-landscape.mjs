@@ -17,7 +17,7 @@
    so it reads as land; every other stratum is drawn at LOW ink so the vista stays
    "faintly recalled" — never a black blob, never empty. A translucent white wash
    (`mist`) whitens the whole field to push it back into memory. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

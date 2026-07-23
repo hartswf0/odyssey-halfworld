@@ -9,7 +9,7 @@
    exposed so scenes can make him sing, falter, track Penelope, and stop.
    The lyre is a capability — drawn when state.lyre !== false (default), and
    stowed for the back turn. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#cdb999", hairColor:"#6d6a62",        // greying court singer

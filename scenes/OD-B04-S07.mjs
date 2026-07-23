@@ -25,15 +25,15 @@
    the plot laid at sea on the left, its consequence and the divine comfort in
    the queen's chamber on the right.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import ambushCrew from "/assets/ensemble/suitor-ambush-crew.mjs";
-import phantom    from "/assets/divine_fx/athena-as-iphthime-phantom.mjs";
-import penelope   from "/assets/character/penelope.mjs";
-import medon      from "/assets/character/medon.mjs";
-import antinous   from "/assets/character/antinous.mjs";
+import ambushCrew from "../assets/ensemble/suitor-ambush-crew.mjs";
+import phantom    from "../assets/divine_fx/athena-as-iphthime-phantom.mjs";
+import penelope   from "../assets/character/penelope.mjs";
+import medon      from "../assets/character/medon.mjs";
+import antinous   from "../assets/character/antinous.mjs";
 
 export const scene = {
   id:"OD-B04-S07",

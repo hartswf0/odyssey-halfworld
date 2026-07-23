@@ -8,7 +8,7 @@
    Drawn in SOLID grays + hard contour into the offscreen ctx; the engine dotify pass
    supplies the halftone. No characters are baked in; only placement / camera anchors.
    Atlas: OD-B15-S05 — rural shore, disembark point, farm path, townward ship-lane, no-suitor visibility. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.30,        // sea/sky meeting line as fraction of H

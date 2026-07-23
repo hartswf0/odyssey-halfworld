@@ -9,7 +9,7 @@
    supplies the halftone. No characters are baked in; only placement / camera
    anchors + walkable zones.
    Atlas: OD-B12-S01 — pyre area, burial mound + planted oar, ship landing, feast, forest-palace route. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skyLevel:0.16,       // sky/forest line as fraction of H

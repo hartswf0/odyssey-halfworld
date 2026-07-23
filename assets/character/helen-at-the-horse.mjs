@@ -9,8 +9,8 @@
    Built on the engine hero rig (identity = fair skin, long hair, dress) with
    a custom gold diadem, a long dress skirt and hair drape, all painted in
    solid grays so the engine's dotify POST pass supplies the halftone. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#e7e0d2", hairColor:"#2b2118",

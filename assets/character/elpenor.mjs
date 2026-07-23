@@ -6,7 +6,7 @@
    stature, beardless, tousled hair, a plain sailor's tunic, bare legs.
    Registers a few bespoke off-balance / drift poses onto the shared table.
    Atlas: OD-B10-S08 (sleep -> startled rise -> misstep -> fall -> ghost). */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses for the tumble sequence (additive; shared table) ----
    Each is {id,label,group,n,opt}; composeStatic reads n + opt.action/hands. */

@@ -28,7 +28,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B14-S01 — managed herd, pen grouping, feeding, selected-slaughter,
    escape prevention, night states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

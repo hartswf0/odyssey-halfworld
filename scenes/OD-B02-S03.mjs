@@ -23,14 +23,14 @@
    Exit: Eurymachus mocks the prophecy and threatens the old seer.
    Verify: node harness/render-scene.mjs scenes/OD-B02-S03.mjs --t 8
    ============================================================ */
-import ground      from "/assets/location/ithacan-assembly-ground.mjs";
-import eagles      from "/assets/creature/two-omen-eagles.mjs";
-import crowd       from "/assets/ensemble/assembly-reaction-wave.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
-import halitherses from "/assets/character/halitherses.mjs";
-import eurymachus  from "/assets/character/eurymachus.mjs";
-import { placeInstance, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import ground      from "../assets/location/ithacan-assembly-ground.mjs";
+import eagles      from "../assets/creature/two-omen-eagles.mjs";
+import crowd       from "../assets/ensemble/assembly-reaction-wave.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
+import halitherses from "../assets/character/halitherses.mjs";
+import eurymachus  from "../assets/character/eurymachus.mjs";
+import { placeInstance, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 export const scene = {
   id:"OD-B02-S03",

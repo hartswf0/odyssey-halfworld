@@ -24,15 +24,15 @@
    The palace supplies the whole set in one navigable interior; the household
    fills it with the double-wedding feast; the host receives the two princes.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace      from "/assets/location/menelauss-palace.mjs";
-import household   from "/assets/ensemble/wedding-household.mjs";
-import menelaus    from "/assets/character/menelaus.mjs";
-import pisistratus from "/assets/character/pisistratus.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
+import palace      from "../assets/location/menelauss-palace.mjs";
+import household   from "../assets/ensemble/wedding-household.mjs";
+import menelaus    from "../assets/character/menelaus.mjs";
+import pisistratus from "../assets/character/pisistratus.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
 
 export const scene = {
   id:"OD-B04-S01",

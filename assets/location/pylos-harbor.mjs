@@ -8,7 +8,7 @@
    NO baked characters.
    Atlas: OD-B15-S03 — ship beach, chariot arrival, crew staging, farewell edge,
    open-sea route. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skyLevel:   0.14,   // sky band bottom, fraction of H

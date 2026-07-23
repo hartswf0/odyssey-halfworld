@@ -16,7 +16,7 @@
    dominates, deepen the hush around it, or fall silent.
    States: chorus / focusing / named / silent.
    Atlas: addressable emitter — position, intensity, rhythm, start/stop. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 

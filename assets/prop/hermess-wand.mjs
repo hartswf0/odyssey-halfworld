@@ -12,7 +12,7 @@
    light rings + radiating spokes) blooms at the finial in sleep/wake/travel.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   length:640,      // wand length in source px (fits 660x880 at any angle)

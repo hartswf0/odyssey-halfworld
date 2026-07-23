@@ -19,7 +19,7 @@
    thread dangles from the frayed fell.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   postW:16,             // fine turned post (much thinner than the weighted loom's)

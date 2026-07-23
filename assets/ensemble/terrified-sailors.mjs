@@ -9,7 +9,7 @@
    ranks). Drawn in SOLID grays + hard contour; the engine dotify pass supplies
    the halftone. Neither Zeus nor the exit is baked as a character — Zeus is a
    small diagrammatic bolt overhead, the exit a sealed diagram at the side. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

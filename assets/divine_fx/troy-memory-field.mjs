@@ -14,7 +14,7 @@
    engine POST pass supplies the halftone (do NOT pre-dither). Ghost strata are
    drawn at LOW ink levels with thin, tonal contour so they stay faint; only the
    voice source carries a hard, crisp mark to anchor the diagram. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

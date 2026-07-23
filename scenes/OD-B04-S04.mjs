@@ -23,15 +23,15 @@
    The interior holds the men; Helen's mimicry leaks through the seam; the
    voice-diagram walks the temptation around the hull; Odysseus holds the line.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import interior from "/assets/location/wooden-horse-interior.mjs";
-import warriors from "/assets/ensemble/hidden-greek-warriors.mjs";
-import helen    from "/assets/character/helen-at-the-horse.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import voices   from "/assets/sound_source/imitated-wives-voices.mjs";
+import interior from "../assets/location/wooden-horse-interior.mjs";
+import warriors from "../assets/ensemble/hidden-greek-warriors.mjs";
+import helen    from "../assets/character/helen-at-the-horse.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import voices   from "../assets/sound_source/imitated-wives-voices.mjs";
 
 export const scene = {
   id:"OD-B04-S04",

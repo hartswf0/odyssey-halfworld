@@ -20,8 +20,8 @@
    the hero figure reads, so the card and every state genuinely EMOTE. A tall
    crown and a sceptre are drawn on top afterward in solid grays + hard contour
    so the engine POST pass halftones them with the rest of the figure. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Alcinous poses: brow + gaze + arm authored together ----
    Convention (mirrors menelaus/nestor): armRUpper near -1.2 offers the right

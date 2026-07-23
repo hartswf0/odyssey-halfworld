@@ -6,7 +6,7 @@
    Atlas OD-B10-S05 — a narrow transitional path; fg walkable path / mid trees
    framing it / bg treeline; walkable path, an arrival anchor, thresholds at
    both ends (down to the ship camp, up to the palace). */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.30,        // treeline / vanishing band as fraction of H

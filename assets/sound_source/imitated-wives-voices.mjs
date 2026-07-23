@@ -16,7 +16,7 @@
    voice around, raise/lower it, or fall silent. States: calling / circling /
    listening / stopped.
    Atlas: addressable emitter — position, intensity, rhythm, start/stop. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const params = {

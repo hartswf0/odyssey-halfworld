@@ -17,7 +17,7 @@
    registry, each fusing a grave brow (raised AND knit), a blind lidded
    stare, an open prophesying jaw, a staff-gripping right hand and a solemn
    pointing/raised left arm. That is what lets the card actually EMOTE. */
-import { makeFigure, HERO_POSES, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES, INK } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke Tiresias poses (additive; shared table) ----
    Conventions: right hand grips the staff (armR reaches to the right side);

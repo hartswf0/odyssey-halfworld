@@ -19,7 +19,7 @@
    halftone (do NOT pre-dither). Vignettes are drawn at LOW ink so they read as
    invented recollection; only the source voice + the outer narrated frame carry a
    hard, crisp mark. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const clamp01 = x => clamp(x,0,1);

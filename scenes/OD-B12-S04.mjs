@@ -29,15 +29,15 @@
    The two monsters, the hero, the six taken men and the narrow lane between —
    all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import strait from "/assets/location/narrow-monster-strait.mjs";
-import charybdis from "/assets/environment/charybdis.mjs";
-import scylla from "/assets/creature/scylla.mjs";
-import sailors from "/assets/ensemble/six-seized-sailors.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import strait from "../assets/location/narrow-monster-strait.mjs";
+import charybdis from "../assets/environment/charybdis.mjs";
+import scylla from "../assets/creature/scylla.mjs";
+import sailors from "../assets/ensemble/six-seized-sailors.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 const clamp01f = x => (x < 0 ? 0 : x > 1 ? 1 : x);
 

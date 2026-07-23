@@ -34,16 +34,16 @@
    The removed leader, the persuader, the famished rite, the crawling omen, and
    the grievance climbing to Zeus — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import thrinacia from "/assets/location/thrinacia.mjs";
-import complaint from "/assets/divine_fx/helioss-complaint.mjs";
-import sleeper   from "/assets/character/sleeping-odysseus.mjs";
-import eurylochus from "/assets/character/eurylochus.mjs";
-import crew      from "/assets/ensemble/crew-sacrificial-group.mjs";
-import cattle    from "/assets/creature/sacred-cattle.mjs";
+import thrinacia from "../assets/location/thrinacia.mjs";
+import complaint from "../assets/divine_fx/helioss-complaint.mjs";
+import sleeper   from "../assets/character/sleeping-odysseus.mjs";
+import eurylochus from "../assets/character/eurylochus.mjs";
+import crew      from "../assets/ensemble/crew-sacrificial-group.mjs";
+import cattle    from "../assets/creature/sacred-cattle.mjs";
 
 const clamp01 = x => x<0?0:(x>1?1:x);
 

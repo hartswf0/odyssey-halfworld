@@ -18,8 +18,8 @@
    ornamented gown skirt (over the legs), and a tall pointed crown (in front,
    tracking the rig head anchors). All solid grays so the engine's dotify POST
    pass supplies the halftone — no pre-dithering here. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#e6ddce", hairColor:"#7d766c",       // mature dignified skin, iron-gray hair

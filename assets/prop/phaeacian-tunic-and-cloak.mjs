@@ -18,7 +18,7 @@
      FOLDED (given, neat) / OFFERED (held out) / WORN (dressed) /
      WET (sea-soaked, clinging + dripping) / RETURNED (folded back, continuity).
    Contact / grip / pin anchors in 0..1; ownership + collision box. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   cloakFolds:3,      // slabs in the folded cloak (broad, heavy)

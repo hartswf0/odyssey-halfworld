@@ -17,12 +17,12 @@
      telemachus       character.telemachus                   (listening)
      mentes           character.athena-as-mentes             (counsel->command)
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
-import Mentes from "/assets/character/athena-as-mentes.mjs";
-import Telemachus from "/assets/character/telemachus.mjs";
-import ImaginedOdysseus from "/assets/divine_fx/imagined-armed-odysseus.mjs";
-import RouteMap from "/assets/set_piece/route-to-pylos-and-sparta.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
+import Mentes from "../assets/character/athena-as-mentes.mjs";
+import Telemachus from "../assets/character/telemachus.mjs";
+import ImaginedOdysseus from "../assets/divine_fx/imagined-armed-odysseus.mjs";
+import RouteMap from "../assets/set_piece/route-to-pylos-and-sparta.mjs";
 
 // instance -> asset module (so stage() can look each cast member up)
 const MOD = {

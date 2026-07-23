@@ -13,7 +13,7 @@
    CART-LOADED (folded stacks packed onto the mule cart bed).
    Each template exposes tone/wet/fold knobs so the same body draws every
    member. Contact / grip / load anchors in 0..1; ownership + collision box. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   stacks:2,          // folded stacks in the sorted layout

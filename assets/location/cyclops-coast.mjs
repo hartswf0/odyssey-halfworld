@@ -8,7 +8,7 @@
    the habitation. NO baked characters — anchors + zones only.
    Atlas: dark cave opening · high fields · smoke columns · flock paths ·
    isolated habitation · empty navigable set. */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.26,       // sky / distant meeting line as fraction of H

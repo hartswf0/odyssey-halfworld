@@ -15,7 +15,7 @@
    pouch hangs by gravity in screen space from a hang point on the shaft.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   length:660,        // staff length in source px (fits 660x880 at any angle)

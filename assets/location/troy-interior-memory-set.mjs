@@ -8,7 +8,7 @@
 
    Contents the scene needs: the great GATE, receding ALLEYS, a BATHING CHAMBER,
    a HIDDEN-CONVERSATION nook, and an ESCAPE ROUTE (a low postern out of the wall). */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   wallLevel:0.30,      // top of the back city wall (fraction of H)

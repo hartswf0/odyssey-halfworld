@@ -19,15 +19,15 @@
      assembly ground set  ->  dispersing assembly (back band)  ->
      Telemachus (left) -> Mentor (center, the rebuke) -> Leocritus (right).
    ============================================================ */
-import { placeInstance, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import ground     from "/assets/location/ithacan-assembly-ground.mjs";
-import assembly   from "/assets/ensemble/dispersing-assembly.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import mentor     from "/assets/character/mentor.mjs";
-import leocritus  from "/assets/character/leocritus.mjs";
+import ground     from "../assets/location/ithacan-assembly-ground.mjs";
+import assembly   from "../assets/ensemble/dispersing-assembly.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import mentor     from "../assets/character/mentor.mjs";
+import leocritus  from "../assets/character/leocritus.mjs";
 
 export const scene = {
   id:"OD-B02-S04",

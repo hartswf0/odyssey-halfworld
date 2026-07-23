@@ -10,7 +10,7 @@
    placement / camera / waypoint anchors.
    Atlas: OD-B06-S04 — wagon-lead lane, follower-distance lane, Athena grove
    waiting point, walls, harbor, palace direction. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.44,        // city/sky meeting line as fraction of H

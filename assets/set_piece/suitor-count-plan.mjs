@@ -11,7 +11,7 @@
    (survey / routes lit / strike).
    Atlas: OD-B13-S04 — operational projection of palace population, loyalists,
    weapons, and approach routes. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- normalized plan geometry (0..1); anchors + draw share these ----
    The chart reads BOTTOM -> TOP: the gate is low, the great hall is the tall

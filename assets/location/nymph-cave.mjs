@@ -5,7 +5,7 @@
    door-stone slot, and placement/camera anchors. No baked characters.
    Atlas: OD-B13-S04 — storage recesses, stone weaving-benches, rows of water
    jars, treasure cache, sealable door. */
-import { makePen, toneSolid, inkLevel, INK, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.70,     // cave floor horizon as fraction of H

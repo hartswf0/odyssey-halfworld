@@ -14,7 +14,7 @@
    contour into the offscreen ctx; the engine dotify POST pass supplies the
    halftone. Do NOT bake named characters in — each member is an addressable,
    identical-template mourner. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

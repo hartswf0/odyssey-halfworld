@@ -20,15 +20,15 @@
    The road supplies the whole overland journey in one navigable set; the team
    pulls the chariot along it; the two young princes ride it out toward Sparta.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import road        from "/assets/location/pylos-to-sparta-road.mjs";
-import horses      from "/assets/creature/matched-horse-team.mjs";
-import chariot     from "/assets/vehicle/pylian-chariot.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
-import pisistratus from "/assets/character/pisistratus.mjs";
+import road        from "../assets/location/pylos-to-sparta-road.mjs";
+import horses      from "../assets/creature/matched-horse-team.mjs";
+import chariot     from "../assets/vehicle/pylian-chariot.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
+import pisistratus from "../assets/character/pisistratus.mjs";
 
 export const scene = {
   id:"OD-B03-S06",

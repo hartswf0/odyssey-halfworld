@@ -23,15 +23,15 @@
    the nine divisions' crowd; the two named figures play the hesitation, the
    welcome, the prayer and the passing of the golden cup that ends the scene.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import beach      from "/assets/location/pylos-sacrificial-beach.mjs";
-import bulls      from "/assets/creature/black-bulls-and-altar-fires.mjs";
-import host       from "/assets/ensemble/nestor-and-pylian-host.mjs";
-import athena     from "/assets/character/athena-as-mentor.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
+import beach      from "../assets/location/pylos-sacrificial-beach.mjs";
+import bulls      from "../assets/creature/black-bulls-and-altar-fires.mjs";
+import host       from "../assets/ensemble/nestor-and-pylian-host.mjs";
+import athena     from "../assets/character/athena-as-mentor.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
 
 export const scene = {
   id:"OD-B03-S01",

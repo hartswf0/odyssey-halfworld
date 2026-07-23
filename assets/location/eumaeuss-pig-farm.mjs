@@ -6,7 +6,7 @@
    Do NOT bake characters in.
    Atlas: OD-B14-S01 — stockade yard, stone hut, pig pens, sleeping lean-tos,
    spring path, gate, dog range, fire, visitor's seat. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.46,      // hill crest / sky-ground split as fraction of H

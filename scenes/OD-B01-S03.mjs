@@ -20,14 +20,14 @@
    instance shares a single halftone. Deterministic (no Date/random).
    Verify:  node harness/render-scene.mjs scenes/OD-B01-S03.mjs --t 8
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
-import loc         from "/assets/location/odysseuss-palace-threshold-and-hall.mjs";
-import athena      from "/assets/character/athena-as-mentes.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
-import suitors     from "/assets/ensemble/the-suitors.mjs";
-import servants    from "/assets/ensemble/palace-servants.mjs";
+import loc         from "../assets/location/odysseuss-palace-threshold-and-hall.mjs";
+import athena      from "../assets/character/athena-as-mentes.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
+import suitors     from "../assets/ensemble/the-suitors.mjs";
+import servants    from "../assets/ensemble/palace-servants.mjs";
 
 const MODS = {
   "location.odysseuss-palace-threshold-and-hall": loc,

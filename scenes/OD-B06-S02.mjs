@@ -20,14 +20,14 @@
    the maids' shout carry back to the hollow where Odysseus stirs and lifts to
    listen. All four beats run on one clock. */
 
-import pools    from "/assets/location/river-washing-pools.mjs";
-import odysseus from "/assets/character/sleeping-odysseus-under-leaves.mjs";
-import maids    from "/assets/ensemble/nausicaas-maids.mjs";
-import nausicaa from "/assets/character/nausicaa.mjs";
-import ball     from "/assets/prop/laundry-ball.mjs";
+import pools    from "../assets/location/river-washing-pools.mjs";
+import odysseus from "../assets/character/sleeping-odysseus-under-leaves.mjs";
+import maids    from "../assets/ensemble/nausicaas-maids.mjs";
+import nausicaa from "../assets/character/nausicaa.mjs";
+import ball     from "../assets/prop/laundry-ball.mjs";
 
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 const clamp01 = x => x<0?0:(x>1?1:x);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

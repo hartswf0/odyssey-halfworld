@@ -10,7 +10,7 @@
    dotify POST pass supplies the halftone. Do NOT bake named characters in.
    Atlas OD-B08-S01 — fifty-two specialists launching, masting, provisioning,
    and inspecting a fast convoy ship. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

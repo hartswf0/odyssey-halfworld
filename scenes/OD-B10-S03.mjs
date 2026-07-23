@@ -28,15 +28,15 @@
    The landfall, the lookout and the stag, the two groups and the lots, and the
    scouting party's departure — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import aeaea from "/assets/location/aeaea-coast-and-forest.mjs";
-import greatStag from "/assets/creature/great-stag.mjs";
-import eurylochus from "/assets/character/eurylochus.mjs";
-import survivingCrew from "/assets/ensemble/surviving-crew.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import aeaea from "../assets/location/aeaea-coast-and-forest.mjs";
+import greatStag from "../assets/creature/great-stag.mjs";
+import eurylochus from "../assets/character/eurylochus.mjs";
+import survivingCrew from "../assets/ensemble/surviving-crew.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B10-S03",

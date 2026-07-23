@@ -11,7 +11,7 @@
    board and rings its grip anchor, so the runtime can pick a single tool up.
    Every tool declares a grip anchor in 0..1 space; the board declares its
    collision bounds + ownership. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   boardX0:44, boardY0:56, boardX1:616, boardY1:824,  // tool-board plank rect (src px)

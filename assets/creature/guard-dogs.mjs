@@ -10,7 +10,7 @@
    contour; the engine POST pass supplies the dot-matrix halftone.
    Atlas: OD-B14-S01 — four aggressive dogs detect, charge, surround,
    scatter at a thrown stone, are recalled, and settle. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- flat tone levels (POST turns them into dots) ---- */
 const T_BODY    = ()=> toneSolid(inkLevel(4));

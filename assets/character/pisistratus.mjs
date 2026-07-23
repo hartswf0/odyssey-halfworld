@@ -3,7 +3,7 @@
    driving, the hosting, and strikes up an easy peer bond on the ride south.
    Youthful and beardless where Odysseus is bearded and Telemachus dark-haired:
    sun-warmed skin, short sandy hair, a bright open host's face. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 // A bespoke pose: the reins-in-hand charioteer — both arms forward and low,
 // body pitched into the drive, chin up, watching the road. Registered

@@ -23,14 +23,14 @@
           an open vowing palm as he promises the rites once he returns from the dead.
    The recognition, the plea, the named oar and the promise — all on one clock.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import pit from "/assets/set_piece/blood-pit-boundary.mjs";
-import oar from "/assets/prop/elpenors-oar.mjs";
-import shade from "/assets/character/elpenors-shade.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import pit from "../assets/set_piece/blood-pit-boundary.mjs";
+import oar from "../assets/prop/elpenors-oar.mjs";
+import shade from "../assets/character/elpenors-shade.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B11-S02",

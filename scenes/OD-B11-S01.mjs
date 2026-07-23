@@ -27,15 +27,15 @@
    Landfall, the dug pit and poured blood, the crying crowd of the dead, and
    the drawn sword that waits for the prophet — all on one clock in one still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import shore   from "/assets/location/cimmerian-shore-and-underworld-pit.mjs";
-import shades  from "/assets/ensemble/gathering-shades.mjs";
-import crew    from "/assets/ensemble/crew-ritual-assistants.mjs";
-import sheep   from "/assets/creature/black-ewe-and-ram.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import shore   from "../assets/location/cimmerian-shore-and-underworld-pit.mjs";
+import shades  from "../assets/ensemble/gathering-shades.mjs";
+import crew    from "../assets/ensemble/crew-ritual-assistants.mjs";
+import sheep   from "../assets/creature/black-ewe-and-ram.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B11-S01",

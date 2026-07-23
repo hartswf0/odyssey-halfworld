@@ -20,15 +20,15 @@
        -> Telemachus, mid-ground, wishing then doubting
        -> Athena as Mentor, near-right, rebuking his despair (exit state).
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace      from "/assets/location/nestors-palace-and-courtyard.mjs";
-import memory      from "/assets/divine_fx/orestes-and-aegisthus-memory-tableau.mjs";
-import nestor      from "/assets/character/nestor.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
-import athena      from "/assets/character/athena-as-mentor.mjs";
+import palace      from "../assets/location/nestors-palace-and-courtyard.mjs";
+import memory      from "../assets/divine_fx/orestes-and-aegisthus-memory-tableau.mjs";
+import nestor      from "../assets/character/nestor.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
+import athena      from "../assets/character/athena-as-mentor.mjs";
 
 export const scene = {
   id:"OD-B03-S04",

@@ -9,7 +9,7 @@
    (recumbent, legs folded, the rite complete). Drawn in SOLID grays + hard
    contour; the engine POST pass supplies the dot-matrix halftone.
    Atlas: OD-B03-S05 — heifer with horn-gilding, procession / sacrifice / feast. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- tone levels (flat grays; POST turns them into dots) ---- */
 const T_HIDE    = ()=> toneSolid(inkLevel(4));

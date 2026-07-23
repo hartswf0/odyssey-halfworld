@@ -18,7 +18,7 @@
    heavy arms FOLDED shut or hanging in fists, jaw clamped SHUT (he never
    speaks), and a stony resentful brow (knit hard) wherever a sliver of face
    shows. That closed, turned-away body IS the performance. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke Ajax poses (additive; shared table) ----
    Conventions: he never gestures OUT — the arms fold in (crossed) or hang in

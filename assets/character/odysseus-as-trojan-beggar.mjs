@@ -7,7 +7,7 @@
    a wreck of a posture CONTAINING watchful observation and coiled force.
    Atlas performance: OD-B04-S03. Shares Odysseus' identity params so the
    two modules render as the same man in two skins. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses: register additively onto the shared rig table ----
    The library has no "hunched beggar", so we author two: a furtive folded

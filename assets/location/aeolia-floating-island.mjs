@@ -5,7 +5,7 @@
    alternate states. No baked characters.
    Atlas: OD-B10-S01 — bronze-walled island: palace, family feast hall, harbor,
    wind-storage chamber, floating over a sea boundary edge. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   deckBack:0.50,     // far edge of the top surface (fraction of H)

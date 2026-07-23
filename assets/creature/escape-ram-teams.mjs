@@ -17,7 +17,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B09-S10 — triplets of rams, rope harness, suspended human, slow exit,
    run, release, herd. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

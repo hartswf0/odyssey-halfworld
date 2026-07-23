@@ -28,15 +28,15 @@
    The nine-day wind, the landing, the drugged forgetting and the forced return
    — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance, clamp, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import shore from "/assets/location/lotus-shore-and-meadow.mjs";
-import lotusEaters from "/assets/ensemble/lotus-eaters.mjs";
-import lotusFruit from "/assets/prop/lotus-fruit.mjs";
-import threeScouts from "/assets/ensemble/three-scouts.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import shore from "../assets/location/lotus-shore-and-meadow.mjs";
+import lotusEaters from "../assets/ensemble/lotus-eaters.mjs";
+import lotusFruit from "../assets/prop/lotus-fruit.mjs";
+import threeScouts from "../assets/ensemble/three-scouts.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B09-S03",

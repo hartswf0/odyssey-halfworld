@@ -16,7 +16,7 @@
    hard contour; the engine dotify pass supplies the halftone. The Achaean crews
    are NOT baked in as reusable characters — only the harbour they are trapped
    in, a few tiny hulls, and the speared victim-tokens the attack produces. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

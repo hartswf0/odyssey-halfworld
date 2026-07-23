@@ -11,8 +11,8 @@
    Built on the engine hero rig with the SAME custom veil hood, hair drape and
    long dress as character.penelope, plus a procedural upright loom drawn in
    solid grays so the engine's dotify POST pass supplies the halftone. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#e0d9cb", hairColor:"#33291f",

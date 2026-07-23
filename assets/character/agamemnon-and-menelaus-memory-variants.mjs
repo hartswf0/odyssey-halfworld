@@ -5,7 +5,7 @@
    confrontational gestures before a drunken army at sunset.
    Composes the hero rig TWICE, one figure per half of the card.
    Atlas scene: OD-B03-S03 — brothers arguing before a drunken army at sunset. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
 
 // Agamemnon — the elder, high king: taller, darker beard, heavier build.
 const paramsAg = {

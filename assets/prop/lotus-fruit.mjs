@@ -13,7 +13,7 @@
    dashes) are drawn un-rotated so they register to the bloom's world position.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   bloomR:150,       // bloom radius in source px (fits 660x880)

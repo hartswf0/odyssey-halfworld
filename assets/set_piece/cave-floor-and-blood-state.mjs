@@ -10,7 +10,7 @@
    the engine dotify pass supplies the halftone. Declares placement/collision,
    an impact/contact anchor, approach anchors, a depth layer, and the state set.
    Atlas: OD-B09-S07 — stone ground: clean, impact, blood-spread, remains, later-cleared. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 /* ---------- normalized layout (anchors + draw share these fractions of W,H) ---------- */
 const L = {

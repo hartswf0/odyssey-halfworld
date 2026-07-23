@@ -32,15 +32,15 @@
    The taunt, the hurled peak, the named name, the prayer to Poseidon and the
    escape to the fleet — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import curseField from "/assets/divine_fx/poseidons-curse-field.mjs";
-import polyphemus from "/assets/character/polyphemus.mjs";
-import hurledRocks from "/assets/prop/hurled-mountain-rocks.mjs";
-import crew from "/assets/ensemble/odysseuss-crew.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import curseField from "../assets/divine_fx/poseidons-curse-field.mjs";
+import polyphemus from "../assets/character/polyphemus.mjs";
+import hurledRocks from "../assets/prop/hurled-mountain-rocks.mjs";
+import crew from "../assets/ensemble/odysseuss-crew.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B09-S11",

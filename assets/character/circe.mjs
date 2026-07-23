@@ -20,8 +20,8 @@
      · a WAND drawn from the live hand anchor after the rig, angled per beat
    Dramatic beats need brow/frown/jaw combos the base poses don't carry, so they
    are registered as bespoke poses on the shared POSES table. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#f1e7d6", hairColor:"#5a2e18",

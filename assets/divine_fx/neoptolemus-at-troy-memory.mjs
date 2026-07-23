@@ -14,7 +14,7 @@
    Achilles). Solid grays + hard contour into the offscreen ctx; the engine POST
    pass supplies the halftone — do NOT pre-dither. Cells stay ghostly (mid ink)
    so the whole reads as memory; only the active cell carries a bold frame. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

@@ -15,7 +15,7 @@
    crew-loss (empty drifting wrecks) -> wreckage (settled debris field).
    Atlas: reusable boarded object; board/ride/dock anchors, motion states,
    capacity, collision — here the collision is the jammed wreck field. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, clamp01, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, clamp01, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   ships:11,             // the eleven galleys destroyed in the harbor

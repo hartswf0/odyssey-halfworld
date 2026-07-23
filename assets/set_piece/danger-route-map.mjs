@@ -11,7 +11,7 @@
    alternate states (the strait run vs. the Wandering-Rocks run).
    Atlas: OD-B12-S02 — sequential sea corridor; Scylla/Charybdis strait threaded,
    Wandering-Rocks alternative branch. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- normalized chart coordinates (0..1); anchors + draw share these ----
    The corridor reads BOTTOM -> TOP: the ship enters low, threads the strait,

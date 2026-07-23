@@ -18,7 +18,7 @@
    (renewed men behind a long board, cups raised, the year-cycle marked above).
    Drawn in SOLID grays + hard contour; the engine dotify pass supplies the
    halftone. No named hero is baked in — anonymous restored companions. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, smooth, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, smooth, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

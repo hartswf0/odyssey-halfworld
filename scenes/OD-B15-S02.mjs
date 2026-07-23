@@ -26,15 +26,15 @@
      CENTRE-RIGHT— PISISTRATUS: the gracious host's son, taking up the reins to
                    drive the loaded car home.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import chariot from "/assets/vehicle/gift-laden-chariot.mjs";
-import menelaus from "/assets/character/menelaus.mjs";
-import helen from "/assets/character/helen.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import pisistratus from "/assets/character/pisistratus.mjs";
+import chariot from "../assets/vehicle/gift-laden-chariot.mjs";
+import menelaus from "../assets/character/menelaus.mjs";
+import helen from "../assets/character/helen.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import pisistratus from "../assets/character/pisistratus.mjs";
 
 export const scene = {
   id:"OD-B15-S02",

@@ -20,8 +20,8 @@
    dropped low and confiding. Staff + wreath are drawn around the figure so they
    read crisp. All solid grays + hard contour — the engine's dotify POST pass
    supplies the halftone, so nothing is pre-dithered. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 // HERALD shell: a lean brisk crier. Clean-shaven and short-haired to read
 // YOUNGER and quicker than the bearded Mentes sea-captain, warm Phaeacian skin,

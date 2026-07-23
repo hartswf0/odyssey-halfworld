@@ -32,15 +32,15 @@
    The carried wine, the store found, the crew's plea and the captain's fatal
    refusal — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance, clamp, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import cave from "/assets/location/polyphemuss-cave.mjs";
-import cheeseStore from "/assets/prop/cheese-racks-and-milk-vessels.mjs";
-import twelveSailors from "/assets/ensemble/twelve-sailors.mjs";
-import wineSkin from "/assets/prop/marons-wine-skin.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import cave from "../assets/location/polyphemuss-cave.mjs";
+import cheeseStore from "../assets/prop/cheese-racks-and-milk-vessels.mjs";
+import twelveSailors from "../assets/ensemble/twelve-sailors.mjs";
+import wineSkin from "../assets/prop/marons-wine-skin.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B09-S05",

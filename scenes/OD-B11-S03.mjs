@@ -30,16 +30,16 @@
    The recognition, Poseidon's pursuit, the cattle-order, the lone return with the
    oar, and the gentle death after the far sacrifice — all held on one clock.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import shore from "/assets/location/cimmerian-shore-and-underworld-pit.mjs";
-import bloodpit from "/assets/set_piece/blood-pit-boundary.mjs";
-import prophecy from "/assets/divine_fx/prophecy-path.mjs";
-import tiresias from "/assets/character/tiresiass-shade.mjs";
-import staff from "/assets/prop/golden-staff-of-tiresias.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import shore from "../assets/location/cimmerian-shore-and-underworld-pit.mjs";
+import bloodpit from "../assets/set_piece/blood-pit-boundary.mjs";
+import prophecy from "../assets/divine_fx/prophecy-path.mjs";
+import tiresias from "../assets/character/tiresiass-shade.mjs";
+import staff from "../assets/prop/golden-staff-of-tiresias.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B11-S03",

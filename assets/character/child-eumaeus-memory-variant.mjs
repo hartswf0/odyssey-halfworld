@@ -8,8 +8,8 @@
    same warm ruddy-brown coloring un-greyed to a child's brown hair — a
    memory-toned young Eumaeus who never loses his canonical thread.
    Atlas: OD-B15-S04 — "royal child carried into abduction and sale". */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   // soft un-weathered child's skin (a lighter, warmer read of the adult's

@@ -15,7 +15,7 @@
    root is full ink (dense dots) — the two-tone identity the atlas requires.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. White bloom + black root clearly shown. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   bloomR:120,        // flower radius in source px (fits 660x880)

@@ -7,7 +7,7 @@
    supplies the halftone. Do NOT bake characters in.
    Atlas: OD-B12-S03 — low meadow coast, unseen bones, singing positions,
    calm-water radius, safe-passage boundary. */
-import { makePen, toneSolid, inkLevel, INK, rnd, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, rnd, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizonLevel:0.26,   // sky / far-sea horizon as fraction of H

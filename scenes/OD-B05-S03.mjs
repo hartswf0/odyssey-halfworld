@@ -25,14 +25,14 @@
    Ogygia held on one clock: the mortal's distrust, the goddess's binding vow,
    and the quiet refusal of immortality, all on the same shore.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import ogygiaShore from "/assets/location/ogygia-shore.mjs";
-import oathOfStyx  from "/assets/divine_fx/oath-of-styx.mjs";
-import calypso     from "/assets/character/calypso.mjs";
-import odysseus    from "/assets/character/odysseus.mjs";
+import ogygiaShore from "../assets/location/ogygia-shore.mjs";
+import oathOfStyx  from "../assets/divine_fx/oath-of-styx.mjs";
+import calypso     from "../assets/character/calypso.mjs";
+import odysseus    from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B05-S03",

@@ -18,8 +18,8 @@
    belted gown skirt (over the legs), and a slim fillet band (in front, tracking
    the rig head anchors). All solid grays so the engine's dotify POST pass
    supplies the halftone — no pre-dithering here. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#f1e7d6", hairColor:"#5c4630",        // fresh youthful skin, warm loose hair

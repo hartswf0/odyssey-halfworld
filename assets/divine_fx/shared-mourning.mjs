@@ -14,7 +14,7 @@
    Solid grays + hard contour into the offscreen ctx; the engine POST pass
    supplies the halftone — do NOT pre-dither. Robes carry a crisp silhouette;
    the lattice + tears stay tonal so grief reads as a field, not a drawing. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

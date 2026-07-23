@@ -5,7 +5,7 @@
    dotify pass supplies the halftone). Depth: fg beach / mid inlet / bg
    headlands. Do NOT bake characters in.
    Atlas: OD-B13-S01 — where the Phaeacians set the sleeping Odysseus ashore. */
-import { makePen, toneSolid, inkLevel, INK, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   seaLevel:0.60,       // waterline as fraction of H (bg headlands meet sea here)

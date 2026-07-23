@@ -8,7 +8,7 @@
    Everything is a low-tone ghost silhouette so the whole reads as recollection,
    half-present. Solid grays + contour into the offscreen ctx; the engine POST
    pass supplies the halftone — do NOT pre-dither. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp, smooth } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp, smooth } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

@@ -11,7 +11,7 @@
    halftone. No characters are baked in; only placement / camera anchors + zones.
    Atlas: OD-B11-S01 — sunless coast, beached ship, dark grove, river meeting,
    ritual trench, sacrifice zone, ghost perimeter. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.30,        // ocean-stream / sky meeting line as fraction of H

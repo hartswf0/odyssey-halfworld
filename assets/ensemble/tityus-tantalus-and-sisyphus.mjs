@@ -19,7 +19,7 @@
    the three stations. Drawn in SOLID grays + hard contour — the engine dotify
    POST pass supplies the halftone. Do NOT bake named heroes in; each sufferer
    is an addressable template member selected by kind. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const TAU = Math.PI*2;

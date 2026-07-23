@@ -7,7 +7,7 @@
    focus point, plus placement + camera anchors and alternate states.
    Atlas: OD-B08-S05 — same palace hall with music stopped, all gazes converged,
    narrative-seat focus. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.66,      // horizon / floor line as fraction of H

@@ -15,8 +15,8 @@
    ships bespoke poses into the shared registry, each fusing a stooped spine +
    a bowed/lifted head + a staff-grip left arm + an expressive right arm. The
    walking staff itself is drawn in draw() at the live left-hand anchor. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Aegyptius poses: stooped spine + head + staff-grip + gesture ----
    Registered into the shared rig registry (same module instance the hero figure

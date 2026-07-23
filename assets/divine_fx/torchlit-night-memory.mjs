@@ -9,7 +9,7 @@
    opposite directions across the seam). Animate everything over state.t. Solid
    grays + hard contour only; the engine POST pass supplies the halftone (do NOT
    pre-dither). */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   loomTop:    0.14,   // top beam y as frac of H

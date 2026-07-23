@@ -13,8 +13,8 @@
    shared POSES table; a hide shoulder-mantle + herdsman's staff are drawn in
    solid grays + hard contour so the engine's dotify POST pass supplies the
    halftone, matching the reference EUMAEUS swineherd card. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   // weathered ruddy working skin; grizzled grey-brown hair + full beard so he

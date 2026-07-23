@@ -15,7 +15,7 @@
    pass supplies the halftone. Do NOT pre-dither.
    Atlas: isolated reusable object; declared giant scale, contact/grip anchors,
    ownership, collision shape, and every scene-required state. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   bodyLvl:4,      // mid granite body of the fragment

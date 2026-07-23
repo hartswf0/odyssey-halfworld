@@ -8,7 +8,7 @@
    into the offscreen ctx — the engine dotify pass supplies the halftone. No
    characters are baked in; only placement / camera anchors + walkable zones.
    Atlas: OD-B03-S01 — nine divisions, altar fires, moored ships, feast rows, Nestor's place. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   horizon:0.20,        // sea/sky line as fraction of H

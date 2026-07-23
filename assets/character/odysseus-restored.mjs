@@ -10,7 +10,7 @@
    dignified beauty. Atlas performance: OD-B06-S04 (grime + concealment ->
    bathed dignity). Shares Odysseus' identity params so all three skins render
    as one man. */
-import { makeFigure, HERO_POSES, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES, INK } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses: register additively onto the shared rig table ----
    The library's grand poses (torso_open, arms_open) read as oration, not

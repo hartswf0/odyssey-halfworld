@@ -30,15 +30,15 @@
    Dream on the left, waking princess at the center, the readied cart on the
    right — the whole morning read on one clock.
    ============================================================ */
-import { placeInstance, clamp, clamp01, lerp, smooth } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp, clamp01, lerp, smooth } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import chamber  from "/assets/location/phaeacian-royal-chamber.mjs";
-import dreamFx  from "/assets/divine_fx/athena-as-dream-companion.mjs";
-import nausicaa from "/assets/character/nausicaa.mjs";
-import wagon    from "/assets/vehicle/laundry-wagon.mjs";
-import bundles  from "/assets/prop/laundry-bundles.mjs";
+import chamber  from "../assets/location/phaeacian-royal-chamber.mjs";
+import dreamFx  from "../assets/divine_fx/athena-as-dream-companion.mjs";
+import nausicaa from "../assets/character/nausicaa.mjs";
+import wagon    from "../assets/vehicle/laundry-wagon.mjs";
+import bundles  from "../assets/prop/laundry-bundles.mjs";
 
 export const scene = {
   id:"OD-B06-S01",

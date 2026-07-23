@@ -29,17 +29,17 @@
           (beat 4) — the BRONZE SWORD WITH IVORY HILT laid out before him.
    Song, dance, praise, and the apologetic gift all held on one clock.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import ground   from "/assets/location/phaeacian-assembly-ground.mjs";
-import songfx   from "/assets/divine_fx/ares-aphrodite-hephaestus-song-tableau.mjs";
-import dancers  from "/assets/ensemble/phaeacian-dancers.mjs";
-import ball     from "/assets/prop/dance-ball.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import euryalus from "/assets/character/euryalus.mjs";
-import sword    from "/assets/prop/bronze-sword-with-ivory-hilt.mjs";
+import ground   from "../assets/location/phaeacian-assembly-ground.mjs";
+import songfx   from "../assets/divine_fx/ares-aphrodite-hephaestus-song-tableau.mjs";
+import dancers  from "../assets/ensemble/phaeacian-dancers.mjs";
+import ball     from "../assets/prop/dance-ball.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import euryalus from "../assets/character/euryalus.mjs";
+import sword    from "../assets/prop/bronze-sword-with-ivory-hilt.mjs";
 
 export const scene = {
   id:"OD-B08-S04",

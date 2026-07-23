@@ -7,7 +7,7 @@
    slighter beardless Telemachus. Expression is the point: a scornful smirk
    (skewed mouth, one lifted brow, narrowed eyes) over a dismissive gesture.
    Atlas Book 2: OD-B02-S03. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#d9c1a0", hairColor:"#20180f",

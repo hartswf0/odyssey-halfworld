@@ -15,8 +15,8 @@
      · a flowing GOWN skirt drawn over the rig's legs
    The dramatic beats need brow/frown/jaw combos the base poses don't carry, so
    they are registered as bespoke poses on the shared POSES table. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#ece3d2", hairColor:"#3a2c1c",

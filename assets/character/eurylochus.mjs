@@ -7,7 +7,7 @@
    the exits. Expression is the point: a suspicious hold-back warning and
    an apprehensive knit-browed frown.
    Atlas Book 10: OD-B10-S03 / S04 / S07. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke poses, registered additively onto the shared rig table so the
    runtime can drive them by id. Three signatures the young sailors never

@@ -11,7 +11,7 @@
    halftone. NO characters baked in.
    Atlas: OD-B04-S01 — luminous high-roofed Spartan palace with gate, stable,
    bathing rooms, wedding feast, treasure surfaces, guest seats. */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.70,     // hall floor horizon as fraction of H

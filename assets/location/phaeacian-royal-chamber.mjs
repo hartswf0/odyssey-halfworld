@@ -5,7 +5,7 @@
    occlusion layers, placement + camera anchors, and morning/dream states.
    Atlas: OD-B06-S01 — a fine bed, flanking attendant alcoves, twin doorways,
    a window admitting a dream-entry glow, morning light transition. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.74,      // horizon / floor line as fraction of H

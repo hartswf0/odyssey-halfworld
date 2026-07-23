@@ -21,16 +21,16 @@
    One host, one guest, one queen, one gift, one omen — the whole leavetaking on
    a single clock, ending with Helen's reading of the returning vengeance.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace     from "/assets/location/menelauss-palace.mjs";
-import menelaus   from "/assets/character/menelaus.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import helen      from "/assets/character/helen.mjs";
-import bowl       from "/assets/prop/silver-mixing-bowl.mjs";
-import eagle      from "/assets/creature/eagle-with-goose.mjs";
+import palace     from "../assets/location/menelauss-palace.mjs";
+import menelaus   from "../assets/character/menelaus.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import helen      from "../assets/character/helen.mjs";
+import bowl       from "../assets/prop/silver-mixing-bowl.mjs";
+import eagle      from "../assets/creature/eagle-with-goose.mjs";
 
 export const scene = {
   id:"OD-B04-S06",

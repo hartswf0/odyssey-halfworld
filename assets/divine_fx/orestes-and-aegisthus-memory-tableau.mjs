@@ -9,7 +9,7 @@
    glows, driven over state.t) -> visible consequence (the moral the poem keeps
    re-lighting for Telemachus). Solid grays + hard contour only; the engine POST
    pass supplies the halftone — do NOT pre-dither. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

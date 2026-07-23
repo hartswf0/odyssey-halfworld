@@ -24,7 +24,7 @@
    brow/gaze with a quiet arm gesture — the expressiveness lives in the hush).
    States: attending / vigil / greeting.
    Atlas scene: OD-B11-S07 — quiet companion shades framing Achilles's arrival. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke attendant poses (additive; shared table). Distinct prefixed ids
    so they never collide with another performer's poses. The gesture is small

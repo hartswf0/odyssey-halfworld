@@ -30,15 +30,15 @@
               palace idea, asks after the old house and Eumaeus's origins, then
               settles in to hear the tale.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import island from "/assets/location/island-of-syria-memory.mjs";
-import traders from "/assets/ensemble/phoenician-traders.mjs";
-import childEumaeus from "/assets/character/child-eumaeus-memory-variant.mjs";
-import eumaeus from "/assets/character/eumaeus.mjs";
-import beggar from "/assets/character/odysseus-as-beggar.mjs";
+import island from "../assets/location/island-of-syria-memory.mjs";
+import traders from "../assets/ensemble/phoenician-traders.mjs";
+import childEumaeus from "../assets/character/child-eumaeus-memory-variant.mjs";
+import eumaeus from "../assets/character/eumaeus.mjs";
+import beggar from "../assets/character/odysseus-as-beggar.mjs";
 
 export const scene = {
   id:"OD-B15-S04",

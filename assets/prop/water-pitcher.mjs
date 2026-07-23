@@ -11,7 +11,7 @@
      POUR  — tipped over the spout with a water stream leaving the lip.
    One member (a single jug) is drawn from a parametric template with a
    declared scale, grip / spout / contact anchors, and a collision box. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   jugH:0.62,          // jug height as fraction of card H (rest, upright)

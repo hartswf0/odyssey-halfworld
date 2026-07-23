@@ -23,7 +23,7 @@
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B12-S05 — immortal unaging herds with count persistence, divine
    ownership, graze / observe / slaughter / omen states. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

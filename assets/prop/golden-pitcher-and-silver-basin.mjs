@@ -10,7 +10,7 @@
    The gold ewer is a mid-dark metal; the silver basin is a light metal — the
    tonal contrast is what separates the two vessels in monochrome.
    Grip/contact/pour anchors declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   ewerH:0.34,        // ewer height (fraction of H)

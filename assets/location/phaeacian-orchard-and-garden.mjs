@@ -9,7 +9,7 @@
    characters.
    Atlas: OD-B07-S02 — pears, pomegranates, apples, figs, olives, vines, beds,
    twin springs, seasons at once. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, rnd } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   wallLevel:0.42,       // top of the enclosing wall / trellis band (fraction of H)

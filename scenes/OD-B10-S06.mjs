@@ -30,15 +30,15 @@
    The served cup, the failed strike, the recognition, the sworn oath and the
    refused feast — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import oathField from "/assets/divine_fx/binding-oath-field.mjs";
-import circe from "/assets/character/circe.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import wand from "/assets/prop/circes-wand.mjs";
-import cup from "/assets/prop/drugged-cup.mjs";
+import oathField from "../assets/divine_fx/binding-oath-field.mjs";
+import circe from "../assets/character/circe.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import wand from "../assets/prop/circes-wand.mjs";
+import cup from "../assets/prop/drugged-cup.mjs";
 
 export const scene = {
   id:"OD-B10-S06",

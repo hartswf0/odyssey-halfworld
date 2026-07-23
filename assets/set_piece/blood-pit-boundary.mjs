@@ -11,7 +11,7 @@
    / collision, the boundary line, contact + approach anchors, and a depth layer.
    Atlas: OD-B11-S02 — ritual trench holding drink-permission and the separation
    of the living speaker from the waiting dead. (Matches the DARK BLOOD trench.) */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 /* ---------- normalized layout (anchors + draw share these fractions of W,H) ---------- */
 const L = {

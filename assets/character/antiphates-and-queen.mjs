@@ -9,8 +9,8 @@
    Composes the HALFTRACK hero rig TWICE (king + queen), each with bespoke
    poses, over a flat-gray interior backdrop. The engine POST pass adds the dots.
    Atlas scene: OD-B10-S02 — cannibal king + colossal queen initiating the attack. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const TAU = Math.PI * 2;
 

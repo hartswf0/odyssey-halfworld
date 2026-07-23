@@ -10,7 +10,7 @@
    scenes can dispatch, fly, and deliver through him. The caduceus is a
    capability — drawn when state.staff is set (default in the neutral
    "available" pose), stowed for pure locomotion turns. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#d7c3a4", hairColor:"#2a2016",       // youthful, dark tousled hair

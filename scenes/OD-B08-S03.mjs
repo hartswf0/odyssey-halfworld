@@ -30,15 +30,15 @@
    Invitation, insult, the great throw, and the king's calming all held on one
    clock over a single marked field.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import field     from "/assets/location/phaeacian-athletic-field.mjs";
-import euryalus  from "/assets/character/euryalus.mjs";
-import laodamas  from "/assets/character/laodamas.mjs";
-import odysseus  from "/assets/character/odysseus.mjs";
-import discus    from "/assets/prop/discus.mjs";
+import field     from "../assets/location/phaeacian-athletic-field.mjs";
+import euryalus  from "../assets/character/euryalus.mjs";
+import laodamas  from "../assets/character/laodamas.mjs";
+import odysseus  from "../assets/character/odysseus.mjs";
+import discus    from "../assets/prop/discus.mjs";
 
 export const scene = {
   id:"OD-B08-S03",

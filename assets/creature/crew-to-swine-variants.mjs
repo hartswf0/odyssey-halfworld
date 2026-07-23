@@ -14,7 +14,7 @@
    engine POST pass supplies the dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B10-S04 — human performers mapped into pig bodies while preserving
    identity, gaze, memory, restoration. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 

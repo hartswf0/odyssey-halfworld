@@ -15,7 +15,7 @@
    bob). Drawn in SOLID grays + hard contour; the engine dotify POST pass
    supplies the halftone. Do NOT bake named characters in — each bearer is an
    addressable, identical-template member. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

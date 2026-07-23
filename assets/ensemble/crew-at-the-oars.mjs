@@ -14,7 +14,7 @@
    dotify POST pass supplies the halftone. No named character is baked in.
    Atlas OD-B12-S03 — wax-deaf rowers maintaining cadence while ignoring their
    commander's release signals. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 const norm    = v => { const m=Math.hypot(v.x,v.y)||1; return { x:v.x/m, y:v.y/m }; };

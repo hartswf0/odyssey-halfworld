@@ -4,7 +4,7 @@
    His signature is an URGENT WARNING: body pitched forward, near hand thrown
    up, brows lifted-and-knit over wide anxious eyes, mouth open on the alarm.
    Atlas: OD-B04-S07 — the herald discloses the conspiracy. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke pose: an urgent forewarning gesture ----
    Leans in over the threshold, RIGHT (far) arm flung up open-palmed as a

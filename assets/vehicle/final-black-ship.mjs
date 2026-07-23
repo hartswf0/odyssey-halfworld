@@ -14,7 +14,7 @@
    the empty lost sea. Board/ride/dock/pilot anchors, breaking-part anchors,
    collision box, motion + destruction states.
    Atlas: reusable boarded object breaking apart. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   oarPairs:9,           // oars along one side

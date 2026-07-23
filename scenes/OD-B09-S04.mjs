@@ -27,15 +27,15 @@
    The landfall, the sheltered rest, the goat-hunt feast, and the picked ship —
    all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import harbor       from "/assets/location/goat-island-harbor.mjs";
-import cyclopsCoast from "/assets/location/cyclops-coast.mjs";
-import wildGoats    from "/assets/creature/wild-goats.mjs";
-import sailors      from "/assets/ensemble/selected-twelve-sailors.mjs";
-import odysseus     from "/assets/character/odysseus.mjs";
+import harbor       from "../assets/location/goat-island-harbor.mjs";
+import cyclopsCoast from "../assets/location/cyclops-coast.mjs";
+import wildGoats    from "../assets/creature/wild-goats.mjs";
+import sailors      from "../assets/ensemble/selected-twelve-sailors.mjs";
+import odysseus     from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B09-S04",

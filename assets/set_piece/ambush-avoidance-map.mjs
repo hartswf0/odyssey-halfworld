@@ -11,7 +11,7 @@
    states (charted / ambush-marked / safe-plotted).
    Atlas: OD-B15-S01 — Sparta-to-Pylos road, harbour, island route, Same strait
    danger zone, Eumaeus landing point. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- normalized chart coordinates (0..1); anchors + draw share these ----
    Reads TOP-RIGHT -> BOTTOM-LEFT: inland Sparta down the road to the Pylos

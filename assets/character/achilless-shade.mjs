@@ -18,7 +18,7 @@
    is the whole emotional arc: bowed regret (head down, palm turned up in
    weary "what use was glory") -> revived pride (chest flung open, chin
    lifted, arm raised) -> a proud martial stride. */
-import { makeFigure, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 /* ---- bespoke Achilles poses (additive; shared table). Distinct ids so they
    never collide with any other performer's poses. ---- */

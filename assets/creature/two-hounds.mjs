@@ -7,7 +7,7 @@
    orienting toward an off-frame threat. Drawn in SOLID grays + hard
    contour; the engine POST pass supplies the dot-matrix halftone.
    Atlas: OD-B02-S01 — paired canine companions pacing, sitting, orienting. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 /* ---- tone levels (flat grays; POST turns them into dots) ---- */
 const T_BODY = ()=> toneSolid(inkLevel(4));

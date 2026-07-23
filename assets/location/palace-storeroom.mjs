@@ -6,7 +6,7 @@
    supplies the halftone). Declares depth layers, a walkable aisle, door
    thresholds, occlusion order, and placement/camera anchors. No baked figures.
    Atlas: OD-B02-S06. */
-import { makePen, toneSolid, inkLevel, INK } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.62,     // horizon / back-wall foot as fraction of H

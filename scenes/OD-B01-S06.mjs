@@ -21,16 +21,16 @@
      Phemius (left, at the lyre)  ->  Telemachus (center, commanding)  ->
      Athena's birdlike departure (divine ascent, upper-left).
    ============================================================ */
-import { placeInstance, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import hall            from "/assets/location/odysseuss-palace-threshold-and-hall.mjs";
-import suitors         from "/assets/ensemble/suitors.mjs";
-import penelope        from "/assets/character/penelope.mjs";
-import phemius         from "/assets/character/phemius.mjs";
-import telemachus      from "/assets/character/telemachus.mjs";
-import athenaDeparture from "/assets/divine_fx/athenas-birdlike-departure.mjs";
+import hall            from "../assets/location/odysseuss-palace-threshold-and-hall.mjs";
+import suitors         from "../assets/ensemble/suitors.mjs";
+import penelope        from "../assets/character/penelope.mjs";
+import phemius         from "../assets/character/phemius.mjs";
+import telemachus      from "../assets/character/telemachus.mjs";
+import athenaDeparture from "../assets/divine_fx/athenas-birdlike-departure.mjs";
 
 export const scene = {
   id:"OD-B01-S06",

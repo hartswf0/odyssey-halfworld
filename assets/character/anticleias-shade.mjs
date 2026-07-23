@@ -11,8 +11,8 @@
    halftone. Custom layers add a pale mantle/veil over head + shoulders, and a
    pale skirt that trails off into wispy tendrils over the hidden legs + feet.
    All drawn in flat solid grays; the engine's dotify pass supplies the texture. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#ece7dc", hairColor:"#c6c0b4",     // pale flesh, faded gray hair — a shade

@@ -11,7 +11,7 @@
    moving from ship tool to grave sign.
    Atlas: isolated reusable object; scale, grip/support/contact anchors,
    ownership, collision, states. */
-import { makePen, toneSolid, inkLevel, INK, clamp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   bodyLen: 430,    // shrouded corpse length along its axis (source px)

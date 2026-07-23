@@ -8,7 +8,7 @@
    FLIGHT (wings spread, lifted, motion streaks).
    Two sandals: a back one (raised, smaller) and a front one, so the pair
    reads as a set. Contact/grip/attach anchors declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   pairGap:0.19,      // horizontal separation of the two sandals (fraction of W)

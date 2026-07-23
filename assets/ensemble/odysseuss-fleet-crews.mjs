@@ -9,7 +9,7 @@
    named characters in.
    Atlas OD-B09-S02 — victorious raiders sacking Ismarus, becoming undisciplined
    feasters on the shore, then desperate defenders when the Cicones counter. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

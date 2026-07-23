@@ -8,8 +8,8 @@
    headscarf (front), a long dress skirt + apron (over the legs), and a thin
    gray hair fringe (behind), all in solid grays so the engine's dotify POST
    pass supplies the halftone. */
-import { makeFigure, INK, gray } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK, gray } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const params = {
   skin:"#dccfbd", hairColor:"#b7b1a6",

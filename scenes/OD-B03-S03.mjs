@@ -24,15 +24,15 @@
    The map is the thing Nestor MAPS; the fleet and the two memory figures are the
    remembered content his tracing hand summons across it.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp, smooth } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp, smooth } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import seaMap    from "/assets/set_piece/sea-route-map.mjs";
-import fleet     from "/assets/ensemble/divided-achaean-fleet.mjs";
-import kings     from "/assets/character/agamemnon-and-menelaus-memory-variants.mjs";
-import odysseus  from "/assets/character/odysseus-memory-variant.mjs";
-import nestor    from "/assets/character/nestor.mjs";
+import seaMap    from "../assets/set_piece/sea-route-map.mjs";
+import fleet     from "../assets/ensemble/divided-achaean-fleet.mjs";
+import kings     from "../assets/character/agamemnon-and-menelaus-memory-variants.mjs";
+import odysseus  from "../assets/character/odysseus-memory-variant.mjs";
+import nestor    from "../assets/character/nestor.mjs";
 
 export const scene = {
   id:"OD-B03-S03",

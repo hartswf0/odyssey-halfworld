@@ -11,7 +11,7 @@
    Twelve members are drawn deterministically from an amphora template with
    scale / depth / formation controls. Grip / contact / stopper anchors and a
    collision box are declared in 0..1 space. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   count:12,            // total jars in the set

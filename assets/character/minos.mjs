@@ -20,8 +20,8 @@
    A high stone THRONE is drawn behind him, a tall CROWN on top, and the GOLD
    SCEPTRE raised in his hand — all in solid grays + hard contour so the engine
    POST pass halftones them with the figure. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Minos poses: SEATED (crouch splay reads as enthroned in the
    frontal rig) + judging brow + decreeing jaw + a raised sceptre arm authored

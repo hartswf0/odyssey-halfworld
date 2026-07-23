@@ -13,7 +13,7 @@
    Drawn in SOLID grays + hard contour; the engine POST pass supplies the
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B09-S06 — enter, sort, stand for milking, pair with young, sleep, exit. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

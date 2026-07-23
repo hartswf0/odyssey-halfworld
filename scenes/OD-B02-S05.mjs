@@ -21,13 +21,13 @@
      telemachus character.telemachus                               (prays -> resolves)
      mentor    character.athena-as-mentor                          (answers -> commands)
    ============================================================ */
-import shore      from "/assets/location/ithacan-shore.mjs";
-import wind       from "/assets/environment/sea-foam-and-following-wind-potential.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
-import mentor     from "/assets/character/athena-as-mentor.mjs";
+import shore      from "../assets/location/ithacan-shore.mjs";
+import wind       from "../assets/environment/sea-foam-and-following-wind-potential.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
+import mentor     from "../assets/character/athena-as-mentor.mjs";
 
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 const clamp01 = x => x<0?0:(x>1?1:x);
 const smooth  = t => { t=clamp01(t); return t*t*(3-2*t); };

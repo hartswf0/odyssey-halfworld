@@ -9,7 +9,7 @@
    the halftone. Do NOT bake named characters in.
    Atlas OD-B09-S04 — a small expedition group carrying provisions and
    following one ship across the channel. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

@@ -29,15 +29,15 @@
    Landfall and exhausted sleep, the dawn rite and the raised mound, the oar set
    upright, and Circe's arrival — all on one clock in one still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import shore    from "/assets/location/aeaea-funeral-shore.mjs";
-import crew     from "/assets/ensemble/crew.mjs";
-import body     from "/assets/prop/elpenors-body-and-oar.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import circe    from "/assets/character/circe.mjs";
+import shore    from "../assets/location/aeaea-funeral-shore.mjs";
+import crew     from "../assets/ensemble/crew.mjs";
+import body     from "../assets/prop/elpenors-body-and-oar.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import circe    from "../assets/character/circe.mjs";
 
 export const scene = {
   id:"OD-B12-S01",

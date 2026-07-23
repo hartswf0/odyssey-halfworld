@@ -6,7 +6,7 @@
    dotify pass supplies the halftone. Declares a crawl-in anchor, placement /
    collision boundaries, a depth layer, and states open / leaf-covered.
    Atlas: OD-B05-S06 — paired wild+cultivated growth, crawl-in, leaf-cover, rain/wind cover. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 /* ---- normalized layout (anchors + draw share these fractions of W,H) ---- */
 const L = {

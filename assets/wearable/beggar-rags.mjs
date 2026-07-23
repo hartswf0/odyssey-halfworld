@@ -12,7 +12,7 @@
    (worn on an implied body) / removed (back to flat — reversible). Ownership +
    normalized 0..1 attach anchors.
    Scene OD-B13-S05: separate filthy tunic, hide cloak, patched bag strap. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   patches:3,        // sewn-on repair patches per big garment

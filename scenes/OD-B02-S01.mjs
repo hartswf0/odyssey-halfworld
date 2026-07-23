@@ -21,14 +21,14 @@
    instance shares a single halftone. Deterministic (no Date/random).
    Verify:  node harness/render-scene.mjs scenes/OD-B02-S01.mjs --t 8
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
-import ground      from "/assets/location/ithacan-assembly-ground.mjs";
-import people      from "/assets/ensemble/people-of-ithaca.mjs";
-import hounds      from "/assets/creature/two-hounds.mjs";
-import aegyptius   from "/assets/character/aegyptius.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
+import ground      from "../assets/location/ithacan-assembly-ground.mjs";
+import people      from "../assets/ensemble/people-of-ithaca.mjs";
+import hounds      from "../assets/creature/two-hounds.mjs";
+import aegyptius   from "../assets/character/aegyptius.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
 
 const MODS = {
   "location.ithacan-assembly-ground": ground,

@@ -6,7 +6,7 @@
    sawn stumps / worn DRAG-ROUTES sweeping off to the SHORE (left, water) and
    the WORKSITE (right, stacked logs + trimming frame). No baked characters.
    Atlas: OD-B05-S04 — harvestable tree zone linked to worksite and shore. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   ridgeLevel:0.585,     // ground horizon as a fraction of H

@@ -7,7 +7,7 @@
    quite belongs to a mortal captain. That bright-eye cue is the continuity
    thread back to character.athena (Homer's grey-eyed / flashing-eyed goddess).
    Atlas: Book I hall of Ithaca — the visitor who sets Telemachus in motion. */
-import { makeFigure, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 // MENTES shell: tanned, sea-weathered captain. Distinct from Odysseus'
 // warmer tunic look — darker seafarer's beard, a full traveler's cloak,

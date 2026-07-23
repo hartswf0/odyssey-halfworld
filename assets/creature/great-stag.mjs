@@ -22,7 +22,7 @@
    Drawn in SOLID grays + hard contour; the engine POST pass supplies the
    dot-matrix halftone — do NOT pre-dither.
    Atlas: OD-B10-S03 — the large deer through kill, carry, and feast. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const P = (x,y)=>({x,y});
 const TAU = Math.PI*2;

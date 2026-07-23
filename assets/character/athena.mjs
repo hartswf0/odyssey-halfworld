@@ -3,7 +3,7 @@
    pushed-back plumed helmet crest; bound hair; stable identity across views.
    Scene function: shifts the assembly from abstract blame to a concrete
    rescue plan (OD-B01-S01), then moves from speech into departure (OD-B01-S02). */
-import { makeFigure, INK, gray, HERO_POSES } from "/engine/halfworld-engine.mjs";
+import { makeFigure, INK, gray, HERO_POSES } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   skin:"#dcd6c8", hairColor:"#2a2118",

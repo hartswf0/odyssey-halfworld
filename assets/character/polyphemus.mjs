@@ -10,8 +10,8 @@
    / blind (the bloodied, stake-ruined socket after Odysseus puts it out).
    Scene span OD-B09-S06..S11 — pastoral labor, predatory rage, drunken
    carelessness, the blinding, groping at the door, hurling from the shore. */
-import { makeFigure, INK } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure, INK } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 const TAU = Math.PI * 2;
 

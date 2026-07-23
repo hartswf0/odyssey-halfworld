@@ -36,14 +36,14 @@
 
    Verify:  node harness/render-scene.mjs scenes/OD-B13-S01.mjs --t 8
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
-import harbor   from "/assets/location/phorcys-harbor.mjs";
-import ship     from "/assets/vehicle/phaeacian-convoy-ship.mjs";
-import chest    from "/assets/prop/gift-chest-and-treasures.mjs";
-import crew     from "/assets/ensemble/phaeacian-convoy-crew.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import harbor   from "../assets/location/phorcys-harbor.mjs";
+import ship     from "../assets/vehicle/phaeacian-convoy-ship.mjs";
+import chest    from "../assets/prop/gift-chest-and-treasures.mjs";
+import crew     from "../assets/ensemble/phaeacian-convoy-crew.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 const MODS = {
   "location.phorcys-harbor": harbor,

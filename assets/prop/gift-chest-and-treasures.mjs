@@ -13,7 +13,7 @@
    The hoard is a separable inventory (bronze / gold / cloth) so a scene can
    persist it across states. Grip / lid / contact anchors + a collision box in
    0..1 space; ownership declared. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   boxW:0.54,          // chest body width (fraction of W)

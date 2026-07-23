@@ -29,15 +29,15 @@
    The bath's grace, the borrowed clothes, the restored man, and the road he must
    walk at a distance all held on one clock: the whole passage read in one still.
    ============================================================ */
-import { placeInstance, clamp01 } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01 } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import road      from "/assets/location/road-from-river-to-scheria.mjs";
-import grace     from "/assets/divine_fx/athenas-beautification.mjs";
-import clothes   from "/assets/prop/phaeacian-tunic-and-cloak.mjs";
-import odysseus  from "/assets/character/odysseus-restored.mjs";
-import nausicaa  from "/assets/character/nausicaa.mjs";
+import road      from "../assets/location/road-from-river-to-scheria.mjs";
+import grace     from "../assets/divine_fx/athenas-beautification.mjs";
+import clothes   from "../assets/prop/phaeacian-tunic-and-cloak.mjs";
+import odysseus  from "../assets/character/odysseus-restored.mjs";
+import nausicaa  from "../assets/character/nausicaa.mjs";
 
 export const scene = {
   id:"OD-B06-S04",

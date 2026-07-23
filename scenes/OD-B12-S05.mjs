@@ -34,15 +34,15 @@
    Island, herds, contrary winds, the accuser and the king — one clock, one
    still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import thrinacia from "/assets/location/thrinacia.mjs";
-import herds from "/assets/creature/helioss-cattle-and-sheep.mjs";
-import winds from "/assets/environment/month-long-contrary-winds.mjs";
-import eurylochus from "/assets/character/eurylochus.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import thrinacia from "../assets/location/thrinacia.mjs";
+import herds from "../assets/creature/helioss-cattle-and-sheep.mjs";
+import winds from "../assets/environment/month-long-contrary-winds.mjs";
+import eurylochus from "../assets/character/eurylochus.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B12-S05",

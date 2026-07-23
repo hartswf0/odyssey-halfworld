@@ -14,8 +14,8 @@
    mouth. So Halitherses ships bespoke poses into the shared POSE registry,
    each one fusing a raised/knit brow + an upward or leveled gaze + a
    reading/pointing arm. That is what lets the card actually EMOTE. */
-import { makeFigure } from "/engine/halfworld-engine.mjs";
-import { POSES } from "/engine/figure-hero.mjs";
+import { makeFigure } from "../../engine/halfworld-engine.mjs";
+import { POSES } from "../../engine/figure-hero.mjs";
 
 /* ---- bespoke Halitherses poses: brow + gaze + arm authored together ----
    Registered into the shared rig registry (same module instance the hero

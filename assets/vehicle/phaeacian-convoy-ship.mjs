@@ -15,7 +15,7 @@
    brightens and the wake lengthens as it comes under its own guidance.
    Atlas: reusable boarded object; board/ride/pilot/bed anchors, moving oars/sail,
    collision. Sleeker than the black Ithacan ship. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   oarPairs:11,          // slim light oars, one side shown

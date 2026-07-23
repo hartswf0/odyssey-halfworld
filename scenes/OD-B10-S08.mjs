@@ -28,15 +28,15 @@
    The plea, the sentence to the dead, the charted road, Elpenor's fall and the
    grieving launch on Circe's wind — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import circe from "/assets/character/circe.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import elpenor from "/assets/character/elpenor.mjs";
-import route from "/assets/set_piece/underworld-route-instructions.mjs";
-import wind from "/assets/divine_fx/circes-sailing-wind.mjs";
+import circe from "../assets/character/circe.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import elpenor from "../assets/character/elpenor.mjs";
+import route from "../assets/set_piece/underworld-route-instructions.mjs";
+import wind from "../assets/divine_fx/circes-sailing-wind.mjs";
 
 export const scene = {
   id:"OD-B10-S08",

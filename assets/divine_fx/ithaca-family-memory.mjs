@@ -16,7 +16,7 @@
    supplies the halftone — do NOT pre-dither. Every stratum is kept LOW ink so the
    whole thing reads as "faintly recalled" — never a black blob, never blank paper.
    The dwelt-on vignette lifts to a moderate tone so the sweep is legible. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const TAU = Math.PI*2;
 const frac = x => x - Math.floor(x);

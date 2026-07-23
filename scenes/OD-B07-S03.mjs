@@ -27,15 +27,15 @@
    The mist's falling, the clasped knees, the broken silence, and the guest
    raised and promised his ship — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import hearth    from "/assets/set_piece/royal-hearth.mjs";
-import alcinous  from "/assets/character/alcinous.mjs";
-import arete     from "/assets/character/arete.mjs";
-import echeneus  from "/assets/character/echeneus.mjs";
-import odysseus  from "/assets/character/odysseus.mjs";
+import hearth    from "../assets/set_piece/royal-hearth.mjs";
+import alcinous  from "../assets/character/alcinous.mjs";
+import arete     from "../assets/character/arete.mjs";
+import echeneus  from "../assets/character/echeneus.mjs";
+import odysseus  from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B07-S03",

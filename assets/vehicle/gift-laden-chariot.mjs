@@ -13,7 +13,7 @@
    dust and speed streaks) for the hurried homeward drive.
    Atlas: reusable boarded object; board/ride anchors, treasure LOAD anchors,
    moving spoked wheels, motion states, capacity, collision. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   spokes:8,            // classic light spoked road-wheel

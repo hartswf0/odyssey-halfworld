@@ -27,15 +27,15 @@
      FRONT  — the humble FARM MEAL on its rough plank table between them, the
               modest spread Eumaeus apologizes for.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import farm from "/assets/location/eumaeuss-pig-farm.mjs";
-import memory from "/assets/divine_fx/absent-master-memory.mjs";
-import meal from "/assets/prop/farm-meal.mjs";
-import eumaeus from "/assets/character/eumaeus.mjs";
-import beggar from "/assets/character/odysseus-as-beggar.mjs";
+import farm from "../assets/location/eumaeuss-pig-farm.mjs";
+import memory from "../assets/divine_fx/absent-master-memory.mjs";
+import meal from "../assets/prop/farm-meal.mjs";
+import eumaeus from "../assets/character/eumaeus.mjs";
+import beggar from "../assets/character/odysseus-as-beggar.mjs";
 
 export const scene = {
   id:"OD-B14-S02",

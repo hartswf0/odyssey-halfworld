@@ -25,16 +25,16 @@
    Exit / continuity: all four weep until Menelaus calls for the mourning to
    end with the meal.
    ============================================================ */
-import { placeInstance, clamp, clamp01, lerp } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp, clamp01, lerp } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace      from "/assets/location/menelauss-palace.mjs";
-import mourning    from "/assets/divine_fx/shared-mourning.mjs";
-import helen       from "/assets/character/helen.mjs";
-import menelaus    from "/assets/character/menelaus.mjs";
-import telemachus  from "/assets/character/telemachus.mjs";
-import pisistratus from "/assets/character/pisistratus.mjs";
+import palace      from "../assets/location/menelauss-palace.mjs";
+import mourning    from "../assets/divine_fx/shared-mourning.mjs";
+import helen       from "../assets/character/helen.mjs";
+import menelaus    from "../assets/character/menelaus.mjs";
+import telemachus  from "../assets/character/telemachus.mjs";
+import pisistratus from "../assets/character/pisistratus.mjs";
 
 /* grief g(t): one field read by every body. Rises from the first spoken name
    to the shared weeping, holds through beat 4, then RECEDES when Menelaus calls

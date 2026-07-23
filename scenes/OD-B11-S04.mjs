@@ -33,14 +33,14 @@
    Exit / continuity: Odysseus tries three times to embrace her, but his arms pass
    through the shade.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import anticleia from "/assets/character/anticleias-shade.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
-import embrace from "/assets/divine_fx/intangible-embrace-effect.mjs";
-import memory from "/assets/divine_fx/ithaca-family-memory.mjs";
+import anticleia from "../assets/character/anticleias-shade.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
+import embrace from "../assets/divine_fx/intangible-embrace-effect.mjs";
+import memory from "../assets/divine_fx/ithaca-family-memory.mjs";
 
 export const scene = {
   id:"OD-B11-S04",

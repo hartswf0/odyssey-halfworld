@@ -12,7 +12,7 @@
    by { intensity, ducked, rings, beats } so the runtime can raise, lower, or
    stop the bed. States: playing / ducked / swelling / stopped.
    Atlas: addressable emitter — position, intensity, rhythm, start/stop. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   emitter:{ x:0.50, y:0.40 },  // emitter position in asset space (the hall, off the private pair)

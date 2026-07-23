@@ -8,7 +8,7 @@
    pass supplies the halftone. NO characters baked in.
    Atlas: OD-B01-S03 — occupied royal hall, gate/porch/spear-rack/guest-seats/
    feast zone/upper stair. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   floorLevel:0.72,      // hall floor horizon as fraction of H

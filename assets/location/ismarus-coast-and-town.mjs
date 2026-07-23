@@ -8,7 +8,7 @@
    pass supplies the halftone. No characters are baked in; only placement / camera
    anchors and walkable zones.
    Atlas: OD-B09-S02 — raided settlement, beach camp, ship line, inland approach, battle field, retreat route. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   ridge:0.34,        // inland horizon / town base as fraction of H

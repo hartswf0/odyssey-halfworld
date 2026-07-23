@@ -13,7 +13,7 @@
    beeswax cycles soft-lump -> formed ear-plugs -> plugs removed beside the lump.
    Atlas: isolated reusable object; scale, grip/contact anchors, ownership,
    collision, states. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   mastHWFrac:0.072,   // mast half-width as fraction of W

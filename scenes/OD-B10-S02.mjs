@@ -31,15 +31,15 @@
    The narrow-harbor trap, the summons, the seized scout, the massing giants and
    the crushed fleet, and the lone escape — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import harbor from "/assets/location/telepylus-harbor.mjs";
-import antiphates from "/assets/character/antiphates-and-queen.mjs";
-import fleet from "/assets/vehicle/destroyed-fleet.mjs";
-import giants from "/assets/ensemble/laestrygonian-giants.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import harbor from "../assets/location/telepylus-harbor.mjs";
+import antiphates from "../assets/character/antiphates-and-queen.mjs";
+import fleet from "../assets/vehicle/destroyed-fleet.mjs";
+import giants from "../assets/ensemble/laestrygonian-giants.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B10-S02",

@@ -13,7 +13,7 @@
    runs down to the dock while boarding.
    Atlas: reusable boarded object; board/ride/dock/pilot anchors, motion states,
    capacity, collision. */
-import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, clamp, lerp } from "../../engine/halfworld-engine.mjs";
 
 const params = {
   oarPairs:10,          // 10 per side => twenty-oared vessel

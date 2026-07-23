@@ -10,7 +10,7 @@
    Drawn in SOLID grays + hard contour; the engine dotify pass supplies the
    halftone. Do NOT bake the speaker in — the bema is an external focus pole;
    a single low foreground SPEAKER'S STONE marks where the attention converges. */
-import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "/engine/halfworld-engine.mjs";
+import { makePen, toneSolid, inkLevel, INK, ACCENT, clamp, lerp, rnd } from "../../engine/halfworld-engine.mjs";
 
 const clamp01 = x => clamp(x,0,1);
 

@@ -19,15 +19,15 @@
    The set supplies the whole palace; the FX supplies the divine sign overhead;
    the heifer + prince carry the dawn sacrifice / bathing of the exit state.
    ============================================================ */
-import { placeInstance, clamp01, clamp, lerp, smooth } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance, clamp01, clamp, lerp, smooth } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import palace     from "/assets/location/nestors-palace-and-courtyard.mjs";
-import eagleFX    from "/assets/divine_fx/athena-to-sea-eagle-transformation.mjs";
-import nestor     from "/assets/character/nestor.mjs";
-import heifer     from "/assets/creature/gilded-heifer-ritual.mjs";
-import telemachus from "/assets/character/telemachus.mjs";
+import palace     from "../assets/location/nestors-palace-and-courtyard.mjs";
+import eagleFX    from "../assets/divine_fx/athena-to-sea-eagle-transformation.mjs";
+import nestor     from "../assets/character/nestor.mjs";
+import heifer     from "../assets/creature/gilded-heifer-ritual.mjs";
+import telemachus from "../assets/character/telemachus.mjs";
 
 export const scene = {
   id:"OD-B03-S05",

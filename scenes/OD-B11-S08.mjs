@@ -31,16 +31,16 @@
    The judge, the three sufferers, the speaking phantom, the closing dead and the
    hero's flight — all held on one clock in a single still.
    ============================================================ */
-import { placeInstance } from "/engine/halfworld-engine.mjs";
-import { stateAt } from "/scenes/_scene-contract.mjs";
+import { placeInstance } from "../engine/halfworld-engine.mjs";
+import { stateAt } from "./_scene-contract.mjs";
 
 // existing atlas assets — COMPOSE, do not redraw
-import landscape from "/assets/location/punishment-landscape.mjs";
-import surge from "/assets/environment/closing-ghost-surge.mjs";
-import sufferers from "/assets/ensemble/tityus-tantalus-and-sisyphus.mjs";
-import minos from "/assets/character/minos.mjs";
-import heracles from "/assets/character/heracless-phantom.mjs";
-import odysseus from "/assets/character/odysseus.mjs";
+import landscape from "../assets/location/punishment-landscape.mjs";
+import surge from "../assets/environment/closing-ghost-surge.mjs";
+import sufferers from "../assets/ensemble/tityus-tantalus-and-sisyphus.mjs";
+import minos from "../assets/character/minos.mjs";
+import heracles from "../assets/character/heracless-phantom.mjs";
+import odysseus from "../assets/character/odysseus.mjs";
 
 export const scene = {
   id:"OD-B11-S08",
