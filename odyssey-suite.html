@@ -496,6 +496,12 @@ $("fillBtn").onclick=async()=>{
   $("state").textContent="ALBUM DEALT ACROSS "+BOOKS.length+" BOOKS";
 };
 
+/* ── THE PERFORMANCE SCORE (METIS-PERFORM v2) + VOICES (AOIDOS v3) ── */
+let PT=null, VC=null;
+fetch("viewer/performance-turns.json").then(r=>r.json()).then(j=>PT=j).catch(()=>{});
+fetch("viewer/voice-cards.json").then(r=>r.json()).then(j=>VC=j).catch(()=>{});
+const turnsFor=(sceneId,who)=>((PT&&PT.byScene[sceneId])||[]).filter(t=>t.sp===who);
+
 /* ── ELEMENTS: every cast member of the playing scene, one tap from its atlas ── */
 const TYPE_C={character:"#3aa7ff",location:"#7cfc00",prop:"#ffd23f",creature:"#ff8c00",
   ensemble:"#ff2e2e",divine_fx:"#c792ea",set_piece:"#19e6c8",environment:"#4a7dff",
@@ -546,7 +552,23 @@ function chatPoolFor(a,entry){
   return pool.length?pool:[{t:"…",tag:""}];
 }
 const tok=s2=>new Set(String(s2).toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>2));
+let turnIx={};
 function chatReply(a,entry,q){
+  /* the score first: this character's turns in THIS scene, in playing order,
+     word-matched against what you said when possible */
+  const tns=turnsFor(entry.id,a.id);
+  if(tns.length){
+    const key=a.id+"|"+entry.id, qt2=tok(q);
+    let best=-1,bs=1;   // require ≥2 overlap to jump; else next in order
+    tns.forEach((t,i)=>{ let sc=0;
+      tok(t.payload+" "+(t.subtext||"")).forEach(w=>{if(qt2.has(w))sc++;});
+      if(sc>bs){bs=sc;best=i;} });
+    let i=best>=0?best:((turnIx[key]||0)%tns.length);
+    if(i===(turnIx[key]||0)-1) i=(turnIx[key]||0)%tns.length;   // never repeat the last turn
+    turnIx[key]=i+1;
+    const t=tns[i];
+    return { t:t.payload, tag:(t.delivery||t.act||"").slice(0,80) };
+  }
   const pool=chatPoolFor(a,entry), qt=tok(q);
   let best=null,bs=-1;
   pool.forEach((p,i)=>{
@@ -589,11 +611,32 @@ let chatHist=[];
 const apiCfg=()=>LS("odyssey.chat.api",{url:"https://api.openai.com/v1/chat/completions",model:"",key:""});
 function charCard(a,entry){
   const perfs=(a.perfs||[]).map(p=>p.scene+": "+p.perf).join("\n");
-  const cue=(PB.scenes[entry.id]||"").slice(0,700);
-  return "You are "+(a.name||"an element")+" — a "+(a.type||"figure")+" in a halftone film of Homer's Odyssey. "
-    +"You speak IN CHARACTER, terse and vivid, 1–3 sentences. Begin each reply with a short parenthetical stage direction of your physical performance, e.g. (turns from the fire, voice low).\n\n"
-    +"YOUR ATLAS (who you are, visually and functionally):\n"+(a.prompt||"").slice(0,1200)
-    +"\n\nYOUR PERFORMANCE DIRECTIONS ACROSS THE FILM:\n"+perfs
+  const cue=(PB.scenes[entry.id]||"").slice(0,500);
+  /* AOIDOS v3: voice profile + performance functions + knowledge boundary */
+  const card=VC&&VC.cards[a.id];
+  const voice=card&&VC.voices[card.voice];
+  let aoidos="";
+  if(card){
+    aoidos="\n\nYOUR VOICE ("+(card.voice||"")+"): "+(voice?(voice.essence+" "+(voice.speech||"")).slice(0,300):"")
+      +"\nYOUR PERFORMANCE FUNCTIONS:\n"+(card.functions||[]).join("\n")
+      +(card.knowledge?("\nYOUR KNOWLEDGE BOUNDARY: "+JSON.stringify(card.knowledge).slice(0,400)):"");
+  }
+  /* METIS-PERFORM: this scene's turn contracts for this speaker */
+  const tns=turnsFor(entry.id,a.id);
+  const score=tns.length?("\n\nYOUR TURNS IN THIS SCENE (content contracts — pursue these, in spirit):\n"
+    +tns.map(t=>"["+t.act+"] "+t.payload+(t.conceal.length?(" · CONCEAL: "+t.conceal.join("; ")):"")
+      +(t.delivery?(" · DELIVERY: "+t.delivery):"")).join("\n")):"";
+  return "AOIDOS-PERFORM LAW: You are the live speech engine for "+(a.name||"an element")
+    +" in an oral-epic performance of the Odyssey. Generate ONE situated character turn, never a summary. "
+    +"Every line must pursue an objective, act upon the listener, preserve your knowledge boundary, "
+    +"reveal or conceal something consequential, and leave a responseable opening. "
+    +"Speak AS the character, never as a scholar. 1–4 sentences, one dominant idea per breath. "
+    +"Silence is valid — reply with (a silent action) alone when it presses harder than words. "
+    +"Never narrate stage business inside the spoken words; instead BEGIN with one short parenthetical "
+    +"stage direction, e.g. (turns from the fire, voice low). Never use future knowledge.\n\n"
+    +"YOUR ATLAS (who you are, visually and functionally):\n"+(a.prompt||"").slice(0,900)
+    +aoidos+score
+    +"\n\nYOUR PERFORMANCE DIRECTIONS ACROSS THE FILM:\n"+perfs.slice(0,700)
     +"\n\nTHE SCENE PLAYING NOW — "+entry.id+" · "+entry.title+":\n"+(entry.beats||[]).join(" → ")
     +(cue?("\n\nTHE SCENE'S SOUND:\n"+cue):"");
 }
@@ -656,9 +699,14 @@ function setInTab(chat){
   $("inChat").classList.toggle("on",chat); $("inRight").classList.toggle("off",chat);
   if(chat&&chatWho&&!$("chatLog").children.length){
     const a=assetById.get(chatWho);
-    const opener=((a.perfs||[]).find(p=>p.scene===(chatEntry&&chatEntry.id))||{}).perf
-      ||((a.perfs||[])[0]||{}).perf||"…";
-    chatAdd("them",opener,chatEntry&&chatEntry.id);
+    const tns=chatEntry?turnsFor(chatEntry.id,chatWho):[];
+    if(tns.length){ chatAdd("them",tns[0].payload,(tns[0].delivery||tns[0].act||"").slice(0,80));
+      turnIx[chatWho+"|"+chatEntry.id]=1; }
+    else{
+      const opener=((a.perfs||[]).find(p=>p.scene===(chatEntry&&chatEntry.id))||{}).perf
+        ||((a.perfs||[])[0]||{}).perf||"…";
+      chatAdd("them",opener,chatEntry&&chatEntry.id);
+    }
     portrait(chatWho,true);
     $("chatTxt").focus();
   }

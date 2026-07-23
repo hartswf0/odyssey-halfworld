@@ -249,6 +249,11 @@ async function playBookMusic(b){
 }
 addEventListener("pointerdown",()=>{ if(musicOn&&MAUD.src&&MAUD.paused)MAUD.play().catch(()=>{}); },{capture:true});
 
+/* the METIS-PERFORM score: each NPC performs their actual turns in the scene */
+let PT=null;
+fetch("viewer/performance-turns.json").then(r=>r.json()).then(j=>PT=j).catch(()=>{});
+const turnsFor=(sceneId,who)=>((PT&&PT.byScene[sceneId])||[]).filter(t=>t.sp===who);
+
 /* both rig shapes → [{key, prev()}] */
 function normNodes(mod){
   const raw=mod&&mod.states&&mod.states.nodes;
@@ -430,6 +435,14 @@ function talk(){
   for(const n of seg.npcs){const d=Math.abs(n.wx-player.wx);if(d<bd){bd=d;best=n;}}
   if(!best){hideCaption();talkNPC=null;return;}
   talkNPC=best; best.talking=perfNow()+6; foleyTalk(5);
+  const tns=turnsFor(seg.scene.id,best.a.id);
+  if(tns.length){
+    best._tx=((best._tx||0))%tns.length;
+    const t=tns[best._tx++];
+    showCaption(best.a.name+" · "+t.act,
+      t.payload+"<br><span style='color:#8a8a86'>"+(t.delivery||"")+"</span>");
+    return;
+  }
   const perf=(best.a.perfs||[]).find(p=>p.scene===seg.scene.id);
   showCaption(best.a.name, perf?perf.perf:(seg.scene.beats&&seg.scene.beats[0])||"…");
 }
