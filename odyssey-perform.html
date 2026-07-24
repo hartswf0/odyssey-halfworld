@@ -323,6 +323,10 @@ async function buildCastRail(){
 }
 
 /* ── the AOIDOS law for live generation ── */
+/* the spoken-line atlas — real first-person lines authored per turn id */
+let SPOKEN={};fetch("viewer/spoken-lines.json").then(r=>r.json()).then(j=>SPOKEN=j.lines||j).catch(()=>{});
+const lineFor=t=>t&&((SPOKEN[t.id]||{}).line||t.payload||"")||"";
+const dirFor=t=>t&&((SPOKEN[t.id]||{}).direction||"")||"";
 const apiCfg=()=>LS("odyssey.chat.api",{url:"https://api.openai.com/v1/chat/completions",model:"",key:""});
 $("apiBtn").onclick=()=>{
   const cfg=apiCfg();
@@ -388,7 +392,7 @@ async function commitTurn(i){
   $("spoken").innerHTML='<span style="color:var(--dim)">…</span>';
   const gen=await generateLine(t);
   if(ti!==i)return;
-  const line=gen?gen.line:t.payload;
+  const line=gen?gen.line:lineFor(t);
   const dir=gen&&gen.direction?gen.direction:null;
   if(dir)$("delivery").textContent="("+dir.replace(/^\(|\)$/g,"")+")";
   const breaths=(gen&&gen.breaths&&gen.breaths.length?gen.breaths:breathSplit(line));
@@ -431,15 +435,15 @@ function buildChoices(t,i){
   const nx=nextInScore();
   if(nx>=0){seen.add(nx);
     mk("▸ THE SCORE — "+(turns[nx].spName||"")+" · "+turns[nx].act,
-       (turns[nx].payload||"").slice(0,90),()=>commitTurn(nx),true);}
+       (lineFor(turns[nx])||"").slice(0,90),()=>commitTurn(nx),true);}
   const li=turns.findIndex((x,k)=>!visited.has(k)&&!seen.has(k)&&x.sp===t.ad);
   if(li>=0){seen.add(li);
     mk("⤷ "+(turns[li].spName||adName)+" SEIZES THE FLOOR · "+turns[li].act,
-       (turns[li].payload||"").slice(0,90),()=>commitTurn(li));}
+       (lineFor(turns[li])||"").slice(0,90),()=>commitTurn(li));}
   const oi=turns.findIndex((x,k)=>!visited.has(k)&&!seen.has(k)&&x.sp!==t.sp&&x.sp!==t.ad);
   if(oi>=0){seen.add(oi);
     mk("⚡ "+(turns[oi].spName||"ANOTHER")+" INTERRUPTS · "+turns[oi].act,
-       (turns[oi].payload||"").slice(0,90),()=>commitTurn(oi));}
+       (lineFor(turns[oi])||"").slice(0,90),()=>commitTurn(oi));}
   mk("… SILENCE HOLDS","the pressure passes unanswered — the score resumes",()=>{
     ledger.push({t:"a silence held after "+(t.spName||"")+"'s "+t.act,k:"SILENCE",by:adName});
     renderLedger();const n=nextInScore();if(n>=0)commitTurn(n);});
@@ -535,6 +539,8 @@ await loadScene(first);
 
 
 
+
+
 /* ══ SUITE KIT ══ */
 (()=>{try{
 const KGET=()=>{try{return JSON.parse(localStorage.getItem("odyssey.chat.api"))||{}}catch(e){return{}}};
@@ -591,7 +597,7 @@ window.kitLLM=async function(messages,opts){
 };
 window.kitLLMReady=()=>{const c=KGET(),P=PROV[provOf(c)]||PROV.openai;return !!(c.key||!P.needKey&&c.url||provOf(c)==="ollama");};
 /* ── MODEL panel — provider, model, key, TEST ── */
-const hdr=document.querySelector("header");
+const hdr=document.querySelector("header")||document.getElementById("top")||document.getElementById("topbar");
 const b=document.createElement("button");b.type="button";b.id="kitModel";b.textContent="MODEL";
 b.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap";
 if(hdr)hdr.appendChild(b);

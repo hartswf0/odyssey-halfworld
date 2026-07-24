@@ -120,6 +120,22 @@
     opacity:0;transition:opacity .25s;pointer-events:none}
   #toast.show{opacity:1}
 
+  /* ── narrow screens: the sheet becomes a full page with a fixed nav bar ── */
+  #sheetNav{display:flex;gap:8px;margin-bottom:10px}
+  #sheetNav .lbtn{padding:8px 12px}
+  @media(max-width:720px){
+    #top{position:sticky;top:0;z-index:30;background:var(--paper)}
+    #sheet{padding:0}
+    #sheetCard{width:100vw;height:100dvh;max-height:100dvh;flex-direction:column;border-width:0}
+    #sheetLeft{flex:0 0 36dvh;border-right:0;border-bottom:2px solid var(--ink);min-height:0}
+    #sheetLeft canvas{max-height:36dvh}
+    #sheetRight{padding:10px 12px 90px}
+    #sheetNav{position:sticky;top:0;z-index:3;background:var(--paper);padding:6px 0 8px}
+    #sheetNav .lbtn{flex:1;text-align:center;padding:12px 8px}
+    .needGrid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
+    .linkRow .lbtn{flex:1 1 40%;text-align:center;padding:12px 8px}
+    .cells{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}
+  }
   @media print{
     @page{margin:8mm}
     body{background:#fff}
@@ -321,21 +337,59 @@ function buildCards(){
   }
 }
 
-/* ── DETAIL SHEET ── */
-async function openSheet(kind,id){
+/* ── DETAIL SHEET — history-backed: every open pushes state, BACK returns
+      to the scene or grid you came from ── */
+function dlBlob(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+function dlCanvas(cnv,name){cnv.toBlob(b=>b&&dlBlob(b,name),"image/png");}
+async function dlSceneAssets(item){
+  toast("RENDERING "+item.assets.length+" ASSETS…");let n=0;
+  for(const aid of item.assets){const a=byId.get(aid);if(!a)continue;
+    try{const mod=await imp(a.path);
+      const c=document.createElement("canvas");c.width=660*2;c.height=880*2;
+      renderAsset(c,mod,{pipeline:"MESH",big:true,DPR:2,card:true});
+      await new Promise(r=>setTimeout(r,80));dlCanvas(c,a.id+".png");n++;
+      await new Promise(r=>setTimeout(r,320));}catch(_){}}
+  toast("DOWNLOADED "+n+" ASSET PNGS");
+}
+function buildScenePrompt(item){
+  return [item.title+" — "+item.id+" · BOOK "+ROMAN[item.book]+" — "+item.bookTitle,"",
+    "SCENE COMPOSE PROMPT:",item.composePrompt||"—","",
+    "BEATS:"].concat(item.beats.map((b,i)=>(i+1)+". "+b)).concat(["",
+    "ASSEMBLY — every required asset and the prompt that grew it:"]).concat(
+    item.assets.map(aid=>{const a=byId.get(aid);
+      return a?("• "+a.name+" ("+a.type.replace(/_/g," ")+")\n  "+(a.prompt||"—"))
+              :("• "+aid+" — NOT BUILT YET");})).concat(["",
+    "EXIT STATE:",item.exitState||"—"]).join("\n");
+}
+function openSheet(kind,id){
+  history.pushState({s:[kind,id]},"","#"+kind+"/"+encodeURIComponent(id));
+  renderSheet(kind,id);
+}
+addEventListener("popstate",()=>{
+  const m=location.hash.match(/^#(scene|asset)\/(.+)$/);
+  if(m)renderSheet(m[1],decodeURIComponent(m[2]));
+  else $("sheet").classList.remove("open");
+});
+async function renderSheet(kind,id){
   peekHide();
   const sheet=$("sheet"), right=$("sheetRight"), cv=$("sheetCv");
   sheet.classList.add("open");
   const item=kind==="scene"?sceneById.get(id):byId.get(id);
   if(!item)return;
+  const nav='<div id="sheetNav"><span class="lbtn" id="shBack">‹ BACK</span><span class="lbtn" id="shx2">✕ CLOSE</span></div>';
   if(kind==="scene"){
     cv.width=1120*1.5;cv.height=760*1.5;
-    right.innerHTML=`
+    right.innerHTML=nav+`
       <h2>${item.title}<span class="x" id="shx">✕</span></h2>
       <div class="sub">${item.id} · BOOK ${ROMAN[item.book]} — ${item.bookTitle} · ${item.assets.length} required assets</div>
       <div class="linkRow">
         <a class="lbtn red" href="../odyssey-previs.html#${item.id}">▶ PREVIS THE CUT</a>
         <a class="lbtn" href="../odyssey-stage.html#${item.id}">OPEN IN STAGE</a>
+        <span class="lbtn" id="dlScenePng">⬇ SCENE PNG</span>
+        <span class="lbtn" id="dlSceneAssets">⬇ ALL ASSETS</span>
+        <span class="lbtn" id="dlSceneJson">⬇ SCENE JSON</span>
+        <span class="lbtn" id="cpBuild">COPY BUILD PROMPT</span>
       </div>
       <h3>BEATS</h3>
       ${item.beats.map((b,i)=>`<div class="beat" data-n="${i+1}">${b}</div>`).join("")}
@@ -351,25 +405,44 @@ async function openSheet(kind,id){
       }).join("")}</div>
       <h3>FULL ATLAS PROMPT</h3>
       <div class="promptBox">${(item.composePrompt||"—").replace(/</g,"&lt;")}</div>
+      <h3>ASSEMBLY PROMPT — the whole scene as one buildable text</h3>
+      <div class="promptBox" style="border-left-color:var(--red)">${buildScenePrompt(item).replace(/</g,"&lt;")}</div>
       <h3>EXIT STATE</h3>
       <div class="promptBox" style="border-left-color:var(--red)">${(item.exitState||"—").replace(/</g,"&lt;")}</div>`;
+    right.querySelector("#dlScenePng").onclick=()=>dlCanvas(cv,item.id+".png");
+    right.querySelector("#dlSceneAssets").onclick=()=>dlSceneAssets(item);
+    right.querySelector("#dlSceneJson").onclick=()=>dlBlob(new Blob([JSON.stringify(
+      {scene:item,assets:item.assets.map(aid=>byId.get(aid)||{id:aid,missing:true}),
+       buildPrompt:buildScenePrompt(item)},null,1)],{type:"application/json"}),item.id+".json");
+    right.querySelector("#cpBuild").onclick=()=>navigator.clipboard.writeText(buildScenePrompt(item))
+      .then(()=>toast("BUILD PROMPT COPIED"),()=>toast("CLIPBOARD BLOCKED"));
     try{const mod=await imp(item.path);
       renderScene(cv,mod,{pipeline:"MESH",t:(mod.duration||36)*.6,DPR:1.6,card:true});}catch(_){}
   }else{
     cv.width=660*1.6;cv.height=880*1.6;
-    right.innerHTML=`
+    right.innerHTML=nav+`
       <h2>${item.name}<span class="x" id="shx">✕</span></h2>
       <div class="sub">${item.id} · ${item.type.replace(/_/g," ")} · appears ${item.uses}× · books ${(item.books||[]).map(b=>ROMAN[b]).join(" · ")||"—"}</div>
       <h3>APPEARS IN</h3>
       <div>${(item.scenes||[]).map(sid=>`<span class="sceneTag" data-scene="${sid}">${sid}</span>`).join("")||"—"}</div>
       ${item.perfs&&item.perfs.length?`<h3>PERFORMANCES</h3>${item.perfs.slice(0,6).map(p=>
         `<div class="beat" data-n="${p.scene.slice(-2)}">${p.perf}</div>`).join("")}`:""}
+      <div class="linkRow">
+        <span class="lbtn" id="dlAssetPng">⬇ PNG</span>
+        <span class="lbtn" id="dlAssetJson">⬇ JSON</span>
+      </div>
       <h3>FULL ATLAS PROMPT</h3>
       <div class="promptBox">${(item.prompt||"—").replace(/</g,"&lt;")}</div>`;
+    right.querySelector("#dlAssetPng").onclick=()=>dlCanvas(cv,item.id+".png");
+    right.querySelector("#dlAssetJson").onclick=()=>dlBlob(new Blob([JSON.stringify(item,null,1)],
+      {type:"application/json"}),item.id+".json");
     try{const mod=await imp(item.path);
       renderAsset(cv,mod,{pipeline:"MESH",big:true,DPR:1.6,card:true});}catch(_){}
   }
-  right.querySelector("#shx").onclick=()=>sheet.classList.remove("open");
+  const closeSheet=()=>{if(location.hash)history.back();else sheet.classList.remove("open");};
+  right.querySelector("#shx").onclick=closeSheet;
+  right.querySelector("#shx2").onclick=closeSheet;
+  right.querySelector("#shBack").onclick=()=>history.back();
   right.querySelectorAll("[data-asset]").forEach(el=>el.onclick=()=>openSheet("asset",el.dataset.asset));
   right.querySelectorAll("[data-scene]").forEach(el=>el.onclick=()=>{
     const sid=el.dataset.scene;
@@ -377,8 +450,9 @@ async function openSheet(kind,id){
     else toast(sid+" — NOT BUILT YET (BOOKS XVI–XXIV PENDING)");
   });
 }
-$("sheet").addEventListener("click",e=>{if(e.target.id==="sheet")$("sheet").classList.remove("open");});
-addEventListener("keydown",e=>{if(e.key==="Escape")$("sheet").classList.remove("open");});
+const sheetBack=()=>{if(location.hash)history.back();else $("sheet").classList.remove("open");};
+$("sheet").addEventListener("click",e=>{if(e.target.id==="sheet")sheetBack();});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&$("sheet").classList.contains("open"))sheetBack();});
 
 /* ── chips ── */
 function build(){VIEW==="table"?buildTable():buildCards();}
@@ -419,6 +493,8 @@ $("printBtn").onclick=async()=>{
   for(const a of MAN.assets)byId.set(a.id,a);
   for(const s of MAN.scenes)sceneById.set(s.id,s);
   buildChips();build();
+  const m=location.hash.match(/^#(scene|asset)\/(.+)$/);
+  if(m)renderSheet(m[1],decodeURIComponent(m[2]));
   toast(MAN.assets.length+" ELEMENTS · "+MAN.scenes.length+" SCENES — CLICK ANY CELL");
 })();
 </script>

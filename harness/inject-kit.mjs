@@ -66,7 +66,7 @@ window.kitLLM=async function(messages,opts){
 };
 window.kitLLMReady=()=>{const c=KGET(),P=PROV[provOf(c)]||PROV.openai;return !!(c.key||!P.needKey&&c.url||provOf(c)==="ollama");};
 /* ── MODEL panel — provider, model, key, TEST ── */
-const hdr=document.querySelector("header");
+const hdr=document.querySelector("header")||document.getElementById("top")||document.getElementById("topbar");
 const b=document.createElement("button");b.type="button";b.id="kitModel";b.textContent="MODEL";
 b.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap";
 if(hdr)hdr.appendChild(b);
@@ -256,6 +256,12 @@ const FILES = [
   "odyssey-suite-concordance.html",
   "odyssey-suite-aoidos-live-performance.html",
   "odyssey-perform.html",
+  "odyssey-game.html",
+  "odyssey-timeline.html",
+  "odyssey-previs.html",
+  "odyssey-stage.html",
+  "odyssey-synthcine.html",
+  "odyssey-world-studio.html",
 ];
 for (const f of FILES) {
   const path = resolve(ROOT, f);

@@ -667,7 +667,7 @@ function speakPerformance(pa){
   if(!pa||!PERF_PREF.voice||!playing||!("speechSynthesis" in window))return;
   const t=pa.turn,key=pa.entry.id+"|"+t.id; if(key===lastSpokenKey)return;
   lastSpokenKey=key; speechSynthesis.cancel();
-  const surface=spokenSurface(t.payload); if(!surface)return;
+  const surface=spokenSurface(lineFor(t)); if(!surface)return;
   const u=new SpeechSynthesisUtterance(surface),v=voiceForSpeaker(t.speaker); if(v)u.voice=v;
   u.rate=/urgent|rapid|sharp|command/i.test(t.delivery+" "+t.act)?1.08:/slow|low|grief|solemn/i.test(t.delivery+" "+t.act)?.88:.96;
   u.pitch=.88+(Math.abs([...t.speaker].reduce((a,c)=>a+c.charCodeAt(0),0))%24)/100;
@@ -756,7 +756,7 @@ function chatReply(a,entry,q){
     if(i===(turnIx[key]||0)-1) i=(turnIx[key]||0)%tns.length;   // never repeat the last turn
     turnIx[key]=i+1;
     const t=tns[i];
-    return { t:t.payload, tag:(t.delivery||t.act||"").slice(0,80) };
+    return { t:lineFor(t), tag:(dirFor(t)||t.delivery||t.act||"").slice(0,80) };
   }
   const pool=chatPoolFor(a,entry), qt=tok(q);
   let best=null,bs=-1;
@@ -799,6 +799,10 @@ async function portrait(id,speak){
 /* ── REAL TALK: any OpenAI-format endpoint performs the character from its
    atlas card. Falls back to the genome scorer offline or on error. ── */
 let chatHist=[];
+/* the spoken-line atlas — real first-person lines authored per turn id */
+let SPOKEN={};fetch("viewer/spoken-lines.json").then(r=>r.json()).then(j=>SPOKEN=j.lines||j).catch(()=>{});
+const lineFor=t=>t&&((SPOKEN[t.id]||{}).line||t.payload||"")||"";
+const dirFor=t=>t&&((SPOKEN[t.id]||{}).direction||"")||"";
 const apiCfg=()=>LS("odyssey.chat.api",{url:"https://api.openai.com/v1/chat/completions",model:"",key:""});
 function charCard(a,entry){
   const perfs=(a.perfs||[]).map(p=>p.scene+": "+p.perf).join("\n");
@@ -827,7 +831,7 @@ function charCard(a,entry){
   /* METIS-PERFORM: this scene's turn contracts for this speaker */
   const tns=turnsFor(entry.id,a.id);
   const score=tns.length?("\n\nYOUR TURNS IN THIS SCENE (content contracts — pursue these, in spirit):\n"
-    +tns.map(t=>"["+t.act+"] "+t.payload+(t.conceal.length?(" · CONCEAL: "+t.conceal.join("; ")):"")
+    +tns.map(t=>"["+t.act+"] "+lineFor(t)+(t.conceal.length?(" · CONCEAL: "+t.conceal.join("; ")):"")
       +(t.delivery?(" · DELIVERY: "+t.delivery):"")).join("\n")):"";
   return "AOIDOS-PERFORM LAW: You are the live speech engine for "+(a.name||"an element")
     +" in an oral-epic performance of the Odyssey. Generate ONE situated character turn, never a summary. "
@@ -899,7 +903,7 @@ function setInTab(chat){
   if(chat&&chatWho&&!$("chatLog").children.length){
     const a=assetById.get(chatWho);
     const tns=chatEntry?turnsFor(chatEntry.id,chatWho):[];
-    if(tns.length){ chatAdd("them",tns[0].payload,(tns[0].delivery||tns[0].act||"").slice(0,80));
+    if(tns.length){ chatAdd("them",lineFor(tns[0]),(dirFor(tns[0])||tns[0].delivery||tns[0].act||"").slice(0,80));
       turnIx[chatWho+"|"+chatEntry.id]=1; }
     else{
       const opener=((a.perfs||[]).find(p=>p.scene===(chatEntry&&chatEntry.id))||{}).perf
@@ -968,7 +972,7 @@ function updatePerformanceUI(entry,pa){
   const t=pa.turn,speaker=displayName(t.speaker),listener=t.listener?displayName(t.listener):"open arena";
   activePerf=pa;
   $("nowSpeaker").textContent=speaker; $("nowAct").textContent=t.act;
-  $("voice").textContent=t.payload||"(silence)";
+  $("voice").textContent=lineFor(t)||"(silence)";
   $("screenText").textContent=entry.title+" · TURN "+(pa.index+1)+"/"+pa.count+" · "+speaker+" → "+listener;
   $("turnMeta").textContent="objective "+(t.objective||"change the scene")+" · subtext "+(t.subtext||"—")
     +" · listener change "+(t.effect||t.opening||"response required");
@@ -1061,6 +1065,8 @@ requestAnimationFrame(tick);
 
 
 
+
+
 /* ══ SUITE KIT ══ */
 (()=>{try{
 const KGET=()=>{try{return JSON.parse(localStorage.getItem("odyssey.chat.api"))||{}}catch(e){return{}}};
@@ -1117,7 +1123,7 @@ window.kitLLM=async function(messages,opts){
 };
 window.kitLLMReady=()=>{const c=KGET(),P=PROV[provOf(c)]||PROV.openai;return !!(c.key||!P.needKey&&c.url||provOf(c)==="ollama");};
 /* ── MODEL panel — provider, model, key, TEST ── */
-const hdr=document.querySelector("header");
+const hdr=document.querySelector("header")||document.getElementById("top")||document.getElementById("topbar");
 const b=document.createElement("button");b.type="button";b.id="kitModel";b.textContent="MODEL";
 b.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap";
 if(hdr)hdr.appendChild(b);

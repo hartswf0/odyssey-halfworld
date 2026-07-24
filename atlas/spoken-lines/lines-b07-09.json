@@ -1,0 +1,362 @@
+{
+ "OD-B07-S01-T01": {
+  "line": "Go softly, stranger, and wait among my father's poplars until I am within.",
+  "direction": "leaves him at the grove and walks on to the palace"
+ },
+ "OD-B07-S01-T02": {
+  "line": "",
+  "direction": "Odysseus enters the city wrapped in a fold of divine mist"
+ },
+ "OD-B07-S01-T03": {
+  "line": "You look lost, stranger. Come, I will bring you to the house you seek, for it lies near my own father's.",
+  "direction": "appears as a young girl carrying a pitcher, leading him through streets and harbor"
+ },
+ "OD-B07-S01-T04": {
+  "line": "These Phaeacians love oar and sail and do not warm to strangers, so walk quickly and question no one. Go straight through the hall to the queen, Arete, whom the people honor like a god. Win her heart, and you may yet see your home and your own high-roofed house.",
+  "direction": "points the way, then vanishes"
+ },
+ "OD-B07-S02-T01": {
+  "line": "Walls of bronze, and doors of gold on silver posts — a light lies on this house like the sun and moon together.",
+  "direction": "halts before the palace, marveling at the guardian dogs of gold and silver"
+ },
+ "OD-B07-S02-T02": {
+  "line": "Fifty women within, some grinding the yellow grain, some at the looms — their hands flicker like poplar leaves in wind.",
+  "direction": "watches from the threshold, unseen"
+ },
+ "OD-B07-S02-T03": {
+  "line": "And outside the courtyard the great orchard bears through every season: pear ripens upon pear, fig upon fig, grape upon grape, and the west wind never lets the garden sleep.",
+  "direction": "sweeps the scene wide before returning to the man in the mist"
+ },
+ "OD-B07-S02-T04": {
+  "line": "Now — to the queen.",
+  "direction": "crosses the threshold hidden in mist and finds the lords at their feast"
+ },
+ "OD-B07-S03-T01": {
+  "line": "",
+  "direction": "the mist falls away the moment his arms reach Arete"
+ },
+ "OD-B07-S03-T02": {
+  "line": "Arete, daughter of Rhexenor, after many trials I come to your knees, and to your king, and to all these feasters — may the gods give you long joy. For me, ask only this: grant me convoy to my own country, for I have suffered long, far from everyone I love.",
+  "direction": "clasps the queen's knees, then sits down in the ashes by the hearth"
+ },
+ "OD-B07-S03-T03": {
+  "line": "Alcinous, this is not well, and it does not befit you: a stranger sitting in the ashes of your hearth. Raise him up, seat him on a silver-studded chair, and let the herald mix wine, for Zeus himself walks with suppliants.",
+  "direction": "the old counselor breaks the hall's silence"
+ },
+ "OD-B07-S03-T04": {
+  "line": "You honor me beyond my hope, great king. May the gods repay this house.",
+  "direction": "rises from the ashes to the seat beside the king and eats"
+ },
+ "OD-B07-S04-T01": {
+  "line": "The hall empties; only the king and queen remain. And Arete's eye comes to rest on his cloak and tunic — cloth her own hands wove with her women.",
+  "direction": "narrows the scene to the queen's studying gaze"
+ },
+ "OD-B07-S04-T02": {
+  "line": "Stranger, I will ask you first myself: who are you, and from what people? And who gave you those clothes — did you not say you came to us wandering over the sea?",
+  "direction": "the queen's question, quiet and exact"
+ },
+ "OD-B07-S04-T03": {
+  "line": "Hard to tell all my griefs, queen, for the gods have given me many. Far off lies an island where the goddess Calypso held me seven years against my will, and when at last I sailed, the sea broke my raft and threw me naked on your shore. It was your daughter who found me, fed me, and gave me these clothes — blame her for nothing, for I chose to walk behind alone, fearing men's idle talk.",
+  "direction": "gives truth enough, shielding the princess, keeping his name"
+ },
+ "OD-B07-S04-T04": {
+  "line": "One thing only my daughter missed, that she did not bring you straight to our doors — yet your care does you credit, stranger. Would to Zeus a man like you might stay, and be called my son, with house and wealth from my hand. But no one holds you against your will: tomorrow you shall have ship and oarsmen for your home, though it lie farther than the farthest island.",
+  "direction": "admiration widening into an open-handed offer"
+ },
+ "OD-B08-S01-T01": {
+  "line": "To assembly, captains and counselors of the Phaeacians! Come and learn of the stranger newly come to the wise king's house — a man like the deathless gods to look on!",
+  "direction": "moves through the dawn city in a herald's shape"
+ },
+ "OD-B08-S01-T02": {
+  "line": "",
+  "direction": "sheds grace on Odysseus, making him taller and mightier to every eye"
+ },
+ "OD-B08-S01-T03": {
+  "line": "Draw a black ship down to the bright sea, and let fifty-two picked youths make her ready for the voyage. The rest of you, lords, come to my hall — we feast this stranger. And summon Demodocus, for to him the god has given song beyond all others.",
+  "direction": "orders sailing and feast in one breath"
+ },
+ "OD-B08-S01-T04": {
+  "line": "So the ship is moored out in deep water, and the palace fills — porches and courts and halls — with young men and old, and the smell of roasting rises.",
+  "direction": "bridges city and hall"
+ },
+ "OD-B08-S02-T01": {
+  "line": "Sing, Demodocus! Sing the famous quarrel — Odysseus and Achilles, best of the Achaeans, at strife with high words at the gods' rich feast!",
+  "direction": "the listeners call as the herald sets the lyre in the blind singer's hands"
+ },
+ "OD-B08-S02-T02": {
+  "line": "",
+  "direction": "draws the great purple cloak over his head and weeps unseen, uncovering between verses"
+ },
+ "OD-B08-S02-T03": {
+  "line": "Rest the lyre — we have had our fill of feast and song. Out to the games now, all of you, that our guest may tell his people at home how far we surpass all men at boxing, wrestling, the jump, and the race!",
+  "direction": "alone marks the guest's hidden tears and rises"
+ },
+ "OD-B08-S02-T04": {
+  "line": "So the whole company pours out from the hall at the king's heels, toward the marked field of contest.",
+  "direction": "carries the scene from feast to field"
+ },
+ "OD-B08-S03-T01": {
+  "line": "The youths of Phaeacia rise up: they run and the dust hangs over the plain, they wrestle, they leap, they hurl the discus, they trade blows in boxing.",
+  "direction": "names each contest as it flashes past"
+ },
+ "OD-B08-S03-T02": {
+  "line": "Come, father stranger, try our games yourself — you have the build of an athlete under those griefs. No fame in a man's life is greater than what his own hands and feet win him.",
+  "direction": "steps forward courteously with the invitation"
+ },
+ "OD-B08-S03-T03": {
+  "line": "No, I see no athlete here. A master of cargoes, rather — one who minds his freight and his greedy profits. Nothing of the games in him.",
+  "direction": "smirks for the crowd's benefit"
+ },
+ "OD-B08-S03-T04": {
+  "line": "That was badly spoken, young man, and it stings me to my feet. See where the stone flew — past every mark of yours, and I threw it clothed and weary. Now let any Phaeacian but Laodamas, my host's son, come and try me — boxing, wrestling, or the race, I refuse no one.",
+  "direction": "seizes the greatest discus and hurls it whistling beyond all the marks"
+ },
+ "OD-B08-S03-T05": {
+  "line": "Peace, stranger — no man of sense could fault your worth. Watch now what we do best, for in swift ships and the running foot, in dance and song, we lead all men.",
+  "direction": "calms the field and signals for dancers and lyre"
+ },
+ "OD-B08-S04-T01": {
+  "line": "Hear now how Ares and golden Aphrodite lay together in secret, and how the lame smith Hephaestus forged a net fine as spider-thread that no eye could see, and caught the lovers fast in his own bed till all the gods stood laughing at the door.",
+  "direction": "sings to the lyre while the circle dances"
+ },
+ "OD-B08-S04-T02": {
+  "line": "",
+  "direction": "leap and spin in the ring, the crimson ball flashing hand to hand"
+ },
+ "OD-B08-S04-T03": {
+  "line": "Alcinous, you boasted your dancers were the best beneath the sun, and here the boast stands proved. Wonder takes me as I watch — their feet flash and my eyes cannot follow.",
+  "direction": "genuine awe, freely given"
+ },
+ "OD-B08-S04-T04": {
+  "line": "Then the twelve lords bring gifts for the guest — fresh-washed cloak and tunic and a talent of precious gold from each — and the heralds carry all before the queen.",
+  "direction": "measures out the wealth of the giving"
+ },
+ "OD-B08-S04-T05": {
+  "line": "Farewell, father stranger — if a harsh word was spoken, let the storm winds snatch it up and carry it away. Take this sword of bronze, silver on the hilt, the sheath new-carved ivory, and may the gods grant you your home and your wife.",
+  "direction": "lays the sword in Odysseus's hands, pride bent into apology"
+ },
+ "OD-B08-S05-T01": {
+  "line": "Demodocus, above all mortals I honor you — the Muse taught you, surely, or Apollo, for you sing the Achaeans' fate as though you stood among them. Take this cut of honor from my own portion. Now shift your ground and sing the wooden horse, the trap Epeius built with Athena, that noble Odysseus led up into Troy filled with fighting men.",
+  "direction": "sends the choice meat to the bard, asking for his own hidden story"
+ },
+ "OD-B08-S05-T02": {
+  "line": "And the bard sings: the Argives spilling from the horse's hollow flank, the city burning, and Odysseus with Menelaus at the doors of Deiphobus, fighting his grimmest fight until Athena gave him victory.",
+  "direction": "the song rises while one listener begins to break"
+ },
+ "OD-B08-S05-T03": {
+  "line": "",
+  "direction": "melts into weeping beneath his cloak, as a woman weeps fallen on her husband's body"
+ },
+ "OD-B08-S05-T04": {
+  "line": "Stop the lyre, Demodocus — not all here take joy of it, for since the song began our guest has not once left off weeping. Now, stranger, hide it no longer: tell me the name your father and mother called you, and your land and your city. And say why you weep at the doom of the Argives and Troy — did some kinsman fall there, or a comrade dear as a brother?",
+  "direction": "turns observation into the direct question at last"
+ },
+ "OD-B08-S05-T05": {
+  "line": "You ask, king, and I will tell you all of it — though the telling opens every wound.",
+  "direction": "settles upright, gathering breath for the long tale"
+ },
+ "OD-B09-S01-T01": {
+  "line": "Alcinous, mighty king, it is a fine thing to hear a singer such as this, whose voice is like a god's. No moment is sweeter than when joy holds a whole people — feasters ranged down the hall listening, the tables full of bread and meat, the steward pouring wine. This seems to my own heart the fairest thing there is.",
+  "direction": "praise laid down like a threshold before the leap"
+ },
+ "OD-B09-S01-T02": {
+  "line": "But you ask my name, and I will hide it no longer. I am Odysseus, son of Laertes, known to all men for my cunning, and my fame goes up to heaven.",
+  "direction": "the name dropped into the silent hall"
+ },
+ "OD-B09-S01-T03": {
+  "line": "My home is Ithaca, clear under the sun — rough ground, no place for horses, but a good nurse of men. I have looked on Calypso's island and on wonders past counting, and seen nothing sweeter than a man's own country.",
+  "direction": "opens his hands to the hall, homesick in the telling"
+ },
+ "OD-B09-S01-T04": {
+  "line": "Come then — I will tell you the bitter homecoming Zeus gave me out of Troy.",
+  "direction": "begins the tale, and the hall leans in"
+ },
+ "OD-B09-S02-T01": {
+  "line": "Ismarus is ours! Share out the spoil and the women — equal portions, no man cheated!",
+  "direction": "sack the Cicones' city and heap the plunder on the sand"
+ },
+ "OD-B09-S02-T02": {
+  "line": "Not yet, captain! The sheep are fat and the wine runs dark and sweet — one more cup on the beach, and then we row!",
+  "direction": "the crews wave off the order and feast on"
+ },
+ "OD-B09-S02-T03": {
+  "line": "For Ismarus! Drive the sea-thieves into the water!",
+  "direction": "come on in ranks at dawn, thick as leaves in spring, with chariots"
+ },
+ "OD-B09-S02-T04": {
+  "line": "Six benches from every ship stand empty when at dusk the fleet claws free — glad to be alive, and grieving for the comrades left behind.",
+  "direction": "counts the cost as the shore recedes"
+ },
+ "OD-B09-S03-T01": {
+  "line": "Nine days the north wind and the killing seas drive the ships off course, past Cythera, off the edge of the known world.",
+  "direction": "storm-bridge, the map dissolving"
+ },
+ "OD-B09-S03-T02": {
+  "line": "On the tenth day they land where the Lotus-eaters dwell, and three men go inland to learn what people eat bread in that country.",
+  "direction": "sets the scouts walking into the green quiet"
+ },
+ "OD-B09-S03-T03": {
+  "line": "The Lotus-eaters plan no death for them. They offer only the lotus, honey-sweet.",
+  "direction": "the gentlest danger in the whole tale"
+ },
+ "OD-B09-S03-T04": {
+  "line": "But whoever eats that fruit forgets the way home, and wishes only to stay among the lotus-eating people, grazing on flowers, all memory of return dissolved.",
+  "direction": "lets the forgetting settle over the scene"
+ },
+ "OD-B09-S03-T05": {
+  "line": "Take them, though they weep — bind them under the benches! The rest of you aboard and to your oars now, before another man tastes the lotus and forgets his home.",
+  "direction": "drags the weeping scouts to the ships by force"
+ },
+ "OD-B09-S04-T01": {
+  "line": "The fleet comes then to a wooded island where wild goats breed and no plow has ever cut, lying just across the water from the land of the Cyclopes.",
+  "direction": "raises the new shore out of the dark"
+ },
+ "OD-B09-S04-T02": {
+  "line": "Some god pilots them through the night, for no ship can be seen — they glide into a harbor that needs no anchor stone, and sleep on the sand till dawn.",
+  "direction": "hushes the landing"
+ },
+ "OD-B09-S04-T03": {
+  "line": "At dawn they hunt the goats down the glens and feast until sundown — and across the strait they see the smoke of the Cyclopes' fires, and hear voices, and the bleating of sheep.",
+  "direction": "turns every head toward the far shore"
+ },
+ "OD-B09-S04-T04": {
+  "line": "The rest of you stay by the ships. My own crew comes with me — I will cross and learn what men live yonder: savages without law, or god-fearing folk who welcome strangers.",
+  "direction": "boards his own ship with chosen men"
+ },
+ "OD-B09-S05-T01": {
+  "line": "The wine of Maron comes with us — twelve men, follow me. My heart says we go to meet a man of great strength, lawless and wild.",
+  "direction": "slings the wineskin and leads twelve up to the huge cave"
+ },
+ "OD-B09-S05-T02": {
+  "line": "Look — racks bending under cheeses, pens of lambs and kids, each age folded apart, and the pails swimming with whey. A careful hand keeps this place.",
+  "direction": "surveys the cave stores in the half-dark"
+ },
+ "OD-B09-S05-T03": {
+  "line": "Let us take the cheeses and drive the lambs and kids to the ship, they begged him — take them and run for the salt water while we can.",
+  "direction": "voices the crew's desperate good sense"
+ },
+ "OD-B09-S05-T04": {
+  "line": "No — we wait. I would see the master of this cave myself, and take the guest-gift that strangers are owed. My men saw truer than I, and how much better it would have been to listen.",
+  "direction": "the teller judging his own past folly"
+ },
+ "OD-B09-S06-T01": {
+  "line": "Hup! In, you woolly bellies — in!",
+  "direction": "hurls down a mountain of firewood and drives the flock inside"
+ },
+ "OD-B09-S06-T02": {
+  "line": "",
+  "direction": "heaves across the entrance a slab twenty-two wagons could not move"
+ },
+ "OD-B09-S06-T03": {
+  "line": "",
+  "direction": "milks ewes and goats in order, sets each young to its mother, curdles half the milk, kindles the fire"
+ },
+ "OD-B09-S06-T04": {
+  "line": "The firelight finds them, huddled in the deep of the cave — and the great voice falls on them like the slab itself: Strangers! Who are you, and from where do you sail the wet ways — traders, or pirates roving with your lives in your hands?",
+  "direction": "the demand shakes dust from the cave walls"
+ },
+ "OD-B09-S07-T01": {
+  "line": "We are Achaeans out of Troy, men of Agamemnon, whose fame is the widest now under heaven — driven here by every wind on the wrong sea-roads. We come to your knees, hoping the welcome due a guest. Respect the gods, mighty one: Zeus himself walks with strangers and avenges them.",
+  "direction": "terror mastered into ritual pleading"
+ },
+ "OD-B09-S07-T02": {
+  "line": "You are a fool, stranger, or come from very far, to bid me fear your gods. We Cyclopes care nothing for Zeus of the aegis — we are stronger by far, and I spare no man for fear of heaven. But tell me: where did you moor that fine ship of yours — far up the coast, or near?",
+  "direction": "contempt draped over a probing trap"
+ },
+ "OD-B09-S07-T03": {
+  "line": "Ship? Poseidon smashed her on the rocks at the headland of your land. These men and I alone climbed out of the sea.",
+  "direction": "answers smoothly, giving the ship nothing"
+ },
+ "OD-B09-S07-T04": {
+  "line": "No answer — he springs, and his hands close on two of the men and dash them on the stone like puppies, and he tears them limb from limb for his supper, leaving nothing.",
+  "direction": "the horror told flat and fast"
+ },
+ "OD-B09-S07-T05": {
+  "line": "We lifted our hands to Zeus, weeping — there was nothing else our hands could do.",
+  "direction": "prays with the survivors while the giant drinks milk and sleeps among his flocks"
+ },
+ "OD-B09-S08-T01": {
+  "line": "No — strike now and we die here with him. No arm of ours could ever roll that stone from the door.",
+  "direction": "stays his own sword hand at the sleeping throat"
+ },
+ "OD-B09-S08-T02": {
+  "line": "",
+  "direction": "snatches two more men for his morning meal, whistles the flock out, seals the stone behind him"
+ },
+ "OD-B09-S08-T03": {
+  "line": "The olive trunk there — his own club. Cut it to a fathom, smooth it, harden the point in the fire. He has given us our weapon himself.",
+  "direction": "shapes the stake and chars its tip, then hides it"
+ },
+ "OD-B09-S08-T04": {
+  "line": "They bury the stake beneath the deep dung and cast lots for four to stand with him at the eye — and the lots fall on the very men he would have chosen.",
+  "direction": "the plan tightening toward night"
+ },
+ "OD-B09-S08-T05": {
+  "line": "Here, Cyclops — drink wine on that man-flesh you have eaten, and learn what drink our ship carried. You ask my name, and I will tell it for the guest-gift you promised: Nobody is my name. Nobody — so my father and mother and all my friends call me.",
+  "direction": "holds up the ivy bowl of unmixed wine"
+ },
+ "OD-B09-S09-T01": {
+  "line": "Give me more, freely — and here is your gift, Nobody, to warm your heart: I eat Nobody last, after all his friends. There is my guest-gift to you.",
+  "direction": "drains the third bowl and topples backward into drunken sleep"
+ },
+ "OD-B09-S09-T02": {
+  "line": "Now — for our dead. Drive it!",
+  "direction": "pulls the glowing stake from the coals and drives it into the eye with his four men"
+ },
+ "OD-B09-S09-T03": {
+  "line": "",
+  "direction": "leans his weight and twists the stake like a shipwright's drill as blood and steam boil out"
+ },
+ "OD-B09-S09-T04": {
+  "line": "Aaah! My eye — my eye!",
+  "direction": "tears the stake free and roars until the rock rings"
+ },
+ "OD-B09-S09-T05": {
+  "line": "What ails you, Polyphemus, that you wake the deathless night with screaming — is some man stealing your flocks, or killing you by craft or force? If Nobody harms you, alone as you are, it is sickness sent by Zeus, and cannot be helped — pray to your father Poseidon.",
+  "direction": "voices gather at the sealed stone, then shuffle away into the dark"
+ },
+ "OD-B09-S09-T06": {
+  "line": "Where are you, worm? You will not walk living out of my door.",
+  "direction": "rolls back the stone and sits groping with spread hands across the entrance"
+ },
+ "OD-B09-S10-T01": {
+  "line": "Softly, softly — every back passes under my hands.",
+  "direction": "sits blind in the doorway at dawn, feeling each fleece as it passes"
+ },
+ "OD-B09-S10-T02": {
+  "line": "",
+  "direction": "lashes rams three abreast with willow withes, slinging a man beneath each middle beast"
+ },
+ "OD-B09-S10-T03": {
+  "line": "I took the great lead ram myself and hung beneath his belly, my hands twisted in that miracle of wool, and dared not breathe. Over my head the blind master mourned to him: Sweet ram, why last from the cave today, you who were always first — do you grieve for your master's eye?",
+  "direction": "the teller reliving the longest moments of the escape"
+ },
+ "OD-B09-S10-T04": {
+  "line": "Clear of the cave and the yard, he frees himself first and unties his men — and they drive the fat, long-legged flock down to the ship, looking back often, and bend to the oars.",
+  "direction": "the escape breaking into open speed"
+ },
+ "OD-B09-S10-T05": {
+  "line": "Share out the flock, every man his portion — and the great ram goes to Zeus, lord of the dark cloud, with the thighs burnt on the fire.",
+  "direction": "sacrifices the ram on the shore of the island"
+ },
+ "OD-B09-S11-T01": {
+  "line": "Cyclops! It was no weak man's friends you ate in your hollow cave — your evil deeds were bound to find you out! You dared devour guests in your own house, and Zeus and the gods have paid you for it!",
+  "direction": "shouts across the water despite his men's frantic pleading"
+ },
+ "OD-B09-S11-T02": {
+  "line": "That voice!",
+  "direction": "rips the crest from a mountain and hurls it at the sound, the wave driving the ship back toward shore"
+ },
+ "OD-B09-S11-T03": {
+  "line": "Cyclops — if any mortal ever asks who put out your eye so shamefully, tell him this: it was Odysseus, sacker of cities, who blinded you — Laertes's son, whose home is in Ithaca!",
+  "direction": "stands and gives the fatal name across the widening water"
+ },
+ "OD-B09-S11-T04": {
+  "line": "So the old prophecy comes home — Telemus foretold I would lose my sight at the hands of Odysseus, and I watched all these years for a great man, not this little worthless nothing who undid me with wine. Hear me, Poseidon, dark-haired shaker of the earth, if I am truly your son: grant that Odysseus, sacker of cities, never reach his home. Or if he must, let him come late and broken, on a stranger's ship, all his comrades lost — and find trouble waiting in his house.",
+  "direction": "spreads his hands to the starry sky, praying to his father"
+ },
+ "OD-B09-S11-T05": {
+  "line": "He heaves a second stone, greater still — it falls a blade's width short astern, and the wave carries the ship on to the island where the fleet waits, weeping for the lost.",
+  "direction": "closes the shore behind them"
+ }
+}
