@@ -1,9 +1,8 @@
-/* build-concordance.mjs — candidate-first concordance from METIS-L v1.
-   Honest scope: TRANSLATION_DERIVED formula variants with Fagles PAGE anchors
-   (no fabricated Greek line concordance). Emits the scene-runtime candidate
-   file the concordance page loads first; the full/extended/parallels corpus
-   files remain optional future datasets (the page degrades gracefully).
-   Run: node harness/build-concordance.mjs */
+/* build-concordance.mjs — candidate-first concordance in the concordance
+   page's COMPACT ARRAY schema, built honestly from METIS-L v1 formula
+   families (TRANSLATION_DERIVED English surfaces, Fagles PAGE anchors —
+   no fabricated Greek). Page displays its own computational-candidate
+   caveats. Run: node harness/build-concordance.mjs */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,47 +11,66 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const v1 = JSON.parse(await readFile(resolve(ROOT, "atlas/odyssey_metis_atlas_v1.json"), "utf8"));
 const v2 = JSON.parse(await readFile(resolve(ROOT, "atlas/odyssey_metis_performance_atlas_v2.json"), "utf8"));
 
-const formulas = {}, occurrences = {}, lines = {}, scenes = {};
-const pageBook = {};                       // page → book (from v2 book page ranges)
-const bookLineMax = { O: {} };
+const pageBook = {}, bookLineMax = { O: {} };
 for (const b of v2.books) {
   const pp = b.sourcePdfPages || [];
   const lo = Math.min(...pp), hi = Math.max(...pp);
   if (isFinite(lo)) for (let p = lo; p <= hi; p++) pageBook[p] = b.book;
-  bookLineMax.O[String(b.book)] = isFinite(hi) ? hi : 0;
+  bookLineMax.O[String(b.book)] = isFinite(hi) ? hi : 1;
 }
+/* lines[pageId] = [corpus,book,line,ref,beta,greek,tokenCount,syl,quantity,scan,status,penalty,caesura] */
+const lines = {}, formulas = {}, occurrences = {};
+const lineFor = p => {
+  const k = String(p);
+  if (!lines[k]) lines[k] = ["O", pageBook[p] || 0, p, "Fagles p." + p, "",
+    "page-level anchor · Fagles p." + p + (pageBook[p] ? " · Book " + pageBook[p] : "") +
+    " · TRANSLATION_DERIVED (no Greek line concordance generated)",
+    0, 0, "", "", "PAGE_ANCHOR", 0, ""];
+  return k;
+};
+/* formulas[id] = [n,beta,greek,total,ody,iliad,lineCount,posEntropy,position,stablePos,funcRatio,classification,address,addrEntropy,stableAddr] */
 for (const fam of v1.traditionPack.formulaFamilies) {
   (fam.variants || []).forEach((v, i) => {
     const fid = fam.id + ".V" + (i + 1);
-    formulas[fid] = { id: fid, family: fam.id, en: v.surface,
-      function: fam.semanticFunction, evidence: v.evidence,
-      occurrences: v.occurrences || (v.sourcePages || []).length };
-    occurrences[fid] = (v.sourcePages || []).map(p => "P" + p);
-    for (const p of v.sourcePages || []) {
-      const lid = "P" + p;
-      if (!lines[lid]) lines[lid] = { id: lid, ref: "Fagles p." + p,
-        book: pageBook[p] || null,
-        text: "page-level anchor · Fagles p." + p + (pageBook[p] ? " · Book " + pageBook[p] : ""),
-        note: "TRANSLATION_DERIVED page anchor — no line concordance generated" };
-    }
+    const pages = v.sourcePages || [];
+    const nTok = String(v.surface || "").split(/\s+/).length;
+    formulas[fid] = [nTok, "", v.surface || fid,
+      v.occurrences || pages.length, v.occurrences || pages.length, 0,
+      pages.length, 0, "—", 0, 0,
+      "TRANSLATION_DERIVED · " + (fam.semanticFunction || "repeated phrase"),
+      "p." + (pages[0] || "—"), 0, 0];
+    occurrences[fid] = pages.map(p =>
+      [+lineFor(p), 0, nTok, 0, 1, 0, 0, "—", 1, 6, "p." + p]);
   });
 }
-/* scene → its anchor pages + formula candidates whose pages fall in-book */
+/* scenes[id] = {f:[fids], t:typeScript, p:[protocols], r:[refFields], m:caveat} */
+const scenes = {};
+const v2scene = {};
+for (const b of v2.books) for (const s of b.scenes) v2scene[s.id] = s;
 for (const a of v1.assemblies) {
   const anchor = a.sourceAnchor || {};
-  const pages = anchor.pages || [];
   const cand = [];
-  for (const [fid, occ] of Object.entries(occurrences)) {
-    if (occ.some(l => pageBook[+l.slice(1)] === a.book)) cand.push(fid);
-  }
-  scenes[a.id] = { pages, confidence: anchor.confidence || "low",
-    book: a.book, formulas: cand.slice(0, 24) };
+  for (const [fid, occ] of Object.entries(occurrences))
+    if (occ.some(o => (lines[String(o[0])] || [])[1] === a.book)) cand.push(fid);
+  const s2 = v2scene[a.id] || {};
+  const ts = (s2.typeScriptInstances || [])[0];
+  scenes[a.id] = {
+    f: cand.slice(0, 18),
+    t: ts && (ts.scriptId || ts.typeScript || ts.id) || null,
+    p: (s2.activeProtocols || []).slice(0, 6),
+    r: (s2.activeReferentialFields || []).slice(0, 6),
+    m: "TRANSLATION_DERIVED candidates · Fagles page anchors (" +
+       (anchor.pages || []).join(",") + ") · confidence " + (anchor.confidence || "low") +
+       " · no exact Greek spans asserted",
+  };
 }
-const out = { meta: { built: new Date().toISOString(),
-    scope: "TRANSLATION_DERIVED page-anchored candidates (METIS-L v1); Greek line corpus not generated",
-    bookLineMax },
-  formulas, occurrences, lines, scenes, registries: {} };
+const out = { meta: { built: new Date().toISOString(), bookLineMax,
+    scope: "METIS-L v1 formula families · English surfaces in the greek display slot by design · page-anchored" },
+  formulas, lines, occurrences, scenes,
+  registries: { protocols: {}, typeScripts: {}, referents: {} } };
 await mkdir(resolve(ROOT, "viewer/concordance"), { recursive: true });
 await writeFile(resolve(ROOT, "viewer/concordance/odyssey-scene-runtime.json"), JSON.stringify(out));
-console.log("scene-runtime:", Object.keys(formulas).length, "formulas ·",
-  Object.keys(lines).length, "page anchors ·", Object.keys(scenes).length, "scenes");
+const nf = Object.keys(formulas).length;
+console.log("scene-runtime:", nf, "formulas ·", Object.keys(lines).length, "page-lines ·",
+  Object.keys(scenes).length, "scenes ·",
+  Object.values(scenes).filter(s => s.f.length).length, "scenes with candidates");

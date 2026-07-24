@@ -175,6 +175,7 @@
           <option value="HOMERIC_HEXAMETER_STRICT">HEXAMETER</option>
         </select>
         <button id="perfGenerate" type="button">PERFORM</button>
+        <button id="perfVoice" type="button" class="on">VOICE</button>
         <button id="perfAlt" type="button">ALT</button>
         <button id="perfCommit" type="button">COMMIT</button>
         <button id="perfSilence" type="button">SILENCE</button>
@@ -646,11 +647,56 @@ Return JSON only:
  {"mode":"high_pressure","stageDirection":"...","spokenText":"...","breathUnits":[],"activatedConstructions":[],"nextResponseAffordances":[]}
 ],"validation":{"speakerKnowledge":true,"worldContinuity":true,"typeScriptLegal":true,"performable":true}}`;
 }
+/* ── offline multiforms — composed from the AOIDOS turn contract itself, no model needed ── */
+function offlinePerformanceTurn(turn,mode,branch){
+  const ub=turn.utteranceBlueprint||{}, pd=turn.performanceDirection||{};
+  const must=(ub.mustCommunicate||[]).filter(Boolean);
+  const base=must.join(" ")||fallbackTurnText(turn);
+  const aff=turn.responseAffordances||[];
+  const mk=(m,dir,text)=>({mode:m,stageDirection:dir,spokenText:text,
+    breathUnits:must.length?must:[base],activatedConstructions:[],nextResponseAffordances:aff});
+  return {variants:[
+      mk("restrained",[pd.gaze,pd.gesture].filter(Boolean).join(" · ")||"holds still; the words do the work",must[0]||base),
+      mk("elevated",[pd.energy,pd.gesture].filter(Boolean).join(" · ")||"steps forward, voice carrying the hall",base),
+      mk("high_pressure",(pd.silenceAfter?("after: "+pd.silenceAfter):"drives the point home; no room to look away"),
+        base+(turn.objective?" — "+turn.objective:"")),
+    ],validation:{offline:true,scoreDerived:true},
+    generatedAt:new Date().toISOString(),turnId:turn.id,mode,branch};
+}
+/* ── Web Speech voicing (Chrome: voices load async; synth can wedge paused) ── */
+let VOICES=[],VOICE_ON=true;
+function loadVoices(){try{VOICES=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));}catch(e){}}
+if(window.speechSynthesis){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;
+  setInterval(()=>{try{if(speechSynthesis.speaking&&speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},3000);}
+const vhash=s=>{let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;return h;};
+function speakLine(turn,text){
+  if(!window.speechSynthesis||!VOICE_ON)return;
+  text=String(text||"").trim();if(!text||text==="…")return;
+  try{speechSynthesis.cancel();}catch(e){}
+  const u=new SpeechSynthesisUtterance(text.slice(0,420));
+  const prof=turnProfile(turn),actor=(turn.speaker&&turn.speaker.actorId)||"actor";
+  u.pitch=.6+((vhash(prof.voiceId||actor)%45)/100);
+  u.rate=.84+((vhash(actor)%22)/100);
+  u.volume=.95;
+  if(VOICES.length)u.voice=VOICES[vhash(actor)%VOICES.length];
+  const a=typeof audio!=="undefined"?audio:null,v0=a?a.volume:1;
+  u.onstart=()=>{if(a)a.volume=Math.min(v0,.16);};
+  u.onend=u.onerror=()=>{if(a)a.volume=v0;};
+  speechSynthesis.speak(u);
+  try{speechSynthesis.resume();}catch(e){}
+}
 async function generatePerformanceTurn(entry,turn,{fresh=false}={}){
   if(!turn||perfNow.generating)return currentTurnResult(turn);
   const cfg=apiCfg(),key=perfCacheKey(turn,$("perfMode").value,perfNow.branch);
   if(!fresh&&PERF_CACHE[key])return PERF_CACHE[key];
-  if(!cfg.key){$("state").textContent="MODEL KEY NEEDED · open MODEL in the live performance panel";return null;}
+  if(!cfg.key){
+    const result=offlinePerformanceTurn(turn,$("perfMode").value,perfNow.branch);
+    PERF_CACHE[key]=result;save("odyssey.aoidos.generated.v3",PERF_CACHE);perfNow.variant=0;
+    $("state").textContent="OFFLINE MULTIFORMS · score-derived · add MODEL for live lines";
+    renderPerformance(entry,{item:{kind:"TURN",id:turn.id,raw:turn},index:perfNow.index,count:perfNow.count,progress:0});
+    const v0=result.variants[0];speakLine(turn,v0&&v0.spokenText);
+    return result;
+  }
   perfNow.generating=true;$("perfLamp").className="perfLive wait";$("voice").textContent="The actor is taking the breath…";
   try{
     const r=await fetch(cfg.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+cfg.key},
@@ -664,6 +710,7 @@ async function generatePerformanceTurn(entry,turn,{fresh=false}={}){
     result.generatedAt=new Date().toISOString(); result.turnId=turn.id; result.mode=$("perfMode").value; result.branch=perfNow.branch;
     PERF_CACHE[key]=result;save("odyssey.aoidos.generated.v3",PERF_CACHE);perfNow.variant=0;
     renderPerformance(entry,{item:{kind:"TURN",id:turn.id,raw:turn},index:perfNow.index,count:perfNow.count,progress:0});
+    const vv=result.variants[0];speakLine(turn,vv&&vv.spokenText);
     return result;
   }catch(err){
     console.warn(err);$("state").textContent="PERFORMANCE MODEL ERROR · "+err.message;return null;
@@ -685,7 +732,13 @@ function updatePerfNow(entry,p){
     if(perfNow.itemId)perfHistory.push({id:perfNow.itemId,elapsed:+((performance.now()-perfNow.enteredAt)/1000).toFixed(2)});
     perfNow={...perfNow,sceneId:entry.id,itemId:item.id,item,index:p.index,count:p.count,variant:0,enteredAt:performance.now(),generating:false};
     renderDoing(entry,item);
-    if(item.kind==="TURN"&&PERF_PREFS.auto&&apiCfg().key&&!currentTurnResult(item.raw))generatePerformanceTurn(entry,item.raw);
+    if(item.kind==="TURN"){
+      const r=currentTurnResult(item.raw);
+      if(!r&&!apiCfg().key)generatePerformanceTurn(entry,item.raw);            /* offline: instant + speaks */
+      else if(!r&&PERF_PREFS.auto)generatePerformanceTurn(entry,item.raw);     /* API auto: speaks on completion */
+      else if(!r)speakLine(item.raw,fallbackTurnText(item.raw));               /* API manual: voice the contract */
+      else{const v=selectedVariant(item.raw);speakLine(item.raw,(v&&v.spokenText)||fallbackTurnText(item.raw));}
+    }
   }else{perfNow.index=p.index;perfNow.count=p.count;perfNow.item=item;}
 }
 function renderPerformance(entry,p){
@@ -719,6 +772,7 @@ function commitCurrentTurn(){
   save("odyssey.aoidos.commits.v3",PERF_COMMITS);
   perfHistory.push({id:item.id,speaker:item.raw.speaker.name,spokenText:v.spokenText,affordances:v.nextResponseAffordances||item.raw.responseAffordances||[]});
   $("state").textContent="COMMITTED · "+item.id+" · next: "+((v.nextResponseAffordances||item.raw.responseAffordances||[]).join(" / ")||"scene action");
+  speakLine(item.raw,v.spokenText);
 }
 
 /* ── ELEMENTS: every cast member of the playing scene, one tap from its atlas ── */
@@ -964,11 +1018,12 @@ $("perfMode").value=PERF_PREFS.mode||"PERFORMABLE_EPIC_PROSE";
 $("perfAuto").classList.toggle("on",!!PERF_PREFS.auto);
 $("perfMode").onchange=()=>{PERF_PREFS.mode=$("perfMode").value;save("odyssey.aoidos.prefs.v3",PERF_PREFS);perfNow.variant=0;if(perfNow.item&&perfNow.item.kind==="TURN")renderPerformance(chatEntry||MF.scenes.find(s=>s.id===perfNow.sceneId)||{id:perfNow.sceneId,title:""},{item:perfNow.item,index:perfNow.index,count:perfNow.count,progress:0});};
 $("perfGenerate").onclick=()=>{const e=MF.scenes.find(s=>s.id===perfNow.sceneId);if(e&&perfNow.item&&perfNow.item.kind==="TURN")generatePerformanceTurn(e,perfNow.item.raw,{fresh:false});};
-$("perfAlt").onclick=()=>{if(!perfNow.item||perfNow.item.kind!=="TURN")return;const r=currentTurnResult(perfNow.item.raw);if(r&&r.variants&&r.variants.length){perfNow.variant=(perfNow.variant+1)%r.variants.length;const e=MF.scenes.find(s=>s.id===perfNow.sceneId);if(e)renderPerformance(e,{item:perfNow.item,index:perfNow.index,count:perfNow.count,progress:0});}};
+$("perfAlt").onclick=()=>{if(!perfNow.item||perfNow.item.kind!=="TURN")return;const r=currentTurnResult(perfNow.item.raw);if(r&&r.variants&&r.variants.length){perfNow.variant=(perfNow.variant+1)%r.variants.length;const e=MF.scenes.find(s=>s.id===perfNow.sceneId);if(e)renderPerformance(e,{item:perfNow.item,index:perfNow.index,count:perfNow.count,progress:0});const v=selectedVariant(perfNow.item.raw);if(v)speakLine(perfNow.item.raw,v.spokenText);}};
 $("perfCommit").onclick=commitCurrentTurn;
 $("perfSilence").onclick=()=>{if(!perfNow.item||perfNow.item.kind!=="TURN")return;const t=perfNow.item.raw,key=perfCacheKey(t,$("perfMode").value,perfNow.branch);
   PERF_CACHE[key]={turnId:t.id,mode:$("perfMode").value,branch:perfNow.branch,variants:[{mode:"silence",stageDirection:(t.performanceDirection&&t.performanceDirection.silenceAfter)||"holds the room in silence",spokenText:"…",breathUnits:[],activatedConstructions:["SILENCE"],nextResponseAffordances:t.responseAffordances||[]}],validation:{silenceChangesPressure:true}};
-  save("odyssey.aoidos.generated.v3",PERF_CACHE);perfNow.variant=0;const e=MF.scenes.find(s=>s.id===perfNow.sceneId);if(e)renderPerformance(e,{item:perfNow.item,index:perfNow.index,count:perfNow.count,progress:0});};
+  save("odyssey.aoidos.generated.v3",PERF_CACHE);perfNow.variant=0;try{speechSynthesis.cancel();}catch(e){}const e=MF.scenes.find(s=>s.id===perfNow.sceneId);if(e)renderPerformance(e,{item:perfNow.item,index:perfNow.index,count:perfNow.count,progress:0});};
+$("perfVoice").onclick=()=>{VOICE_ON=!VOICE_ON;$("perfVoice").classList.toggle("on",VOICE_ON);if(!VOICE_ON){try{speechSynthesis.cancel();}catch(e){}}$("state").textContent=VOICE_ON?"VOICE ON":"VOICE OFF";};
 $("perfBranch").onclick=()=>{if(!perfNow.item||perfNow.item.kind!=="TURN")return;perfNow.branch++;perfNow.variant=0;const e=MF.scenes.find(s=>s.id===perfNow.sceneId);if(e)generatePerformanceTurn(e,perfNow.item.raw,{fresh:true});};
 $("perfAuto").onclick=()=>{PERF_PREFS.auto=!PERF_PREFS.auto;save("odyssey.aoidos.prefs.v3",PERF_PREFS);$("perfAuto").classList.toggle("on",PERF_PREFS.auto);$("state").textContent=PERF_PREFS.auto?"AUTO PERFORMANCE ON":"AUTO PERFORMANCE OFF";};
 $("perfApi").onclick=()=>{const b=$("perfApiCfg"),cfg=apiCfg();$("perfApiUrl").value=cfg.url||"";$("perfApiModel").value=cfg.model||"";$("perfApiKey").value=cfg.key||"";b.style.display=b.style.display==="none"?"block":"none";};
@@ -1075,6 +1130,7 @@ window.__suite={ get OFF(){return OFF}, get TOTAL(){return TOTAL}, seek, dropCue
   get CUES(){return CUES}, sceneAt, now, PB, pbRender, renderCast, openInspect,
   get AOIDOS(){return AO}, get performance(){return perfNow}, performanceSequence,
   generateCurrent:()=>{const e=MF.scenes.find(s=>s.id===perfNow.sceneId);return e&&perfNow.item&&perfNow.item.kind==="TURN"?generatePerformanceTurn(e,perfNow.item.raw):null},
+  offlinePerformanceTurn, speakLine, performanceSequenceFor:performanceSequence,
   commitCurrent:commitCurrentTurn };
 
 buildAlbumUI(); buildChapters(); renderCues();

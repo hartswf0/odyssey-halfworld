@@ -27,8 +27,11 @@
   #filmWrap{position:relative;min-width:0;background:#fdfdfa}
   #film{display:block;width:100%;aspect-ratio:16/10;border:2px solid var(--line);background:#fdfdfa}
   #performanceHUD{position:absolute;left:8px;right:8px;bottom:8px;z-index:4;border:2px solid var(--line);
-    background:rgba(255,255,255,.94);padding:7px 8px;display:grid;grid-template-columns:minmax(0,1fr) auto;
-    gap:5px 10px;align-items:end;box-shadow:none;backdrop-filter:blur(4px)}
+    background:rgba(255,255,255,.78);padding:5px 7px;display:grid;grid-template-columns:minmax(0,1fr) auto;
+    gap:4px 10px;align-items:end;box-shadow:none;backdrop-filter:blur(3px);max-height:38%;overflow:hidden}
+  #performanceHUD.min #hudLine,#performanceHUD.min #hudMeta,#performanceHUD.min #turnProgress{display:none}
+  #performanceHUD.min{background:rgba(255,255,255,.6);max-height:none}
+  #performanceHUD.min #hudControls{flex-direction:row}
   #performanceHUD .hwho{font-size:10px;font-weight:900;letter-spacing:.13em;display:flex;gap:7px;align-items:center;min-width:0}
   #hudActor{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #hudAct{border:1px solid var(--line);padding:1px 5px;background:var(--ink);color:var(--paper);white-space:nowrap}
@@ -176,6 +179,7 @@
           <button id="prevTurn" type="button">← TURN</button>
           <button id="voiceToggle" type="button">VOICE OFF</button>
           <button id="nextTurn" type="button">TURN →</button>
+          <button id="hudHide" type="button">HIDE</button>
         </div>
       </div>
     </div>
@@ -549,7 +553,15 @@ $("fillBtn").onclick=async()=>{
    listener change, and an opening for the next response. */
 let PT=null, VC=null;
 const perfCache=new Map();
-const PERF_PREF=LS("odyssey.perform.pref",{voice:false});
+/* voice defaults ON (v2 key migrates old stored-off prefs) */
+const PERF_PREF=(()=>{const v2=LS("odyssey.perform.pref.v2",null);if(v2)return v2;
+  const v1=LS("odyssey.perform.pref",null);const p={hud:true,...(v1||{}),voice:true};
+  save("odyssey.perform.pref.v2",p);return p;})();
+if(PERF_PREF.hud===undefined)PERF_PREF.hud=true;
+/* Chrome: voices arrive async; synthesis can wedge in a paused state */
+if("speechSynthesis" in window){speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
+  setInterval(()=>{try{if(speechSynthesis.speaking&&speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},3000);}
 let activePerf=null,lastPerfKey="",lastSpokenKey="",baseMusicVolume=1;
 fetch("viewer/performance-turns.json").then(r=>r.json()).then(j=>{
   PT=j; perfCache.clear(); buildTimeline(); lastPerfKey="";
@@ -633,9 +645,13 @@ function seekRelativeTurn(delta){
   seek(sceneStart+(turn.start+.002)*slice);
 }
 function updateVoiceButton(){ $("voiceToggle").textContent=PERF_PREF.voice?"VOICE ON":"VOICE OFF"; }
+$("performanceHUD").classList.toggle("min",!PERF_PREF.hud);
+$("hudHide").textContent=PERF_PREF.hud?"HIDE":"SHOW";
+$("hudHide").onclick=()=>{PERF_PREF.hud=!PERF_PREF.hud;save("odyssey.perform.pref.v2",PERF_PREF);
+  $("performanceHUD").classList.toggle("min",!PERF_PREF.hud);$("hudHide").textContent=PERF_PREF.hud?"HIDE":"SHOW";};
 $("prevTurn").onclick=()=>seekRelativeTurn(-1);
 $("nextTurn").onclick=()=>seekRelativeTurn(1);
-$("voiceToggle").onclick=()=>{PERF_PREF.voice=!PERF_PREF.voice;save("odyssey.perform.pref",PERF_PREF);updateVoiceButton();
+$("voiceToggle").onclick=()=>{PERF_PREF.voice=!PERF_PREF.voice;save("odyssey.perform.pref.v2",PERF_PREF);updateVoiceButton();
   if(!PERF_PREF.voice&&"speechSynthesis" in window){speechSynthesis.cancel();audio.volume=baseMusicVolume;lastSpokenKey="";}
 };
 updateVoiceButton();
@@ -658,6 +674,7 @@ function speakPerformance(pa){
   u.onstart=()=>{if(audio.volume>.35)baseMusicVolume=audio.volume;audio.volume=Math.min(baseMusicVolume,.34);};
   u.onend=u.onerror=()=>{audio.volume=baseMusicVolume;};
   speechSynthesis.speak(u);
+  try{speechSynthesis.resume();}catch(e){}
 }
 
 /* ── ELEMENTS: every cast member of the playing scene, one tap from its atlas ── */
