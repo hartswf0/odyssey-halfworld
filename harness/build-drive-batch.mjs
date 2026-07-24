@@ -208,8 +208,47 @@ if (cmd === "submit-books") {
   if (doneCount) console.log("→ node harness/build-drive-batch.mjs collect");
 
 } else if (cmd === "collect") {
+  /* STREAMING collect — response files can be GBs (base64 PCM); never hold
+     one in a string. Download to disk, read line-by-line, flush each scene
+     the moment its segments are complete. */
+  const { createWriteStream, createReadStream } = await import("node:fs");
+  const { createInterface } = await import("node:readline");
+  const { Readable } = await import("node:stream");
+  const { pipeline } = await import("node:stream/promises");
   const st = await loadState();
-  let text = "";
+  const sceneByIdS = new Map(SCRIPT.scenes.map(s => [s.id, s]));
+  const expected = new Map(SCRIPT.scenes.map(s =>
+    [s.id, s.segments.filter(g => (segText(g) || "").trim()).length]));
+  const wav = pcm => { const h = Buffer.alloc(44), rate = 24000;
+    h.write("RIFF", 0); h.writeUInt32LE(36 + pcm.length, 4); h.write("WAVEfmt ", 8);
+    h.writeUInt32LE(16, 16); h.writeUInt16LE(1, 20); h.writeUInt16LE(1, 22);
+    h.writeUInt32LE(rate, 24); h.writeUInt32LE(rate * 2, 28); h.writeUInt16LE(2, 32);
+    h.writeUInt16LE(16, 34); h.write("data", 36); h.writeUInt32LE(pcm.length, 40);
+    return Buffer.concat([h, pcm]); };
+  const silence = ms => Buffer.alloc(Math.round(24000 * ms / 1000) * 2);
+  let made = 0;
+  async function finalizeScene(sid, got) {
+    if (MAN[sid]) return;
+    const sc = sceneByIdS.get(sid); if (!sc) return;
+    const parts = [], timing = []; let t = 0, ok = true;
+    sc.segments.forEach((seg, gi) => {
+      if (!(segText(seg) || "").trim()) return;
+      const pcm = got.get(gi); if (!pcm) { ok = false; return; }
+      const dur = pcm.length / 2 / 24000;
+      timing.push({ gi, start: +t.toFixed(2), dur: +dur.toFixed(2) });
+      parts.push(pcm); t += dur;
+      const gap = Math.min(1600, seg.pauseAfterMs || 260);
+      parts.push(silence(gap)); t += gap / 1000;
+    });
+    if (!ok || !parts.length) return;
+    const wavPath = resolve(OUT, sid + ".wav"), m4a = resolve(OUT, sid + ".m4a");
+    await writeFile(wavPath, wav(Buffer.concat(parts)));
+    await run("afconvert", ["-f", "m4af", "-d", "aac", "-b", "64000", wavPath, m4a]);
+    await run("rm", [wavPath]);
+    MAN[sid] = { file: "drive/voice/" + sid + ".m4a", total: +t.toFixed(2), segments: timing };
+    await writeFile(MANIFEST_PATH, JSON.stringify(MAN));
+    made++; console.log("  ✓", sid, timing.length + " segs", t.toFixed(1) + "s");
+  }
   for (const b of st.batches) {
     const op = await api(`/v1beta/${b.op}`).catch(() => null);
     if (!op) continue;
@@ -219,53 +258,29 @@ if (cmd === "submit-books") {
       || op.response?.output?.responsesFile
       || op.response?.responsesFile
       || op.metadata?.output?.responsesFile;
-    if (!respFile) { console.log(b.label, "done but no responsesFile — raw:", JSON.stringify(op).slice(0, 400)); continue; }
+    if (!respFile) { console.log(b.label, "done but no responsesFile — raw:", JSON.stringify(op).slice(0, 300)); continue; }
+    const tmp = resolve(OUT, ".resp-" + (b.label || "x") + ".jsonl");
     const dl = await fetch(`${API}/v1beta/${respFile}:download?alt=media&key=${KEY}`);
     if (!dl.ok) { console.error(b.label, "download failed HTTP", dl.status); continue; }
-    text += await dl.text() + "\n";
-    console.log(b.label, "· downloaded");
+    await pipeline(Readable.fromWeb(dl.body), createWriteStream(tmp));
+    console.log(b.label, "· streamed to disk");
+    const scenes = new Map(); /* sid -> Map(gi->pcm) */
+    const rl = createInterface({ input: createReadStream(tmp), crlfDelay: Infinity });
+    for await (const ln of rl) {
+      if (!ln.trim()) continue;
+      let j; try { j = JSON.parse(ln); } catch { continue; }
+      const key = j.key || j.metadata?.key; if (!key) continue;
+      const [sid, gi] = key.split("|");
+      if (MAN[sid]) continue;
+      const d = j.response?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData;
+      if (!d) continue;
+      if (!scenes.has(sid)) scenes.set(sid, new Map());
+      const got = scenes.get(sid);
+      got.set(+gi, Buffer.from(d.data, "base64"));
+      if (got.size >= (expected.get(sid) || 1)) { await finalizeScene(sid, got); scenes.delete(sid); }
+    }
+    for (const [sid, got] of scenes) await finalizeScene(sid, got);
+    await run("rm", [tmp]);
   }
-  if (!text.trim()) { console.log("nothing collectable yet"); process.exit(1); }
-  /* group PCM per scene */
-  const byScene = {};
-  for (const ln of text.split("\n")) {
-    if (!ln.trim()) continue;
-    let j; try { j = JSON.parse(ln); } catch { continue; }
-    const key = j.key || j.metadata?.key; if (!key) continue;
-    const [sid, gi] = key.split("|");
-    const d = j.response?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData;
-    if (!d) { (byScene[sid] = byScene[sid] || {}).__fail = true; continue; }
-    (byScene[sid] = byScene[sid] || {})[+gi] = Buffer.from(d.data, "base64");
-  }
-  const wav = pcm => { const h = Buffer.alloc(44), rate = 24000;
-    h.write("RIFF", 0); h.writeUInt32LE(36 + pcm.length, 4); h.write("WAVEfmt ", 8);
-    h.writeUInt32LE(16, 16); h.writeUInt16LE(1, 20); h.writeUInt16LE(1, 22);
-    h.writeUInt32LE(rate, 24); h.writeUInt32LE(rate * 2, 28); h.writeUInt16LE(2, 32);
-    h.writeUInt16LE(16, 34); h.write("data", 36); h.writeUInt32LE(pcm.length, 40);
-    return Buffer.concat([h, pcm]); };
-  const silence = ms => Buffer.alloc(Math.round(24000 * ms / 1000) * 2);
-  let made = 0;
-  for (const sc of SCRIPT.scenes) {
-    if (MAN[sc.id] || !byScene[sc.id] || byScene[sc.id].__fail) continue;
-    const got = byScene[sc.id];
-    const parts = [], timing = []; let t = 0, ok = true;
-    sc.segments.forEach((seg, gi) => {
-      if (!(segText(seg) || "").trim()) return;
-      const pcm = got[gi]; if (!pcm) { ok = false; return; }
-      const dur = pcm.length / 2 / 24000;
-      timing.push({ gi, start: +t.toFixed(2), dur: +dur.toFixed(2) });
-      parts.push(pcm); t += dur;
-      const gap = Math.min(1600, seg.pauseAfterMs || 260);
-      parts.push(silence(gap)); t += gap / 1000;
-    });
-    if (!ok || !parts.length) continue;
-    const wavPath = resolve(OUT, sc.id + ".wav"), m4a = resolve(OUT, sc.id + ".m4a");
-    await writeFile(wavPath, wav(Buffer.concat(parts)));
-    await run("afconvert", ["-f", "m4af", "-d", "aac", "-b", "64000", wavPath, m4a]);
-    await run("rm", [wavPath]);
-    MAN[sc.id] = { file: "drive/voice/" + sc.id + ".m4a", total: +t.toFixed(2), segments: timing };
-    made++;
-  }
-  await writeFile(MANIFEST_PATH, JSON.stringify(MAN));
   console.log("collected:", made, "new scenes · manifest total:", Object.keys(MAN).length);
 }
