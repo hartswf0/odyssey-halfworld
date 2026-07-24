@@ -544,6 +544,7 @@ await loadScene(first);
 
 
 
+
 /* ══ SUITE KIT ══ */
 (()=>{try{
 const KGET=()=>{try{return JSON.parse(localStorage.getItem("odyssey.chat.api"))||{}}catch(e){return{}}};
@@ -684,26 +685,41 @@ window.kitVO={
     window.__voActive=true;
     document.querySelectorAll("audio").forEach(a=>{
       if(a!==voEl&&!a.paused){voDuck.push([a,a.volume]);a.volume=Math.min(a.volume,.15);}});
-    const arm=()=>{if(tok!==voToken)return;
-      try{voEl.currentTime=s.start;}catch(e){}
-      voEl.play().catch(()=>{window.__voActive=false;});
-      const iv=setInterval(()=>{if(tok!==voToken){clearInterval(iv);return;}
-        if(voEl.paused||voEl.currentTime>=s.start+s.dur-.05){clearInterval(iv);if(tok===voToken)voStop();}},120);};
-    if(voEl.readyState>=1)arm();else voEl.onloadedmetadata=arm;
+    /* play() SYNCHRONOUSLY — the caller is usually inside a user gesture and a
+       deferred play() loses that permission; seek lands on loadedmetadata */
+    if(voEl.readyState>=1){try{voEl.currentTime=s.start;}catch(e){}}
+    else voEl.onloadedmetadata=()=>{if(tok===voToken){try{voEl.currentTime=s.start;}catch(e){}}};
+    voEl.play().catch(()=>{if(tok===voToken)voStop();});
+    const iv=setInterval(()=>{if(tok!==voToken){clearInterval(iv);return;}
+      if((voEl.paused&&voEl.readyState>=2)||voEl.currentTime>=s.start+s.dur-.05){
+        clearInterval(iv);if(tok===voToken)voStop();}},120);
     return true;
   },
   playScene(sceneId){
     if(voDisabled)return false;
     const m=VOMAN&&VOMAN[sceneId];if(!m)return false;
-    voStop();const tok=++voToken;
+    voEnd=null;voStop();const tok=++voToken;
     voEl.src=m.file;window.__voActive=true;
     document.querySelectorAll("audio").forEach(a=>{
       if(a!==voEl&&!a.paused){voDuck.push([a,a.volume]);a.volume=Math.min(a.volume,.2);}});
-    voEl.onloadedmetadata=()=>{if(tok===voToken){try{voEl.currentTime=0;}catch(e){}voEl.play().catch(()=>{});}};
+    voEl.play().catch(()=>{if(tok===voToken)voStop();});   /* in-gesture start */
     voEl.onended=()=>{if(tok===voToken)voStop();};
     return true;
   },
 };
+/* unlock the VO channel on the first real gesture (a muted blip on a REAL file —
+   an empty src leaves play() pending forever) */
+{const evs=["pointerdown","keydown","touchend"];
+ const unlock=()=>{try{
+    if(voEl.src){off();return;}
+    if(!VOMAN)return;                 /* manifest still loading — keep listening */
+    const first=Object.values(VOMAN)[0];if(!first)return;
+    voEl.src=first.file;voEl.muted=true;
+    voEl.play().then(()=>{voEl.pause();voEl.muted=false;},()=>{voEl.muted=false;});
+    off();
+  }catch(e){}};
+ const off=()=>evs.forEach(ev=>document.removeEventListener(ev,unlock,{capture:true}));
+ evs.forEach(ev=>document.addEventListener(ev,unlock,{capture:true}));}
 /* while a performed line plays, live synthesis stays quiet */
 if(window.speechSynthesis&&!speechSynthesis.__voWrapped){
   const _sp=speechSynthesis.speak.bind(speechSynthesis);
