@@ -1,0 +1,30 @@
+{
+  "version": "4.0.0",
+  "problemCorrected": [
+    "The earlier player treated every no-text turn as either an optional raw stage direction or silence.",
+    "Browser speech synthesis alone is not a reliable long-drive transport because it may stop when the page sleeps.",
+    "Delivery directions and causal action narration were stored in the same field."
+  ],
+  "newExecutionModel": {
+    "DIALOGUE": "spoken by character",
+    "NARRATION": "spoken by narrator",
+    "AUDITORY_ACTION": "essential causal action narrated",
+    "VISUAL_DIRECTION": "never spoken",
+    "SILENT_ACTION": "pause/animation only"
+  },
+  "freeSpeech": {
+    "live": "Browser Web Speech system voices, no API key",
+    "reliable": "Bundled eSpeak MP3s, one file per book"
+  },
+  "counts": {
+    "scenes": 152,
+    "turns": 706,
+    "audioSegments": 1059,
+    "dialogue": 255,
+    "narration": 150,
+    "auditoryActions": 298,
+    "silentActions": 3,
+    "bookAudioFiles": 24,
+    "totalAudioSeconds": 4932.911
+  }
+}

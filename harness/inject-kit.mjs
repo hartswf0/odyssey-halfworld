@@ -119,7 +119,8 @@ const prime=()=>{if(primed||!window.speechSynthesis)return;primed=true;
 /* ── SIBLING RAIL — every performance surface one tap away, clock carried via ?t= ── */
 const PAGES=[["odyssey-suite.html","SUITE"],["odyssey-suite-metis-performance.html","METIS"],
 ["odyssey-suite-performance-driven.html","DRIVEN"],["odyssey-suite-concordance.html","FORMULA"],
-["odyssey-suite-aoidos-live-performance.html","AOIDOS LIVE"],["odyssey-perform.html","PERFORM"]];
+["odyssey-suite-aoidos-live-performance.html","AOIDOS LIVE"],["odyssey-perform.html","PERFORM"],
+["odyssey-drive.html","DRIVE \\ud83c\\udfa7"]];
 const here=(location.pathname.split("/").pop()||"").toLowerCase();
 let rail=document.getElementById("lnStage")?document.getElementById("lnStage").parentElement:null;
 if(!rail&&hdr){rail=document.createElement("div");
@@ -262,6 +263,7 @@ const FILES = [
   "odyssey-stage.html",
   "odyssey-synthcine.html",
   "odyssey-world-studio.html",
+  "odyssey-drive.html",
 ];
 for (const f of FILES) {
   const path = resolve(ROOT, f);

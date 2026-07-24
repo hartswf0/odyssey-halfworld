@@ -1,0 +1,1136 @@
+{
+ "id": "ODYSSEY-DRIVE-AUDIO",
+ "version": "4.0.0",
+ "engine": "Free eSpeak offline fallback + browser native Web Speech live cast",
+ "books": [
+  {
+   "book": 1,
+   "roman": "I",
+   "title": "Athena Inspires the Prince",
+   "file": "audio/Book_01_Athena_Inspires_the_Prince.mp3",
+   "duration": 257.437,
+   "scenes": [
+    {
+     "sceneId": "OD-B01-S01",
+     "title": "The Gods Consider Odysseus",
+     "start": 0.0,
+     "duration": 45.835
+    },
+    {
+     "sceneId": "OD-B01-S02",
+     "title": "Athena's Two-Part Plan",
+     "start": 46.835,
+     "duration": 34.841
+    },
+    {
+     "sceneId": "OD-B01-S03",
+     "title": "The Stranger at the Threshold",
+     "start": 82.676,
+     "duration": 32.451
+    },
+    {
+     "sceneId": "OD-B01-S04",
+     "title": "Mentes Questions the Prince",
+     "start": 116.127,
+     "duration": 40.793
+    },
+    {
+     "sceneId": "OD-B01-S05",
+     "title": "Athena Arms Telemachus with a Course",
+     "start": 157.92,
+     "duration": 49.679
+    },
+    {
+     "sceneId": "OD-B01-S06",
+     "title": "The Goddess Departs; the Prince Speaks",
+     "start": 208.599,
+     "duration": 48.786
+    }
+   ]
+  },
+  {
+   "book": 2,
+   "roman": "II",
+   "title": "Telemachus Sets Sail",
+   "file": "audio/Book_02_Telemachus_Sets_Sail.mp3",
+   "duration": 245.629,
+   "scenes": [
+    {
+     "sceneId": "OD-B02-S01",
+     "title": "Telemachus Calls the Assembly",
+     "start": 0.0,
+     "duration": 37.167
+    },
+    {
+     "sceneId": "OD-B02-S02",
+     "title": "The Secret of Penelope's Loom",
+     "start": 38.167,
+     "duration": 35.5
+    },
+    {
+     "sceneId": "OD-B02-S03",
+     "title": "The Eagles Tear the Air",
+     "start": 74.667,
+     "duration": 44.184
+    },
+    {
+     "sceneId": "OD-B02-S04",
+     "title": "Mentor Rebukes Ithaca",
+     "start": 119.851,
+     "duration": 35.69
+    },
+    {
+     "sceneId": "OD-B02-S05",
+     "title": "Athena Answers on the Shore",
+     "start": 156.541,
+     "duration": 24.972
+    },
+    {
+     "sceneId": "OD-B02-S06",
+     "title": "The Secret Stores",
+     "start": 182.513,
+     "duration": 28.51
+    },
+    {
+     "sceneId": "OD-B02-S07",
+     "title": "The Night Launch",
+     "start": 212.023,
+     "duration": 33.545
+    }
+   ]
+  },
+  {
+   "book": 3,
+   "roman": "III",
+   "title": "King Nestor Remembers",
+   "file": "audio/Book_03_King_Nestor_Remembers.mp3",
+   "duration": 176.744,
+   "scenes": [
+    {
+     "sceneId": "OD-B03-S01",
+     "title": "Arrival at Poseidon's Sacrifice",
+     "start": 0.0,
+     "duration": 33.916
+    },
+    {
+     "sceneId": "OD-B03-S02",
+     "title": "Telemachus Questions Nestor",
+     "start": 34.916,
+     "duration": 24.318
+    },
+    {
+     "sceneId": "OD-B03-S03",
+     "title": "The Broken Return from Troy",
+     "start": 60.234,
+     "duration": 32.319
+    },
+    {
+     "sceneId": "OD-B03-S04",
+     "title": "Orestes as the Measure",
+     "start": 93.553,
+     "duration": 27.522
+    },
+    {
+     "sceneId": "OD-B03-S05",
+     "title": "Athena Reveals Herself at Pylos",
+     "start": 122.075,
+     "duration": 28.07
+    },
+    {
+     "sceneId": "OD-B03-S06",
+     "title": "The Chariot Road to Sparta",
+     "start": 151.145,
+     "duration": 25.547
+    }
+   ]
+  },
+  {
+   "book": 4,
+   "roman": "IV",
+   "title": "The King and Queen of Sparta",
+   "file": "audio/Book_04_The_King_and_Queen_of_Sparta.mp3",
+   "duration": 223.896,
+   "scenes": [
+    {
+     "sceneId": "OD-B04-S01",
+     "title": "The Double Wedding at Sparta",
+     "start": 0.0,
+     "duration": 33.629
+    },
+    {
+     "sceneId": "OD-B04-S02",
+     "title": "Recognition through Tears",
+     "start": 34.629,
+     "duration": 28.555
+    },
+    {
+     "sceneId": "OD-B04-S03",
+     "title": "Helen's Drug and the Beggar in Troy",
+     "start": 64.184,
+     "duration": 30.437
+    },
+    {
+     "sceneId": "OD-B04-S04",
+     "title": "The Wooden Horse",
+     "start": 95.621,
+     "duration": 27.907
+    },
+    {
+     "sceneId": "OD-B04-S05",
+     "title": "Menelaus Wrestles Proteus",
+     "start": 124.528,
+     "duration": 36.095
+    },
+    {
+     "sceneId": "OD-B04-S06",
+     "title": "The Gifts and the Eagle Omen",
+     "start": 161.623,
+     "duration": 27.496
+    },
+    {
+     "sceneId": "OD-B04-S07",
+     "title": "The Suitors Prepare an Ambush",
+     "start": 190.119,
+     "duration": 33.721
+    }
+   ]
+  },
+  {
+   "book": 5,
+   "roman": "V",
+   "title": "Odysseus—Nymph and Shipwreck",
+   "file": "audio/Book_05_Odysseus_Nymph_and_Shipwreck.mp3",
+   "duration": 195.788,
+   "scenes": [
+    {
+     "sceneId": "OD-B05-S01",
+     "title": "Hermes Carries the Decree",
+     "start": 0.0,
+     "duration": 33.014
+    },
+    {
+     "sceneId": "OD-B05-S02",
+     "title": "Calypso Receives the Order",
+     "start": 34.014,
+     "duration": 24.649
+    },
+    {
+     "sceneId": "OD-B05-S03",
+     "title": "Odysseus Distrusts Freedom",
+     "start": 59.663,
+     "duration": 31.172
+    },
+    {
+     "sceneId": "OD-B05-S04",
+     "title": "Building the Raft",
+     "start": 91.835,
+     "duration": 33.979
+    },
+    {
+     "sceneId": "OD-B05-S05",
+     "title": "Poseidon Breaks the Sea",
+     "start": 126.814,
+     "duration": 32.112
+    },
+    {
+     "sceneId": "OD-B05-S06",
+     "title": "The River Accepts the Castaway",
+     "start": 159.926,
+     "duration": 35.797
+    }
+   ]
+  },
+  {
+   "book": 6,
+   "roman": "VI",
+   "title": "The Princess and the Stranger",
+   "file": "audio/Book_06_The_Princess_and_the_Stranger.mp3",
+   "duration": 133.59,
+   "scenes": [
+    {
+     "sceneId": "OD-B06-S01",
+     "title": "Athena Enters Nausicaa's Dream",
+     "start": 0.0,
+     "duration": 34.649
+    },
+    {
+     "sceneId": "OD-B06-S02",
+     "title": "Laundry and Ball at the River",
+     "start": 35.649,
+     "duration": 29.671
+    },
+    {
+     "sceneId": "OD-B06-S03",
+     "title": "The Naked Stranger Emerges",
+     "start": 66.32,
+     "duration": 32.179
+    },
+    {
+     "sceneId": "OD-B06-S04",
+     "title": "Bath, Clothing, and the Road to Town",
+     "start": 99.499,
+     "duration": 34.024
+    }
+   ]
+  },
+  {
+   "book": 7,
+   "roman": "VII",
+   "title": "Phaeacia's Halls and Gardens",
+   "file": "audio/Book_07_Phaeacia_s_Halls_and_Gardens.mp3",
+   "duration": 114.364,
+   "scenes": [
+    {
+     "sceneId": "OD-B07-S01",
+     "title": "Athena Hides the Walk through Scheria",
+     "start": 0.0,
+     "duration": 30.995
+    },
+    {
+     "sceneId": "OD-B07-S02",
+     "title": "The Palace and the Gardens",
+     "start": 31.995,
+     "duration": 28.44
+    },
+    {
+     "sceneId": "OD-B07-S03",
+     "title": "Supplication at Arete's Knees",
+     "start": 61.435,
+     "duration": 25.24
+    },
+    {
+     "sceneId": "OD-B07-S04",
+     "title": "Arete Recognizes Her Work",
+     "start": 87.675,
+     "duration": 26.63
+    }
+   ]
+  },
+  {
+   "book": 8,
+   "roman": "VIII",
+   "title": "A Day for Songs and Contests",
+   "file": "audio/Book_08_A_Day_for_Songs_and_Contests.mp3",
+   "duration": 153.13,
+   "scenes": [
+    {
+     "sceneId": "OD-B08-S01",
+     "title": "The Phaeacian Assembly and the Ship",
+     "start": 0.0,
+     "duration": 30.109
+    },
+    {
+     "sceneId": "OD-B08-S02",
+     "title": "Demodocus Sings of the Quarrel",
+     "start": 31.109,
+     "duration": 26.42
+    },
+    {
+     "sceneId": "OD-B08-S03",
+     "title": "The Athletic Challenge",
+     "start": 58.529,
+     "duration": 29.203
+    },
+    {
+     "sceneId": "OD-B08-S04",
+     "title": "The Dance and the Net of Hephaestus",
+     "start": 88.732,
+     "duration": 31.378
+    },
+    {
+     "sceneId": "OD-B08-S05",
+     "title": "The Trojan Horse Song and the Name",
+     "start": 121.11,
+     "duration": 31.952
+    }
+   ]
+  },
+  {
+   "book": 9,
+   "roman": "IX",
+   "title": "In the One-Eyed Giant's Cave",
+   "file": "audio/Book_09_In_the_One_Eyed_Giant_s_Cave.mp3",
+   "duration": 356.545,
+   "scenes": [
+    {
+     "sceneId": "OD-B09-S01",
+     "title": "Odysseus Names Himself",
+     "start": 0.0,
+     "duration": 26.787
+    },
+    {
+     "sceneId": "OD-B09-S02",
+     "title": "The Raid on the Cicones",
+     "start": 27.787,
+     "duration": 26.147
+    },
+    {
+     "sceneId": "OD-B09-S03",
+     "title": "The Lotus-Eaters",
+     "start": 54.934,
+     "duration": 24.474
+    },
+    {
+     "sceneId": "OD-B09-S04",
+     "title": "Goat Island and the Cyclops Coast",
+     "start": 80.408,
+     "duration": 28.35
+    },
+    {
+     "sceneId": "OD-B09-S05",
+     "title": "The Empty Cave",
+     "start": 109.758,
+     "duration": 30.784
+    },
+    {
+     "sceneId": "OD-B09-S06",
+     "title": "Polyphemus Seals the Cave",
+     "start": 141.542,
+     "duration": 29.162
+    },
+    {
+     "sceneId": "OD-B09-S07",
+     "title": "The First Killings",
+     "start": 171.704,
+     "duration": 34.888
+    },
+    {
+     "sceneId": "OD-B09-S08",
+     "title": "The Name Nobody and the Stake",
+     "start": 207.592,
+     "duration": 38.806
+    },
+    {
+     "sceneId": "OD-B09-S09",
+     "title": "The Blinding",
+     "start": 247.398,
+     "duration": 39.65
+    },
+    {
+     "sceneId": "OD-B09-S10",
+     "title": "Escape beneath the Rams",
+     "start": 288.048,
+     "duration": 35.128
+    },
+    {
+     "sceneId": "OD-B09-S11",
+     "title": "The Boast and the Curse",
+     "start": 324.176,
+     "duration": 32.312
+    }
+   ]
+  },
+  {
+   "book": 10,
+   "roman": "X",
+   "title": "The Bewitching Queen of Aeaea",
+   "file": "audio/Book_10_The_Bewitching_Queen_of_Aeaea.mp3",
+   "duration": 257.123,
+   "scenes": [
+    {
+     "sceneId": "OD-B10-S01",
+     "title": "Aeolus and the Bag of Winds",
+     "start": 0.0,
+     "duration": 33.654
+    },
+    {
+     "sceneId": "OD-B10-S02",
+     "title": "The Laestrygonian Harbor",
+     "start": 34.654,
+     "duration": 31.981
+    },
+    {
+     "sceneId": "OD-B10-S03",
+     "title": "Scouts on Aeaea",
+     "start": 67.635,
+     "duration": 27.952
+    },
+    {
+     "sceneId": "OD-B10-S04",
+     "title": "Circe Transforms the Crew",
+     "start": 96.587,
+     "duration": 33.162
+    },
+    {
+     "sceneId": "OD-B10-S05",
+     "title": "Hermes Gives the Moly",
+     "start": 130.749,
+     "duration": 26.371
+    },
+    {
+     "sceneId": "OD-B10-S06",
+     "title": "Odysseus Defeats Circe's Spell",
+     "start": 158.12,
+     "duration": 32.636
+    },
+    {
+     "sceneId": "OD-B10-S07",
+     "title": "The Men Restored",
+     "start": 191.756,
+     "duration": 32.838
+    },
+    {
+     "sceneId": "OD-B10-S08",
+     "title": "The Road to the Dead",
+     "start": 225.594,
+     "duration": 31.463
+    }
+   ]
+  },
+  {
+   "book": 11,
+   "roman": "XI",
+   "title": "The Kingdom of the Dead",
+   "file": "audio/Book_11_The_Kingdom_of_the_Dead.mp3",
+   "duration": 250.358,
+   "scenes": [
+    {
+     "sceneId": "OD-B11-S01",
+     "title": "The Blood Pit Opens",
+     "start": 0.0,
+     "duration": 29.327
+    },
+    {
+     "sceneId": "OD-B11-S02",
+     "title": "Elpenor Asks for Burial",
+     "start": 30.327,
+     "duration": 27.168
+    },
+    {
+     "sceneId": "OD-B11-S03",
+     "title": "Tiresias Names the Cost",
+     "start": 58.495,
+     "duration": 33.957
+    },
+    {
+     "sceneId": "OD-B11-S04",
+     "title": "Anticleia and the Three Embraces",
+     "start": 93.452,
+     "duration": 27.055
+    },
+    {
+     "sceneId": "OD-B11-S05",
+     "title": "The Heroines of the Past",
+     "start": 121.507,
+     "duration": 30.869
+    },
+    {
+     "sceneId": "OD-B11-S06",
+     "title": "Agamemnon's Warning",
+     "start": 153.376,
+     "duration": 25.648
+    },
+    {
+     "sceneId": "OD-B11-S07",
+     "title": "Achilles Chooses Life in Retrospect",
+     "start": 180.024,
+     "duration": 32.624
+    },
+    {
+     "sceneId": "OD-B11-S08",
+     "title": "Judges, Punishments, and Flight",
+     "start": 213.648,
+     "duration": 36.658
+    }
+   ]
+  },
+  {
+   "book": 12,
+   "roman": "XII",
+   "title": "The Cattle of the Sun",
+   "file": "audio/Book_12_The_Cattle_of_the_Sun.mp3",
+   "duration": 225.202,
+   "scenes": [
+    {
+     "sceneId": "OD-B12-S01",
+     "title": "Elpenor's Funeral",
+     "start": 0.0,
+     "duration": 27.08
+    },
+    {
+     "sceneId": "OD-B12-S02",
+     "title": "Circe Maps the Dangers",
+     "start": 28.08,
+     "duration": 29.523
+    },
+    {
+     "sceneId": "OD-B12-S03",
+     "title": "The Sirens' Song",
+     "start": 58.603,
+     "duration": 31.005
+    },
+    {
+     "sceneId": "OD-B12-S04",
+     "title": "Between Scylla and Charybdis",
+     "start": 90.608,
+     "duration": 31.872
+    },
+    {
+     "sceneId": "OD-B12-S05",
+     "title": "The Island of the Sun",
+     "start": 123.48,
+     "duration": 29.034
+    },
+    {
+     "sceneId": "OD-B12-S06",
+     "title": "The Cattle Are Slaughtered",
+     "start": 153.514,
+     "duration": 32.98
+    },
+    {
+     "sceneId": "OD-B12-S07",
+     "title": "Zeus Destroys the Last Ship",
+     "start": 187.494,
+     "duration": 37.642
+    }
+   ]
+  },
+  {
+   "book": 13,
+   "roman": "XIII",
+   "title": "Ithaca at Last",
+   "file": "audio/Book_13_Ithaca_at_Last.mp3",
+   "duration": 163.056,
+   "scenes": [
+    {
+     "sceneId": "OD-B13-S01",
+     "title": "The Phaeacians Carry Odysseus Home",
+     "start": 0.0,
+     "duration": 36.521
+    },
+    {
+     "sceneId": "OD-B13-S02",
+     "title": "Odysseus Wakes on an Unknown Shore",
+     "start": 37.521,
+     "duration": 31.027
+    },
+    {
+     "sceneId": "OD-B13-S03",
+     "title": "The Cretan Lie Meets Its Match",
+     "start": 69.548,
+     "duration": 32.794
+    },
+    {
+     "sceneId": "OD-B13-S04",
+     "title": "The Treasure Is Hidden",
+     "start": 103.342,
+     "duration": 28.302
+    },
+    {
+     "sceneId": "OD-B13-S05",
+     "title": "Athena Makes the Beggar",
+     "start": 132.644,
+     "duration": 30.344
+    }
+   ]
+  },
+  {
+   "book": 14,
+   "roman": "XIV",
+   "title": "The Loyal Swineherd",
+   "file": "audio/Book_14_The_Loyal_Swineherd.mp3",
+   "duration": 123.794,
+   "scenes": [
+    {
+     "sceneId": "OD-B14-S01",
+     "title": "The Dogs at Eumaeus's Yard",
+     "start": 0.0,
+     "duration": 29.698
+    },
+    {
+     "sceneId": "OD-B14-S02",
+     "title": "The Swineherd Laments His Master",
+     "start": 30.698,
+     "duration": 31.869
+    },
+    {
+     "sceneId": "OD-B14-S03",
+     "title": "The Cretan Tale at the Hut",
+     "start": 63.567,
+     "duration": 31.02
+    },
+    {
+     "sceneId": "OD-B14-S04",
+     "title": "The Cloak Test",
+     "start": 95.587,
+     "duration": 28.148
+    }
+   ]
+  },
+  {
+   "book": 15,
+   "roman": "XV",
+   "title": "The Prince Sets Sail for Home",
+   "file": "audio/Book_15_The_Prince_Sets_Sail_for_Home.mp3",
+   "duration": 148.428,
+   "scenes": [
+    {
+     "sceneId": "OD-B15-S01",
+     "title": "Athena Wakes Telemachus",
+     "start": 0.0,
+     "duration": 33.362
+    },
+    {
+     "sceneId": "OD-B15-S02",
+     "title": "Farewell from Menelaus and Helen",
+     "start": 34.362,
+     "duration": 30.116
+    },
+    {
+     "sceneId": "OD-B15-S03",
+     "title": "Theoclymenus Joins the Voyage",
+     "start": 65.478,
+     "duration": 22.363
+    },
+    {
+     "sceneId": "OD-B15-S04",
+     "title": "Eumaeus Tells His Own Story",
+     "start": 88.841,
+     "duration": 30.356
+    },
+    {
+     "sceneId": "OD-B15-S05",
+     "title": "Telemachus Lands in Secret",
+     "start": 120.197,
+     "duration": 28.171
+    }
+   ]
+  },
+  {
+   "book": 16,
+   "roman": "XVI",
+   "title": "Father and Son",
+   "file": "audio/Book_16_Father_and_Son.mp3",
+   "duration": 193.593,
+   "scenes": [
+    {
+     "sceneId": "OD-B16-S01",
+     "title": "The Son Reaches the Hut",
+     "start": 0.0,
+     "duration": 30.529
+    },
+    {
+     "sceneId": "OD-B16-S02",
+     "title": "Eumaeus Carries News to Penelope",
+     "start": 31.529,
+     "duration": 28.54
+    },
+    {
+     "sceneId": "OD-B16-S03",
+     "title": "The Father Reveals Himself",
+     "start": 61.069,
+     "duration": 35.3
+    },
+    {
+     "sceneId": "OD-B16-S04",
+     "title": "The Plan against the Suitors",
+     "start": 97.369,
+     "duration": 33.016
+    },
+    {
+     "sceneId": "OD-B16-S05",
+     "title": "The Ambush Fails and the Suitors Divide",
+     "start": 131.385,
+     "duration": 35.404
+    },
+    {
+     "sceneId": "OD-B16-S06",
+     "title": "The Beggar Returns",
+     "start": 167.789,
+     "duration": 25.737
+    }
+   ]
+  },
+  {
+   "book": 17,
+   "roman": "XVII",
+   "title": "Stranger at the Gates",
+   "file": "audio/Book_17_Stranger_at_the_Gates.mp3",
+   "duration": 203.964,
+   "scenes": [
+    {
+     "sceneId": "OD-B17-S01",
+     "title": "Telemachus Returns to the Palace",
+     "start": 0.0,
+     "duration": 31.782
+    },
+    {
+     "sceneId": "OD-B17-S02",
+     "title": "The Road with Melanthius",
+     "start": 32.782,
+     "duration": 25.107
+    },
+    {
+     "sceneId": "OD-B17-S03",
+     "title": "Argos Recognizes His Master",
+     "start": 58.889,
+     "duration": 28.587
+    },
+    {
+     "sceneId": "OD-B17-S04",
+     "title": "The Beggar Enters His Hall",
+     "start": 88.476,
+     "duration": 29.959
+    },
+    {
+     "sceneId": "OD-B17-S05",
+     "title": "Antinous Throws the Stool",
+     "start": 119.435,
+     "duration": 28.138
+    },
+    {
+     "sceneId": "OD-B17-S06",
+     "title": "Penelope Summons the Stranger",
+     "start": 148.573,
+     "duration": 29.588
+    },
+    {
+     "sceneId": "OD-B17-S07",
+     "title": "Eumaeus Leaves the Hall",
+     "start": 179.161,
+     "duration": 24.749
+    }
+   ]
+  },
+  {
+   "book": 18,
+   "roman": "XVIII",
+   "title": "The Beggar-King of Ithaca",
+   "file": "audio/Book_18_The_Beggar_King_of_Ithaca.mp3",
+   "duration": 191.373,
+   "scenes": [
+    {
+     "sceneId": "OD-B18-S01",
+     "title": "Irus Challenges the Stranger",
+     "start": 0.0,
+     "duration": 45.322
+    },
+    {
+     "sceneId": "OD-B18-S02",
+     "title": "Odysseus Drops Irus",
+     "start": 46.322,
+     "duration": 33.201
+    },
+    {
+     "sceneId": "OD-B18-S03",
+     "title": "The Warning to Amphinomus",
+     "start": 80.523,
+     "duration": 27.514
+    },
+    {
+     "sceneId": "OD-B18-S04",
+     "title": "Penelope Appears before the Suitors",
+     "start": 109.037,
+     "duration": 40.468
+    },
+    {
+     "sceneId": "OD-B18-S05",
+     "title": "Melantho and Eurymachus Attack",
+     "start": 150.505,
+     "duration": 40.79
+    }
+   ]
+  },
+  {
+   "book": 19,
+   "roman": "XIX",
+   "title": "Penelope and Her Guest",
+   "file": "audio/Book_19_Penelope_and_Her_Guest.mp3",
+   "duration": 201.665,
+   "scenes": [
+    {
+     "sceneId": "OD-B19-S01",
+     "title": "The Weapons Leave the Hall",
+     "start": 0.0,
+     "duration": 32.23
+    },
+    {
+     "sceneId": "OD-B19-S02",
+     "title": "Penelope Begins the Test",
+     "start": 33.23,
+     "duration": 28.316
+    },
+    {
+     "sceneId": "OD-B19-S03",
+     "title": "The Stranger Describes Odysseus",
+     "start": 62.546,
+     "duration": 37.477
+    },
+    {
+     "sceneId": "OD-B19-S04",
+     "title": "Eurycleia Finds the Scar",
+     "start": 101.023,
+     "duration": 33.857
+    },
+    {
+     "sceneId": "OD-B19-S05",
+     "title": "The Boar Hunt on Parnassus",
+     "start": 135.88,
+     "duration": 29.681
+    },
+    {
+     "sceneId": "OD-B19-S06",
+     "title": "The Dream of the Geese",
+     "start": 166.561,
+     "duration": 35.047
+    }
+   ]
+  },
+  {
+   "book": 20,
+   "roman": "XX",
+   "title": "Portents Gather",
+   "file": "audio/Book_20_Portents_Gather.mp3",
+   "duration": 156.918,
+   "scenes": [
+    {
+     "sceneId": "OD-B20-S01",
+     "title": "The Restless Night",
+     "start": 0.0,
+     "duration": 29.983
+    },
+    {
+     "sceneId": "OD-B20-S02",
+     "title": "Thunder and the Mill Woman",
+     "start": 30.983,
+     "duration": 24.135
+    },
+    {
+     "sceneId": "OD-B20-S03",
+     "title": "The Herdsmen Arrive",
+     "start": 56.118,
+     "duration": 37.06
+    },
+    {
+     "sceneId": "OD-B20-S04",
+     "title": "The Ox Hoof",
+     "start": 94.178,
+     "duration": 27.799
+    },
+    {
+     "sceneId": "OD-B20-S05",
+     "title": "The Hall of Death",
+     "start": 122.977,
+     "duration": 33.886
+    }
+   ]
+  },
+  {
+   "book": 21,
+   "roman": "XXI",
+   "title": "Odysseus Strings His Bow",
+   "file": "audio/Book_21_Odysseus_Strings_His_Bow.mp3",
+   "duration": 222.694,
+   "scenes": [
+    {
+     "sceneId": "OD-B21-S01",
+     "title": "Penelope Retrieves the Bow",
+     "start": 0.0,
+     "duration": 32.956
+    },
+    {
+     "sceneId": "OD-B21-S02",
+     "title": "The Contest Is Set",
+     "start": 33.956,
+     "duration": 30.922
+    },
+    {
+     "sceneId": "OD-B21-S03",
+     "title": "The Suitors Fail the Bow",
+     "start": 65.878,
+     "duration": 34.081
+    },
+    {
+     "sceneId": "OD-B21-S04",
+     "title": "Odysseus Recruits the Herdsmen",
+     "start": 100.959,
+     "duration": 26.135
+    },
+    {
+     "sceneId": "OD-B21-S05",
+     "title": "The Beggar Requests the Bow",
+     "start": 128.094,
+     "duration": 31.067
+    },
+    {
+     "sceneId": "OD-B21-S06",
+     "title": "The Doors Are Secured",
+     "start": 160.161,
+     "duration": 26.522
+    },
+    {
+     "sceneId": "OD-B21-S07",
+     "title": "The Bow Sings",
+     "start": 187.683,
+     "duration": 34.939
+    }
+   ]
+  },
+  {
+   "book": 22,
+   "roman": "XXII",
+   "title": "Slaughter in the Hall",
+   "file": "audio/Book_22_Slaughter_in_the_Hall.mp3",
+   "duration": 267.076,
+   "scenes": [
+    {
+     "sceneId": "OD-B22-S01",
+     "title": "Antinous Falls",
+     "start": 0.0,
+     "duration": 39.193
+    },
+    {
+     "sceneId": "OD-B22-S02",
+     "title": "Eurymachus Bargains and Attacks",
+     "start": 40.193,
+     "duration": 31.165
+    },
+    {
+     "sceneId": "OD-B22-S03",
+     "title": "The Storeroom Arms the Defenders",
+     "start": 72.358,
+     "duration": 28.189
+    },
+    {
+     "sceneId": "OD-B22-S04",
+     "title": "Melanthius Arms the Suitors",
+     "start": 101.547,
+     "duration": 26.63
+    },
+    {
+     "sceneId": "OD-B22-S05",
+     "title": "Athena Tests the Battle",
+     "start": 129.177,
+     "duration": 38.161
+    },
+    {
+     "sceneId": "OD-B22-S06",
+     "title": "The Hall Is Cleared",
+     "start": 168.338,
+     "duration": 33.104
+    },
+    {
+     "sceneId": "OD-B22-S07",
+     "title": "The Disloyal Maids",
+     "start": 202.442,
+     "duration": 35.492
+    },
+    {
+     "sceneId": "OD-B22-S08",
+     "title": "The House Calls Penelope",
+     "start": 238.934,
+     "duration": 28.075
+    }
+   ]
+  },
+  {
+   "book": 23,
+   "roman": "XXIII",
+   "title": "The Great Rooted Bed",
+   "file": "audio/Book_23_The_Great_Rooted_Bed.mp3",
+   "duration": 181.264,
+   "scenes": [
+    {
+     "sceneId": "OD-B23-S01",
+     "title": "Eurycleia Wakes Penelope",
+     "start": 0.0,
+     "duration": 32.424
+    },
+    {
+     "sceneId": "OD-B23-S02",
+     "title": "Penelope Studies the Stranger",
+     "start": 33.424,
+     "duration": 24.579
+    },
+    {
+     "sceneId": "OD-B23-S03",
+     "title": "The False Wedding Noise",
+     "start": 59.003,
+     "duration": 25.834
+    },
+    {
+     "sceneId": "OD-B23-S04",
+     "title": "The Bed Test",
+     "start": 85.837,
+     "duration": 35.639
+    },
+    {
+     "sceneId": "OD-B23-S05",
+     "title": "Odysseus Tells the Remaining Journey",
+     "start": 122.476,
+     "duration": 31.144
+    },
+    {
+     "sceneId": "OD-B23-S06",
+     "title": "Departure for Laertes",
+     "start": 154.62,
+     "duration": 26.577
+    }
+   ]
+  },
+  {
+   "book": 24,
+   "roman": "XXIV",
+   "title": "Peace",
+   "file": "audio/Book_24_Peace.mp3",
+   "duration": 289.28,
+   "scenes": [
+    {
+     "sceneId": "OD-B24-S01",
+     "title": "The Suitors Enter Hades",
+     "start": 0.0,
+     "duration": 30.819
+    },
+    {
+     "sceneId": "OD-B24-S02",
+     "title": "Agamemnon Hears of Penelope's Fidelity",
+     "start": 31.819,
+     "duration": 28.534
+    },
+    {
+     "sceneId": "OD-B24-S03",
+     "title": "Odysseus Tests Laertes",
+     "start": 61.353,
+     "duration": 35.46
+    },
+    {
+     "sceneId": "OD-B24-S04",
+     "title": "The Scar and the Orchard Trees",
+     "start": 97.813,
+     "duration": 31.586
+    },
+    {
+     "sceneId": "OD-B24-S05",
+     "title": "Laertes Is Restored",
+     "start": 130.399,
+     "duration": 26.219
+    },
+    {
+     "sceneId": "OD-B24-S06",
+     "title": "The Families Demand Revenge",
+     "start": 157.618,
+     "duration": 35.971
+    },
+    {
+     "sceneId": "OD-B24-S07",
+     "title": "Zeus and Athena Set the Terms",
+     "start": 194.589,
+     "duration": 25.765
+    },
+    {
+     "sceneId": "OD-B24-S08",
+     "title": "The Last Clash",
+     "start": 221.354,
+     "duration": 33.155
+    },
+    {
+     "sceneId": "OD-B24-S09",
+     "title": "Athena Makes Peace",
+     "start": 255.509,
+     "duration": 33.697
+    }
+   ]
+  }
+ ],
+ "totalDuration": 4932.911
+}

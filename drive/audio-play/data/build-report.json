@@ -1,0 +1,157 @@
+{
+  "artifact": "Odyssey Drive Audio Play",
+  "books": 24,
+  "scenes": 152,
+  "audioUnits": 815,
+  "dialogueUnits": 247,
+  "narrationUnits": 416,
+  "headingUnits": 152,
+  "audioFiles": [
+    {
+      "book": 1,
+      "title": "Athena Inspires the Prince",
+      "file": "audio/book-01.mp3",
+      "duration": 165.381224
+    },
+    {
+      "book": 2,
+      "title": "Telemachus Sets Sail",
+      "file": "audio/book-02.mp3",
+      "duration": 184.502857
+    },
+    {
+      "book": 3,
+      "title": "King Nestor Remembers",
+      "file": "audio/book-03.mp3",
+      "duration": 144.822857
+    },
+    {
+      "book": 4,
+      "title": "The King and Queen of Sparta",
+      "file": "audio/book-04.mp3",
+      "duration": 191.059592
+    },
+    {
+      "book": 5,
+      "title": "Odysseus\u2014Nymph and Shipwreck",
+      "file": "audio/book-05.mp3",
+      "duration": 172.329796
+    },
+    {
+      "book": 6,
+      "title": "The Princess and the Stranger",
+      "file": "audio/book-06.mp3",
+      "duration": 117.211429
+    },
+    {
+      "book": 7,
+      "title": "Phaeacia's Halls and Gardens",
+      "file": "audio/book-07.mp3",
+      "duration": 107.206531
+    },
+    {
+      "book": 8,
+      "title": "A Day for Songs and Contests",
+      "file": "audio/book-08.mp3",
+      "duration": 133.250612
+    },
+    {
+      "book": 9,
+      "title": "In the One-Eyed Giant's Cave",
+      "file": "audio/book-09.mp3",
+      "duration": 319.190204
+    },
+    {
+      "book": 10,
+      "title": "The Bewitching Queen of Aeaea",
+      "file": "audio/book-10.mp3",
+      "duration": 239.412245
+    },
+    {
+      "book": 11,
+      "title": "The Kingdom of the Dead",
+      "file": "audio/book-11.mp3",
+      "duration": 237.479184
+    },
+    {
+      "book": 12,
+      "title": "The Cattle of the Sun",
+      "file": "audio/book-12.mp3",
+      "duration": 202.710204
+    },
+    {
+      "book": 13,
+      "title": "Ithaca at Last",
+      "file": "audio/book-13.mp3",
+      "duration": 145.893878
+    },
+    {
+      "book": 14,
+      "title": "The Loyal Swineherd",
+      "file": "audio/book-14.mp3",
+      "duration": 106.605714
+    },
+    {
+      "book": 15,
+      "title": "The Prince Sets Sail for Home",
+      "file": "audio/book-15.mp3",
+      "duration": 119.510204
+    },
+    {
+      "book": 16,
+      "title": "Father and Son",
+      "file": "audio/book-16.mp3",
+      "duration": 167.523265
+    },
+    {
+      "book": 17,
+      "title": "Stranger at the Gates",
+      "file": "audio/book-17.mp3",
+      "duration": 174.341224
+    },
+    {
+      "book": 18,
+      "title": "The Beggar-King of Ithaca",
+      "file": "audio/book-18.mp3",
+      "duration": 151.196735
+    },
+    {
+      "book": 19,
+      "title": "Penelope and Her Guest",
+      "file": "audio/book-19.mp3",
+      "duration": 177.136327
+    },
+    {
+      "book": 20,
+      "title": "Portents Gather",
+      "file": "audio/book-20.mp3",
+      "duration": 134.086531
+    },
+    {
+      "book": 21,
+      "title": "Odysseus Strings His Bow",
+      "file": "audio/book-21.mp3",
+      "duration": 198.713469
+    },
+    {
+      "book": 22,
+      "title": "Slaughter in the Hall",
+      "file": "audio/book-22.mp3",
+      "duration": 241.057959
+    },
+    {
+      "book": 23,
+      "title": "The Great Rooted Bed",
+      "file": "audio/book-23.mp3",
+      "duration": 159.007347
+    },
+    {
+      "book": 24,
+      "title": "Peace",
+      "file": "audio/book-24.mp3",
+      "duration": 257.671837
+    }
+  ],
+  "speechPolicy": "Character payloads are spoken as dialogue. Parenthetical macro-actions are rewritten as concise narrator prose. Delivery, gaze, objectives, subtext, and blocking are never spoken.",
+  "tts": "eSpeak pre-rendered MP3 plus browser SpeechSynthesis live mode"
+}
