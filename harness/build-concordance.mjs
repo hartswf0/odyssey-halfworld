@@ -49,18 +49,30 @@ const v2scene = {};
 for (const b of v2.books) for (const s of b.scenes) v2scene[s.id] = s;
 for (const a of v1.assemblies) {
   const anchor = a.sourceAnchor || {};
-  const cand = [];
-  for (const [fid, occ] of Object.entries(occurrences))
-    if (occ.some(o => (lines[String(o[0])] || [])[1] === a.book)) cand.push(fid);
+  const apages = anchor.pages || [];
+  /* rank candidates: formulas that occur ON this scene's Fagles pages first,
+     then the rest of the book's, by how often they land there */
+  const scored = [];
+  for (const [fid, occ] of Object.entries(occurrences)) {
+    let onAnchor = 0, inBook = 0;
+    for (const o of occ) {
+      const l = lines[String(o[0])]; if (!l) continue;
+      if (apages.includes(l[2])) onAnchor++;
+      else if (l[1] === a.book) inBook++;
+    }
+    if (onAnchor || inBook) scored.push([fid, onAnchor * 4 + inBook]);
+  }
+  scored.sort((x, y) => y[1] - x[1]);
   const s2 = v2scene[a.id] || {};
   const ts = (s2.typeScriptInstances || [])[0];
   scenes[a.id] = {
-    f: cand.slice(0, 18),
+    f: scored.slice(0, 18).map(x => x[0]),
+    a: apages,
     t: ts && (ts.scriptId || ts.typeScript || ts.id) || null,
     p: (s2.activeProtocols || []).slice(0, 6),
     r: (s2.activeReferentialFields || []).slice(0, 6),
     m: "TRANSLATION_DERIVED candidates · Fagles page anchors (" +
-       (anchor.pages || []).join(",") + ") · confidence " + (anchor.confidence || "low") +
+       apages.join(",") + ") · confidence " + (anchor.confidence || "low") +
        " · no exact Greek spans asserted",
   };
 }

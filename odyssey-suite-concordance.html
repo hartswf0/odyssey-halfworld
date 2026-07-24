@@ -334,14 +334,64 @@ function lobj(id){const a=larr(id);if(!a)return null;return {id:+id,corpus:a[0],
 function oobj(a){return {lineId:a[0],tokenStart:a[1],tokenEnd:a[2],startRatio:a[3],endRatio:a[4],startSyllable:a[5],endSyllable:a[6],position:a[7],startFoot:a[8],endFoot:a[9],address:a[10]};}
 function sceneConcordance(entry){return CX&&entry?CX.scenes[entry.id]:null;}
 function currentBookTarget(entry,prog){const max=(CX&&CX.meta.bookLineMax&&CX.meta.bookLineMax.O&&CX.meta.bookLineMax.O[String(entry.book)])||1;const sc=BOOKS.find(b=>b.b===entry.book);const ix=sc?Math.max(0,sc.scenes.findIndex(s=>s.id===entry.id)):0;const n=sc?Math.max(1,sc.scenes.length):1;return 1+((ix+prog)/n)*(max-1);}
-function chooseOccurrence(id,entry,prog){const all=oarr(id).map(oobj);if(!all.length)return null;const target=currentBookTarget(entry,prog);let pool=all.filter(o=>{const l=lobj(o.lineId);return l&&l.corpus==="O"&&l.book===entry.book;});if(!pool.length)pool=all.filter(o=>{const l=lobj(o.lineId);return l&&l.corpus==="O";});if(!pool.length)pool=all;pool.sort((a,b)=>{const la=lobj(a.lineId),lb=lobj(b.lineId);return Math.abs((la?la.line:0)-target)-Math.abs((lb?lb.line:0)-target);});return pool[0];}
-function resolveFormula(entry,prog){if(!CX||!entry)return null;const sc=sceneConcordance(entry),refs=(sc&&sc.f)||[];let id=formulaLock;if(!id){if(!refs.length)return null;const base=Math.min(refs.length-1,Math.floor(Math.max(0,Math.min(.9999,prog))*refs.length));id=refs[(base+formulaShift+refs.length*20)%refs.length];}const formula=fobj(id);if(!formula)return null;const occurrence=chooseOccurrence(id,entry,prog),line=occurrence?lobj(occurrence.lineId):null;return {sceneId:entry.id,scene:sc,formula,occurrence,line,refs};}
+function chooseOccurrence(id,entry,prog){const all=oarr(id).map(oobj);if(!all.length)return null;
+  /* this scene's own Fagles pages outrank the rest of the book */
+  const sc=sceneConcordance(entry),anchor=(sc&&sc.a)||[];
+  let pool=all.filter(o=>{const l=lobj(o.lineId);return l&&anchor.includes(l.line);});
+  if(!pool.length)pool=all.filter(o=>{const l=lobj(o.lineId);return l&&l.corpus==="O"&&l.book===entry.book;});
+  if(!pool.length)pool=all.filter(o=>{const l=lobj(o.lineId);return l&&l.corpus==="O";});
+  if(!pool.length)pool=all;
+  const target=currentBookTarget(entry,prog);
+  pool.sort((a,b)=>{const la=lobj(a.lineId),lb=lobj(b.lineId);return Math.abs((la?la.line:0)-target)-Math.abs((lb?lb.line:0)-target);});
+  return pool[0];}
+/* beat-bound resolution: the formula follows the NOW — every candidate scored
+   against the current beat's words, the on-stage cast, and this scene's pages */
+function formulaSignals(id,beat,castText,anchor,book){
+  const f=fobj(id);if(!f)return null;
+  const hay=((f.greek||"")+" "+f.id.replace(/[._]/g," ")+" "+(f.classification||"")).toLowerCase();
+  const words=[...new Set(hay.split(/[^a-z']+/).filter(w=>w.length>3))];
+  const beatHits=words.filter(w=>beat.includes(w));
+  const castHits=words.filter(w=>castText.includes(w));
+  let onAnchor=false,inBook=false;
+  for(const o of oarr(id)){const l=lobj(o[0]);if(!l)continue;
+    if(anchor.includes(l.line))onAnchor=true;else if(l.book===book)inBook=true;}
+  return {beatHits,castHits,onAnchor,inBook,
+    score:beatHits.length*3+castHits.length*2+(onAnchor?4:0)+(inBook?1:0)};}
+function resolveFormula(entry,prog){
+  if(!CX||!entry)return null;
+  const sc=sceneConcordance(entry),refs=(sc&&sc.f)||[];
+  let id=formulaLock,why="";
+  if(!id){
+    if(!refs.length)return null;
+    const beats=entry.beats||[];
+    const bi=beats.length?Math.min(beats.length-1,Math.floor(Math.max(0,Math.min(.9999,prog))*beats.length)):0;
+    const beat=String(beats[bi]||"").toLowerCase();
+    const castText=(entry.assets||[]).map(cid=>((assetById.get(cid)||{}).name||"")).join(" ").toLowerCase();
+    const anchor=(sc&&sc.a)||[];
+    const ranked=refs.map(r=>({r,sig:formulaSignals(r,beat,castText,anchor,entry.book)}))
+      .filter(x=>x.sig).sort((a,b)=>b.sig.score-a.sig.score);
+    if(!ranked.length)return null;
+    /* rotate only inside the near-top band, keyed to the beat — the pick moves
+       WITH the NOW instead of cycling the whole list on raw progress */
+    const band=ranked.filter(x=>x.sig.score>=ranked[0].sig.score-1);
+    const pick=band[((bi+formulaShift)%band.length+band.length)%band.length]||ranked[0];
+    id=pick.r;
+    const s=pick.sig,parts=[];
+    if(s.beatHits.length)parts.push("beat: “"+s.beatHits.slice(0,3).join(", ")+"”");
+    if(s.castHits.length)parts.push("cast: "+s.castHits.slice(0,2).join(", "));
+    if(s.onAnchor)parts.push("occurs on this scene's pages ("+anchor.join(",")+")");
+    else if(s.inBook)parts.push("Book "+entry.book+" candidate");
+    why="WHY NOW · "+(parts.length?parts.join(" · "):"nearest candidate in the book");
+  }
+  const formula=fobj(id);if(!formula)return null;
+  const occurrence=chooseOccurrence(id,entry,prog),line=occurrence?lobj(occurrence.lineId):null;
+  return {sceneId:entry.id,scene:sc,formula,occurrence,line,refs,why};}
 function meterHTML(ctx){let s="";const o=ctx&&ctx.occurrence;let a=o&&o.startFoot,b=o&&o.endFoot;if(!(a>=1))a=1+Math.floor(((o&&o.startRatio)||0)*6);if(!(b>=1))b=Math.max(a,Math.ceil(((o&&o.endRatio)||1)*6));for(let i=1;i<=6;i++){const on=i>=a&&i<=b;s+='<span class="mfoot '+(on?'on ':'')+((i===a||i===b)?'edge':'')+'">'+i+'</span>';}return s;}
 function labelRef(id){const R=CX&&CX.registries;if(!R)return id.replace(/^.*\./,"");const x=(R.referents&&R.referents[id])||(R.protocols&&R.protocols[id])||(R.typeScripts&&R.typeScripts[id]);return x&&x.label||id.replace(/^.*\./,"").replaceAll("_"," ");}
 function seekFormulaLine(line){if(!line||line.corpus!=="O")return;const bi=OFF.findIndex(o=>o.bk.b===line.book);if(bi<0)return;const max=(CX&&CX.meta.bookLineMax.O[String(line.book)])||line.line;seek(OFF[bi].start+((line.line-1)/Math.max(1,max-1))*OFF[bi].dur);}
 function renderFormulaOccurrences(ctx){const box=$("formulaOccs");box.innerHTML="";if(!ctx)return;let os=oarr(ctx.formula.id).map(oobj);const current=ctx.occurrence&&ctx.occurrence.lineId;os.sort((a,b)=>{const la=lobj(a.lineId),lb=lobj(b.lineId);const pa=la&&la.corpus==="O"&&la.book===(ctx.line&&ctx.line.book)?0:1;const pb=lb&&lb.corpus==="O"&&lb.book===(ctx.line&&ctx.line.book)?0:1;return pa-pb+((a.lineId===current?-2:0)-(b.lineId===current?-2:0));});os.slice(0,10).forEach(o=>{const l=lobj(o.lineId);if(!l)return;const d=document.createElement("div");d.className="focc"+(o.lineId===current?" now":"");d.innerHTML='<b>'+l.ref+'</b> · '+(o.address||o.position||"—")+'<div class="gr">'+l.greek+'</div>';d.onclick=()=>seekFormulaLine(l);box.appendChild(d);});}
-function renderFormula(ctx){activeFormulaCtx=ctx;const g=$("formulaGreek"),id=$("formulaId"),ln=$("formulaLine"),mt=$("formulaMeta"),refs=$("formulaRefs");if(!ctx){g.textContent="—";id.textContent="—";ln.textContent=CX?"No formula candidates linked to this scene.":"Loading the concordance…";mt.textContent="—";refs.innerHTML="";$("meterRail").innerHTML=meterHTML(null);$("formulaOccs").innerHTML="";return;}const f=ctx.formula,l=ctx.line,o=ctx.occurrence;g.textContent=f.greek||f.beta||f.id;id.textContent=f.id+(formulaLock?" · LOCK":" · AUTO");ln.textContent=l?l.greek:"No occurrence line loaded.";mt.textContent=[f.n+" tokens",f.classification||"repeated phrase",f.total+"× total",f.ody+" Odyssey",f.iliad+" Iliad",(o&&o.address)||f.address||f.position,(l&&l.ref)||""].filter(Boolean).join(" · ");$("meterRail").innerHTML=meterHTML(ctx);refs.innerHTML="";const ids=[ctx.scene&&ctx.scene.t].concat((ctx.scene&&ctx.scene.p)||[],(ctx.scene&&ctx.scene.r)||[]).filter(Boolean).slice(0,12);ids.forEach(r=>{const s=document.createElement("span");s.className="refChip";s.textContent=labelRef(r);refs.appendChild(s);});$("formulaCaveat").textContent=(ctx.scene&&ctx.scene.m)||"Computational formula candidate; semantic equivalence requires adjudication.";renderFormulaOccurrences(ctx);}
-function updateFormula(entry,prog){if(!CX||!entry){renderFormula(null);return;}if(formulaScene!==entry.id){formulaScene=entry.id;formulaShift=0;formulaLock=null;$("formulaResults").innerHTML="";$("formulaDeepBody").innerHTML="";}const ctx=resolveFormula(entry,prog),key=ctx?[ctx.sceneId,ctx.formula.id,ctx.occurrence&&ctx.occurrence.lineId,formulaLock||""].join("|"):entry.id+"|none";if(key!==formulaLastKey){formulaLastKey=key;renderFormula(ctx);}}
+function renderFormula(ctx){activeFormulaCtx=ctx;const g=$("formulaGreek"),id=$("formulaId"),ln=$("formulaLine"),mt=$("formulaMeta"),refs=$("formulaRefs");if(!ctx){g.textContent="—";id.textContent="—";ln.textContent=CX?"No formula candidates linked to this scene.":"Loading the concordance…";mt.textContent="—";refs.innerHTML="";$("meterRail").innerHTML=meterHTML(null);$("formulaOccs").innerHTML="";return;}const f=ctx.formula,l=ctx.line,o=ctx.occurrence;g.textContent=f.greek||f.beta||f.id;id.textContent=f.id+(formulaLock?" · LOCK":" · AUTO");ln.textContent=l?l.greek:"No occurrence line loaded.";mt.textContent=[f.n+" tokens",f.classification||"repeated phrase",f.total+"× total",f.ody+" Odyssey",f.iliad+" Iliad",(o&&o.address)||f.address||f.position,(l&&l.ref)||""].filter(Boolean).join(" · ");$("meterRail").innerHTML=meterHTML(ctx);refs.innerHTML="";const ids=[ctx.scene&&ctx.scene.t].concat((ctx.scene&&ctx.scene.p)||[],(ctx.scene&&ctx.scene.r)||[]).filter(Boolean).slice(0,12);ids.forEach(r=>{const s=document.createElement("span");s.className="refChip";s.textContent=labelRef(r);refs.appendChild(s);});$("formulaCaveat").textContent=(ctx.why?ctx.why+"  —  ":"")+((ctx.scene&&ctx.scene.m)||"Computational formula candidate; semantic equivalence requires adjudication.");renderFormulaOccurrences(ctx);}
+function updateFormula(entry,prog){if(!CX||!entry){renderFormula(null);return;}if(formulaScene!==entry.id){formulaScene=entry.id;formulaShift=0;formulaLock=null;$("formulaResults").innerHTML="";$("formulaDeepBody").innerHTML="";}const ctx=resolveFormula(entry,prog),key=ctx?[ctx.sceneId,ctx.formula.id,ctx.occurrence&&ctx.occurrence.lineId,ctx.why||"",formulaLock||""].join("|"):entry.id+"|none";if(key!==formulaLastKey){formulaLastKey=key;renderFormula(ctx);}}
 function drawFormulaOverlay(ctx,w,h,fc){if(!fc)return;const f=fc.formula,o=fc.occurrence;ctx.save();ctx.setTransform(1,0,0,1,0,0);const H=42,y=h-H;ctx.fillStyle="rgba(253,253,250,.94)";ctx.fillRect(0,y,w,H);ctx.fillStyle="#000";ctx.fillRect(0,y,w,1);ctx.font="700 15px Georgia,serif";ctx.textBaseline="middle";let phrase=f.greek||f.beta||f.id;while(ctx.measureText(phrase).width>w*.64&&phrase.length>8)phrase=phrase.slice(0,-2);if(phrase!==(f.greek||f.beta||f.id))phrase+="…";ctx.fillText(phrase,10,y+14);ctx.font="700 9px ui-monospace,monospace";ctx.fillStyle="#555";ctx.fillText(f.id+" · "+((o&&o.address)||f.address||f.position||"candidate"),10,y+31);const x0=w*.72,fw=(w-x0-10)/6;let a=o&&o.startFoot,b=o&&o.endFoot;if(!(a>=1))a=1+Math.floor(((o&&o.startRatio)||0)*6);if(!(b>=1))b=Math.max(a,Math.ceil(((o&&o.endRatio)||1)*6));for(let i=1;i<=6;i++){ctx.strokeStyle="#000";ctx.strokeRect(x0+(i-1)*fw,y+8,fw,24);if(i>=a&&i<=b){ctx.fillStyle=i===a||i===b?"#e01b1b":"#000";ctx.fillRect(x0+(i-1)*fw,y+8,fw,24);}ctx.fillStyle=i>=a&&i<=b?"#fff":"#000";ctx.fillText(String(i),x0+(i-.5)*fw-3,y+21);}ctx.restore();}
 function selectFormula(id){formulaLock=id;formulaLastKey="";$("formulaResults").innerHTML="";if(formulaScene&&castScene){const entry=MF.scenes.find(s=>s.id===formulaScene);if(entry)updateFormula(entry,0);}}
 async function formulaSearch(q){const box=$("formulaResults");q=(q||"").trim().toLowerCase();if(!q){box.innerHTML="";return;}box.innerHTML='<div class="fresult">loading full concordance…</div>';const db=await ensureFull();const rows=[];for(const [id,a] of Object.entries(db.formulas)){const hay=(id+" "+(a[1]||"")+" "+(a[2]||"")+" "+(a[11]||"")).toLowerCase();if(hay.includes(q)){rows.push([id,a]);if(rows.length>=40)break;}}box.innerHTML="";rows.forEach(([id,a])=>{const d=document.createElement("div");d.className="fresult";d.innerHTML='<b>'+id+'</b> · '+a[3]+'× · OD '+a[4]+' / IL '+a[5]+'<div class="gr">'+(a[2]||a[1])+'</div>';d.onclick=()=>selectFormula(id);box.appendChild(d);});if(!rows.length)box.innerHTML='<div class="fresult">No matching formula.</div>';}
@@ -927,7 +977,8 @@ document.addEventListener("keydown",e=>{
 window.__suite={ get OFF(){return OFF}, get TOTAL(){return TOTAL}, seek, dropCue,
   get CUES(){return CUES}, sceneAt, now, PB, pbRender, renderCast, openInspect,
   get concordance(){return {lite:CX,full:CFULL,extended:CEXT,parallels:CPAR}},
-  get activeFormula(){return activeFormulaCtx}, ensureFull, formulaSearch, selectFormula };
+  get activeFormula(){return activeFormulaCtx}, ensureFull, formulaSearch, selectFormula,
+  resolveFormula, updateFormula };
 
 buildAlbumUI(); buildChapters(); renderCues();
 await buildClock();
