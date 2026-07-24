@@ -17,7 +17,9 @@ const run = promisify(execFile);
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const KEY = (await readFile(resolve(ROOT, "harness/.gemini-key"), "utf8")).trim();
-const MODEL = "gemini-3.1-flash-tts-preview";
+/* each TTS model carries its OWN 100-requests/day interactive quota; the
+   prebuilt voices are the same cast on all of them */
+const MODEL = process.env.TTS_MODEL || "gemini-3.1-flash-tts-preview";
 const OUT = resolve(ROOT, "drive/voice");
 await mkdir(OUT, { recursive: true });
 
@@ -87,9 +89,19 @@ function segPrompt(seg) {
   return `You are ${seg.speakerName || "the narrator"} in a dramatic audio performance of Homer's Odyssey — ${note}. Perform the line; never announce yourself, never read flatly. ${tag} ${segText(seg)}`;
 }
 
-/* ── Gemini TTS (returns PCM16 mono 24k) with backoff ── */
+/* ── Gemini TTS (returns PCM16 mono 24k) with backoff + RPM throttle ── */
+const RPM = +(process.env.TTS_RPM || 0);          /* e.g. 9 for a 10 RPM model */
+let lastReq = 0;
+async function throttle() {
+  if (!RPM) return;
+  const gap = 60000 / RPM;
+  const wait = lastReq + gap - Date.now();
+  lastReq = Math.max(Date.now(), lastReq + gap);
+  if (wait > 0) await new Promise(s => setTimeout(s, wait));
+}
 async function tts(prompt, voice) {
   for (let attempt = 0; attempt < 5; attempt++) {
+    await throttle();
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`, {
       method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({

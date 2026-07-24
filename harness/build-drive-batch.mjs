@@ -89,7 +89,70 @@ const api = (path, opts) => fetch(API + path + (path.includes("?") ? "&" : "?") 
 
 const cmd = process.argv[2] || "poll";
 
-if (cmd === "submit") {
+/* multi-batch state: {batches:[{op,label,segments,submitted}]} (legacy {op} upgraded) */
+async function loadState(){
+  try{const s=JSON.parse(await readFile(STATE_PATH,"utf8"));
+    if(s.batches)return s;
+    if(s.op)return {batches:[{op:s.op,label:"all",segments:s.segments,submitted:s.submitted}]};
+  }catch{}
+  return {batches:[]};
+}
+const saveState=s=>writeFile(STATE_PATH,JSON.stringify(s,null,1));
+async function submitLines(lines,label){
+  const jsonl=lines.join("\n");
+  const boundary="odysseyB"+Date.now()+Math.floor(Math.random()*999);
+  const body=Buffer.concat([
+    Buffer.from(`--${boundary}\r\ncontent-type: application/json\r\n\r\n`+
+      JSON.stringify({file:{displayName:"odyssey-"+label+".jsonl"}})+`\r\n`),
+    Buffer.from(`--${boundary}\r\ncontent-type: application/jsonl\r\n\r\n`),
+    Buffer.from(jsonl),
+    Buffer.from(`\r\n--${boundary}--`),
+  ]);
+  const up=await fetch(`${API}/upload/v1beta/files?uploadType=multipart&key=${KEY}`,{
+    method:"POST",headers:{"content-type":`multipart/related; boundary=${boundary}`},body});
+  const upj=await up.json();
+  if(!up.ok)throw new Error("upload failed: "+JSON.stringify(upj).slice(0,200));
+  const fileName=upj.file?.name||upj.name;
+  const batch=await api(`/v1beta/models/${MODEL}:batchGenerateContent`,{
+    method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({batch:{displayName:"odyssey-"+label,inputConfig:{fileName}}})});
+  return batch.name;
+}
+function linesForScene(sc){
+  const out=[];
+  sc.segments.forEach((seg,gi)=>{
+    if(!(segText(seg)||"").trim())return;
+    const [voice]=castFor(seg.speakerId||"PERFORMER.NARRATOR");
+    out.push(JSON.stringify({key:sc.id+"|"+gi,request:{
+      contents:[{parts:[{text:segPrompt(seg)}]}],
+      generationConfig:{responseModalities:["AUDIO"],
+        speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:voice}}}}}}));
+  });
+  return out;
+}
+
+if (cmd === "submit-books") {
+  /* one BATCH PER BOOK — each book's audio lands and is visible independently */
+  const books = process.argv.slice(3).map(Number).filter(Boolean);
+  const st = await loadState();
+  for (const b of books) {
+    if (st.batches.some(x => x.label === "book-" + b)) { console.log("book", b, "— already submitted"); continue; }
+    const scenes = SCRIPT.scenes.filter(sc => sc.book === b && !MAN[sc.id]);
+    const lines = scenes.flatMap(linesForScene);
+    if (!lines.length) { console.log("book", b, "— nothing to submit"); continue; }
+    try {
+      const op = await submitLines(lines, "book-" + String(b).padStart(2, "0"));
+      st.batches.push({ op, label: "book-" + b, segments: lines.length, submitted: new Date().toISOString() });
+      await saveState(st);                    /* save after EVERY book — crashes lose nothing */
+      console.log("BOOK", b, "SUBMITTED:", op, "·", lines.length, "segments");
+    } catch (e) {
+      console.error("BOOK", b, "submit failed:", e.message.slice(0, 140), "— retrying in 30s");
+      await new Promise(s => setTimeout(s, 30000));
+      books.push(b);                          /* requeue at the end */
+    }
+  }
+
+} else if (cmd === "submit") {
   /* every segment of every scene not yet in the manifest */
   const lines = [];
   for (const sc of SCRIPT.scenes) {
@@ -132,27 +195,37 @@ if (cmd === "submit") {
   console.log("BATCH SUBMITTED:", batch.name, "· poll with: node harness/build-drive-batch.mjs poll");
 
 } else if (cmd === "poll") {
-  const st = JSON.parse(await readFile(STATE_PATH, "utf8"));
-  const op = await api(`/v1beta/${st.op}`);
-  const state = op.metadata?.state || op.state || (op.done ? "DONE_FLAG" : "RUNNING?");
-  console.log("batch:", st.op, "· state:", state, "· submitted:", st.submitted);
-  if (op.error) console.log("ERROR:", JSON.stringify(op.error).slice(0, 300));
-  const out = op.response?.batch?.output || op.response?.output || op.metadata?.output;
-  if (out) console.log("output:", JSON.stringify(out).slice(0, 300));
-  if (/SUCCEEDED|DONE/.test(state) || op.done) console.log("→ run: node harness/build-drive-batch.mjs collect");
+  const st = await loadState();
+  let doneCount = 0;
+  for (const b of st.batches) {
+    const op = await api(`/v1beta/${b.op}`).catch(e => ({ error: { message: e.message } }));
+    const state = op.metadata?.state || op.state || (op.done ? "DONE" : "?");
+    if (/SUCCEEDED|DONE/.test(state) || op.done) doneCount++;
+    console.log((b.label || "batch").padEnd(9), state, "·", b.segments, "segs",
+      op.error ? "· ERR " + JSON.stringify(op.error).slice(0, 120) : "");
+  }
+  console.log(doneCount + "/" + st.batches.length, "batches complete");
+  if (doneCount) console.log("→ node harness/build-drive-batch.mjs collect");
 
 } else if (cmd === "collect") {
-  const st = JSON.parse(await readFile(STATE_PATH, "utf8"));
-  const op = await api(`/v1beta/${st.op}`);
-  const respFile = op.response?.batch?.output?.responsesFile
-    || op.response?.output?.responsesFile
-    || op.response?.responsesFile
-    || op.metadata?.output?.responsesFile;
-  if (!respFile) { console.log("no responses file yet — raw op:", JSON.stringify(op).slice(0, 600)); process.exit(1); }
-  console.log("downloading", respFile, "…");
-  const dl = await fetch(`${API}/v1beta/${respFile}:download?alt=media&key=${KEY}`);
-  if (!dl.ok) { console.error("download failed HTTP", dl.status, (await dl.text()).slice(0, 300)); process.exit(1); }
-  const text = await dl.text();
+  const st = await loadState();
+  let text = "";
+  for (const b of st.batches) {
+    const op = await api(`/v1beta/${b.op}`).catch(() => null);
+    if (!op) continue;
+    const state = op.metadata?.state || op.state || (op.done ? "DONE" : "?");
+    if (!(/SUCCEEDED|DONE/.test(state) || op.done)) continue;
+    const respFile = op.response?.batch?.output?.responsesFile
+      || op.response?.output?.responsesFile
+      || op.response?.responsesFile
+      || op.metadata?.output?.responsesFile;
+    if (!respFile) { console.log(b.label, "done but no responsesFile — raw:", JSON.stringify(op).slice(0, 400)); continue; }
+    const dl = await fetch(`${API}/v1beta/${respFile}:download?alt=media&key=${KEY}`);
+    if (!dl.ok) { console.error(b.label, "download failed HTTP", dl.status); continue; }
+    text += await dl.text() + "\n";
+    console.log(b.label, "· downloaded");
+  }
+  if (!text.trim()) { console.log("nothing collectable yet"); process.exit(1); }
   /* group PCM per scene */
   const byScene = {};
   for (const ln of text.split("\n")) {
