@@ -119,31 +119,41 @@ function wav(pcm) {
 }
 const silence = ms => Buffer.alloc(Math.round(24000 * ms / 1000) * 2);
 
-/* ── per scene: generate → stitch → encode → manifest ── */
+/* ── PARALLEL pipeline: a global request pool feeds several scenes at once ── */
+const SEG_CONC = +(process.env.TTS_CONC || 8);   /* concurrent TTS requests */
+const SCENE_CONC = 3;                             /* scenes in flight */
+async function mapLimit(items, limit, fn) {
+  const out = new Array(items.length); let i = 0;
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (i < items.length) { const k = i++; out[k] = await fn(items[k], k); }
+  }));
+  return out;
+}
 const only = process.argv.slice(2).map(Number).filter(Boolean);
 const MANIFEST_PATH = resolve(ROOT, "drive/voice-manifest.json");
 let MAN = {};
 try { MAN = JSON.parse(await readFile(MANIFEST_PATH, "utf8")); } catch {}
-let done = 0, made = 0;
-for (const sc of SCRIPT.scenes) {
-  if (only.length && !only.includes(sc.book)) continue;
+let done = 0, made = 0, failedScenes = 0;
+const t0 = Date.now();
+async function buildScene(sc) {
   const m4a = resolve(OUT, sc.id + ".m4a");
-  if (MAN[sc.id]) { try { await access(m4a); done++; continue; } catch {} }
+  if (MAN[sc.id]) { try { await access(m4a); done++; return; } catch {} }
   const segs = sc.segments.filter(g => (segText(g) || "").trim());
-  const parts = [], timing = [];
-  let t = 0, failed = false;
-  for (const seg of segs) {
+  /* all segments of the scene generate CONCURRENTLY; order restored at stitch */
+  const pcms = await mapLimit(segs, SEG_CONC, async seg => {
     const [voice] = castFor(seg.speakerId || "PERFORMER.NARRATOR");
-    try {
-      const pcm = await tts(segPrompt(seg), voice);
-      const dur = pcm.length / 2 / 24000;
-      timing.push({ gi: sc.segments.indexOf(seg), start: +t.toFixed(2), dur: +dur.toFixed(2) });
-      parts.push(pcm); t += dur;
-      const gap = Math.min(1600, seg.pauseAfterMs || 260);
-      parts.push(silence(gap)); t += gap / 1000;
-    } catch (e) { console.error("  seg failed:", sc.id, seg.kind, e.message); failed = true; break; }
-  }
-  if (failed || !parts.length) continue;
+    try { return await tts(segPrompt(seg), voice); }
+    catch (e) { console.error("  seg failed:", sc.id, seg.kind, e.message); return null; }
+  });
+  if (pcms.some(p => !p)) { failedScenes++; return; }
+  const parts = [], timing = []; let t = 0;
+  segs.forEach((seg, k) => {
+    const pcm = pcms[k], dur = pcm.length / 2 / 24000;
+    timing.push({ gi: sc.segments.indexOf(seg), start: +t.toFixed(2), dur: +dur.toFixed(2) });
+    parts.push(pcm); t += dur;
+    const gap = Math.min(1600, seg.pauseAfterMs || 260);
+    parts.push(silence(gap)); t += gap / 1000;
+  });
   const wavPath = resolve(OUT, sc.id + ".wav");
   await writeFile(wavPath, wav(Buffer.concat(parts)));
   await run("afconvert", ["-f", "m4af", "-d", "aac", "-b", "64000", wavPath, m4a]);
@@ -151,6 +161,10 @@ for (const sc of SCRIPT.scenes) {
   MAN[sc.id] = { file: "drive/voice/" + sc.id + ".m4a", total: +t.toFixed(2), segments: timing };
   await writeFile(MANIFEST_PATH, JSON.stringify(MAN));
   made++;
-  console.log(sc.id, "·", timing.length, "segs ·", t.toFixed(1) + "s");
+  console.log(sc.id, "·", timing.length, "segs ·", t.toFixed(1) + "s ·",
+    ((Date.now() - t0) / 60000).toFixed(1) + "min elapsed");
 }
-console.log("voice scenes:", Object.keys(MAN).length, "(", made, "new,", done, "already )");
+const queue = SCRIPT.scenes.filter(sc => !only.length || only.includes(sc.book));
+await mapLimit(queue, SCENE_CONC, buildScene);
+console.log("voice scenes:", Object.keys(MAN).length,
+  "(", made, "new,", done, "already,", failedScenes, "failed — re-run to retry )");

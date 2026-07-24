@@ -118,6 +118,8 @@
   <button id="playBtn" class="pri">▶ DRIVE</button>
   <button id="prevBtn" title="previous scene">‹ SCENE</button>
   <button id="nextBtn" title="next scene">SCENE ›</button>
+  <button id="musBtn" class="on" title="pause / resume the music bed">♪</button>
+  <button id="musNext" title="switch albums under this scene">♪⇄</button>
   <div id="prog"><i></i></div>
   <span id="posTxt">—</span>
 </div></div>
@@ -161,13 +163,25 @@ function trackFor(book){
   for(const a of AL.albums){const t=a.tracks.find(t=>t.num===book);if(t)return {a,t};}
   const a=AL.albums[0];return {a,t:a.tracks[(book-1)%a.tracks.length]};
 }
-let curBook=0, DUCK={target:.7};
-function bookBed(book){
-  if(book===curBook)return; curBook=book;
-  const {a,t}=trackFor(book);
-  audio.src=a.dir+"/"+encodeURIComponent(t.file);
-  audio.loop=true; audio.volume=Math.min(audio.volume||.25,.25);
-  if(running)audio.play().catch(()=>{});
+let DUCK={target:.7}, bedPaused=false, bedRot=0;
+/* every scene gets a fresh bed — the three albums take turns within each book,
+   so a long book hears Bronze Council, Homecoming AND Titan's Descent */
+const ALBUM_ORDER=["bronze-council","homecoming","titans-descent"]
+  .filter(id=>AL.albums.some(a=>a.id===id));
+const sceneOrd=new Map();
+{const perBook={};SCENES.forEach(s=>{perBook[s.book]=(perBook[s.book]||0);sceneOrd.set(s.id,perBook[s.book]++);});}
+function trackForAlbum(albumId,book){
+  const a=AL.albums.find(x=>x.id===albumId);if(!a)return null;
+  const t=a.tracks.find(t=>t.num===book)||a.tracks[(((book-1)%a.tracks.length)+a.tracks.length)%a.tracks.length];
+  return {a,t};
+}
+function sceneBed(sc){
+  const slot=ALBUM_ORDER.length?ALBUM_ORDER[((sceneOrd.get(sc.id)||0)+bedRot)%ALBUM_ORDER.length]:null;
+  const pick=(slot&&trackForAlbum(slot,sc.book))||trackFor(sc.book);
+  const url=pick.a.dir+"/"+encodeURIComponent(pick.t.file);
+  const abs=new URL(url,location.href).href;
+  if(audio.src!==abs){audio.src=url;audio.loop=true;audio.volume=Math.min(audio.volume||.25,.25);}
+  if(running&&!bedPaused)audio.play().catch(()=>{});
 }
 setInterval(()=>{const v=audio.volume,t=DUCK.target;
   if(Math.abs(v-t)>.01)audio.volume=Math.max(0,Math.min(1,v+(t-v)*.18));},90);
@@ -364,7 +378,7 @@ async function drive(){
   audio.play().catch(()=>{});
   for(let si=cur.si;si<SCENES.length;si++){
     const sc=SCENES[si];
-    bookBed(sc.book); $("bookSel").value=sc.book;
+    sceneBed(sc); $("bookSel").value=sc.book;
     const fromGi=(si===cur.si?cur.gi:0);
     const vm=VOICEMAN[sc.id];
     let played=false;
@@ -402,6 +416,17 @@ function jumpScene(d){
 }
 $("prevBtn").onclick=()=>jumpScene(-1);
 $("nextBtn").onclick=()=>jumpScene(1);
+$("musBtn").onclick=()=>{
+  bedPaused=!bedPaused;
+  $("musBtn").classList.toggle("on",!bedPaused);
+  if(bedPaused)audio.pause();
+  else if(running)audio.play().catch(()=>{});
+};
+$("musNext").onclick=()=>{
+  bedRot=(bedRot+1)%Math.max(1,ALBUM_ORDER.length);
+  const sc=SCENES[cur.si];if(sc)sceneBed(sc);
+  if(!bedPaused&&running)audio.play().catch(()=>{});
+};
 $("prog").onclick=e=>{
   const r=$("prog").getBoundingClientRect();
   const si=Math.max(0,Math.min(SCENES.length-1,Math.floor((e.clientX-r.left)/r.width*SCENES.length)));
