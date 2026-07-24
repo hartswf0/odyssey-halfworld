@@ -4,3 +4,4 @@ nohup.out
 renders/
 harness/.gemini-key
 harness/.drive-batch-state.json
+drive/voice/.resp-*.jsonl

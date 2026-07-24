@@ -436,7 +436,9 @@ function refreshSideState(){
 /* ── transport / loop ── */
 let dirty=true,last=0,rendering=false;
 function gotoShot(i){cur=clamp(i,0,SHOTS.length-1);shotT=0;dirty=true;refreshSideState();}
-function setPlaying(v){playing=v;$("playBtn").textContent=v?"❚❚ PAUSE":"▶ PLAY THE CUT";}
+function setPlaying(v){playing=v;$("playBtn").textContent=v?"❚❚ PAUSE":"▶ PLAY THE CUT";
+  /* the studio-performed scene plays under the cut */
+  if(v){window.kitVO&&kitVO.playScene(sceneEntry&&sceneEntry.id);}else{window.kitVO&&kitVO.stop();}}
 let filmMode=false, advancing=false;
 async function advanceScene(){
   if(advancing)return; advancing=true;
@@ -608,6 +610,8 @@ addEventListener("keydown",e=>{
 
 
 
+
+
 /* ══ SUITE KIT ══ */
 (()=>{try{
 const KGET=()=>{try{return JSON.parse(localStorage.getItem("odyssey.chat.api"))||{}}catch(e){return{}}};
@@ -708,6 +712,81 @@ q("test").onclick=async()=>{KSET(grab());paint();
 /* every page-local api/model button opens this one panel */
 ["apiBtn","perfApi"].forEach(id=>{const e=document.getElementById(id);if(e)e.onclick=openP;});
 paint();
+/* ── VO — the studio voice atlas: per-turn audio slices on every page.
+   drive/voice-manifest.json carries per-segment timings; drive/drive-script.json
+   maps segments to turn ids — so any page can play the PERFORMED line for a turn. ── */
+let VOMAN=null,VOTURN=null,voDisabled=false;
+try{voDisabled=JSON.parse(localStorage.getItem("odyssey.vo.off")||"false");}catch(e){}
+const voEl=new Audio();voEl.preload="none";
+let voToken=0,voDuck=[];
+(async()=>{try{
+  const [man,scr]=await Promise.all([
+    fetch("drive/voice-manifest.json").then(r=>r.json()),
+    fetch("drive/drive-script.json").then(r=>r.json())]);
+  VOMAN=man;VOTURN={};
+  for(const sc of scr.scenes){
+    const m=man[sc.id];if(!m)continue;
+    for(const tm of m.segments){
+      const seg=sc.segments[tm.gi];
+      if(seg&&seg.kind==="DIALOGUE"&&seg.sourceTurnId)
+        VOTURN[seg.sourceTurnId]={file:m.file,start:tm.start,dur:tm.dur};
+    }
+  }
+  if(vob)vob.textContent="VO \u00b7 "+Object.keys(VOTURN).length;
+}catch(e){VOTURN={};}})();
+let voEnd=null;
+function voStop(){voToken++;try{voEl.pause();}catch(e){}window.__voActive=false;
+  voDuck.forEach(p=>{try{p[0].volume=p[1];}catch(e){}});voDuck=[];
+  const cb=voEnd;voEnd=null;if(cb)try{cb();}catch(e){}}
+window.kitVO={
+  ready:()=>!!(VOTURN&&Object.keys(VOTURN).length&&!voDisabled),
+  has:id=>!!(VOTURN&&VOTURN[id]&&!voDisabled),
+  stop:voStop,
+  tryTurn(id,onEnd){
+    if(voDisabled)return false;
+    const s=VOTURN&&VOTURN[id];if(!s)return false;
+    voEnd=null;voStop();voEnd=onEnd||null;
+    const tok=++voToken;
+    const abs=new URL(s.file,location.href).href;
+    if(voEl.src!==abs)voEl.src=s.file;
+    window.__voActive=true;
+    document.querySelectorAll("audio").forEach(a=>{
+      if(a!==voEl&&!a.paused){voDuck.push([a,a.volume]);a.volume=Math.min(a.volume,.15);}});
+    const arm=()=>{if(tok!==voToken)return;
+      try{voEl.currentTime=s.start;}catch(e){}
+      voEl.play().catch(()=>{window.__voActive=false;});
+      const iv=setInterval(()=>{if(tok!==voToken){clearInterval(iv);return;}
+        if(voEl.paused||voEl.currentTime>=s.start+s.dur-.05){clearInterval(iv);if(tok===voToken)voStop();}},120);};
+    if(voEl.readyState>=1)arm();else voEl.onloadedmetadata=arm;
+    return true;
+  },
+  playScene(sceneId){
+    if(voDisabled)return false;
+    const m=VOMAN&&VOMAN[sceneId];if(!m)return false;
+    voStop();const tok=++voToken;
+    voEl.src=m.file;window.__voActive=true;
+    document.querySelectorAll("audio").forEach(a=>{
+      if(a!==voEl&&!a.paused){voDuck.push([a,a.volume]);a.volume=Math.min(a.volume,.2);}});
+    voEl.onloadedmetadata=()=>{if(tok===voToken){try{voEl.currentTime=0;}catch(e){}voEl.play().catch(()=>{});}};
+    voEl.onended=()=>{if(tok===voToken)voStop();};
+    return true;
+  },
+};
+/* while a performed line plays, live synthesis stays quiet */
+if(window.speechSynthesis&&!speechSynthesis.__voWrapped){
+  const _sp=speechSynthesis.speak.bind(speechSynthesis);
+  speechSynthesis.speak=u=>{if(!window.__voActive)_sp(u);};
+  speechSynthesis.__voWrapped=true;
+}
+/* VO chip in the header — tap to fall back to synthesis */
+const vob=document.createElement("button");vob.type="button";vob.id="kitVO";
+vob.textContent="VO";vob.title="studio voice-over — performed lines play on every page";
+vob.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap"+(voDisabled?"":";background:#000;color:#fff");
+if(hdr)hdr.appendChild(vob);
+vob.onclick=()=>{voDisabled=!voDisabled;
+  try{localStorage.setItem("odyssey.vo.off",JSON.stringify(voDisabled));}catch(e){}
+  if(voDisabled)voStop();
+  vob.style.background=voDisabled?"":"#000";vob.style.color=voDisabled?"":"#fff";};
 /* ── SPEECH UNLOCK — iOS/Chrome refuse to speak until a real gesture speaks first ── */
 let primed=false;
 const prime=()=>{if(primed||!window.speechSynthesis)return;primed=true;
