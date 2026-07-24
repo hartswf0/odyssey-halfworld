@@ -263,7 +263,8 @@ const FILES = [
   "odyssey-stage.html",
   "odyssey-synthcine.html",
   "odyssey-world-studio.html",
-  "odyssey-drive.html",
+  /* odyssey-drive.html deliberately EXCLUDED — the drive is a single clean
+     instrument: no mixer layers, no rail, no second speech primer. */
 ];
 for (const f of FILES) {
   const path = resolve(ROOT, f);

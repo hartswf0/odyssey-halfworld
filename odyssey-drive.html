@@ -20,34 +20,40 @@
     padding:8px 12px;border-bottom:1px solid var(--line);background:var(--bg)}
   .brand{font-weight:900;letter-spacing:.14em}
   .brand i{font-style:normal;color:var(--gold)}
+  .chipS{font-size:9px;letter-spacing:.08em;border:1px solid var(--line);padding:4px 8px;color:var(--dim);white-space:nowrap}
+  .chipS.ok{border-color:var(--gold);color:var(--gold)}
+  .chipS.bad{border-color:var(--red);color:var(--red)}
   #state{margin-left:auto;font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;
-    white-space:nowrap;overflow:hidden;max-width:40vw}
-  main{max-width:1100px;margin:0 auto;padding:18px 14px 120px;display:grid;
-    grid-template-columns:minmax(200px,320px) minmax(0,1fr);gap:22px;align-items:start}
-  /* the headshot card — a lit portrait in a dark cab */
-  #portraitCard{background:var(--paper);border:2px solid #000;box-shadow:0 0 60px rgba(255,215,94,.08);
-    position:sticky;top:64px}
-  #portrait{display:block;width:100%;aspect-ratio:3/4;background:var(--paper)}
-  #pName{padding:8px 10px;border-top:2px solid #000;color:var(--ink);font-size:11px;
-    font-weight:900;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between}
-  #pName i{font-style:normal;color:#8a8a86;font-weight:400}
-  /* the words */
+    white-space:nowrap;overflow:hidden;max-width:34vw}
+  a.suiteLn{font-size:10px;letter-spacing:.1em;color:var(--dim);text-decoration:none;border:1px solid var(--line);padding:6px 10px}
+  a.suiteLn:hover{color:var(--gold);border-color:var(--gold)}
+  main{max-width:1180px;margin:0 auto;padding:14px 14px 130px}
+  /* THE FILM — the whole scene, like the suite */
+  #stageRow{position:relative}
+  #film{display:block;width:100%;aspect-ratio:1120/760;background:#0e0e10;
+    border:1px solid var(--line);object-fit:contain}
+  #portraitCard{position:absolute;left:12px;bottom:12px;width:clamp(96px,14vw,150px);
+    background:var(--paper);border:2px solid #000;box-shadow:0 8px 40px rgba(0,0,0,.7)}
+  #portrait{display:block;width:100%;aspect-ratio:3/4}
+  #pName{padding:4px 6px;border-top:2px solid #000;color:var(--ink);font-size:8.5px;
+    font-weight:900;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #textCol{margin-top:14px}
   #whereRow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
-  #speaker{font-size:clamp(20px,4vw,30px);font-weight:900;letter-spacing:.06em;color:var(--gold)}
-  #cue{font-size:11px;color:var(--dim);margin:2px 0 14px;letter-spacing:.06em;min-height:16px}
-  #line{font-size:clamp(19px,3.4vw,29px);line-height:1.55;font-weight:600;min-height:120px}
-  #line.dirOnly{color:var(--dim);font-style:italic;font-size:clamp(15px,2.4vw,20px)}
-  #nextUp{margin-top:20px;font-size:11.5px;color:var(--dim);line-height:1.6;border-left:2px solid var(--line);
+  #speaker{font-size:clamp(18px,3.4vw,26px);font-weight:900;letter-spacing:.06em;color:var(--gold);display:inline}
+  #cue{font-size:11px;color:var(--dim);margin:2px 0 10px;letter-spacing:.06em;min-height:15px}
+  #line{font-size:clamp(18px,3vw,26px);line-height:1.55;font-weight:600;min-height:90px}
+  #line.dirOnly{color:var(--dim);font-style:italic;font-size:clamp(14px,2.2vw,19px)}
+  #nextUp{margin-top:16px;font-size:11.5px;color:var(--dim);line-height:1.6;border-left:2px solid var(--line);
     padding-left:10px;max-width:60ch}
-  #nextUp b{color:var(--txt);font-weight:700}
-  /* transport bar */
+  #nextUp b{color:var(--txt)}
+  /* transport */
   #bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(10,10,12,.94);
     border-top:1px solid var(--line);backdrop-filter:blur(6px);
     padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px))}
-  #barIn{max-width:1100px;margin:0 auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  #barIn{max-width:1180px;margin:0 auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   #playBtn{min-width:130px;min-height:52px;font-size:15px}
   #bar button{min-height:52px}
-  #prog{flex:1;min-width:140px;height:6px;background:#222;cursor:pointer;position:relative}
+  #prog{flex:1;min-width:130px;height:6px;background:#222;cursor:pointer;position:relative}
   #prog i{position:absolute;left:0;top:0;bottom:0;background:var(--gold)}
   #posTxt{font-size:10px;color:var(--dim);letter-spacing:.08em;white-space:nowrap}
   /* voices panel */
@@ -57,11 +63,22 @@
   .vrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:6px;align-items:center;
     padding:5px 0;border-bottom:1px solid var(--line);font-size:11px}
   .vrow select{width:100%;padding:6px;font-size:10px;background:var(--bg)}
-  @media(max-width:760px){
-    main{grid-template-columns:1fr;gap:14px;padding-bottom:140px}
-    #portraitCard{position:static;max-width:230px;margin:0 auto}
-    #line{min-height:90px}
-  }
+  /* ONE TAP TO SOUND — the gate that guarantees a user gesture */
+  #gate{position:fixed;inset:0;z-index:100;background:rgba(10,10,12,.96);display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:20px}
+  #gate button{font-size:19px;padding:22px 34px;min-height:72px}
+  #gate .g2{font-size:11px;color:var(--dim);max-width:44ch;line-height:1.7}
+  #gateErr{color:var(--red);font-size:12px;max-width:46ch;line-height:1.6;display:none}
+  /* THEATRE — the whole screen is the film, the line is the subtitle */
+  body.theatre header,body.theatre #textCol #nextUp,body.theatre #whereRow,body.theatre #cue{display:none}
+  body.theatre main{max-width:none;padding:0}
+  body.theatre #film{position:fixed;inset:0;width:100vw;height:100dvh;border:none;z-index:1}
+  body.theatre #portraitCard{position:fixed;left:14px;bottom:110px;z-index:5}
+  body.theatre #textCol{position:fixed;left:6%;right:6%;bottom:120px;z-index:5;text-align:center;margin:0}
+  body.theatre #line{text-shadow:0 2px 10px #000,0 0 3px #000;min-height:0}
+  body.theatre #bar{opacity:0;transition:opacity .3s;pointer-events:none}
+  body.theatre.ctl #bar{opacity:1;pointer-events:auto}
+  @media(max-width:760px){ #line{min-height:70px} }
 </style>
 </head>
 <body>
@@ -69,21 +86,34 @@
   <div class="brand">ODYSSEY <i>DRIVE</i></div>
   <select id="bookSel"></select>
   <button id="voxBtn" title="the cast — recast any voice">VOICES</button>
-  <button id="cueBtn2" class="on" title="the narrator names each speaker (radio-play style)">CUES</button>
-  <span id="state">loading the score…</span>
+  <button id="cueBtn2" class="on" title="the narrator names each speaker">CUES</button>
+  <button id="thBtn" title="the whole screen is the film">THEATRE</button>
+  <span class="chipS" id="chipBed">♪ bed</span>
+  <span class="chipS" id="chipVox">🗣 voice</span>
+  <a class="suiteLn" href="odyssey-suite.html">SUITE ▸</a>
+  <span id="state">loading…</span>
 </header>
 <main>
-  <div id="portraitCard"><canvas id="portrait" width="660" height="880"></canvas>
-    <div id="pName"><span id="pnTxt">—</span><i id="pnRole"></i></div></div>
-  <section>
+  <div id="stageRow">
+    <canvas id="film" width="1456" height="988"></canvas>
+    <div id="portraitCard"><canvas id="portrait" width="330" height="440"></canvas>
+      <div id="pName"><span id="pnTxt">—</span></div></div>
+  </div>
+  <section id="textCol">
     <div id="whereRow">—</div>
-    <div id="speaker">—</div>
+    <div><span id="speaker">—</span></div>
     <div id="cue"></div>
-    <div id="line">Press DRIVE. The poem plays itself — music under the lines, a breath between them. Screen can sleep; steering-wheel controls work.</div>
+    <div id="line">One tap starts the sound. Music under the lines, a breath between them.</div>
     <div id="nextUp"></div>
   </section>
 </main>
 <div id="voxPanel"></div>
+<div id="gate">
+  <button class="pri" id="gateBtn">🔊 START THE DRIVE</button>
+  <div class="g2">One tap unlocks audio on this device. You will hear the narrator say
+    “The Odyssey” — if you don't, the panel below says exactly what is blocked.</div>
+  <div id="gateErr"></div>
+</div>
 <div id="bar"><div id="barIn">
   <button id="playBtn" class="pri">▶ DRIVE</button>
   <button id="prevBtn" title="previous scene">‹ SCENE</button>
@@ -94,7 +124,7 @@
 <audio id="audio" preload="auto"></audio>
 
 <script type="module">
-import { inkCutout } from "./engine/halfworld-engine.mjs";
+import { inkCutout, renderScene } from "./engine/halfworld-engine.mjs";
 const $=id=>document.getElementById(id);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const __mem={};
@@ -107,7 +137,6 @@ const save=(k,v)=>safeSet(k,JSON.stringify(v));
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 
-/* ── the material: radio-play plan + OUR authored lines + albums + assets ── */
 const [SCRIPT,SPOKENJ,AL,MAN]=await Promise.all([
   fetch("drive/drive-script.json").then(r=>r.json()),
   fetch("viewer/spoken-lines.json").then(r=>r.json()).catch(()=>({lines:{}})),
@@ -116,11 +145,11 @@ const [SCRIPT,SPOKENJ,AL,MAN]=await Promise.all([
 ]);
 const SPOKEN=SPOKENJ.lines||{};
 const assetById=new Map(MAN.assets.map(a=>[a.id,a]));
-/* built books only unless the script carries dialogue beyond them */
+const sceneById=new Map(MAN.scenes.map(s=>[s.id,s]));
 const SCENES=SCRIPT.scenes;
 const BOOKS=[...new Set(SCENES.map(s=>s.book))].sort((a,b)=>a-b);
 
-/* ── music beds: this book's track, looped, breathing under the voices ── */
+/* ── music bed ── */
 const audio=$("audio");
 const MAP=LS("odyssey.suite.map",{});
 function trackFor(book){
@@ -135,52 +164,66 @@ function bookBed(book){
   if(book===curBook)return; curBook=book;
   const {a,t}=trackFor(book);
   audio.src=a.dir+"/"+encodeURIComponent(t.file);
-  audio.loop=true; audio.volume=Math.min(audio.volume,.25);
+  audio.loop=true; audio.volume=Math.min(audio.volume||.25,.25);
   if(running)audio.play().catch(()=>{});
-  $("state").textContent="BOOK "+ROMAN[book]+" · ♪ "+t.title+" ("+a.name.trim()+")";
 }
-/* smooth breathing: duck under speech, swell in the gaps */
 setInterval(()=>{const v=audio.volume,t=DUCK.target;
-  if(Math.abs(v-t)>.01)audio.volume=v+(t-v)*.18;},90);
+  if(Math.abs(v-t)>.01)audio.volume=Math.max(0,Math.min(1,v+(t-v)*.18));},90);
+audio.addEventListener("playing",()=>{$("chipBed").className="chipS ok";
+  $("chipBed").textContent="♪ "+decodeURIComponent(audio.src.split("/").pop()).split(" - ").slice(1,2).join("").slice(0,22);});
+audio.addEventListener("pause",()=>{$("chipBed").className="chipS";});
+audio.addEventListener("error",()=>{$("chipBed").className="chipS bad";$("chipBed").textContent="♪ track failed";});
 
-/* ── the cast: quality voices only, stable per character ── */
+/* ── voice pool + cast ── */
 const GOOD=/Samantha|Ava|Allison|Susan|Zoe|Nicky|Daniel|Oliver|Serena|Moira|Karen|Tessa|Rishi|Fiona|Alex$|Aaron|Arthur|Martha|Catherine|Google (US|UK)/i;
 const BAD=/eSpeak|compact|Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Wobble|Zarvox|Trinoids|Whisper|Deranged|Junior|Ralph|Fred|Kathy|Organ|Superstar|Jester|Grandma|Grandpa|Rocko|Shelley|Sandy|Eddy|Flo|Reed/i;
 let POOL=[];
 function rankVoices(){
-  const vs=(speechSynthesis.getVoices()||[]).filter(v=>/^en/i.test(v.lang)&&!BAD.test(v.name));
-  vs.sort((a,b)=>((GOOD.test(b.name)?2:0)+(b.localService?1:0))-((GOOD.test(a.name)?2:0)+(a.localService?1:0)));
-  POOL=vs;
+  const all=speechSynthesis.getVoices()||[];
+  const en=all.filter(v=>/^en/i.test(v.lang));
+  const vs=en.filter(v=>!BAD.test(v.name));
+  POOL=(vs.length?vs:en).sort((a,b)=>
+    ((GOOD.test(b.name)?2:0)+(b.localService?1:0))-((GOOD.test(a.name)?2:0)+(a.localService?1:0)));
 }
 rankVoices(); speechSynthesis.onvoiceschanged=rankVoices;
-setInterval(()=>{try{if(speechSynthesis.speaking&&speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},3000);
+setInterval(()=>{try{if(speechSynthesis.speaking&&speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},2500);
 const vhash=s=>{let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;return h;};
 const CASTLS=LS("odyssey.drive.cast",{});
+const pitchFor=id=>id==="PERFORMER.NARRATOR"?.96:.8+((vhash(id)%36)/100);
+const rateFor=id=>id==="PERFORMER.NARRATOR"?.93:.93+((vhash(id+"r")%10)/100);
 function castFor(spId){
-  if(!POOL.length)return {voice:null,pitch:1,rate:.96};
+  if(!POOL.length)return {voice:null,pitch:pitchFor(spId),rate:rateFor(spId)};
   if(CASTLS[spId]){const v=POOL.find(v=>v.name===CASTLS[spId]);
     if(v)return {voice:v,pitch:pitchFor(spId),rate:rateFor(spId)};}
-  const h=vhash(spId);
-  const v=spId==="PERFORMER.NARRATOR"?POOL[0]:POOL[1+(h%(Math.max(1,Math.min(POOL.length-1,7))))]||POOL[0];
+  const v=spId==="PERFORMER.NARRATOR"?POOL[0]
+    :POOL[1+(vhash(spId)%(Math.max(1,Math.min(POOL.length-1,7))))]||POOL[0];
   return {voice:v,pitch:pitchFor(spId),rate:rateFor(spId)};
 }
-function pitchFor(id){if(id==="PERFORMER.NARRATOR")return .96;
-  const h=vhash(id);return .8+((h%36)/100);}
-function rateFor(id){if(id==="PERFORMER.NARRATOR")return .93;
-  const h=vhash(id>>>1||id);return .93+((vhash(id+"r")%10)/100);}
 
-/* ── the words: prefer OUR authored line for the same turn ── */
-function segText(seg){
-  if(seg.kind==="DIALOGUE"&&seg.sourceTurnId&&SPOKEN[seg.sourceTurnId]&&SPOKEN[seg.sourceTurnId].line)
-    return SPOKEN[seg.sourceTurnId].line;
-  return seg.text||"";
+/* ── speech engine with a WATCHDOG: silence is detected, reported, retried ── */
+let speechOK=null; /* null unknown · true proven aloud · false blocked */
+function voxChip(){
+  const c=$("chipVox");
+  if(speechOK===true){c.className="chipS ok";c.textContent="🗣 "+((castFor("PERFORMER.NARRATOR").voice||{}).name||"default").slice(0,16);}
+  else if(speechOK===false){c.className="chipS bad";c.textContent="🗣 BLOCKED — tap VOICES";}
+  else {c.className="chipS";c.textContent="🗣 voice";}
 }
-function segDir(seg){
-  return (seg.sourceTurnId&&SPOKEN[seg.sourceTurnId]&&SPOKEN[seg.sourceTurnId].direction)||"";
+function speakOnce(text,{voice,pitch=1,rate=.95,volume=1}={}){
+  /* resolves {ok,ms}: ok=true only if the utterance actually STARTED */
+  return new Promise(res=>{
+    let started=false,t0=performance.now(),settled=false;
+    const finish=ok=>{if(settled)return;settled=true;res({ok,ms:performance.now()-t0});};
+    const u=new SpeechSynthesisUtterance(text);
+    if(voice)u.voice=voice;
+    u.pitch=pitch;u.rate=rate;u.volume=volume;
+    u.onstart=()=>{started=true;};
+    u.onend=()=>finish(started);
+    u.onerror=()=>finish(false);
+    const est=Math.max(3000,text.length*95/rate);
+    setTimeout(()=>{if(!settled){try{speechSynthesis.cancel();}catch(e){}finish(started);}},est*2.2+3000);
+    try{speechSynthesis.speak(u);speechSynthesis.resume();}catch(e){finish(false);}
+  });
 }
-
-/* ── speech: sentence-chunked, personal cadence, a breath after every line ── */
-let running=false, speaking=false, CUES_ON=LS("odyssey.drive.cues",true), pace=1;
 function chunks(text){
   const parts=String(text).replace(/\s+/g," ").trim().match(/[^.!?…]+[.!?…]*/g)||[String(text)];
   const out=[];let buf="";
@@ -188,61 +231,75 @@ function chunks(text){
   if(buf.trim())out.push(buf);
   return out.map(s=>s.trim()).filter(Boolean);
 }
-function speakSeg(seg){
-  const text=segText(seg);
-  if(!text)return Promise.resolve();
+let CUES_ON=LS("odyssey.drive.cues",true), pace=1, running=false;
+async function speakSeg(seg){
+  const text=segText(seg); if(!text)return;
   const quiet=seg.kind==="SPEAKER_CUE";
-  if(quiet&&!CUES_ON)return Promise.resolve();
+  if(quiet&&!CUES_ON)return;
   const cast=castFor(seg.speakerId||"PERFORMER.NARRATOR");
-  const cs=chunks(text);
-  DUCK.target=.16; speaking=true;
-  return new Promise(async res=>{
-    for(let i=0;i<cs.length&&running;i++){
-      await new Promise(done=>{
-        const u=new SpeechSynthesisUtterance(cs[i]);
-        if(cast.voice)u.voice=cast.voice;
-        u.pitch=cast.pitch; u.volume=quiet?.62:1;
-        u.rate=(quiet?cast.rate*1.12:cast.rate)*pace*(0.99+((i*37)%5)/250);
-        u.onend=u.onerror=()=>done();
-        speechSynthesis.speak(u);
-        try{speechSynthesis.resume();}catch(e){}
-      });
-      if(i<cs.length-1)await sleep(150);
+  DUCK.target=.16;
+  for(const c of chunks(text)){
+    if(!running)break;
+    let r=await speakOnce(c,{voice:cast.voice,pitch:cast.pitch,volume:quiet?.6:1,
+      rate:(quiet?cast.rate*1.12:cast.rate)*pace});
+    if(!r.ok){ /* retry once with the browser default voice */
+      try{speechSynthesis.cancel();speechSynthesis.resume();}catch(e){}
+      r=await speakOnce(c,{voice:null,pitch:1,rate:.95*pace,volume:quiet?.6:1});
     }
-    speaking=false; DUCK.target=.7;
-    res();
-  });
+    if(r.ok&&speechOK!==true){speechOK=true;voxChip();}
+    if(!r.ok&&speechOK!==false){speechOK=false;voxChip();
+      $("state").textContent="SPEECH BLOCKED — reading continues on screen";}
+    if(running)await sleep(140);
+  }
+  DUCK.target=.7;
 }
 
-/* ── portraits: the speaker's own asset code, ink on a lit card ── */
+/* ── words: OUR authored lines first ── */
+function segText(seg){
+  if(seg.kind==="DIALOGUE"&&seg.sourceTurnId&&SPOKEN[seg.sourceTurnId]&&SPOKEN[seg.sourceTurnId].line)
+    return SPOKEN[seg.sourceTurnId].line;
+  return seg.text||"";
+}
+const segDir=seg=>(seg.sourceTurnId&&SPOKEN[seg.sourceTurnId]&&SPOKEN[seg.sourceTurnId].direction)||"";
+
+/* ── THE FILM: the scene itself renders, advancing with the spoken score ── */
 const modCache=new Map(), portraitCache=new Map();
+let filmToken=0;
 async function imp(path){const p=String(path).replace(/^\//,"./");
   if(modCache.has(p))return modCache.get(p);
   const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
+async function drawFilm(sc,gi){
+  const token=++filmToken;
+  const entry=sceneById.get(sc.id); if(!entry)return;
+  try{
+    const mod=await imp(entry.path);
+    if(token!==filmToken)return;
+    const cv=$("film");
+    const t=(gi/Math.max(1,sc.segments.length))*(mod.duration||36);
+    renderScene(cv,mod,{pipeline:"MESH",t,DPR:1.3,card:false});
+  }catch(e){}
+}
 async function drawPortrait(spId,name){
   const cv=$("portrait"),g=cv.getContext("2d");
   g.fillStyle="#f2f1ec";g.fillRect(0,0,cv.width,cv.height);
   $("pnTxt").textContent=name||"—";
   const a=assetById.get(spId);
-  $("pnRole").textContent=a?(a.type||"").replace(/_/g," "):(spId==="PERFORMER.NARRATOR"?"the voice of the poem":"");
-  if(!a){ /* the narrator: the nine-dot mark */
-    g.fillStyle="#141414";
+  if(!a){g.fillStyle="#141414";
     for(let i=0;i<3;i++)for(let j=0;j<3;j++){g.beginPath();
-      g.arc(cv.width/2+(i-1)*60,cv.height/2+(j-1)*60,(i===1&&j===1)?26:14,0,7);g.fill();}
-    return;
-  }
+      g.arc(cv.width/2+(i-1)*34,cv.height/2+(j-1)*34,(i===1&&j===1)?15:8,0,7);g.fill();}
+    return;}
   try{
     let cut=portraitCache.get(spId);
     if(!cut){const mod=await imp(a.path);cut=inkCutout(mod,{},"drive",.895);portraitCache.set(spId,cut);}
     const s=Math.min(cv.width*.86/cut.w,cv.height*.86/cut.h);
-    const w=cut.w*s,h=cut.h*s;
-    g.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,(cv.width-w)/2,(cv.height-h)/2,w,h);
+    g.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,
+      (cv.width-cut.w*s)/2,(cv.height-cut.h*s)/2,cut.w*s,cut.h*s);
   }catch(e){}
 }
 
 /* ── render the moment ── */
 function renderSeg(sc,seg,gi){
-  $("whereRow").textContent="BOOK "+ROMAN[sc.book]+" · "+sc.bookTitle+" — "+sc.title+" · "+sc.id;
+  $("whereRow").textContent="BOOK "+ROMAN[sc.book]+" · "+sc.bookTitle+" — "+sc.title;
   const isDia=seg.kind==="DIALOGUE";
   $("speaker").textContent=(seg.kind==="SPEAKER_CUE"||seg.kind==="SCENE_HEADER")?"":(seg.speakerName||"");
   $("cue").textContent=isDia?segDir(seg):(seg.kind.replace(/_/g," ").toLowerCase());
@@ -250,8 +307,8 @@ function renderSeg(sc,seg,gi){
   el.classList.toggle("dirOnly",!isDia&&seg.kind!=="SCENE_HEADER");
   el.textContent=segText(seg)||"…";
   if(seg.kind!=="SPEAKER_CUE")drawPortrait(seg.speakerId,seg.speakerName);
-  /* next up: who speaks next */
-  const nxt=(sc.segments.slice(gi+1).find(x=>x.kind==="DIALOGUE"));
+  drawFilm(sc,gi);
+  const nxt=sc.segments.slice(gi+1).find(x=>x.kind==="DIALOGUE");
   $("nextUp").innerHTML=nxt?("next · <b>"+nxt.speakerName+"</b> — "+(segText(nxt)||"").slice(0,90)+"…"):"";
   if("mediaSession" in navigator){
     navigator.mediaSession.metadata=new MediaMetadata({
@@ -260,14 +317,13 @@ function renderSeg(sc,seg,gi){
   }
 }
 
-/* ── the drive loop: speech-paced, resumable ── */
-let cur=LS("odyssey.drive.pos",{si:0,gi:0}), runToken=0;
+/* ── the drive loop ── */
+let cur=LS("odyssey.drive.pos",{si:0,gi:0}), runToken=0, wake=null;
 function savePos(){save("odyssey.drive.pos",cur);}
 function updateProg(){
-  const total=SCENES.length;
-  $("prog").querySelector("i").style.width=((cur.si+1)/total*100)+"%";
+  $("prog").querySelector("i").style.width=((cur.si+1)/SCENES.length*100)+"%";
   const sc=SCENES[cur.si];
-  $("posTxt").textContent="scene "+(cur.si+1)+"/"+total+" · seg "+(cur.gi+1)+"/"+(sc?sc.segments.length:0);
+  $("posTxt").textContent="scene "+(cur.si+1)+"/"+SCENES.length+" · seg "+(cur.gi+1)+"/"+(sc?sc.segments.length:0);
 }
 async function drive(){
   const token=++runToken; running=true;
@@ -276,8 +332,7 @@ async function drive(){
   audio.play().catch(()=>{});
   for(let si=cur.si;si<SCENES.length;si++){
     const sc=SCENES[si];
-    bookBed(sc.book);
-    $("bookSel").value=sc.book;
+    bookBed(sc.book); $("bookSel").value=sc.book;
     for(let gi=(si===cur.si?cur.gi:0);gi<sc.segments.length;gi++){
       if(!running||token!==runToken)return;
       cur={si,gi};savePos();updateProg();
@@ -287,31 +342,29 @@ async function drive(){
       if(!running||token!==runToken)return;
       await sleep(Math.min(1400,(seg.pauseAfterMs||260))/pace);
     }
-    /* scene interlude: the music takes a full breath */
     if(running&&token===runToken){DUCK.target=.85;await sleep(2400);DUCK.target=.7;}
     cur={si:si+1,gi:0};savePos();
   }
   running=false;$("playBtn").textContent="▶ DRIVE";
-  $("state").textContent="THE POEM IS COMPLETE · 24 BOOKS";
+  $("state").textContent="THE POEM IS COMPLETE";
 }
-let wake=null;
-function stop(){running=false;runToken++;speechSynthesis.cancel();
+function stop(){running=false;runToken++;try{speechSynthesis.cancel();}catch(e){}
   audio.pause();$("playBtn").textContent="▶ DRIVE";if(wake){wake.release().catch(()=>{});wake=null;}}
 $("playBtn").onclick=()=>{running?stop():drive();};
 function jumpScene(d){
-  const wasRunning=running;stop();
+  const was=running;stop();
   cur={si:Math.max(0,Math.min(SCENES.length-1,cur.si+d)),gi:0};savePos();updateProg();
   const sc=SCENES[cur.si];renderSeg(sc,sc.segments[0],0);
-  if(wasRunning)drive();
+  if(was)drive();
 }
 $("prevBtn").onclick=()=>jumpScene(-1);
 $("nextBtn").onclick=()=>jumpScene(1);
 $("prog").onclick=e=>{
   const r=$("prog").getBoundingClientRect();
-  const si=Math.floor((e.clientX-r.left)/r.width*SCENES.length);
-  const wasRunning=running;stop();cur={si:Math.max(0,Math.min(SCENES.length-1,si)),gi:0};savePos();updateProg();
-  const sc=SCENES[cur.si];renderSeg(sc,sc.segments[0],0);
-  if(wasRunning)drive();
+  const si=Math.max(0,Math.min(SCENES.length-1,Math.floor((e.clientX-r.left)/r.width*SCENES.length)));
+  const was=running;stop();cur={si,gi:0};savePos();updateProg();
+  renderSeg(SCENES[si],SCENES[si].segments[0],0);
+  if(was)drive();
 };
 if("mediaSession" in navigator){
   navigator.mediaSession.setActionHandler("play",()=>{if(!running)drive();});
@@ -324,13 +377,49 @@ document.addEventListener("visibilitychange",()=>{
     navigator.wakeLock.request("screen").then(l=>wake=l).catch(()=>{});
 });
 
-/* ── book select + cues + voices panel ── */
+/* ── THE GATE: one tap = audio unlocked, speech PROVEN aloud, drive begins ── */
+$("gateBtn").onclick=async()=>{
+  $("gateBtn").textContent="…";
+  audio.play().catch(()=>{});               /* gesture unlocks the bed */
+  rankVoices();
+  const nar=castFor("PERFORMER.NARRATOR");
+  let r=await speakOnce("The Odyssey.",{voice:nar.voice,pitch:nar.pitch,rate:nar.rate});
+  if(!r.ok)r=await speakOnce("The Odyssey.",{voice:null});   /* default voice */
+  speechOK=r.ok; voxChip();
+  if(!r.ok){
+    const e=$("gateErr"); e.style.display="block";
+    e.textContent="Speech synthesis did not start. On iPhone: Settings → Accessibility → Spoken Content → Voices to install a voice, and turn off Silent Mode. On Mac: System Settings → Accessibility → Spoken Content. Music and on-screen reading still run.";
+    $("gateBtn").textContent="▶ DRIVE ANYWAY";
+    $("gateBtn").onclick=()=>{$("gate").remove();drive();};
+    return;
+  }
+  $("gate").remove();
+  drive();
+};
+
+/* ── theatre: the whole screen is the film ── */
+let thIdle=null;
+$("thBtn").onclick=()=>{
+  const on=document.body.classList.toggle("theatre");
+  $("thBtn").classList.toggle("on",on);
+  if(on&&document.documentElement.requestFullscreen)
+    document.documentElement.requestFullscreen().catch(()=>{});
+  if(!on&&document.fullscreenElement)document.exitFullscreen().catch(()=>{});
+};
+document.addEventListener("pointerdown",()=>{
+  if(!document.body.classList.contains("theatre"))return;
+  document.body.classList.add("ctl");
+  clearTimeout(thIdle);thIdle=setTimeout(()=>document.body.classList.remove("ctl"),2800);
+});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("theatre"))$("thBtn").onclick();});
+
+/* ── header controls ── */
 $("bookSel").innerHTML=BOOKS.map(b=>`<option value="${b}">BOOK ${ROMAN[b]}</option>`).join("");
 $("bookSel").onchange=e=>{
-  const b=+e.target.value;const si=SCENES.findIndex(s=>s.book===b);
-  if(si<0)return;const wasRunning=running;stop();cur={si,gi:0};savePos();updateProg();
+  const si=SCENES.findIndex(s=>s.book===+e.target.value);
+  if(si<0)return;const was=running;stop();cur={si,gi:0};savePos();updateProg();
   renderSeg(SCENES[si],SCENES[si].segments[0],0);
-  if(wasRunning)drive();
+  if(was)drive();
 };
 $("cueBtn2").onclick=()=>{CUES_ON=!CUES_ON;save("odyssey.drive.cues",CUES_ON);
   $("cueBtn2").classList.toggle("on",CUES_ON);};
@@ -342,270 +431,32 @@ $("voxBtn").onclick=()=>{
   const speakers=new Map();
   SCENES.forEach(s=>s.segments.forEach(g=>{
     if(g.kind==="DIALOGUE"||g.speakerId==="PERFORMER.NARRATOR")speakers.set(g.speakerId,g.speakerName);}));
-  let h='<h3>THE CAST · '+POOL.length+' good voices on this device</h3>';
+  let h='<h3>THE CAST · '+POOL.length+' voices pass the quality bar on this device</h3>';
+  if(!POOL.length)h+='<div style="font-size:11px;color:var(--red);line-height:1.6;margin-bottom:8px">No usable English voices found. Install voices in your system accessibility settings, then reopen this panel.</div>';
   [...speakers.entries()].slice(0,40).forEach(([id,nm])=>{
     const cast=castFor(id);
     h+='<div class="vrow"><span>'+nm+'</span><select data-sp="'+id+'">'
       +POOL.map(v=>'<option'+(cast.voice&&cast.voice.name===v.name?" selected":"")+'>'+v.name+'</option>').join("")
-      +'</select></div>';
-  });
+      +'</select></div>';});
   p.innerHTML=h;p.style.display="block";
   p.querySelectorAll("select").forEach(sel=>{
-    sel.onchange=()=>{CASTLS[sel.dataset.sp]=sel.value;save("odyssey.drive.cast",CASTLS);
-      const u=new SpeechSynthesisUtterance("So speaks "+(speakers.get(sel.dataset.sp)||"the voice")+".");
-      const v=POOL.find(v=>v.name===sel.value);if(v)u.voice=v;
-      u.pitch=pitchFor(sel.dataset.sp);u.rate=rateFor(sel.dataset.sp);
-      speechSynthesis.cancel();speechSynthesis.speak(u);};
+    sel.onchange=async()=>{CASTLS[sel.dataset.sp]=sel.value;save("odyssey.drive.cast",CASTLS);
+      const v=POOL.find(v=>v.name===sel.value);
+      const r=await speakOnce("So speaks "+(speakers.get(sel.dataset.sp)||"the voice")+".",
+        {voice:v,pitch:pitchFor(sel.dataset.sp),rate:rateFor(sel.dataset.sp)});
+      speechOK=r.ok;voxChip();};
   });
 };
 
-/* boot: restore position, paint first frame */
+/* boot */
 const b0=new URLSearchParams(location.search).get("b");
 if(b0){const si=SCENES.findIndex(s=>s.book===+b0);if(si>=0)cur={si,gi:0};}
 updateProg();
 {const sc=SCENES[cur.si]||SCENES[0];renderSeg(sc,sc.segments[cur.gi]||sc.segments[0],cur.gi||0);}
-$("state").textContent=SCENES.length+" scenes · "+SCRIPT.meta.turnCount+" turns · "
-  +Object.keys(SPOKEN).length+" authored lines · press DRIVE";
-window.__drive={get cur(){return cur},SCENES,drive,stop,jumpScene,castFor,segText,get running(){return running}};
-
-/* ══ SUITE KIT ══ */
-(()=>{try{
-const KGET=()=>{try{return JSON.parse(localStorage.getItem("odyssey.chat.api"))||{}}catch(e){return{}}};
-const KSET=o=>{try{localStorage.setItem("odyssey.chat.api",JSON.stringify(o))}catch(e){}};
-const PROV={
-  openai:{url:"https://api.openai.com/v1/chat/completions",models:["gpt-4o-mini","gpt-4o","gpt-4.1-mini","gpt-4.1","o4-mini"],needKey:true},
-  anthropic:{url:"https://api.anthropic.com/v1/messages",models:["claude-haiku-4-5-20251001","claude-sonnet-5","claude-opus-4-8"],needKey:true},
-  openrouter:{url:"https://openrouter.ai/api/v1/chat/completions",models:["openai/gpt-4o-mini","anthropic/claude-sonnet-5","meta-llama/llama-3.3-70b-instruct","google/gemini-2.0-flash-001"],needKey:true},
-  ollama:{url:"http://localhost:11434/v1/chat/completions",models:["llama3.2","qwen2.5","mistral"],needKey:false},
-  custom:{url:"",models:[],needKey:true}};
-const provOf=c=>c.provider||((c.url||"").includes("anthropic")?"anthropic":(c.url||"").includes("openrouter")?"openrouter":(c.url||"").includes("11434")?"ollama":"openai");
-/* ── shared model client: right wire format per provider, JSON bound to a schema ── */
-window.kitLLM=async function(messages,opts){
-  opts=opts||{};
-  const c=KGET(),prov=provOf(c),P=PROV[prov]||PROV.openai;
-  if(P.needKey&&!c.key)throw new Error("no key — open MODEL in the header");
-  let url=c.url||P.url,req,parse;
-  if(prov==="anthropic"){
-    const sys=messages.filter(m=>m.role==="system").map(m=>m.content).join("\n\n");
-    let rest=messages.filter(m=>m.role!=="system").map(m=>({role:m.role,content:m.content}));
-    if(!rest.length)rest=[{role:"user",content:"Perform the turn now."}];
-    req={method:"POST",headers:{"content-type":"application/json","x-api-key":c.key,
-      "anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
-      body:JSON.stringify({model:c.model||"claude-haiku-4-5-20251001",max_tokens:opts.maxTokens||700,
-        temperature:opts.temperature==null?.85:opts.temperature,system:sys||undefined,messages:rest})};
-    parse=j=>(j.content||[]).map(b=>b.text||"").join("");
-  }else{
-    const body={model:c.model||"gpt-4o-mini",messages,max_tokens:opts.maxTokens||700,
-      temperature:opts.temperature==null?.85:opts.temperature};
-    if(opts.json)body.response_format=opts.schema
-      ?{type:"json_schema",json_schema:{name:opts.schemaName||"result",strict:true,schema:opts.schema}}
-      :{type:"json_object"};
-    req={method:"POST",headers:{"content-type":"application/json",
-      ...(c.key?{authorization:"Bearer "+c.key}:{})},body:JSON.stringify(body)};
-    parse=j=>(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||"";
-  }
-  let r;
-  try{r=await fetch(url,req);}
-  catch(e){throw new Error("network/CORS — "+url.split("/")[2]+" refused a browser call");}
-  const raw=await r.text();
-  if(!r.ok){
-    if(opts.json&&opts.schema&&(r.status===400||r.status===422)&&!opts._retried)
-      return window.kitLLM(messages,Object.assign({},opts,{schema:null,_retried:true}));
-    let msg=raw.slice(0,220);try{const e=JSON.parse(raw);msg=(e.error&&(e.error.message||e.error.type))||msg;}catch(_){/**/}
-    throw new Error("api "+r.status+" · "+msg);
-  }
-  let text;try{text=parse(JSON.parse(raw));}catch(e){throw new Error("unreadable api response");}
-  if(opts.json){
-    const m=String(text).match(/\{[\s\S]*\}/);
-    if(!m)throw new Error("model returned no JSON");
-    return JSON.parse(m[0]);
-  }
-  return String(text).trim();
-};
-window.kitLLMReady=()=>{const c=KGET(),P=PROV[provOf(c)]||PROV.openai;return !!(c.key||!P.needKey&&c.url||provOf(c)==="ollama");};
-/* ── MODEL panel — provider, model, key, TEST ── */
-const hdr=document.querySelector("header")||document.getElementById("top")||document.getElementById("topbar");
-const b=document.createElement("button");b.type="button";b.id="kitModel";b.textContent="MODEL";
-b.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap";
-if(hdr)hdr.appendChild(b);
-const p=document.createElement("div");
-p.style.cssText="display:none;position:fixed;top:54px;right:8px;z-index:200;background:#fff;color:#000;border:2px solid #000;padding:10px;width:min(92vw,360px);box-shadow:6px 6px 0 rgba(0,0,0,.85);font:12px/1.4 ui-monospace,Menlo,monospace";
-p.innerHTML='<div style="font-weight:900;font-size:11px;letter-spacing:.1em;margin-bottom:7px">PERFORMANCE MODEL · one key powers every page</div>'
-+'<select data-k="prov" style="width:100%;box-sizing:border-box;margin-bottom:5px;padding:7px;border:1px solid #000;font:inherit;background:#fff">'
-+'<option value="openai">OpenAI</option><option value="anthropic">Anthropic (Claude)</option>'
-+'<option value="openrouter">OpenRouter (any model)</option><option value="ollama">Ollama · localhost, no key</option>'
-+'<option value="custom">Custom endpoint (OpenAI format)</option></select>'
-+'<input data-k="url" placeholder="endpoint url" style="width:100%;box-sizing:border-box;margin-bottom:5px;padding:7px;border:1px solid #000;font:inherit">'
-+'<input data-k="model" list="kitModels" placeholder="model" style="width:100%;box-sizing:border-box;margin-bottom:5px;padding:7px;border:1px solid #000;font:inherit"><datalist id="kitModels"></datalist>'
-+'<input data-k="key" type="password" placeholder="api key (stays in this browser)" style="width:100%;box-sizing:border-box;margin-bottom:7px;padding:7px;border:1px solid #000;font:inherit">'
-+'<div style="display:flex;gap:6px;align-items:center"><button data-k="save" type="button" style="flex:1;padding:7px;border:2px solid #000;background:#000;color:#fff;font:inherit;font-weight:900;cursor:pointer">SAVE</button>'
-+'<button data-k="test" type="button" style="padding:7px 10px;border:2px solid #000;background:#fff;font:inherit;font-weight:900;cursor:pointer">TEST</button>'
-+'<button data-k="close" type="button" style="padding:7px 10px;border:1px solid #000;background:#fff;font:inherit;cursor:pointer">✕</button></div>'
-+'<div data-k="state" style="font-size:10px;color:#5b5b5b;margin-top:6px;overflow-wrap:anywhere"></div>';
-document.body.appendChild(p);
-const q=k=>p.querySelector('[data-k="'+k+'"]');
-const fillModels=prov=>{const dl=p.querySelector("#kitModels");dl.innerHTML="";
-  (PROV[prov]||PROV.openai).models.forEach(m=>{const o=document.createElement("option");o.value=m;dl.appendChild(o);});};
-const paint=()=>{const c=KGET(),prov=provOf(c);
-  q("prov").value=prov;q("url").value=c.url||PROV[prov].url;
-  q("model").value=c.model||"";q("key").value=c.key||"";fillModels(prov);
-  q("state").textContent=window.kitLLMReady()?"READY — real calls on across SUITE · METIS · DRIVEN · FORMULA · AOIDOS · PERFORM":"no key — offline score-derived lines still play";
-  b.style.background=window.kitLLMReady()?"#000":"";b.style.color=window.kitLLMReady()?"#fff":"";};
-q("prov").onchange=()=>{const P=PROV[q("prov").value];q("url").value=P.url;
-  q("model").value=P.models[0]||"";fillModels(q("prov").value);};
-const grab=()=>({provider:q("prov").value,url:q("url").value.trim()||PROV[q("prov").value].url,
-  model:q("model").value.trim(),key:q("key").value.trim()});
-const openP=()=>{p.style.display="block";paint();};
-b.onclick=()=>{p.style.display==="none"?openP():p.style.display="none";};
-q("close").onclick=()=>p.style.display="none";
-q("save").onclick=()=>{KSET(grab());paint();q("state").textContent+=" · SAVED";};
-q("test").onclick=async()=>{KSET(grab());paint();
-  q("state").textContent="TESTING — asking the model for one word…";
-  try{const t0=performance.now();
-    const out=await window.kitLLM([{role:"user",content:'Reply with exactly this JSON: {"ok":true}'}],{json:true,maxTokens:30,temperature:0});
-    q("state").textContent=out&&out.ok?("MODEL OK · "+(grab().model||"default")+" · "+Math.round(performance.now()-t0)+"ms — lines will generate live"):"reached the api but got an odd reply — it may still work";
-  }catch(err){q("state").textContent="TEST FAILED · "+err.message;}};
-/* every page-local api/model button opens this one panel */
-["apiBtn","perfApi"].forEach(id=>{const e=document.getElementById(id);if(e)e.onclick=openP;});
-paint();
-/* ── SPEECH UNLOCK — iOS/Chrome refuse to speak until a real gesture speaks first ── */
-let primed=false;
-const prime=()=>{if(primed||!window.speechSynthesis)return;primed=true;
-  try{const u=new SpeechSynthesisUtterance("ready");u.volume=.01;u.rate=2;
-  speechSynthesis.cancel();speechSynthesis.speak(u);speechSynthesis.resume();}catch(e){}};
-["pointerdown","touchend","keydown"].forEach(ev=>document.addEventListener(ev,prime,{capture:true,once:true}));
-/* ── SIBLING RAIL — every performance surface one tap away, clock carried via ?t= ── */
-const PAGES=[["odyssey-suite.html","SUITE"],["odyssey-suite-metis-performance.html","METIS"],
-["odyssey-suite-performance-driven.html","DRIVEN"],["odyssey-suite-concordance.html","FORMULA"],
-["odyssey-suite-aoidos-live-performance.html","AOIDOS LIVE"],["odyssey-perform.html","PERFORM"],
-["odyssey-drive.html","DRIVE \ud83c\udfa7"]];
-const here=(location.pathname.split("/").pop()||"").toLowerCase();
-let rail=document.getElementById("lnStage")?document.getElementById("lnStage").parentElement:null;
-if(!rail&&hdr){rail=document.createElement("div");
-  rail.style.cssText="display:flex;gap:6px;overflow-x:auto;padding:6px 10px;border-bottom:2px solid #000;background:#fff;-webkit-overflow-scrolling:touch";
-  hdr.insertAdjacentElement("afterend",rail);}
-if(rail)PAGES.forEach(pair=>{const pg=pair[0],label=pair[1];
-  if(pg.toLowerCase()===here)return;
-  const a=document.createElement("a");a.className="btn";a.textContent=label+" \u25b8";a.href=pg;
-  a.style.cssText="white-space:nowrap;border:2px solid #000;padding:6px 9px;font-weight:700;text-decoration:none;color:inherit";
-  a.onclick=()=>{try{const t=window.__suite&&window.__suite.now&&window.__suite.now();
-    if(t>0)a.href=pg+"?t="+t.toFixed(1);}catch(e){}};
-  rail.appendChild(a);});
-/* ── MIX — pocket mixer: master + two layers, follow-the-book, ducks at speech ── */
-const audioEl=document.querySelector("audio");
-if(audioEl){
-const MIXK="odyssey.mix.v1";
-const MGET=()=>{try{return JSON.parse(localStorage.getItem(MIXK))||{}}catch(e){return{}}};
-const MSET=()=>{try{localStorage.setItem(MIXK,JSON.stringify(mix))}catch(e){}};
-const mix=Object.assign({layers:[
-  {album:"",on:false,vol:.55,follow:true,file:""},
-  {album:"",on:false,vol:.4,follow:true,file:""}]},MGET());
-if(!Array.isArray(mix.layers)||mix.layers.length<2)mix.layers=[
-  {album:"",on:false,vol:.55,follow:true,file:""},
-  {album:"",on:false,vol:.4,follow:true,file:""}];
-const LA=[null,null];let AL2=null,mixBuilt=false;
-fetch("audio/albums.json").then(r=>r.json()).then(j=>{AL2=j;}).catch(()=>{});
-const mb=document.createElement("button");mb.type="button";mb.id="kitMix";mb.textContent="MIX";
-mb.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap";
-if(hdr)hdr.appendChild(mb);
-const mp=document.createElement("div");
-mp.style.cssText="display:none;position:fixed;bottom:10px;right:8px;z-index:200;background:#fff;color:#000;border:2px solid #000;padding:8px;width:min(94vw,440px);box-shadow:6px 6px 0 rgba(0,0,0,.85);font:10px/1.5 ui-monospace,Menlo,monospace";
-document.body.appendChild(mp);
-const duck=()=>{try{return window.speechSynthesis&&speechSynthesis.speaking?.3:1;}catch(e){return 1;}};
-function bookOfMaster(){
-  if(!AL2)return null;const src=decodeURIComponent(audioEl.currentSrc||audioEl.src||"");
-  for(const a of AL2.albums)for(let i=0;i<a.tracks.length;i++){const t=a.tracks[i];
-    if(src.endsWith(t.file))return {album:a,track:t,book:t.num||((i%24)+1)};}
-  return null;}
-function pickTrack(albumId,book){const a=AL2&&AL2.albums.find(x=>x.id===albumId);if(!a)return null;
-  const t=(book&&a.tracks.find(x=>x.num===book))||a.tracks[(((book||1)-1)%a.tracks.length+a.tracks.length)%a.tracks.length];
-  return {album:a,track:t};}
-function curSel(i){const l=mix.layers[i];if(!l.album||!AL2)return null;
-  const al=AL2.albums.find(x=>x.id===l.album);if(!al)return null;
-  if(!l.follow&&l.file){const t=al.tracks.find(x=>x.file===l.file);if(t)return {album:al,track:t};}
-  const mstr=bookOfMaster();return pickTrack(l.album,mstr&&mstr.book);}
-function ensureLayer(i){if(!LA[i]){LA[i]=new Audio();LA[i].loop=true;LA[i].preload="none";}return LA[i];}
-function applyLayer(i,reseat){
-  const l=mix.layers[i],a=ensureLayer(i);
-  if(!l.on||!l.album){a.pause();return;}
-  const sel=curSel(i);if(!sel)return;
-  const url=sel.album.dir+"/"+encodeURIComponent(sel.track.file);
-  const abs=new URL(url,location.href).href;
-  if(a.src!==abs){a.src=url;reseat=true;}
-  l.file=sel.track.file;
-  a.volume=Math.max(0,Math.min(1,l.vol*duck()));
-  if(!audioEl.paused){a.play().then(()=>{if(reseat&&a.duration)a.currentTime=(audioEl.currentTime||0)%a.duration;}).catch(()=>{});}
-  else a.pause();
-}
-function mixTick(){
-  mix.layers.forEach((l,i)=>{const a=LA[i];if(!a)return;
-    if(l.on&&!audioEl.paused&&a.paused&&a.src)a.play().catch(()=>{});
-    if((!l.on||audioEl.paused)&&!a.paused)a.pause();
-    a.volume=Math.max(0,Math.min(1,l.vol*duck()));});
-  if(mp.style.display!=="none")mixLeds();
-}
-setInterval(mixTick,500);
-audioEl.addEventListener("play",()=>mix.layers.forEach((l,i)=>applyLayer(i,true)));
-audioEl.addEventListener("pause",()=>LA.forEach(a=>a&&a.pause()));
-audioEl.addEventListener("loadedmetadata",()=>mix.layers.forEach((l,i)=>{if(l.follow)applyLayer(i,true);}));
-audioEl.addEventListener("seeked",()=>LA.forEach(a=>{if(a&&a.duration&&!a.paused)a.currentTime=(audioEl.currentTime||0)%a.duration;}));
-const led=on=>'<span data-led style="display:inline-block;width:7px;height:7px;border:1px solid #000;background:'+(on?"#e01b1b":"#fff")+'"></span>';
-function rowStyle(){return "display:grid;grid-template-columns:10px 92px minmax(0,1fr) 20px 20px 22px 84px 30px;gap:5px;align-items:center;padding:4px 0;border-top:1px solid #ddd";}
-function mixBuild(){
-  if(!AL2){mp.innerHTML='<div>loading albums…</div>';return;}
-  mixBuilt=true;
-  let h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
-   +'<b style="font-size:10px;letter-spacing:.12em">MIX · score the film</b>'
-   +'<button data-m="close" style="border:1px solid #000;background:#fff;font:inherit;cursor:pointer;padding:1px 7px">✕</button></div>';
-  h+='<div style="'+rowStyle()+';border-top:none">'+led(true)
-   +'<b>MASTER</b><span data-m="mtrack" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5b5b5b">page track</span>'
-   +'<span></span><span></span><span></span>'
-   +'<input data-m="mvol" type="range" min="0" max="100" value="'+Math.round((audioEl.volume||1)*100)+'" style="width:84px;accent-color:#000">'
-   +'<span style="color:#5b5b5b">clock</span></div>';
-  mix.layers.forEach((l,i)=>{
-    const opts=['<option value="">—</option>'].concat(AL2.albums.map(a=>'<option value="'+a.id+'"'+(l.album===a.id?" selected":"")+'>'+a.name.split(" ").map(w=>w[0]).join("")+' · '+a.name.slice(0,10)+'</option>')).join("");
-    h+='<div data-row="'+i+'" style="'+rowStyle()+'">'+led(false)
-     +'<select data-m="al'+i+'" style="font:inherit;border:1px solid #000;background:#fff;padding:1px;max-width:92px">'+opts+'</select>'
-     +'<span data-m="tk'+i+'" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5b5b5b">—</span>'
-     +'<button data-m="pv'+i+'" title="previous track" style="border:1px solid #000;background:#fff;font:inherit;cursor:pointer;padding:0 3px">\u25c2</button>'
-     +'<button data-m="nx'+i+'" title="next track" style="border:1px solid #000;background:#fff;font:inherit;cursor:pointer;padding:0 3px">\u25b8</button>'
-     +'<button data-m="fl'+i+'" title="follow the book" style="border:1px solid #000;font:inherit;cursor:pointer;padding:0 3px;background:'+(l.follow?"#000":"#fff")+';color:'+(l.follow?"#fff":"#000")+'">\u27f3</button>'
-     +'<input data-m="vol'+i+'" type="range" min="0" max="100" value="'+Math.round(l.vol*100)+'" style="width:84px;accent-color:#000">'
-     +'<button data-m="on'+i+'" style="border:2px solid #000;font:inherit;font-weight:900;cursor:pointer;padding:1px 4px;background:'+(l.on?"#000":"#fff")+';color:'+(l.on?"#fff":"#000")+'">'+(l.on?"ON":"off")+'</button></div>';
-  });
-  h+='<div style="margin-top:4px;color:#5b5b5b">layers loop under the master clock · \u27f3 follows the book · all duck at speech</div>';
-  mp.innerHTML=h;
-  const q2=k=>mp.querySelector('[data-m="'+k+'"]');
-  q2("close").onclick=()=>mp.style.display="none";
-  q2("mvol").oninput=e=>{audioEl.volume=e.target.value/100;};
-  mix.layers.forEach((l,i)=>{
-    q2("al"+i).onchange=e=>{l.album=e.target.value;l.file="";l.on=!!l.album;MSET();mixBuild();applyLayer(i,true);};
-    q2("vol"+i).oninput=e=>{l.vol=e.target.value/100;MSET();const a=LA[i];if(a)a.volume=Math.max(0,Math.min(1,l.vol*duck()));};
-    q2("fl"+i).onclick=()=>{l.follow=!l.follow;MSET();mixBuild();applyLayer(i,true);};
-    q2("on"+i).onclick=()=>{l.on=!l.on;MSET();mixBuild();applyLayer(i,true);};
-    const step=d=>{const al=AL2.albums.find(x=>x.id===l.album);if(!al)return;
-      let ix=al.tracks.findIndex(t=>t.file===l.file);if(ix<0)ix=0;
-      ix=((ix+d)%al.tracks.length+al.tracks.length)%al.tracks.length;
-      l.file=al.tracks[ix].file;l.follow=false;MSET();mixBuild();applyLayer(i,true);};
-    q2("pv"+i).onclick=()=>step(-1);
-    q2("nx"+i).onclick=()=>step(1);
-  });
-  mixLeds();
-}
-function mixLeds(){
-  const mstr=bookOfMaster();
-  const mt=mp.querySelector('[data-m="mtrack"]');
-  if(mt&&mstr)mt.textContent=mstr.album.name+" · "+mstr.track.title;
-  mix.layers.forEach((l,i)=>{
-    const row=mp.querySelector('[data-row="'+i+'"]');if(!row)return;
-    const a=LA[i],ledEl=row.querySelector("[data-led]"),tk=mp.querySelector('[data-m="tk'+i+'"]');
-    if(ledEl)ledEl.style.background=(a&&!a.paused&&l.vol>0)?"#e01b1b":"#fff";
-    const sel=curSel(i);if(tk)tk.textContent=sel?sel.track.title:"—";
-  });
-}
-mb.onclick=()=>{const off=mp.style.display==="none";mp.style.display=off?"block":"none";if(off)mixBuild();};
-}
-}catch(err){console.warn("suite kit",err);}})();
+voxChip();
+$("state").textContent=SCENES.length+" scenes · "+Object.keys(SPOKEN).length+" authored lines";
+window.__drive={get cur(){return cur},SCENES,drive,stop,jumpScene,castFor,segText,speakOnce,
+  get running(){return running},get speechOK(){return speechOK}};
 </script>
 </body>
 </html>
