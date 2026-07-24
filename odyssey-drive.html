@@ -122,6 +122,7 @@
   <span id="posTxt">—</span>
 </div></div>
 <audio id="audio" preload="auto"></audio>
+<audio id="voice" preload="auto"></audio>
 
 <script type="module">
 import { inkCutout, renderScene } from "./engine/halfworld-engine.mjs";
@@ -137,11 +138,12 @@ const save=(k,v)=>safeSet(k,JSON.stringify(v));
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 
-const [SCRIPT,SPOKENJ,AL,MAN]=await Promise.all([
+const [SCRIPT,SPOKENJ,AL,MAN,VOICEMAN]=await Promise.all([
   fetch("drive/drive-script.json").then(r=>r.json()),
   fetch("viewer/spoken-lines.json").then(r=>r.json()).catch(()=>({lines:{}})),
   fetch("audio/albums.json").then(r=>r.json()),
   fetch("viewer/odyssey-manifest.json").then(r=>r.json()),
+  fetch("drive/voice-manifest.json").then(r=>r.json()).catch(()=>({})),
 ]);
 const SPOKEN=SPOKENJ.lines||{};
 const assetById=new Map(MAN.assets.map(a=>[a.id,a]));
@@ -317,6 +319,36 @@ function renderSeg(sc,seg,gi){
   }
 }
 
+/* ── PERFORMED AUDIO: studio-rendered scene files with segment-synced captions ── */
+const voiceEl=$("voice");
+const inVoice=(t,vm)=>{for(const s of vm.segments){if(t>=s.start&&t<s.start+s.dur)return true;}return false;};
+function playSceneVoice(sc,vm,token,fromGi){
+  return new Promise(res=>{
+    let lastGi=-1,settled=false;
+    const iv=setInterval(()=>{
+      if(settled)return;
+      if(!running||token!==runToken){cleanup();return res("stop");}
+      const t=voiceEl.currentTime;
+      let cs=null;for(const s of vm.segments){if(t>=s.start-.05)cs=s;else break;}
+      if(cs&&cs.gi!==lastGi){lastGi=cs.gi;
+        cur={si:SCENES.indexOf(sc),gi:cs.gi};savePos();updateProg();
+        renderSeg(sc,sc.segments[cs.gi],cs.gi);}
+      DUCK.target=voiceEl.paused?.7:(inVoice(t,vm)?.16:.45);
+    },160);
+    const cleanup=()=>{settled=true;clearInterval(iv);voiceEl.onended=null;voiceEl.onerror=null;
+      voiceEl.pause();DUCK.target=.7;};
+    voiceEl.onended=()=>{cleanup();res("done");};
+    voiceEl.onerror=()=>{cleanup();res("err");};
+    voiceEl.src=vm.file;
+    const startAt=((vm.segments.find(s=>s.gi>=fromGi))||{start:0}).start;
+    const seek=()=>{try{voiceEl.currentTime=startAt;}catch(e){}
+      voiceEl.play().then(()=>{$("chipVox").className="chipS ok";
+        $("chipVox").textContent="🗣 PERFORMED · studio cast";},
+        ()=>{cleanup();res("err");});};
+    if(voiceEl.readyState>=1)seek();else voiceEl.onloadedmetadata=seek;
+  });
+}
+
 /* ── the drive loop ── */
 let cur=LS("odyssey.drive.pos",{si:0,gi:0}), runToken=0, wake=null;
 function savePos(){save("odyssey.drive.pos",cur);}
@@ -333,14 +365,24 @@ async function drive(){
   for(let si=cur.si;si<SCENES.length;si++){
     const sc=SCENES[si];
     bookBed(sc.book); $("bookSel").value=sc.book;
-    for(let gi=(si===cur.si?cur.gi:0);gi<sc.segments.length;gi++){
-      if(!running||token!==runToken)return;
-      cur={si,gi};savePos();updateProg();
-      const seg=sc.segments[gi];
-      renderSeg(sc,seg,gi);
-      await speakSeg(seg);
-      if(!running||token!==runToken)return;
-      await sleep(Math.min(1400,(seg.pauseAfterMs||260))/pace);
+    const fromGi=(si===cur.si?cur.gi:0);
+    const vm=VOICEMAN[sc.id];
+    let played=false;
+    if(vm){ /* the studio-performed scene file, captions synced to its clock */
+      const r=await playSceneVoice(sc,vm,token,fromGi);
+      if(r==="stop"||!running||token!==runToken)return;
+      played=(r==="done");
+    }
+    if(!played){ /* no file (or it failed): live synthesis reads the score */
+      for(let gi=fromGi;gi<sc.segments.length;gi++){
+        if(!running||token!==runToken)return;
+        cur={si,gi};savePos();updateProg();
+        const seg=sc.segments[gi];
+        renderSeg(sc,seg,gi);
+        await speakSeg(seg);
+        if(!running||token!==runToken)return;
+        await sleep(Math.min(1400,(seg.pauseAfterMs||260))/pace);
+      }
     }
     if(running&&token===runToken){DUCK.target=.85;await sleep(2400);DUCK.target=.7;}
     cur={si:si+1,gi:0};savePos();
@@ -349,7 +391,8 @@ async function drive(){
   $("state").textContent="THE POEM IS COMPLETE";
 }
 function stop(){running=false;runToken++;try{speechSynthesis.cancel();}catch(e){}
-  audio.pause();$("playBtn").textContent="▶ DRIVE";if(wake){wake.release().catch(()=>{});wake=null;}}
+  audio.pause();voiceEl.pause();$("playBtn").textContent="▶ DRIVE";
+  if(wake){wake.release().catch(()=>{});wake=null;}}
 $("playBtn").onclick=()=>{running?stop():drive();};
 function jumpScene(d){
   const was=running;stop();
@@ -381,6 +424,13 @@ document.addEventListener("visibilitychange",()=>{
 $("gateBtn").onclick=async()=>{
   $("gateBtn").textContent="…";
   audio.play().catch(()=>{});               /* gesture unlocks the bed */
+  const sc0=SCENES[cur.si], vm0=sc0&&VOICEMAN[sc0.id];
+  if(vm0){
+    /* unlock the voice channel with the REAL first file, inside this gesture
+       (play() with no src hangs forever in Chrome — never blip an empty element) */
+    voiceEl.src=vm0.file; voiceEl.play().catch(()=>{});
+    $("gate").remove(); drive(); return;
+  }
   rankVoices();
   const nar=castFor("PERFORMER.NARRATOR");
   let r=await speakOnce("The Odyssey.",{voice:nar.voice,pitch:nar.pitch,rate:nar.rate});
@@ -454,7 +504,10 @@ if(b0){const si=SCENES.findIndex(s=>s.book===+b0);if(si>=0)cur={si,gi:0};}
 updateProg();
 {const sc=SCENES[cur.si]||SCENES[0];renderSeg(sc,sc.segments[cur.gi]||sc.segments[0],cur.gi||0);}
 voxChip();
-$("state").textContent=SCENES.length+" scenes · "+Object.keys(SPOKEN).length+" authored lines";
+$("state").textContent=SCENES.length+" scenes · "+Object.keys(VOICEMAN).length+" studio-performed · "
+  +Object.keys(SPOKEN).length+" authored lines";
+if(Object.keys(VOICEMAN).length){$("chipVox").className="chipS ok";
+  $("chipVox").textContent="🗣 "+Object.keys(VOICEMAN).length+" scenes performed";}
 window.__drive={get cur(){return cur},SCENES,drive,stop,jumpScene,castFor,segText,speakOnce,
   get running(){return running},get speechOK(){return speechOK}};
 </script>
