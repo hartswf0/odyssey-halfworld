@@ -26,12 +26,16 @@ for (const dir of (await readdir(AUD, { withFileTypes: true }))) {
   if (!isDir) continue;
   const files = (await readdir(full)).filter(f => EXT.has(extname(f).toLowerCase())).sort();
   if (!files.length) continue;
+  /* optional curated title→book map for albums without NN_ prefixes */
+  let bookmap = {};
+  try { bookmap = JSON.parse(await (await import("node:fs/promises")).readFile(resolve(full, "bookmap.json"), "utf8")); } catch {}
   albums.push({
     id: dir.name.toLowerCase().replace(/\W+/g, "-"),
     name: dir.name.replace(/[-_]/g, " "),
     dir: "audio/" + dir.name,
     tracks: files.map(f => { const t = cleanTitle(f);
-      return { file: f, title: t.replace(/^\d{1,2}[_\s.-]+/, ""), num: numOf(t) }; }),
+      const title = t.replace(/^\d{1,2}[_\s.-]+/, "");
+      return { file: f, title, num: numOf(t) ?? bookmap[title] ?? null }; }),
   });
 }
 await writeFile(resolve(AUD, "albums.json"), JSON.stringify({ built: new Date().toISOString(), albums }, null, 1));

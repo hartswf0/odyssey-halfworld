@@ -534,6 +534,7 @@ $("bookSel").value=first.book;buildSceneSel(first.book);
 await loadScene(first);
 
 
+
 /* ══ SUITE KIT ══ */
 (()=>{try{
 const KGET=()=>{try{return JSON.parse(localStorage.getItem("odyssey.chat.api"))||{}}catch(e){return{}}};
@@ -656,6 +657,120 @@ if(rail)PAGES.forEach(pair=>{const pg=pair[0],label=pair[1];
   a.onclick=()=>{try{const t=window.__suite&&window.__suite.now&&window.__suite.now();
     if(t>0)a.href=pg+"?t="+t.toFixed(1);}catch(e){}};
   rail.appendChild(a);});
+/* ── MIX — pocket mixer: master + two layers, follow-the-book, ducks at speech ── */
+const audioEl=document.querySelector("audio");
+if(audioEl){
+const MIXK="odyssey.mix.v1";
+const MGET=()=>{try{return JSON.parse(localStorage.getItem(MIXK))||{}}catch(e){return{}}};
+const MSET=()=>{try{localStorage.setItem(MIXK,JSON.stringify(mix))}catch(e){}};
+const mix=Object.assign({layers:[
+  {album:"",on:false,vol:.55,follow:true,file:""},
+  {album:"",on:false,vol:.4,follow:true,file:""}]},MGET());
+if(!Array.isArray(mix.layers)||mix.layers.length<2)mix.layers=[
+  {album:"",on:false,vol:.55,follow:true,file:""},
+  {album:"",on:false,vol:.4,follow:true,file:""}];
+const LA=[null,null];let AL2=null,mixBuilt=false;
+fetch("audio/albums.json").then(r=>r.json()).then(j=>{AL2=j;}).catch(()=>{});
+const mb=document.createElement("button");mb.type="button";mb.id="kitMix";mb.textContent="MIX";
+mb.style.cssText="font-size:10px;letter-spacing:.08em;white-space:nowrap";
+if(hdr)hdr.appendChild(mb);
+const mp=document.createElement("div");
+mp.style.cssText="display:none;position:fixed;bottom:10px;right:8px;z-index:200;background:#fff;color:#000;border:2px solid #000;padding:8px;width:min(94vw,440px);box-shadow:6px 6px 0 rgba(0,0,0,.85);font:10px/1.5 ui-monospace,Menlo,monospace";
+document.body.appendChild(mp);
+const duck=()=>{try{return window.speechSynthesis&&speechSynthesis.speaking?.3:1;}catch(e){return 1;}};
+function bookOfMaster(){
+  if(!AL2)return null;const src=decodeURIComponent(audioEl.currentSrc||audioEl.src||"");
+  for(const a of AL2.albums)for(let i=0;i<a.tracks.length;i++){const t=a.tracks[i];
+    if(src.endsWith(t.file))return {album:a,track:t,book:t.num||((i%24)+1)};}
+  return null;}
+function pickTrack(albumId,book){const a=AL2&&AL2.albums.find(x=>x.id===albumId);if(!a)return null;
+  const t=(book&&a.tracks.find(x=>x.num===book))||a.tracks[(((book||1)-1)%a.tracks.length+a.tracks.length)%a.tracks.length];
+  return {album:a,track:t};}
+function curSel(i){const l=mix.layers[i];if(!l.album||!AL2)return null;
+  const al=AL2.albums.find(x=>x.id===l.album);if(!al)return null;
+  if(!l.follow&&l.file){const t=al.tracks.find(x=>x.file===l.file);if(t)return {album:al,track:t};}
+  const mstr=bookOfMaster();return pickTrack(l.album,mstr&&mstr.book);}
+function ensureLayer(i){if(!LA[i]){LA[i]=new Audio();LA[i].loop=true;LA[i].preload="none";}return LA[i];}
+function applyLayer(i,reseat){
+  const l=mix.layers[i],a=ensureLayer(i);
+  if(!l.on||!l.album){a.pause();return;}
+  const sel=curSel(i);if(!sel)return;
+  const url=sel.album.dir+"/"+encodeURIComponent(sel.track.file);
+  const abs=new URL(url,location.href).href;
+  if(a.src!==abs){a.src=url;reseat=true;}
+  l.file=sel.track.file;
+  a.volume=Math.max(0,Math.min(1,l.vol*duck()));
+  if(!audioEl.paused){a.play().then(()=>{if(reseat&&a.duration)a.currentTime=(audioEl.currentTime||0)%a.duration;}).catch(()=>{});}
+  else a.pause();
+}
+function mixTick(){
+  mix.layers.forEach((l,i)=>{const a=LA[i];if(!a)return;
+    if(l.on&&!audioEl.paused&&a.paused&&a.src)a.play().catch(()=>{});
+    if((!l.on||audioEl.paused)&&!a.paused)a.pause();
+    a.volume=Math.max(0,Math.min(1,l.vol*duck()));});
+  if(mp.style.display!=="none")mixLeds();
+}
+setInterval(mixTick,500);
+audioEl.addEventListener("play",()=>mix.layers.forEach((l,i)=>applyLayer(i,true)));
+audioEl.addEventListener("pause",()=>LA.forEach(a=>a&&a.pause()));
+audioEl.addEventListener("loadedmetadata",()=>mix.layers.forEach((l,i)=>{if(l.follow)applyLayer(i,true);}));
+audioEl.addEventListener("seeked",()=>LA.forEach(a=>{if(a&&a.duration&&!a.paused)a.currentTime=(audioEl.currentTime||0)%a.duration;}));
+const led=on=>'<span data-led style="display:inline-block;width:7px;height:7px;border:1px solid #000;background:'+(on?"#e01b1b":"#fff")+'"></span>';
+function rowStyle(){return "display:grid;grid-template-columns:10px 92px minmax(0,1fr) 20px 20px 22px 84px 30px;gap:5px;align-items:center;padding:4px 0;border-top:1px solid #ddd";}
+function mixBuild(){
+  if(!AL2){mp.innerHTML='<div>loading albums…</div>';return;}
+  mixBuilt=true;
+  let h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
+   +'<b style="font-size:10px;letter-spacing:.12em">MIX · score the film</b>'
+   +'<button data-m="close" style="border:1px solid #000;background:#fff;font:inherit;cursor:pointer;padding:1px 7px">✕</button></div>';
+  h+='<div style="'+rowStyle()+';border-top:none">'+led(true)
+   +'<b>MASTER</b><span data-m="mtrack" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5b5b5b">page track</span>'
+   +'<span></span><span></span><span></span>'
+   +'<input data-m="mvol" type="range" min="0" max="100" value="'+Math.round((audioEl.volume||1)*100)+'" style="width:84px;accent-color:#000">'
+   +'<span style="color:#5b5b5b">clock</span></div>';
+  mix.layers.forEach((l,i)=>{
+    const opts=['<option value="">—</option>'].concat(AL2.albums.map(a=>'<option value="'+a.id+'"'+(l.album===a.id?" selected":"")+'>'+a.name.split(" ").map(w=>w[0]).join("")+' · '+a.name.slice(0,10)+'</option>')).join("");
+    h+='<div data-row="'+i+'" style="'+rowStyle()+'">'+led(false)
+     +'<select data-m="al'+i+'" style="font:inherit;border:1px solid #000;background:#fff;padding:1px;max-width:92px">'+opts+'</select>'
+     +'<span data-m="tk'+i+'" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5b5b5b">—</span>'
+     +'<button data-m="pv'+i+'" title="previous track" style="border:1px solid #000;background:#fff;font:inherit;cursor:pointer;padding:0 3px">\u25c2</button>'
+     +'<button data-m="nx'+i+'" title="next track" style="border:1px solid #000;background:#fff;font:inherit;cursor:pointer;padding:0 3px">\u25b8</button>'
+     +'<button data-m="fl'+i+'" title="follow the book" style="border:1px solid #000;font:inherit;cursor:pointer;padding:0 3px;background:'+(l.follow?"#000":"#fff")+';color:'+(l.follow?"#fff":"#000")+'">\u27f3</button>'
+     +'<input data-m="vol'+i+'" type="range" min="0" max="100" value="'+Math.round(l.vol*100)+'" style="width:84px;accent-color:#000">'
+     +'<button data-m="on'+i+'" style="border:2px solid #000;font:inherit;font-weight:900;cursor:pointer;padding:1px 4px;background:'+(l.on?"#000":"#fff")+';color:'+(l.on?"#fff":"#000")+'">'+(l.on?"ON":"off")+'</button></div>';
+  });
+  h+='<div style="margin-top:4px;color:#5b5b5b">layers loop under the master clock · \u27f3 follows the book · all duck at speech</div>';
+  mp.innerHTML=h;
+  const q2=k=>mp.querySelector('[data-m="'+k+'"]');
+  q2("close").onclick=()=>mp.style.display="none";
+  q2("mvol").oninput=e=>{audioEl.volume=e.target.value/100;};
+  mix.layers.forEach((l,i)=>{
+    q2("al"+i).onchange=e=>{l.album=e.target.value;l.file="";l.on=!!l.album;MSET();mixBuild();applyLayer(i,true);};
+    q2("vol"+i).oninput=e=>{l.vol=e.target.value/100;MSET();const a=LA[i];if(a)a.volume=Math.max(0,Math.min(1,l.vol*duck()));};
+    q2("fl"+i).onclick=()=>{l.follow=!l.follow;MSET();mixBuild();applyLayer(i,true);};
+    q2("on"+i).onclick=()=>{l.on=!l.on;MSET();mixBuild();applyLayer(i,true);};
+    const step=d=>{const al=AL2.albums.find(x=>x.id===l.album);if(!al)return;
+      let ix=al.tracks.findIndex(t=>t.file===l.file);if(ix<0)ix=0;
+      ix=((ix+d)%al.tracks.length+al.tracks.length)%al.tracks.length;
+      l.file=al.tracks[ix].file;l.follow=false;MSET();mixBuild();applyLayer(i,true);};
+    q2("pv"+i).onclick=()=>step(-1);
+    q2("nx"+i).onclick=()=>step(1);
+  });
+  mixLeds();
+}
+function mixLeds(){
+  const mstr=bookOfMaster();
+  const mt=mp.querySelector('[data-m="mtrack"]');
+  if(mt&&mstr)mt.textContent=mstr.album.name+" · "+mstr.track.title;
+  mix.layers.forEach((l,i)=>{
+    const row=mp.querySelector('[data-row="'+i+'"]');if(!row)return;
+    const a=LA[i],ledEl=row.querySelector("[data-led]"),tk=mp.querySelector('[data-m="tk'+i+'"]');
+    if(ledEl)ledEl.style.background=(a&&!a.paused&&l.vol>0)?"#e01b1b":"#fff";
+    const sel=curSel(i);if(tk)tk.textContent=sel?sel.track.title:"—";
+  });
+}
+mb.onclick=()=>{const off=mp.style.display==="none";mp.style.display=off?"block":"none";if(off)mixBuild();};
+}
 }catch(err){console.warn("suite kit",err);}})();
 </script>
 </body>

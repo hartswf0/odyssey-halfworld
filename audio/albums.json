@@ -1,5 +1,5 @@
 {
- "built": "2026-07-23T06:21:26.577Z",
+ "built": "2026-07-24T06:36:28.640Z",
  "albums": [
   {
    "id": "bronze-council",
@@ -202,6 +202,128 @@
      "file": "The Odyssey Homecoming - When I'm Home (The Odyssey) - Treblo.ogg",
      "title": "When I'm Home (The Odyssey)",
      "num": null
+    }
+   ]
+  },
+  {
+   "id": "titans-descent",
+   "name": "TITANS DESCENT",
+   "dir": "audio/TITANS DESCENT",
+   "tracks": [
+    {
+     "file": "Titan’s Descent - Bittersweet Departure - Treblo.ogg",
+     "title": "Bittersweet Departure",
+     "num": 13
+    },
+    {
+     "file": "Titan’s Descent - Boulder-Drop Bass - Treblo.ogg",
+     "title": "Boulder-Drop Bass",
+     "num": null
+    },
+    {
+     "file": "Titan’s Descent - Bronze Armor Clash - Treblo.ogg",
+     "title": "Bronze Armor Clash",
+     "num": 22
+    },
+    {
+     "file": "Titan’s Descent - Chasing the Escaping Sun - Treblo.ogg",
+     "title": "Chasing the Escaping Sun",
+     "num": 15
+    },
+    {
+     "file": "Titan’s Descent - Circe's Loom - Treblo.ogg",
+     "title": "Circe's Loom",
+     "num": 10
+    },
+    {
+     "file": "Titan’s Descent - Cyclopean Pulse - Treblo.ogg",
+     "title": "Cyclopean Pulse",
+     "num": 9
+    },
+    {
+     "file": "Titan’s Descent - Hearthside Soul - Treblo.ogg",
+     "title": "Hearthside Soul",
+     "num": 7
+    },
+    {
+     "file": "Titan’s Descent - Heroic Resolve and Filial Awakening - Treblo.ogg",
+     "title": "Heroic Resolve and Filial Awakening",
+     "num": 1
+    },
+    {
+     "file": "Titan’s Descent - Identity Loss and Spectral Anonymity - Treblo.ogg",
+     "title": "Identity Loss and Spectral Anonymity",
+     "num": 17
+    },
+    {
+     "file": "Titan’s Descent - Intoxicating Siren Call - Treblo.ogg",
+     "title": "Intoxicating Siren Call",
+     "num": 12
+    },
+    {
+     "file": "Titan’s Descent - Lament of Ithaca's Son - Treblo.ogg",
+     "title": "Lament of Ithaca's Son",
+     "num": 2
+    },
+    {
+     "file": "Titan’s Descent - Lament of Penelope - Treblo.ogg",
+     "title": "Lament of Penelope",
+     "num": 19
+    },
+    {
+     "file": "Titan’s Descent - Ogygia Captivity - Treblo.ogg",
+     "title": "Ogygia Captivity",
+     "num": 5
+    },
+    {
+     "file": "Titan’s Descent - Siren Enchantment and Metallic Kingly Doom - Treblo.ogg",
+     "title": "Siren Enchantment and Metallic Kingly Doom",
+     "num": null
+    },
+    {
+     "file": "Titan’s Descent - Solar Radiance - Treblo.ogg",
+     "title": "Solar Radiance",
+     "num": null
+    },
+    {
+     "file": "Titan’s Descent - The Bronze Remnant - Treblo.ogg",
+     "title": "The Bronze Remnant",
+     "num": 3
+    },
+    {
+     "file": "Titan’s Descent - The Crowning Resolution - Treblo.ogg",
+     "title": "The Crowning Resolution",
+     "num": 24
+    },
+    {
+     "file": "Titan’s Descent - The Hammer and the Lightning - Treblo.ogg",
+     "title": "The Hammer and the Lightning",
+     "num": 20
+    },
+    {
+     "file": "Titan’s Descent - The King of Ithaca - Treblo.ogg",
+     "title": "The King of Ithaca",
+     "num": 23
+    },
+    {
+     "file": "Titan’s Descent - Trial of the Bow - Treblo.ogg",
+     "title": "Trial of the Bow",
+     "num": 21
+    },
+    {
+     "file": "Titan’s Descent - Underworld Descent - Treblo.ogg",
+     "title": "Underworld Descent",
+     "num": 11
+    },
+    {
+     "file": "Titan’s Descent - Unwavering Honor Across the Continuum - Treblo.ogg",
+     "title": "Unwavering Honor Across the Continuum",
+     "num": 16
+    },
+    {
+     "file": "Titan’s Descent - Welcome Home Stranger house - Treblo.ogg",
+     "title": "Welcome Home Stranger house",
+     "num": 14
     }
    ]
   }
