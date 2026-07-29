@@ -95,7 +95,26 @@ If the previous scene of the book exports `exitOccupancy`, import it as your `IN
 (`import { exitOccupancy as INITIAL } from "./OD-BNN-SNN.mjs";`) so this scene opens with every
 body exactly where the last one left it.
 
-**F. Scene shape.** Follow `scenes/_scene-contract.mjs` exactly: export `scene` (and default) with
+**F. Crossing rooms — translate, don't guess.** A station only exists in its own plan.
+`centre_l` is a hut station; `threshold` is a hall station. If the previous scene ended in a
+different room from the one you open in, `blockingAt()` will (correctly) throw. Declare an explicit
+map and translate the inherited occupancy:
+
+```js
+const HUT_TO_HALL = { seat_guest:"bench_r2", hearth:"hearth", door:"threshold", /* ... */ };
+const INITIAL = Object.fromEntries(Object.entries(PREV_EXIT)
+  .map(([who, st]) => [who, HUT_TO_HALL[st]])
+  .filter(([, st]) => st));            // drop anyone who is not in this room
+```
+
+Dropping is correct and expected: figures the story leaves behind in the other room must NOT be
+carried in. Say in `selfAssessment` who you dropped and why.
+
+**G. Export `exitOccupancy` as a NAMED binding**, not only as a property of the scene object —
+`export const exitOccupancy = occupancyAt(...)`. A property on the default export cannot be linked
+by `import { exitOccupancy }`, and the next scene in the chain needs exactly that form.
+
+**H. Scene shape.** Follow `scenes/_scene-contract.mjs` exactly: export `scene` (and default) with
 `id, title, book, beats, exitState, duration, cast[], timeline[], stage(offctx,W,H,t)`.
 In `stage()`, import the asset modules and call `placeInstance(...)` for each cast member —
 **place, never redraw**. Order cast back→front. Keep it deterministic (no `Date`, no `Math.random`).
