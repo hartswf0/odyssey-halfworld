@@ -59,7 +59,10 @@ const MOVES = [
   { who:"telemachus", from:"bench_far",  to:"corner_dark", t0:17, t1:22 },
   { who:"telemachus", from:"corner_dark",to:"centre_l",    t0:33, t1:39 },
 ];
-const INITIAL = { odysseus:"seat_guest", telemachus:"bench_far" };
+/* CONTINUITY IN — computed, not asserted. S02 ends with Eumaeus gone and the two
+   men alone; this scene opens on exactly that frame. Odysseus leaves for the yard
+   at t=5 regardless, so the join costs the picture nothing. */
+import { exitOccupancy as INITIAL } from "./OD-B16-S02.mjs";
 
 /* --- THE RAMP. One u drives the body AND the flare. ---------------------- */
 const R0 = 8, R1 = 14;                                  // restoration window
