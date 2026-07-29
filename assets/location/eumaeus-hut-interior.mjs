@@ -29,8 +29,8 @@ const MODES = ["day", "night", "fire_high"];
 
 const params = {
   mode:"day",        // default light state
-  ceilFar:0.150,     // thatch line where the roof meets the far wall (frac of H)
-  ceilNear:0.052,    // thatch line overhead at the near edge of the room
+  ceilFar:0.168,     // thatch line where the roof meets the far wall (frac of H)
+  ceilNear:0.082,    // thatch line overhead at the near edge of the room
   ext:1.35,          // how far past the near plan edge the room runs off-frame
   doorW:0.155,       // door width as a fraction of W
   doorH:0.80,        // door height as a fraction of the far wall's interior height
@@ -132,7 +132,7 @@ function drawSet(ctx, W, H, st){
     pen.paint(() => {
       g.moveTo(fl.x, wallTopFar); g.lineTo(fr.x, wallTopFar);
       g.lineTo(er.x, cy(er.y));   g.lineTo(el.x, cy(el.y)); g.closePath();
-    }, toneSolid(inkLevel(T.ceil)), 5);
+    }, toneSolid(inkLevel(T.ceil)), 3);
     // rafter poles running away from the viewer, spaced in PLAN x
     for (const px of [0.12, 0.30, 0.70, 0.88]){
       const a = pt(px, 0), b = pt(px, 1);
@@ -159,9 +159,11 @@ function drawSet(ctx, W, H, st){
     g.globalAlpha = 1;
     // SMOKE HOLE over the hearth: sky by day, black at night
     const sh = pt(ST.hearth.x, ST.hearth.z * 0.62);
-    const hw = W * 0.055, hh = H * 0.022;
+    const hw = W * 0.090, hh = H * 0.034;
+    pen.paint(() => { g.rect(sh.x - hw / 2 - hw * 0.10, cy(sh.y) - hh / 2 - hh * 0.18,
+                             hw * 1.20, hh * 1.36); }, toneSolid(inkLevel(6)), 3);
     pen.paint(() => { g.rect(sh.x - hw / 2, cy(sh.y) - hh / 2, hw, hh); },
-              toneSolid(inkLevel(night ? 7 : 0)), 4);
+              toneSolid(inkLevel(night ? 7 : 0)), 3);
     if (!night){
       // a shaft of daylight dropping from the hole onto the hearth
       g.save(); g.fillStyle = "#ffffff"; g.globalAlpha = 0.95;
@@ -341,11 +343,11 @@ function drawSet(ctx, W, H, st){
       g.beginPath(); g.ellipse(hearth.x, hearth.y + H * 0.02, rr, rr * 0.42, 0, 0, 7); g.fill();
       g.restore();
       // and the corners fall away dark
-      g.save(); g.globalAlpha = 0.55; g.fillStyle = inkLevel(4);
+      g.save(); g.globalAlpha = 0.34; g.fillStyle = inkLevel(4);
       g.beginPath(); g.moveTo(fl.x, fl.y); g.lineTo(el.x, el.y);
-      g.lineTo(el.x + W * 0.10, el.y); g.lineTo(fl.x + W * 0.06, fl.y); g.closePath(); g.fill();
+      g.lineTo(el.x + W * 0.06, el.y); g.lineTo(fl.x + W * 0.035, fl.y); g.closePath(); g.fill();
       g.beginPath(); g.moveTo(fr.x, fr.y); g.lineTo(er.x, er.y);
-      g.lineTo(er.x - W * 0.10, er.y); g.lineTo(fr.x - W * 0.06, fr.y); g.closePath(); g.fill();
+      g.lineTo(er.x - W * 0.06, er.y); g.lineTo(fr.x - W * 0.035, fr.y); g.closePath(); g.fill();
       g.restore();
     }
   }
@@ -366,12 +368,19 @@ function drawSet(ctx, W, H, st){
   if (has("penfittings") && params.penWall){
     const a = pt(1, 0.16), b = pt(1, 0.62);
     // hurdle rails above the stone, the pigs' side
-    for (const k of [0.52, 0.70]){
+    for (const k of [0.47, 0.60]){
       pen.paint(() => {
         const ay = a.y - (a.y - cy(a.y)) * k, by = b.y - (b.y - cy(b.y)) * k;
         g.moveTo(a.x, ay); g.lineTo(b.x, by);
         g.lineTo(b.x, by + H * 0.014); g.lineTo(a.x, ay + H * 0.010); g.closePath();
       }, toneSolid(inkLevel(T.wood)), 3);
+    }
+    // hurdle stakes tying the rails to the wall
+    for (const u of [0.10, 0.36, 0.64, 0.92]){
+      const bx = a.x + (b.x - a.x) * u, by = a.y + (b.y - a.y) * u;
+      const hgt = by - cy(by), sw = W * 0.010 * (0.7 + 0.8 * u);
+      pen.paint(() => { g.rect(bx - sw / 2, by - hgt * 0.66, sw, hgt * 0.24); },
+                toneSolid(inkLevel(T.wood)), 2.5);
     }
     // a low gate hatch through the wall into the pens
     const gA = pt(1, 0.30), gB = pt(1, 0.46);
@@ -392,7 +401,7 @@ function drawSet(ctx, W, H, st){
   /* ---- THE DARK CORNER ---- */
   if (has("corner")){
     const p = at("corner_dark");
-    const cw = W * 0.11 * p.s, ch = H * 0.10 * p.s;
+    const cw = W * 0.085 * p.s, ch = H * 0.075 * p.s;
     // bedding heap of brushwood and fleeces
     pen.paint(() => {
       g.moveTo(p.x - cw, p.y);
@@ -401,17 +410,26 @@ function drawSet(ctx, W, H, st){
       g.closePath();
     }, toneSolid(inkLevel(night ? 7 : 4)), 4);
     pen.ink(() => { g.moveTo(p.x - cw * 0.55, p.y - ch * 0.30); g.lineTo(p.x + cw * 0.30, p.y - ch * 0.62); }, 2);
+    // straw showing in the bedding
+    g.strokeStyle = INK; g.lineWidth = 2; g.globalAlpha = 0.5;
+    for (let i = 0; i < 6; i++){
+      const a = -0.3 - i * 0.42;
+      g.beginPath(); g.moveTo(p.x, p.y - ch * 0.55);
+      g.lineTo(p.x + Math.cos(a) * cw * 0.85, p.y - ch * 0.55 + Math.sin(a) * ch * 0.55);
+      g.stroke();
+    }
+    g.globalAlpha = 1;
     // hides hanging on the wall above it
     for (let i = 0; i < 2; i++){
-      const hx = p.x - cw * 0.5 + i * cw * 1.1, hy = p.y - ch * 1.9 - i * ch * 0.25;
+      const hx = p.x - cw * 0.42 + i * cw * 1.0, hy = p.y - ch * 2.6 - i * ch * 0.30;
       pen.paint(() => {
-        g.moveTo(hx - cw * 0.34, hy);
-        g.lineTo(hx - cw * 0.44, hy + ch * 1.25);
-        g.quadraticCurveTo(hx, hy + ch * 1.60, hx + cw * 0.44, hy + ch * 1.10);
-        g.lineTo(hx + cw * 0.32, hy);
+        g.moveTo(hx - cw * 0.26, hy);
+        g.lineTo(hx - cw * 0.34, hy + ch * 1.10);
+        g.quadraticCurveTo(hx, hy + ch * 1.42, hx + cw * 0.34, hy + ch * 0.96);
+        g.lineTo(hx + cw * 0.24, hy);
         g.closePath();
       }, toneSolid(inkLevel(night ? 6 : 3)), 3);
-      pen.ink(() => { g.moveTo(hx - cw * 0.34, hy); g.lineTo(hx + cw * 0.32, hy); }, 3);
+      pen.ink(() => { g.moveTo(hx - cw * 0.26, hy); g.lineTo(hx + cw * 0.24, hy); }, 3);
     }
   }
 
@@ -444,7 +462,7 @@ function drawSet(ctx, W, H, st){
       pen.paint(() => {
         g.ellipse(p.x + Math.cos(a) * r, p.y + Math.sin(a) * r * 0.48,
                   r * 0.25, r * 0.19, 0, 0, 7);
-      }, toneSolid(inkLevel(i % 2 ? 6 : 5)), 3);
+      }, toneSolid(inkLevel(i % 2 ? 4 : 3)), 3);
     }
     // firewood stacked beside it — round ends showing
     const wx = p.x - r * 2.7, wy = p.y + H * 0.010, lr = r * 0.20;
@@ -463,9 +481,10 @@ function drawSet(ctx, W, H, st){
     const r = W * 0.072 * p.s;
     if (mode === "day"){
       // embers keeping: two logs, a low tongue
-      log(pen, g, p.x, p.y - r * 0.06, r * 1.30, r * 0.22, toneSolid(inkLevel(6)),  0.16);
-      log(pen, g, p.x, p.y + r * 0.10, r * 1.20, r * 0.20, toneSolid(inkLevel(6)), -0.14);
-      flame(pen, g, p.x, p.y - r * 0.10, r * 0.30, r * 0.52, toneSolid(inkLevel(5)));
+      log(pen, g, p.x, p.y - r * 0.06, r * 1.35, r * 0.24, toneSolid(inkLevel(7)),  0.18);
+      log(pen, g, p.x, p.y + r * 0.12, r * 1.25, r * 0.22, toneSolid(inkLevel(7)), -0.16);
+      flame(pen, g, p.x, p.y - r * 0.14, r * 0.46, r * 0.92, toneSolid(inkLevel(6)));
+      flame(pen, g, p.x + r * 0.38, p.y - r * 0.02, r * 0.20, r * 0.42, toneSolid(inkLevel(5)));
     } else if (mode === "night"){
       log(pen, g, p.x, p.y + r * 0.08, r * 1.35, r * 0.24, toneSolid(inkLevel(6)), 0.12);
       flame(pen, g, p.x, p.y - r * 0.06, r * 0.52, r * 1.05, toneSolid(inkLevel(6)));
@@ -479,7 +498,7 @@ function drawSet(ctx, W, H, st){
       flame(pen, g, p.x - r * 0.55, p.y - r * 0.20, r * 0.34, r * 1.00, toneSolid(inkLevel(6)));
       flame(pen, g, p.x + r * 0.58, p.y - r * 0.16, r * 0.30, r * 0.84, toneSolid(inkLevel(6)));
       // forked uprights + spit + the joint on it
-      const uh = r * 2.35, ux = r * 1.55;
+      const uh = r * 2.05, ux = r * 1.55;
       for (const sgn of [-1, 1]){
         pen.paint(() => { g.rect(p.x + sgn * ux - r * 0.09, p.y - uh, r * 0.18, uh); },
                   toneSolid(inkLevel(7)), 3);
@@ -491,8 +510,10 @@ function drawSet(ctx, W, H, st){
       }
       pen.paint(() => { g.rect(p.x - ux * 1.25, p.y - uh - r * 0.06, ux * 2.5, r * 0.12); },
                 toneSolid(inkLevel(7)), 2.5);
-      pen.paint(() => { g.ellipse(p.x, p.y - uh + r * 0.26, r * 0.62, r * 0.30, 0, 0, 7); },
-                toneSolid(inkLevel(6)), 3);
+      pen.paint(() => { g.ellipse(p.x - r * 0.55, p.y - uh + r * 0.44, r * 0.46, r * 0.30, 0, 0, 7); },
+                toneSolid(inkLevel(5)), 3);
+      pen.paint(() => { g.ellipse(p.x + r * 0.62, p.y - uh + r * 0.40, r * 0.38, r * 0.26, 0, 0, 7); },
+                toneSolid(inkLevel(5)), 3);
       // pot hung from the ridge on a chain
       const px = p.x + r * 2.3, py = p.y - r * 2.9;
       pen.ink(() => { g.moveTo(px, cy(p.y)); g.lineTo(px, py - r * 0.30); }, 2.5);
@@ -548,16 +569,16 @@ function drawSet(ctx, W, H, st){
     const sh = pt(ST.hearth.x, ST.hearth.z * 0.62);
     const top = cy(sh.y);
     g.save();
-    g.strokeStyle = inkLevel(roar ? 4 : 3);
-    g.lineWidth = roar ? W * 0.030 : W * 0.012;
+    g.strokeStyle = inkLevel(roar ? 3 : 2);
+    g.lineWidth = roar ? W * 0.034 : W * 0.013;
     g.lineCap = "round";
-    g.globalAlpha = roar ? 0.55 : 0.34;
+    g.globalAlpha = roar ? 0.85 : 0.55;
     g.beginPath();
     g.moveTo(p.x, p.y - r * (roar ? 2.2 : 1.0));
     g.quadraticCurveTo(p.x + r * 0.9, (p.y + top) / 2, sh.x, top + H * 0.02);
     g.stroke();
     if (roar){
-      g.lineWidth = W * 0.016; g.globalAlpha = 0.4;
+      g.lineWidth = W * 0.018; g.globalAlpha = 0.6;
       g.beginPath();
       g.moveTo(p.x - r * 0.5, p.y - r * 1.8);
       g.quadraticCurveTo(p.x - r * 1.2, (p.y + top) / 2, sh.x - W * 0.02, top + H * 0.03);

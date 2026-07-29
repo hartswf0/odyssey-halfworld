@@ -28,10 +28,11 @@
      5. It is Athena's work. They embrace and weep, longer than birds crying.
 
    ROOM NOTE. The atlas casts no location for this scene (5 of 6 Book XVI
-   scenes have none), so restage has nothing to paint the field with. We cast
-   location.eumaeuss-pig-farm as the standing field; swap FIELD_ASSET to
-   location.eumaeus-hut-interior the moment that job lands. Nothing else
-   in this file changes.
+   scenes have none), so restage had nothing to paint the field with. The
+   field is now location.eumaeus-hut-interior, which builds its architecture
+   by projecting scenes/_plans/eumaeus-hut.mjs through the same project()
+   used here — so the door, hearth, benches and stool this scene names are
+   the door, hearth, benches and stool that get drawn.
 
    Verify:  node harness/render-scene.mjs scenes/OD-B16-S03.mjs --t 14
    ============================================================ */
