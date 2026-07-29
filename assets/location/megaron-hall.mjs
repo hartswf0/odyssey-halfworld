@@ -51,7 +51,7 @@ const params = {
   roofRake:0.26,     // how fast the ceiling climbs toward the camera
   axes:AXE_FIX.count || 12,
   laneHalf:0.085,    // half-width of the spine lane, in PLAN x
-  rafters:6, stairSteps:7, spears:5, clerestory:5,
+  rafters:6, stairSteps:7, spears:5, clerestory:3,
   doorHalf:0.15,     // half-width of the great doors, in PLAN x
   doorHeight:0.32,   // in unit height (README §5: h = H·s·(0.60+0.50d))
 };
@@ -134,10 +134,10 @@ function drawSet(ctx, W, H, st){
 
   /* ================= SHELL — ceiling, side walls, far wall, floor ========= */
   if (has("shell")){
-    g.fillStyle = tn(3); g.fillRect(0,0,W,H);                       // side walls
+    g.fillStyle = tn(2); g.fillRect(0,0,W,H);                       // side walls
     // ceiling plane (the two side wedges are what is left of the fill above)
     pen.paint(()=>{ g.moveTo(X(0,.08), Cy(.08)); g.lineTo(X(1,.08),Cy(.08));
-      rail(1,ceilY,.08,1.0); rail(0,ceilY,1.0,.08); g.closePath(); }, S(4), 5);
+      rail(1,ceilY,.08,1.0); rail(0,ceilY,1.0,.08); g.closePath(); }, S(3), 5);
     // FAR WALL — the plane the great doors are cut into
     pen.paint(()=>{ g.rect(X(0,.08), Cy(.08), X(1,.08)-X(0,.08), Y(.08)-Cy(.08)); }, S(2), 5);
     g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=.22;            // stone courses
@@ -146,7 +146,7 @@ function drawSet(ctx, W, H, st){
     g.globalAlpha=1;
     // FLOOR — sampled junctions, so wall and floor meet exactly on the law
     pen.paint(()=>{ g.moveTo(X(0,.08), Y(.08)); rail(0,py,.08,1.28);
-      g.lineTo(X(1,1.28), Y(1.28)); rail(1,py,1.28,.08); g.closePath(); }, SF(2), 5);
+      g.lineTo(X(1,1.28), Y(1.28)); rail(1,py,1.28,.08); g.closePath(); }, SF(1), 5);
     // side-wall ashlar: verticals along each wall at fixed depths
     g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=.20;
     for(const sd of [0,1]) for(const z of [.16,.28,.44,.64,.88]){
@@ -161,10 +161,10 @@ function drawSet(ctx, W, H, st){
     for(let i=1;i<params.rafters;i++){ const xp=i/params.rafters;
       g.beginPath(); g.moveTo(X(xp,.08),Cy(.08)); g.lineTo(X(xp,zEnd),Cy(zEnd)); g.stroke(); }
     g.globalAlpha=1;
-    for(const z of [.14,.30,.52,.74]){                   // transverse roof beams
-      pen.paint(()=>{ const k=H*0.020*SZ(z);
+    for(const z of [.16,.34,.56]){                       // transverse roof beams
+      pen.paint(()=>{ const k=H*0.013*SZ(z);
         g.moveTo(X(0,z),Cy(z)); g.lineTo(X(1,z),Cy(z));
-        g.lineTo(X(1,z),Cy(z)+k); g.lineTo(X(0,z),Cy(z)+k); g.closePath(); }, S(6), 3);
+        g.lineTo(X(1,z),Cy(z)+k); g.lineTo(X(0,z),Cy(z)+k); g.closePath(); }, S(4), 3);
     }
     // the smoke louver, directly over the hearth
     const hz = megaron.stations.hearth.z;
@@ -179,9 +179,9 @@ function drawSet(ctx, W, H, st){
     // clerestory slots under the roof — shuttered at night, hazed after XXII
     const cl = M.sky==="dark" ? 6 : M.sky==="haze" ? 3 : 1;
     for(let i=0;i<params.clerestory;i++){
-      const u=(i+0.5)/params.clerestory, xw=X(0,.08), ww=X(1,.08)-xw;
-      pen.paint(()=>{ g.rect(xw+ww*(u-0.07), Cy(.08)+H*0.048, ww*0.10, H*0.046); },
-        toneSolid(M.sky==="dark"?tn(6):M.sky==="haze"?tn(3):inkLevel(cl)), 4);
+      const u=[0.06,0.50,0.94][i] ?? (i+0.5)/params.clerestory, xw=X(0,.08), ww=X(1,.08)-xw;
+      pen.paint(()=>{ g.rect(xw+ww*(u-0.055), Cy(.08)+H*0.042, ww*0.11, H*0.048); },
+        toneSolid(M.sky==="dark"?tn(6):M.sky==="haze"?tn(4):inkLevel(0)), 4);
     }
   }
   if (has("doors")){
@@ -190,16 +190,16 @@ function drawSet(ctx, W, H, st){
     const dh = params.doorHeight * D.s * H;
     const x0 = D.x - dw/2, yTop = D.y - dh;
     // the deep jambs + lintel of the great doorway
-    pen.paint(()=>{ g.rect(x0-W*0.026, yTop-H*0.030, dw+W*0.052, dh+H*0.030); }, S(5), 5);
+    pen.paint(()=>{ g.rect(x0-W*0.026, yTop-H*0.030, dw+W*0.052, dh+H*0.030); }, S(4), 5);
     // the opening itself
-    const openTone = M.doors==="open" ? inkLevel(1) : M.doors==="ajar" ? tn(3) : tn(4);
+    const openTone = M.doors==="open" ? inkLevel(0) : M.doors==="ajar" ? inkLevel(1) : tn(3);
     pen.paint(()=>{ g.rect(x0, yTop, dw, dh); }, toneSolid(openTone), 5);
     if (M.doors!=="open"){                              // two leaves, shut or ajar
-      const ajar = M.doors==="ajar" ? 0.42 : 1.0;       // fraction of each leaf closed
+      const ajar = M.doors==="ajar" ? 0.72 : 1.0;       // fraction of each leaf closed
       for(const sgn of [-1,1]){
         const lw2 = (dw/2)*ajar;
         const lx = sgn<0 ? x0 : x0+dw-lw2;
-        pen.paint(()=>{ g.rect(lx, yTop, lw2, dh); }, S(5), 4);
+        pen.paint(()=>{ g.rect(lx, yTop, lw2, dh); }, S(4), 4);
         g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=.5;
         for(let j=1;j<=3;j++){ const yy=yTop+dh*(j/4);
           g.beginPath(); g.moveTo(lx,yy); g.lineTo(lx+lw2,yy); g.stroke(); }
@@ -217,35 +217,46 @@ function drawSet(ctx, W, H, st){
   /* ================= THE SILL — XXI.420, he shoots from here ============== */
   if (has("sill")){
     const s0 = megaron.stations.threshold.z;
-    pen.paint(quad(.34,.66, s0-.045, s0+.045, 0.030, 0.030), S(5), 5);   // slab top
+    pen.paint(quad(.34,.66, s0-.045, s0+.045, 0.030, 0.030), S(3), 5);   // slab top
     pen.paint(()=>{ const z1=s0+.045, k=0.030*SZ(z1)*H;
       g.moveTo(X(.34,z1),Y(z1)-k); g.lineTo(X(.66,z1),Y(z1)-k);
       g.lineTo(X(.66,z1),Y(z1));   g.lineTo(X(.34,z1),Y(z1)); g.closePath(); }, S(6), 5);
     pen.ink(()=>{ g.moveTo(X(.34,s0),Y(s0)-0.030*SZ(s0)*H); g.lineTo(X(.66,s0),Y(s0)-0.030*SZ(s0)*H); }, 3);
   }
 
-  /* ================= WALL ARMS — full to XVIII, GONE from XX on =========== */
+  /* ================= WALL ARMS — full to XVIII, GONE from XX on ===========
+     On the SIDE walls, where the plan leaves room; the far wall belongs to the
+     doors. XIX.1–33: father and son carry every spear and shield out of the
+     hall by night, so from `night` on these racks hold nothing but their pegs. */
   if (has("racks")){
-    for(const sgn of [-1,1]){
-      const cxr = X(0.5 + sgn*0.30, .08), bw = W*0.055, by = Y(.08), top = by - H*0.20;
-      pen.paint(()=>{ g.rect(cxr-bw/2, top, bw, by-top); }, S(2), 4);        // backing board
-      pen.paint(()=>{ g.rect(cxr-bw*0.62, top+H*0.010, bw*1.24, H*0.016); }, S(5), 3); // upper peg rail
-      pen.paint(()=>{ g.rect(cxr-bw*0.62, by-H*0.030, bw*1.24, H*0.020); }, S(5), 3);  // lower rail
+    const z0 = .50, z1 = .74, hU = 0.26;
+    for(const side of [0,1]){
+      const dir = side ? -1 : 1;
+      const bx0=X(side,z0), by0=Y(z0), bx1=X(side,z1), by1=Y(z1);
+      const t0=by0-hU*SZ(z0)*H, t1=by1-hU*SZ(z1)*H;
+      pen.paint(()=>{ g.moveTo(bx0,by0); g.lineTo(bx1,by1); g.lineTo(bx1,t1); g.lineTo(bx0,t0); g.closePath(); }, S(3), 3);
+      for(const f of [0.14,0.74]){                                    // the two peg rails
+        const ya=lerp(t0,by0,f), yb=lerp(t1,by1,f), k=H*0.016;
+        pen.paint(()=>{ g.moveTo(bx0,ya); g.lineTo(bx1,yb); g.lineTo(bx1,yb+k); g.lineTo(bx0,ya+k); g.closePath(); }, S(4), 2);
+      }
       if (M.arms){
         for(let i=0;i<params.spears;i++){
-          const u = params.spears>1 ? i/(params.spears-1) : .5;
-          const bx = cxr + (u-0.5)*bw*0.86, tx = cxr + (u-0.5)*bw*0.42;
-          pen.ink(()=>{ g.moveTo(bx, by-H*0.012); g.lineTo(tx, top-H*0.052); }, 3);
-          g.fillStyle = tn(7); g.beginPath();
-          g.moveTo(tx, top-H*0.086); g.lineTo(tx-W*0.008, top-H*0.046);
-          g.lineTo(tx+W*0.008, top-H*0.046); g.closePath(); g.fill();
+          const u=(i+0.5)/params.spears;
+          const fx0=lerp(bx0,bx1,u), fyb=lerp(by0,by1,u), fyt=lerp(t0,t1,u), hx0=fx0+dir*W*0.012;
+          pen.ink(()=>{ g.moveTo(fx0, fyb-H*0.014); g.lineTo(hx0, fyt-H*0.024); }, 3);
+          g.fillStyle=tn(7); g.beginPath();
+          g.moveTo(hx0, fyt-H*0.056); g.lineTo(hx0-W*0.008, fyt-H*0.022);
+          g.lineTo(hx0+W*0.008, fyt-H*0.022); g.closePath(); g.fill();
         }
-        pen.paint(()=>{ g.arc(cxr, top-H*0.032, W*0.030, 0, 7); }, S(4), 5);  // hung shield
-        pen.paint(()=>{ g.arc(cxr, top-H*0.032, W*0.011, 0, 7); }, S(6), 3);  // boss
+        for(const u of [0.26,0.74]){                                  // shields on the wall
+          const sx=lerp(bx0,bx1,u)+dir*W*0.014, sy=lerp(t0,t1,u)-H*0.052;
+          pen.paint(()=>{ g.ellipse(sx, sy, W*0.030, W*0.030, 0,0,7); }, S(3), 5);
+          pen.paint(()=>{ g.ellipse(sx, sy, W*0.010, W*0.010, 0,0,7); }, S(6), 3);
+        }
       } else {
-        for(let i=0;i<params.spears;i++){                                     // the bare pegs
-          const u = i/(params.spears-1), bx = cxr + (u-0.5)*bw*0.86;
-          pen.ink(()=>{ g.moveTo(bx, top+H*0.010); g.lineTo(bx, top-H*0.014); }, 4);
+        for(let i=0;i<params.spears;i++){                             // bare pegs. Nothing hangs.
+          const u=(i+0.5)/params.spears, fx0=lerp(bx0,bx1,u), fyt=lerp(t0,t1,u);
+          pen.ink(()=>{ g.moveTo(fx0, fyt+H*0.014); g.lineTo(fx0+dir*W*0.014, fyt-H*0.004); }, 4);
         }
       }
     }
@@ -256,7 +267,7 @@ function drawSet(ctx, W, H, st){
      postern (.06,.24) is the standing spot a step inside it; storeroom
      (.02,.30) is through it. */
   if (has("postern")){
-    wallDoor(0, .17, .35, 0.28, M.bar || mode==="battle" ? 6 : 5, 6);
+    wallDoor(0, .17, .35, 0.28, mode==="battle" ? 3 : 5, 4);
     // the passage beyond — a darker throat with two steps down to the arms
     pen.paint(()=>{ const z0=.235,z1=.315, h=0.20;
       g.moveTo(X(0,z0),Y(z0)); g.lineTo(X(0,z1),Y(z1));
@@ -269,38 +280,39 @@ function drawSet(ctx, W, H, st){
 
   /* ================= THE MAIDS' DOORWAY (right wall) ====================== */
   if (has("maidsdoor")){
-    wallDoor(1, .32, .50, 0.26, 6, 6);
+    wallDoor(1, .32, .50, 0.26, 5, 4);
   }
 
   /* ================= THE STAIR to Penelope's chamber ====================== */
   if (has("stair")){
     const f = A("stair_up"), n = params.stairSteps;
-    const tw = W*0.072, rise = H*0.028, run = W*0.011;
+    const tw = W*0.058, rise = H*0.026, run = W*0.010;
     for(let i=0;i<n;i++){
       const sx = f.x + run*i, sy = f.y - rise*i;
-      pen.paint(()=>{ g.rect(sx, sy-rise, tw, rise*0.92); }, S(3+(i%2)), 3);
+      pen.paint(()=>{ g.rect(sx, sy-rise, tw, rise*0.92); }, S(2+(i%2)), 3);
     }
     pen.paint(()=>{ g.moveTo(f.x, f.y); g.lineTo(f.x+run*n, f.y-rise*n);
-      g.lineTo(f.x+run*n+W*0.020, f.y-rise*n); g.lineTo(f.x+W*0.020, f.y); g.closePath(); }, S(5), 4);
-    pen.paint(()=>{ g.rect(f.x+run*n, f.y-rise*n-H*0.115, W*0.070, H*0.118); }, S(6), 4);  // upper door
+      g.lineTo(f.x+run*n+W*0.020, f.y-rise*n); g.lineTo(f.x+W*0.020, f.y); g.closePath(); }, S(4), 4);
+    pen.paint(()=>{ g.rect(f.x+run*n-W*0.009, f.y-rise*n-H*0.092, W*0.070, H*0.094); }, S(2), 4); // frame
+    pen.paint(()=>{ g.rect(f.x+run*n, f.y-rise*n-H*0.080, W*0.052, H*0.082); }, S(6), 4);  // upper door
   }
 
   /* ================= THE TWO PILLARS ====================================== */
   if (has("pillars")){
     for(const nm of ["pillar_l","pillar_r"]){
       const p = A(nm), z = megaron.stations[nm].z;
-      const half = 0.05 * SPREAD(z) * W, top = Math.max(H*0.052, Cy(z));
-      pen.paint(()=>{ g.rect(p.x-half, top, half*2, p.y-top); }, S(4), 5);
+      const half = 0.038 * SPREAD(z) * W, top = Math.max(H*0.052, Cy(z));
+      pen.paint(()=>{ g.rect(p.x-half, top, half*2, p.y-top); }, S(2), 5);
       g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=.42;
       for(const q of [-0.45,0.45]){ g.beginPath(); g.moveTo(p.x+half*q, top); g.lineTo(p.x+half*q, p.y); g.stroke(); }
       g.globalAlpha=1;
-      pen.paint(()=>{ g.rect(p.x-half*1.55, top, half*3.1, H*0.030); }, S(6), 4);            // capital
-      pen.paint(()=>{ g.rect(p.x-half*1.35, p.y-H*0.026, half*2.7, H*0.028); }, S(5), 4);    // base
+      pen.paint(()=>{ g.rect(p.x-half*1.55, top, half*3.1, H*0.028); }, S(5), 4);            // capital
+      pen.paint(()=>{ g.rect(p.x-half*1.35, p.y-H*0.024, half*2.7, H*0.026); }, S(4), 4);    // base
     }
     // the roof beam the two pillars carry
     const l=A("pillar_l"), r=A("pillar_r"), z=megaron.stations.pillar_l.z;
     const bt = Math.max(H*0.052, Cy(z));
-    pen.paint(()=>{ g.rect(l.x-W*0.10, bt-H*0.030, (r.x-l.x)+W*0.20, H*0.032); }, S(6), 4);
+    pen.paint(()=>{ g.rect(l.x-W*0.08, bt-H*0.022, (r.x-l.x)+W*0.16, H*0.024); }, S(4), 4);
   }
 
   /* ================= THE SPINE — dressed lane, door to throne =============
@@ -308,7 +320,9 @@ function drawSet(ctx, W, H, st){
      plan.ray("shot_mark","door_main",u) travels. */
   if (has("lane")){
     const lh = params.laneHalf;
-    pen.paint(quad(.5-lh, .5+lh, .10, 1.28), SF(3), 3);
+    pen.paint(quad(.5-lh, .5+lh, .10, 1.28), SF(2), 3);
+    pen.ink(()=>{ g.moveTo(X(.5-lh,.10),Y(.10)); g.lineTo(X(.5-lh,1.28),Y(1.28));
+                  g.moveTo(X(.5+lh,.10),Y(.10)); g.lineTo(X(.5+lh,1.28),Y(1.28)); }, 3);
     g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=.30;             // flagstone courses
     for(const z of [.16,.26,.38,.52,.68,.86,1.06]){
       g.beginPath(); g.moveTo(X(0,z),Y(z)); g.lineTo(X(1,z),Y(z)); g.stroke(); }
@@ -316,8 +330,8 @@ function drawSet(ctx, W, H, st){
       g.beginPath(); g.moveTo(X(xp,.09),Y(.09)); g.lineTo(X(xp,1.28),Y(1.28)); g.stroke(); }
     g.globalAlpha=1;
     if (M.axes){                                                     // XXI: the trench
-      pen.paint(quad(.455,.545,.24,.78), S(6), 4);
-      pen.paint(quad(.545,.605,.24,.78), S(4), 3);                   // heaped spoil
+      pen.paint(quad(.472,.528,.24,.78), S(3), 3);
+      pen.paint(quad(.528,.575,.24,.78), S(2), 2);                   // heaped spoil
     }
   }
 
@@ -328,21 +342,19 @@ function drawSet(ctx, W, H, st){
     const yFar = Y(hz-.075), yNear = Y(hz+.075), ry = (yNear-yFar)/2, cy = (yNear+yFar)/2;
     const flat = (M.fire==="raked" || M.fire==="kicked" || M.fire==="dead");
     // the stone ring — raised when the hall is a hall, raked flush for the contest
-    pen.paint(()=>{ g.ellipse(h.x, cy, rx, ry, 0, 0, 7); }, S(flat ? 3 : 5), 5);
-    pen.paint(()=>{ g.ellipse(h.x, cy, rx*0.70, ry*0.70, 0, 0, 7); }, S(flat ? 2 : 6), 4);
-    if (!flat){                                                       // the raised kerb
-      pen.paint(()=>{ g.moveTo(h.x-rx, cy); g.lineTo(h.x-rx, cy-H*0.020);
-        g.lineTo(h.x+rx, cy-H*0.020); g.lineTo(h.x+rx, cy); g.closePath(); }, S(5), 4);
-    }
+    pen.paint(()=>{ g.ellipse(h.x, cy, rx, ry, 0, 0, 7); }, S(flat ? 2 : 3), 5);
+    pen.paint(()=>{ g.ellipse(h.x, cy, rx*0.70, ry*0.70, 0, 0, 7); }, S(flat ? 1 : 4), 4);
+    // the raised kerb, read as a second ring lifted off the floor
+    if (!flat) pen.paint(()=>{ g.ellipse(h.x, cy-H*0.014, rx*0.88, ry*0.82, 0, 0, 7); }, S(2), 4);
     if (M.fire==="high" || M.fire==="low" || M.fire==="fresh"){
       const n = M.fire==="high" ? 7 : M.fire==="fresh" ? 5 : 4;
-      const tall = M.fire==="high" ? 0.135 : M.fire==="fresh" ? 0.085 : 0.055;
+      const tall = M.fire==="high" ? 0.125 : M.fire==="fresh" ? 0.072 : 0.050;
       for(let i=0;i<n;i++){
-        const u=(i+0.5)/n, fx0=h.x+(u-0.5)*rx*1.30;
+        const u=(i+0.5)/n, fx0=h.x+(u-0.5)*rx*1.42;
         const fh=H*tall*(0.55+0.65*Math.abs(Math.sin(i*2.1+T*1.7)));
         g.fillStyle=tn(7); g.beginPath();
-        g.moveTo(fx0-rx*0.14, cy); g.lineTo(fx0+(i%2?rx*0.06:-rx*0.06), cy-fh);
-        g.lineTo(fx0+rx*0.14, cy); g.closePath(); g.fill();
+        g.moveTo(fx0-rx*0.18, cy-H*0.004); g.lineTo(fx0+(i%2?rx*0.07:-rx*0.07), cy-fh);
+        g.lineTo(fx0+rx*0.18, cy-H*0.004); g.closePath(); g.fill();
       }
       g.strokeStyle=INK; g.lineWidth=3; g.globalAlpha=.30;            // smoke to the louver
       for(let i=0;i<3;i++){ g.beginPath();
@@ -381,26 +393,26 @@ function drawSet(ctx, W, H, st){
     const F = M.furniture;
     /* an overturned piece: the slab on edge with its legs in the air */
     const tumbled = (s, hx, hz2, tilt) => {
-      const cx2 = X(s.x, s.z), cy2 = Y(s.z), w2 = hx*SPREAD(s.z)*W*2, h2 = 0.13*SZ(s.z)*H;
-      pen.paint(()=>{ g.ellipse(cx2, cy2, w2*0.52, hz2*SPREAD(s.z)*H*0.55, 0,0,7); }, S(3), 3);
+      const cx2 = X(s.x, s.z), cy2 = Y(s.z), w2 = hx*SPREAD(s.z)*W*2, h2 = 0.10*SZ(s.z)*H;
+      pen.paint(()=>{ g.ellipse(cx2, cy2, w2*0.52, hz2*SPREAD(s.z)*H*0.55, 0,0,7); }, S(2), 3);
       g.save(); g.translate(cx2, cy2); g.rotate(tilt);
       for(const q of [-0.66,-0.22,0.22,0.66])
-        pen.paint(()=>{ g.rect(q*w2-W*0.008, -h2*2.4, W*0.016, h2*1.1); }, S(6), 3);
-      pen.paint(()=>{ g.rect(-w2/2, -h2*1.5, w2, h2*0.46); }, S(4), 5);
+        pen.paint(()=>{ g.rect(q*w2-W*0.008, -h2*2.4, W*0.016, h2*1.1); }, S(5), 3);
+      pen.paint(()=>{ g.rect(-w2/2, -h2*1.5, w2, h2*0.46); }, S(3), 5);
       g.restore();
     };
     const bench = (nm, tilt=0) => {
       const s = megaron.stations[nm];
       if (tilt) return tumbled(s, 0.075, 0.045, tilt);
-      planBox(s.x-0.075, s.x+0.075, s.z-0.038, s.z+0.038, 0.075, 3, 5);
+      planBox(s.x-0.075, s.x+0.075, s.z-0.038, s.z+0.038, 0.055, 2, 4);
     };
     const table = (nm, laden, tilt=0) => {
       const s = megaron.stations[nm];
       if (tilt) return tumbled(s, 0.095, 0.060, tilt);
-      planBox(s.x-0.095, s.x+0.095, s.z-0.058, s.z+0.058, 0.135, 4, 5);
-      const hh = 0.135*SZ(s.z)*H;
+      planBox(s.x-0.095, s.x+0.095, s.z-0.058, s.z+0.058, 0.105, 2, 4);
+      const hh = 0.105*SZ(s.z)*H;
       for(const q of [-0.72,0.72]) pen.paint(()=>{
-        g.rect(X(s.x+q*0.095, s.z+0.05)-W*0.008, Y(s.z+0.05)-hh, W*0.016, hh); }, S(6), 3);
+        g.rect(X(s.x+q*0.095, s.z+0.05)-W*0.008, Y(s.z+0.05)-hh, W*0.016, hh); }, S(5), 3);
       if (laden){                                                     // cups, platters, krater
         for(let i=0;i<5;i++){ const u=(i+0.5)/5;
           const cx2=X(s.x-0.075+0.15*u, s.z-0.02), cy3=Y(s.z-0.02)-hh;
@@ -415,7 +427,7 @@ function drawSet(ctx, W, H, st){
       table("table_l", F==="feast"); table("table_r", F==="feast");
       if (F==="stacked"){                                     // XX: stools up on the boards
         for(const nm of ["table_l","table_r"]){ const s=megaron.stations[nm];
-          planBox(s.x-0.045, s.x+0.045, s.z-0.030, s.z+0.030, 0.235, 3, 5); }
+          planBox(s.x-0.045, s.x+0.045, s.z-0.030, s.z+0.030, 0.185, 2, 4); }
       }
       if (F==="feast"){                                       // the suitors' disorder
         for(const nm of ["bench_l2","bench_r1"]){ const s=megaron.stations[nm];
@@ -424,11 +436,11 @@ function drawSet(ctx, W, H, st){
     } else if (F==="cleared"){                                 // XXI: pushed to the walls
       for(const [nm,dx] of [["bench_l1",-0.07],["bench_l2",-0.07],["bench_r1",0.07],["bench_r2",0.07]]){
         const s=megaron.stations[nm];
-        planBox(s.x+dx-0.075, s.x+dx+0.075, s.z-0.034, s.z+0.034, 0.070, 3, 5);
+        planBox(s.x+dx-0.075, s.x+dx+0.075, s.z-0.034, s.z+0.034, 0.055, 2, 4);
       }
       for(const [nm,dx] of [["table_l",-0.12],["table_r",0.12]]){
         const s=megaron.stations[nm];
-        planBox(s.x+dx-0.070, s.x+dx+0.070, s.z-0.048, s.z+0.048, 0.130, 4, 6);
+        planBox(s.x+dx-0.070, s.x+dx+0.070, s.z-0.048, s.z+0.048, 0.100, 2, 4);
       }
     } else if (F==="wrecked"){                                 // XXII
       bench("bench_l1", 0.42); bench("bench_r1", -0.36);
@@ -454,16 +466,16 @@ function drawSet(ctx, W, H, st){
       const u = N>1 ? i/(N-1) : 0.5;
       const p = megaron.ray("axe_first","axe_last",u);
       const bx = p.x*W, by = p.y*H, sc = 0.60+0.50*p.d;
-      const hw = W*0.013*sc, hh = H*0.185*sc, rr = W*0.021*sc;
-      pen.paint(()=>{ g.rect(bx-hw*2.0, by-H*0.013*sc, hw*4.0, H*0.015*sc); }, S(6), 3); // set in the earth
-      pen.paint(()=>{ g.rect(bx-hw, by-hh, hw*2, hh); }, S(5), 3);                       // the helve
-      const ry0 = by - hh*0.86;
+      const hw = W*0.0090*sc, hh = H*0.115*sc, rr = W*0.0180*sc;
+      pen.paint(()=>{ g.rect(bx-hw*2.4, by-H*0.011*sc, hw*4.8, H*0.013*sc); }, S(5), 2); // set in the earth
+      pen.paint(()=>{ g.rect(bx-hw, by-hh, hw*2, hh); }, S(4), 3);                       // the helve
+      const ry0 = by - hh*0.95;
       for(const sgn of [-1,1])                                                            // the double blade
-        pen.paint(()=>{ g.moveTo(bx+sgn*rr*0.6, ry0-rr*0.95); g.lineTo(bx+sgn*rr*2.2, ry0-rr*0.25);
-          g.lineTo(bx+sgn*rr*2.2, ry0+rr*0.25); g.lineTo(bx+sgn*rr*0.6, ry0+rr*0.95); g.closePath(); }, S(6), 3);
+        pen.paint(()=>{ g.moveTo(bx+sgn*rr*0.9, ry0-rr*0.55); g.lineTo(bx+sgn*rr*2.3, ry0-rr*0.16);
+          g.lineTo(bx+sgn*rr*2.3, ry0+rr*0.16); g.lineTo(bx+sgn*rr*0.9, ry0+rr*0.55); g.closePath(); }, S(6), 2);
       // THE RING — the hole the shaft flies through. Light inside, hard contour.
-      pen.paint(()=>{ g.arc(bx, ry0, rr*1.08, 0, 7); }, S(7), 3);
-      pen.paint(()=>{ g.arc(bx, ry0, rr*0.60, 0, 7); }, toneSolid(inkLevel(0)), 4);
+      pen.paint(()=>{ g.arc(bx, ry0, rr*1.00, 0, 7); }, S(7), 3);
+      pen.paint(()=>{ g.arc(bx, ry0, rr*0.56, 0, 7); }, toneSolid(inkLevel(0)), 3);
     }
   }
 
@@ -484,18 +496,18 @@ function drawSet(ctx, W, H, st){
         const ax=h.x+Math.cos(a)*W*0.085*rr, ay=h.y+Math.sin(a)*H*0.035*rr;
         pen.paint(()=>{ g.ellipse(ax, ay, W*0.024, H*0.011, 0,0,7); }, SF(3), 2); }
       const cd = A("corner_dead");
-      const pools = [[cd.x,cd.y,1.7],[X(.34,.72),Y(.72),1.0],[X(.62,.60),Y(.60),0.8],
-                     [X(.24,.86),Y(.86),1.3],[X(.70,.82),Y(.82),1.1],[X(.46,.66),Y(.66),0.7]];
+      const pools = [[cd.x,cd.y,1.25],[X(.34,.72),Y(.72),0.8],[X(.62,.60),Y(.60),0.6],
+                     [X(.26,.86),Y(.86),0.9],[X(.70,.82),Y(.82),0.8],[X(.46,.66),Y(.66),0.55]];
       for(const [bx,by,k] of pools){
-        pen.paint(()=>{ g.ellipse(bx, by, W*0.052*k, H*0.020*k, 0.2*k, 0, 7); }, S(M.litter==="blood"?7:6), 3);
-        pen.paint(()=>{ g.ellipse(bx+W*0.036*k, by+H*0.011*k, W*0.020*k, H*0.008*k, 0,0,7); }, S(6), 2);
+        pen.paint(()=>{ g.ellipse(bx, by, W*0.030*k, H*0.012*k, 0.2*k, 0, 7); }, S(M.litter==="blood"?6:5), 3);
+        pen.paint(()=>{ g.ellipse(bx+W*0.022*k, by+H*0.008*k, W*0.011*k, H*0.005*k, 0,0,7); }, S(7), 2);
       }
-      for(let i=0;i<7;i++){                                     // arrows stuck in the floor
+      for(let i=0;i<5;i++){                                     // arrows stuck in the floor
         const s=spots[i+3], sx=X(s.x,s.z), sy=Y(s.z), k=SZ(s.z), a=-1.05-R()*0.5;
         g.save(); g.translate(sx,sy); g.rotate(a);
-        pen.ink(()=>{ g.moveTo(0,0); g.lineTo(H*0.085*k, 0); }, 3);
-        pen.ink(()=>{ g.moveTo(H*0.085*k,0); g.lineTo(H*0.070*k,-H*0.013*k); }, 3);
-        pen.ink(()=>{ g.moveTo(H*0.085*k,0); g.lineTo(H*0.070*k, H*0.013*k); }, 3);
+        pen.ink(()=>{ g.moveTo(0,0); g.lineTo(H*0.062*k, 0); }, 3);
+        pen.ink(()=>{ g.moveTo(H*0.062*k,0); g.lineTo(H*0.050*k,-H*0.011*k); }, 3);
+        pen.ink(()=>{ g.moveTo(H*0.062*k,0); g.lineTo(H*0.050*k, H*0.011*k); }, 3);
         g.restore();
       }
       const pl=A("pillar_l");                                   // and three in the left pillar
@@ -509,15 +521,14 @@ function drawSet(ctx, W, H, st){
      Open-work back on purpose: it must frame the lane, not block it. */
   if (has("throne")){
     const s = megaron.stations.throne;
-    if (M.stool) planBox(s.x-0.048, s.x+0.048, s.z-0.150, s.z-0.095, 0.045, 4, 6);
-    planBox(s.x-0.080, s.x+0.080, s.z-0.060, s.z+0.060, 0.100, 3, 5);
+    planBox(s.x-0.080, s.x+0.080, s.z-0.060, s.z+0.060, 0.070, 2, 3);
     const zb = s.z+0.060, base = Y(zb), k = SZ(zb);
-    const bh = 0.200*k*H, xl = X(s.x-0.080, zb), xr = X(s.x+0.080, zb);
-    for(const bxp of [xl, xr-W*0.024])
-      pen.paint(()=>{ g.rect(bxp, base-bh, W*0.024, bh); }, S(5), 4);
-    pen.paint(()=>{ g.rect(xl, base-bh, xr-xl, H*0.028); }, S(6), 4);
-    pen.paint(()=>{ g.moveTo(xl+W*0.022, base-bh); g.lineTo((xl+xr)/2, base-bh-H*0.042);
-      g.lineTo(xr-W*0.022, base-bh); g.closePath(); }, S(5), 4);
+    const bh = 0.135*k*H, xl = X(s.x-0.080, zb), xr = X(s.x+0.080, zb);
+    for(const bxp of [xl, xr-W*0.020])
+      pen.paint(()=>{ g.rect(bxp, base-bh, W*0.020, bh); }, S(4), 4);
+    pen.paint(()=>{ g.rect(xl, base-bh, xr-xl, H*0.022); }, S(5), 4);
+    pen.paint(()=>{ g.moveTo(xl+W*0.022, base-bh); g.lineTo((xl+xr)/2, base-bh-H*0.024);
+      g.lineTo(xr-W*0.022, base-bh); g.closePath(); }, S(4), 4);
     pen.ink(()=>{ g.moveTo(xl+W*0.034, base-bh*0.56); g.lineTo(xr-W*0.034, base-bh*0.56); }, 4);
   }
 }
