@@ -51,9 +51,9 @@ const params = {
   ticks:     24,     // range ticks around the reticle band
   indexX:    0.300,  // first-arrow index plate centre, frac of W
   indexY:    0.755,
-  clockX0:   0.440,  // brief-duration tick strip (top right), frac of W
+  clockX0:   0.560,  // brief-duration tick strip (top right), frac of W
   clockX1:   0.900,
-  clockY:    0.140,
+  clockY:    0.112,
   lock:      1.0,
   cue:       1.0,
   silence:   1.0,
@@ -128,20 +128,20 @@ function drawTarget(pen,g,W,H,t){
   // far arm slack at his side
   pen.limb(()=>{ g.moveTo(cx-shW*0.42, shY+H*0.014); g.lineTo(cx-shW*0.60, H*0.505); },
            flesh, W*0.028);
-  // near arm bent, holding the cup out to his right, clear of the crosshair
-  const el = { x:cx+shW*0.62, y:H*0.505 }, wr = { x:cx+shW*0.86, y:H*0.440 };
+  // near arm hanging out to his right, cup held low at the hip — clear of the lock
+  const el = { x:cx+shW*0.60, y:H*0.478 }, wr = { x:cx+shW*0.72, y:H*0.556 };
   pen.limb(()=>{ g.moveTo(cx+shW*0.42, shY+H*0.014); g.lineTo(el.x,el.y); }, flesh, W*0.028);
   pen.limb(()=>{ g.moveTo(el.x,el.y); g.lineTo(wr.x,wr.y); }, flesh, W*0.024);
   // the kylix — shallow bowl, stem, foot
-  const bw = W*0.036;
+  const bw = W*0.038;
   pen.paint(()=>{
-    g.moveTo(wr.x-bw, wr.y-H*0.030); g.lineTo(wr.x+bw, wr.y-H*0.030);
-    g.lineTo(wr.x+bw*0.42, wr.y-H*0.006); g.lineTo(wr.x-bw*0.42, wr.y-H*0.006);
+    g.moveTo(wr.x-bw, wr.y+H*0.006); g.lineTo(wr.x+bw, wr.y+H*0.006);
+    g.lineTo(wr.x+bw*0.40, wr.y+H*0.030); g.lineTo(wr.x-bw*0.40, wr.y+H*0.030);
     g.closePath();
   }, toneSolid(inkLevel(2)), 4);
-  pen.ink(()=>{ g.moveTo(wr.x-bw*0.80, wr.y-H*0.026); g.lineTo(wr.x+bw*0.80, wr.y-H*0.026); }, 3);
-  pen.ink(()=>{ g.moveTo(wr.x, wr.y-H*0.006); g.lineTo(wr.x, wr.y+H*0.008); }, 5);
-  pen.paint(()=>{ g.ellipse(wr.x, wr.y+H*0.011, W*0.020, H*0.006, 0, 0, TAU); },
+  pen.ink(()=>{ g.moveTo(wr.x-bw*0.78, wr.y+H*0.011); g.lineTo(wr.x+bw*0.78, wr.y+H*0.011); }, 3);
+  pen.ink(()=>{ g.moveTo(wr.x, wr.y+H*0.030); g.lineTo(wr.x, wr.y+H*0.044); }, 5);
+  pen.paint(()=>{ g.ellipse(wr.x, wr.y+H*0.047, W*0.021, H*0.006, 0, 0, TAU); },
             toneSolid(inkLevel(4)), 3);
 
   // neck + head, turned away from the source — he is looking off to his right
@@ -167,11 +167,11 @@ function drawTarget(pen,g,W,H,t){
 function drawBearing(g,W,H,t){
   const G = geom(W,H);
   g.save();
-  g.strokeStyle = inkLevel(4); g.lineWidth = 3; g.lineCap = "butt";
-  g.setLineDash([7,9]); g.lineDashOffset = -(t*8)%16;
+  g.strokeStyle = inkLevel(5); g.lineWidth = 4.5; g.lineCap = "butt";
+  g.setLineDash([9,11]); g.lineDashOffset = -(t*8)%20;
   g.beginPath(); g.moveTo(G.S.x,G.S.y); g.lineTo(G.C.x,G.C.y); g.stroke();
   g.setLineDash([]);
-  g.strokeStyle = inkLevel(5); g.lineWidth = 3.5;
+  g.strokeStyle = inkLevel(6); g.lineWidth = 4.5;
   for(const u of [0.26,0.55,0.78]){
     const p = along(G,u), k = W*0.015;
     g.beginPath();
@@ -207,13 +207,13 @@ function drawSource(pen,g,W,H,t,silence){
     g.quadraticCurveTo(cx-hrx*0.46, cy-hry*0.62, cx-hrx*0.60, cy+hry*0.28);
     g.closePath();
   }, toneSolid(inkLevel(5)), 3);
-  // beard along the jaw, lower left
+  // beard along the jaw, lower left — kept light so the barred mouth reads over it
   pen.paint(()=>{
     g.moveTo(cx-hrx*0.84, cy+hry*0.24);
     g.quadraticCurveTo(cx-hrx*0.30, cy+hry*1.46, cx+hrx*0.34, cy+hry*0.80);
     g.quadraticCurveTo(cx-hrx*0.16, cy+hry*0.78, cx-hrx*0.84, cy+hry*0.24);
     g.closePath();
-  }, toneSolid(inkLevel(5)), 3);
+  }, toneSolid(inkLevel(4)), 3);
   // the open eye the bearing departs from, brow, nose notch
   g.fillStyle = INK;
   g.beginPath(); g.ellipse(cx+hrx*0.40, cy-hry*0.22, hrx*0.14, hry*0.11, 0, 0, TAU); g.fill();
@@ -255,9 +255,9 @@ function drawReticle(pen,g,W,H,t,lock){
 
   g.save();
   // open ring, four arcs
-  g.strokeStyle = INK; g.lineWidth = lerp(3, 6, k); g.lineCap = "butt";
+  g.strokeStyle = INK; g.lineWidth = lerp(5, 11, k); g.lineCap = "butt";
   for(let q=0;q<4;q++){
-    const a0 = q*Math.PI/2 + 0.22, a1 = (q+1)*Math.PI/2 - 0.22;
+    const a0 = q*Math.PI/2 + 0.20, a1 = (q+1)*Math.PI/2 - 0.20;
     g.beginPath(); g.arc(cx, cy, R, a0, a1); g.stroke();
   }
   // inner ring arrives with the lock
@@ -280,7 +280,7 @@ function drawReticle(pen,g,W,H,t,lock){
     g.stroke();
   }
   // broken crosshair — short stubs, gap at the middle, clear of his face
-  g.strokeStyle = INK; g.lineWidth = lerp(3, 5, k); g.lineCap = "round";
+  g.strokeStyle = INK; g.lineWidth = lerp(4, 7, k); g.lineCap = "round";
   for(const d of [[1,0],[-1,0],[0,1],[0,-1]]){
     g.beginPath();
     g.moveTo(cx+d[0]*R*0.30, cy+d[1]*R*0.30);
@@ -300,9 +300,9 @@ function drawReticle(pen,g,W,H,t,lock){
     g.stroke();
   }
   g.restore();
-  // the pip on the throat
-  pen.paint(()=>{ g.arc(cx, cy, W*0.013, 0, TAU); }, toneSolid(inkLevel(7)), 3);
-  if (k > 0.9) pen.ink(()=>{ g.arc(cx, cy, W*0.030, 0, TAU); }, 3);
+  // the pip on the throat, sat in a cleared disc so it never sinks into the neck
+  pen.paint(()=>{ g.arc(cx, cy, W*0.040, 0, TAU); }, toneSolid(inkLevel(1)), 4);
+  pen.paint(()=>{ g.arc(cx, cy, W*0.016, 0, TAU); }, toneSolid(inkLevel(7)), 3);
 }
 
 /* ---- CONSEQUENCE / the FIRST-ARROW CUE: the shaft that has not been shot. A heavy
@@ -319,12 +319,12 @@ function drawCue(pen,g,W,H,t,cue){
   const tail = along(G,uTail), now = along(G,uNow);
 
   g.save();
-  g.strokeStyle = INK; g.lineWidth = 5; g.lineCap = "butt";
-  g.setLineDash([13,10]); g.lineDashOffset = -(t*10)%23;
+  g.strokeStyle = INK; g.lineWidth = 9; g.lineCap = "butt";
+  g.setLineDash([19,13]); g.lineDashOffset = -(t*10)%32;
   g.beginPath(); g.moveTo(tail.x,tail.y); g.lineTo(now.x,now.y); g.stroke();
   g.setLineDash([]);
   // fletching at the tail
-  g.lineWidth = 4; g.lineCap = "round";
+  g.lineWidth = 5; g.lineCap = "round";
   for(let i=0;i<3;i++){
     const p = { x:tail.x+G.ux*i*W*0.021, y:tail.y+G.uy*i*W*0.021 };
     g.beginPath();
@@ -417,20 +417,26 @@ function drawIndex(pen,g,W,H,cue){
    the scene's clock and then closes. ---- */
 function drawClock(pen,g,W,H,t){
   const x0 = W*params.clockX0, x1 = W*params.clockX1, y = H*params.clockY;
-  const n = 12;
+  const hh = H*0.026, n = 10;
+  // graduations only — no enclosing rail, so nothing here stripes the frame
+  const wx0 = lerp(x0,x1,3/10), wx1 = lerp(x0,x1,4.3/10);
   g.save();
-  g.strokeStyle = inkLevel(4); g.lineWidth = 3; g.lineCap = "butt";
+  g.strokeStyle = INK; g.lineCap = "butt";
   for(let i=0;i<=n;i++){
-    const x = lerp(x0,x1,i/n), tall = (i%4===0);
-    g.beginPath(); g.moveTo(x, y); g.lineTo(x, y + H*(tall?0.019:0.011)); g.stroke();
+    const x = lerp(x0,x1,i/n);
+    if (x > wx0-3 && x < wx1+3) continue;
+    const tall = (i%5===0);
+    g.lineWidth = tall ? 6 : 4;
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x, y + hh*(tall?1.0:0.52)); g.stroke();
   }
   g.restore();
-  const wx0 = lerp(x0,x1,3/12), wx1 = lerp(x0,x1,4.6/12);
-  pen.paint(()=>{ g.rect(wx0, y-H*0.024, wx1-wx0, H*0.024); }, toneSolid(inkLevel(6)), 3);
+  // the brief window: the one dark block on the strip
+  pen.paint(()=>{ g.rect(wx0, y-hh*0.28, wx1-wx0, hh*1.28); }, toneSolid(inkLevel(6)), 4);
+  // caliper bracket under the window: THIS long, and no longer
   pen.ink(()=>{
-    g.moveTo(wx0, y+H*0.032); g.lineTo(wx0, y+H*0.024);
-    g.lineTo(wx1, y+H*0.024); g.lineTo(wx1, y+H*0.032);
-  }, 3);
+    g.moveTo(wx0, y+hh+H*0.020); g.lineTo(wx0, y+hh+H*0.010);
+    g.lineTo(wx1, y+hh+H*0.010); g.lineTo(wx1, y+hh+H*0.020);
+  }, 4);
 }
 
 function drawFX(ctx,W,H,st){
@@ -479,7 +485,7 @@ export const asset = {
     "cue:arrow-head":{       x:0.379, y:0.502 },  // the first arrow, parked short
     "cue:arrow-tail":{       x:0.230, y:0.593 },
     "index:first-arrow":{    x:0.330, y:0.800 },  // the filed cue number
-    "clock:brief":{          x:0.670, y:0.140 },
+    "clock:brief":{          x:0.685, y:0.112 },
     "camera:wide":{          x:0.500, y:0.500 },
     "camera:lock":{          x:0.625, y:0.352 },
   },

@@ -194,3 +194,7 @@ export const scene = {
   },
 };
 export default scene;
+
+/* named binding so the next scene can `import { exitOccupancy as INITIAL }`
+   — the scene-object property alone cannot be linked. */
+export const exitOccupancy = scene.exitOccupancy;

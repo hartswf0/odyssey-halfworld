@@ -594,13 +594,13 @@ export const asset = {
     "gap:mouth":{x:.50,y:.880},     "gap:foot":{x:.50,y:.985},
     "row:outer":{x:.50,y:.492},     "row:inner":{x:.50,y:.725},
     "row:near":{x:.50,y:.930},
-    "door:great":{x:.075,y:.245},   "exit:court":{x:.055,y:.520},
-    "column:left":{x:.205,y:.215},  "column:right":{x:.795,y:.215},
+    "door:great":{x:.075,y:.270},   "exit:court":{x:.055,y:.520},
+    "column:left":{x:.205,y:.235},  "column:right":{x:.795,y:.235},
     "camera:wide":{x:.50,y:.560},   "camera:ring":{x:.50,y:.740},
   },
   // walkable / occupied regions for scene placement + pathing
   zones:{
-    ring:{ x0:.20,y0:.596,x1:.80,y1:.844 },          // the cleared floor
+    ring:{ x0:.215,y0:.596,x1:.785,y1:.844 },        // the cleared floor
     "boundary:crowd":{ x0:.05,y0:.44,x1:.95,y1:.94 },// where the crowd stands
     gap:{ x0:.33,y0:.844,x1:.67,y1:.99 },            // the open front
     "drag:lane":{ x0:.06,y0:.64,x1:.42,y1:.82 },     // Irus's exit to the gate

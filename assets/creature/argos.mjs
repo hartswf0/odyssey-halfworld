@@ -263,7 +263,7 @@ function drawScene(ctx, W, H, state){
           P(hipC.x + dir*U*0.70, groundY - U*0.05), U*0.105, T_LEGN());
 
   /* ---- NECK: a tapering wedge from the withers up to the head base ---- */
-  const HCdown = P(chestC.x + dir*U*0.94, groundY - U*0.24 + sink);
+  const HCdown = P(chestC.x + dir*U*0.90, groundY - U*0.34 + sink);
   const HCup   = P(chestC.x + dir*U*0.60, chestC.y - U*1.10);
   const HC = P(lerp(HCdown.x, HCup.x, o.headLift), lerp(HCdown.y, HCup.y, o.headLift));
   const hr = U*0.33;
@@ -278,7 +278,7 @@ function drawScene(ctx, W, H, state){
   }, T_COAT(), 4.5);
 
   /* ---- HEAD in its own rotated frame ---- */
-  const tilt = lerp(0.62, -0.06, o.headLift);
+  const tilt = lerp(0.48, -0.06, o.headLift);
   g.save(); g.translate(HC.x, HC.y); g.rotate(tilt);
   drawHead(pen, hr, dir, o);
   // near ear last, over the skull
@@ -308,9 +308,9 @@ function drawScene(ctx, W, H, state){
   /* ---- effort ticks at the propped elbow (failed-rise) ---- */
   if (o.strain > 0.5){
     for (let i=0;i<3;i++){
-      const dy = (i-1)*U*0.13;
-      pen.ink(()=>{ g.moveTo(elN.x - dir*U*0.26, elN.y + dy);
-                    g.lineTo(elN.x - dir*U*0.42, elN.y + dy); }, 3.2);
+      const dy = (i-1)*U*0.15;
+      pen.ink(()=>{ g.moveTo(elN.x - dir*U*0.30, elN.y + dy - U*0.05);
+                    g.lineTo(elN.x - dir*U*0.40, elN.y + dy + U*0.05); }, 3.2);
     }
   }
 }

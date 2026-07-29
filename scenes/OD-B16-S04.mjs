@@ -41,11 +41,11 @@ import { stateAt } from "./_scene-contract.mjs";
 import field      from "../assets/location/megaron-hall.mjs";
 import odysseus   from "../assets/character/odysseus-b16.mjs";
 import telemachus from "../assets/character/telemachus.mjs";
-import forceMap   from "../assets/set_piece/suitor-count-plan.mjs";
+import forceMap   from "../assets/set_piece/suitor-force-map.mjs";
 import weapons    from "../assets/prop/palace-weapons.mjs";
 
 /* the atlas asks for "set-piece.suitor-force-map"; the built asset that IS the
-   counted force map is set_piece.suitor-count-plan — the top-down palace chart
+   counted force map is set_piece.suitor-force-map — the top-down palace chart
    with the suitor grid, the loyalist muster and the locked weapons cache. */
 const FIELD_ASSET = "location.megaron-hall";
 const D = 48;
@@ -117,7 +117,7 @@ export const scene = {
   cast:[
     { asset:FIELD_ASSET, instance:"field_01",
       anchor:{x:.50,y:.99}, scale:1.0, state:"day" },
-    { asset:"set_piece.suitor-count-plan", instance:"forcemap_01",
+    { asset:"set_piece.suitor-force-map", instance:"forcemap_01",
       anchor:{x:.25,y:.60}, scale:.30 },
     { asset:"prop.palace-weapons", instance:"weapons_01",
       anchor:{x:.66,y:.69}, scale:.34 },

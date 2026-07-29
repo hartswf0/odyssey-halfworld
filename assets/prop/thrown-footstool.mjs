@@ -100,7 +100,7 @@ function drawStool(g, pen, G){
     const a=G.T(u0, 0), b=G.T(u1, 0);
     const a2={x:lerp(a.x,G.T(u0+G.bx,G.by).x,0.48), y:lerp(a.y,G.T(u0+G.bx,G.by).y,0.48)};
     const b2={x:lerp(b.x,G.T(u1+G.bx,G.by).x,0.48), y:lerp(b.y,G.T(u1+G.bx,G.by).y,0.48)};
-    pen.seam(()=>{ g.moveTo(a2.x,a2.y); g.lineTo(b2.x,b2.y); }, 2.4);
+    pen.seam(()=>{ g.moveTo(a2.x,a2.y); g.lineTo(b2.x,b2.y); }, 3.6);
   });
   // front legs
   [L.fl, L.fr].forEach(k=>{
@@ -111,10 +111,10 @@ function drawStool(g, pen, G){
 /* outline-only silhouette, for the motion ghosts of the fall */
 function drawStoolGhost(g, pen, G){
   const L = G.legs;
-  [L.bl,L.br,L.fl,L.fr].forEach(k=> pen.ink(()=>quad(g,k.a,k.b,k.c,k.d), 3));
-  pen.ink(()=>quad(g,G.FLt,G.FRt,G.BRt,G.BLt), 3);
-  pen.ink(()=>quad(g,G.FLt,G.FRt,G.FRb,G.FLb), 3);
-  pen.ink(()=>quad(g,G.FRt,G.BRt,G.BRb,G.FRb), 3);
+  [L.bl,L.br,L.fl,L.fr].forEach(k=> pen.ink(()=>quad(g,k.a,k.b,k.c,k.d), 5));
+  pen.ink(()=>quad(g,G.FLt,G.FRt,G.BRt,G.BLt), 5);
+  pen.ink(()=>quad(g,G.FLt,G.FRt,G.FRb,G.FLb), 5);
+  pen.ink(()=>quad(g,G.FRt,G.BRt,G.BRb,G.FRb), 5);
 }
 
 /* a BROKEN floor line — never a full-width bar */
@@ -151,48 +151,48 @@ function drawFootstool(ctx, W, H, st){
     g.setLineDash([]);
     // reticle: four corner brackets + a crosshair (all geometry, no type)
     const r = s*0.34, k = r*0.42;
-    g.strokeStyle=INK; g.lineWidth=5; g.lineCap="butt";
+    g.strokeStyle=INK; g.lineWidth=8; g.lineCap="butt";
     [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx,sy])=>{
       g.beginPath();
       g.moveTo(tx+sx*r, ty+sy*r - sy*k); g.lineTo(tx+sx*r, ty+sy*r);
       g.lineTo(tx+sx*r - sx*k, ty+sy*r); g.stroke();
     });
-    g.lineWidth=3.5;
-    g.beginPath(); g.moveTo(tx-r*0.30,ty); g.lineTo(tx+r*0.30,ty);
-    g.moveTo(tx,ty-r*0.30); g.lineTo(tx,ty+r*0.30); g.stroke();
-    g.fillStyle=ACCENT; g.beginPath(); g.arc(tx,ty,r*0.11,0,7); g.fill();
+    g.lineWidth=6;
+    g.beginPath(); g.moveTo(tx-r*0.34,ty); g.lineTo(tx+r*0.34,ty);
+    g.moveTo(tx,ty-r*0.34); g.lineTo(tx,ty+r*0.34); g.stroke();
+    g.fillStyle=ACCENT; g.beginPath(); g.arc(tx,ty,r*0.14,0,7); g.fill();
   }
 
   /* -------- FLIGHT: parabolic arc from throw point to the shoulder -------- */
   if (P.arc){
     const p0={x:W*0.135,y:H*0.585}, p1={x:W*0.875,y:H*0.455}, cp={x:W*0.50,y:H*0.075};
-    g.strokeStyle="rgba(0,0,0,0.38)"; g.lineWidth=3.5; g.setLineDash([12,10]);
+    g.strokeStyle="rgba(0,0,0,0.55)"; g.lineWidth=7; g.lineCap="butt"; g.setLineDash([22,16]);
     g.beginPath(); g.moveTo(p0.x,p0.y); g.quadraticCurveTo(cp.x,cp.y,p1.x,p1.y); g.stroke();
     g.setLineDash([]);
-    g.fillStyle=INK; g.beginPath(); g.arc(p0.x,p0.y,6,0,7); g.fill();
+    g.fillStyle=INK; g.beginPath(); g.arc(p0.x,p0.y,9,0,7); g.fill();
     // chevron at the arc's end — where the corner will land
-    g.strokeStyle=INK; g.lineWidth=5; g.lineCap="round";
-    g.beginPath(); g.moveTo(p1.x-26,p1.y-20); g.lineTo(p1.x,p1.y); g.lineTo(p1.x-26,p1.y+20); g.stroke();
+    g.strokeStyle=INK; g.lineWidth=8; g.lineCap="round";
+    g.beginPath(); g.moveTo(p1.x-34,p1.y-26); g.lineTo(p1.x,p1.y); g.lineTo(p1.x-34,p1.y+26); g.stroke();
   }
 
   /* -------- SPIN: tumble ticks around the flying stool -------- */
   if (P.spin){
-    g.strokeStyle="rgba(0,0,0,0.32)"; g.lineWidth=4.5; g.lineCap="round";
+    g.strokeStyle="rgba(0,0,0,0.50)"; g.lineWidth=8; g.lineCap="round";
     for(let i=0;i<3;i++){ const a0=-0.7+i*2.15;
-      g.beginPath(); g.arc(cx+s*0.1, cy-s*0.05, s*(1.26+i*0.13), a0, a0+0.62); g.stroke(); }
+      g.beginPath(); g.arc(cx+s*0.1, cy-s*0.05, s*(1.24+i*0.16), a0, a0+0.58); g.stroke(); }
   }
 
   /* -------- IMPACT: contact bracket + burst rays + shock arcs -------- */
   if (P.burst){
     const ix = cx + s*0.95, iy = cy - s*0.10;
-    g.strokeStyle=INK; g.lineWidth=5; g.lineCap="round";
-    for(let i=0;i<9;i++){ const a = -Math.PI*0.72 + i*(Math.PI*1.44/8);
-      const r0 = s*0.28, r1 = s*(0.62 + (i%2?0.20:0.0));
+    g.strokeStyle=INK; g.lineWidth=8; g.lineCap="round";
+    for(let i=0;i<7;i++){ const a = -Math.PI*0.66 + i*(Math.PI*1.32/6);
+      const r0 = s*0.30, r1 = s*(0.66 + (i%2?0.24:0.0));
       g.beginPath();
       g.moveTo(ix+Math.cos(a)*r0, iy+Math.sin(a)*r0);
       g.lineTo(ix+Math.cos(a)*r1, iy+Math.sin(a)*r1); g.stroke(); }
-    g.strokeStyle="rgba(0,0,0,0.34)"; g.lineWidth=4;
-    for(let i=0;i<2;i++){ g.beginPath(); g.arc(ix, iy, s*(0.92+i*0.22), -Math.PI*0.58, Math.PI*0.58); g.stroke(); }
+    g.strokeStyle="rgba(0,0,0,0.48)"; g.lineWidth=7;
+    for(let i=0;i<2;i++){ g.beginPath(); g.arc(ix, iy, s*(1.02+i*0.26), -Math.PI*0.52, Math.PI*0.52); g.stroke(); }
     if (P.shoulder){
       // the struck plane, as an abstract contact bracket — never a figure
       const bx = ix + s*0.72;
@@ -206,7 +206,7 @@ function drawFootstool(ctx, W, H, st){
 
   /* -------- FALL: motion ghosts of the two previous frames + dust -------- */
   if (P.ghosts){
-    g.save(); g.globalAlpha=0.30;
+    g.save(); g.globalAlpha=0.42;
     for(let i=2;i>=1;i--){
       const gg = stoolGeom(cx + s*0.44*i, cy - s*0.66*i, s*(1 - 0.05*i), P.rot - 0.52*i, P.tilt);
       drawStoolGhost(g, pen, gg);
@@ -214,26 +214,26 @@ function drawFootstool(ctx, W, H, st){
     g.restore();
   }
   if (P.dust){
-    g.strokeStyle="rgba(0,0,0,0.30)"; g.lineWidth=3.5; g.lineCap="round";
-    for(let i=0;i<6;i++){ const x = cx + s*(-1.0 + i*0.42), y = gy - 6 - (i%2)*10;
-      g.beginPath(); g.moveTo(x, y); g.lineTo(x - s*0.16, y - s*0.16); g.stroke(); }
+    g.strokeStyle="rgba(0,0,0,0.48)"; g.lineWidth=7; g.lineCap="round";
+    for(let i=0;i<6;i++){ const x = cx + s*(-1.0 + i*0.42), y = gy - 10 - (i%2)*16;
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x - s*0.20, y - s*0.20); g.stroke(); }
   }
 
   /* -------- EVIDENCE: floor scuff + marker peg + leader -------- */
   if (P.scuff){
     g.fillStyle="rgba(0,0,0,0.13)";
     g.beginPath(); g.ellipse(cx + s*0.10, gy - s*0.02, s*1.15, s*0.22, 0,0,7); g.fill();
-    g.strokeStyle="rgba(0,0,0,0.40)"; g.lineWidth=4; g.lineCap="round";
-    for(let i=0;i<4;i++){ const x = cx - s*0.85 + i*s*0.50;
-      g.beginPath(); g.moveTo(x, gy - s*0.12); g.lineTo(x + s*0.26, gy + s*0.04); g.stroke(); }
+    g.strokeStyle="rgba(0,0,0,0.52)"; g.lineWidth=7; g.lineCap="round";
+    for(let i=0;i<4;i++){ const x = cx - s*0.60 + i*s*0.44;
+      g.beginPath(); g.moveTo(x, gy - s*0.14); g.lineTo(x + s*0.28, gy + s*0.04); g.stroke(); }
   }
   if (P.peg){
-    const px = W*0.845, top = gy - s*0.98;
-    pen.ink(()=>{ g.moveTo(px, gy+4); g.lineTo(px, top); }, 5);
+    const px = W*0.855, top = gy - s*0.98;
+    pen.ink(()=>{ g.moveTo(px, gy+4); g.lineTo(px, top); }, 7);
     g.fillStyle=ACCENT; g.beginPath();
-    g.moveTo(px, top); g.lineTo(px + s*0.34, top + s*0.15); g.lineTo(px, top + s*0.30); g.closePath(); g.fill();
-    g.strokeStyle="rgba(0,0,0,0.38)"; g.lineWidth=3; g.setLineDash([9,8]);
-    g.beginPath(); g.moveTo(cx + s*0.95, gy - s*0.30); g.lineTo(px - 8, gy - s*0.30); g.stroke();
+    g.moveTo(px, top); g.lineTo(px + s*0.36, top + s*0.16); g.lineTo(px, top + s*0.32); g.closePath(); g.fill();
+    g.strokeStyle="rgba(0,0,0,0.52)"; g.lineWidth=7; g.setLineDash([16,13]);
+    g.beginPath(); g.moveTo(cx + s*1.05, gy - s*0.30); g.lineTo(px - 10, gy - s*0.30); g.stroke();
     g.setLineDash([]);
   }
 
@@ -242,7 +242,7 @@ function drawFootstool(ctx, W, H, st){
 
   /* -------- GRIP: finger ticks along the seized rail + lift arrow -------- */
   if (P.grip){
-    g.strokeStyle=INK; g.lineWidth=5.5; g.lineCap="round";
+    g.strokeStyle=INK; g.lineWidth=8; g.lineCap="round";
     for(let i=0;i<4;i++){
       const fx = -0.52 + i*0.30;
       const a = G.T(fx, G.th*0.10), b = G.T(fx, -G.th*0.52);
@@ -254,7 +254,7 @@ function drawFootstool(ctx, W, H, st){
   }
   if (P.lift){
     const ax = cx - s*0.05, ay0 = cy - s*1.02, ay1 = cy - s*1.62;
-    g.strokeStyle=INK; g.lineWidth=6; g.lineCap="round";
+    g.strokeStyle=INK; g.lineWidth=9; g.lineCap="round";
     g.beginPath(); g.moveTo(ax, ay0); g.lineTo(ax, ay1); g.stroke();
     g.fillStyle=INK; g.beginPath();
     g.moveTo(ax, ay1 - s*0.20); g.lineTo(ax - s*0.14, ay1 + s*0.02);

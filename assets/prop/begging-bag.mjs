@@ -237,8 +237,8 @@ function drawThong(pen,g,U,nh,rise){
 /* repair patches on the hide ----------------------------------------- */
 function drawPatches(pen,g,U,bh){
   const spec=[
-    { x:-bh*0.50, y:U*0.34, w:U*0.12, h:U*0.10 },
-    { x: bh*0.52, y:U*0.66, w:U*0.10, h:U*0.09 },
+    { x:-bh*0.46, y:U*0.42, w:U*0.12, h:U*0.10 },
+    { x: bh*0.48, y:U*0.66, w:U*0.10, h:U*0.09 },
   ].slice(0,params.patches);
   for(const p of spec){
     pen.paint(()=>{ rr(g,p.x-p.w/2,p.y-p.h/2,p.w,p.h,U*0.012); }, toneSolid(inkLevel(PATCH)), 3);
@@ -378,9 +378,9 @@ function drawProp(ctx,W,H,st){
 
   // ---- RECEIVING: the portion already settling into the neck ----
   if (M.neckload){
-    drawPortion(pen,g,"loaf", -nh*0.16, -U*0.045, U*0.086, -0.14);
+    drawPortion(pen,g,"loaf", -nh*0.22, -U*0.050, U*0.082, -0.14);
     // the front lip drawn back over its base so it sits IN the bag
-    pen.ink(()=>{ g.ellipse(0, nh*0.042, nh*1.02, nh*0.28, 0, 0.10, Math.PI-0.10); }, 4);
+    pen.ink(()=>{ g.ellipse(0, nh*0.035, nh*1.02, nh*0.235, 0, 0.10, Math.PI-0.10); }, 4);
   }
 
   // ---- LADEN: portions cresting the neck, drawn over it ----
@@ -394,13 +394,13 @@ function drawProp(ctx,W,H,st){
   // ---- RECEIVING: a portion still in mid-fall above the open neck ----
   if (M.falling){
     const wob = Math.sin(t*2.2)*U*0.014;
-    const s = { k:"meat", x: nh*0.62 + wob, y:-U*0.26, r:U*0.086, a: 0.28 };
+    const s = { k:"meat", x: nh*0.44 + wob, y:-U*0.235, r:U*0.082, a: 0.28 };
     drawPortion(pen,g,s.k,s.x,s.y,s.r,s.a);
-    g.strokeStyle=INK; g.lineWidth=2.6; g.lineCap="round"; g.globalAlpha=0.5;
+    g.strokeStyle=INK; g.lineWidth=3; g.lineCap="round"; g.globalAlpha=0.55;
     for(let i=0;i<3;i++){                             // fall ticks
       const xx = s.x - s.r*0.55 + i*s.r*0.55;
-      g.beginPath(); g.moveTo(xx, s.y - s.r*(1.20+i*0.16));
-      g.lineTo(xx, s.y - s.r*(1.66+i*0.16)); g.stroke();
+      g.beginPath(); g.moveTo(xx, s.y - s.r*(1.10+i*0.20));
+      g.lineTo(xx, s.y - s.r*(2.05+i*0.20)); g.stroke();
     }
     g.globalAlpha=1;
   }

@@ -414,8 +414,8 @@ function layoutFor(pose){
     case "tribute": return {   // roped collar-to-collar, going up to the palace
       goats:[
         {x:0.32, d:0.22, dir:+1, gait:1, phase:1.0, horns:"none", alert:0.6, collar:true, patch:2},
-        {x:0.56, d:0.56, dir:+1, gait:1, phase:2.8, horns:"nub",  alert:0.7, collar:true, gsc:0.80},
-        {x:0.40, d:0.96, dir:+1, horns:"curl", alert:0.9, beard:true, bell:true, bound:true, patch:1},
+        {x:0.62, d:0.50, dir:+1, gait:1, phase:2.8, horns:"nub",  alert:0.7, collar:true, gsc:0.80},
+        {x:0.38, d:0.96, dir:+1, horns:"curl", alert:0.9, beard:true, bell:true, bound:true, patch:1},
       ], rope:true,
     };
     case "scatter": return {   // the drove breaks

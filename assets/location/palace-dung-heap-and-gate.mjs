@@ -99,6 +99,11 @@ function drawSet(ctx, W, H, st){
       g.moveTo(xa,yt); g.lineTo(xb,yt); g.lineTo(xb,yb); g.lineTo(xa,yb); g.closePath(); },
       S(frontL), lw);
   };
+  /* a filled contact shadow — what stops every fixture floating off the road */
+  const shadow = (x, z, rx, level=2) => {
+    g.fillStyle = tn(level);
+    g.beginPath(); g.ellipse(X(x,z), Y(z)+H*0.006, rx*SZ(z)*W, rx*SZ(z)*W*0.30, 0,0,7); g.fill();
+  };
   /* a broken run of ground line — never a bar all the way across the frame */
   const dashRow = (z, x0, x1, n, alpha=0.26) => {
     g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=alpha;
@@ -151,16 +156,20 @@ function drawSet(ctx, W, H, st){
     };
     roof(0.02, 0.34, 0.300, 2, 3);
     roof(0.66, 1.02, 0.342, 2, 4);
-    // the ridge-pole gable of the megaron itself, dead behind the gateway
+    // the ridge-pole gable of the megaron itself, dead behind the gateway,
+    // carried on a cornice with a real overhang — a bare triangle on a box
+    // reads as a suburban roof, not as the house of a king
     pen.paint(()=>{
-      g.moveTo(X(0.32,WZ), wallBase-H*0.300);
-      g.lineTo(X(0.50,WZ), wallBase-H*0.392);
-      g.lineTo(X(0.68,WZ), wallBase-H*0.300);
+      g.moveTo(X(0.30,WZ), wallBase-H*0.296);
+      g.lineTo(X(0.50,WZ), wallBase-H*0.396);
+      g.lineTo(X(0.70,WZ), wallBase-H*0.296);
       g.closePath();
     }, S(3), 5);
-    // two dark clerestory slots — the only near-black in the upper third
-    for(const u of [0.40,0.60])
-      pen.paint(()=>{ g.rect(X(u,WZ)-W*0.016, wallBase-H*0.286, W*0.032, H*0.040); }, S(6), 4);
+    pen.paint(()=>{ g.rect(X(0.28,WZ), wallBase-H*0.300, X(0.72,WZ)-X(0.28,WZ), H*0.019); }, S(5), 4);
+    pen.ink(()=>{ g.moveTo(X(0.50,WZ), wallBase-H*0.392); g.lineTo(X(0.50,WZ), wallBase-H*0.300); }, 3);
+    // three tall clerestory slots — the only near-black in the upper third
+    for(const u of [0.38,0.50,0.62])
+      pen.paint(()=>{ g.rect(X(u,WZ)-W*0.011, wallBase-H*0.278, W*0.022, H*0.052); }, S(6), 4);
   }
 
   /* ================= THE PRECINCT WALL — bays, buttresses, coping =========
@@ -300,15 +309,22 @@ function drawSet(ctx, W, H, st){
     // the heap away, on the day anyone bothers to carry it
     g.strokeStyle=INK; g.lineCap="round";
     for(let r=0;r<params.ruts;r++){
-      const u = 0.46 + r*0.08;
-      g.lineWidth=5; g.globalAlpha=.60;
+      const u = 0.45 + r*0.10;
+      g.lineWidth=5; g.globalAlpha=.55;
       g.beginPath();
-      for(let i=0;i<=18;i++){ const z=lerp(0.18,1.24,i/18);
-        const xx = X(u + (z-0.18)*0.10*(r?1:-1), z), yy = Y(z);
+      for(let i=0;i<=18;i++){ const z=lerp(0.42,1.20,i/18);
+        const xx = X(u + (z-0.42)*0.13*(r?1:-1), z), yy = Y(z);
         if(i===0) g.moveTo(xx,yy); else g.lineTo(xx,yy); }
       g.stroke(); g.globalAlpha=1;
     }
-    for(const z of [0.46, 0.68, 0.94]) dashRow(z, 0.10, 0.90, 5, 0.20);
+    // scuff marks across the ruts, so the road reads as dust and not as wire
+    g.strokeStyle=INK; g.lineWidth=3; g.globalAlpha=.24;
+    for(let i=0;i<7;i++){
+      const z = lerp(0.48, 1.10, i/6), sp = (z-0.42)*0.13;
+      g.beginPath(); g.moveTo(X(0.45-sp-0.05,z), Y(z)); g.lineTo(X(0.55+sp+0.05,z), Y(z)); g.stroke();
+    }
+    g.globalAlpha=1;
+    for(const z of [0.46, 0.68, 0.94]) dashRow(z, 0.10, 0.90, 5, 0.18);
   }
 
   /* ================= THE KEPT SIDE — stone seat, basin, kennels ===========
@@ -316,14 +332,16 @@ function drawSet(ctx, W, H, st){
   if (has("order")){
     // the polished stone seat outside the gate (Odysseus's own, XVII).
     // Open-backed: two posts and a rail, so it frames rather than blocks.
-    planBox(0.70, 0.88, 0.46, 0.55, 0.058, 1, 3, 4);
+    shadow(0.79, 0.555, 0.115, 3);
+    planBox(0.70, 0.88, 0.46, 0.55, 0.058, 2, 4, 4);
     { const zb=0.55, kk=SZ(zb), yb=Y(zb)-0.058*kk*H, bh=0.062*kk*H;
       for(const u of [0.70, 0.88-0.022])
         pen.paint(()=>{ g.rect(X(u,zb), yb-bh, W*0.016, bh); }, S(4), 3);
       pen.paint(()=>{ g.rect(X(0.70,zb), yb-bh, X(0.88,zb)-X(0.70,zb), H*0.016); }, S(4), 3);
     }
     // the offering basin on its plinth, further back
-    planBox(0.87, 0.97, 0.34, 0.39, 0.080, 2, 3, 4);
+    shadow(0.92, 0.395, 0.070, 3);
+    planBox(0.87, 0.97, 0.34, 0.39, 0.080, 2, 4, 4);
     { const zb=0.39, kk=SZ(zb), yb=Y(zb)-0.080*kk*H;
       pen.paint(()=>{ g.ellipse(X(0.92,zb), yb-H*0.010, W*0.032, H*0.014, 0,0,7); }, S(4), 4);
       pen.paint(()=>{ g.ellipse(X(0.92,zb), yb-H*0.012, W*0.017, H*0.007, 0,0,7); }, S(1), 3);
@@ -331,6 +349,7 @@ function drawSet(ctx, W, H, st){
     if (M.kennels){
       for(let i=0;i<2;i++){
         const a=0.68+i*0.14;
+        shadow(a+0.05, 0.315+i*0.03, 0.062, 3);
         planBox(a, a+0.10, 0.24+i*0.03, 0.31+i*0.03, 0.085, 2, 4, 3);
         pen.paint(()=>{ const zb=0.31+i*0.03, kk=SZ(zb);
           g.rect(X(a+0.032,zb), Y(zb)-0.070*kk*H, W*0.030, 0.070*kk*H); }, S(6), 3);
@@ -389,13 +408,16 @@ function drawSet(ctx, W, H, st){
     }
     g.globalAlpha=1;
     /* THE HOLLOW worn into the near-left face — where a dog has lain twenty
-       years. Kept SHALLOW and un-paired: an outlined oval with a curve under
-       it turns into a face at halftone scale, which is the last thing this
-       shot needs. One light scoop, one lip. */
-    const hx0 = cx - halfW*0.50, hy0 = base - hh*0.24;
-    pen.paint(()=>{ g.ellipse(hx0, hy0, halfW*0.30, hh*0.22, -0.14, 0, 7); }, S(1), 3);
-    pen.ink(()=>{ g.moveTo(hx0-halfW*0.30, hy0+hh*0.20);
-      g.lineTo(hx0+halfW*0.26, hy0+hh*0.26); }, 3);
+       years. It is a DEPRESSION, not a hole: a light oval with a contour round
+       it prints as a white eye at halftone scale. So: no fill lighter than the
+       mound, no closed outline. Two rim strokes and a shallow shelf. */
+    const hx0 = cx - halfW*0.48, hy0 = base - hh*0.22;
+    g.fillStyle = tn(2);
+    g.beginPath(); g.ellipse(hx0, hy0, halfW*0.26, hh*0.17, -0.12, 0, 7); g.fill();
+    pen.ink(()=>{ g.moveTo(hx0-halfW*0.26, hy0-hh*0.02);
+      g.quadraticCurveTo(hx0, hy0-hh*0.20, hx0+halfW*0.24, hy0-hh*0.04); }, 3);
+    pen.ink(()=>{ g.moveTo(hx0-halfW*0.20, hy0+hh*0.15);
+      g.lineTo(hx0+halfW*0.22, hy0+hh*0.11); }, 3);
     // flies over it
     g.fillStyle=tn(6);
     for(let i=0;i<7;i++){
@@ -408,7 +430,8 @@ function drawSet(ctx, W, H, st){
     const z=0.80, base=Y(z), k=SZ(z), cx=X(0.86, z);
     const bw=W*0.150*k, bh=H*0.062*k, wr=W*0.052*k;
     const tip = M.cart==="tipped";
-    g.save(); g.translate(cx, base); if(tip) g.rotate(0.30);
+    shadow(0.86, z, 0.115, 3);
+    g.save(); g.translate(cx, base); if(tip) g.rotate(0.24);
     // the bed
     pen.paint(()=>{ g.rect(-bw/2, -bh*2.0, bw, bh); }, S(3), 5);
     pen.paint(()=>{ g.rect(-bw/2, -bh*2.6, bw*0.10, bh*0.70); }, S(5), 3);
@@ -460,6 +483,7 @@ function drawSet(ctx, W, H, st){
     planBox(-0.40, -0.02, 0.94, 1.22, 0.150, 2, 4, 5);
     // a fallen column drum lying in the road, near right, clear of the cart
     const z=1.06, base=Y(z), k=SZ(z), dx=X(0.78,z);
+    shadow(0.78, z, 0.075, 3);
     pen.paint(()=>{ g.ellipse(dx, base-H*0.024*k, W*0.058*k, H*0.026*k, 0.10, 0,7); }, S(2), 5);
     pen.paint(()=>{ g.ellipse(dx-W*0.048*k, base-H*0.024*k, W*0.018*k, H*0.026*k, 0.10, 0,7); }, S(4), 4);
     g.strokeStyle=INK; g.lineWidth=2; g.globalAlpha=.42;
