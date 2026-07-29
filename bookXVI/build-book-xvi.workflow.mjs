@@ -137,8 +137,15 @@ channels and both agreeing with scenes/_plans/. Do not build a competing hall or
 Return the structured result. Set ok=true only if the final render both validates and looks right.`;
 }
 
-function scenePrompt(s, builtIds){
+function scenePrompt(s, builtIds, prev){
   const outPath = `scenes/${s.id}.mjs`;
+  const handoff = prev
+    ? `\nCONTINUITY IN: the previous scene ${ROOT}/scenes/${prev.id}.mjs was just built and exports
+\`exitOccupancy\` (a computed {who: station} map). READ IT and import it as your INITIAL:
+    import { exitOccupancy as INITIAL } from "./${prev.id}.mjs";
+so this scene opens with every body exactly where the last one left it. If that export is
+genuinely absent, say so in selfAssessment and start from sensible plan stations.\n`
+    : `\nCONTINUITY IN: this is the first scene of the book — establish opening positions from the plan.\n`;
   return `You are composing ONE Odyssey scene as a thin Halfworld composition module. Assets already exist — COMPOSE them, do not redraw them.
 
 WORKSPACE ROOT (cd here): ${ROOT}
@@ -152,6 +159,7 @@ ${s.composePrompt}
 
 Scene exit / continuity state:
 ${s.exitState}
+${handoff}
 
 REQUIRED asset instances (these modules exist under ${ROOT}/assets/<type>/<slug>.mjs):
 ${(s.assets||[]).map(a=>'  - '+a).join('\n')}
@@ -251,9 +259,18 @@ const builtIds = built.filter(r=>r.ok).map(r=>r.id).concat(A.existing || ['locat
 log(`Assets done: ${built.filter(r=>r.ok).length}/${jobs.length} ok. Composing ${scenes.length} scenes.`);
 
 phase('Scenes');
-const sceneResults = await parallel(scenes.map(s => () =>
-  agent(scenePrompt(s, builtIds), { label:`scene:${s.id}`, phase:'Scenes', schema: SCENE_RESULT })
-));
+/* SEQUENTIAL, in scene order — each scene imports the previous scene's computed
+   exitOccupancy as its INITIAL. That handoff is the whole point of the plan system;
+   building these in parallel would make continuity a coincidence again. */
+const ordered = [...scenes].sort((a,b)=> String(a.id).localeCompare(String(b.id)));
+const sceneResults = [];
+for (let i = 0; i < ordered.length; i++){
+  const s = ordered[i], prev = i ? ordered[i-1] : null;
+  const r = await agent(scenePrompt(s, builtIds, prev), {
+    label:`scene:${s.id}`, phase:'Scenes', schema: SCENE_RESULT });
+  sceneResults.push(r);
+  log(`${s.id} ${r?.ok ? 'OK' : 'needs work'} (${i+1}/${ordered.length})`);
+}
 
 return {
   assets: assetResults,
