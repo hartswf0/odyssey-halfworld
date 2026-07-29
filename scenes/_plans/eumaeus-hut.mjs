@@ -20,8 +20,8 @@ export const eumaeusHut = makePlan({
     // CONTACT PAIR — two bodies that touch must not resolve to one point.
     // Any beat where figures embrace, grapple or hand something over uses a
     // pair, never the same station twice. Book XXII needs many of these.
-    centre_l:    { x:.44, z:.62 },
-    centre_r:    { x:.56, z:.62 },
+    centre_l:    { x:.50, z:.72 },   // clear of the hearth (x.42 z.52) — two men
+    centre_r:    { x:.62, z:.72 },   // embracing must not stand in the fire
     corner_dark: { x:.14, z:.56 },
     pen_wall:    { x:.88, z:.30 },
   },
