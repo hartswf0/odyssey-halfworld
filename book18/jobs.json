@@ -1,0 +1,227 @@
+{
+  "book": 18,
+  "jobs": [
+    {
+      "id": "character.irus",
+      "type": "CHARACTER",
+      "name": "Irus",
+      "prompt": "Irus (CHARACTER). large but weak local beggar using territorial bluster until he sees the stranger's body. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B18-S01: large but weak local beggar using territorial bluster until he sees the stranger's body",
+        "OD-B18-S02: confidence collapsing into fear, involuntary combat, impact, and removal"
+      ]
+    },
+    {
+      "id": "ensemble.suitor-fight-ring",
+      "type": "ENSEMBLE",
+      "name": "Suitor fight ring",
+      "prompt": "Suitor fight ring (ENSEMBLE). laughing nobles clearing a circle, betting, shouting, and enforcing the contest boundary. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B18-S01: laughing nobles clearing a circle, betting, shouting, and enforcing the contest boundary"
+      ]
+    },
+    {
+      "id": "prop.goat-sausages",
+      "type": "PROP",
+      "name": "Goat sausages",
+      "prompt": "Goat sausages (PROP). visible food prize with fire, select, award, eat, and continuity states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B18-S01: visible food prize with fire, select, award, eat, and continuity states"
+      ]
+    },
+    {
+      "id": "divine-fx.athenas-bodily-emphasis",
+      "type": "DIVINE_FX",
+      "name": "Athena's bodily emphasis",
+      "prompt": "Athena's bodily emphasis (DIVINE_FX). temporary enlargement of muscle readability under lifted rags. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B18-S02: temporary enlargement of muscle readability under lifted rags"
+      ]
+    },
+    {
+      "id": "location.fight-threshold",
+      "type": "LOCATION",
+      "name": "Fight threshold",
+      "prompt": "Fight threshold (LOCATION). small palace-door ring with spectators, gate drag path, and aftermath position. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B18-S02: small palace-door ring with spectators, gate drag path, and aftermath position"
+      ]
+    },
+    {
+      "id": "prop.victory-meat-and-wine",
+      "type": "PROP",
+      "name": "Victory meat and wine",
+      "prompt": "Victory meat and wine (PROP). reward transfer from Amphinomus to the disguised king. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B18-S02: reward transfer from Amphinomus to the disguised king"
+      ]
+    },
+    {
+      "id": "character.amphinomus",
+      "type": "CHARACTER",
+      "name": "Amphinomus",
+      "prompt": "Amphinomus (CHARACTER). more cautious suitor placing a divine condition on the conspiracy. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B18-S03: comparatively decent suitor absorbing dread but returning to the collective"
+      ]
+    },
+    {
+      "id": "divine-fx.doom-pull",
+      "type": "DIVINE_FX",
+      "name": "Doom pull",
+      "prompt": "Doom pull (DIVINE_FX). subtle path constraint redirecting Amphinomus back toward his assigned death despite hesitation. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B18-S03: subtle path constraint redirecting Amphinomus back toward his assigned death despite hesitation"
+      ]
+    },
+    {
+      "id": "ensemble.suitor-gift-procession",
+      "type": "ENSEMBLE",
+      "name": "Suitor gift procession",
+      "prompt": "Suitor gift procession (ENSEMBLE). servants and suitors delivering brooches, necklaces, earrings, robes, and ornaments in competitive sequence. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B18-S04: servants and suitors delivering brooches, necklaces, earrings, robes, and ornaments in competitive sequence"
+      ]
+    },
+    {
+      "id": "prop.courtship-gifts",
+      "type": "PROP",
+      "name": "Courtship gifts",
+      "prompt": "Courtship gifts (PROP). individually inventoried valuables with donor, display, accept, store, and later ownership states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B18-S04: individually inventoried valuables with donor, display, accept, store, and later ownership states"
+      ]
+    },
+    {
+      "id": "character.melantho",
+      "type": "CHARACTER",
+      "name": "Melantho",
+      "prompt": "Melantho (CHARACTER). favored maid expressing contempt and disloyal intimacy with the suitors. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B18-S05: favored maid expressing contempt and disloyal intimacy with the suitors"
+      ]
+    },
+    {
+      "id": "prop.hall-lamps-and-missed-stool",
+      "type": "PROP",
+      "name": "Hall lamps and missed stool",
+      "prompt": "Hall lamps and missed stool (PROP). lighting objects plus projectile with throw, dodge, wall-impact, and reset states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B18-S05: lighting objects plus projectile with throw, dodge, wall-impact, and reset states"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B18-S01",
+      "n": 107,
+      "title": "Irus Challenges the Stranger",
+      "beats": [
+        "The palace beggar Irus arrives and tries to drive Odysseus from the threshold.",
+        "They trade insults while the suitors gather, delighted by the prospect of a fight.",
+        "Antinous offers food and privileged access to the winner.",
+        "Odysseus makes the suitors swear that no one will strike him from behind."
+      ],
+      "composePrompt": "Build `OD-B18-S01` — **Irus Challenges the Stranger** — as one editable Halfworld stage. Required instances: Irus, Odysseus as beggar, Antinous, Suitor fight ring, Goat sausages. Stage this action in causal order: The palace beggar Irus arrives and tries to drive Odysseus from the threshold. They trade insults while the suitors gather, delighted by the prospect of a fight. Antinous offers food and privileged access to the winner. Odysseus makes the suitors swear that no one will strike him from behind. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus makes the suitors swear that no one will strike him from behind.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.irus",
+        "character.odysseus-as-beggar",
+        "character.antinous",
+        "ensemble.suitor-fight-ring",
+        "prop.goat-sausages"
+      ]
+    },
+    {
+      "id": "OD-B18-S02",
+      "n": 108,
+      "title": "Odysseus Drops Irus",
+      "beats": [
+        "Odysseus tucks up his rags and reveals powerful thighs and shoulders.",
+        "Athena enlarges his appearance; Irus trembles but is forced into the ring.",
+        "Odysseus chooses not to kill him and breaks his jaw with one compact blow.",
+        "He drags Irus to the gate and warns him not to return.",
+        "The suitors cheer and Amphinomus gives the victor food and wine."
+      ],
+      "composePrompt": "Build `OD-B18-S02` — **Odysseus Drops Irus** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Irus, Athena's bodily emphasis, Fight threshold, Victory meat and wine. Stage this action in causal order: Odysseus tucks up his rags and reveals powerful thighs and shoulders. Athena enlarges his appearance; Irus trembles but is forced into the ring. Odysseus chooses not to kill him and breaks his jaw with one compact blow. He drags Irus to the gate and warns him not to return. The suitors cheer and Amphinomus gives the victor food and wine. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The suitors cheer and Amphinomus gives the victor food and wine.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.irus",
+        "divine-fx.athenas-bodily-emphasis",
+        "location.fight-threshold",
+        "prop.victory-meat-and-wine"
+      ]
+    },
+    {
+      "id": "OD-B18-S03",
+      "n": 109,
+      "title": "The Warning to Amphinomus",
+      "beats": [
+        "Odysseus drinks to Amphinomus and warns that no man should become lawless in prosperity.",
+        "He predicts that Odysseus will return before the suitor can leave the palace.",
+        "Amphinomus walks away shaken, sensing danger but unable to escape Athena's design.",
+        "The warning becomes another unheeded exit offered before the slaughter."
+      ],
+      "composePrompt": "Build `OD-B18-S03` — **The Warning to Amphinomus** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Amphinomus, Wine cup, Doom pull. Stage this action in causal order: Odysseus drinks to Amphinomus and warns that no man should become lawless in prosperity. He predicts that Odysseus will return before the suitor can leave the palace. Amphinomus walks away shaken, sensing danger but unable to escape Athena's design. The warning becomes another unheeded exit offered before the slaughter. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The warning becomes another unheeded exit offered before the slaughter.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.amphinomus",
+        "prop.wine-cup",
+        "divine-fx.doom-pull"
+      ]
+    },
+    {
+      "id": "OD-B18-S04",
+      "n": 110,
+      "title": "Penelope Appears before the Suitors",
+      "beats": [
+        "Athena places a desire in Penelope to appear before the suitors and inflame their gifts.",
+        "She puts the queen to sleep, beautifies her, and wakes her radiant.",
+        "Penelope descends with two maids and rebukes Telemachus for allowing the stranger's abuse.",
+        "She recounts Odysseus's parting instructions and demands courtship gifts.",
+        "The suitors send for jewels, robes, and ornaments while Odysseus silently rejoices at her strategy."
+      ],
+      "composePrompt": "Build `OD-B18-S04` — **Penelope Appears before the Suitors** — as one editable Halfworld stage. Required instances: Penelope, Athena's beautification, Odysseus as beggar, Suitor gift procession, Courtship gifts. Stage this action in causal order: Athena places a desire in Penelope to appear before the suitors and inflame their gifts. She puts the queen to sleep, beautifies her, and wakes her radiant. Penelope descends with two maids and rebukes Telemachus for allowing the stranger's abuse. She recounts Odysseus's parting instructions and demands courtship gifts. The suitors send for jewels, robes, and ornaments while Odysseus silently rejoices at her strategy. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The suitors send for jewels, robes, and ornaments while Odysseus silently rejoices at her strategy.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.penelope",
+        "divine-fx.athenas-beautification",
+        "character.odysseus-as-beggar",
+        "ensemble.suitor-gift-procession",
+        "prop.courtship-gifts"
+      ]
+    },
+    {
+      "id": "OD-B18-S05",
+      "n": 111,
+      "title": "Melantho and Eurymachus Attack",
+      "beats": [
+        "After Penelope withdraws, disloyal maids light the hall for the suitors.",
+        "Melantho insults the beggar; he warns that the master may return.",
+        "Eurymachus mocks the beggar's baldness and offers him labor only to belittle him.",
+        "Odysseus answers with a challenge of work and war; Eurymachus throws a stool and misses.",
+        "Telemachus rebukes the suitors and ends the night's disorder."
+      ],
+      "composePrompt": "Build `OD-B18-S05` — **Melantho and Eurymachus Attack** — as one editable Halfworld stage. Required instances: Melantho, Eurymachus, Odysseus as beggar, Telemachus, Hall lamps and missed stool. Stage this action in causal order: After Penelope withdraws, disloyal maids light the hall for the suitors. Melantho insults the beggar; he warns that the master may return. Eurymachus mocks the beggar's baldness and offers him labor only to belittle him. Odysseus answers with a challenge of work and war; Eurymachus throws a stool and misses. Telemachus rebukes the suitors and ends the night's disorder. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Telemachus rebukes the suitors and ends the night's disorder.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.melantho",
+        "character.eurymachus",
+        "character.odysseus-as-beggar",
+        "character.telemachus",
+        "prop.hall-lamps-and-missed-stool"
+      ]
+    }
+  ],
+  "existing": [
+    "character.odysseus-as-beggar",
+    "character.antinous",
+    "prop.wine-cup",
+    "character.penelope",
+    "divine-fx.athenas-beautification",
+    "character.eurymachus",
+    "character.telemachus"
+  ]
+}

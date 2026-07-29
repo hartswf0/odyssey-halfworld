@@ -1,0 +1,264 @@
+{
+  "book": 17,
+  "jobs": [
+    {
+      "id": "location.palace-family-chamber",
+      "type": "LOCATION",
+      "name": "Palace family chamber",
+      "prompt": "Palace family chamber (LOCATION). entry, embrace space, seated report zone, servants' routes, and hall connection. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B17-S01: entry, embrace space, seated report zone, servants' routes, and hall connection"
+      ]
+    },
+    {
+      "id": "character.melanthius",
+      "type": "CHARACTER",
+      "name": "Melanthius",
+      "prompt": "Melanthius (CHARACTER). disloyal goatherd swaggering under suitor patronage and using livestock as tribute. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B17-S02: disloyal goatherd swaggering under suitor patronage and using livestock as tribute"
+      ]
+    },
+    {
+      "id": "creature.goat-herd",
+      "type": "CREATURE",
+      "name": "Goat herd",
+      "prompt": "Goat herd (CREATURE). driven animals passing through narrow road and fountain space. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B17-S02: driven animals passing through narrow road and fountain space"
+      ]
+    },
+    {
+      "id": "location.ithaca-town-road-and-fountain",
+      "type": "LOCATION",
+      "name": "Ithaca town road and fountain",
+      "prompt": "Ithaca town road and fountain (LOCATION). rural approach with sacred spring, meeting bottleneck, city gate, and palace sightline. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B17-S02: rural approach with sacred spring, meeting bottleneck, city gate, and palace sightline"
+      ]
+    },
+    {
+      "id": "creature.argos",
+      "type": "CREATURE",
+      "name": "Argos",
+      "prompt": "Argos (CREATURE). aged hunting dog with weak breath, scent recognition, ear drop, tail movement, failed rise, and peaceful death states. reusable articulated creature with legible silhouette, locomotion, gaze, jaw or attack controls, collision volume, and neutral plus extreme poses.",
+      "perfs": [
+        "OD-B17-S03: aged hunting dog with weak breath, scent recognition, ear drop, tail movement, failed rise, and peaceful death states"
+      ]
+    },
+    {
+      "id": "location.palace-dung-heap-and-gate",
+      "type": "LOCATION",
+      "name": "Palace dung heap and gate",
+      "prompt": "Palace dung heap and gate (LOCATION). degraded threshold environment contrasting former royal order with present neglect. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B17-S03: degraded threshold environment contrasting former royal order with present neglect"
+      ]
+    },
+    {
+      "id": "prop.begging-bag",
+      "type": "PROP",
+      "name": "Begging bag",
+      "prompt": "Begging bag (PROP). openable pouch receiving bread and meat portions while preserving donor history. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B17-S04: openable pouch receiving bread and meat portions while preserving donor history"
+      ]
+    },
+    {
+      "id": "prop.thrown-footstool",
+      "type": "PROP",
+      "name": "Thrown footstool",
+      "prompt": "Thrown footstool (PROP). furniture with lift, aim, flight, shoulder-impact, fall, and evidence states. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B17-S05: furniture with lift, aim, flight, shoulder-impact, fall, and evidence states"
+      ]
+    },
+    {
+      "id": "ensemble.suitor-reaction",
+      "type": "ENSEMBLE",
+      "name": "Suitor reaction",
+      "prompt": "Suitor reaction (ENSEMBLE). laughter snapping into discomfort and warnings about disguised gods. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B17-S05: laughter snapping into discomfort and warnings about disguised gods"
+      ]
+    },
+    {
+      "id": "divine-fx.silent-revenge-vow",
+      "type": "DIVINE_FX",
+      "name": "Silent revenge vow",
+      "prompt": "Silent revenge vow (DIVINE_FX). brief internal target-lock attaching Antinous to the future first-arrow cue. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B17-S05: brief internal target-lock attaching Antinous to the future first-arrow cue"
+      ]
+    },
+    {
+      "id": "sound-source.sneeze-omen",
+      "type": "SOUND_SOURCE",
+      "name": "Sneeze omen",
+      "prompt": "Sneeze omen (SOUND_SOURCE). sudden hall-crossing sound that interrupts speech and triggers Penelope's interpretation. addressable diegetic sound emitter with position, intensity, rhythm, start/stop states, and relation to visible action.",
+      "perfs": [
+        "OD-B17-S06: sudden hall-crossing sound that interrupts speech and triggers Penelope's interpretation"
+      ]
+    },
+    {
+      "id": "location.night-palace-hall",
+      "type": "LOCATION",
+      "name": "Night palace hall",
+      "prompt": "Night palace hall (LOCATION). feast winding down, lamps, doors, reduced servant traffic, and future interview space. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B17-S07: feast winding down, lamps, doors, reduced servant traffic, and future interview space"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B17-S01",
+      "n": 100,
+      "title": "Telemachus Returns to the Palace",
+      "beats": [
+        "At dawn Telemachus leaves the hut and orders Eumaeus to bring the beggar later.",
+        "He reaches the palace; Eurycleia and Penelope embrace him in tears.",
+        "Telemachus reports what Nestor and Menelaus told him but withholds the plan and his father's return.",
+        "Theoclymenus declares that Odysseus is already in Ithaca, preparing revenge."
+      ],
+      "composePrompt": "Build `OD-B17-S01` — **Telemachus Returns to the Palace** — as one editable Halfworld stage. Required instances: Telemachus, Penelope, Eurycleia, Theoclymenus, Palace family chamber. Stage this action in causal order: At dawn Telemachus leaves the hut and orders Eumaeus to bring the beggar later. He reaches the palace; Eurycleia and Penelope embrace him in tears. Telemachus reports what Nestor and Menelaus told him but withholds the plan and his father's return. Theoclymenus declares that Odysseus is already in Ithaca, preparing revenge. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Theoclymenus declares that Odysseus is already in Ithaca, preparing revenge.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.telemachus",
+        "character.penelope",
+        "character.eurycleia",
+        "character.theoclymenus",
+        "location.palace-family-chamber"
+      ]
+    },
+    {
+      "id": "OD-B17-S02",
+      "n": 101,
+      "title": "The Road with Melanthius",
+      "beats": [
+        "Eumaeus leads the disguised Odysseus from the farm toward town.",
+        "At a fountain they meet Melanthius driving the suitors' best goats.",
+        "The goatherd insults Odysseus, kicks him, and mocks Eumaeus.",
+        "Odysseus suppresses the urge to kill him and continues toward the palace."
+      ],
+      "composePrompt": "Build `OD-B17-S02` — **The Road with Melanthius** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Eumaeus, Melanthius, Goat herd, Ithaca town road and fountain. Stage this action in causal order: Eumaeus leads the disguised Odysseus from the farm toward town. At a fountain they meet Melanthius driving the suitors' best goats. The goatherd insults Odysseus, kicks him, and mocks Eumaeus. Odysseus suppresses the urge to kill him and continues toward the palace. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Odysseus suppresses the urge to kill him and continues toward the palace.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.eumaeus",
+        "character.melanthius",
+        "creature.goat-herd",
+        "location.ithaca-town-road-and-fountain"
+      ]
+    },
+    {
+      "id": "OD-B17-S03",
+      "n": 102,
+      "title": "Argos Recognizes His Master",
+      "beats": [
+        "Near the palace Odysseus sees his old dog Argos lying neglected on dung.",
+        "Argos lifts his head, drops his ears, and wags his tail at the scent and voice of his master.",
+        "Odysseus turns aside to hide a tear while asking Eumaeus about the animal.",
+        "After twenty years Argos dies as soon as he has recognized Odysseus."
+      ],
+      "composePrompt": "Build `OD-B17-S03` — **Argos Recognizes His Master** — as one editable Halfworld stage. Required instances: Argos, Odysseus as beggar, Eumaeus, Palace dung heap and gate. Stage this action in causal order: Near the palace Odysseus sees his old dog Argos lying neglected on dung. Argos lifts his head, drops his ears, and wags his tail at the scent and voice of his master. Odysseus turns aside to hide a tear while asking Eumaeus about the animal. After twenty years Argos dies as soon as he has recognized Odysseus. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—After twenty years Argos dies as soon as he has recognized Odysseus.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "creature.argos",
+        "character.odysseus-as-beggar",
+        "character.eumaeus",
+        "location.palace-dung-heap-and-gate"
+      ]
+    },
+    {
+      "id": "OD-B17-S04",
+      "n": 103,
+      "title": "The Beggar Enters His Hall",
+      "beats": [
+        "Eumaeus enters first and Telemachus signals him to seat the beggar at the door.",
+        "Odysseus crosses his own threshold unrecognized and hears Phemius singing.",
+        "He begs from suitor to suitor to test each man's character.",
+        "Most give food while Antinous demands to know who admitted him."
+      ],
+      "composePrompt": "Build `OD-B17-S04` — **The Beggar Enters His Hall** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Telemachus, Eumaeus, Suitors, Begging bag. Stage this action in causal order: Eumaeus enters first and Telemachus signals him to seat the beggar at the door. Odysseus crosses his own threshold unrecognized and hears Phemius singing. He begs from suitor to suitor to test each man's character. Most give food while Antinous demands to know who admitted him. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Most give food while Antinous demands to know who admitted him.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.telemachus",
+        "character.eumaeus",
+        "ensemble.suitors",
+        "prop.begging-bag"
+      ]
+    },
+    {
+      "id": "OD-B17-S05",
+      "n": 104,
+      "title": "Antinous Throws the Stool",
+      "beats": [
+        "Odysseus tells a false story of former wealth and Egyptian disaster to Antinous.",
+        "Antinous insults him and orders him away from the table.",
+        "The beggar answers boldly; Antinous hurls a footstool into his shoulder.",
+        "Odysseus does not stagger and silently prays for Antinous's death.",
+        "Even the other suitors condemn the violation of a stranger."
+      ],
+      "composePrompt": "Build `OD-B17-S05` — **Antinous Throws the Stool** — as one editable Halfworld stage. Required instances: Odysseus as beggar, Antinous, Thrown footstool, Suitor reaction, Silent revenge vow. Stage this action in causal order: Odysseus tells a false story of former wealth and Egyptian disaster to Antinous. Antinous insults him and orders him away from the table. The beggar answers boldly; Antinous hurls a footstool into his shoulder. Odysseus does not stagger and silently prays for Antinous's death. Even the other suitors condemn the violation of a stranger. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Even the other suitors condemn the violation of a stranger.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus-as-beggar",
+        "character.antinous",
+        "prop.thrown-footstool",
+        "ensemble.suitor-reaction",
+        "divine-fx.silent-revenge-vow"
+      ]
+    },
+    {
+      "id": "OD-B17-S06",
+      "n": 105,
+      "title": "Penelope Summons the Stranger",
+      "beats": [
+        "Penelope hears of the beggar's endurance and asks Eumaeus to bring him for questioning.",
+        "Odysseus delays until dusk, saying the suitors may attack him in the open hall.",
+        "Penelope praises the stranger's caution and asks that he come when the room empties.",
+        "Telemachus sneezes loudly; Penelope reads it as an omen that the suitors will die."
+      ],
+      "composePrompt": "Build `OD-B17-S06` — **Penelope Summons the Stranger** — as one editable Halfworld stage. Required instances: Penelope, Eumaeus, Odysseus as beggar, Telemachus, Sneeze omen. Stage this action in causal order: Penelope hears of the beggar's endurance and asks Eumaeus to bring him for questioning. Odysseus delays until dusk, saying the suitors may attack him in the open hall. Penelope praises the stranger's caution and asks that he come when the room empties. Telemachus sneezes loudly; Penelope reads it as an omen that the suitors will die. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Telemachus sneezes loudly; Penelope reads it as an omen that the suitors will die.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.penelope",
+        "character.eumaeus",
+        "character.odysseus-as-beggar",
+        "character.telemachus",
+        "sound-source.sneeze-omen"
+      ]
+    },
+    {
+      "id": "OD-B17-S07",
+      "n": 106,
+      "title": "Eumaeus Leaves the Hall",
+      "beats": [
+        "At night Eumaeus prepares to return to the farm and asks Telemachus for instructions.",
+        "Telemachus tells him to come back at dawn with news.",
+        "Eumaeus takes leave of the disguised Odysseus and the prince without recognizing their bond.",
+        "The beggar remains in the palace under the suitors' gaze."
+      ],
+      "composePrompt": "Build `OD-B17-S07` — **Eumaeus Leaves the Hall** — as one editable Halfworld stage. Required instances: Eumaeus, Telemachus, Odysseus as beggar, Night palace hall. Stage this action in causal order: At night Eumaeus prepares to return to the farm and asks Telemachus for instructions. Telemachus tells him to come back at dawn with news. Eumaeus takes leave of the disguised Odysseus and the prince without recognizing their bond. The beggar remains in the palace under the suitors' gaze. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The beggar remains in the palace under the suitors' gaze.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.eumaeus",
+        "character.telemachus",
+        "character.odysseus-as-beggar",
+        "location.night-palace-hall"
+      ]
+    }
+  ],
+  "existing": [
+    "character.telemachus",
+    "character.penelope",
+    "character.eurycleia",
+    "character.theoclymenus",
+    "character.odysseus-as-beggar",
+    "character.eumaeus",
+    "ensemble.suitors",
+    "character.antinous"
+  ]
+}

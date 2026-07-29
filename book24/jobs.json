@@ -1,0 +1,426 @@
+{
+  "book": 24,
+  "jobs": [
+    {
+      "id": "character.hermes-psychopomp",
+      "type": "CHARACTER",
+      "name": "Hermes psychopomp",
+      "prompt": "Hermes psychopomp (CHARACTER). divine guide using the wand to collect, orient, and move a confused mass of new shades. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S01: divine guide using the wand to collect, orient, and move a confused mass of new shades"
+      ]
+    },
+    {
+      "id": "ensemble.suitors-shades",
+      "type": "ENSEMBLE",
+      "name": "Suitors' shades",
+      "prompt": "Suitors' shades (ENSEMBLE). newly dead men retaining wounds, social clusters, fear, and the need to explain their deaths. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B24-S01: newly dead men retaining wounds, social clusters, fear, and the need to explain their deaths"
+      ]
+    },
+    {
+      "id": "location.road-to-hades",
+      "type": "LOCATION",
+      "name": "Road to Hades",
+      "prompt": "Road to Hades (LOCATION). Ocean crossings, White Rock, sun gates, dream country, and asphodel meadow as sequential thresholds. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B24-S01: Ocean crossings, White Rock, sun gates, dream country, and asphodel meadow as sequential thresholds"
+      ]
+    },
+    {
+      "id": "character.amphimedons-shade",
+      "type": "CHARACTER",
+      "name": "Amphimedon's shade",
+      "prompt": "Amphimedon's shade (CHARACTER). suitor narrator explaining the massacre from the defeated side. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S02: suitor narrator explaining the massacre from the defeated side"
+      ]
+    },
+    {
+      "id": "divine-fx.penelope-memory-tableau",
+      "type": "DIVINE_FX",
+      "name": "Penelope memory tableau",
+      "prompt": "Penelope memory tableau (DIVINE_FX). loom delay, beggar arrival, bow contest, and faithful recognition summarized as underworld testimony. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B24-S02: loom delay, beggar arrival, bow contest, and faithful recognition summarized as underworld testimony"
+      ]
+    },
+    {
+      "id": "ensemble.warrior-shades",
+      "type": "ENSEMBLE",
+      "name": "Warrior shades",
+      "prompt": "Warrior shades (ENSEMBLE). dead Achaeans listening and forming a reputation chorus. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B24-S02: dead Achaeans listening and forming a reputation chorus"
+      ]
+    },
+    {
+      "id": "character.laertes",
+      "type": "CHARACTER",
+      "name": "Laertes",
+      "prompt": "Laertes (CHARACTER). aged king reduced to farm labor, grief, suspicion, and need for evidence. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S03: aged king reduced to farm labor, grief, suspicion, and need for evidence",
+        "OD-B24-S04: skeptic becoming father through cumulative evidence rather than appearance",
+        "OD-B24-S08: restored elder taking the decisive first throw against his counterpart"
+      ]
+    },
+    {
+      "id": "location.laertess-orchard",
+      "type": "LOCATION",
+      "name": "Laertes's orchard",
+      "prompt": "Laertes's orchard (LOCATION). worked farm with rows of trees, isolated labor position, farmhouse, bath, feast yard, and battle approach. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B24-S03: worked farm with rows of trees, isolated labor position, farmhouse, bath, feast yard, and battle approach"
+      ]
+    },
+    {
+      "id": "prop.farm-clothing-and-tools",
+      "type": "PROP",
+      "name": "Farm clothing and tools",
+      "prompt": "Farm clothing and tools (PROP). patched gaiters, gloves, cap, hoe, and pruning gear expressing diminished status. isolated reusable object with declared scale, grip/support/contact anchors, ownership, collision shape, and all scene-required states.",
+      "perfs": [
+        "OD-B24-S03: patched gaiters, gloves, cap, hoe, and pruning gear expressing diminished status"
+      ]
+    },
+    {
+      "id": "set-piece.orchard-inventory",
+      "type": "SET_PIECE",
+      "name": "Orchard inventory",
+      "prompt": "Orchard inventory (SET_PIECE). addressable pears, apples, figs, and vine rows linked to childhood-gift memory. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B24-S04: addressable pears, apples, figs, and vine rows linked to childhood-gift memory"
+      ]
+    },
+    {
+      "id": "set-piece.boar-scar",
+      "type": "SET_PIECE",
+      "name": "Boar scar",
+      "prompt": "Boar scar (SET_PIECE). persistent body marker addressable by touch, visible close-up, recognition trigger, and continuity validation. separable architectural or environmental component with placement anchors, collision boundaries, depth layer, and alternate states.",
+      "perfs": [
+        "OD-B24-S04: same persistent proof marker completing a second family recognition"
+      ]
+    },
+    {
+      "id": "character.laertes-restored",
+      "type": "CHARACTER",
+      "name": "Laertes restored",
+      "prompt": "Laertes restored (CHARACTER). aged father whose strength and stature return without erasing age. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S05: aged father whose strength and stature return without erasing age"
+      ]
+    },
+    {
+      "id": "character.dolius",
+      "type": "CHARACTER",
+      "name": "Dolius",
+      "prompt": "Dolius (CHARACTER). old servant recognizing the master and entering protective loyalty. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S05: old servant recognizing the master and entering protective loyalty"
+      ]
+    },
+    {
+      "id": "ensemble.doliuss-sons",
+      "type": "ENSEMBLE",
+      "name": "Dolius's sons",
+      "prompt": "Dolius's sons (ENSEMBLE). six farm workers returning with tools, greeting Odysseus, and becoming an armed family unit. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B24-S05: six farm workers returning with tools, greeting Odysseus, and becoming an armed family unit"
+      ]
+    },
+    {
+      "id": "location.farmhouse-feast",
+      "type": "LOCATION",
+      "name": "Farmhouse feast",
+      "prompt": "Farmhouse feast (LOCATION). bath, dressing, table, food, weapon readiness, and lookout transitions. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B24-S05: bath, dressing, table, food, weapon readiness, and lookout transitions"
+      ]
+    },
+    {
+      "id": "character.eupithes",
+      "type": "CHARACTER",
+      "name": "Eupithes",
+      "prompt": "Eupithes (CHARACTER). grieving father of Antinous converting mourning into an immediate militia march. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S06: grieving father of Antinous converting mourning into an immediate militia march"
+      ]
+    },
+    {
+      "id": "character.medon-and-phemius",
+      "type": "CHARACTER",
+      "name": "Medon and Phemius",
+      "prompt": "Medon and Phemius (CHARACTER). survivors giving eyewitness testimony of divine involvement. full-body reusable articulated performer with stable identity across front, three-quarter, profile, and back views; separate costume layers; face, gaze, mouth, hands, shoulders, elbows, hips, knees, and feet exposed to the rig.",
+      "perfs": [
+        "OD-B24-S06: survivors giving eyewitness testimony of divine involvement"
+      ]
+    },
+    {
+      "id": "ensemble.suitors-families",
+      "type": "ENSEMBLE",
+      "name": "Suitors' families",
+      "prompt": "Suitors' families (ENSEMBLE). mourners dividing into revenge militia and caution group. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B24-S06: mourners dividing into revenge militia and caution group"
+      ]
+    },
+    {
+      "id": "location.ithacan-meeting-and-funeral-ground",
+      "type": "LOCATION",
+      "name": "Ithacan meeting and funeral ground",
+      "prompt": "Ithacan meeting and funeral ground (LOCATION). body display, family clusters, speaker positions, armament point, and farmward exit. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B24-S06: body display, family clusters, speaker positions, armament point, and farmward exit"
+      ]
+    },
+    {
+      "id": "location.olympian-decision-space",
+      "type": "LOCATION",
+      "name": "Olympian decision space",
+      "prompt": "Olympian decision space (LOCATION). reused council hall reduced to two-speaker judgment configuration. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B24-S07: reused council hall reduced to two-speaker judgment configuration"
+      ]
+    },
+    {
+      "id": "divine-fx.peace-decree",
+      "type": "DIVINE_FX",
+      "name": "Peace decree",
+      "prompt": "Peace decree (DIVINE_FX). future-binding state specifying kingship, oath, forgetting, wealth, and civic stability. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B24-S07: future-binding state specifying kingship, oath, forgetting, wealth, and civic stability"
+      ]
+    },
+    {
+      "id": "ensemble.revenge-militia",
+      "type": "ENSEMBLE",
+      "name": "Revenge militia",
+      "prompt": "Revenge militia (ENSEMBLE). armed relatives advancing, losing Eupithes, wavering, and colliding with the farm defenders. repeatable group system built from separable members; expose formation, density, attention, reaction-wave, and foreground/background controls.",
+      "perfs": [
+        "OD-B24-S08: armed relatives advancing, losing Eupithes, wavering, and colliding with the farm defenders"
+      ]
+    },
+    {
+      "id": "divine-fx.zeuss-stopping-thunderbolt",
+      "type": "DIVINE_FX",
+      "name": "Zeus's stopping thunderbolt",
+      "prompt": "Zeus's stopping thunderbolt (DIVINE_FX). ground strike placed before Athena that freezes pursuit without killing. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B24-S09: ground strike placed before Athena that freezes pursuit without killing"
+      ]
+    },
+    {
+      "id": "divine-fx.ithacan-peace-oath",
+      "type": "DIVINE_FX",
+      "name": "Ithacan peace oath",
+      "prompt": "Ithacan peace oath (DIVINE_FX). binding reciprocal state joining ruler, families, memory suppression, and future abundance. procedural supernatural effect with source, target, field, duration, transformation states, and visible consequence.",
+      "perfs": [
+        "OD-B24-S09: binding reciprocal state joining ruler, families, memory suppression, and future abundance"
+      ]
+    },
+    {
+      "id": "location.farm-battlefield-at-peace",
+      "type": "LOCATION",
+      "name": "Farm battlefield at peace",
+      "prompt": "Farm battlefield at peace (LOCATION). combat terrain transitioning from charge lines and bodies to lowered weapons, separation, and oath circle. empty navigable set with foreground, middle ground, background, walkable zones, entrances, exits, thresholds, occlusion layers, placement anchors, and camera anchors; do not bake characters into it.",
+      "perfs": [
+        "OD-B24-S09: combat terrain transitioning from charge lines and bodies to lowered weapons, separation, and oath circle"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "OD-B24-S01",
+      "n": 144,
+      "title": "The Suitors Enter Hades",
+      "beats": [
+        "Hermes gathers the suitors' shades with his wand and leads them squeaking like bats toward the dead.",
+        "They pass Ocean, the White Rock, the Gates of the Sun, and the land of dreams.",
+        "In the meadow of asphodel they meet Achilles, Agamemnon, Ajax, and other warriors.",
+        "The dead gather to hear how so many noble young men died together."
+      ],
+      "composePrompt": "Build `OD-B24-S01` — **The Suitors Enter Hades** — as one editable Halfworld stage. Required instances: Hermes psychopomp, Suitors' shades, Road to Hades, Hermes's wand. Stage this action in causal order: Hermes gathers the suitors' shades with his wand and leads them squeaking like bats toward the dead. They pass Ocean, the White Rock, the Gates of the Sun, and the land of dreams. In the meadow of asphodel they meet Achilles, Agamemnon, Ajax, and other warriors. The dead gather to hear how so many noble young men died together. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The dead gather to hear how so many noble young men died together.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.hermes-psychopomp",
+        "ensemble.suitors-shades",
+        "location.road-to-hades",
+        "prop.hermess-wand"
+      ]
+    },
+    {
+      "id": "OD-B24-S02",
+      "n": 145,
+      "title": "Agamemnon Hears of Penelope's Fidelity",
+      "beats": [
+        "Agamemnon and Achilles debate the honor of their deaths and funerals.",
+        "Amphimedon tells how Penelope delayed the suitors, how Odysseus returned as a beggar, and how the bow contest became slaughter.",
+        "Agamemnon praises Penelope's enduring intelligence and condemns Clytemnestra by contrast.",
+        "The underworld recognizes Odysseus's household victory as a new song."
+      ],
+      "composePrompt": "Build `OD-B24-S02` — **Agamemnon Hears of Penelope's Fidelity** — as one editable Halfworld stage. Required instances: Agamemnon's shade, Achilles's shade, Amphimedon's shade, Penelope memory tableau, Warrior shades. Stage this action in causal order: Agamemnon and Achilles debate the honor of their deaths and funerals. Amphimedon tells how Penelope delayed the suitors, how Odysseus returned as a beggar, and how the bow contest became slaughter. Agamemnon praises Penelope's enduring intelligence and condemns Clytemnestra by contrast. The underworld recognizes Odysseus's household victory as a new song. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The underworld recognizes Odysseus's household victory as a new song.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.agamemnons-shade",
+        "character.achilless-shade",
+        "character.amphimedons-shade",
+        "divine-fx.penelope-memory-tableau",
+        "ensemble.warrior-shades"
+      ]
+    },
+    {
+      "id": "OD-B24-S03",
+      "n": 146,
+      "title": "Odysseus Tests Laertes",
+      "beats": [
+        "Odysseus reaches the farm and finds Laertes alone in patched clothes, tending a tree.",
+        "He sends his companions to prepare food and approaches under another false identity.",
+        "He claims to have hosted Odysseus years earlier and watches his father collapse in grief.",
+        "Unable to continue, Odysseus embraces him and names himself.",
+        "Laertes asks for proof beyond desire."
+      ],
+      "composePrompt": "Build `OD-B24-S03` — **Odysseus Tests Laertes** — as one editable Halfworld stage. Required instances: Laertes, Odysseus, Laertes's orchard, Farm clothing and tools. Stage this action in causal order: Odysseus reaches the farm and finds Laertes alone in patched clothes, tending a tree. He sends his companions to prepare food and approaches under another false identity. He claims to have hosted Odysseus years earlier and watches his father collapse in grief. Unable to continue, Odysseus embraces him and names himself. Laertes asks for proof beyond desire. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Laertes asks for proof beyond desire.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.laertes",
+        "character.odysseus",
+        "location.laertess-orchard",
+        "prop.farm-clothing-and-tools"
+      ]
+    },
+    {
+      "id": "OD-B24-S04",
+      "n": 147,
+      "title": "The Scar and the Orchard Trees",
+      "beats": [
+        "Odysseus shows the boar scar as physical proof.",
+        "He names the thirteen pear trees, ten apple trees, forty fig trees, and fifty vine rows Laertes gave him as a child.",
+        "Laertes recognizes the private map of inheritance and collapses into his son's arms.",
+        "He fears that Ithaca lacks men willing to defend them from the suitors' kin."
+      ],
+      "composePrompt": "Build `OD-B24-S04` — **The Scar and the Orchard Trees** — as one editable Halfworld stage. Required instances: Odysseus, Laertes, Orchard inventory, Boar scar. Stage this action in causal order: Odysseus shows the boar scar as physical proof. He names the thirteen pear trees, ten apple trees, forty fig trees, and fifty vine rows Laertes gave him as a child. Laertes recognizes the private map of inheritance and collapses into his son's arms. He fears that Ithaca lacks men willing to defend them from the suitors' kin. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—He fears that Ithaca lacks men willing to defend them from the suitors' kin.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.laertes",
+        "set-piece.orchard-inventory",
+        "set-piece.boar-scar"
+      ]
+    },
+    {
+      "id": "OD-B24-S05",
+      "n": 148,
+      "title": "Laertes Is Restored",
+      "beats": [
+        "Laertes is bathed and anointed inside the farmhouse.",
+        "Athena makes him taller and stronger, restoring royal presence.",
+        "Dolius and his sons return from the fields, recognize Odysseus, and join the feast.",
+        "The reunited household eats while rumors of the massacre spread through town."
+      ],
+      "composePrompt": "Build `OD-B24-S05` — **Laertes Is Restored** — as one editable Halfworld stage. Required instances: Laertes restored, Athena's restoration, Dolius, Dolius's sons, Farmhouse feast. Stage this action in causal order: Laertes is bathed and anointed inside the farmhouse. Athena makes him taller and stronger, restoring royal presence. Dolius and his sons return from the fields, recognize Odysseus, and join the feast. The reunited household eats while rumors of the massacre spread through town. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The reunited household eats while rumors of the massacre spread through town.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.laertes-restored",
+        "divine-fx.athenas-restoration",
+        "character.dolius",
+        "ensemble.doliuss-sons",
+        "location.farmhouse-feast"
+      ]
+    },
+    {
+      "id": "OD-B24-S06",
+      "n": 149,
+      "title": "The Families Demand Revenge",
+      "beats": [
+        "In town the bodies are carried from the palace and each family mourns its dead.",
+        "Medon and Phemius testify that a god fought beside Odysseus.",
+        "Halitherses reminds the people that he warned them and that their own tolerance enabled the disaster.",
+        "Eupithes rejects caution and leads armed relatives toward Laertes's farm.",
+        "Some citizens refuse to join and remain behind."
+      ],
+      "composePrompt": "Build `OD-B24-S06` — **The Families Demand Revenge** — as one editable Halfworld stage. Required instances: Eupithes, Halitherses, Medon and Phemius, Suitors' families, Ithacan meeting and funeral ground. Stage this action in causal order: In town the bodies are carried from the palace and each family mourns its dead. Medon and Phemius testify that a god fought beside Odysseus. Halitherses reminds the people that he warned them and that their own tolerance enabled the disaster. Eupithes rejects caution and leads armed relatives toward Laertes's farm. Some citizens refuse to join and remain behind. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Some citizens refuse to join and remain behind.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.eupithes",
+        "character.halitherses",
+        "character.medon-and-phemius",
+        "ensemble.suitors-families",
+        "location.ithacan-meeting-and-funeral-ground"
+      ]
+    },
+    {
+      "id": "OD-B24-S07",
+      "n": 150,
+      "title": "Zeus and Athena Set the Terms",
+      "beats": [
+        "Athena asks Zeus whether the conflict should continue or peace should be imposed.",
+        "Zeus declares that Odysseus may remain king after punishing the suitors.",
+        "He orders both sides to forget the bloodshed through oath and renewed prosperity.",
+        "Athena descends toward Ithaca to terminate the cycle."
+      ],
+      "composePrompt": "Build `OD-B24-S07` — **Zeus and Athena Set the Terms** — as one editable Halfworld stage. Required instances: Zeus, Athena, Olympian decision space, Peace decree. Stage this action in causal order: Athena asks Zeus whether the conflict should continue or peace should be imposed. Zeus declares that Odysseus may remain king after punishing the suitors. He orders both sides to forget the bloodshed through oath and renewed prosperity. Athena descends toward Ithaca to terminate the cycle. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—Athena descends toward Ithaca to terminate the cycle.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.zeus",
+        "character.athena",
+        "location.olympian-decision-space",
+        "divine-fx.peace-decree"
+      ]
+    },
+    {
+      "id": "OD-B24-S08",
+      "n": 151,
+      "title": "The Last Clash",
+      "beats": [
+        "Odysseus sees the armed relatives approaching and distributes weapons among the farm household.",
+        "Athena appears as Mentor and urges Laertes's line to prove its strength.",
+        "Laertes prays, throws a spear, and kills Eupithes through the helmet.",
+        "Odysseus and Telemachus charge the remaining attackers.",
+        "The final battle begins to repeat the slaughter that peace must stop."
+      ],
+      "composePrompt": "Build `OD-B24-S08` — **The Last Clash** — as one editable Halfworld stage. Required instances: Odysseus, Telemachus, Laertes, Athena as Mentor, Revenge militia. Stage this action in causal order: Odysseus sees the armed relatives approaching and distributes weapons among the farm household. Athena appears as Mentor and urges Laertes's line to prove its strength. Laertes prays, throws a spear, and kills Eupithes through the helmet. Odysseus and Telemachus charge the remaining attackers. The final battle begins to repeat the slaughter that peace must stop. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The final battle begins to repeat the slaughter that peace must stop.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.odysseus",
+        "character.telemachus",
+        "character.laertes",
+        "character.athena-as-mentor",
+        "ensemble.revenge-militia"
+      ]
+    },
+    {
+      "id": "OD-B24-S09",
+      "n": 152,
+      "title": "Athena Makes Peace",
+      "beats": [
+        "Athena cries out for both sides to stop and tells the Ithacans to disperse without more blood.",
+        "Zeus hurls a thunderbolt before her feet, making the command irresistible.",
+        "Odysseus attempts one more charge until Athena restrains and redirects him.",
+        "She establishes binding oaths between king and people in Mentor's form.",
+        "The poem ends with the household restored and the violence converted into civic peace."
+      ],
+      "composePrompt": "Build `OD-B24-S09` — **Athena Makes Peace** — as one editable Halfworld stage. Required instances: Athena as Mentor, Odysseus, Zeus's stopping thunderbolt, Ithacan peace oath, Farm battlefield at peace. Stage this action in causal order: Athena cries out for both sides to stop and tells the Ithacans to disperse without more blood. Zeus hurls a thunderbolt before her feet, making the command irresistible. Odysseus attempts one more charge until Athena restrains and redirects him. She establishes binding oaths between king and people in Mentor's form. The poem ends with the household restored and the violence converted into civic peace. Use warm off-white paper; hard black structural contour; eight-level ordered-dot halftone; blocky procedural geometry; crisp monochrome silhouette; no gradients, painterly texture, photorealism, cinematic blur, or baked-in unrelated figures. Keep every actor, creature, prop, and effect as an independently addressable instance. Declare entrances, exits, walkable zones, depth order, gaze targets, attachment changes, sound sources, and the final continuity state. Do not combine different moments into one poster; the stage must support the full timeline on one master clock.",
+      "exitState": "The final beat—The poem ends with the household restored and the violence converted into civic peace.—must be serialized as the incoming continuity state for the next scene.",
+      "assets": [
+        "character.athena-as-mentor",
+        "character.odysseus",
+        "divine-fx.zeuss-stopping-thunderbolt",
+        "divine-fx.ithacan-peace-oath",
+        "location.farm-battlefield-at-peace"
+      ]
+    }
+  ],
+  "existing": [
+    "prop.hermess-wand",
+    "character.agamemnons-shade",
+    "character.achilless-shade",
+    "character.odysseus",
+    "divine-fx.athenas-restoration",
+    "character.halitherses",
+    "character.zeus",
+    "character.athena",
+    "character.telemachus",
+    "character.athena-as-mentor"
+  ]
+}
