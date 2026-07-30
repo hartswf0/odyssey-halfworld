@@ -552,8 +552,27 @@ export function placeInstance(offctx, srcW, srcH, assetMod, { anchor={x:.5,y:.5}
     offctx.restore();
     return;
   }
-  const keyed = keyedModuleCanvas(assetMod, w, h, state);
-  offctx.drawImage(keyed, x, y);
+  /* INK FIT. keyedModuleCanvas draws into a FIXED w×h box, so any art that
+     overshoots it — a staff, a raised arm, an fx corridor, the arms of a
+     diagram — is clipped at the edge. inkCutout instead measures where the ink
+     actually is and hands back that bbox, so cropping is impossible by
+     construction. Fit the measured ink INSIDE the box, preserving aspect, and
+     keep the base on the ground line (anchor is at the feet).
+     Opt out with state.fit === "box" if a piece really wants edge-to-edge. */
+  if (state && state.fit === "box"){
+    offctx.drawImage(keyedModuleCanvas(assetMod, w, h, state), x, y);
+    return;
+  }
+  let cut = null;
+  try { cut = inkCutout(assetMod, state, "place"); } catch (_) { cut = null; }
+  if (!cut || !cut.w || !cut.h){
+    offctx.drawImage(keyedModuleCanvas(assetMod, w, h, state), x, y);
+    return;
+  }
+  const s = Math.min(w / cut.w, h / cut.h);          // contain: never crop
+  const dw = cut.w * s, dh = cut.h * s;
+  offctx.drawImage(cut.cv, cut.x, cut.y, cut.w, cut.h,
+                   anchor.x * srcW - dw / 2, anchor.y * srcH - dh, dw, dh);
 }
 
 /* ============================================================
