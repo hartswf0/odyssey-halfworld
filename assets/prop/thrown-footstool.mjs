@@ -184,7 +184,10 @@ function drawFootstool(ctx, W, H, st){
 
   /* -------- IMPACT: contact bracket + burst rays + shock arcs -------- */
   if (P.burst){
-    const ix = cx + s*0.95, iy = cy - s*0.10;
+    // the burst starts at the leading corner itself — the `contact:shoulder`
+    // anchor — so the flash is welded to the geometry, not floating beside it
+    const corner = G.T(1, 0);
+    const ix = corner.x + s*0.10, iy = corner.y;
     g.strokeStyle=INK; g.lineWidth=8; g.lineCap="round";
     for(let i=0;i<7;i++){ const a = -Math.PI*0.66 + i*(Math.PI*1.32/6);
       const r0 = s*0.30, r1 = s*(0.66 + (i%2?0.24:0.0));
@@ -253,7 +256,7 @@ function drawFootstool(ctx, W, H, st){
     g.beginPath(); g.moveTo(t0.x,t0.y); g.lineTo(t1.x,t1.y); g.stroke();
   }
   if (P.lift){
-    const ax = cx - s*0.05, ay0 = cy - s*1.02, ay1 = cy - s*1.62;
+    const ax = cx - s*0.05, ay0 = cy - s*0.92, ay1 = cy - s*1.34;
     g.strokeStyle=INK; g.lineWidth=9; g.lineCap="round";
     g.beginPath(); g.moveTo(ax, ay0); g.lineTo(ax, ay1); g.stroke();
     g.fillStyle=INK; g.beginPath();

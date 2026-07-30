@@ -237,7 +237,7 @@ function drawThong(pen,g,U,nh,rise){
 /* repair patches on the hide ----------------------------------------- */
 function drawPatches(pen,g,U,bh){
   const spec=[
-    { x:-bh*0.46, y:U*0.42, w:U*0.12, h:U*0.10 },
+    { x:-bh*0.46, y:U*0.30, w:U*0.12, h:U*0.10 },
     { x: bh*0.48, y:U*0.66, w:U*0.10, h:U*0.09 },
   ].slice(0,params.patches);
   for(const p of spec){
@@ -254,30 +254,31 @@ function drawPatches(pen,g,U,bh){
    ------------------------------------------------------------------ */
 function drawSection(pen,g,U,nh,bh){
   const D = params.donors;
-  const yTop = U*0.22, yBot = U*0.84, band = (yBot-yTop)/D.length;
+  const yTop = U*0.16, yBot = U*0.86, band = (yBot-yTop)/D.length;
+  // each gift settles into its OWN pocket, of its own width and offset, so
+  // the stack never resolves into full-width bars laid across the frame
+  const HW = [0.90,0.60,0.82,0.54,0.72];
+  const OX = [-0.02,0.26,-0.14,0.30,0.06];
 
+  // the cut face — light, so the section reads as a hollow, not a mass
   g.save(); g.beginPath(); bodyPath(g,U,nh,bh); g.clip();
-  g.fillStyle=inkLevel(0); g.fillRect(-bh*1.1, -U*0.02, bh*2.2, U*0.95);
-
-  D.forEach((d,i)=>{
-    const y1 = yBot - i*band, y0 = y1 - band;
-    const inset = U*(0.03 + 0.035*(i%3));            // never a full-width bar
-    if (i%2===0){
-      g.fillStyle=inkLevel(STRAT);
-      g.beginPath(); rr(g,-bh+inset, y0+U*0.010, (bh-inset)*2, band-U*0.020, U*0.018); g.fill();
-    }
-    g.strokeStyle=INK; g.lineWidth=3.2; g.lineCap="round";
-    g.beginPath();
-    g.moveTo(-bh+inset*1.5, y0+U*0.006);
-    g.quadraticCurveTo(0, y0-U*0.014, bh-inset*1.5, y0+U*0.006);
-    g.stroke();
-  });
+  g.fillStyle=inkLevel(1); g.fillRect(-bh*1.2,-U*0.05, bh*2.4, U*1.02);
   g.restore();
 
-  // the gift itself, sitting in its stratum
   D.forEach((d,i)=>{
-    const yc = yBot - i*band - band*0.52;
-    drawPortion(pen,g,d.portion, (i%2?bh*0.20:-bh*0.22), yc, band*0.33, (i%2?0.12:-0.10));
+    const yc = yBot - i*band - band*0.50;
+    const hw = bh*HW[i%HW.length], ox = bh*OX[i%OX.length], hh = band*0.44;
+    g.save(); g.beginPath(); bodyPath(g,U,nh,bh); g.clip();
+    pen.paint(()=>{
+      g.moveTo(ox-hw, yc+hh);
+      g.lineTo(ox-hw, yc-hh*0.40);
+      g.quadraticCurveTo(ox-hw*0.42, yc-hh*1.10, ox+hw*0.10, yc-hh*0.52);
+      g.quadraticCurveTo(ox+hw*0.66, yc-hh*0.02, ox+hw, yc-hh*0.34);
+      g.lineTo(ox+hw, yc+hh);
+      g.closePath();
+    }, toneSolid(inkLevel(STRAT)), 4);
+    g.restore();
+    drawPortion(pen,g,d.portion, ox+hw*0.04, yc-hh*0.06, band*0.46, (i%2?0.12:-0.10));
   });
 
   // cut-edge hatching down both contours (broken, short section marks)
@@ -290,28 +291,23 @@ function drawSection(pen,g,U,nh,bh){
     g.beginPath(); g.moveTo( xr, yy); g.lineTo( xr-U*0.028, yy+U*0.024); g.stroke();
   }
   g.globalAlpha=1;
+  // the cut restores the hide's contour on top of everything it swallowed
+  pen.ink(()=>bodyPath(g,U,nh,bh), 6);
 
-  // donor column: leader -> seal -> ordinal tally
-  const colX = bh + U*0.42, s = U*0.088;
+  // donor column: leader -> seal -> ordinal bars, laid out ACROSS so nothing
+  // collides down the column
+  const colX = bh + U*0.34, s = U*0.075;
   D.forEach((d,i)=>{
-    const yc = yBot - i*band - band*0.52;
+    const yc = yBot - i*band - band*0.50;
     g.strokeStyle=INK; g.lineWidth=2.2; g.setLineDash([7,7]);
-    g.beginPath(); g.moveTo(bh*0.94, yc); g.lineTo(colX - s*0.74, yc); g.stroke();
+    g.beginPath(); g.moveTo(bh*(HW[i%HW.length]*0.5+0.5), yc); g.lineTo(colX - s*0.72, yc); g.stroke();
     g.setLineDash([]);
     donorSeal(pen,g,d.seal, colX, yc, s);
-    g.strokeStyle=INK; g.lineWidth=Math.max(5,s*0.15); g.lineCap="butt";
+    g.strokeStyle=INK; g.lineWidth=Math.max(5,s*0.16); g.lineCap="butt";
     for(let b=0;b<d.n;b++){
-      const bx = colX - s*0.40 + b*s*0.21;
-      g.beginPath(); g.moveTo(bx, yc+s*0.62); g.lineTo(bx, yc+s*0.94); g.stroke();
+      const bx = colX + s*0.62 + b*s*0.18;
+      g.beginPath(); g.moveTo(bx, yc-s*0.30); g.lineTo(bx, yc+s*0.30); g.stroke();
     }
-  });
-  // the column's spine, broken at each seal
-  g.strokeStyle=INK; g.lineWidth=2.8;
-  D.forEach((d,i)=>{
-    if (i===D.length-1) return;
-    const ya = yBot - i*band - band*0.52 - s*0.62;
-    const yb = yBot - (i+1)*band - band*0.52 + s*1.06;
-    g.beginPath(); g.moveTo(colX, ya); g.lineTo(colX, yb); g.stroke();
   });
 }
 
@@ -321,7 +317,7 @@ const MODE = {
   open:      { open:1.00, bulge:0.00, tally:3, neckload:0, crest:0, falling:0, status:"OPEN",      progress:.12 },
   receiving: { open:1.00, bulge:0.45, tally:4, neckload:1, crest:0, falling:1, status:"RECEIVING", progress:.58 },
   laden:     { open:0.85, bulge:1.00, tally:7, neckload:0, crest:3, falling:0, status:"LADEN",     progress:.94 },
-  history:   { open:0.55, bulge:0.60, tally:5, neckload:0, crest:0, falling:0, section:true, status:"TALLIED", progress:.75 },
+  history:   { open:0.85, bulge:0.60, tally:5, neckload:0, crest:0, falling:0, section:true, status:"TALLIED", progress:.75 },
 };
 
 function drawProp(ctx,W,H,st){
@@ -332,7 +328,7 @@ function drawProp(ctx,W,H,st){
   const section = !!M.section;
 
   // the section view gives up width to the donor column at the right
-  const U = section ? Math.min(W*0.50, H*0.40) : Math.min(W*0.62, H*0.44);
+  const U = section ? Math.min(W*0.56, H*0.50) : Math.min(W*0.62, H*0.44);
   const rise = U*0.40;
   const bagH = U*0.86;
   const yM = (H - (bagH + rise))/2 + rise;          // neck line, art centred
@@ -394,7 +390,7 @@ function drawProp(ctx,W,H,st){
   // ---- RECEIVING: a portion still in mid-fall above the open neck ----
   if (M.falling){
     const wob = Math.sin(t*2.2)*U*0.014;
-    const s = { k:"meat", x: nh*0.44 + wob, y:-U*0.235, r:U*0.082, a: 0.28 };
+    const s = { k:"meat", x: nh*0.40 + wob, y:-U*0.215, r:U*0.092, a: 0.28 };
     drawPortion(pen,g,s.k,s.x,s.y,s.r,s.a);
     g.strokeStyle=INK; g.lineWidth=3; g.lineCap="round"; g.globalAlpha=0.55;
     for(let i=0;i<3;i++){                             // fall ticks

@@ -124,8 +124,13 @@ function drawSet(ctx, W, H, st){
     g.fillStyle = inkLevel(M.sky); g.fillRect(0,0,W,HORIZON*H);
   }
 
-  /* ================= FAR RIDGE beyond the town ============================ */
+  /* ================= FAR RIDGE + THE GROUND PLANE =========================
+     The ground is laid HERE, before any masonry. It used to be filled with the
+     apron, which runs after the wall — and since the wall plane stands at
+     z=0.14, BELOW the y=0.50 horizon, that fill painted over the wall's own
+     footing and left the whole precinct standing in air on its buttresses. */
   if (has("ridge")){
+    g.fillStyle = tn(1); g.fillRect(0, HORIZON*H, W, H-HORIZON*H);
     pen.paint(()=>{
       g.moveTo(0, H*0.415);
       g.quadraticCurveTo(W*0.20, H*0.352, W*0.40, H*0.404);
@@ -164,12 +169,13 @@ function drawSet(ctx, W, H, st){
       g.lineTo(X(0.50,WZ), wallBase-H*0.396);
       g.lineTo(X(0.70,WZ), wallBase-H*0.296);
       g.closePath();
-    }, S(3), 5);
-    pen.paint(()=>{ g.rect(X(0.28,WZ), wallBase-H*0.300, X(0.72,WZ)-X(0.28,WZ), H*0.019); }, S(5), 4);
+    }, S(2), 5);
+    pen.paint(()=>{ g.rect(X(0.28,WZ), wallBase-H*0.300, X(0.72,WZ)-X(0.28,WZ), H*0.017); }, S(4), 4);
     pen.ink(()=>{ g.moveTo(X(0.50,WZ), wallBase-H*0.392); g.lineTo(X(0.50,WZ), wallBase-H*0.300); }, 3);
-    // three tall clerestory slots — the only near-black in the upper third
-    for(const u of [0.38,0.50,0.62])
-      pen.paint(()=>{ g.rect(X(u,WZ)-W*0.011, wallBase-H*0.278, W*0.022, H*0.052); }, S(6), 4);
+    // two clerestory slots, off the centre line so they do not pair into a
+    // colonnade with the gable post between them
+    for(const u of [0.375,0.625])
+      pen.paint(()=>{ g.rect(X(u,WZ)-W*0.010, wallBase-H*0.272, W*0.020, H*0.044); }, S(6), 4);
   }
 
   /* ================= THE PRECINCT WALL — bays, buttresses, coping =========
@@ -231,7 +237,7 @@ function drawSet(ctx, W, H, st){
       g.globalAlpha=1;
     }
     // lintel over the opening
-    pen.paint(()=>{ g.rect(xL-W*0.014, yTop-H*0.030, (xR-xL)+W*0.028, H*0.034); }, S(5), 5);
+    pen.paint(()=>{ g.rect(xL-W*0.014, yTop-H*0.030, (xR-xL)+W*0.028, H*0.034); }, S(4), 5);
     // THE OPENING — the deep dark of the courtyard beyond. The set's one hole.
     pen.paint(()=>{ g.rect(xL, yTop, xR-xL, dh); }, S(5), 5);
     /* the two REVEALS: the thickness of the wall, splayed into the passage.
@@ -239,9 +245,9 @@ function drawSet(ctx, W, H, st){
        eye reads a throat, and the bright slot at the end is the courtyard. */
     const rv = (xR-xL)*0.26;
     pen.paint(()=>{ g.moveTo(xL, yTop); g.lineTo(xL+rv, yTop+dh*0.12);
-      g.lineTo(xL+rv, yTop+dh); g.lineTo(xL, yTop+dh); g.closePath(); }, S(3), 4);
+      g.lineTo(xL+rv, yTop+dh); g.lineTo(xL, yTop+dh); g.closePath(); }, S(2), 4);
     pen.paint(()=>{ g.moveTo(xR, yTop); g.lineTo(xR-rv, yTop+dh*0.12);
-      g.lineTo(xR-rv, yTop+dh); g.lineTo(xR, yTop+dh); g.closePath(); }, S(4), 4);
+      g.lineTo(xR-rv, yTop+dh); g.lineTo(xR, yTop+dh); g.closePath(); }, S(3), 4);
     // daylight standing at the far end of the throat
     pen.paint(()=>{ g.rect(xL+(xR-xL)*0.38, yTop+dh*0.22, (xR-xL)*0.24, dh*0.78); },
       toneSolid(inkLevel(M.lift ? 2 : 0)), 4);
@@ -277,7 +283,6 @@ function drawSet(ctx, W, H, st){
 
   /* ================= GROUND, APRON, LANE ================================== */
   if (has("apron")){
-    g.fillStyle = tn(1); g.fillRect(0, HORIZON*H, W, H-HORIZON*H);   // the road dust
     /* the dressed apron outside the gate. FILLED, not outlined — a contour
        round a patch of ground makes it hover like a tabletop. Its only hard
        edge is the near lip, and that is broken. */
@@ -308,20 +313,26 @@ function drawSet(ctx, W, H, st){
     // cart ruts running out of the gate toward camera — the road that carries
     // the heap away, on the day anyone bothers to carry it
     g.strokeStyle=INK; g.lineCap="round";
+    /* GROOVES, not strokes. A stroked polyline down a receding road prints as
+       a wire hanging in the frame; a filled quad that widens toward camera
+       prints as a rut worn in dust. */
     for(let r=0;r<params.ruts;r++){
-      const u = 0.45 + r*0.10;
-      g.lineWidth=5; g.globalAlpha=.55;
+      const sgn = r ? 1 : -1, u = 0.5 + sgn*0.055;
+      g.fillStyle = tn(4);
       g.beginPath();
-      for(let i=0;i<=18;i++){ const z=lerp(0.42,1.20,i/18);
-        const xx = X(u + (z-0.42)*0.13*(r?1:-1), z), yy = Y(z);
-        if(i===0) g.moveTo(xx,yy); else g.lineTo(xx,yy); }
-      g.stroke(); g.globalAlpha=1;
+      for(let i=0;i<=14;i++){ const z=lerp(0.42,1.18,i/14);
+        const c = u + (z-0.42)*0.16*sgn, hw = 0.012 + (z-0.42)*0.016;
+        const XX=X(c-hw,z), YY=Y(z); if(i===0) g.moveTo(XX,YY); else g.lineTo(XX,YY); }
+      for(let i=14;i>=0;i--){ const z=lerp(0.42,1.18,i/14);
+        const c = u + (z-0.42)*0.16*sgn, hw = 0.012 + (z-0.42)*0.016;
+        g.lineTo(X(c+hw,z), Y(z)); }
+      g.closePath(); g.fill();
     }
-    // scuff marks across the ruts, so the road reads as dust and not as wire
-    g.strokeStyle=INK; g.lineWidth=3; g.globalAlpha=.24;
+    // scuff marks across the ruts, so the road reads as dust
+    g.strokeStyle=INK; g.lineWidth=3; g.globalAlpha=.22;
     for(let i=0;i<7;i++){
-      const z = lerp(0.48, 1.10, i/6), sp = (z-0.42)*0.13;
-      g.beginPath(); g.moveTo(X(0.45-sp-0.05,z), Y(z)); g.lineTo(X(0.55+sp+0.05,z), Y(z)); g.stroke();
+      const z = lerp(0.50, 1.08, i/6), sp = (z-0.42)*0.16;
+      g.beginPath(); g.moveTo(X(0.445-sp-0.03,z), Y(z)); g.lineTo(X(0.555+sp+0.03,z), Y(z)); g.stroke();
     }
     g.globalAlpha=1;
     for(const z of [0.46, 0.68, 0.94]) dashRow(z, 0.10, 0.90, 5, 0.18);
@@ -333,18 +344,27 @@ function drawSet(ctx, W, H, st){
     // the polished stone seat outside the gate (Odysseus's own, XVII).
     // Open-backed: two posts and a rail, so it frames rather than blocks.
     shadow(0.79, 0.555, 0.115, 3);
-    planBox(0.70, 0.88, 0.46, 0.55, 0.058, 2, 4, 4);
-    { const zb=0.55, kk=SZ(zb), yb=Y(zb)-0.058*kk*H, bh=0.062*kk*H;
-      for(const u of [0.70, 0.88-0.022])
-        pen.paint(()=>{ g.rect(X(u,zb), yb-bh, W*0.016, bh); }, S(4), 3);
-      pen.paint(()=>{ g.rect(X(0.70,zb), yb-bh, X(0.88,zb)-X(0.70,zb), H*0.016); }, S(4), 3);
+    /* the back goes on the FAR edge (z0) — put it on the near edge and it
+       stands in front of its own seat. Lit top, shadowed side: that tonal
+       split is what separates a seat from a packing crate. */
+    { const zf=0.46, kk=SZ(zf), yb=Y(zf)-0.058*kk*H, bh=0.075*kk*H;
+      for(const u of [0.705, 0.858])
+        pen.paint(()=>{ g.rect(X(u,zf), yb-bh, W*0.017, bh); }, S(4), 3);
+      pen.paint(()=>{ g.rect(X(0.70,zf), yb-bh, X(0.88,zf)-X(0.70,zf), H*0.015); }, S(5), 3);
     }
-    // the offering basin on its plinth, further back
-    shadow(0.92, 0.395, 0.070, 3);
-    planBox(0.87, 0.97, 0.34, 0.39, 0.080, 2, 4, 4);
-    { const zb=0.39, kk=SZ(zb), yb=Y(zb)-0.080*kk*H;
-      pen.paint(()=>{ g.ellipse(X(0.92,zb), yb-H*0.010, W*0.032, H*0.014, 0,0,7); }, S(4), 4);
-      pen.paint(()=>{ g.ellipse(X(0.92,zb), yb-H*0.012, W*0.017, H*0.007, 0,0,7); }, S(1), 3);
+    planBox(0.70, 0.88, 0.46, 0.55, 0.058, 1, 4, 4);
+    /* the offering basin. A box with a small oval on it reads as a crate with
+       a lid; a PEDESTAL under a wide shallow bowl reads as a basin. */
+    { const zb=0.375, kk=SZ(zb), bx=X(0.92,zb), by=Y(zb);
+      shadow(0.92, zb, 0.062, 3);
+      pen.paint(()=>{ g.ellipse(bx, by, W*0.042, H*0.014, 0,0,7); }, S(3), 4);          // footing
+      pen.paint(()=>{ g.moveTo(bx-W*0.020, by-H*0.004); g.lineTo(bx-W*0.013, by-H*0.070*kk);
+        g.lineTo(bx+W*0.013, by-H*0.070*kk); g.lineTo(bx+W*0.020, by-H*0.004); g.closePath(); }, S(2), 4);
+      pen.paint(()=>{ g.moveTo(bx-W*0.050, by-H*0.076*kk);                               // the bowl
+        g.lineTo(bx+W*0.050, by-H*0.076*kk);
+        g.lineTo(bx+W*0.026, by-H*0.052*kk);
+        g.lineTo(bx-W*0.026, by-H*0.052*kk); g.closePath(); }, S(4), 4);
+      pen.paint(()=>{ g.ellipse(bx, by-H*0.078*kk, W*0.050, H*0.017, 0,0,7); }, S(1), 4);
     }
     if (M.kennels){
       for(let i=0;i<2;i++){
@@ -385,7 +405,13 @@ function drawSet(ctx, W, H, st){
         else g.quadraticCurveTo(cx + Math.cos(ang+0.22)*halfW*1.02,
                                 base + H*0.004 - Math.sin(ang+0.22)*hh*wob*1.06, xx, yy);
       }
+      // the foot is walked back in unequal steps: closePath() alone lays a
+      // ruled line under the mound and it stops reading as spilled matter
       g.lineTo(cx+halfW, base+H*0.010);
+      for(let i=1;i<5;i++){
+        const u=i/5;
+        g.lineTo(cx+halfW-2*halfW*u, base + H*(0.004 + 0.012*((i*3)%4)/3));
+      }
       g.closePath();
     }, S(3), 5);
     // crowning lumps — the dark accent of the whole left half
@@ -480,7 +506,18 @@ function drawSet(ctx, W, H, st){
      precinct return comes in at the LEFT edge, the fallen drum lies at the
      RIGHT, and the road runs out between them. */
   if (has("foreground")){
-    planBox(-0.40, -0.02, 0.94, 1.22, 0.150, 2, 4, 5);
+    /* near z the spread is ~1, so plan x IS screen x: a stub authored at
+       x=-0.40..-0.02 sat entirely off the left edge and framed nothing — and
+       once it was brought into frame at full height it printed a black wedge
+       straight through the card's status word. So: LOW, LIGHT, and stopped
+       short of the bottom-left corner the card owns. */
+    planBox(-0.26, 0.14, 0.96, 1.12, 0.062, 1, 3, 4);
+    /* one surviving block of the top course, well inside the frame. Three of
+       them strung along the edge printed as loose squares — glyph noise, not
+       ruin. Ruin needs a remnant with something to be a remnant OF. */
+    { const zb=0.96, kk=SZ(zb), yb=Y(zb)-0.062*kk*H;
+      pen.paint(()=>{ g.rect(X(-0.02,zb), yb-H*0.030, X(0.09,zb)-X(-0.02,zb), H*0.030); }, S(3), 4);
+    }
     // a fallen column drum lying in the road, near right, clear of the cart
     const z=1.06, base=Y(z), k=SZ(z), dx=X(0.78,z);
     shadow(0.78, z, 0.075, 3);
