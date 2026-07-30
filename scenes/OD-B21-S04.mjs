@@ -52,8 +52,8 @@
       because draft 1 rendered the set's own spacing as one tangle with three
       heads on it. The three bodies now resolve about 110px apart on a 1120px
       frame, which at this figure height is an embrace and not a collision, and
-      they are still inside the trodden ellipse the `oath` state paints. Nobody
-      is ever assigned a station another body holds.
+      each of them still stands on the near rim of his own painted pair of
+      footprints. Nobody is ever assigned a station another body holds.
 
    D. ONE BODY, ONE GUISE CHANNEL (brief §C). Odysseus is
       `character.odysseus-b16` with `guise:"beggar"`, and he STAYS in rags —
@@ -140,22 +140,24 @@ const YS = YARD_PLAN.stations;
    figure height this set actually needs (K_YARD below, ~228px of body) 80px is
    inside the arm span of `eum_grieve` and `phi_clasp`, and draft 1 rendered the
    embrace as one tangle with three heads on it. So the trio is widened by
-   exactly 0.030 in plan x and 0.010 in z, DERIVED from the set's own stations
-   rather than invented: ±0.120 from the centre of the patch, which is still
-   inside the trodden ellipse the `oath` state scuffs (its rx is 0.120), so the
-   men still stand on the footprints the set paints for them — 25px of screen
-   from the print's centre, well inside one pair of feet.
+   0.030 in plan x, DERIVED from the set's own stations by a declared offset
+   rather than invented, and pushed forward in z as well. Each man's feet land
+   within 0.01–0.04 of plan space of HIS OWN painted pair of prints — a few tens
+   of pixels, just in FRONT of them, which is what a fresh print looks like when
+   the man who made it has shifted his weight. The trio sits on the near rim of
+   the trodden ellipse rather than dead in its middle, and that is the right
+   place for it: the prints read as the record of the embrace instead of as a
+   decal under three pairs of shoes.
 
-   AND THE TRIO IS STAGGERED IN DEPTH, not laid out on one line. Draft 2 put all
-   three at nearly one z, so all three heads landed within 20px of y=0.58 —
+   THE TRIO IS ALSO STAGGERED IN DEPTH, not laid out on one line. Draft 2 put
+   all three at nearly one z, so all three heads landed within 20px of y=0.58 —
    which is exactly where the yard wall's first two bays carry their top
    courses. Three faces printed on one masonry band. Pushing the two herdsmen
-   NEARER by different amounts (+0.030 and +0.050 in z, both still inside the
-   trodden ellipse, whose rz is 0.076) drops their feet, lifts their crowns
-   clear of that course, and turns a row of three into a triangle closing on
-   the man in the middle — which is what an embrace looks like from outside it.
-   The z offsets are also what keeps the depth queue honest: the two men who
-   take hold of him are unambiguously in FRONT of him. */
+   NEARER by different amounts (+0.030 and +0.050 in z) drops their feet, lifts
+   their crowns clear of that course, and turns a row of three into a triangle
+   closing on the man in the middle — which is what an embrace looks like from
+   outside it. The z offsets are also what keeps the depth queue honest: the two
+   men who take hold of him are unambiguously in FRONT of him. */
 const OFF = (s, dx, dz) => ({ x:+(s.x + dx).toFixed(4), z:+(s.z + dz).toFixed(4) });
 
 const yardPlan = makePlan({
