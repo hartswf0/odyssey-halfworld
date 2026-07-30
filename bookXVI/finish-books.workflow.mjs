@@ -131,9 +131,13 @@ ${sceneIds.map(s=>`     node harness/render-scene.mjs scenes/${s}.mjs --t 12`).j
    staged frames — room painted, figures on the floor at sane scale, nobody coincident.
 3. Run \`git status --short\`. Confirm NOTHING is listed as modified (\` M\`) — Books I–XV must be
    untouched. If something tracked was modified, do NOT commit; report it in notes and stop.
-4. If step 3 is clean, commit the book:
-     git add -A
+4. If step 3 is clean, commit ONLY this book's own files. Stage EXPLICIT PATHS — never \`git add -A\`:
+   other books' agents are writing into this same tree concurrently, and -A would sweep in scenes
+   you never rendered under a message claiming they are Book ${book}'s.
+     git add ${sceneIds.map(s=>`scenes/${s}.mjs`).join(' ')} <plus any asset files THIS book added>
      git commit -m "Book ${book}: assets + plan-blocked scenes (additive)"
+   To find this book's own new assets, check which untracked assets its scenes actually import.
+   Leave every other untracked file alone — it belongs to another book's sweep.
    Set committed=true only if the commit actually succeeded.
 
 Return the structured result. Be accurate about failures — do not report success you did not verify.`;
