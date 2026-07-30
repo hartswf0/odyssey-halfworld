@@ -126,6 +126,7 @@ function sweepPrompt(book, sceneIds){
 
 1. For EACH of these scenes, render one frame and confirm it validates:
 ${sceneIds.map(s=>`     node harness/render-scene.mjs scenes/${s}.mjs --t 12`).join('\n')}
+   (Scenes listed as already-built in a previous run are included here on purpose — re-verify them.)
    Record any that FAIL (validation errors, or a thrown module error) in \`failures\`.
 2. READ two of the rendered PNGs (pick the two most complex scenes) and confirm they actually read as
    staged frames — room painted, figures on the floor at sane scale, nobody coincident.
@@ -157,9 +158,14 @@ const results = await pipeline(
     return { b, assets: assets.filter(Boolean) };
   },
   async ({ b, assets }) => {
+    /* `skip` = scenes already built and committed on a previous run. They are NOT
+       rebuilt, but they still act as the `prev` link so the occupancy chain is
+       continuous across a resumed book. */
     const ids = [...b.scenes].sort();
+    const skip = new Set(b.skip || []);
     const scenes = [];
     for (let i = 0; i < ids.length; i++){
+      if (skip.has(ids[i])) continue;
       const r = await agent(scenePrompt(b.book, ids[i], i ? ids[i-1] : null),
         { label:`B${b.book}:${ids[i]}`, phase:'Scenes', schema: SCENE_RESULT });
       scenes.push(r);
