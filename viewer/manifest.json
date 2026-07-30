@@ -1,7 +1,7 @@
 {
   "generated": "static",
-  "assetCount": 307,
-  "sceneCount": 93,
+  "assetCount": 430,
+  "sceneCount": 149,
   "assets": [
     {
       "type": "character",
@@ -37,6 +37,16 @@
       "type": "character",
       "slug": "alcinous",
       "path": "/assets/character/alcinous.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "amphimedons-shade",
+      "path": "/assets/character/amphimedons-shade.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "amphinomus",
+      "path": "/assets/character/amphinomus.mjs"
     },
     {
       "type": "character",
@@ -110,8 +120,18 @@
     },
     {
       "type": "character",
+      "slug": "ctesippus",
+      "path": "/assets/character/ctesippus.mjs"
+    },
+    {
+      "type": "character",
       "slug": "demodocus",
       "path": "/assets/character/demodocus.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "dolius",
+      "path": "/assets/character/dolius.mjs"
     },
     {
       "type": "character",
@@ -140,8 +160,18 @@
     },
     {
       "type": "character",
+      "slug": "eupithes",
+      "path": "/assets/character/eupithes.mjs"
+    },
+    {
+      "type": "character",
       "slug": "euryalus",
       "path": "/assets/character/euryalus.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "eurybates-memory-variant",
+      "path": "/assets/character/eurybates-memory-variant.mjs"
     },
     {
       "type": "character",
@@ -185,6 +215,11 @@
     },
     {
       "type": "character",
+      "slug": "hermes-psychopomp",
+      "path": "/assets/character/hermes-psychopomp.mjs"
+    },
+    {
+      "type": "character",
       "slug": "hermes",
       "path": "/assets/character/hermes.mjs"
     },
@@ -195,8 +230,28 @@
     },
     {
       "type": "character",
+      "slug": "irus",
+      "path": "/assets/character/irus.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "laertes-restored",
+      "path": "/assets/character/laertes-restored.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "laertes",
+      "path": "/assets/character/laertes.mjs"
+    },
+    {
+      "type": "character",
       "slug": "laodamas",
       "path": "/assets/character/laodamas.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "leiodes",
+      "path": "/assets/character/leiodes.mjs"
     },
     {
       "type": "character",
@@ -205,8 +260,28 @@
     },
     {
       "type": "character",
+      "slug": "medon-and-phemius",
+      "path": "/assets/character/medon-and-phemius.mjs"
+    },
+    {
+      "type": "character",
       "slug": "medon",
       "path": "/assets/character/medon.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "melanthius-b22",
+      "path": "/assets/character/melanthius-b22.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "melanthius",
+      "path": "/assets/character/melanthius.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "melantho",
+      "path": "/assets/character/melantho.mjs"
     },
     {
       "type": "character",
@@ -217,6 +292,11 @@
       "type": "character",
       "slug": "mentor",
       "path": "/assets/character/mentor.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "mill-woman",
+      "path": "/assets/character/mill-woman.mjs"
     },
     {
       "type": "character",
@@ -250,6 +330,11 @@
     },
     {
       "type": "character",
+      "slug": "odysseus-b16",
+      "path": "/assets/character/odysseus-b16.mjs"
+    },
+    {
+      "type": "character",
       "slug": "odysseus-memory-variant",
       "path": "/assets/character/odysseus-memory-variant.mjs"
     },
@@ -257,6 +342,11 @@
       "type": "character",
       "slug": "odysseus-restored",
       "path": "/assets/character/odysseus-restored.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "odysseus-revealed",
+      "path": "/assets/character/odysseus-revealed.mjs"
     },
     {
       "type": "character",
@@ -282,6 +372,11 @@
       "type": "character",
       "slug": "phemius",
       "path": "/assets/character/phemius.mjs"
+    },
+    {
+      "type": "character",
+      "slug": "philoetius",
+      "path": "/assets/character/philoetius.mjs"
     },
     {
       "type": "character",
@@ -335,8 +430,18 @@
     },
     {
       "type": "character",
+      "slug": "young-odysseus",
+      "path": "/assets/character/young-odysseus.mjs"
+    },
+    {
+      "type": "character",
       "slug": "zeus",
       "path": "/assets/character/zeus.mjs"
+    },
+    {
+      "type": "creature",
+      "slug": "argos",
+      "path": "/assets/creature/argos.mjs"
     },
     {
       "type": "creature",
@@ -375,8 +480,23 @@
     },
     {
       "type": "creature",
+      "slug": "festival-livestock",
+      "path": "/assets/creature/festival-livestock.mjs"
+    },
+    {
+      "type": "creature",
+      "slug": "friendly-farm-dogs",
+      "path": "/assets/creature/friendly-farm-dogs.mjs"
+    },
+    {
+      "type": "creature",
       "slug": "gilded-heifer-ritual",
       "path": "/assets/creature/gilded-heifer-ritual.mjs"
+    },
+    {
+      "type": "creature",
+      "slug": "goat-herd",
+      "path": "/assets/creature/goat-herd.mjs"
     },
     {
       "type": "creature",
@@ -415,6 +535,11 @@
     },
     {
       "type": "creature",
+      "slug": "parnassus-boar",
+      "path": "/assets/creature/parnassus-boar.mjs"
+    },
+    {
+      "type": "creature",
       "slug": "pig-herd",
       "path": "/assets/creature/pig-herd.mjs"
     },
@@ -427,6 +552,11 @@
       "type": "creature",
       "slug": "scylla",
       "path": "/assets/creature/scylla.mjs"
+    },
+    {
+      "type": "creature",
+      "slug": "twenty-dream-geese",
+      "path": "/assets/creature/twenty-dream-geese.mjs"
     },
     {
       "type": "creature",
@@ -485,13 +615,38 @@
     },
     {
       "type": "location",
+      "slug": "eumaeus-hut-interior",
+      "path": "/assets/location/eumaeus-hut-interior.mjs"
+    },
+    {
+      "type": "location",
       "slug": "eumaeuss-pig-farm",
       "path": "/assets/location/eumaeuss-pig-farm.mjs"
     },
     {
       "type": "location",
+      "slug": "farm-battlefield-at-peace",
+      "path": "/assets/location/farm-battlefield-at-peace.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "farm-to-palace-route",
+      "path": "/assets/location/farm-to-palace-route.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "farmhouse-feast",
+      "path": "/assets/location/farmhouse-feast.mjs"
+    },
+    {
+      "type": "location",
       "slug": "feast-hall-at-attentive-silence",
       "path": "/assets/location/feast-hall-at-attentive-silence.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "fight-threshold",
+      "path": "/assets/location/fight-threshold.mjs"
     },
     {
       "type": "location",
@@ -505,6 +660,11 @@
     },
     {
       "type": "location",
+      "slug": "hand-mills-and-grain-room",
+      "path": "/assets/location/hand-mills-and-grain-room.mjs"
+    },
+    {
+      "type": "location",
       "slug": "island-of-syria-memory",
       "path": "/assets/location/island-of-syria-memory.mjs"
     },
@@ -515,8 +675,18 @@
     },
     {
       "type": "location",
+      "slug": "ithaca-town-road-and-fountain",
+      "path": "/assets/location/ithaca-town-road-and-fountain.mjs"
+    },
+    {
+      "type": "location",
       "slug": "ithacan-assembly-ground",
       "path": "/assets/location/ithacan-assembly-ground.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "ithacan-meeting-and-funeral-ground",
+      "path": "/assets/location/ithacan-meeting-and-funeral-ground.mjs"
     },
     {
       "type": "location",
@@ -525,13 +695,33 @@
     },
     {
       "type": "location",
+      "slug": "laertess-orchard",
+      "path": "/assets/location/laertess-orchard.mjs"
+    },
+    {
+      "type": "location",
       "slug": "lotus-shore-and-meadow",
       "path": "/assets/location/lotus-shore-and-meadow.mjs"
     },
     {
       "type": "location",
+      "slug": "marriage-chamber",
+      "path": "/assets/location/marriage-chamber.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "megaron-hall",
+      "path": "/assets/location/megaron-hall.mjs"
+    },
+    {
+      "type": "location",
       "slug": "menelauss-palace",
       "path": "/assets/location/menelauss-palace.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "mount-parnassus-hunt",
+      "path": "/assets/location/mount-parnassus-hunt.mjs"
     },
     {
       "type": "location",
@@ -572,6 +762,21 @@
       "type": "location",
       "slug": "olympian-council-hall",
       "path": "/assets/location/olympian-council-hall.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "olympian-decision-space",
+      "path": "/assets/location/olympian-decision-space.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "palace-dung-heap-and-gate",
+      "path": "/assets/location/palace-dung-heap-and-gate.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "palace-outer-yard",
+      "path": "/assets/location/palace-outer-yard.mjs"
     },
     {
       "type": "location",
@@ -645,6 +850,16 @@
     },
     {
       "type": "location",
+      "slug": "road-to-hades",
+      "path": "/assets/location/road-to-hades.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "road-to-laertess-farm",
+      "path": "/assets/location/road-to-laertess-farm.mjs"
+    },
+    {
+      "type": "location",
       "slug": "scheria-city-and-harbor",
       "path": "/assets/location/scheria-city-and-harbor.mjs"
     },
@@ -685,8 +900,23 @@
     },
     {
       "type": "location",
+      "slug": "upper-chamber-and-stair",
+      "path": "/assets/location/upper-chamber-and-stair.mjs"
+    },
+    {
+      "type": "location",
+      "slug": "weapon-storeroom",
+      "path": "/assets/location/weapon-storeroom.mjs"
+    },
+    {
+      "type": "location",
       "slug": "wooden-horse-interior",
       "path": "/assets/location/wooden-horse-interior.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "aegis",
+      "path": "/assets/prop/aegis.mjs"
     },
     {
       "type": "prop",
@@ -695,8 +925,18 @@
     },
     {
       "type": "prop",
+      "slug": "antinouss-cup-and-feast-table",
+      "path": "/assets/prop/antinouss-cup-and-feast-table.mjs"
+    },
+    {
+      "type": "prop",
       "slug": "athenas-bronze-spear",
       "path": "/assets/prop/athenas-bronze-spear.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "axis-shot-arrow",
+      "path": "/assets/prop/axis-shot-arrow.mjs"
     },
     {
       "type": "prop",
@@ -712,6 +952,21 @@
       "type": "prop",
       "slug": "beggar-staff-and-bag",
       "path": "/assets/prop/beggar-staff-and-bag.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "begging-bag",
+      "path": "/assets/prop/begging-bag.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "body-removal-and-cleaning-tools",
+      "path": "/assets/prop/body-removal-and-cleaning-tools.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "bow-heating-fire-and-tallow",
+      "path": "/assets/prop/bow-heating-fire-and-tallow.mjs"
     },
     {
       "type": "prop",
@@ -745,8 +1000,28 @@
     },
     {
       "type": "prop",
+      "slug": "courtship-gifts",
+      "path": "/assets/prop/courtship-gifts.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "courtyard-execution-cable",
+      "path": "/assets/prop/courtyard-execution-cable.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "courtyard-gate-and-cable",
+      "path": "/assets/prop/courtyard-gate-and-cable.mjs"
+    },
+    {
+      "type": "prop",
       "slug": "dance-ball",
       "path": "/assets/prop/dance-ball.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "defender-armor-set",
+      "path": "/assets/prop/defender-armor-set.mjs"
     },
     {
       "type": "prop",
@@ -775,8 +1050,18 @@
     },
     {
       "type": "prop",
+      "slug": "farm-clothing-and-tools",
+      "path": "/assets/prop/farm-clothing-and-tools.mjs"
+    },
+    {
+      "type": "prop",
       "slug": "farm-meal",
       "path": "/assets/prop/farm-meal.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "foot-washing-basin",
+      "path": "/assets/prop/foot-washing-basin.mjs"
     },
     {
       "type": "prop",
@@ -787,6 +1072,11 @@
       "type": "prop",
       "slug": "gift-inventory",
       "path": "/assets/prop/gift-inventory.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "goat-sausages",
+      "path": "/assets/prop/goat-sausages.mjs"
     },
     {
       "type": "prop",
@@ -870,8 +1160,28 @@
     },
     {
       "type": "prop",
+      "slug": "millstone",
+      "path": "/assets/prop/millstone.mjs"
+    },
+    {
+      "type": "prop",
       "slug": "moly-plant",
       "path": "/assets/prop/moly-plant.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "odysseuss-bow",
+      "path": "/assets/prop/odysseuss-bow.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "odysseuss-remembered-cloak-and-brooch",
+      "path": "/assets/prop/odysseuss-remembered-cloak-and-brooch.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "olive-tree-marriage-bed",
+      "path": "/assets/prop/olive-tree-marriage-bed.mjs"
     },
     {
       "type": "prop",
@@ -880,8 +1190,33 @@
     },
     {
       "type": "prop",
+      "slug": "ox-hoof",
+      "path": "/assets/prop/ox-hoof.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "palace-weapon-collection",
+      "path": "/assets/prop/palace-weapon-collection.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "palace-weapons",
+      "path": "/assets/prop/palace-weapons.mjs"
+    },
+    {
+      "type": "prop",
       "slug": "phaeacian-tunic-and-cloak",
       "path": "/assets/prop/phaeacian-tunic-and-cloak.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "quiver-and-arrows",
+      "path": "/assets/prop/quiver-and-arrows.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "raised-dining-tables",
+      "path": "/assets/prop/raised-dining-tables.mjs"
     },
     {
       "type": "prop",
@@ -900,8 +1235,33 @@
     },
     {
       "type": "prop",
+      "slug": "spear-and-wound-bandage",
+      "path": "/assets/prop/spear-and-wound-bandage.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "storeroom-rope-and-rafter",
+      "path": "/assets/prop/storeroom-rope-and-rafter.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "thrown-footstool",
+      "path": "/assets/prop/thrown-footstool.mjs"
+    },
+    {
+      "type": "prop",
       "slug": "travel-wine-jars",
       "path": "/assets/prop/travel-wine-jars.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "twelve-axe-heads",
+      "path": "/assets/prop/twelve-axe-heads.mjs"
+    },
+    {
+      "type": "prop",
+      "slug": "victory-meat-and-wine",
+      "path": "/assets/prop/victory-meat-and-wine.mjs"
     },
     {
       "type": "prop",
@@ -914,6 +1274,16 @@
       "path": "/assets/prop/wine-cup.mjs"
     },
     {
+      "type": "prop",
+      "slug": "womens-chamber-doors",
+      "path": "/assets/prop/womens-chamber-doors.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "armed-suitors",
+      "path": "/assets/ensemble/armed-suitors.mjs"
+    },
+    {
       "type": "ensemble",
       "slug": "assembly-of-gods",
       "path": "/assets/ensemble/assembly-of-gods.mjs"
@@ -922,6 +1292,11 @@
       "type": "ensemble",
       "slug": "assembly-reaction-wave",
       "path": "/assets/ensemble/assembly-reaction-wave.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "autolycuss-sons",
+      "path": "/assets/ensemble/autolycuss-sons.mjs"
     },
     {
       "type": "ensemble",
@@ -955,6 +1330,11 @@
     },
     {
       "type": "ensemble",
+      "slug": "disloyal-maids",
+      "path": "/assets/ensemble/disloyal-maids.mjs"
+    },
+    {
+      "type": "ensemble",
       "slug": "dispersing-assembly",
       "path": "/assets/ensemble/dispersing-assembly.mjs"
     },
@@ -965,8 +1345,18 @@
     },
     {
       "type": "ensemble",
+      "slug": "doliuss-sons",
+      "path": "/assets/ensemble/doliuss-sons.mjs"
+    },
+    {
+      "type": "ensemble",
       "slug": "drowning-crew",
       "path": "/assets/ensemble/drowning-crew.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "eumaeus-and-philoetius",
+      "path": "/assets/ensemble/eumaeus-and-philoetius.mjs"
     },
     {
       "type": "ensemble",
@@ -1000,6 +1390,11 @@
     },
     {
       "type": "ensemble",
+      "slug": "household-dancers",
+      "path": "/assets/ensemble/household-dancers.mjs"
+    },
+    {
+      "type": "ensemble",
       "slug": "laestrygonian-giants",
       "path": "/assets/ensemble/laestrygonian-giants.mjs"
     },
@@ -1007,6 +1402,11 @@
       "type": "ensemble",
       "slug": "lotus-eaters",
       "path": "/assets/ensemble/lotus-eaters.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "loyal-maids",
+      "path": "/assets/ensemble/loyal-maids.mjs"
     },
     {
       "type": "ensemble",
@@ -1080,6 +1480,11 @@
     },
     {
       "type": "ensemble",
+      "slug": "revenge-militia",
+      "path": "/assets/ensemble/revenge-militia.mjs"
+    },
+    {
+      "type": "ensemble",
       "slug": "selected-twelve-sailors",
       "path": "/assets/ensemble/selected-twelve-sailors.mjs"
     },
@@ -1095,6 +1500,51 @@
     },
     {
       "type": "ensemble",
+      "slug": "suitor-bow-challengers",
+      "path": "/assets/ensemble/suitor-bow-challengers.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitor-council",
+      "path": "/assets/ensemble/suitor-council.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitor-fight-ring",
+      "path": "/assets/ensemble/suitor-fight-ring.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitor-gift-procession",
+      "path": "/assets/ensemble/suitor-gift-procession.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitor-reaction",
+      "path": "/assets/ensemble/suitor-reaction.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitor-terror-wave",
+      "path": "/assets/ensemble/suitor-terror-wave.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitor-uproar",
+      "path": "/assets/ensemble/suitor-uproar.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitors-families",
+      "path": "/assets/ensemble/suitors-families.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "suitors-shades",
+      "path": "/assets/ensemble/suitors-shades.mjs"
+    },
+    {
+      "type": "ensemble",
       "slug": "suitors",
       "path": "/assets/ensemble/suitors.mjs"
     },
@@ -1102,6 +1552,11 @@
       "type": "ensemble",
       "slug": "surviving-crew",
       "path": "/assets/ensemble/surviving-crew.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "telemachus-eumaeus-and-philoetius",
+      "path": "/assets/ensemble/telemachus-eumaeus-and-philoetius.mjs"
     },
     {
       "type": "ensemble",
@@ -1135,6 +1590,11 @@
     },
     {
       "type": "ensemble",
+      "slug": "twelve-disloyal-maids",
+      "path": "/assets/ensemble/twelve-disloyal-maids.mjs"
+    },
+    {
+      "type": "ensemble",
       "slug": "twelve-sailors",
       "path": "/assets/ensemble/twelve-sailors.mjs"
     },
@@ -1142,6 +1602,11 @@
       "type": "ensemble",
       "slug": "volunteer-crew",
       "path": "/assets/ensemble/volunteer-crew.mjs"
+    },
+    {
+      "type": "ensemble",
+      "slug": "warrior-shades",
+      "path": "/assets/ensemble/warrior-shades.mjs"
     },
     {
       "type": "ensemble",
@@ -1170,6 +1635,11 @@
     },
     {
       "type": "divine_fx",
+      "slug": "athena-delays-dawn",
+      "path": "/assets/divine_fx/athena-delays-dawn.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "athena-to-sea-eagle-transformation",
       "path": "/assets/divine_fx/athena-to-sea-eagle-transformation.mjs"
     },
@@ -1185,13 +1655,33 @@
     },
     {
       "type": "divine_fx",
+      "slug": "athenas-bodily-emphasis",
+      "path": "/assets/divine_fx/athenas-bodily-emphasis.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "athenas-courage-field",
       "path": "/assets/divine_fx/athenas-courage-field.mjs"
     },
     {
       "type": "divine_fx",
+      "slug": "athenas-departure-darkness",
+      "path": "/assets/divine_fx/athenas-departure-darkness.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "athenas-golden-lamp",
+      "path": "/assets/divine_fx/athenas-golden-lamp.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "athenas-homeward-wind",
       "path": "/assets/divine_fx/athenas-homeward-wind.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "athenas-restoration",
+      "path": "/assets/divine_fx/athenas-restoration.mjs"
     },
     {
       "type": "divine_fx",
@@ -1220,8 +1710,23 @@
     },
     {
       "type": "divine_fx",
+      "slug": "deflected-spear-field",
+      "path": "/assets/divine_fx/deflected-spear-field.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "disguise-transformation",
       "path": "/assets/divine_fx/disguise-transformation.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "doom-pull",
+      "path": "/assets/divine_fx/doom-pull.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "dream-eagle-with-odysseus-voice",
+      "path": "/assets/divine_fx/dream-eagle-with-odysseus-voice.mjs"
     },
     {
       "type": "divine_fx",
@@ -1245,6 +1750,11 @@
     },
     {
       "type": "divine_fx",
+      "slug": "inland-oar-prophecy",
+      "path": "/assets/divine_fx/inland-oar-prophecy.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "intangible-embrace-effect",
       "path": "/assets/divine_fx/intangible-embrace-effect.mjs"
     },
@@ -1262,6 +1772,16 @@
       "type": "divine_fx",
       "slug": "ithacan-concealment-mist",
       "path": "/assets/divine_fx/ithacan-concealment-mist.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "ithacan-peace-oath",
+      "path": "/assets/divine_fx/ithacan-peace-oath.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "melting-snow-grief",
+      "path": "/assets/divine_fx/melting-snow-grief.mjs"
     },
     {
       "type": "divine_fx",
@@ -1290,6 +1810,21 @@
     },
     {
       "type": "divine_fx",
+      "slug": "peace-decree",
+      "path": "/assets/divine_fx/peace-decree.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "penelope-memory-tableau",
+      "path": "/assets/divine_fx/penelope-memory-tableau.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "penelopes-diverted-attention",
+      "path": "/assets/divine_fx/penelopes-diverted-attention.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "poseidons-absence",
       "path": "/assets/divine_fx/poseidons-absence.mjs"
     },
@@ -1307,6 +1842,11 @@
       "type": "divine_fx",
       "slug": "proteus-transformation-chain",
       "path": "/assets/divine_fx/proteus-transformation-chain.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "recognition-embrace",
+      "path": "/assets/divine_fx/recognition-embrace.mjs"
     },
     {
       "type": "divine_fx",
@@ -1330,6 +1870,11 @@
     },
     {
       "type": "divine_fx",
+      "slug": "silent-revenge-vow",
+      "path": "/assets/divine_fx/silent-revenge-vow.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "torchlit-night-memory",
       "path": "/assets/divine_fx/torchlit-night-memory.mjs"
     },
@@ -1345,6 +1890,21 @@
     },
     {
       "type": "divine_fx",
+      "slug": "zeuss-clear-sky-thunder",
+      "path": "/assets/divine_fx/zeuss-clear-sky-thunder.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "zeuss-stopping-thunderbolt",
+      "path": "/assets/divine_fx/zeuss-stopping-thunderbolt.mjs"
+    },
+    {
+      "type": "divine_fx",
+      "slug": "zeuss-thunder",
+      "path": "/assets/divine_fx/zeuss-thunder.mjs"
+    },
+    {
+      "type": "divine_fx",
       "slug": "zeuss-thunderbolt",
       "path": "/assets/divine_fx/zeuss-thunderbolt.mjs"
     },
@@ -1355,8 +1915,23 @@
     },
     {
       "type": "set_piece",
+      "slug": "axe-alignment-lane",
+      "path": "/assets/set_piece/axe-alignment-lane.mjs"
+    },
+    {
+      "type": "set_piece",
+      "slug": "battle-threshold-formation",
+      "path": "/assets/set_piece/battle-threshold-formation.mjs"
+    },
+    {
+      "type": "set_piece",
       "slug": "blood-pit-boundary",
       "path": "/assets/set_piece/blood-pit-boundary.mjs"
+    },
+    {
+      "type": "set_piece",
+      "slug": "boar-scar",
+      "path": "/assets/set_piece/boar-scar.mjs"
     },
     {
       "type": "set_piece",
@@ -1380,6 +1955,11 @@
     },
     {
       "type": "set_piece",
+      "slug": "orchard-inventory",
+      "path": "/assets/set_piece/orchard-inventory.mjs"
+    },
+    {
+      "type": "set_piece",
       "slug": "route-to-pylos-and-sparta",
       "path": "/assets/set_piece/route-to-pylos-and-sparta.mjs"
     },
@@ -1390,6 +1970,16 @@
     },
     {
       "type": "set_piece",
+      "slug": "scar-evidence",
+      "path": "/assets/set_piece/scar-evidence.mjs"
+    },
+    {
+      "type": "set_piece",
+      "slug": "scar-proof",
+      "path": "/assets/set_piece/scar-proof.mjs"
+    },
+    {
+      "type": "set_piece",
       "slug": "sea-route-map",
       "path": "/assets/set_piece/sea-route-map.mjs"
     },
@@ -1397,6 +1987,11 @@
       "type": "set_piece",
       "slug": "suitor-count-plan",
       "path": "/assets/set_piece/suitor-count-plan.mjs"
+    },
+    {
+      "type": "set_piece",
+      "slug": "suitor-force-map",
+      "path": "/assets/set_piece/suitor-force-map.mjs"
     },
     {
       "type": "set_piece",
@@ -1459,6 +2054,11 @@
       "path": "/assets/environment/sea-foam-and-following-wind-potential.mjs"
     },
     {
+      "type": "environment",
+      "slug": "sulfur-and-purification-fire",
+      "path": "/assets/environment/sulfur-and-purification-fire.mjs"
+    },
+    {
       "type": "vehicle",
       "slug": "black-ithacan-ship",
       "path": "/assets/vehicle/black-ithacan-ship.mjs"
@@ -1515,6 +2115,16 @@
     },
     {
       "type": "sound_source",
+      "slug": "bow-string-song",
+      "path": "/assets/sound_source/bow-string-song.mjs"
+    },
+    {
+      "type": "sound_source",
+      "slug": "false-wedding-music",
+      "path": "/assets/sound_source/false-wedding-music.mjs"
+    },
+    {
+      "type": "sound_source",
       "slug": "feast-noise",
       "path": "/assets/sound_source/feast-noise.mjs"
     },
@@ -1522,6 +2132,11 @@
       "type": "sound_source",
       "slug": "imitated-wives-voices",
       "path": "/assets/sound_source/imitated-wives-voices.mjs"
+    },
+    {
+      "type": "sound_source",
+      "slug": "sneeze-omen",
+      "path": "/assets/sound_source/sneeze-omen.mjs"
     },
     {
       "type": "sound_source",
@@ -1911,6 +2526,230 @@
     {
       "id": "OD-B15-S05",
       "path": "/scenes/OD-B15-S05.mjs"
+    },
+    {
+      "id": "OD-B16-S01",
+      "path": "/scenes/OD-B16-S01.mjs"
+    },
+    {
+      "id": "OD-B16-S02",
+      "path": "/scenes/OD-B16-S02.mjs"
+    },
+    {
+      "id": "OD-B16-S03",
+      "path": "/scenes/OD-B16-S03.mjs"
+    },
+    {
+      "id": "OD-B16-S04",
+      "path": "/scenes/OD-B16-S04.mjs"
+    },
+    {
+      "id": "OD-B16-S05",
+      "path": "/scenes/OD-B16-S05.mjs"
+    },
+    {
+      "id": "OD-B16-S06",
+      "path": "/scenes/OD-B16-S06.mjs"
+    },
+    {
+      "id": "OD-B17-S01",
+      "path": "/scenes/OD-B17-S01.mjs"
+    },
+    {
+      "id": "OD-B17-S02",
+      "path": "/scenes/OD-B17-S02.mjs"
+    },
+    {
+      "id": "OD-B17-S03",
+      "path": "/scenes/OD-B17-S03.mjs"
+    },
+    {
+      "id": "OD-B17-S04",
+      "path": "/scenes/OD-B17-S04.mjs"
+    },
+    {
+      "id": "OD-B17-S05",
+      "path": "/scenes/OD-B17-S05.mjs"
+    },
+    {
+      "id": "OD-B17-S06",
+      "path": "/scenes/OD-B17-S06.mjs"
+    },
+    {
+      "id": "OD-B17-S07",
+      "path": "/scenes/OD-B17-S07.mjs"
+    },
+    {
+      "id": "OD-B18-S01",
+      "path": "/scenes/OD-B18-S01.mjs"
+    },
+    {
+      "id": "OD-B18-S02",
+      "path": "/scenes/OD-B18-S02.mjs"
+    },
+    {
+      "id": "OD-B18-S03",
+      "path": "/scenes/OD-B18-S03.mjs"
+    },
+    {
+      "id": "OD-B18-S04",
+      "path": "/scenes/OD-B18-S04.mjs"
+    },
+    {
+      "id": "OD-B18-S05",
+      "path": "/scenes/OD-B18-S05.mjs"
+    },
+    {
+      "id": "OD-B19-S01",
+      "path": "/scenes/OD-B19-S01.mjs"
+    },
+    {
+      "id": "OD-B19-S02",
+      "path": "/scenes/OD-B19-S02.mjs"
+    },
+    {
+      "id": "OD-B19-S03",
+      "path": "/scenes/OD-B19-S03.mjs"
+    },
+    {
+      "id": "OD-B19-S04",
+      "path": "/scenes/OD-B19-S04.mjs"
+    },
+    {
+      "id": "OD-B19-S05",
+      "path": "/scenes/OD-B19-S05.mjs"
+    },
+    {
+      "id": "OD-B19-S06",
+      "path": "/scenes/OD-B19-S06.mjs"
+    },
+    {
+      "id": "OD-B20-S01",
+      "path": "/scenes/OD-B20-S01.mjs"
+    },
+    {
+      "id": "OD-B20-S02",
+      "path": "/scenes/OD-B20-S02.mjs"
+    },
+    {
+      "id": "OD-B20-S03",
+      "path": "/scenes/OD-B20-S03.mjs"
+    },
+    {
+      "id": "OD-B20-S04",
+      "path": "/scenes/OD-B20-S04.mjs"
+    },
+    {
+      "id": "OD-B20-S05",
+      "path": "/scenes/OD-B20-S05.mjs"
+    },
+    {
+      "id": "OD-B21-S01",
+      "path": "/scenes/OD-B21-S01.mjs"
+    },
+    {
+      "id": "OD-B21-S02",
+      "path": "/scenes/OD-B21-S02.mjs"
+    },
+    {
+      "id": "OD-B21-S03",
+      "path": "/scenes/OD-B21-S03.mjs"
+    },
+    {
+      "id": "OD-B21-S04",
+      "path": "/scenes/OD-B21-S04.mjs"
+    },
+    {
+      "id": "OD-B21-S05",
+      "path": "/scenes/OD-B21-S05.mjs"
+    },
+    {
+      "id": "OD-B21-S06",
+      "path": "/scenes/OD-B21-S06.mjs"
+    },
+    {
+      "id": "OD-B21-S07",
+      "path": "/scenes/OD-B21-S07.mjs"
+    },
+    {
+      "id": "OD-B22-S01",
+      "path": "/scenes/OD-B22-S01.mjs"
+    },
+    {
+      "id": "OD-B22-S02",
+      "path": "/scenes/OD-B22-S02.mjs"
+    },
+    {
+      "id": "OD-B22-S03",
+      "path": "/scenes/OD-B22-S03.mjs"
+    },
+    {
+      "id": "OD-B22-S04",
+      "path": "/scenes/OD-B22-S04.mjs"
+    },
+    {
+      "id": "OD-B22-S05",
+      "path": "/scenes/OD-B22-S05.mjs"
+    },
+    {
+      "id": "OD-B22-S06",
+      "path": "/scenes/OD-B22-S06.mjs"
+    },
+    {
+      "id": "OD-B22-S07",
+      "path": "/scenes/OD-B22-S07.mjs"
+    },
+    {
+      "id": "OD-B22-S08",
+      "path": "/scenes/OD-B22-S08.mjs"
+    },
+    {
+      "id": "OD-B23-S01",
+      "path": "/scenes/OD-B23-S01.mjs"
+    },
+    {
+      "id": "OD-B23-S02",
+      "path": "/scenes/OD-B23-S02.mjs"
+    },
+    {
+      "id": "OD-B23-S03",
+      "path": "/scenes/OD-B23-S03.mjs"
+    },
+    {
+      "id": "OD-B23-S04",
+      "path": "/scenes/OD-B23-S04.mjs"
+    },
+    {
+      "id": "OD-B23-S05",
+      "path": "/scenes/OD-B23-S05.mjs"
+    },
+    {
+      "id": "OD-B23-S06",
+      "path": "/scenes/OD-B23-S06.mjs"
+    },
+    {
+      "id": "OD-B24-S01",
+      "path": "/scenes/OD-B24-S01.mjs"
+    },
+    {
+      "id": "OD-B24-S02",
+      "path": "/scenes/OD-B24-S02.mjs"
+    },
+    {
+      "id": "OD-B24-S03",
+      "path": "/scenes/OD-B24-S03.mjs"
+    },
+    {
+      "id": "OD-B24-S04",
+      "path": "/scenes/OD-B24-S04.mjs"
+    },
+    {
+      "id": "OD-B24-S05",
+      "path": "/scenes/OD-B24-S05.mjs"
+    },
+    {
+      "id": "OD-B24-S06",
+      "path": "/scenes/OD-B24-S06.mjs"
     }
   ]
 }
