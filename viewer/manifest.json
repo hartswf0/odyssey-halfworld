@@ -1,7 +1,7 @@
 {
   "generated": "static",
   "assetCount": 430,
-  "sceneCount": 149,
+  "sceneCount": 152,
   "assets": [
     {
       "type": "character",
@@ -2750,6 +2750,18 @@
     {
       "id": "OD-B24-S06",
       "path": "/scenes/OD-B24-S06.mjs"
+    },
+    {
+      "id": "OD-B24-S07",
+      "path": "/scenes/OD-B24-S07.mjs"
+    },
+    {
+      "id": "OD-B24-S08",
+      "path": "/scenes/OD-B24-S08.mjs"
+    },
+    {
+      "id": "OD-B24-S09",
+      "path": "/scenes/OD-B24-S09.mjs"
     }
   ]
 }
