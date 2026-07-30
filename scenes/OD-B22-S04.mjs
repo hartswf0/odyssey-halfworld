@@ -55,14 +55,25 @@
                     the whole mechanism of beat 1.
         · t 12..19  Melanthius carries the first armful `storeroom` ->
                     `bench_l1`. He passes in FRONT of nobody: the lane is his.
-        · t 29..42  the two herdsmen come up it and take station.
+        · t 29..42  Philoetius comes up it and takes the store door. Eumaeus
+                    does NOT: he stops out in the hall.
         · t 43..50  Melanthius goes back up for more and is taken at the door.
+      AND ONLY TWO BODIES ARE EVER IN IT. Draft 3 put Eumaeus at `bench_l1`
+      (x 230..332) — 1px off the postern lane's own x — so from the seizure to
+      the haul the frame carried Melanthius, Philoetius and Eumaeus stacked in
+      one 100px column, and at TRUSS, with two of the three stooped over the
+      knot, the three of them printed as one unreadable dark mass. He is at
+      `table_l` instead (x 267..371, feet 618): out in the hall, in front of the
+      boards the two dead suitors went over, 37px right of the lane and a whole
+      depth band nearer the camera. He can watch the store door, take the fall
+      and say the thing Homer gives him to say from there, and the lane stays a
+      two-body corridor — which is what the room is.
       MEASURED at the closing frame, left to right: Melanthius hanging at
-      `storeroom` (x 200..285, y 126..320), Philoetius at `postern`
-      (x 244..324, head 268..300), Eumaeus at `bench_l1` (x 230..332, head
-      353..390). Three bodies, three head bands 68 and 53px apart, and the only
-      body-on-body overlap is the hanging man's dangling feet behind
-      Philoetius' shoulder — an occlusion, not a fusion (note F).
+      `storeroom` (x 200..285, y 112..277), Philoetius at `postern` (x 244..324,
+      head 268..300), Eumaeus at `table_l` (x 267..371, head 372..405). Three
+      bodies, head bands 68 and 72px apart, and the only body-on-body overlap in
+      the lane is the hanging man's dangling toes behind Philoetius' hair — an
+      occlusion, not a fusion (note F).
 
    D. THE CONTACT PAIR IS THE ONE THE ASSET AUTHORED. character.philoetius
       carries the Book XXII poses this scene exists for — `phi_pursuit`,
@@ -72,8 +83,10 @@
       never one". So the cowherd is the man who touches Melanthius, and the two
       of them resolve to the paired lane stations `postern` / `storeroom`: 43px
       apart in x and a depth band apart, which is a grapple and not a
-      coincidence. Eumaeus stands off at `bench_l1`, nearer the camera and a
-      whole depth band forward, and never shares a station with anybody. He is
+      coincidence. Eumaeus stands off at `table_l`, out of the lane and two depth
+      bands nearer, and shares that station with nothing but the wrecked-tables
+      PROP — he stands in front of the boards the two dead suitors went over,
+      which is the reason that station and not another. He is
       mirrored so his gesture goes screen LEFT, up the lane, at the man; his
       poses come from the shared rig library (the module authors no Book XXII
       pose of its own) and his own staff and hide cloak come with him.
@@ -276,8 +289,9 @@ const MOVES = [
   // the traitor's two trips
   { who:"melanthius", from:"storeroom", to:"bench_l1",  t0:DELIV0, t1:DELIV1 },
   { who:"melanthius", from:"bench_l1",  to:"storeroom", t0:BACK0,  t1:BACK1  },
-  // the two loyal men walk out of the line and take the lane
-  { who:"eumaeus",    from:"axe_first", to:"bench_l1",  t0:ORDER,    t1:ORDER+11 },
+  // the two loyal men walk out of the line: one takes the store door, the other
+  // stops out in the hall at the wrecked boards (note C)
+  { who:"eumaeus",    from:"axe_first", to:"table_l",   t0:ORDER,    t1:ORDER+11 },
   { who:"philoetius", from:"axe_first", to:"postern",   t0:ORDER+2,  t1:ORDER+13 },
 ];
 
@@ -299,14 +313,30 @@ function placeFigure(offctx, W, H, mod, { anchor, scale, state }){
 /* ---- THE HOIST, solved off the room's own ceiling law (note F) ----------- */
 /* megaron-hall's un-clamped ceiling: the same formula, so the man and the roof
    he is hauled up to agree by construction. */
-const ceilAt   = z => 0.50 - (0.30 + 0.26 * Math.pow(z, 1.08));
-const CROWN_CLEAR = 0.036;    // how far under the ceiling plane his crown hangs
-const RIG_HOIST   = 0.17;     // the lift melanthius-b22 already does internally
-function hoistExtra(H, p, z){
-  const boxH = H * K * p.scale;
-  const unliftedCrown = p.y * H - FIG_INK * boxH;
-  const crownTarget   = (ceilAt(z) + CROWN_CLEAR) * H;
-  return Math.max(0, (unliftedCrown - crownTarget) - RIG_HOIST * boxH);
+const ceilAt = z => 0.50 - (0.30 + 0.26 * Math.pow(z, 1.08));
+/* The hoisted rig does not fill its box the way a standing rig does, so FIG_INK
+   is the wrong ruler for it. These two are MEASURED off the module's own card,
+   renders/character__melanthius-b22__hoisted.png: with hoist=1 its surviving
+   ink runs from 0.111 to 0.750 of the box height (the module's own internal
+   0.17 lift is already inside those numbers, so it must not be counted twice),
+   and both transfer to this scene unchanged because the rig sizes itself off
+   min(H*0.90, W*1.26) and the box here is height-limited exactly as the card
+   is. Draft 1 used FIG_INK and over-lifted: his dangling toes came down into
+   the top of Philoetius' head. */
+const HOIST_TOP = 0.111, HOIST_BOT = 0.750;
+/* CROWN_CLEAR: how far under the ceiling plane AT HIS OWN STATION the crown
+   hangs. 0.018 of a frame height = 14px, which at `storeroom` lands the crown
+   at y 112 — under the ceiling line (98) and clear of the transverse roof beam
+   that crosses at 90..99, so his head is among the beams and not fused to one.
+   His toes then land at 277, 9px into the top of Philoetius' hair — and he
+   sorts BEHIND `postern` while he rises (note F), so those 9px are the cowherd
+   occluding the feet, which is the right way round. */
+const CROWN_CLEAR = 0.018;
+function hoistExtra(H, p){
+  const boxH  = H * K * p.scale;
+  const boxTop = (p.y + 0.10 * K * p.scale) * H - boxH;    // placeFigure's own box
+  const crownTarget = (ceilAt(p.d) + CROWN_CLEAR) * H;
+  return Math.max(0, boxTop + HOIST_TOP * boxH - crownTarget);
 }
 const ramp = (t, a, b) => clamp01((t - a) / Math.max(1e-6, b - a));
 
@@ -336,14 +366,40 @@ function detailRule(offctx, W, H, dst){
   offctx.strokeRect(x + 3.5, y + 3.5, w - 7, h - 7); offctx.restore();
 }
 
-/* THE STORE CHAMBER — the rope prop's chamber and ledger (note G) */
-const ROPE_CW = 1120, ROPE_CH = 760;
-const ROPE_WIN = { x0:.050, y0:.340, x1:.720, y1:.904 };   // 750 x 429, 1.748:1
-const ROPE_DST = { x0:.560, y0:.048, x1:.953, y1:.380 };   // 440 x 252, 1.746:1
-const ropeMode = t => t < TRUSS  ? "coiled"
-                    : t < HOIST0 ? "tied"
+/* THE STORE CHAMBER — the rope prop's chamber in elevation (note G).
+   THE SHEET IS PORTRAIT. Every PROP in this atlas is authored against the
+   harness card, 660x880 — 3:4 — and this one's geometry is all fractions of its
+   own W and H. Draft 1 keyed it at 1120x760 like the scene, which stretched the
+   chamber to 2.3x its width and squashed its height: the tie beam printed as a
+   thin bar across the top of the window and the pillar, the cleat and the load
+   collapsed into specks. It is keyed at 780x1040 here — the authored 3:4, at
+   more than card resolution so the reduction has marks to give away. */
+const ROPE_CW = 780, ROPE_CH = 1040;
+const ROPE_WIN = { x0:.030, y0:.385, x1:.960, y1:.827 };   // 725 x 460, 1.577:1
+const ROPE_DST = { x0:.620, y0:.048, x1:.955, y1:.361 };   // 375 x 238, 1.577:1
+/* AND IT OPENS AT TRUSS, NOT AT t=0. Draft 1 held it open from the first frame
+   in mode `coiled` on the argument that the store chamber is the subject from
+   the start. It is — but `coiled` has no load, nothing rove and a bare beam, so
+   for fifty-seven seconds the window printed a 375x238 panel with a pillar down
+   one edge and paper in the middle: the largest dead area in the frame, and a
+   diagram of a machine that had not been built. This is the same call S03 makes
+   about its formation plan. What is up before TRUSS is the count instead. */
+const ropeMode = t => t < HOIST0 ? "tied"
                     : t < HOIST1 ? "hoist"
                     :              "suspended";
+
+/* THE ARMING TALLY — the ensemble's OWN readout, up while its count is the
+   subject (note H). Two columns of eight cells, panicked emptying into armed,
+   with a transfer arrow between them and three per-band pips: no type at all,
+   which is why it survives the reduction. It is keyed at 1140x1140 — EXACTLY
+   3x the crowd box, which is square — so `level` and `bands` are computed off
+   the same member geometry the mass on the floor is drawn from and the two can
+   never disagree. */
+const TALLY_CW = 1140, TALLY_CH = 1140;
+/* the crop starts left of the instrument's open bracket and right of its band
+   pips: drawn to its own edges, draft 1 cut both off against the window rule. */
+const TALLY_WIN = { x0:.555, y0:.070, x1:.700, y1:.255 };  // 165 x 211, 0.782:1
+const TALLY_DST = { x0:.806, y0:.048, x1:.955, y1:.328 };  // 167 x 213, 0.784:1
 
 /* THE ISSUE REGISTER — S03's crop of the armour set at S03's destination (I) */
 const ARM_CW = 820, ARM_CH = Math.round(820 * 760 / 1120);   // 820 x 556
@@ -402,7 +458,12 @@ function placeBoard(offctx, W, H, state){
 }
 
 /* ---- THE ENEMY, ARMING — S02/S03's box, new module (note H) -------------- */
-const CROWD = { cw:415, ch:380, perRow:[3,4], nearRow:0.86, midX:0.68 };
+/* S02/S03's box, to the pixel: cw 415, ch 380, midX .68 on `corner_dead` and
+   nearRow .86 on `bench_l2`, so the mass does not move between four adjacent
+   shots. Only `rows` and `perRow` change, from S03's two thin ranks of a beaten
+   huddle to three of a mob being issued gear — and the near rank clears the
+   nearest living man in the frame (Eumaeus at `table_l`, left edge 267) by 35px. */
+const CROWD = { cw:415, ch:380, rows:3, perRow:[3,4,4], nearRow:0.86, midX:0.68 };
 function placeCrowd(offctx, W, H, state){
   const x = megaron.at("corner_dead").x * W - CROWD.midX * CROWD.cw;
   const y = megaron.at("bench_l2").y * H - CROWD.nearRow * CROWD.ch;
@@ -426,12 +487,17 @@ function crowdAt(t){
     waveSpread: 0.34,
     volley: t < ORDER ? 0 : 0.30,
     attention: 0.92,
-    rows:2, perRow:CROWD.perRow, density:1.0,
+    rows:CROWD.rows, perRow:CROWD.perRow, density:1.0,
     supplyX:0.90, supplyY:0.50, targetX:0.99, targetY:0.20,
     showHall:false, showGauge:false, showFront:false,
     showVolley:false, showCover:false, showSupply:t >= HAND,
-    layers: t >= HAND ? ["supply","band-back","band-front"]
-                      : ["band-back","band-front"],
+    /* THREE band layers, and `band-mid` is not optional: the module maps a
+       member's row to bandLayer[min(row,2)], so with rows:3 the middle and
+       front ranks live in `band-mid` and `band-front`. Draft 1 passed
+       ["band-back","band-front"] and silently dropped the entire near rank —
+       the mass printed as two 74px men alone on the near-left floor. */
+    layers: t >= HAND ? ["supply","band-back","band-mid","band-front"]
+                      : ["band-back","band-mid","band-front"],
     status: t < HAND   ? "NOTHING IN THEIR HANDS"
           : t < ORDER  ? "THE ARMS COME DOWN THE LANE"
           : t < CAUGHT ? "SHIELDS ON THEIR ARMS"
@@ -466,7 +532,8 @@ export const scene = {
     "shields on their arms, helmets on, spears cocked and their faces turned " +
     "on the sill — the arming front has swept the whole mass, so the fight " +
     "from here is armed men against armed men. Philoetius holds the store " +
-    "door (`postern`), Eumaeus stands under the hanging man at `bench_l1`; " +
+    "door (`postern`), Eumaeus is out in the hall at the wrecked boards "+
+    "(`table_l`) with the fall in his hands; " +
     "both walked out of the shield-wall at `axe_first` on Odysseus' order and " +
     "have not yet gone back down to it. Odysseus has still not moved off the " +
     "great threshold (`threshold`), as himself, guise `restored`, spears in " +
@@ -493,7 +560,7 @@ export const scene = {
     { asset:"character.melanthius-b22", instance:"melanthius",
       anchor:{x:.22,y:.63}, scale:.34, band:"threeq", pose:"m22_slip" },
     { asset:"character.eumaeus", instance:"eumaeus",
-      anchor:{x:.25,y:.78}, scale:.41, band:"threeq", pose:"eum_ward" },
+      anchor:{x:.28,y:.81}, scale:.43, band:"threeq", pose:"eum_ward" },
     { asset:"character.philoetius", instance:"philoetius",
       anchor:{x:.25,y:.60}, scale:.33, band:"threeq", pose:"phi_barred" },
     { asset:"ensemble.eumaeus-and-philoetius", instance:"line_01",
@@ -586,7 +653,7 @@ export const scene = {
     { op:"actor.gaze",  target:"philoetius",  at:HOIST1,  args:{ gaze:{ x:-.16, y:-.78 } } },
     { op:"actor.pose",  target:"eumaeus",     at:HOIST1,  args:{ pose:"eum_speak" } },
     { op:"actor.gaze",  target:"eumaeus",     at:HOIST1,  args:{ gaze:{ x:-.34, y:-.62 } } },
-    { op:"sound.cue",   target:"eumaeus",     at:HOIST1,  args:{ src:"bench_l1", cue:"now you will keep watch all night, Melanthius" } },
+    { op:"sound.cue",   target:"eumaeus",     at:HOIST1,  args:{ src:"table_l", cue:"now you will keep watch all night, Melanthius" } },
     { op:"crowd.state", target:"suitors_01",  at:HOIST1,  args:{ status:"A RANK OF THEM" } },
     { op:"timeline.capture", target:"OD-B22-S04", at:70.0, args:{ label:"EXIT" } },
   ],
@@ -682,8 +749,7 @@ export const scene = {
        depth that walks backward as he goes up the pillar (note F). */
     {
       const p = blk.melanthius, s = st.melanthius || {};
-      const z = megaron.stations[p.station || p.to].z;
-      const lift = hoistExtra(H, p, z) * hoist;
+      const lift = hoistExtra(H, p) * hoist;   // p.d IS the station's plan z
       const carrying = t >= DELIV0 && t < BACK0;
       const taken    = t >= CAUGHT;
       draw.push({ d: p.d - 0.12 * hoist, run(){
@@ -750,9 +816,9 @@ export const scene = {
       }});
     }
 
-    /* EUMAEUS — a depth band nearer than anybody else in the lane, off the
-       contact, on the fall and then on the taunt. Mirrored so his gesture goes
-       up the lane at the man. */
+    /* EUMAEUS — OUT of the lane, at the wrecked boards, two depth bands nearer
+       than the store door: off the contact, on the fall, and then on the taunt.
+       Mirrored so his gesture goes up the lane at the man (notes C, D). */
     if (t >= ORDER){
       const p = blk.eumaeus, s = st.eumaeus || {};
       const taunting = t >= HOIST1;
@@ -839,8 +905,17 @@ export const scene = {
 
     draw.sort((a, b) => a.d - b.d).forEach(x => x.run());
 
-    /* --- 3. THE TWO WINDOWS. Overlays, always last (notes G, I). --------- */
-    {
+    /* --- 3. THE WINDOWS. Overlays, always last (notes G, H, I). ---------- */
+    /* THE COUNT while the count is the subject; THE MACHINE once it exists. */
+    if (t < TRUSS){
+      const c = crowdAt(t);
+      const ts = { ...c, showGauge:true, layers:["gauge"],
+                   t:Math.min(.98, t / D), progress:prog };
+      const sig = `tal|${Math.round((ts.wave ?? 0)*20)}|${Math.round((ts.arming ?? 0)*20)}`;
+      detailField(offctx, W, H, TALLY_DST);
+      plate(offctx, W, H, armedSuitors, TALLY_CW, TALLY_CH, TALLY_WIN, TALLY_DST, ts, sig);
+      detailRule(offctx, W, H, TALLY_DST);
+    } else {
       const mode = ropeMode(t);
       const rs = { mode, t:0, status:mode.toUpperCase(), progress:prog };
       detailField(offctx, W, H, ROPE_DST);

@@ -19,12 +19,29 @@
 
    A. THE ROOM IS THE SAME ROOM, IN THE SAME STATE, AND THE FIRST FRAME IS
       S03's LAST. The field is location.megaron-hall in state `cleaned`, at
-      anchor (.50,.99) scale 1.0, with the same layer list OD-B23-S03 and
-      OD-B23-S02 used — so this hall registers to the pixel on theirs, and on
-      B19-S02's, B21-S01's and B22-S01's. `throne`, `axes` and `litter` are
-      dropped for the reasons S02 recorded (the throne plinth stands across the
-      near spine where the son's corner is; `cleaned` draws nothing at all with
-      the other two). Homer keeps this whole scene in the megaron: at 23.241
+      anchor (.50,.99) scale 1.0 — the same asset, state, anchor and scale
+      OD-B23-S03 and OD-B23-S02 used, so this hall registers to the pixel on
+      theirs, and on B19-S02's, B21-S01's and B22-S01's. `throne`, `axes` and
+      `litter` are dropped for the reasons S02 recorded (the throne plinth
+      stands across the near spine where the son's corner is; `cleaned` draws
+      nothing at all with the other two).
+      ONE MORE LAYER IS DROPPED HERE THAN IN S03, AND IT WAS DROPPED OFF A
+      PLATE. `furniture` paints the four benches and two boards as boxes rising
+      off the floor, and `cleaned` puts them all back in order: measured at
+      1120x760 the left pair covers screen x 160–407 with its TOP EDGES at
+      y 538–618, and the right pair covers x 713–905 with the same tops. That
+      band is exactly where this scene's two events happen — the near floor the
+      bed the queen orders set up has to stand on, and the near floor the two of
+      them finally close on — and draft 1 was rendered with the layer in: the
+      king's feet at the embrace mark landed at y 546 against the left board's
+      top edge at 542, so his legs vanished into the board, and the bed's foot
+      end fused with the right bench at the same depth. That is the fixture-
+      under-the-legs bug, and the layer is dropped rather than walked over,
+      which is the same decision S02 and S03 made about the throne plinth. The
+      hall still paints its shell, roof, far wall, great doors, sill, empty arms
+      racks, both side doors, the stair, both roof-pillars, the floor lane and a
+      fresh fire.
+      Homer keeps this whole scene in the megaron: at 23.241
       Dawn would have come up ON THEM WEEPING, in the hall, before either of
       them has moved toward the chamber — the chamber is the NEXT scene. So no
       second room is built and location.marriage-chamber is deliberately not
@@ -36,10 +53,14 @@
       EDITED. scenes/_plans/megaron.mjs is a tracked Books I–XV+ file and this
       scene does not touch it. But the megaron ships NO CONTACT PAIR, and this
       scene contains the one embrace the whole poem has been walking toward, so
-      three marks are added in a DERIVED plan at the top of this file:
-        embrace_l {x:.26,z:.50} / embrace_r {x:.38,z:.50}   the contact pair
-        fire_far  {x:.55,z:.31}                             a walk waypoint
-        bed_mark  {x:.76,z:.87}                             where the bed stands
+      five marks are added in a DERIVED plan at the top of this file:
+        embrace_l {x:.34,z:.74} / embrace_r {x:.46,z:.74}   the contact pair
+        fire_near {x:.70,z:.74}                             a walk waypoint
+        bed_mark  {x:.86,z:.87}                             where the bed stands
+        passage   {x:.99,z:.36}   beyond the household door — off the room, like
+                                  the plan's own `storeroom`, and nobody is ever
+                                  DRAWN on it: it is a mark for bodies that have
+                                  gone through that door or not come in yet
       `{ ...megaron.stations, ...EXTRA }` inherits every original station
       UNCHANGED — asserted, not assumed: PLAN_IS_MEGARON below re-projects all
       22 megaron stations through both plans and compares x, y, scale and d, so
@@ -49,70 +70,90 @@
       coordinate in the staging of a person, and the two things in the frame
       that are NOT bodies are placed off a named station too (notes F, G).
 
-   C. CONTACT PAIR — SHE RUNS TO HIM, AND THEY LAND ON TWO MARKS.
-      Od. 23.207: she ran straight to him and threw her arms round his neck. HE
-      does not cross; she does. So the pair straddles the open floor just in
-      front of the left roof-pillar he has been sitting against:
-        odysseus `embrace_l` (x .329, feet y .717)  318px body, x 319–419
-        penelope `embrace_r` (x .415, feet y .717)  318px body, x 415–515
-      96px between centres, same floor line, same size: the two silhouettes
-      touch along four pixels and share no coordinate. That is two people
-      holding each other. `pillar_l` + `pillar_r` cannot do it (252px of paper
-      between them — they are the two marks of the ARGUMENT, which is what S02
-      and S03 used them for), and the megaron's only other close pairs are
-      `shot_mark`/`throne`, which are both on x .50 and would resolve to ONE
-      screen x, stacking one body inside the other.
-      HER ROUTE IS TWO LEGS BECAUSE THE FIRE IS IN THE STRAIGHT LINE. Plan-space
-      `pillar_r` -> `embrace_r` passes (x .56, z .47), which projects to feet
-      (607,535) — inside the hearth ring the hall paints at x 475–645, y 526–580.
-      So she goes round the far side of the fire: `pillar_r` -> `fire_far` ->
-      `embrace_r`. At mid-leg one she is a 283px body spanning x 549–638 with her
-      feet at y 479, 47px ABOVE the ring's near edge; at mid-leg two she spans
-      470–564 with her feet at y 507, still clear of it. She crosses nobody: her
-      husband is at 330–427 and her son is at 76–200.
+   C. CONTACT PAIR — SHE RUNS TO HIM, AND THEY LAND ON TWO MARKS, ON THE ONE
+      PIECE OF FLOOR THAT WILL TAKE THEM. Od. 23.207: she ran straight to him
+      and threw her arms round his neck. So the pair is on the NEAR floor, in
+      front of the fire, and it is there because everywhere else in this room
+      fails a rendered test:
+        odysseus `embrace_l` (x .364, feet y .833)  359px body, x 351–464
+        penelope `embrace_r` (x .466, feet y .833)  359px body, x 465–578
+      114px between centres, one floor line, one size: the two rig silhouettes
+      share an edge, and the queen's veil and hair drape — which she lays out in
+      box-W fractions, so she is drawn half again as wide as the rig — overlap
+      his shoulder by about 30px. They are touching and they share no coordinate.
+      DRAFT 2 PUT THE PAIR 105px APART ON x .390/.483 AND IT WAS MOVED OFF THE
+      PLATE: at .483 the queen stood dead on the hearth's own screen centre
+      (x 560) with the fire's five flames rising behind her hip, and the two of
+      them, the fire and the far doorway stacked into one vertical column in the
+      middle of the frame. 22px to the left is enough: the fire now shows to the
+      right of her, and the king's head clears the far doorway's dark opening
+      (which begins at x 448) altogether. That is two people holding each
+      other. `pillar_l` + `pillar_r` cannot do it (252px of paper between them —
+      they are the two marks of the ARGUMENT, which is what S02 and S03 used
+      them for); the megaron's only close pairs, `shot_mark`/`throne`, are both
+      on x .50 and resolve to ONE screen x, stacking one body inside the other;
+      and a pair at mid-depth (z .50) was written, rendered and thrown out — at
+      feet y 545 both bodies stood inside the left board's painted box (note A),
+      which is what got the `furniture` layer dropped and the pair moved four
+      depth-steps nearer. At z .74 their feet are at y 633: 53px BELOW the
+      hearth ring the hall paints at x 475–645 / y 526–580, so they stand in
+      FRONT of the fire — which is where two people who have just found each
+      other again in this house should be standing.
+      HER ROUTE IS TWO LEGS SO THAT SHE NEVER WALKS THROUGH THE FIRE. Plan-space
+      `pillar_r` -> `embrace_r` in one leg passes (x .61,z .59), feet (654,578),
+      which puts her inside the ring. So she comes round the NEAR side of it:
+      `pillar_r` -> `fire_near` -> `embrace_r`. Leg one is straight at the
+      camera down her own side of the room (mid-leg: 322px body, x 695–801, feet
+      578, the ring 50px to her left); leg two runs along the near floor at a
+      constant z (mid-leg: x 590–702, feet 633, the ring 53px above her feet).
+      She crosses nobody: her husband is at 380–493 and never on her side of the
+      spine, her son is at 76–200, and the nurse is at 834–928.
 
    D. NOBODY ELSE IS EVER COINCIDENT, AND THE RIGHT WALL IS A ONE-BODY
       CORRIDOR. Measured at 1120x760 with K = 0.52, S03's K for S03's rendered
       reason (at 0.42 a body against a roof-pillar is 255px tall and 91px wide,
       the pillar is painted 57px wide at that depth, and its two hard contour
       lines run down THROUGH the figure):
-        odysseus   pillar_l -> embrace_l     307 -> 318px body
-        penelope   pillar_r -> embrace_r     307 -> 318px body
-        telemachus corner_dead   (.123,.911) 393px body, x  76–200   (never moves)
-        phemius    stair_up -> doorway_maid  348 -> 299px body        (then off frame)
-        eurycleia  doorway_maid -> bench_r1 -> stair_up -> bench_r1
+        odysseus   pillar_l -> embrace_l                307 -> 359px body
+        penelope   pillar_r -> fire_near -> embrace_r   307 -> 359px body
+        telemachus corner_dead   (.123,.911)  393px body, x 76–200  (never moves)
+        phemius    stair_up -> doorway_maid -> passage  348px, then off frame
+        eurycleia  passage -> doorway_maid -> stair_up -> doorway_maid  299px
       The right-hand wall has to carry THREE bodies in this scene — the queen at
       her pillar, the bard still playing, and the nurse who is sent up the stair
-      — and it cannot: at 1120x760 the bard at `stair_up` spans 883–992, the
-      nurse at `doorway_maid` spans 834–928 and the queen at `pillar_r` spans
-      693–790, so bard+nurse fuse over 94px at overlapping heights. Every other
-      right-hand mark fails worse (`bench_r2` 830–946 against the nurse,
-      `table_r` 745–857 against the queen by 45px). So the corridor is used by
-      ONE BODY AT A TIME, in sequence, and the sequence is the plot:
-        · THE BARD IS PUT OUT FIRST (t 3–7). What is about to be tested in this
+      — and it cannot: the bard at `stair_up` spans 883–992, the nurse at
+      `doorway_maid` spans 834–928 and the queen at `pillar_r` spans 693–790, so
+      bard+nurse fuse over 94px at overlapping heights. Every other right-hand
+      mark fails worse (`bench_r2` 830–946 against the nurse, `bench_r1`
+      786–893 against both the queen's veil and the bed, `table_r` 745–857
+      against the queen by 45px). So the corridor is used by ONE BODY AT A TIME,
+      in sequence, and the sequence is the plot:
+        · THE BARD IS PUT OUT FIRST (t 3–8). What is about to be tested in this
           room is the one secret in the house that only two people hold — S02
           already had the queen say she and her husband have private signs — and
           the noise must not stop. So Phemius takes the phorminx out through the
-          household door and keeps playing in the passage. He is not drawn from
-          the moment he reaches the door (note E).
-        · THE NURSE COMES IN THROUGH THE SAME DOOR (t 8), after he is through
-          it, and crosses to her mistress' shoulder at `bench_r1` (x 786–893,
-          nearer than the queen at d .62 against .44, so her 13px of overlap
-          with the queen's veiled right shoulder reads as the nurse standing
-          just in front of her, which is where a nurse being given an order
-          stands). Two bodies never hold `doorway_maid` in the same DRAWN frame;
-          a door is the one mark two people are supposed to share, in turn.
-        · SHE GOES UP THE STAIR (t 14–18) to strip the bed she has been told to
+          household door into the passage and plays at the street from there. He
+          is not drawn from the moment he is through the door (note E).
+        · THE NURSE COMES IN BY THE DOOR HE WENT OUT BY (t 10–13), two seconds
+          behind him — they pass each other in the corridor, off frame, which is
+          what `passage` is for — and stands in the household doorway
+          (`doorway_maid`, x 834–928, feet y 510) to be given the order. That is
+          44px clear of the queen's veil and 24px above the bed's head end, and
+          it is where a nurse called up from the household quarters stands.
+        · SHE GOES UP THE STAIR (t 16–20) to strip the bed she has been told to
           carry out, and is off frame in the chamber for forty seconds.
-        · SHE COMES BACK DOWN (t 60–65) having made that bed up where it stands,
-          which is what flips the prop to `reunion` (note F). By then the queen
-          has left `pillar_r`, so the right wall is hers alone.
+        · SHE COMES BACK DOWN (t 60–64) having made that bed up where it stands,
+          which is what flips the prop to `reunion` (note F), and stops in the
+          same doorway. `doorway_maid` is held by exactly one drawn body at a
+          time from end to end, and the two who share it — the bard going out at
+          t=7 and the nurse coming in at t=10 — are three seconds apart. A door
+          is the one mark two people are supposed to share, in turn.
 
    E. A BODY THROUGH A DOOR IS NOT DRAWN. S03's own precedent (Odysseus at
       `postern` for the bath): the station is still resolved by the plan for the
       whole time, so the occupancy is continuous even though the picture is not,
       and the handoff is unaffected. Phemius is undrawn from t=7; Eurycleia is
-      undrawn before t=8 and between t=18 and t=60. Drawing the nurse standing
+      undrawn before t=10 and between t=20 and t=60. Drawing the nurse standing
       on a stair tread for forty seconds would say the opposite of "she has gone
       up to move the bed".
 
@@ -121,7 +162,7 @@
       WHAT SAY SO. prop.olive-tree-marriage-bed was authored for this scene
       (`scene:"OD-B23-S04"` in its own header) and it is a state machine:
       MADE · STRIPPED · IMMOVABLE · ROOTED · REUNION. It is NOT in the frame at
-      t=0. It comes up on the queen's ORDER (t=11) in `stripped` — the bedding
+      t=0. It comes up on the queen's ORDER (t=13) in `stripped` — the bedding
       off, the tenon dashed into the post — because that is the moment the house
       is told to take it apart; it goes to `false-move` when he erupts (t=22),
       which draws the DISPLACED GHOST BED in dashes, the heavy push vector, the
@@ -136,22 +177,29 @@
       dashed ghost of itself displaced, a blocked push vector and a root mass
       under a cut floor are not furniture standing in a megaron; they are the
       argument, drawn.
-      IT IS PLACED OFF A STATION, LIKE EVERYTHING ELSE. `bed_mark` {x:.76,z:.87}
-      with `kind:"prop"`, and the prop's own declared `contact:floor` anchor
-      (.500,.615 of its box) is laid ON that station, so the bed stands on the
-      floor the plan draws instead of on a number. At BW=450 (the prop's size is
-      set by box WIDTH: its unit is s = 0.300·W) its ink runs x 669–989,
-      y 505–743. That clears the hearth ring (ends x 645) by 24px, stops 2px
-      above the card's rule, and at d .90 it is NEARER than the stair (x 896–
-      1103, d .66) and than bench_r1 and bench_r2, so where it meets them it
-      OCCLUDES them, which is what a bed in the near right of a room does.
-      A 320px bed against a 307px man is a bed as long as a man is tall, one
-      depth-step nearer the camera. THE UPPER-RIGHT CORNER WAS TRIED FIRST AND
-      GIVEN UP: laid in over the stair as a chamber cutaway the only clear
-      rectangle there is 255 x 215px, which puts the bed at 181px wide — the
-      mortises at 5px, the ring section at 11px, the push vector at 12px, all
-      of it under the dot pitch, which is exactly how S03's emitter diagram
-      failed. The floor is where this object can be read.
+      IT IS PLACED OFF A STATION, LIKE EVERYTHING ELSE, AND IT OBEYS THE DEPTH
+      LAW. `bed_mark` {x:.86,z:.885} with `kind:"prop"` (k = 0.92), and the
+      prop's own declared `contact:floor` anchor (.500,.615 of its box) is laid
+      ON that station, so the bed stands on the floor the plan draws instead of
+      on a number. Its box is BED_BASE · p.scale wide — the prop's size is set by
+      box WIDTH, since its unit is s = 0.300·W — so it grows and shrinks with the
+      station like a body does instead of being a fixed number of pixels. At
+      x .86 / z .87 that is a 381px box, s = 114, and its ink runs x 798–1068,
+      y 533–733: 23px below the nurse's feet in the doorway above it, 8px clear
+      of the queen's veil at `pillar_r` (ends x 790), 153px clear of the hearth
+      ring (ends x 645), and 9px above the card's rule — draft 2 sat 3px lower
+      and the root tuft printed THROUGH the rule. At d .87 it is NEARER
+      than the stair (x 896–1103, d .66), so where they meet it OCCLUDES the
+      stair's lower flight, which is what a bed in the near right of a room does.
+      A 280px bed against a 359px body is a bed a little shorter than a person is
+      tall, one depth-step nearer the camera.
+      THE UPPER-RIGHT CORNER WAS TRIED FIRST AND GIVEN UP: laid in over the stair
+      as a chamber cutaway the only clear rectangle there is 255 x 215px, which
+      puts the bed at 181px wide — the mortises at 5px, the ring section at 11px,
+      the push vector at 12px, all of it under the dot pitch, which is exactly
+      how S03's emitter diagram failed. The floor is where this object can be
+      read, and the rendered plate says so: at 280px the woven ox-hide straps,
+      the seven bored mortises, the dashed ghost and the root mass all hold.
 
    G. ATHENA IS A DURATION, NOT A BODY, AND SHE GETS THE ONE CLEAR PLANE.
       divine-fx.athena-delays-dawn was also authored for this scene and it
@@ -160,27 +208,42 @@
       0.98 and drawSky fills the top 59% with inkLevel 2), and its sun would
       land on the hall floor at (420,580) — a sun sitting in front of the left
       pillar. So it is blitted as ONE KEYED WINDOW of the part of the plate that
-      IS the beat: layers `stream / sun / gate / clamp / yoke` only, window
-      x .190–.700, y .400–.926 of its own box — the barred gate on its two
-      posts, the clamp closed on the latch, the sun disc pressed up under the
-      rule with every ray cut off flat, the three heavy termination courses
-      where the rays die, the Ocean stream she is held beside, and the yoke
-      lying with its two collars crossed out. Unyoked is the whole point.
-      WHAT IS CROPPED AWAY IS CROPPED FOR A REASON: the NIGHT SCALE (y .128)
+      IS the beat: layers `sun / gate / clamp` only, window x .265–.715,
+      y .430–.910 of its own box — the gate beam, whole, spanning the two posts
+      it is sunk on, the broken horizon rule the light may not cross, the
+      dashed clamp closed over the latch with one hard press-bar driving down on
+      it (the goddess is a HOLE, which is the module's own idea and the best
+      thing in it), the sun disc pressed up under the rule with every ray cut off
+      flat, and the three heavy termination courses where the rays die.
+      DRAFT 1 CAST `stream` AND `yoke` TOO AND THEY WERE CUT OFF THE PLATE. Both
+      are horizontal-line generators — the Ocean is three courses of broken
+      rules, the yoke is a beam with two collars — and with the gate's four rule
+      spans and the sun's termination courses already in the crop, the rendered
+      window printed as a LADDER of loose horizontal bars over the roof
+      coffering, which is stripe-on-stripe and reads as debris. What is left is
+      one object: a bar, a post, a clamp, and a sun that cannot get past them.
+      WHAT ELSE IS CROPPED AWAY IS CROPPED FOR A REASON: the NIGHT SCALE (y .128)
       carries the hours-added readout, and although the module draws its
       numerals as seven-segment BAR GEOMETRY precisely so they survive, at the
-      242px this frame can spare the digit cell is 11px wide and the bars go
-      under the dot pitch — so the scale, the stars and the arrested star are
-      all left out rather than printed as debris, and the `chamber` aperture is
-      left out because it lands on the son's head. `sky` is left out too, so
-      there is no tone field to key: the window is ink on the room's own paper.
+      189px this frame can spare the digit cell is 9px wide and the bars go under
+      the dot pitch — so the scale, the stars and the arrested star are all left
+      out rather than printed as debris, the chariot is out of the crop, and the
+      `chamber` aperture is left out because it lands on the son's head. AND THE
+      CROP WAS WIDENED ONCE MORE AFTER DRAFT 2, FOR THE SAME REASON: at
+      x .240–.600 the beam's span and both rule spans were cut into stubs and the
+      second post was outside the frame, so what printed was a scatter of loose
+      bars with a sun under them. x .265–.715 puts the beam's whole 0.372–0.628
+      span between the posts at 0.328 and 0.672, so the gate reads as a gate.
+      `sky` is
+      left out too, so there is no tone field to key: the window is ink on the
+      room's own paper.
       IT IS NOT IN THE ROOM'S AIR ARBITRARILY. It is laid on the near-left wall
-      plane, x 34–276, y 40–290 — the one rectangle in this composition that is
-      neither architecture nor somebody's head (Odysseus at the embrace starts
-      at x 319, the son's crown at y 299, the postern slab at y 269 begins right
-      of x 196 and below the window's bottom edge) — and it comes up only at
-      t=64, the moment Athena takes hold of the clock, so it shares the frame
-      with nothing but the two of them weeping.
+      plane, x 40–257, y 40–272 — the one rectangle in this composition that is
+      neither architecture nor somebody's head (the roof's coffering starts right
+      of x 263, Odysseus at the embrace starts at x 351, the son's crown is at
+      y 299, and the postern slab begins right of x 196 and below y 269) — and it
+      comes up only at t=64, the moment Athena takes hold of the clock, so it
+      shares the frame with nothing but the two of them weeping.
 
    H. ONE BODY, ONE GUISE, AND NO FLARE. Odysseus is character.odysseus-b16 at
       guise `restored` for the whole scene — the guise CHANNEL is used, held at
@@ -211,7 +274,7 @@
    J. TONE, AND WHAT THIS FILE DOES NOT DRAW. Hand-drawn ctx overpaint in this
       file is ZERO: every mark on the plate is made by a module. Nothing here
       draws a full-width band — the hall's near boards stop at x 401 and restart
-      at 719, the bed is 320px wide in a 1120px frame, the dawn window is 242px,
+      at 719, the bed is 280px wide in a 1120px frame, the dawn window is 189px,
       the dawn's own gate is authored in three broken spans and only two of them
       are inside the crop, and its night axis (the one long horizontal in the
       plate) is cropped out. There is no type anywhere: the only numerals in
@@ -243,15 +306,16 @@
 
    CONTINUITY OUT — computed, never written:
    { odysseus:"embrace_l", penelope:"embrace_r", telemachus:"corner_dead",
-     phemius:"doorway_maid", eurycleia:"bench_r1" }.
-   Two of those five are marks of THIS file's derived plan, so a scene that
-   resumes on pure megaron stations should import `exitOccupancyMegaron`
-   instead, which is the same occupancy with the contact pair folded back onto
-   the two roof-pillars (both free at the end of this scene). S05 plays in
+     phemius:"passage", eurycleia:"doorway_maid" }.
+   Three of those five are marks of THIS file's derived plan, so a scene that
+   resumes in the hall off the authored plan alone should import
+   `exitOccupancyMegaron` instead: the contact pair folds back onto the two
+   roof-pillars (both free at the end of this scene) and the bard is dropped,
+   because `passage` is not a place in this room. S05 plays in
    location.marriage-chamber and will translate either one.
 
    Verify (the order with the bed stripped, and the embrace under a held dawn):
-     node harness/render-scene.mjs scenes/OD-B23-S04.mjs --t 13
+     node harness/render-scene.mjs scenes/OD-B23-S04.mjs --t 15
      node harness/render-scene.mjs scenes/OD-B23-S04.mjs --t 70
    ============================================================ */
 import { placeInstance, keyedModuleCanvas, clamp01, lerp }
@@ -274,27 +338,31 @@ import dawn       from "../assets/divine_fx/athena-delays-dawn.mjs";
 const FIELD_ASSET = "location.megaron-hall";
 const D = 78;
 
-/* the scoured hall, minus the throne plinth that swallows the near spine and
-   the two layers `cleaned` draws nothing with (note A) */
+/* the scoured hall, minus the throne plinth that swallows the near spine, the
+   two layers `cleaned` draws nothing with, and the benches and boards (note A) */
 const HALL_LAYERS = ["shell","roof","farwall","doors","sill","racks","postern",
-                     "maidsdoor","stair","pillars","lane","hearth","furniture"];
+                     "maidsdoor","stair","pillars","lane","hearth"];
 
 /* ---- THE PLAN, DERIVED (note B) -----------------------------------------
    The hall is authored once, in scenes/_plans/megaron.mjs, and that file is not
-   touched. Three marks the megaron does not ship are added here and nothing
+   touched. Five marks the megaron does not ship are added here and nothing
    else changes. */
 const EXTRA = {
-  embrace_l:{ x:.26, z:.50 },   // contact pair, in the open floor just in front
-  embrace_r:{ x:.38, z:.50 },   // of the left roof-pillar — 96px between centres
-  fire_far: { x:.55, z:.31 },   // waypoint: the far side of the hearth ring
-  bed_mark: { x:.76, z:.87 },   // where the bed that cannot be moved stands
+  embrace_l:{ x:.34, z:.74 },   // contact pair, on the near floor left of the fire
+  embrace_r:{ x:.46, z:.74 },   // — 114px between centres, silhouettes touching
+  fire_near:{ x:.70, z:.74 },   // waypoint: she comes round the NEAR side of the fire
+  bed_mark: { x:.86, z:.87 },   // where the bed that cannot be moved stands
+  passage:  { x:.99, z:.36 },   // beyond the household door: the corridor the bard
+                                // goes out into and the nurse comes in from. Off
+                                // the room, like the plan's own `storeroom`, and
+                                // NOBODY IS EVER DRAWN ON IT.
 };
 const plan = makePlan({
   id:"megaron+b23s04",
   name:"The Great Hall at Ithaca (+ the bed test's three marks)",
   notes:"DERIVED from scenes/_plans/megaron.mjs. Every megaron station is " +
         "inherited unchanged and asserted so below; only embrace_l, embrace_r, " +
-        "fire_far and bed_mark are new.",
+        "fire_near, bed_mark and passage are new.",
   stations:{ ...megaron.stations, ...EXTRA },
 });
 /* the assertion, so a change to the hall plan can never silently desync this
@@ -309,42 +377,45 @@ if (!PLAN_IS_MEGARON)
 /* ---- THE CLOCK ---------------------------------------------------------- */
 const BARD0  =  3;   // the bard is put out; the noise goes on from the passage
 const BARD1  =  7;   // he is through the household door — not drawn from here
-const NURSE  =  8;   // the nurse comes in by that door
-const ORDER  = 11;   // "strip the bed and carry it out for him"  -> STRIPPED
-const UP0    = 14;   // she goes up the stair to do it
-const UP1    = 18;   // through the chamber door — not drawn from here
+const BARD2  =  8;   // he is out in the passage, playing at the street
+const NURSE  = 10;   // the nurse comes in through the door he went out by
+const ORDER  = 13;   // "strip the bed and carry it out for him"  -> STRIPPED
+const UP0    = 16;   // she goes up the stair to do it
+const UP1    = 20;   // through the chamber door — not drawn from here
 const ERUPT  = 22;   // he comes off the pillar                   -> IMMOVABLE
 const SECRET = 32;   // the olive, the adze, the one rooted post  -> ROOTED
 const KNOWN  = 42;   // her knees and her heart go
-const RUN0   = 43;   // she runs — round the far side of the fire
+const RUN0   = 43;   // she runs — round the NEAR side of the fire
 const RUN1   = 50;   // she arrives, and they touch
 const EXPLAIN= 58;   // it was fear of being deceived, not coldness
 const BACK0  = 60;   // the nurse comes down, the bed made up where it stands
-const BACK1  = 65;   // she stops at her mistress' old mark
+const BACK1  = 64;   // she stops in the household doorway she came in by
 const DAWN0  = 64;   // Athena takes hold of the clock             -> the window
 const MADE   = 66;   // the coverlet is on it again                -> REUNION
 
 /* ---- CONTINUITY IN: imported, untranslated (all megaron stations) -------- */
 import { exitOccupancy as PREV_EXIT } from "./OD-B23-S03.mjs";
 const INITIAL = {
-  ...PREV_EXIT,              // penelope pillar_r, odysseus pillar_l,
-                             // telemachus corner_dead, phemius stair_up
-  eurycleia:"doorway_maid",  // in the house, at the household door, undrawn
+  ...PREV_EXIT,          // penelope pillar_r, odysseus pillar_l,
+                         // telemachus corner_dead, phemius stair_up
+  eurycleia:"passage",   // in the house, out in the household corridor, undrawn
 };
 
 /* ---- BLOCKING. Stations, not coordinates (notes B, C, D). ---------------- */
 const MOVES = [
   // the bard is put out of the hall, and keeps playing on the other side of it
   { who:"phemius",   from:"stair_up",     to:"doorway_maid", t0:BARD0, t1:BARD1 },
-  // the nurse: in, to her mistress' shoulder, up the stair, and back down
-  { who:"eurycleia", from:"doorway_maid", to:"bench_r1",     t0:NURSE, t1:ORDER },
-  { who:"eurycleia", from:"bench_r1",     to:"stair_up",     t0:UP0,   t1:UP1   },
-  { who:"eurycleia", from:"stair_up",     to:"bench_r1",     t0:BACK0, t1:BACK1 },
+  { who:"phemius",   from:"doorway_maid", to:"passage",      t0:BARD1, t1:BARD2 },
+  // the nurse: in by the door he went out by, up the stair, and back down to it
+  { who:"eurycleia", from:"passage",      to:"doorway_maid", t0:NURSE, t1:NURSE+3 },
+  { who:"eurycleia", from:"doorway_maid", to:"stair_up",     t0:UP0,   t1:UP1   },
+  { who:"eurycleia", from:"stair_up",     to:"doorway_maid", t0:BACK0, t1:BACK1 },
   // he comes off the pillar when he hears the bed described as movable
   { who:"odysseus",  from:"pillar_l",     to:"embrace_l",    t0:ERUPT, t1:ERUPT+4 },
-  // she runs, round the fire, and does not stop until she is holding him
-  { who:"penelope",  from:"pillar_r",     to:"fire_far",     t0:RUN0,  t1:RUN0+4 },
-  { who:"penelope",  from:"fire_far",     to:"embrace_r",    t0:RUN0+4, t1:RUN1  },
+  // she runs, round the NEAR side of the fire, and does not stop until she is
+  // holding him
+  { who:"penelope",  from:"pillar_r",     to:"fire_near",    t0:RUN0,  t1:RUN0+4 },
+  { who:"penelope",  from:"fire_near",    to:"embrace_r",    t0:RUN0+4, t1:RUN1  },
   // TELEMACHUS DOES NOT MOVE (note D and S03's note C): every near diagonal out
   // of the middle of this hall passes across one of his parents, and tonight
   // they are the scene.
@@ -382,13 +453,15 @@ function placeFig(offctx, W, H, mod, { x, y, hFrac, ar = AR_MAN, fx = 0.5,
    s = 135 that is 238px of ink, and 320 gives it a 40px margin either side of
    the contact point. The window is laid so the prop's own declared
    `contact:floor` anchor sits ON `bed_mark`. */
-const BED_W = 450, BED_H = 320;
+const BED_BASE = 400;                                  // px at unit prop scale
+const BED_AR   = 0.72;                                 // box height / box width
 const BED_CONTACT = bed.anchors["contact:floor"];      // {x:.500,y:.615}
 function placeBed(offctx, W, H, state, sig){
-  const p  = plan.at("bed_mark", { kind:"prop" });
-  const cv = keyedModuleCanvas(bed, BED_W, BED_H, state, sig);
-  offctx.drawImage(cv, p.x * W - BED_CONTACT.x * BED_W,
-                       p.y * H - BED_CONTACT.y * BED_H);
+  const p  = plan.at("bed_mark", { kind:"prop" });     // kind:"prop" -> k = 0.92
+  const w  = BED_BASE * p.scale, h = w * BED_AR;       // it obeys the depth law
+  const cv = keyedModuleCanvas(bed, w, h, state, sig);
+  offctx.drawImage(cv, p.x * W - BED_CONTACT.x * w,
+                       p.y * H - BED_CONTACT.y * h);
 }
 
 /* ---- THE HELD DAWN (note G) --------------------------------------------
@@ -398,9 +471,9 @@ function placeBed(offctx, W, H, state, sig){
    1–1.6 dots on the plate after a 0.99 blit, where a 760 canvas would have
    thinned them to half a dot. */
 const DAWN_C   = 480;
-const DAWN_WIN = { x0:.190, y0:.400, x1:.700, y1:.926 };
-const DAWN_DST = { x0:34/1120, y0:40/760, x1:276/1120, y1:290/760 };
-const DAWN_LAYERS = ["stream","sun","gate","clamp","yoke"];
+const DAWN_WIN = { x0:.265, y0:.430, x1:.715, y1:.910 };
+const DAWN_DST = { x0:40/1120, y0:40/760, x1:257/1120, y1:272/760 };
+const DAWN_LAYERS = ["sun","gate","clamp"];
 function placeDawn(offctx, W, H, state, sig){
   const cv = keyedModuleCanvas(dawn, DAWN_C, DAWN_C, state, sig);
   offctx.drawImage(cv,
@@ -438,7 +511,7 @@ export const scene = {
     "it AND THE FLOOR STILL CUT: it is made up for them again and it has not " +
     "moved a finger's breadth. ODYSSEUS AND PENELOPE ARE TOUCHING for the " +
     "first time in twenty years, on the contact pair in the open floor in " +
-    "front of the left roof-pillar (`embrace_l` / `embrace_r`, 96px between " +
+    "front of the fire (`embrace_l` / `embrace_r`, 105px between " +
     "centres, four pixels of silhouette shared, no coordinate shared): she ran " +
     "round the far side of the fire and put her arms round his neck, and he is " +
     "weeping into her hair. She has said the thing she was keeping — it was " +
@@ -453,7 +526,7 @@ export const scene = {
     "this scene ends; S05 inherits it HELD and is the scene that spends it. " +
     "Telemachus has not moved out of the near-left corner (`corner_dead`) he " +
     "scoured; he has watched his parents recognize each other and has said " +
-    "nothing. Eurycleia is back down off the stair at `bench_r1`, having made " +
+    "nothing. Eurycleia is back down off the stair, in the household doorway " +
     "the bed up in the chamber, and she keeps the house's other secret: the " +
     "dead are still in the outbuilding and the town outside still thinks it " +
     "heard a wedding. Phemius is out through the household door (`doorway_maid`) " +
@@ -468,12 +541,14 @@ export const scene = {
     penelope:"none — already at `pillar_r`, inherited from S03",
     telemachus:"none — already in the near-left corner (`corner_dead`)",
     phemius:"none — inherited playing at `stair_up`. He EXITS through the " +
-            "household door (`doorway_maid`) at t=3..7 and is not drawn after 7",
-    eurycleia:"entrance:household door (`doorway_maid`) at NURSE=8, declared " +
-              "because the order needs someone to receive it; undrawn before it. " +
-              "She EXITS up the chamber stair (`stair_up`) at 14..18, is off " +
-              "frame for forty seconds, and RE-ENTERS down it at BACK0=60",
-    bed_01:"not a body and not an entrance: the prop is cast at ORDER=11, which " +
+            "household door (`doorway_maid`, t=3..7) into the corridor beyond it " +
+            "(`passage`, t=7..8) and is not drawn after t=7",
+    eurycleia:"entrance:household door — she comes in from `passage` to " +
+              "`doorway_maid` at t=10..13, three seconds after the bard went out " +
+              "by it, and is undrawn before that. She EXITS up the chamber stair " +
+              "(`stair_up`) at 16..20, is off frame for forty seconds, and " +
+              "RE-ENTERS down it at BACK0=60",
+    bed_01:"not a body and not an entrance: the prop is cast at ORDER=13, which " +
            "is the second the house is told to take it apart",
     dawn_01:"not a body: the held dawn comes up at DAWN0=64 and does not go down",
   },
@@ -481,30 +556,32 @@ export const scene = {
     odysseus:"none — he holds `embrace_l` into S05",
     penelope:"none — she holds `embrace_r` into S05",
     telemachus:"none — he holds `corner_dead` into S05",
-    phemius:"`doorway_maid`, at t=7, and he keeps playing on the far side of it",
-    eurycleia:"none at the end — she holds `bench_r1`. Her one exit is mid-scene " +
-              "and it is the stair, t=18..60, off frame in the chamber",
+    phemius:"out through `doorway_maid` at t=7 to `passage` at t=8, and he keeps " +
+            "playing on the far side of that door for the whole scene",
+    eurycleia:"none at the end — she holds `doorway_maid`. Her one exit is " +
+              "mid-scene and it is the stair, t=20..60, off frame in the chamber",
     bed_01:"none — the bed is the one thing in this poem that does not exit",
     dawn_01:"none — the hold is NOT released here. S05 releases it.",
   },
   walkable:"the megaron's own `walkable` band (x .12–.88, y .55–.98) minus the " +
            "exclusions this scene respects: the hearth ring (screen x 475–645, " +
-           "y 526–580) — which is why the queen's run is two legs round the far " +
-           "side of it and not one straight line — the four bench boxes and two " +
-           "board boxes `cleaned` puts back in order, the near throne footprint " +
-           "(which is why the `throne` layer is dropped rather than walked over), " +
-           "and from ORDER=11 the bed's own collision box at `bed_mark`. Three " +
-           "routes are used: `pillar_l`->`embrace_l` and `pillar_r`->`fire_far`-> " +
+           "y 526–580) — which is why the queen's run is two legs round the NEAR " +
+           "side of it and not one straight line — the near throne footprint and " +
+           "the six bench and board footprints, which is why the `throne` and " +
+           "`furniture` layers are dropped rather than walked over (note A), and " +
+           "from ORDER=13 the bed's own collision box at `bed_mark`. Three " +
+           "routes are used: `pillar_l`->`embrace_l` and `pillar_r`->`fire_near`-> " +
            "`embrace_r` on the left and centre, and the right wall, which is a " +
            "one-body corridor used by the bard then the nurse in sequence.",
   depthOrder:"one queue, computed: the hall's layers; then the five figures " +
              "sorted by their own resolved plan depth so the nearer body is " +
-             "drawn later — the bard (d .66 falling to .40) and the queen at her " +
-             "pillar (d .44) before the nurse (d .62) before the son (d .90); " +
-             "then the bed, which at d .90 with kind:`prop` is the nearest thing " +
-             "in the room and is drawn over the stair, the right bench and the " +
-             "board it stands in front of; then the held dawn, which is over " +
-             "everything because it is not a thing in the room at all.",
+             "drawn later — the nurse in the household doorway (d .40) and the " +
+             "bard (d .66 falling to .40) and the two at the pillars (d .44) " +
+             "before the pair on the near floor (d .74) before the son (d .90); " +
+             "then the bed, which at d .885 with kind:`prop` is the nearest thing " +
+             "in the room and is drawn over the lower flight of the stair it " +
+             "stands in front of; then the held dawn, which is over everything " +
+             "because it is not a thing in the room at all.",
   gazeTargets:{
     odysseus:"across the fire at her while she gives the order; then the bed, " +
              "hard, while he says what it is; then her face and nothing else " +
@@ -568,13 +645,13 @@ export const scene = {
     { asset:"character.odysseus-b16", instance:"odysseus",
       anchor:{x:.338,y:.690}, scale:.46, band:"threeq", pose:"arms_crossed" },
     { asset:"character.eurycleia", instance:"eurycleia",
-      anchor:{x:.749,y:.775}, scale:.51, band:"threeq", pose:"eury_clasp" },
+      anchor:{x:.787,y:.671}, scale:.45, band:"threeq", pose:"eury_clasp" },
     { asset:"character.telemachus", instance:"telemachus",
       anchor:{x:.123,y:.911}, scale:.59, band:"threeq", pose:"three_quarter_right" },
     { asset:"prop.olive-tree-marriage-bed", instance:"bed_01",
-      anchor:{x:.740,y:.896}, scale:.40 },
+      anchor:{x:.836,y:.903}, scale:.35 },
     { asset:"divine-fx.athena-delays-dawn", instance:"dawn_01",
-      anchor:{x:.139,y:.217}, scale:.22, blend:"multiply" },
+      anchor:{x:.120,y:.379}, scale:.17, blend:"multiply" },
   ],
 
   timeline:[
@@ -852,11 +929,18 @@ export default scene;
 /* named binding so OD-B23-S05 can `import { exitOccupancy as INITIAL }`. */
 export const exitOccupancy = scene.exitOccupancy;
 
-/* the same occupancy with this file's contact pair folded back onto the two
-   roof-pillars, for any later scene that resumes on PURE megaron stations
-   (brief note F: declare the map, do not guess). Both pillars are free at the
-   end of this scene, and they are the marks the two of them have held all
-   book, so the fold costs the join nothing. */
-const PAIR_TO_MEGARON = { embrace_l:"pillar_l", embrace_r:"pillar_r" };
+/* the same occupancy translated into PURE megaron stations, for any later scene
+   that resumes in the hall off the authored plan alone (brief note F: declare
+   the map, do not guess). The contact pair folds back onto the two roof-pillars
+   — both are free at the end of this scene, and they are the marks the two of
+   them have held all book, so the fold costs the join nothing — and the bard is
+   DROPPED, because `passage` is not a place in this room: he is out in the
+   household corridor and a scene that carries him back onto the floor would be
+   putting a body where the story does not have one. Dropping a figure the story
+   left on the other side of a door is the same operation as dropping one it left
+   in another room. */
+const TO_MEGARON = { embrace_l:"pillar_l", embrace_r:"pillar_r", passage:null };
 export const exitOccupancyMegaron = Object.fromEntries(
-  Object.entries(exitOccupancy).map(([who, st]) => [who, PAIR_TO_MEGARON[st] || st]));
+  Object.entries(exitOccupancy)
+    .map(([who, st]) => [who, st in TO_MEGARON ? TO_MEGARON[st] : st])
+    .filter(([, st]) => st));
