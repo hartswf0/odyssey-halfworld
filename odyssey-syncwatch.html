@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ODYSSEY SYNCWATCH — all cuts · one clock</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0c'/%3E%3Crect x='4' y='4' width='11' height='11' fill='%23ffd75e'/%3E%3Crect x='17' y='4' width='11' height='11' fill='%23f2f1ec'/%3E%3Crect x='4' y='17' width='11' height='11' fill='%23f2f1ec'/%3E%3Crect x='17' y='17' width='11' height='11' fill='%23ffd75e'/%3E%3C/svg%3E">
+<style>
+  :root{--bg:#0a0a0c;--card:#141416;--paper:#f2f1ec;--ink:#141414;--txt:#f2f2ee;
+    --dim:rgba(242,242,238,.45);--line:rgba(242,242,238,.16);--gold:#ffd75e;--red:#e0451b;
+    --blue:#7fb0ff;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{min-height:100%;background:var(--bg);color:var(--txt);font:14px/1.5 var(--mono)}
+  button,select{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);
+    padding:8px 12px;cursor:pointer;font-weight:700;letter-spacing:.05em}
+  button:hover{border-color:var(--gold);color:var(--gold)}
+  button.pri{background:var(--gold);color:#141414;border-color:var(--gold);font-weight:900}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  header{position:sticky;top:0;z-index:20;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+    padding:8px 12px;border-bottom:1px solid var(--line);background:var(--bg)}
+  .brand{font-weight:900;letter-spacing:.14em;white-space:nowrap}
+  .brand i{font-style:normal;color:var(--gold)}
+  .tag{font-size:9px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase;white-space:nowrap}
+  .chipS{font-size:9px;letter-spacing:.08em;border:1px solid var(--line);padding:4px 8px;
+    color:var(--dim);white-space:nowrap}
+  .chipS.ok{border-color:var(--gold);color:var(--gold)}
+  .chipS.bad{border-color:var(--red);color:var(--red)}
+  a.suiteLn{font-size:10px;letter-spacing:.1em;color:var(--dim);text-decoration:none;
+    border:1px solid var(--line);padding:6px 10px;margin-left:auto}
+  a.suiteLn:hover{color:var(--gold);border-color:var(--gold)}
+  main{max-width:1500px;margin:0 auto;padding:12px 12px 150px}
+
+  /* ── THE FOUR PANES ── */
+  #grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #grid.soloing .pane{display:none}
+  #grid.soloing .pane.solo{display:block;grid-column:1 / -1}
+  .pane{border:1px solid var(--line);background:#0e0e10;position:relative;min-width:0}
+  .pane canvas{display:block;width:100%;height:auto;aspect-ratio:700/476;background:#fdfdfa}
+  .plab{display:flex;gap:8px;align-items:baseline;padding:7px 10px;cursor:pointer;
+    border-bottom:1px solid var(--line);user-select:none;min-height:38px}
+  .plab:hover{background:#17171a}
+  .plab .k{font-size:10px;font-weight:900;color:var(--gold);letter-spacing:.1em}
+  .plab .n{font-size:10.5px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+  .plab .d{font-size:9px;color:var(--dim);letter-spacing:.06em;margin-left:auto;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52%}
+  .pane.solo .plab{border-color:var(--gold)}
+  .shot{color:var(--gold);font-weight:900}
+
+  /* ── THE CAPTION ── */
+  #cap{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  #where{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+    margin-bottom:6px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+  #where b{color:var(--txt);font-weight:900}
+  #spk{font-size:clamp(16px,2.6vw,23px);font-weight:900;letter-spacing:.06em;color:var(--gold)}
+  #cue{font-size:11px;color:var(--dim);letter-spacing:.05em;min-height:15px;margin:2px 0 8px}
+  #line{font-size:clamp(16px,2.2vw,23px);line-height:1.55;font-weight:600;min-height:80px;max-width:78ch}
+  #line.dirOnly{color:var(--dim);font-style:italic;font-size:clamp(13px,1.7vw,17px)}
+
+  /* ── TRANSPORT ── */
+  #bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(10,10,12,.95);
+    border-top:1px solid var(--line);backdrop-filter:blur(6px);
+    padding:9px 12px calc(9px + env(safe-area-inset-bottom,0px))}
+  #barIn{max-width:1500px;margin:0 auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  #bar button{min-height:52px}
+  #playBtn{min-width:104px;font-size:16px}
+  #scrubWrap{flex:1 1 240px;min-width:180px;padding:20px 0;cursor:pointer;position:relative;touch-action:none}
+  #scrub{height:8px;background:#232326;position:relative;overflow:hidden}
+  #scrub i{position:absolute;left:0;top:0;bottom:0;background:var(--gold);width:0}
+  .bk{position:absolute;top:0;bottom:0;width:1px;background:rgba(242,242,238,.30);
+    mix-blend-mode:difference}
+  .bk.q{width:2px;background:rgba(242,242,238,.65)}
+  #posTxt{font-size:10px;color:var(--dim);letter-spacing:.06em;white-space:nowrap;min-width:120px}
+  #posTxt b{color:var(--gold)}
+
+  @media(max-width:820px){
+    main{padding:10px 8px 172px}
+    #grid{grid-template-columns:1fr}
+    #grid.soloing .pane.solo{grid-column:auto}
+    .plab{min-height:52px;align-items:center}
+    #bar button{min-height:52px;min-width:52px;padding:8px 10px}
+    #playBtn{min-width:88px}
+    #scrubWrap{flex:1 1 100%;order:9}
+    #posTxt{order:8}
+    #line{min-height:64px}
+    header a.suiteLn{display:none}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">ODYSSEY <i>SYNCWATCH</i></div>
+  <div class="tag">all cuts · one clock</div>
+  <select id="bookSel" title="jump to a book"></select>
+  <span class="chipS" id="chipVox">▮ voice</span>
+  <span class="chipS" id="chipBed">♪ bed</span>
+  <span class="chipS" id="chipScene">—</span>
+  <a class="suiteLn" href="odyssey-drive.html">DRIVE ▸</a>
+</header>
+
+<main>
+  <div id="grid">
+    <div class="pane" data-k="A"><div class="plab"><span class="k">A</span>
+      <span class="n">Scene Program</span><span class="d" id="dA">the module's own composition</span></div>
+      <canvas id="cvA" width="700" height="476"></canvas></div>
+    <div class="pane" data-k="B"><div class="plab"><span class="k">B</span>
+      <span class="n">Restage</span><span class="d" id="dB">one ground plane · keyed cutouts</span></div>
+      <canvas id="cvB" width="700" height="476"></canvas></div>
+    <div class="pane" data-k="C"><div class="plab"><span class="k">C</span>
+      <span class="n">Plan Camera</span><span class="d" id="dC">—</span></div>
+      <canvas id="cvC" width="700" height="476"></canvas></div>
+    <div class="pane" data-k="D"><div class="plab"><span class="k">D</span>
+      <span class="n">Performance</span><span class="d" id="dD">the drive view</span></div>
+      <canvas id="cvD" width="700" height="476"></canvas></div>
+  </div>
+
+  <section id="cap">
+    <div id="where"><span id="wBook">—</span><span id="wScene"></span><span id="wPos"></span></div>
+    <div><span id="spk">—</span></div>
+    <div id="cue"></div>
+    <div id="line">Press ▶ — every cut plays at once, locked to the studio recording.</div>
+  </section>
+</main>
+
+<div id="bar"><div id="barIn">
+  <button id="playBtn" class="pri">▶ PLAY</button>
+  <button id="prevBtn" title="previous scene">‹ SCENE</button>
+  <button id="nextBtn" title="next scene">SCENE ›</button>
+  <button id="musBtn" class="on" title="music bed">♪</button>
+  <div id="scrubWrap"><div id="scrub"><i></i></div></div>
+  <span id="posTxt">—</span>
+</div></div>
+
+<audio id="voice" preload="auto"></audio>
+<audio id="bed" preload="auto" loop></audio>
+
+<script type="module">
+import * as E from "./engine/halfworld-engine.mjs";
+const $ = s => document.getElementById(s);
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
+  "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+
+/* ══════════════════════════════════════════════════════════════════════
+   1. THE MASTER CLOCK — the performance IS the clock.
+   152 studio scenes concatenated in id order make one ~2.7h film.
+   ══════════════════════════════════════════════════════════════════════ */
+const [MF, SCRIPT, VMAN, SPOKEN, ALB, TURNS] = await Promise.all([
+  fetch("viewer/odyssey-manifest.json").then(r=>r.json()),
+  fetch("drive/drive-script.json").then(r=>r.json()),
+  fetch("drive/voice-manifest.json").then(r=>r.json()),
+  fetch("viewer/spoken-lines.json").then(r=>r.json()).then(j=>j.lines||{}),
+  fetch("audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]})),
+  fetch("viewer/performance-turns.json").then(r=>r.json()).catch(()=>({byScene:{}})),
+]);
+const assetById = new Map(MF.assets.map(a=>[a.id,a]));
+const mfScene   = new Map(MF.scenes.map(s=>[s.id,s]));
+const dScene    = new Map(SCRIPT.scenes.map(s=>[s.id,s]));
+/* WHOSE turn is this really? The studio narrator PERFORMS most action lines, so
+   the drive script's speakerId is "PERFORMER.NARRATOR" even when the line belongs
+   to Odysseus. The turn ledger keeps the true owner — the camera needs that one. */
+const TURN=new Map();
+for(const list of Object.values(TURNS.byScene||{}))
+  for(const t of list) TURN.set(t.id,t);
+const turnOf  = d => (d&&d.sourceTurnId&&TURN.get(d.sourceTurnId))||null;
+const subjectOf = d => { const t=turnOf(d);
+  return (t&&t.sp)|| (d&&d.speakerId) || "PERFORMER.NARRATOR"; };
+
+const FILM=[]; let off=0;
+for(const id of Object.keys(VMAN).sort()){
+  const vm=VMAN[id], ds=dScene.get(id), ms=mfScene.get(id)||{};
+  if(!vm||!ds) continue;
+  const total=+vm.total||0;
+  /* the scene's KEY BEAT: the segment carrying the longest authored line */
+  let keyGi=-1, keyLen=0;
+  vm.segments.forEach(s=>{
+    const seg=ds.segments[s.gi]; if(!seg||seg.kind==="SPEAKER_CUE") return;
+    const L=((seg.sourceTurnId&&SPOKEN[seg.sourceTurnId]&&SPOKEN[seg.sourceTurnId].line)||"").length;
+    if(L>keyLen){keyLen=L;keyGi=s.gi;}
+  });
+  FILM.push({ id, book:ds.book, bookTitle:ds.bookTitle, title:ds.title||ms.title||id,
+    offset:off, total, file:vm.file, segments:vm.segments, dsegs:ds.segments,
+    path:(ms.path||("/scenes/"+id+".mjs")), keyGi, keyLen });
+  off+=total;
+}
+const TOTAL=off;
+const BOOKS=[...new Set(FILM.map(s=>s.book))].sort((a,b)=>a-b);
+
+function sceneAt(t){                       // binary search the concatenated timeline
+  t=Math.max(0,Math.min(TOTAL-.001,t));
+  let lo=0,hi=FILM.length-1;
+  while(lo<hi){const mid=(lo+hi+1)>>1; if(FILM[mid].offset<=t)lo=mid; else hi=mid-1;}
+  return FILM[lo];
+}
+const sceneIndex = s => FILM.indexOf(s);
+function segAt(sc,local){                  // which segment is SOUNDING right now
+  let cur=null;
+  for(const s of sc.segments){
+    if(local>=s.start && local<s.start+s.dur) return {v:s,d:sc.dsegs[s.gi],gi:s.gi,exact:true};
+    if(s.start<=local) cur=s;               // in a gap → hold the one that just ended
+  }
+  if(!cur) cur=sc.segments[0];
+  return cur?{v:cur,d:sc.dsegs[cur.gi],gi:cur.gi,exact:false}:null;
+}
+const fmt=t=>{t=Math.max(0,t|0);const h=t/3600|0,m=(t/60|0)%60,s=t%60;
+  return (h?h+":":"")+String(m).padStart(h?2:1,"0")+":"+String(s).padStart(2,"0");};
+const lineOf = d => (d&&d.sourceTurnId&&SPOKEN[d.sourceTurnId]&&SPOKEN[d.sourceTurnId].line)||"";
+const dirOf  = d => (d&&d.sourceTurnId&&SPOKEN[d.sourceTurnId]&&SPOKEN[d.sourceTurnId].direction)||"";
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. MODULES — scene programs, assets, restages. Cached per scene id.
+   ══════════════════════════════════════════════════════════════════════ */
+const modCache=new Map();
+function impPath(p){ p=String(p).replace(/^\//,"./");
+  if(!modCache.has(p)) modCache.set(p, import(p).catch(e=>{console.warn("import failed",p,e);return null;}));
+  return modCache.get(p); }
+/* the manifest spells types with a hyphen (divine-fx.…) while scenes cast
+   them with an underscore (divine_fx.…) — and a few Book XVI+ ids predate the
+   manifest entirely. Resolve through both, then fall back to the folder. */
+function assetEntry(aid){
+  const [t,...r]=String(aid).split("."), n=r.join(".");
+  return assetById.get(aid) || assetById.get(t.replace(/_/g,"-")+"."+n)
+      || assetById.get(t.replace(/-/g,"_")+"."+n) || null;
+}
+function assetPath(aid){
+  const e=assetEntry(aid); if(e) return e.path;
+  const [t,...r]=String(aid).split(".");
+  return "/assets/"+t.replace(/-/g,"_")+"/"+r.join(".")+".mjs";
+}
+function assetType(aid){
+  const e=assetEntry(aid); if(e&&e.type) return e.type;
+  return String(aid).split(".")[0].replace(/-/g,"_");
+}
+async function assetMod(aid){
+  const m=await impPath(assetPath(aid)); if(!m) return null;
+  return m.default||m.asset||m;
+}
+const sceneCache=new Map();
+function sceneBundle(sc){
+  if(sceneCache.has(sc.id)) return sceneCache.get(sc.id);
+  const p=(async()=>{
+    const m=await impPath(sc.path);
+    const mod=m&&(m.scene||m.default); if(!mod) return {mod:null,rs:null,cast:[]};
+    const cast=mod.cast||[];
+    const mods=new Map();
+    await Promise.all(cast.map(async c=>{ mods.set(c.asset, await assetMod(c.asset)); }));
+    let saved={}; try{saved=JSON.parse(localStorage.getItem("odyssey.arrange."+sc.id)||"{}");}catch(e){}
+    let rs=null;
+    try{ rs=E.makeRestage(mod, id=>mods.get(id), id=>assetType(id), saved); }catch(e){console.warn("restage",sc.id,e);}
+    return {mod, rs, cast, mods};
+  })();
+  sceneCache.set(sc.id,p);
+  return p;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. DOTS — one batched halftone that can blit a sub-rect of the source.
+   ══════════════════════════════════════════════════════════════════════ */
+function dotBlit(g,src,SW,SH,R,CW,CH,cell){
+  g.setTransform(1,0,0,1,0,0);
+  g.fillStyle="#fdfdfa"; g.fillRect(0,0,CW,CH);
+  const s=Math.min(CW/R.w,CH/R.h), ox=(CW-R.w*s)/2, oy=(CH-R.h*s)/2;
+  const NB=12, rMax=cell*.62, buckets=Array.from({length:NB},()=>[]);
+  for(let y=cell/2;y<CH;y+=cell){
+    const fy=(y-oy)/s+R.y; if(fy<0||fy>=SH)continue;
+    const row=(fy|0)*SW;
+    for(let x=cell/2;x<CW;x+=cell){
+      const fx=(x-ox)/s+R.x; if(fx<0||fx>=SW)continue;
+      const i=(row+(fx|0))*4;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255, d=1-lum; if(d<.10)continue;
+      buckets[Math.min(NB-1,Math.floor(Math.pow(d,.9)*NB*.999))].push(x,y);
+    }
+  }
+  g.fillStyle="#0a0a0a";
+  for(let b=0;b<NB;b++){const pts=buckets[b]; if(!pts.length)continue;
+    const rad=Math.max(.5,(b+.6)/NB*rMax); g.beginPath();
+    for(let k=0;k<pts.length;k+=2){g.moveTo(pts[k]+rad,pts[k+1]);g.arc(pts[k],pts[k+1],rad,0,7);}
+    g.fill();}
+}
+function inkOf(cv){                        // debug: how much of the pane actually printed
+  const g=cv.getContext("2d",{willReadFrequently:true});
+  const d=g.getImageData(0,0,cv.width,cv.height).data; let n=0;
+  for(let i=0;i<d.length;i+=4*13) if(d[i]<120) n++;
+  return n;
+}
+
+/* the shared source field every pane samples. Kept modest on purpose: four
+   panes × (stage + getImageData + halftone) is the whole frame budget. */
+const SW=672, SH=456;
+const offA=document.createElement("canvas"); offA.width=SW; offA.height=SH;
+const ogA=offA.getContext("2d",{willReadFrequently:true});
+const offR=document.createElement("canvas"); offR.width=SW; offR.height=SH;
+const ogR=offR.getContext("2d",{willReadFrequently:true});
+const CV={A:$("cvA"),B:$("cvB"),C:$("cvC"),D:$("cvD")};
+const G={A:CV.A.getContext("2d"),B:CV.B.getContext("2d"),
+         C:CV.C.getContext("2d"),D:CV.D.getContext("2d",{willReadFrequently:true})};
+for(const k in G){G[k].fillStyle="#fdfdfa";G[k].fillRect(0,0,CV[k].width,CV[k].height);}
+
+/* ══════════════════════════════════════════════════════════════════════
+   4. PANE C — the proposed one-cut grammar.
+   ══════════════════════════════════════════════════════════════════════ */
+const SHOT={WIDE:1, MID:.62, CLOSE:.34};
+const CAM={x:0,y:0,w:SW,h:SH,size:"WIDE",spk:null,scene:null};
+function instanceFor(bundle,speakerId){
+  const cast=(bundle&&bundle.cast)||[]; if(!cast.length) return null;
+  if(!speakerId||/^PERFORMER\./.test(speakerId)) return null;
+  const key=String(speakerId).split(".").slice(1).join("."); // "odysseus-as-beggar"
+  const base=key.split("-")[0];                              // "odysseus"
+  const norm=a=>String(a).replace(/_/g,"-");
+  let hit=cast.find(c=>norm(c.asset)===norm(speakerId));
+  if(!hit) hit=cast.find(c=>String(c.instance).replace(/~\d+$/,"")===key);
+  if(!hit) hit=cast.find(c=>String(c.instance).replace(/~\d+$/,"")===base);
+  if(!hit) hit=cast.find(c=>norm(c.asset).split(".").slice(1).join(".").split("-")[0]===base
+                          && assetType(c.asset)==="character");
+  return hit||null;
+}
+function shotFor(sc,seg,local,inst){
+  if(local<2.0 || !seg || !inst) return "WIDE";        // scene has just started / nobody speaking
+  if(seg.d && seg.d.kind==="SCENE_HEADER") return "WIDE";
+  if(sc.keyGi>=0 && seg.gi===sc.keyGi) return "CLOSE"; // the scene's key beat
+  return "MID";
+}
+function camTarget(rs,placed,inst,size){
+  const f=SHOT[size]||1, w=SW*f, h=SH*f;
+  let cx=SW/2, cy=SH/2;
+  if(inst && placed){
+    const p=placed.find(q=>q.instance===inst.instance);
+    if(p){ cx=p.x; cy=p.y-p.h*.46; }                 // p.y is the feet line
+  }
+  return { x:Math.max(0,Math.min(SW-w,cx-w/2)), y:Math.max(0,Math.min(SH-h,cy-h/2)), w, h };
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   5. PANE D — the drive view: ink cutout + the line, set large.
+   ══════════════════════════════════════════════════════════════════════ */
+const cutCache=new Map();     // spId -> cutout | null   (resolved, safe to read in a draw)
+const cutPend =new Map();     // spId -> promise
+function cutFor(spId){
+  if(cutCache.has(spId)) return Promise.resolve(cutCache.get(spId));
+  if(cutPend.has(spId)) return cutPend.get(spId);
+  const p=(async()=>{
+    let out=null;
+    if(assetEntry(spId)){
+      const mod=await assetMod(spId);
+      if(mod){ try{ out=E.inkCutout(mod,{},"syncwatch",.895); }catch(err){ out=null; } }
+    }
+    cutCache.set(spId,out); cutPend.delete(spId); return out;
+  })();
+  cutPend.set(spId,p); return p;
+}
+function wrap(g,text,maxW){
+  const out=[]; let ln="";
+  for(const w of String(text).split(/\s+/)){
+    const t=ln?ln+" "+w:w;
+    if(g.measureText(t).width>maxW && ln){out.push(ln);ln=w;} else ln=t;
+  }
+  if(ln)out.push(ln); return out;
+}
+function nineDots(g,cx,cy,r){
+  g.fillStyle="#141414";
+  for(let i=0;i<3;i++)for(let j=0;j<3;j++){
+    g.beginPath(); g.arc(cx+(i-1)*r, cy+(j-1)*r, (i===1&&j===1)?r*.44:r*.24, 0, 7); g.fill(); }
+}
+function drawPerf(seg){
+  const g=G.D, W=CV.D.width, H=CV.D.height;
+  g.setTransform(1,0,0,1,0,0);
+  g.fillStyle="#f2f1ec"; g.fillRect(0,0,W,H);
+  g.strokeStyle="#141414"; g.lineWidth=3; g.strokeRect(1.5,1.5,W-3,H-3);
+  const d=seg&&seg.d, tn=turnOf(d);
+  const spId=subjectOf(d);
+  const PW=200, PH=248, px=(W-PW)/2, py=26;
+  g.fillStyle="#fdfdfa"; g.fillRect(px,py,PW,PH);
+  g.strokeStyle="#141414"; g.lineWidth=2.5; g.strokeRect(px,py,PW,PH);
+  const cut=cutCache.get(spId);
+  const drawn = cut && cut.cv;
+  if(drawn){
+    const s=Math.min(PW*.88/cut.w, PH*.88/cut.h);
+    g.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,
+      px+(PW-cut.w*s)/2, py+(PH-cut.h*s)/2, cut.w*s, cut.h*s);
+  } else nineDots(g,px+PW/2,py+PH/2,34);
+  /* name */
+  g.fillStyle="#141414"; g.textAlign="center";
+  g.font="900 15px ui-monospace,Menlo,monospace";
+  g.fillText(String((tn&&tn.spName)||(d&&d.speakerName)||"—").toUpperCase().slice(0,40), W/2, py+PH+26);
+  /* the line, set large */
+  const txt=lineOf(d)|| (d&&d.text) || "";
+  const isLine=!!lineOf(d);
+  g.font=(isLine?"600 ":"italic 500 ")+(isLine?21:17)+"px ui-monospace,Menlo,monospace";
+  g.fillStyle=isLine?"#141414":"#5c5c58";
+  const lines=wrap(g,txt,W-96).slice(0,5);
+  let y=py+PH+62;
+  for(const L of lines){ g.fillText(L,W/2,y); y+=(isLine?29:24); }
+  g.textAlign="left";
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   6. AUDIO — one voice element carries the clock, one bed plays under it.
+   ══════════════════════════════════════════════════════════════════════ */
+const voice=$("voice"), bed=$("bed");
+let PLAY=false, curScene=FILM[0], voiceOK=true, bedOn=true, bedBook=0;
+const DUCK={target:.18};
+bed.volume=.18;
+setInterval(()=>{const v=bed.volume,t=bedOn?DUCK.target:0;
+  if(Math.abs(v-t)>.005) bed.volume=Math.max(0,Math.min(1,v+(t-v)*.2));},90);
+function trackFor(book){
+  for(const a of (ALB.albums||[])){ const t=(a.tracks||[]).find(t=>t.num===book);
+    if(t) return {a,t}; }
+  const a=(ALB.albums||[])[0]; if(!a||!a.tracks.length) return null;
+  return {a,t:a.tracks[(((book-1)%a.tracks.length)+a.tracks.length)%a.tracks.length]};
+}
+function setBed(book){
+  if(book===bedBook) return; const pick=trackFor(book); if(!pick) return;
+  bedBook=book;
+  bed.src=pick.a.dir+"/"+encodeURIComponent(pick.t.file);
+  $("chipBed").textContent="♪ "+String(pick.t.title||"").toUpperCase().slice(0,20);
+  if(PLAY&&bedOn) bed.play().catch(()=>{});
+}
+/* an <audio> with an empty src leaves play() pending forever — always set src first */
+function loadScene(sc,local=0,autoplay=PLAY){
+  curScene=sc;
+  const url=sc.file.replace(/^\//,"");
+  if(!voice.src.endsWith(url.split("/").pop())){ voice.src=url; }
+  try{ voice.currentTime=Math.max(0,Math.min(local, sc.total-.05)); }catch(e){}
+  CLOCK.t=sc.offset+Math.max(0,local);
+  setBed(sc.book);
+  CAM.scene=null;                                   // new scene → snap the frame
+  $("chipScene").textContent=sc.id;
+  $("bookSel").value=String(sc.book);
+  if(autoplay) voice.play().catch(()=>{});
+}
+voice.addEventListener("ended",()=>{
+  const i=sceneIndex(curScene);
+  if(i<FILM.length-1) loadScene(FILM[i+1],0,PLAY);
+  else { setPlay(false); CLOCK.t=TOTAL-.01; }
+});
+voice.addEventListener("playing",()=>{voiceOK=true;
+  $("chipVox").className="chipS ok"; $("chipVox").textContent="▮ "+curScene.id;});
+voice.addEventListener("error",()=>{voiceOK=false;
+  $("chipVox").className="chipS bad"; $("chipVox").textContent="▮ voice file missing — clock free-runs";});
+voice.addEventListener("seeking",()=>{});
+function setPlay(on){
+  PLAY=on; $("playBtn").textContent=on?"❚❚ PAUSE":"▶ PLAY";
+  if(on){ if(!voice.src) loadScene(curScene,CLOCK.t-curScene.offset,false);
+    voice.play().catch(()=>{voiceOK=false;});
+    if(bedOn) bed.play().catch(()=>{});
+  } else { voice.pause(); bed.pause(); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   7. ONE CLOCK, ONE LOOP.
+   ══════════════════════════════════════════════════════════════════════ */
+const CLOCK={t:0};
+let last=performance.now(), acc=0, lastSegKey="", curSeg=null, drawing=false;
+const RENDER_MS=1000/12;
+
+function renderCaption(sc,seg,local){
+  $("wBook").innerHTML="BOOK "+ROMAN[sc.book]+" · "+(sc.bookTitle||"");
+  $("wScene").innerHTML="<b>"+sc.title+"</b> · "+sc.id;
+  const d=seg&&seg.d, tn=turnOf(d);
+  /* the VOICE you hear, and — when the narrator is carrying someone else's
+     line — whose line it actually is. The camera follows the second one. */
+  let name=(d&&d.speakerName)||"—";
+  if(tn&&tn.spName&&d&&d.speakerId!==tn.sp) name+="  ▸ "+tn.spName;
+  $("spk").textContent=name;
+  $("cue").textContent=d?(lineOf(d)?dirOf(d):d.kind.replace(/_/g," ").toLowerCase()):"";
+  const el=$("line"), L=lineOf(d);
+  el.classList.toggle("dirOnly",!L);
+  el.textContent=L||(d&&d.text)||"…";
+}
+function renderPos(sc,local){
+  const pct=(CLOCK.t/TOTAL*100);
+  $("scrub").firstElementChild.style.width=pct.toFixed(3)+"%";
+  $("posTxt").innerHTML="<b>"+fmt(CLOCK.t)+"</b> / "+fmt(TOTAL)+" · "+(pct).toFixed(1)+"%";
+  $("wPos").textContent="⏱ "+fmt(CLOCK.t)+" film · "+local.toFixed(1)+"s scene · scene "
+    +(sceneIndex(sc)+1)+"/"+FILM.length;
+}
+
+async function drawPanes(){
+  if(drawing) return; drawing=true;
+  const sc=sceneAt(CLOCK.t), local=CLOCK.t-sc.offset;
+  const seg=segAt(sc,local); curSeg=seg;
+  try{
+    const B=await sceneBundle(sc);
+    if(sceneAt(CLOCK.t)!==sc){ drawing=false; return; }
+    const dur=(B.mod&&B.mod.duration)||36;
+    /* the scene program is authored on its own ~36s clock; the studio take runs
+       longer. Map the take onto the program proportionally so every pane shows
+       the same instant OF THE SCENE, not the same number of seconds. */
+    const tS=sc.total>0 ? Math.min(dur,(local/sc.total)*dur) : 0;
+
+    /* ── A · SCENE PROGRAM ── */
+    ogA.setTransform(1,0,0,1,0,0); ogA.fillStyle="#ffffff"; ogA.fillRect(0,0,SW,SH);
+    if(B.mod&&typeof B.mod.stage==="function"){ try{ B.mod.stage(ogA,SW,SH,tS); }catch(e){} }
+    dotBlit(G.A, ogA.getImageData(0,0,SW,SH).data, SW,SH, {x:0,y:0,w:SW,h:SH},
+      CV.A.width,CV.A.height,3.5);
+
+    /* ── B + C share ONE restage render ── */
+    if(B.rs){
+      ogR.setTransform(1,0,0,1,0,0); ogR.fillStyle="#ffffff"; ogR.fillRect(0,0,SW,SH);
+      try{ B.rs.stage(ogR,SW,SH,tS); }catch(e){}
+      const src=ogR.getImageData(0,0,SW,SH).data;
+      dotBlit(G.B, src, SW,SH, {x:0,y:0,w:SW,h:SH}, CV.B.width,CV.B.height,3.5);
+
+      /* ── C · PLAN CAMERA ── */
+      let placed=null; try{ placed=B.rs.layout(SW,SH,tS); }catch(e){}
+      const spk=seg&&seg.d?subjectOf(seg.d):null;
+      let inst=instanceFor(B,spk);
+      /* a real speaker we could not match to a cast instance still gets a subject —
+         the scene's first character. A narrator-only beat gets none, and stays WIDE. */
+      if(!inst && spk && !/^PERFORMER\./.test(spk))
+        inst=(B.cast||[]).find(c=>assetType(c.asset)==="character")||null;
+      CAM.subject=spk;
+      /* RE-FRAME only when the speaker changes — or on the scene's key beat,
+         which is the one push-in the grammar is allowed regardless of who
+         holds the floor. The rectangle itself is always eased, never cut. */
+      const isKey = sc.keyGi>=0 && !!seg && seg.gi===sc.keyGi;
+      if(CAM.scene!==sc.id || CAM.spk!==spk || CAM.key!==isKey){
+        CAM.size=shotFor(sc,seg,local,inst); CAM.spk=spk; CAM.key=isKey;
+      }
+      const tgt=camTarget(B.rs,placed,inst,CAM.size);
+      if(CAM.scene!==sc.id){ Object.assign(CAM,tgt); CAM.scene=sc.id; }
+      else { const k=.34;                              // ~0.5s ease at 13Hz
+        CAM.x+=(tgt.x-CAM.x)*k; CAM.y+=(tgt.y-CAM.y)*k;
+        CAM.w+=(tgt.w-CAM.w)*k; CAM.h+=(tgt.h-CAM.h)*k; }
+      CAM.inst=inst?inst.instance:null;
+      dotBlit(G.C, src, SW,SH, {x:CAM.x,y:CAM.y,w:CAM.w,h:CAM.h},
+        CV.C.width,CV.C.height, 3.5*Math.max(.55,CAM.w/SW));
+      $("dC").innerHTML="<span class='shot'>"+CAM.size+"</span> · "
+        +(inst?inst.instance:"no subject");
+    } else {
+      G.B.fillStyle="#fdfdfa"; G.B.fillRect(0,0,CV.B.width,CV.B.height);
+      G.C.fillStyle="#fdfdfa"; G.C.fillRect(0,0,CV.C.width,CV.C.height);
+      $("dC").textContent="no restage";
+    }
+    $("dA").textContent=sc.id+" · t "+tS.toFixed(1)+"s / "+dur+"s";
+    $("dB").textContent=(B.cast?B.cast.length:0)+" cast · one ground plane";
+
+    /* ── D · PERFORMANCE ── */
+    const spId=seg&&seg.d?subjectOf(seg.d):"PERFORMER.NARRATOR";
+    await cutFor(spId);
+    drawPerf(seg);
+    $("dD").textContent=(seg&&seg.d?seg.d.kind.replace(/_/g," ").toLowerCase():"—");
+  }catch(e){ console.warn("draw",e); }
+  drawing=false;
+}
+
+function tick(now){
+  requestAnimationFrame(tick);
+  const dt=Math.min(.25,(now-last)/1000); last=now;
+  const sc=curScene;
+  if(PLAY){
+    if(voiceOK && !voice.paused && voice.readyState>=2){
+      /* the recording IS the clock. The m4a can run a frame or two past the
+         manifest's total — clamp so the last breath still belongs to this scene. */
+      CLOCK.t=sc.offset+Math.min(voice.currentTime, sc.total-.001);
+    }else{
+      CLOCK.t+=dt;                                     // audio blocked → free-run so the cuts still play
+      if(CLOCK.t>=sc.offset+sc.total){
+        const i=sceneIndex(sc);
+        if(i<FILM.length-1) loadScene(FILM[i+1],0,PLAY); else { setPlay(false); CLOCK.t=TOTAL-.01; }
+      }
+    }
+  }
+  const s=sceneAt(CLOCK.t), local=CLOCK.t-s.offset, seg=segAt(s,local);
+  /* duck under the voice, lift in the breath between lines */
+  DUCK.target = (PLAY && !voice.paused && seg && seg.exact) ? .10 : .18;
+  const key=s.id+"#"+(seg?seg.gi:-1);
+  if(key!==lastSegKey){ lastSegKey=key; renderCaption(s,seg,local); }
+  renderPos(s,local);
+  /* the panes only cost anything while the film is running — a paused page
+     redraws on seek alone, so scrubbing stays responsive */
+  if(PLAY){ acc+=dt*1000; if(acc>=RENDER_MS){ acc=0; drawPanes(); } } else acc=RENDER_MS;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   8. TRANSPORT
+   ══════════════════════════════════════════════════════════════════════ */
+function seek(t){
+  t=Math.max(0,Math.min(TOTAL-.05,t));
+  const sc=sceneAt(t);
+  if(sc!==curScene) loadScene(sc,t-sc.offset,PLAY);
+  else { try{voice.currentTime=Math.max(0,Math.min(t-sc.offset,sc.total-.05));}catch(e){}
+         CLOCK.t=t; CAM.scene=null; }
+  lastSegKey=""; drawPanes();
+}
+function stepScene(d){
+  const i=Math.max(0,Math.min(FILM.length-1,sceneIndex(sceneAt(CLOCK.t))+d));
+  loadScene(FILM[i],0,PLAY); lastSegKey=""; drawPanes();
+}
+$("playBtn").onclick=()=>setPlay(!PLAY);
+$("prevBtn").onclick=()=>stepScene(-1);
+$("nextBtn").onclick=()=>stepScene(1);
+$("musBtn").onclick=()=>{ bedOn=!bedOn; $("musBtn").classList.toggle("on",bedOn);
+  if(!bedOn) bed.pause(); else if(PLAY) bed.play().catch(()=>{}); };
+
+const sel=$("bookSel");
+BOOKS.forEach(b=>{ const o=document.createElement("option"); o.value=String(b);
+  o.textContent="BOOK "+ROMAN[b]+" — "+(FILM.find(s=>s.book===b)||{}).bookTitle; sel.append(o); });
+sel.onchange=()=>{ const f=FILM.find(s=>s.book===+sel.value); if(f) seek(f.offset); };
+
+/* the scrubber — the whole ~2.7h film, with the book divisions marked */
+const scrub=$("scrub"), wrapEl=$("scrubWrap");
+BOOKS.forEach(b=>{ const f=FILM.find(s=>s.book===b); if(!f) return;
+  const d=document.createElement("div"); d.className="bk"+(b%6===1?" q":"");
+  d.style.left=(f.offset/TOTAL*100)+"%"; d.title="BOOK "+ROMAN[b]; scrub.append(d); });
+let dragging=false;
+const posOf=ev=>{ const r=scrub.getBoundingClientRect();
+  const cx=(ev.touches?ev.touches[0].clientX:ev.clientX);
+  return Math.max(0,Math.min(1,(cx-r.left)/Math.max(1,r.width)))*TOTAL; };
+wrapEl.addEventListener("pointerdown",e=>{dragging=true;wrapEl.setPointerCapture(e.pointerId);seek(posOf(e));});
+wrapEl.addEventListener("pointermove",e=>{ if(dragging) seek(posOf(e)); });
+wrapEl.addEventListener("pointerup",()=>{dragging=false;});
+wrapEl.addEventListener("pointercancel",()=>{dragging=false;});
+
+/* SOLO — click a pane's label */
+document.querySelectorAll(".pane").forEach(p=>{
+  p.querySelector(".plab").addEventListener("click",()=>{
+    const on=p.classList.contains("solo");
+    document.querySelectorAll(".pane").forEach(q=>q.classList.remove("solo"));
+    $("grid").classList.toggle("soloing",!on);
+    if(!on) p.classList.add("solo");
+  });
+});
+
+addEventListener("keydown",e=>{
+  if(/INPUT|SELECT|TEXTAREA/.test((e.target||{}).tagName||"")) return;
+  if(e.code==="Space"){e.preventDefault();setPlay(!PLAY);}
+  else if(e.code==="ArrowLeft"){e.preventDefault();stepScene(-1);}
+  else if(e.code==="ArrowRight"){e.preventDefault();stepScene(1);}
+});
+
+/* ══════════════════════════════════════════════════════════════════════
+   9. BOOT + the debug handle
+   ══════════════════════════════════════════════════════════════════════ */
+loadScene(FILM[0],0,false);
+requestAnimationFrame(tick);
+await drawPanes();
+
+window.__sync={
+  get clock(){return CLOCK.t;},
+  get playing(){return PLAY;},
+  get curSegment(){ const sc=sceneAt(CLOCK.t), seg=segAt(sc,CLOCK.t-sc.offset);
+    return seg?{scene:sc.id, gi:seg.gi, kind:seg.d.kind, speakerId:seg.d.speakerId,
+      speakerName:seg.d.speakerName, turn:seg.d.sourceTurnId, line:lineOf(seg.d),
+      start:seg.v.start, dur:seg.v.dur, exact:seg.exact}:null; },
+  get shot(){return {size:CAM.size,rect:{x:+CAM.x.toFixed(1),y:+CAM.y.toFixed(1),
+    w:+CAM.w.toFixed(1),h:+CAM.h.toFixed(1)},subject:CAM.subject,instance:CAM.inst};},
+  panes:CV, sceneAt, segAt, seek, stepScene, setPlay, drawPanes, inkOf,
+  FILM, TOTAL, BOOKS, sceneBundle, instanceFor, lineOf, TURN, subjectOf,
+  ink(){ const o={}; for(const k in CV) o[k]=inkOf(CV[k]); return o; },
+};
+console.log("[SYNCWATCH] "+FILM.length+" scenes · "+(TOTAL/60).toFixed(1)+" min · "
+  +BOOKS.length+" books");
+</script>
+</body>
+</html>
