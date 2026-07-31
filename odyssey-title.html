@@ -131,6 +131,10 @@ const Q = new URLSearchParams(location.search);
 const CW = Math.max(640, Math.min(3840, +Q.get("w") || 1920)), CH = Math.round(CW * H / W);
 const KX = CW / W, KY = CH / H;
 const TILES_URL = Q.get("tiles") || "viewer/title-tiles.json";
+/* THE FAST PATH. harness/build-title-atlas.mjs packs the whole corpus into a
+   720×720 micro sheet and three 2016-wide thumb sheets — 5 requests and ~3 MB
+   instead of 886 requests and 34 MB. ?atlas=0 forces the old per-PNG path. */
+const ATLAS_URL = Q.get("atlas") === "0" ? null : (Q.get("atlas") || "viewer/title-atlas.json");
 const LIMIT = Q.get("limit") ? Math.max(8, +Q.get("limit")) : 0;
 const NOSNAP = Q.get("nosnap") === "1";
 const FPS = 30;
@@ -177,7 +181,8 @@ const S = {
   tiles: [], live: [], byKind: {}, ready:false, err:null,
   mask:null, mosaic:null, seams:false, t:0, playing:false, exporting:false,
   audio:null, track:null, beats:[], bpm:0, firstFrame:null, snapped:false,
-  loaded:0, failed:0, meanPolarity:"luminance"
+  loaded:0, failed:0, meanPolarity:"luminance",
+  loadPath:null, atlas:null, atlasNote:null, atlasLum:null, atlasPolarity:null, fullFetched:0
 };
 window.__title = S;
 
@@ -215,18 +220,118 @@ const THUMB_MAX = 168, MICRO_MAX = 40;
 const fitTo = (w,h,max) => { const s = Math.min(1, max/Math.max(w,h));
   return [Math.max(1,Math.round(w*s)), Math.max(1,Math.round(h*s))]; };
 
+/* SPRITES. Every drawable in this file is { img, sx, sy, sw, sh } — a
+   rectangle of some bitmap. On the atlas path a hundred sprites share one
+   sheet; on the per-PNG fallback each sprite is a whole bitmap. One shape, so
+   the drawing code below never has to know which path loaded it. */
+const SP = (img, sx, sy, sw, sh) => ({ img,
+  sx: sx || 0, sy: sy || 0,
+  sw: sw == null ? img.width : sw, sh: sh == null ? img.height : sh });
+const spDraw = (g, sp, x, y, w, h) => g.drawImage(sp.img, sp.sx, sp.sy, sp.sw, sp.sh, x, y, w, h);
+
 const scratch = document.createElement("canvas");
 scratch.width = scratch.height = 48;
 const sctx = scratch.getContext("2d", { willReadFrequently:true });
-/* mean luminance of an image source, 0=black 1=white */
-function measure(img){
+/* mean luminance of a sprite, 0=black 1=white */
+function measure(sp){
   sctx.fillStyle = PAPER; sctx.fillRect(0,0,48,48);
-  sctx.drawImage(img, 0, 0, 48, 48);
+  sctx.drawImage(sp.img, sp.sx, sp.sy, sp.sw, sp.sh, 0, 0, 48, 48);
   const d = sctx.getImageData(0,0,48,48).data;
   let s = 0; for (let i=0;i<d.length;i+=4) s += (d[i]*.299 + d[i+1]*.587 + d[i+2]*.114);
   return s / (48*48) / 255;
 }
 
+/* ── THE ATLAS PATH ──────────────────────────────────────────────────────
+   4 sheets, createImageBitmap'd ONCE each (886 createImageBitmap calls was a
+   large part of the old stall), then every tile's micro/thumb is a sub-rect.
+   The crush is applied to the SHEETS, not to 456 tiles: it is a pure
+   per-pixel filter, so crushing the sheet and crushing each cell are the same
+   pixels for a fraction of the work.
+   Returns false — quietly — if there is no atlas, so the fallback can run. */
+async function loadAtlas(tiles, onProgress){
+  if (!ATLAS_URL) return false;
+  let doc;
+  try{
+    const r = await fetch(ATLAS_URL, { cache:"no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    doc = await r.json();
+  }catch(e){ S.atlasNote = "no atlas (" + e.message + ")"; return false; }
+  if (!doc || !doc.micro || !doc.thumb) { S.atlasNote = "atlas malformed"; return false; }
+
+  const files = [doc.micro.file, ...doc.thumb.files];
+  let sheets;
+  try{
+    sheets = await Promise.all(files.map(async (f, k) => {
+      const r = await fetch(f, { cache:"force-cache" });
+      if (!r.ok) throw new Error(f + " HTTP " + r.status);
+      const b = await createImageBitmap(await r.blob());
+      onProgress && onProgress(k+1, files.length);
+      return b;
+    }));
+  }catch(e){ S.atlasNote = "atlas sheets unreadable (" + e.message + ")"; return false; }
+
+  const microSheet = sheets[0], thumbSheets = sheets.slice(1);
+  /* one crushed copy of each sheet — 4 filter passes instead of 912 */
+  const crushSheet = async src => {
+    crushCv.width = src.width; crushCv.height = src.height;
+    crushG.fillStyle = PAPER; crushG.fillRect(0,0,src.width,src.height);
+    crushG.filter = "grayscale(1) contrast(1.85) brightness(0.58)";
+    crushG.drawImage(src, 0, 0);
+    crushG.filter = "none";
+    return await createImageBitmap(crushCv);
+  };
+  const microD = await crushSheet(microSheet);
+  const thumbD = [];
+  for (const s of thumbSheets) thumbD.push(await crushSheet(s));
+
+  /* KEY ON THE CORPUS INDEX, NOT THE ID. A scene is sampled at several
+     seconds, so 886 tiles carry only 582 distinct ids — keying by id silently
+     drops 304 tiles (and 2/3 of the stroke reservoir with them). `idx` is the
+     tile's position in title-tiles.json, which is what the builder packed by. */
+  const byIdx = new Map(tiles.map(T => [T.idx, T]));
+  const MC = doc.micro.cols, MCELL = doc.micro.cell;
+  const TC = doc.thumb.cols, TCELL = doc.thumb.cell, PER = doc.thumb.perSheet;
+  let mismatch = 0;
+
+  for (const e of doc.micro.tiles){
+    const T = byIdx.get(e.i); if (!T) continue;
+    if (T.id !== e.id){ mismatch++; continue; }
+    const x = (e.i % MC) * MCELL, y = ((e.i / MC) | 0) * MCELL;
+    T.micro  = SP(microSheet, x, y, MCELL, MCELL);
+    T.microD = SP(microD,     x, y, MCELL, MCELL);
+  }
+  for (const e of doc.thumb.tiles){
+    const k = e.sheet * PER + e.i;
+    const T = byIdx.get(k); if (!T) continue;
+    if (T.id !== e.id){ mismatch++; continue; }
+    const sh = thumbSheets[e.sheet]; if (!sh) continue;
+    const d = (doc.dims && doc.dims[k]) || T;                 // real PNG dims
+    const [tw, th] = fitTo(d.w, d.h, TCELL);                  // CONTAIN, as packed
+    const x = (e.i % TC) * TCELL + ((TCELL - tw) >> 1);
+    const y = (((e.i / TC) | 0)) * TCELL + ((TCELL - th) >> 1);
+    T.thumb  = SP(sh, x, y, tw, th);
+    T.thumbD = SP(thumbD[e.sheet], x, y, tw, th);
+    T.w = d.w; T.h = d.h;
+    S.loaded++;
+  }
+  /* a stale atlas is worse than no atlas — fall back rather than draw a
+     corpus that half-matches the manifest */
+  if (mismatch || (!LIMIT && S.loaded !== tiles.length)){
+    S.atlasNote = `atlas is stale (${mismatch} id mismatches, ${S.loaded}/${tiles.length} placed)`;
+    for (const T of tiles){ T.thumb = T.micro = T.thumbD = T.microD = null; }
+    S.loaded = 0;
+    return false;
+  }
+
+  S.atlas = { built: doc.built, sheets: files, micro: doc.micro.cell,
+              thumb: doc.thumb.cell, count: doc.count };
+  S.atlasLum = doc.lumCrushed || {};
+  S.atlasPolarity = doc.meanPolarity || null;
+  S.loadPath = "atlas";
+  return true;
+}
+
+/* ── THE FALLBACK PATH — one PNG per tile, as before ─────────────────────── */
 async function loadImages(tiles, onProgress){
   let next = 0;
   async function worker(){
@@ -247,8 +352,8 @@ async function loadImages(tiles, onProgress){
         const probe = await createImageBitmap(blob);
         T.w = probe.width; T.h = probe.height;
         const [tw,th] = fitTo(T.w, T.h, THUMB_MAX), [mw,mh] = fitTo(T.w, T.h, MICRO_MAX);
-        T.thumb = await createImageBitmap(probe, { resizeWidth:tw, resizeHeight:th, resizeQuality:"high" });
-        T.micro = await createImageBitmap(probe, { resizeWidth:mw, resizeHeight:mh, resizeQuality:"high" });
+        T.thumb = SP(await createImageBitmap(probe, { resizeWidth:tw, resizeHeight:th, resizeQuality:"high" }));
+        T.micro = SP(await createImageBitmap(probe, { resizeWidth:mw, resizeHeight:mh, resizeQuality:"high" }));
         probe.close && probe.close();
         T.lumMeasured = measure(T.micro);
         S.loaded++;
@@ -257,12 +362,20 @@ async function loadImages(tiles, onProgress){
     }
   }
   await Promise.all(Array.from({length:8}, worker));
+  S.loadPath = "per-tile PNG";
 }
 
 /* The manifest's `mean` may be mean LUMINANCE or mean INK depending on who
    wrote it. Decide once, by correlating it against luminance we measured
-   ourselves, and record the verdict rather than guessing silently. */
+   ourselves, and record the verdict rather than guessing silently. On the
+   atlas path the builder ran this same correlation over the same measured
+   luminances and baked the verdict in, so there is nothing to re-measure. */
 function resolveMeanPolarity(live){
+  if (S.atlasPolarity){
+    S.meanPolarity = S.atlasPolarity;
+    for (const T of live) T.lum = clamp01(S.meanPolarity === "luminance" ? T.mean : 1 - T.mean);
+    return;
+  }
   let sx=0, sy=0, n=0;
   for (const T of live){ if (T.lumMeasured == null) continue; sx += T.mean; sy += T.lumMeasured; n++; }
   if (!n) return;
@@ -410,16 +523,17 @@ const GROUND_MAX = 0.02;                                // ground-cell ink ceili
 const GROUND_MULT = 3.15;                               // ground grid is coarser
 
 /* crush a tile toward the stroke look: hard black, paper burnt out.
-   Returns an ImageBitmap — the working canvas is reused and thrown away. */
+   Returns a sprite — the working canvas is reused and thrown away. Used by the
+   per-PNG fallback; the atlas path crushes the whole sheet once instead. */
 const crushCv = document.createElement("canvas");
 const crushG = crushCv.getContext("2d");
-async function crush(src){
-  crushCv.width = src.width; crushCv.height = src.height;
-  crushG.fillStyle = PAPER; crushG.fillRect(0,0,src.width,src.height);
+async function crush(sp){
+  crushCv.width = sp.img.width; crushCv.height = sp.img.height;
+  crushG.fillStyle = PAPER; crushG.fillRect(0,0,crushCv.width,crushCv.height);
   crushG.filter = "grayscale(1) contrast(1.85) brightness(0.58)";
-  crushG.drawImage(src, 0, 0);
+  crushG.drawImage(sp.img, 0, 0);
   crushG.filter = "none";
-  return await createImageBitmap(crushCv);
+  return SP(await createImageBitmap(crushCv), sp.sx, sp.sy, sp.sw, sp.sh);
 }
 
 function sampleGrid(mask, cell, keep){
@@ -673,7 +787,7 @@ function drawTileAt(g, T, p, opts){
      PNGs are fully opaque so the rect never shows, and asking for the
      high-quality resample on ~900 drawImages costs ~170ms a frame — it is the
      difference between 5fps and 60fps in movements II and III. */
-  g.drawImage(img, x, y, w, h);
+  spDraw(g, img, x, y, w, h);
   if (opts.border > 0){
     g.globalAlpha = p.a * opts.border;
     g.strokeStyle = INK; g.lineWidth = Math.max(1, w*0.006);
@@ -754,13 +868,35 @@ function drawCorpus(g, t){
   g.restore();
 }
 
-/* cover-crop a tile canvas into a square cell */
-function drawSquare(g, img, x, y, s){
-  const hs = s/2, ia = img.width / img.height;
-  let sw = img.width, sh = img.height, sx = 0, sy = 0;
-  if (ia > 1){ sw = img.height; sx = (img.width - sw)/2; }
-  else if (ia < 1){ sh = img.width; sy = (img.height - sh)/2; }
-  g.drawImage(img, sx, sy, sw, sh, x-hs, y-hs, s, s);
+/* cover-crop a sprite into a square cell. The micro atlas is already cropped
+   this way, so on the atlas path this is the identity crop. */
+function drawSquare(g, sp, x, y, s){
+  const hs = s/2;
+  let sx = sp.sx, sy = sp.sy, sw = sp.sw, sh = sp.sh;
+  if (sw > sh){ sx += (sw - sh)/2; sw = sh; }
+  else if (sh > sw){ sy += (sh - sw)/2; sh = sw; }
+  g.drawImage(sp.img, sx, sy, sw, sh, x-hs, y-hs, s, s);
+}
+
+/* THE PUNCH-IN'S LAST FEW PIXELS. The atlas thumb cell is 96px, which is more
+   than the mosaic ever draws at 1920 — but on a big master (?w=2400/3840) the
+   camera goes past it. Rather than ship 886 full-resolution PNGs to everyone
+   up front, fetch the handful that are actually on screen, at the end, on
+   demand. Capped, deduped, and entirely optional: if none arrive the frame is
+   the same frame, one resample softer. */
+const FULL_CAP = 48;
+const fullAsked = new Set();
+let fullBusy = 0;
+function wantFull(T){
+  if (T.full || T.fullPending || fullAsked.size >= FULL_CAP || fullBusy >= 4 || !T.file) return;
+  T.fullPending = true; fullAsked.add(T.id); fullBusy++;
+  fetch(T.file, { cache:"force-cache" })
+    .then(r => r.ok ? r.blob() : Promise.reject(new Error("HTTP " + r.status)))
+    .then(createImageBitmap)
+    .then(b => { T.full = SP(b); S.fullFetched = (S.fullFetched || 0) + 1;
+                 if (!S.playing && !S.exporting) render(S.t); })
+    .catch(() => {})
+    .finally(() => { fullBusy--; T.fullPending = false; });
 }
 
 function flightPos(cl, p){
@@ -828,7 +964,8 @@ function drawMosaic(g, t){
     const s = f.sz * 1.06, hs = s/2;
     drawSquare(g, img, f.x, f.y, s);
     if (reveal > 0 && p >= 1 && T.thumb){          // lift the crush on the way in
-      g.globalAlpha = reveal; drawSquare(g, T.thumb, f.x, f.y, s); g.globalAlpha = 1;
+      if (s * zoom.k * KX > Math.min(T.thumb.sw, T.thumb.sh)) wantFull(T);
+      g.globalAlpha = reveal; drawSquare(g, T.full || T.thumb, f.x, f.y, s); g.globalAlpha = 1;
     }
     /* ink correction — the photomosaic's tonal match. Small, because the
        crushed stroke reservoir has already done most of the work and the
@@ -979,11 +1116,11 @@ function drawOutro(g, t){
   if (ff){
     /* CONTAIN, not cover — this is the film's own first frame and the film's
        own aspect; letterbox it on paper rather than crop the poem's first shot */
-    const a = ff.width/ff.height;
+    const a = ff.sw/ff.sh;
     const boxW = W - 200, boxH = H - 250;
     let w = boxW, h = w/a; if (h > boxH){ h = boxH; w = h*a; }
     const x = (W-w)/2, y = (H - 90 - h)/2 + 20;
-    g.drawImage(ff, x, y, w, h);
+    spDraw(g, ff, x, y, w, h);
     g.strokeStyle = INK; g.lineWidth = 3; g.globalAlpha *= .55;
     g.strokeRect(x, y, w, h); g.globalAlpha = smooth(p);
     bottom = y + h + 56;
@@ -1140,6 +1277,8 @@ S.exportFrames = exportFrames; S.shotPlan = shotPlan;
    ========================================================================== */
 S.stats = () => ({
   manifest: TILES_URL, built: S.built, seedOf: SEED_SOURCE,
+  loadPath: S.loadPath, atlas: S.atlas || null, atlasNote: S.atlasNote || null,
+  fullResFetchedLazily: S.fullFetched || 0,
   declared: S.tiles.length, loaded: S.loaded, failed: S.failed,
   usable: S.live.length, byKind: S.byKind,
   byType: S.live.reduce((o,T)=>(o[T.type]=(o[T.type]||0)+1,o),{}),
@@ -1261,6 +1400,7 @@ function statusLine(){
   const m = S.mosaic;
   return [
     `${S.live.length} RENDERS`,
+    S.loadPath === "atlas" ? `ATLAS · ${S.atlas.sheets.length} SHEETS` : "PER-TILE PNG",
     S.failed ? `${S.failed} MISSING` : null,
     m ? `${m.cells.length} STROKE + ${m.ground.length} GROUND CELLS · ${m.distinctAll} DISTINCT · ${m.cell.toFixed(1)}px` : null,
     S.track ? `${S.track.album} ${S.track.num} “${S.track.title}”` : "NO AUDIO",
@@ -1285,11 +1425,26 @@ async function boot(){
     ppBtn.disabled = framesBtn.disabled = planBtn.disabled = seamsBtn.disabled = true;
     return;
   }
-  vmsg.textContent = `loading ${tiles.length} renders…`;
-  await loadImages(tiles, (done, total) => {
+  /* THE ATLAS FIRST. 5 requests / ~3.2 MB, or 886 requests / 34 MB if the
+     atlas is not there. Either way the rest of this function is identical. */
+  vmsg.textContent = "loading the sprite atlas…";
+  const gotAtlas = await loadAtlas(tiles, (done, total) => {
     barI.style.width = (100*done/total).toFixed(1) + "%";
-    if (done % 40 === 0 || done === total) vmsg.textContent = `loading renders… ${done} / ${total}`;
+    vmsg.textContent = `loading the sprite atlas… sheet ${done} / ${total}`;
   });
+  if (!gotAtlas){
+    S.loaded = S.failed = 0;
+    for (const T of tiles) T.missing = false;
+    vmsg.textContent = `no atlas — loading ${tiles.length} renders one by one…`;
+    await loadImages(tiles, (done, total) => {
+      barI.style.width = (100*done/total).toFixed(1) + "%";
+      if (done % 40 === 0 || done === total) vmsg.textContent = `loading renders… ${done} / ${total}`;
+    });
+  }
+  console.log(`[title] corpus via ${gotAtlas ? "ATLAS" : "PER-TILE PNG"} — `
+    + (gotAtlas
+        ? `${S.atlas.sheets.length} sheets (${S.atlas.sheets.join(", ")}), ${S.loaded} tiles`
+        : `${S.loaded} of ${tiles.length} PNGs${S.atlasNote ? " · " + S.atlasNote : ""}`));
 
   S.live = tiles.filter(t => !t.missing && t.thumb);
   if (!S.live.length){
@@ -1306,10 +1461,23 @@ async function boot(){
   for (const T of S.live) T.lumDark = T.lum;
   const res0 = reservoirs(S.live);
   S.reservoirHow = res0.how;
-  for (const i of res0.dark){
-    const T = S.live[i];
-    T.thumbD = await crush(T.thumb); T.microD = await crush(T.micro);
-    T.lumDark = measure(T.microD);
+  if (S.loadPath === "atlas"){
+    /* the sheets were crushed whole in loadAtlas(); the crushed luminances
+       come from the atlas, measured by the builder with this file's own
+       measure()+crush() in the same engine — which is what keeps the
+       tile→cell assignment hashes identical to the per-PNG path, and makes
+       them independent of the viewer's image resampler into the bargain. */
+    for (const i of res0.dark){
+      const T = S.live[i];
+      const v = S.atlasLum[T.idx];
+      T.lumDark = (typeof v === "number") ? v : measure(T.microD);
+    }
+  } else {
+    for (const i of res0.dark){
+      const T = S.live[i];
+      T.thumbD = await crush(T.thumb); T.microD = await crush(T.micro);
+      T.lumDark = measure(T.microD);
+    }
   }
   S.lumDarkRange = [
     +Math.min(...res0.dark.map(i=>S.live[i].lumDark)).toFixed(4),
@@ -1330,7 +1498,7 @@ async function boot(){
     if (r.ok){
       const b = await createImageBitmap(await r.blob());
       const [fw,fh] = fitTo(b.width, b.height, 1400);
-      S.firstFrame = await createImageBitmap(b, { resizeWidth:fw, resizeHeight:fh, resizeQuality:"high" });
+      S.firstFrame = SP(await createImageBitmap(b, { resizeWidth:fw, resizeHeight:fh, resizeQuality:"high" }));
       b.close && b.close();
     }
   }catch(e){

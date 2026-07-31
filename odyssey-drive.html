@@ -140,11 +140,21 @@ const save=(k,v)=>safeSet(k,JSON.stringify(v));
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 
+/* THE INDEX, NOT THE PROSE. viewer/manifest-lite.json carries the same book /
+   scene / asset index as viewer/odyssey-manifest.json (850 KB) with the
+   per-asset atlas `prompt` and the per-scene `beats` / `composePrompt` /
+   `exitState` dropped — 118 KB. This page reads none of those, so it boots on
+   the small one, and falls back to the full manifest if the lite build has not
+   been run. Any page that DOES show that prose must keep the full manifest. */
+async function indexManifest(opts){
+  try{ const r=await fetch("viewer/manifest-lite.json",opts); if(r.ok) return await r.json(); }catch(e){}
+  return await (await fetch("viewer/odyssey-manifest.json",opts)).json();
+}
 const [SCRIPT,SPOKENJ,AL,MAN,VOICEMAN]=await Promise.all([
   fetch("drive/drive-script.json").then(r=>r.json()),
   fetch("viewer/spoken-lines.json").then(r=>r.json()).catch(()=>({lines:{}})),
   fetch("audio/albums.json").then(r=>r.json()),
-  fetch("viewer/odyssey-manifest.json").then(r=>r.json()),
+  indexManifest(),
   fetch("drive/voice-manifest.json").then(r=>r.json()).catch(()=>({})),
 ]);
 const SPOKEN=SPOKENJ.lines||{};

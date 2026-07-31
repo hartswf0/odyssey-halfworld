@@ -168,7 +168,17 @@ function safeSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){__mem[
 function safeGet(k){return (k in __mem)?__mem[k]:localStorage.getItem(k);}
 const LS=(k,d)=>{try{return JSON.parse(safeGet(k))??d;}catch(e){return d;}};
 
-const MF=await fetch("viewer/odyssey-manifest.json").then(r=>r.json());
+/* THE INDEX, NOT THE PROSE. viewer/manifest-lite.json carries the same book /
+   scene / asset index as viewer/odyssey-manifest.json (850 KB) with the
+   per-asset atlas `prompt` and the per-scene `beats` / `composePrompt` /
+   `exitState` dropped — 118 KB. This page reads none of those, so it boots on
+   the small one, and falls back to the full manifest if the lite build has not
+   been run. Any page that DOES show that prose must keep the full manifest. */
+async function indexManifest(opts){
+  try{ const r=await fetch("viewer/manifest-lite.json",opts); if(r.ok) return await r.json(); }catch(e){}
+  return await (await fetch("viewer/odyssey-manifest.json",opts)).json();
+}
+const MF=await indexManifest();
 const PT=await fetch("viewer/performance-turns.json").then(r=>r.json());
 const VC=await fetch("viewer/voice-cards.json").then(r=>r.json()).catch(()=>({voices:{},cards:{}}));
 const AL=await fetch("audio/albums.json").then(r=>r.json()).catch(()=>({albums:[]}));

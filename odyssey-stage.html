@@ -919,10 +919,21 @@ addEventListener("keydown",e=>{
 });
 addEventListener("keyup",e=>{ const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key==="Up"?"ArrowUp":e.key==="Down"?"ArrowDown":e.key; keys[K]=false; if(e.key==="t"||e.key==="T")talkHold=false; });
 
+/* THE INDEX, NOT THE PROSE. viewer/manifest-lite.json carries the same book /
+   scene / asset index as viewer/odyssey-manifest.json (850 KB) with the
+   per-asset atlas `prompt` and the per-scene `beats` / `composePrompt` /
+   `exitState` dropped — 118 KB. This page reads none of those, so it boots on
+   the small one, and falls back to the full manifest if the lite build has not
+   been run. Any page that DOES show that prose must keep the full manifest. */
+async function indexManifest(opts){
+  try{ const r=await fetch("viewer/manifest-lite.json",opts); if(r.ok) return await r.json(); }catch(e){}
+  return await (await fetch("viewer/odyssey-manifest.json",opts)).json();
+}
+
 /* ───────────────────────── boot ───────────────────────── */
 (async()=>{
   fit();
-  MAN=await (await fetch("viewer/odyssey-manifest.json")).json();
+  MAN=await indexManifest();
   for(const a of MAN.assets) assetById.set(a.id,a);
   const want=(location.hash||"").replace("#","").toUpperCase();
   const deep=MAN.scenes.find(s=>s.id===want);

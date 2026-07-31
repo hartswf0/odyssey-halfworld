@@ -152,8 +152,18 @@ const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","X
    1. THE MASTER CLOCK — the performance IS the clock.
    152 studio scenes concatenated in id order make one ~2.7h film.
    ══════════════════════════════════════════════════════════════════════ */
+/* THE INDEX, NOT THE PROSE. viewer/manifest-lite.json carries the same book /
+   scene / asset index as viewer/odyssey-manifest.json (850 KB) with the
+   per-asset atlas `prompt` and the per-scene `beats` / `composePrompt` /
+   `exitState` dropped — 118 KB. This page reads none of those (the `beats` it
+   uses are a scene MODULE's own), so it boots on the small one and falls back
+   to the full manifest if the lite build has not been run. */
+async function indexManifest(opts){
+  try{ const r=await fetch("viewer/manifest-lite.json",opts); if(r.ok) return await r.json(); }catch(e){}
+  return await (await fetch("viewer/odyssey-manifest.json",opts)).json();
+}
 const [MF, SCRIPT, VMAN, SPOKEN, ALB, TURNS] = await Promise.all([
-  fetch("viewer/odyssey-manifest.json").then(r=>r.json()),
+  indexManifest(),
   fetch("drive/drive-script.json").then(r=>r.json()),
   fetch("drive/voice-manifest.json").then(r=>r.json()),
   fetch("viewer/spoken-lines.json").then(r=>r.json()).then(j=>j.lines||{}),
