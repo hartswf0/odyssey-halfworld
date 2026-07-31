@@ -143,6 +143,7 @@
 <script type="module">
 import * as E from "./engine/halfworld-engine.mjs";
 import { liveness, seedOf as liveSeed } from "./engine/liveness.mjs";
+import { loadMediaManifest, makeAllMediaPanes } from "./viewer/media-pane.mjs";
 const $ = s => document.getElementById(s);
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
@@ -812,9 +813,24 @@ function renderPos(sc,local){
     +(sceneIndex(sc)+1)+"/"+FILM.length;
 }
 
+/* OTHER MEDIA — one extra pane per style found under media/<style>/.
+   Same clock, same instant: a woodblock, a claymation still or a video clip of
+   this scene sits beside the procedural renders. Absent manifest = no panes. */
+let MEDIA_PANES=[];
+(async()=>{ try{
+  const man=await loadMediaManifest();
+  if(!man) return;
+  MEDIA_PANES=makeAllMediaPanes(man);
+  const grid=document.getElementById("grid");
+  for(const p of MEDIA_PANES){ if(p.el) grid.appendChild(p.el); }
+  if(MEDIA_PANES.length) console.log("[SYNCWATCH] media panes:",
+    MEDIA_PANES.map(p=>p.label+" "+p.coverage().pct+"%").join(" · "));
+}catch(e){ console.warn("media panes unavailable",e); } })();
+
 async function drawPanes(){
   if(drawing) return; drawing=true;
   const sc=sceneAt(CLOCK.t), local=CLOCK.t-sc.offset;
+  for(const p of MEDIA_PANES){ try{ p.show(sc.id, local, sc.total); }catch(_){} }
   const seg=segAt(sc,local); curSeg=seg;
   /* the motion clock. WALL is film seconds, so breath runs at real speed no
      matter how the scene program's own clock is compressed onto the take. */
