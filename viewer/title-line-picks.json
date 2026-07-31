@@ -1,7 +1,14 @@
 {
  "built": "2026-07-31T05:38:13.087Z",
- "note": "Shortlist for odyssey-title-line.html. HAND-EDITABLE: reorder, swap a file/id, or override at runtime with ?picks=<tile ids, comma separated>. `file` is the tile PNG; `still` (if present) is the full-res image the page prefers.",
+ "note": "Shortlist for odyssey-title-line.html. HAND-EDITABLE: reorder, swap a file/id, or override at runtime with ?picks=<tile ids, comma separated>. `file` is the tile PNG; `still` (if present) is the full-res image the page prefers. An entry with \"active\": false is BENCHED — kept here with its curation scores intact, but skipped by the page; delete the flag to put it back without re-running curation.",
  "count": 12,
+ "activeCount": 11,
+ "benched": [
+  {
+   "id": "OD-B24-S09",
+   "why": "lowest-scoring image (0.6199) of the six in the homeward run 29.6-47.0s. Six cuts there left the line ~0.1s of open harmonic life between images and the frame fell to ~0.1% ink at t=40; five cuts across a longer section give it ~1.2s. It is also the palest and flattest still in the file (ink 0.1847, range 0.2753, edge 0.2434), so it was the one to lose."
+  }
+ ],
  "picks": [
   {
    "id": "OD-B01-S06",
@@ -159,6 +166,7 @@
   },
   {
    "id": "OD-B24-S09",
+   "active": false,
    "kind": "scene",
    "type": "scene",
    "book": 24,

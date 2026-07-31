@@ -63,7 +63,7 @@
   </div>
   <div id="ctl">
     <button id="pp" class="pri">play</button>
-    <input id="scrub" type="range" min="0" max="58.2" step="0.01" value="0">
+    <input id="scrub" type="range" min="0" max="59.2" step="0.01" value="0">
     <span id="tc">00:00.0</span>
     <button id="frames">frames</button>
     <button id="plan">plan</button>
@@ -156,7 +156,12 @@ async function loadPicks() {
     if (out.length >= 4) return out.sort((a, b) => (a.book || 0) - (b.book || 0));
   }
   const j = await getJSON("viewer/title-line-picks.json");
-  return j.picks.slice();
+  /* An entry may be benched with "active": false. It stays in the file — with its
+     curation scores intact, so a human can put it back by flipping one flag —
+     but it takes no part in the score. Anything without the flag is in. */
+  const all = j.picks.slice();
+  S.benched = all.filter(p => p.active === false).map(p => p.id);
+  return all.filter(p => p.active !== false);
 }
 
 async function getJSON(url) {
@@ -182,7 +187,17 @@ function loadImage(url) {
    Six sections. DEPARTURE · WANDERING · UNDERWORLD · WANDERING(homeward) ·
    RETURN · RECOGNITION. Nothing on screen ever names them.
    ========================================================================== */
-const NOMINAL = [0, 6.6, 21.4, 29.6, 45.0, 49.6, 58.2];
+/* The homeward run (index 3→4) is the long one on purpose. At 15.4s it carried
+   six cuts ~2.4s apart, which left the line about a tenth of a second of open
+   harmonic life between images — the convergence into one image and the release
+   out of the next met in the middle, and the frame went to ~0.1% ink at t≈40.
+   It read as a slideshow. It now runs a second longer and carries five, ~3.2s
+   apart: the point of the return is that the wandering RESOLVES, and the
+   resolving has to be visible BETWEEN the islands, not only underneath them.
+   The extra second is taken from the tail, not from the RETURN — the track's
+   last detected onset is at ~50.7s, so [4] and [5] are the last two boundaries
+   that can be struck, and the collapse back to one rule keeps its full ~4.7s. */
+const NOMINAL = [0, 6.6, 21.4, 29.6, 46.0, 50.7, 59.2];
 let B = NOMINAL.slice();
 let DURATION = B[6];
 let ISLANDS = [];              // { at, hold, pick, img, key, a0, r1, wipe }
@@ -232,7 +247,10 @@ function buildScore() {
   UNDERWORLD = { pick: uw, at: uwAt, hold: 1.90, key: uw.file,        // held longest
                  wipe: false };
   list.push(UNDERWORLD);
-  cutsIn(B[3], B[4], after.length, 1.5, 1.7).forEach((t, i) => list.push(mk(after[i], t)));
+  /* wider tail pad than the outward leg: the last island has to be fully
+     released before B[4], or the RETURN starts collapsing a knot that is still
+     coming apart and the resolve loses its first beat */
+  cutsIn(B[3], B[4], after.length, 1.5, 2.0).forEach((t, i) => list.push(mk(after[i], t)));
   ISLANDS = list.sort((a, b) => a.at - b.at);
   clipWindows();
   attachImages();
@@ -313,7 +331,7 @@ function snapScore() {
   }
   B = out;
   const s6 = snap(NOMINAL[6], 0.9);
-  DURATION = +clamp(s6 != null && s6 > B[5] + 6 ? s6 : NOMINAL[6], 45, 60).toFixed(3);
+  DURATION = +clamp(s6 != null && s6 > B[5] + 6 ? s6 : NOMINAL[6], 45, 62).toFixed(3);
   B[6] = DURATION;
   buildScore();
   let hit = 0;
@@ -1029,6 +1047,7 @@ S.stats = () => ({
                              file: p.still || p.file })),
   islands: ISLANDS.map(i => ({ at: +i.at.toFixed(3), hold: i.hold, id: i.pick.id, book: i.pick.book })),
   outro: S.outroPick ? { id: S.outroPick.id, book: S.outroPick.book } : null,
+  benched: S.benched || [],                  // "active": false in the picks file
   onsets: S.beats.length, bpm: S.bpm, snapped: S.snapped,
   islandsOnOnset: S.islandsOnOnset || 0,
   track: S.track ? `${S.track.album} — ${S.track.title}` : null,
