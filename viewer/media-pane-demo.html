@@ -1,0 +1,147 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEDIA PANE · demo harness</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f4f0'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23141414'/%3E%3C/svg%3E">
+<!--
+  MEDIA PANE DEMO — proves viewer/media-pane.mjs works WITHOUT touching odyssey-syncwatch.html.
+
+  Serve the repo (node harness/serve.mjs) and open /viewer/media-pane-demo.html. Build the
+  manifest first with `node harness/build-media-manifest.mjs`. Scrub the fake clock: images hold
+  for a scene and dissolve between beats/takes, video is seeked by the clock and never plays on
+  its own timebase, and a scene with no file for that style shows the placeholder card.
+
+  TO WIRE THE REAL THING INTO SYNCWATCH, add this one import line:
+
+      import { loadMediaManifest, makeMediaPane } from "./viewer/media-pane.mjs";
+
+  then, where the panes are built:
+      const media = await loadMediaManifest();                 // null if never built — skip quietly
+      const pane  = makeMediaPane("ukiyo-e", media);           // or makeAllMediaPanes(media)
+      paneRow.appendChild(pane.el);
+  and in the per-frame update, next to the procedural panes:
+      pane.show(sceneId, tLocal, sceneTotal);
+-->
+<style>
+:root{--paper:#f4f4f0;--ink:#141414;--dim:#8a8a86;--faint:#d8d6cf;--blue:#0033cc}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--paper);border-bottom:2px solid var(--ink)}
+h1{font:900 11px/1 Helvetica;letter-spacing:.32em;text-transform:uppercase}
+.sub{font:700 9px/1 Helvetica;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+button,select{appearance:none;border:2px solid var(--ink);background:#fff;font:900 9px Helvetica;
+  letter-spacing:.14em;padding:6px 10px;cursor:pointer;text-transform:uppercase}
+button.on{background:var(--ink);color:var(--paper)}
+#scrub{flex:1 1 260px;min-width:200px;accent-color:var(--blue)}
+.read{font:700 9px/1 Helvetica;letter-spacing:.14em;color:var(--blue);min-width:140px}
+#panes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:14px 16px}
+#panes .mpane{height:280px}
+.note{padding:0 16px 8px;font:700 9px/1.7 Helvetica;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+pre.wire{margin:0 16px 16px;border:2px solid var(--ink);background:#fff;padding:10px 12px;
+  font:12px/1.6 ui-monospace,'SF Mono',Menlo,monospace;overflow:auto}
+#cov{padding:4px 16px 16px;font:700 9px/1.8 Helvetica;letter-spacing:.14em;color:var(--ink);text-transform:uppercase}
+#cov b{color:var(--blue)}
+.warn{margin:16px;border:2px solid #c00;color:#c00;padding:12px;font:700 10px/1.6 Helvetica;letter-spacing:.1em}
+</style></head>
+<body>
+<header>
+  <h1>Media pane · demo</h1>
+  <span class="sub" id="built">loading…</span>
+  <select id="scene"></select>
+  <button id="play">Play</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0">
+  <span class="read" id="read">t 0.0 / 0.0 s</span>
+</header>
+
+<pre class="wire">import { loadMediaManifest, makeMediaPane } from "./viewer/media-pane.mjs";</pre>
+<div class="note">One pane per style in viewer/media-manifest.json. The fake clock below stands in for syncwatch's master clock.</div>
+<div id="panes"></div>
+<div id="cov"></div>
+
+<script type="module">
+import { loadMediaManifest, makeMediaPane, mediaStyles, normaliseSceneId } from "./media-pane.mjs";
+
+const SCENE_TOTAL_SECONDS = 24;            // fake per-scene duration for the demo
+const panesEl = document.getElementById("panes");
+const sel = document.getElementById("scene");
+const scrub = document.getElementById("scrub");
+const readEl = document.getElementById("read");
+const playBtn = document.getElementById("play");
+
+const manifest = await loadMediaManifest();
+document.getElementById("built").textContent = manifest
+  ? `manifest built ${String(manifest.built).slice(0,19).replace("T"," ")} · ${mediaStyles(manifest).length} styles`
+  : "NO MANIFEST — run node harness/build-media-manifest.mjs";
+
+if (!manifest) {
+  const w = document.createElement("div"); w.className = "warn";
+  w.textContent = "viewer/media-manifest.json not found. Run: node harness/build-media-manifest.mjs";
+  document.body.insertBefore(w, panesEl);
+}
+
+const panes = mediaStyles(manifest || {}).map(s => makeMediaPane(s, manifest));
+panes.forEach(p => panesEl.appendChild(p.el));
+
+/* scene list: every scene any style covers, plus a couple that nothing covers (placeholder proof) */
+const covered = new Set();
+panes.forEach(p => p.sceneIds.forEach(id => covered.add(id)));
+const EMPTY_PROOF = ["OD-B01-S01", "OD-B12-S04", "OD-B24-S01"].filter(id => !covered.has(id));
+const scenes = [...covered].sort().concat(EMPTY_PROOF);
+if (!scenes.length) scenes.push("OD-B01-S01");
+for (const id of scenes) {
+  const o = document.createElement("option");
+  o.value = id;
+  o.textContent = covered.has(id) ? id : `${id}  (no media — placeholder)`;
+  sel.appendChild(o);
+}
+
+document.getElementById("cov").innerHTML = panes.length
+  ? panes.map(p => { const c = p.coverage(); return `${p.label}: <b>${c.scenes}/${c.of}</b> scenes (${c.pct}%)`; }).join(" &nbsp;·&nbsp; ")
+  : "no styles in the manifest yet — drop files into media/&lt;style&gt;/ and rebuild";
+
+let t = 0, playing = false, raf = 0, last = 0;
+function frame(now) {
+  if (playing) {
+    if (last) t = (t + (now - last) / 1000) % SCENE_TOTAL_SECONDS;
+    last = now;
+    scrub.value = String(Math.round((t / SCENE_TOTAL_SECONDS) * 1000));
+  }
+  tick();
+  raf = requestAnimationFrame(frame);
+}
+function tick() {
+  const id = sel.value.split(" ")[0];
+  const nextId = scenes[(scenes.indexOf(sel.value.split(" ")[0]) + 1) % scenes.length];
+  for (const p of panes) p.show(id, t, SCENE_TOTAL_SECONDS, nextId);
+  readEl.textContent = `t ${t.toFixed(1)} / ${SCENE_TOTAL_SECONDS.toFixed(1)} s · u ${(t/SCENE_TOTAL_SECONDS).toFixed(3)}`;
+}
+scrub.addEventListener("input", () => { playing = false; playBtn.classList.remove("on"); playBtn.textContent = "Play";
+  t = (+scrub.value / 1000) * SCENE_TOTAL_SECONDS; tick(); });
+sel.addEventListener("change", tick);
+playBtn.addEventListener("click", () => {
+  playing = !playing; last = 0;
+  playBtn.classList.toggle("on", playing);
+  playBtn.textContent = playing ? "Pause" : "Play";
+});
+raf = requestAnimationFrame(frame);
+
+/* handle for programmatic verification (the browser pane collapses element sizes, so we
+   check state, not pixels): __demo.setT(seconds); __demo.state() */
+window.__demo = {
+  manifest, panes,
+  setT(sec, sceneId) { playing = false; t = sec; if (sceneId) sel.value = [...sel.options].map(o=>o.value).find(v=>v.startsWith(sceneId)) || sel.value; tick(); return this.state(); },
+  scenes,
+  state() {
+    return panes.map(p => {
+      const stage = p.el.querySelector(".mpane-stage");
+      const on = [...stage.querySelectorAll("img.on,video.on")].map(n => ({ tag: n.tagName, src: (n.currentSrc || n.src || "").split("/").pop(), ct: n.tagName === "VIDEO" ? +n.currentTime.toFixed(2) : null, dur: n.tagName === "VIDEO" ? (Number.isFinite(n.duration) ? +n.duration.toFixed(2) : null) : null }));
+      const opac = [...stage.querySelectorAll("img")].map(n => +getComputedStyle(n).opacity);
+      return { style: p.style, label: p.label, scene: sel.value.split(" ")[0], t: +t.toFixed(2),
+               coverage: p.coverage(), placeholder: stage.querySelector(".mpane-ph").classList.contains("on"),
+               placeholderText: stage.querySelector(".mpane-ph .msg").textContent,
+               showing: on, imgOpacity: opac };
+    });
+  }
+};
+</script>
+</body></html>

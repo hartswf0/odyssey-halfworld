@@ -13,6 +13,9 @@ const PORT = +(process.argv[2] || 8877);
 const MIME = { ".html":"text/html", ".mjs":"text/javascript", ".js":"text/javascript",
                ".json":"application/json", ".png":"image/png", ".css":"text/css",
                ".md":"text/plain; charset=utf-8", ".ogg":"audio/ogg", ".mp3":"audio/mpeg",
+               /* media panes: other-medium stills and clips (ukiyo-e, clay, cartoon, video) */
+               ".mp4":"video/mp4", ".webm":"video/webm", ".mov":"video/quicktime",
+               ".webp":"image/webp", ".avif":"image/avif",
                ".wav":"audio/wav", ".jpeg":"image/jpeg", ".jpg":"image/jpeg", ".svg":"image/svg+xml" };
 
 createServer(async (req, res) => {
