@@ -1,0 +1,2639 @@
+{
+ "schema": "halfworld/v2",
+ "name": "ODYSSEY 03 · KING NESTOR REMEMBERS",
+ "cast": {
+  "athena_01": {
+   "id": "athena_01",
+   "spec": {
+    "skin": "#cdb89c",
+    "hair": "curly",
+    "beard": true,
+    "glasses": false,
+    "garment": "dress",
+    "h": 1,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": -2.8,
+   "z": 1,
+   "face": -0.62,
+   "pose": "neutral",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.athena-as-mentor",
+    "name": "Athena as Mentor",
+    "statusWord": "COMMANDING",
+    "pose": "mentor_counsel",
+    "band": "threeq",
+    "station": null,
+    "derivedFrom": {
+     "anchor": {
+      "x": 0.36,
+      "y": 1
+     },
+     "model": "blocking.project inverse"
+    },
+    "hairColor": "#7b776d",
+    "cloak": true,
+    "bareLegs": false,
+    "figureScale": 0.36
+   }
+  },
+  "telemachus_01": {
+   "id": "telemachus_01",
+   "spec": {
+    "skin": "#d8c3a2",
+    "hair": "cap",
+    "beard": false,
+    "glasses": false,
+    "garment": "tunic",
+    "h": 0.9,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": 2,
+   "z": 1,
+   "face": -0.62,
+   "pose": "look down",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.telemachus",
+    "name": "Telemachus",
+    "statusWord": "GRIEVING",
+    "pose": "head_lowered",
+    "band": "threeq",
+    "station": null,
+    "derivedFrom": {
+     "anchor": {
+      "x": 0.6,
+      "y": 1
+     },
+     "model": "blocking.project inverse"
+    },
+    "hairColor": "#2a2118",
+    "cloak": true,
+    "bareLegs": true,
+    "figureScale": 0.35
+   }
+  }
+ },
+ "assets": {
+  "a_creature_black_bulls_and_altar_fires": {
+   "id": "a_creature_black_bulls_and_altar_fires",
+   "word": "black bulls and altar fires",
+   "grid": {
+    "cols": 27,
+    "rows": 11,
+    "cells": [{"i":22,"j":0,"v":0.286},{"i":23,"j":0,"v":0.286},{"i":22,"j":1,"v":0.429},{"i":23,"j":1,"v":0.429},{"i":22,"j":2,"v":0.429},{"i":23,"j":2,"v":0.571},{"i":24,"j":2,"v":0.286},{"i":22,"j":3,"v":0.571},{"i":23,"j":3,"v":0.714},{"i":24,"j":3,"v":0.714},{"i":25,"j":3,"v":0.143},{"i":16,"j":4,"v":0.286},{"i":22,"j":4,"v":0.857},{"i":23,"j":4,"v":0.714},{"i":24,"j":4,"v":0.714},{"i":25,"j":4,"v":0.429},{"i":15,"j":5,"v":0.143},{"i":16,"j":5,"v":0.714},{"i":17,"j":5,"v":0.429},{"i":19,"j":5,"v":0.143},{"i":22,"j":5,"v":0.714},{"i":23,"j":5,"v":0.714},{"i":24,"j":5,"v":0.571},{"i":25,"j":5,"v":0.571},{"i":4,"j":6,"v":0.429},{"i":5,"j":6,"v":0.571},{"i":7,"j":6,"v":0.143},{"i":8,"j":6,"v":0.143},{"i":13,"j":6,"v":0.429},{"i":14,"j":6,"v":0.571},{"i":15,"j":6,"v":0.714},{"i":16,"j":6,"v":0.857},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.143},{"i":21,"j":6,"v":0.571},{"i":22,"j":6,"v":0.714},{"i":23,"j":6,"v":0.714},{"i":24,"j":6,"v":0.714},{"i":25,"j":6,"v":0.714},{"i":26,"j":6,"v":0.571},{"i":0,"j":7,"v":0.714},{"i":1,"j":7,"v":0.714},{"i":2,"j":7,"v":0.571},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.714},{"i":5,"j":7,"v":0.857},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.571},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.571},{"i":12,"j":7,"v":0.571},{"i":13,"j":7,"v":0.714},{"i":14,"j":7,"v":0.857},{"i":15,"j":7,"v":0.714},{"i":16,"j":7,"v":0.714},{"i":17,"j":7,"v":0.571},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.429},{"i":23,"j":7,"v":0.571},{"i":24,"j":7,"v":0.429},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.429},{"i":0,"j":8,"v":0.714},{"i":1,"j":8,"v":0.714},{"i":2,"j":8,"v":0.714},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.714},{"i":5,"j":8,"v":0.714},{"i":6,"j":8,"v":0.714},{"i":7,"j":8,"v":0.857},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.714},{"i":11,"j":8,"v":0.714},{"i":12,"j":8,"v":0.571},{"i":13,"j":8,"v":0.714},{"i":14,"j":8,"v":0.714},{"i":15,"j":8,"v":0.429},{"i":16,"j":8,"v":0.143},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.571},{"i":23,"j":8,"v":0.571},{"i":24,"j":8,"v":0.571},{"i":25,"j":8,"v":0.571},{"i":26,"j":8,"v":0.429},{"i":0,"j":9,"v":0.714},{"i":1,"j":9,"v":0.857},{"i":2,"j":9,"v":0.286},{"i":3,"j":9,"v":0.143},{"i":4,"j":9,"v":0.571},{"i":5,"j":9,"v":0.571},{"i":6,"j":9,"v":0.429},{"i":7,"j":9,"v":0.714},{"i":8,"j":9,"v":0.714},{"i":9,"j":9,"v":0.714},{"i":10,"j":9,"v":0.857},{"i":11,"j":9,"v":0.286},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.571},{"i":14,"j":9,"v":0.429},{"i":21,"j":9,"v":0.571},{"i":22,"j":9,"v":0.571},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":0.429},{"i":25,"j":9,"v":0.571},{"i":26,"j":9,"v":0.429},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.429},{"i":4,"j":10,"v":0.286},{"i":5,"j":10,"v":0.286},{"i":9,"j":10,"v":0.143},{"i":10,"j":10,"v":0.429},{"i":13,"j":10,"v":0.286},{"i":14,"j":10,"v":0.286},{"i":21,"j":10,"v":0.143},{"i":22,"j":10,"v":0.143},{"i":23,"j":10,"v":0.143},{"i":24,"j":10,"v":0.143},{"i":25,"j":10,"v":0.143}]
+   },
+   "x_odyssey": {
+    "asset": "creature.black-bulls-and-altar-fires",
+    "type": "CREATURE",
+    "statusWord": "SACRIFICIAL",
+    "ink": {
+     "cols": 27,
+     "rows": 11,
+     "cells": 121,
+     "fill": 0.407
+    },
+    "wholeFrame": false
+   }
+  },
+  "a_ensemble_nestor_and_pylian_host": {
+   "id": "a_ensemble_nestor_and_pylian_host",
+   "word": "nestor and pylian host",
+   "grid": {
+    "cols": 30,
+    "rows": 16,
+    "cells": [{"i":12,"j":0,"v":0.286},{"i":13,"j":0,"v":0.286},{"i":14,"j":0,"v":0.286},{"i":15,"j":0,"v":0.286},{"i":16,"j":0,"v":0.286},{"i":13,"j":1,"v":0.286},{"i":14,"j":1,"v":0.286},{"i":15,"j":1,"v":0.143},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.286},{"i":14,"j":2,"v":0.286},{"i":15,"j":2,"v":0.286},{"i":16,"j":2,"v":0.286},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.286},{"i":3,"j":3,"v":0.286},{"i":4,"j":3,"v":0.286},{"i":5,"j":3,"v":0.286},{"i":6,"j":3,"v":0.286},{"i":7,"j":3,"v":0.286},{"i":8,"j":3,"v":0.286},{"i":9,"j":3,"v":0.286},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.286},{"i":12,"j":3,"v":0.286},{"i":13,"j":3,"v":0.286},{"i":14,"j":3,"v":0.286},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.143},{"i":17,"j":3,"v":0.286},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.286},{"i":21,"j":3,"v":0.286},{"i":22,"j":3,"v":0.286},{"i":23,"j":3,"v":0.286},{"i":24,"j":3,"v":0.286},{"i":25,"j":3,"v":0.286},{"i":26,"j":3,"v":0.286},{"i":27,"j":3,"v":0.286},{"i":28,"j":3,"v":0.286},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.286},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.286},{"i":0,"j":5,"v":0.286},{"i":1,"j":5,"v":0.429},{"i":2,"j":5,"v":0.571},{"i":3,"j":5,"v":0.429},{"i":4,"j":5,"v":0.429},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.429},{"i":7,"j":5,"v":0.571},{"i":8,"j":5,"v":0.429},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.571},{"i":11,"j":5,"v":0.429},{"i":12,"j":5,"v":0.571},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":0.429},{"i":15,"j":5,"v":0.286},{"i":16,"j":5,"v":0.429},{"i":17,"j":5,"v":0.429},{"i":18,"j":5,"v":0.429},{"i":19,"j":5,"v":0.571},{"i":20,"j":5,"v":0.429},{"i":21,"j":5,"v":0.429},{"i":22,"j":5,"v":0.571},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":0.429},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":0.429},{"i":27,"j":5,"v":0.571},{"i":28,"j":5,"v":0.429},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.286},{"i":2,"j":6,"v":0.571},{"i":3,"j":6,"v":0.286},{"i":4,"j":6,"v":0.429},{"i":5,"j":6,"v":0.571},{"i":6,"j":6,"v":0.286},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.286},{"i":9,"j":6,"v":0.429},{"i":10,"j":6,"v":0.571},{"i":11,"j":6,"v":0.286},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.286},{"i":14,"j":6,"v":0.286},{"i":15,"j":6,"v":0.286},{"i":16,"j":6,"v":0.286},{"i":17,"j":6,"v":0.571},{"i":18,"j":6,"v":0.286},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.286},{"i":22,"j":6,"v":0.714},{"i":23,"j":6,"v":0.286},{"i":24,"j":6,"v":0.571},{"i":25,"j":6,"v":0.429},{"i":26,"j":6,"v":0.286},{"i":27,"j":6,"v":0.571},{"i":28,"j":6,"v":0.286},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.286},{"i":2,"j":7,"v":0.429},{"i":3,"j":7,"v":0.429},{"i":4,"j":7,"v":0.429},{"i":5,"j":7,"v":0.429},{"i":6,"j":7,"v":0.286},{"i":7,"j":7,"v":0.571},{"i":8,"j":7,"v":0.286},{"i":9,"j":7,"v":0.429},{"i":10,"j":7,"v":0.571},{"i":11,"j":7,"v":0.286},{"i":12,"j":7,"v":0.571},{"i":13,"j":7,"v":0.286},{"i":14,"j":7,"v":0.286},{"i":15,"j":7,"v":0.429},{"i":16,"j":7,"v":0.286},{"i":17,"j":7,"v":0.571},{"i":18,"j":7,"v":0.286},{"i":19,"j":7,"v":0.429},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.286},{"i":22,"j":7,"v":0.571},{"i":23,"j":7,"v":0.286},{"i":24,"j":7,"v":0.571},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.429},{"i":27,"j":7,"v":0.571},{"i":28,"j":7,"v":0.286},{"i":29,"j":7,"v":0.143},{"i":3,"j":8,"v":0.571},{"i":6,"j":8,"v":0.571},{"i":9,"j":8,"v":0.571},{"i":12,"j":8,"v":0.429},{"i":14,"j":8,"v":0.286},{"i":15,"j":8,"v":0.571},{"i":18,"j":8,"v":0.571},{"i":21,"j":8,"v":0.429},{"i":22,"j":8,"v":0.143},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.286},{"i":27,"j":8,"v":0.286},{"i":28,"j":8,"v":0.286},{"i":3,"j":9,"v":0.714},{"i":6,"j":9,"v":0.714},{"i":9,"j":9,"v":0.571},{"i":10,"j":9,"v":0.429},{"i":11,"j":9,"v":0.143},{"i":12,"j":9,"v":0.571},{"i":14,"j":9,"v":0.857},{"i":15,"j":9,"v":0.857},{"i":16,"j":9,"v":0.143},{"i":18,"j":9,"v":0.571},{"i":19,"j":9,"v":0.429},{"i":20,"j":9,"v":0.429},{"i":21,"j":9,"v":0.429},{"i":22,"j":9,"v":0.286},{"i":24,"j":9,"v":0.429},{"i":25,"j":9,"v":0.286},{"i":27,"j":9,"v":0.429},{"i":28,"j":9,"v":0.286},{"i":1,"j":10,"v":0.714},{"i":3,"j":10,"v":0.429},{"i":5,"j":10,"v":0.286},{"i":6,"j":10,"v":0.714},{"i":9,"j":10,"v":0.571},{"i":10,"j":10,"v":0.714},{"i":11,"j":10,"v":0.143},{"i":12,"j":10,"v":0.571},{"i":13,"j":10,"v":0.571},{"i":14,"j":10,"v":0.857},{"i":15,"j":10,"v":0.857},{"i":16,"j":10,"v":0.571},{"i":17,"j":10,"v":0.286},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.714},{"i":20,"j":10,"v":0.286},{"i":21,"j":10,"v":0.429},{"i":22,"j":10,"v":0.286},{"i":23,"j":10,"v":0.286},{"i":24,"j":10,"v":0.571},{"i":25,"j":10,"v":0.286},{"i":27,"j":10,"v":0.286},{"i":28,"j":10,"v":0.714},{"i":1,"j":11,"v":0.714},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":0.286},{"i":10,"j":11,"v":0.714},{"i":12,"j":11,"v":0.286},{"i":13,"j":11,"v":0.714},{"i":14,"j":11,"v":0.714},{"i":15,"j":11,"v":0.714},{"i":16,"j":11,"v":0.714},{"i":17,"j":11,"v":0.286},{"i":19,"j":11,"v":0.714},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.429},{"i":28,"j":11,"v":0.571},{"i":0,"j":12,"v":0.143},{"i":1,"j":12,"v":0.714},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":10,"j":12,"v":0.714},{"i":13,"j":12,"v":0.714},{"i":14,"j":12,"v":0.571},{"i":15,"j":12,"v":0.571},{"i":16,"j":12,"v":0.714},{"i":19,"j":12,"v":0.714},{"i":23,"j":12,"v":0.429},{"i":24,"j":12,"v":0.429},{"i":28,"j":12,"v":0.571},{"i":29,"j":12,"v":0.143},{"i":1,"j":13,"v":0.857},{"i":5,"j":13,"v":0.286},{"i":6,"j":13,"v":0.286},{"i":10,"j":13,"v":0.429},{"i":12,"j":13,"v":0.429},{"i":13,"j":13,"v":0.857},{"i":14,"j":13,"v":0.857},{"i":15,"j":13,"v":0.857},{"i":16,"j":13,"v":0.857},{"i":17,"j":13,"v":0.429},{"i":19,"j":13,"v":0.429},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.286},{"i":28,"j":13,"v":0.286},{"i":0,"j":14,"v":0.143},{"i":1,"j":14,"v":0.714},{"i":2,"j":14,"v":0.143},{"i":0,"j":15,"v":0.286},{"i":1,"j":15,"v":0.429},{"i":2,"j":15,"v":0.286}]
+   },
+   "x_odyssey": {
+    "asset": "ensemble.nestor-and-pylian-host",
+    "type": "ENSEMBLE",
+    "statusWord": "REVERENT",
+    "ink": {
+     "cols": 30,
+     "rows": 16,
+     "cells": 235,
+     "fill": 0.49
+    },
+    "wholeFrame": false
+   }
+  }
+ },
+ "instances": [
+  {
+   "id": "n1",
+   "assetId": "a_creature_black_bulls_and_altar_fires",
+   "x": 0,
+   "z": 0.38,
+   "scale": 1.714,
+   "rot": 0,
+   "x_odyssey": {
+    "instance": "bulls_01",
+    "state": null,
+    "authoredScale": 0.48,
+    "station": null
+   }
+  },
+  {
+   "id": "n2",
+   "assetId": "a_ensemble_nestor_and_pylian_host",
+   "x": 0.47,
+   "z": 0.76,
+   "scale": 2.071,
+   "rot": 0,
+   "x_odyssey": {
+    "instance": "host_01",
+    "state": null,
+    "authoredScale": 0.58,
+    "station": null
+   }
+  }
+ ],
+ "score": {
+  "fps": 24,
+  "rows": [
+   {
+    "id": "r8",
+    "c": "telemachus_01",
+    "s": 0,
+    "d": 1,
+    "t": "",
+    "m": "pose=look down",
+    "x_odyssey": {
+     "pose": "head_lowered",
+     "resolved": "look down"
+    }
+   },
+   {
+    "id": "r9",
+    "c": "athena_01",
+    "s": 4,
+    "d": 1,
+    "t": "",
+    "m": "pose=angry",
+    "x_odyssey": {
+     "pose": "mentor_command",
+     "resolved": "angry"
+    }
+   },
+   {
+    "id": "r10",
+    "c": "telemachus_01",
+    "s": 7,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "lean_forward",
+     "resolved": "neutral"
+    }
+   },
+   {
+    "id": "r3",
+    "c": "NARRATOR",
+    "s": 10.23,
+    "d": 9.69,
+    "t": "At sunrise they came to Pylos, Neleus's strong-built citadel, and found the people on the shore at sacrifice, nine companies, five hundred men in each, and before each company nine black bulls for the dark-haired god who shakes the earth.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B03-S01-T01",
+     "speaker": "PERFORMER.NARRATOR",
+     "speakerName": "Epic Narrator",
+     "addressee": "character.telemachus",
+     "act": "NARRATE",
+     "tactic": "advance_scene_through_action",
+     "payload": "At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon",
+     "direction": "as the sail drops and the shore fires come into view",
+     "delivery": "frame the action without replacing character agency",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it"
+     ],
+     "reveal": [
+      "At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B03-S01.m4a"
+    }
+   },
+   {
+    "id": "r11",
+    "c": "athena_01",
+    "s": 20,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "mentor_marshal",
+     "resolved": "neutral"
+    }
+   },
+   {
+    "id": "r4",
+    "c": "telemachus_01",
+    "s": 20.34,
+    "d": 4.65,
+    "t": "How do I even greet such a man? I have no practice in careful speech.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B03-S01-T02",
+     "speaker": "character.telemachus",
+     "speakerName": "Telemachus",
+     "addressee": "ensemble.nestor-and-pylian-host",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "Telemachus hesitates to approach Nestor",
+     "direction": "hangs back at the gangplank, eyes on the great king among his sons",
+     "delivery": "young visitor managing social fear while following sacred hospitality",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it"
+     ],
+     "reveal": [
+      "Telemachus hesitates to approach Nestor"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B03-S01.m4a"
+    }
+   },
+   {
+    "id": "r5",
+    "c": "athena_01",
+    "s": 25.29,
+    "d": 25.98,
+    "t": "Telemachus, no more shyness, not now; you crossed the sea for your father's sake. Go straight up to Nestor, breaker of horses, and ask him what counsel he keeps in his breast. Some words you will find in yourself, and a god will set the rest on your tongue, for the gods have not left you unattended from your birth.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B03-S01-T03",
+     "speaker": "character.athena",
+     "speakerName": "Athena",
+     "addressee": "character.telemachus",
+     "act": "URGE",
+     "tactic": "increase_courage_or_speed",
+     "payload": "Athena urges him past his shyness",
+     "direction": "close at his ear, part push, part promise",
+     "delivery": "derive from current embodied condition and relationship pressure",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it"
+     ],
+     "reveal": [
+      "Athena urges him past his shyness"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B03-S01.m4a"
+    }
+   },
+   {
+    "id": "r6",
+    "c": "NARRATOR",
+    "s": 51.63,
+    "d": 7.05,
+    "t": "Strangers, be welcome at our feast. Sit here with us on the soft fleeces and share the meal, and when you have poured to Poseidon, the cup will pass to you in turn, for it is his feast you have come upon.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B03-S01-T04",
+     "speaker": "PERFORMER.NARRATOR",
+     "speakerName": "Epic Narrator",
+     "addressee": "character.telemachus",
+     "act": "WELCOME",
+     "tactic": "secure_guest",
+     "payload": "Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup",
+     "direction": "as Pisistratus, first to reach them, drawing them by the hand to seats on the fleeces and offering the golden cup",
+     "delivery": "frame the action without replacing character agency",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it"
+     ],
+     "reveal": [
+      "Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B03-S01.m4a"
+    }
+   },
+   {
+    "id": "r7",
+    "c": "athena_01",
+    "s": 59.11,
+    "d": 16.25,
+    "t": "Hear me, Poseidon, girdler of the earth. Grant fame to Nestor and his sons, grace to all Pylos in return for this rich hecatomb, and grant that Telemachus and I accomplish the errand we sailed here to do.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B03-S01-T05",
+     "speaker": "character.athena",
+     "speakerName": "Athena",
+     "addressee": "character.athena-as-mentor",
+     "act": "PRAYER",
+     "tactic": "appeal_upward",
+     "payload": "Athena prays to Poseidon and passes the cup to Telemachus",
+     "direction": "prays over the two-handled cup, pours the libation, and sets the cup in Telemachus's hands",
+     "delivery": "derive from current embodied condition and relationship pressure",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it"
+     ],
+     "reveal": [
+      "Athena prays to Poseidon and passes the cup to Telemachus"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B03-S01.m4a"
+    }
+   }
+  ]
+ },
+ "scenes": {
+  "OD-B03-S01 · Arrival at Poseidon's Sacrifice": {
+   "cast": {
+    "athena_01": {
+     "id": "athena_01",
+     "spec": {
+      "skin": "#cdb89c",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -2.8,
+     "z": 1,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.athena-as-mentor",
+      "name": "Athena as Mentor",
+      "statusWord": "COMMANDING",
+      "pose": "mentor_counsel",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.36,
+        "y": 1
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#7b776d",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.36
+     }
+    },
+    "telemachus_01": {
+     "id": "telemachus_01",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 2,
+     "z": 1,
+     "face": -0.62,
+     "pose": "look down",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "head_lowered",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.6,
+        "y": 1
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.35
+     }
+    }
+   },
+   "assets": {
+    "a_creature_black_bulls_and_altar_fires": {
+     "id": "a_creature_black_bulls_and_altar_fires",
+     "word": "black bulls and altar fires",
+     "grid": {
+      "cols": 27,
+      "rows": 11,
+      "cells": [{"i":22,"j":0,"v":0.286},{"i":23,"j":0,"v":0.286},{"i":22,"j":1,"v":0.429},{"i":23,"j":1,"v":0.429},{"i":22,"j":2,"v":0.429},{"i":23,"j":2,"v":0.571},{"i":24,"j":2,"v":0.286},{"i":22,"j":3,"v":0.571},{"i":23,"j":3,"v":0.714},{"i":24,"j":3,"v":0.714},{"i":25,"j":3,"v":0.143},{"i":16,"j":4,"v":0.286},{"i":22,"j":4,"v":0.857},{"i":23,"j":4,"v":0.714},{"i":24,"j":4,"v":0.714},{"i":25,"j":4,"v":0.429},{"i":15,"j":5,"v":0.143},{"i":16,"j":5,"v":0.714},{"i":17,"j":5,"v":0.429},{"i":19,"j":5,"v":0.143},{"i":22,"j":5,"v":0.714},{"i":23,"j":5,"v":0.714},{"i":24,"j":5,"v":0.571},{"i":25,"j":5,"v":0.571},{"i":4,"j":6,"v":0.429},{"i":5,"j":6,"v":0.571},{"i":7,"j":6,"v":0.143},{"i":8,"j":6,"v":0.143},{"i":13,"j":6,"v":0.429},{"i":14,"j":6,"v":0.571},{"i":15,"j":6,"v":0.714},{"i":16,"j":6,"v":0.857},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.143},{"i":21,"j":6,"v":0.571},{"i":22,"j":6,"v":0.714},{"i":23,"j":6,"v":0.714},{"i":24,"j":6,"v":0.714},{"i":25,"j":6,"v":0.714},{"i":26,"j":6,"v":0.571},{"i":0,"j":7,"v":0.714},{"i":1,"j":7,"v":0.714},{"i":2,"j":7,"v":0.571},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.714},{"i":5,"j":7,"v":0.857},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.571},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.571},{"i":12,"j":7,"v":0.571},{"i":13,"j":7,"v":0.714},{"i":14,"j":7,"v":0.857},{"i":15,"j":7,"v":0.714},{"i":16,"j":7,"v":0.714},{"i":17,"j":7,"v":0.571},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.429},{"i":23,"j":7,"v":0.571},{"i":24,"j":7,"v":0.429},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.429},{"i":0,"j":8,"v":0.714},{"i":1,"j":8,"v":0.714},{"i":2,"j":8,"v":0.714},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.714},{"i":5,"j":8,"v":0.714},{"i":6,"j":8,"v":0.714},{"i":7,"j":8,"v":0.857},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.714},{"i":11,"j":8,"v":0.714},{"i":12,"j":8,"v":0.571},{"i":13,"j":8,"v":0.714},{"i":14,"j":8,"v":0.714},{"i":15,"j":8,"v":0.429},{"i":16,"j":8,"v":0.143},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.571},{"i":23,"j":8,"v":0.571},{"i":24,"j":8,"v":0.571},{"i":25,"j":8,"v":0.571},{"i":26,"j":8,"v":0.429},{"i":0,"j":9,"v":0.714},{"i":1,"j":9,"v":0.857},{"i":2,"j":9,"v":0.286},{"i":3,"j":9,"v":0.143},{"i":4,"j":9,"v":0.571},{"i":5,"j":9,"v":0.571},{"i":6,"j":9,"v":0.429},{"i":7,"j":9,"v":0.714},{"i":8,"j":9,"v":0.714},{"i":9,"j":9,"v":0.714},{"i":10,"j":9,"v":0.857},{"i":11,"j":9,"v":0.286},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.571},{"i":14,"j":9,"v":0.429},{"i":21,"j":9,"v":0.571},{"i":22,"j":9,"v":0.571},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":0.429},{"i":25,"j":9,"v":0.571},{"i":26,"j":9,"v":0.429},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.429},{"i":4,"j":10,"v":0.286},{"i":5,"j":10,"v":0.286},{"i":9,"j":10,"v":0.143},{"i":10,"j":10,"v":0.429},{"i":13,"j":10,"v":0.286},{"i":14,"j":10,"v":0.286},{"i":21,"j":10,"v":0.143},{"i":22,"j":10,"v":0.143},{"i":23,"j":10,"v":0.143},{"i":24,"j":10,"v":0.143},{"i":25,"j":10,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "creature.black-bulls-and-altar-fires",
+      "type": "CREATURE",
+      "statusWord": "SACRIFICIAL",
+      "ink": {
+       "cols": 27,
+       "rows": 11,
+       "cells": 121,
+       "fill": 0.407
+      },
+      "wholeFrame": false
+     }
+    },
+    "a_ensemble_nestor_and_pylian_host": {
+     "id": "a_ensemble_nestor_and_pylian_host",
+     "word": "nestor and pylian host",
+     "grid": {
+      "cols": 30,
+      "rows": 16,
+      "cells": [{"i":12,"j":0,"v":0.286},{"i":13,"j":0,"v":0.286},{"i":14,"j":0,"v":0.286},{"i":15,"j":0,"v":0.286},{"i":16,"j":0,"v":0.286},{"i":13,"j":1,"v":0.286},{"i":14,"j":1,"v":0.286},{"i":15,"j":1,"v":0.143},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.286},{"i":14,"j":2,"v":0.286},{"i":15,"j":2,"v":0.286},{"i":16,"j":2,"v":0.286},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.286},{"i":3,"j":3,"v":0.286},{"i":4,"j":3,"v":0.286},{"i":5,"j":3,"v":0.286},{"i":6,"j":3,"v":0.286},{"i":7,"j":3,"v":0.286},{"i":8,"j":3,"v":0.286},{"i":9,"j":3,"v":0.286},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.286},{"i":12,"j":3,"v":0.286},{"i":13,"j":3,"v":0.286},{"i":14,"j":3,"v":0.286},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.143},{"i":17,"j":3,"v":0.286},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.286},{"i":21,"j":3,"v":0.286},{"i":22,"j":3,"v":0.286},{"i":23,"j":3,"v":0.286},{"i":24,"j":3,"v":0.286},{"i":25,"j":3,"v":0.286},{"i":26,"j":3,"v":0.286},{"i":27,"j":3,"v":0.286},{"i":28,"j":3,"v":0.286},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.286},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.286},{"i":0,"j":5,"v":0.286},{"i":1,"j":5,"v":0.429},{"i":2,"j":5,"v":0.571},{"i":3,"j":5,"v":0.429},{"i":4,"j":5,"v":0.429},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.429},{"i":7,"j":5,"v":0.571},{"i":8,"j":5,"v":0.429},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.571},{"i":11,"j":5,"v":0.429},{"i":12,"j":5,"v":0.571},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":0.429},{"i":15,"j":5,"v":0.286},{"i":16,"j":5,"v":0.429},{"i":17,"j":5,"v":0.429},{"i":18,"j":5,"v":0.429},{"i":19,"j":5,"v":0.571},{"i":20,"j":5,"v":0.429},{"i":21,"j":5,"v":0.429},{"i":22,"j":5,"v":0.571},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":0.429},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":0.429},{"i":27,"j":5,"v":0.571},{"i":28,"j":5,"v":0.429},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.286},{"i":2,"j":6,"v":0.571},{"i":3,"j":6,"v":0.286},{"i":4,"j":6,"v":0.429},{"i":5,"j":6,"v":0.571},{"i":6,"j":6,"v":0.286},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.286},{"i":9,"j":6,"v":0.429},{"i":10,"j":6,"v":0.571},{"i":11,"j":6,"v":0.286},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.286},{"i":14,"j":6,"v":0.286},{"i":15,"j":6,"v":0.286},{"i":16,"j":6,"v":0.286},{"i":17,"j":6,"v":0.571},{"i":18,"j":6,"v":0.286},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.286},{"i":22,"j":6,"v":0.714},{"i":23,"j":6,"v":0.286},{"i":24,"j":6,"v":0.571},{"i":25,"j":6,"v":0.429},{"i":26,"j":6,"v":0.286},{"i":27,"j":6,"v":0.571},{"i":28,"j":6,"v":0.286},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.286},{"i":2,"j":7,"v":0.429},{"i":3,"j":7,"v":0.429},{"i":4,"j":7,"v":0.429},{"i":5,"j":7,"v":0.429},{"i":6,"j":7,"v":0.286},{"i":7,"j":7,"v":0.571},{"i":8,"j":7,"v":0.286},{"i":9,"j":7,"v":0.429},{"i":10,"j":7,"v":0.571},{"i":11,"j":7,"v":0.286},{"i":12,"j":7,"v":0.571},{"i":13,"j":7,"v":0.286},{"i":14,"j":7,"v":0.286},{"i":15,"j":7,"v":0.429},{"i":16,"j":7,"v":0.286},{"i":17,"j":7,"v":0.571},{"i":18,"j":7,"v":0.286},{"i":19,"j":7,"v":0.429},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.286},{"i":22,"j":7,"v":0.571},{"i":23,"j":7,"v":0.286},{"i":24,"j":7,"v":0.571},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.429},{"i":27,"j":7,"v":0.571},{"i":28,"j":7,"v":0.286},{"i":29,"j":7,"v":0.143},{"i":3,"j":8,"v":0.571},{"i":6,"j":8,"v":0.571},{"i":9,"j":8,"v":0.571},{"i":12,"j":8,"v":0.429},{"i":14,"j":8,"v":0.286},{"i":15,"j":8,"v":0.571},{"i":18,"j":8,"v":0.571},{"i":21,"j":8,"v":0.429},{"i":22,"j":8,"v":0.143},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.286},{"i":27,"j":8,"v":0.286},{"i":28,"j":8,"v":0.286},{"i":3,"j":9,"v":0.714},{"i":6,"j":9,"v":0.714},{"i":9,"j":9,"v":0.571},{"i":10,"j":9,"v":0.429},{"i":11,"j":9,"v":0.143},{"i":12,"j":9,"v":0.571},{"i":14,"j":9,"v":0.857},{"i":15,"j":9,"v":0.857},{"i":16,"j":9,"v":0.143},{"i":18,"j":9,"v":0.571},{"i":19,"j":9,"v":0.429},{"i":20,"j":9,"v":0.429},{"i":21,"j":9,"v":0.429},{"i":22,"j":9,"v":0.286},{"i":24,"j":9,"v":0.429},{"i":25,"j":9,"v":0.286},{"i":27,"j":9,"v":0.429},{"i":28,"j":9,"v":0.286},{"i":1,"j":10,"v":0.714},{"i":3,"j":10,"v":0.429},{"i":5,"j":10,"v":0.286},{"i":6,"j":10,"v":0.714},{"i":9,"j":10,"v":0.571},{"i":10,"j":10,"v":0.714},{"i":11,"j":10,"v":0.143},{"i":12,"j":10,"v":0.571},{"i":13,"j":10,"v":0.571},{"i":14,"j":10,"v":0.857},{"i":15,"j":10,"v":0.857},{"i":16,"j":10,"v":0.571},{"i":17,"j":10,"v":0.286},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.714},{"i":20,"j":10,"v":0.286},{"i":21,"j":10,"v":0.429},{"i":22,"j":10,"v":0.286},{"i":23,"j":10,"v":0.286},{"i":24,"j":10,"v":0.571},{"i":25,"j":10,"v":0.286},{"i":27,"j":10,"v":0.286},{"i":28,"j":10,"v":0.714},{"i":1,"j":11,"v":0.714},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":0.286},{"i":10,"j":11,"v":0.714},{"i":12,"j":11,"v":0.286},{"i":13,"j":11,"v":0.714},{"i":14,"j":11,"v":0.714},{"i":15,"j":11,"v":0.714},{"i":16,"j":11,"v":0.714},{"i":17,"j":11,"v":0.286},{"i":19,"j":11,"v":0.714},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.429},{"i":28,"j":11,"v":0.571},{"i":0,"j":12,"v":0.143},{"i":1,"j":12,"v":0.714},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":10,"j":12,"v":0.714},{"i":13,"j":12,"v":0.714},{"i":14,"j":12,"v":0.571},{"i":15,"j":12,"v":0.571},{"i":16,"j":12,"v":0.714},{"i":19,"j":12,"v":0.714},{"i":23,"j":12,"v":0.429},{"i":24,"j":12,"v":0.429},{"i":28,"j":12,"v":0.571},{"i":29,"j":12,"v":0.143},{"i":1,"j":13,"v":0.857},{"i":5,"j":13,"v":0.286},{"i":6,"j":13,"v":0.286},{"i":10,"j":13,"v":0.429},{"i":12,"j":13,"v":0.429},{"i":13,"j":13,"v":0.857},{"i":14,"j":13,"v":0.857},{"i":15,"j":13,"v":0.857},{"i":16,"j":13,"v":0.857},{"i":17,"j":13,"v":0.429},{"i":19,"j":13,"v":0.429},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.286},{"i":28,"j":13,"v":0.286},{"i":0,"j":14,"v":0.143},{"i":1,"j":14,"v":0.714},{"i":2,"j":14,"v":0.143},{"i":0,"j":15,"v":0.286},{"i":1,"j":15,"v":0.429},{"i":2,"j":15,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "ensemble.nestor-and-pylian-host",
+      "type": "ENSEMBLE",
+      "statusWord": "REVERENT",
+      "ink": {
+       "cols": 30,
+       "rows": 16,
+       "cells": 235,
+       "fill": 0.49
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_creature_black_bulls_and_altar_fires",
+     "x": 0,
+     "z": 0.38,
+     "scale": 1.714,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "bulls_01",
+      "state": null,
+      "authoredScale": 0.48,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_ensemble_nestor_and_pylian_host",
+     "x": 0.47,
+     "z": 0.76,
+     "scale": 2.071,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "host_01",
+      "state": null,
+      "authoredScale": 0.58,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r8",
+      "c": "telemachus_01",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "athena_01",
+      "s": 4,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "mentor_command",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "telemachus_01",
+      "s": 7,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "NARRATOR",
+      "s": 10.23,
+      "d": 9.69,
+      "t": "At sunrise they came to Pylos, Neleus's strong-built citadel, and found the people on the shore at sacrifice, nine companies, five hundred men in each, and before each company nine black bulls for the dark-haired god who shakes the earth.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S01-T01",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.telemachus",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon",
+       "direction": "as the sail drops and the shore fires come into view",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S01.m4a"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "athena_01",
+      "s": 20,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "mentor_marshal",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "telemachus_01",
+      "s": 20.34,
+      "d": 4.65,
+      "t": "How do I even greet such a man? I have no practice in careful speech.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S01-T02",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "ensemble.nestor-and-pylian-host",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus hesitates to approach Nestor",
+       "direction": "hangs back at the gangplank, eyes on the great king among his sons",
+       "delivery": "young visitor managing social fear while following sacred hospitality",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Telemachus hesitates to approach Nestor"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S01.m4a"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "athena_01",
+      "s": 25.29,
+      "d": 25.98,
+      "t": "Telemachus, no more shyness, not now; you crossed the sea for your father's sake. Go straight up to Nestor, breaker of horses, and ask him what counsel he keeps in his breast. Some words you will find in yourself, and a god will set the rest on your tongue, for the gods have not left you unattended from your birth.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S01-T03",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.telemachus",
+       "act": "URGE",
+       "tactic": "increase_courage_or_speed",
+       "payload": "Athena urges him past his shyness",
+       "direction": "close at his ear, part push, part promise",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Athena urges him past his shyness"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S01.m4a"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "NARRATOR",
+      "s": 51.63,
+      "d": 7.05,
+      "t": "Strangers, be welcome at our feast. Sit here with us on the soft fleeces and share the meal, and when you have poured to Poseidon, the cup will pass to you in turn, for it is his feast you have come upon.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S01-T04",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.telemachus",
+       "act": "WELCOME",
+       "tactic": "secure_guest",
+       "payload": "Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup",
+       "direction": "as Pisistratus, first to reach them, drawing them by the hand to seats on the fleeces and offering the golden cup",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S01.m4a"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "athena_01",
+      "s": 59.11,
+      "d": 16.25,
+      "t": "Hear me, Poseidon, girdler of the earth. Grant fame to Nestor and his sons, grace to all Pylos in return for this rich hecatomb, and grant that Telemachus and I accomplish the errand we sailed here to do.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S01-T05",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.athena-as-mentor",
+       "act": "PRAYER",
+       "tactic": "appeal_upward",
+       "payload": "Athena prays to Poseidon and passes the cup to Telemachus",
+       "direction": "prays over the two-handled cup, pours the libation, and sets the cup in Telemachus's hands",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Athena prays to Poseidon and passes the cup to Telemachus"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S01.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B03-S02 · Telemachus Questions Nestor": {
+   "cast": {
+    "mentor": {
+     "id": "mentor",
+     "spec": {
+      "skin": "#cdb89c",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -6.76,
+     "z": 0.96,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.athena-as-mentor",
+      "name": "Athena as Mentor",
+      "statusWord": "COMMANDING",
+      "pose": "mentor_still",
+      "band": null,
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.17,
+        "y": 0.94
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#7b776d",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.42
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -2.1,
+     "z": 0.92,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "neutral",
+      "band": null,
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.4,
+        "y": 0.92
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.42
+     }
+    },
+    "nestor": {
+     "id": "nestor",
+     "spec": {
+      "skin": "#d6c5a8",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 4.51,
+     "z": 0.96,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.nestor",
+      "name": "Nestor",
+      "statusWord": "REMEMBERING",
+      "pose": "nestor_host",
+      "band": null,
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.72,
+        "y": 0.94
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#8f8b81",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.5
+     }
+    }
+   },
+   "assets": {
+    "a_divine_fx_troy_memory_field": {
+     "id": "a_divine_fx_troy_memory_field",
+     "word": "troy-memory field",
+     "grid": {
+      "cols": 32,
+      "rows": 22,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.143},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.429},{"i":9,"j":0,"v":0.286},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.143},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.143},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.143},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.286},{"i":24,"j":0,"v":0.286},{"i":25,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":27,"j":0,"v":0.143},{"i":28,"j":0,"v":0.143},{"i":29,"j":0,"v":0.143},{"i":30,"j":0,"v":0.143},{"i":31,"j":0,"v":0.143},{"i":0,"j":1,"v":0.143},{"i":1,"j":1,"v":0.143},{"i":2,"j":1,"v":0.143},{"i":3,"j":1,"v":0.143},{"i":4,"j":1,"v":0.143},{"i":5,"j":1,"v":0.143},{"i":6,"j":1,"v":0.143},{"i":7,"j":1,"v":0.143},{"i":8,"j":1,"v":0.429},{"i":9,"j":1,"v":0.143},{"i":10,"j":1,"v":0.143},{"i":11,"j":1,"v":0.143},{"i":12,"j":1,"v":0.143},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.143},{"i":17,"j":1,"v":0.143},{"i":18,"j":1,"v":0.143},{"i":19,"j":1,"v":0.143},{"i":20,"j":1,"v":0.143},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.143},{"i":23,"j":1,"v":0.429},{"i":24,"j":1,"v":0.143},{"i":25,"j":1,"v":0.143},{"i":26,"j":1,"v":0.143},{"i":27,"j":1,"v":0.143},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.143},{"i":30,"j":1,"v":0.143},{"i":31,"j":1,"v":0.143},{"i":0,"j":2,"v":0.143},{"i":1,"j":2,"v":0.143},{"i":2,"j":2,"v":0.143},{"i":3,"j":2,"v":0.143},{"i":4,"j":2,"v":0.286},{"i":5,"j":2,"v":0.429},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.286},{"i":8,"j":2,"v":0.571},{"i":9,"j":2,"v":0.143},{"i":10,"j":2,"v":0.286},{"i":11,"j":2,"v":0.571},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.143},{"i":17,"j":2,"v":0.143},{"i":18,"j":2,"v":0.143},{"i":19,"j":2,"v":0.143},{"i":20,"j":2,"v":0.429},{"i":21,"j":2,"v":0.286},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.429},{"i":24,"j":2,"v":0.286},{"i":25,"j":2,"v":0.143},{"i":26,"j":2,"v":0.429},{"i":27,"j":2,"v":0.286},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.143},{"i":30,"j":2,"v":0.143},{"i":31,"j":2,"v":0.143},{"i":0,"j":3,"v":0.143},{"i":1,"j":3,"v":0.143},{"i":2,"j":3,"v":0.143},{"i":3,"j":3,"v":0.571},{"i":4,"j":3,"v":0.429},{"i":5,"j":3,"v":0.571},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.286},{"i":8,"j":3,"v":0.571},{"i":9,"j":3,"v":0.143},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.571},{"i":12,"j":3,"v":0.429},{"i":13,"j":3,"v":0.429},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.143},{"i":16,"j":3,"v":0.143},{"i":17,"j":3,"v":0.143},{"i":18,"j":3,"v":0.429},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.429},{"i":21,"j":3,"v":0.143},{"i":22,"j":3,"v":0.143},{"i":23,"j":3,"v":0.429},{"i":24,"j":3,"v":0.286},{"i":25,"j":3,"v":0.143},{"i":26,"j":3,"v":0.429},{"i":27,"j":3,"v":0.286},{"i":28,"j":3,"v":0.429},{"i":29,"j":3,"v":0.143},{"i":30,"j":3,"v":0.143},{"i":31,"j":3,"v":0.143},{"i":0,"j":4,"v":0.143},{"i":1,"j":4,"v":0.143},{"i":2,"j":4,"v":0.143},{"i":3,"j":4,"v":0.571},{"i":4,"j":4,"v":0.571},{"i":5,"j":4,"v":0.571},{"i":6,"j":4,"v":0.143},{"i":7,"j":4,"v":0.429},{"i":8,"j":4,"v":0.571},{"i":9,"j":4,"v":0.286},{"i":10,"j":4,"v":0.286},{"i":11,"j":4,"v":0.571},{"i":12,"j":4,"v":0.571},{"i":13,"j":4,"v":0.429},{"i":14,"j":4,"v":0.143},{"i":15,"j":4,"v":0.143},{"i":16,"j":4,"v":0.143},{"i":17,"j":4,"v":0.143},{"i":18,"j":4,"v":0.429},{"i":19,"j":4,"v":0.429},{"i":20,"j":4,"v":0.429},{"i":21,"j":4,"v":0.286},{"i":22,"j":4,"v":0.286},{"i":23,"j":4,"v":0.429},{"i":24,"j":4,"v":0.286},{"i":25,"j":4,"v":0.143},{"i":26,"j":4,"v":0.429},{"i":27,"j":4,"v":0.429},{"i":28,"j":4,"v":0.429},{"i":29,"j":4,"v":0.286},{"i":30,"j":4,"v":0.143},{"i":31,"j":4,"v":0.143},{"i":0,"j":5,"v":0.143},{"i":1,"j":5,"v":0.143},{"i":2,"j":5,"v":0.286},{"i":3,"j":5,"v":0.571},{"i":4,"j":5,"v":0.571},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.286},{"i":7,"j":5,"v":0.429},{"i":8,"j":5,"v":0.571},{"i":9,"j":5,"v":0.286},{"i":10,"j":5,"v":0.429},{"i":11,"j":5,"v":0.571},{"i":12,"j":5,"v":0.571},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":0.143},{"i":15,"j":5,"v":0.143},{"i":16,"j":5,"v":0.143},{"i":17,"j":5,"v":0.143},{"i":18,"j":5,"v":0.429},{"i":19,"j":5,"v":0.429},{"i":20,"j":5,"v":0.429},{"i":21,"j":5,"v":0.286},{"i":22,"j":5,"v":0.286},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":0.429},{"i":25,"j":5,"v":0.286},{"i":26,"j":5,"v":0.429},{"i":27,"j":5,"v":0.429},{"i":28,"j":5,"v":0.429},{"i":29,"j":5,"v":0.286},{"i":30,"j":5,"v":0.143},{"i":31,"j":5,"v":0.143},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.143},{"i":2,"j":6,"v":0.286},{"i":3,"j":6,"v":0.571},{"i":4,"j":6,"v":0.571},{"i":5,"j":6,"v":0.571},{"i":6,"j":6,"v":0.286},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.571},{"i":9,"j":6,"v":0.429},{"i":10,"j":6,"v":0.429},{"i":11,"j":6,"v":0.571},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.571},{"i":14,"j":6,"v":0.143},{"i":15,"j":6,"v":0.143},{"i":16,"j":6,"v":0.143},{"i":17,"j":6,"v":0.143},{"i":18,"j":6,"v":0.429},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.429},{"i":22,"j":6,"v":0.286},{"i":23,"j":6,"v":0.429},{"i":24,"j":6,"v":0.429},{"i":25,"j":6,"v":0.286},{"i":26,"j":6,"v":0.429},{"i":27,"j":6,"v":0.429},{"i":28,"j":6,"v":0.429},{"i":29,"j":6,"v":0.286},{"i":30,"j":6,"v":0.143},{"i":31,"j":6,"v":0.143},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.143},{"i":2,"j":7,"v":0.143},{"i":3,"j":7,"v":0.143},{"i":4,"j":7,"v":0.143},{"i":5,"j":7,"v":0.143},{"i":6,"j":7,"v":0.143},{"i":7,"j":7,"v":0.143},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.143},{"i":12,"j":7,"v":0.143},{"i":13,"j":7,"v":0.143},{"i":14,"j":7,"v":0.143},{"i":15,"j":7,"v":0.286},{"i":16,"j":7,"v":0.286},{"i":17,"j":7,"v":0.143},{"i":18,"j":7,"v":0.143},{"i":19,"j":7,"v":0.143},{"i":20,"j":7,"v":0.143},{"i":21,"j":7,"v":0.143},{"i":22,"j":7,"v":0.143},{"i":23,"j":7,"v":0.143},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.143},{"i":26,"j":7,"v":0.143},{"i":27,"j":7,"v":0.143},{"i":28,"j":7,"v":0.143},{"i":29,"j":7,"v":0.143},{"i":30,"j":7,"v":0.143},{"i":31,"j":7,"v":0.143},{"i":0,"j":8,"v":0.143},{"i":1,"j":8,"v":0.143},{"i":2,"j":8,"v":0.143},{"i":3,"j":8,"v":0.143},{"i":4,"j":8,"v":0.143},{"i":5,"j":8,"v":0.143},{"i":6,"j":8,"v":0.143},{"i":7,"j":8,"v":0.143},{"i":8,"j":8,"v":0.143},{"i":9,"j":8,"v":0.143},{"i":10,"j":8,"v":0.143},{"i":11,"j":8,"v":0.143},{"i":12,"j":8,"v":0.143},{"i":13,"j":8,"v":0.143},{"i":14,"j":8,"v":0.143},{"i":15,"j":8,"v":0.143},{"i":16,"j":8,"v":0.143},{"i":17,"j":8,"v":0.143},{"i":18,"j":8,"v":0.143},{"i":19,"j":8,"v":0.143},{"i":20,"j":8,"v":0.143},{"i":21,"j":8,"v":0.143},{"i":22,"j":8,"v":0.143},{"i":23,"j":8,"v":0.143},{"i":24,"j":8,"v":0.143},{"i":25,"j":8,"v":0.143},{"i":26,"j":8,"v":0.143},{"i":27,"j":8,"v":0.143},{"i":28,"j":8,"v":0.143},{"i":29,"j":8,"v":0.143},{"i":30,"j":8,"v":0.143},{"i":31,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":1,"j":9,"v":0.143},{"i":2,"j":9,"v":0.143},{"i":3,"j":9,"v":0.143},{"i":4,"j":9,"v":0.286},{"i":5,"j":9,"v":0.286},{"i":6,"j":9,"v":0.143},{"i":7,"j":9,"v":0.143},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.143},{"i":10,"j":9,"v":0.286},{"i":11,"j":9,"v":0.286},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.143},{"i":14,"j":9,"v":0.143},{"i":15,"j":9,"v":0.429},{"i":16,"j":9,"v":0.429},{"i":17,"j":9,"v":0.143},{"i":18,"j":9,"v":0.143},{"i":19,"j":9,"v":0.143},{"i":20,"j":9,"v":0.286},{"i":21,"j":9,"v":0.429},{"i":22,"j":9,"v":0.286},{"i":23,"j":9,"v":0.143},{"i":24,"j":9,"v":0.143},{"i":25,"j":9,"v":0.143},{"i":26,"j":9,"v":0.429},{"i":27,"j":9,"v":0.286},{"i":28,"j":9,"v":0.143},{"i":29,"j":9,"v":0.143},{"i":30,"j":9,"v":0.143},{"i":31,"j":9,"v":0.143},{"i":0,"j":10,"v":0.286},{"i":1,"j":10,"v":0.286},{"i":2,"j":10,"v":0.286},{"i":3,"j":10,"v":0.286},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.429},{"i":6,"j":10,"v":0.429},{"i":7,"j":10,"v":0.429},{"i":8,"j":10,"v":0.286},{"i":9,"j":10,"v":0.286},{"i":10,"j":10,"v":0.429},{"i":11,"j":10,"v":0.286},{"i":12,"j":10,"v":0.286},{"i":13,"j":10,"v":0.429},{"i":14,"j":10,"v":0.429},{"i":15,"j":10,"v":0.571},{"i":16,"j":10,"v":0.429},{"i":17,"j":10,"v":0.286},{"i":18,"j":10,"v":0.286},{"i":19,"j":10,"v":0.286},{"i":20,"j":10,"v":0.429},{"i":21,"j":10,"v":0.571},{"i":22,"j":10,"v":0.429},{"i":23,"j":10,"v":0.286},{"i":24,"j":10,"v":0.286},{"i":25,"j":10,"v":0.286},{"i":26,"j":10,"v":0.571},{"i":27,"j":10,"v":0.571},{"i":28,"j":10,"v":0.571},{"i":29,"j":10,"v":0.429},{"i":30,"j":10,"v":0.286},{"i":31,"j":10,"v":0.286},{"i":0,"j":11,"v":0.286},{"i":1,"j":11,"v":0.286},{"i":2,"j":11,"v":0.286},{"i":3,"j":11,"v":0.714},{"i":4,"j":11,"v":0.714},{"i":5,"j":11,"v":0.571},{"i":6,"j":11,"v":0.429},{"i":7,"j":11,"v":0.429},{"i":8,"j":11,"v":0.286},{"i":9,"j":11,"v":0.286},{"i":10,"j":11,"v":0.286},{"i":11,"j":11,"v":0.286},{"i":12,"j":11,"v":0.286},{"i":13,"j":11,"v":0.429},{"i":14,"j":11,"v":0.429},{"i":15,"j":11,"v":0.571},{"i":16,"j":11,"v":0.571},{"i":17,"j":11,"v":0.714},{"i":18,"j":11,"v":0.286},{"i":19,"j":11,"v":0.286},{"i":20,"j":11,"v":0.429},{"i":21,"j":11,"v":0.429},{"i":22,"j":11,"v":0.429},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.286},{"i":25,"j":11,"v":0.714},{"i":26,"j":11,"v":0.714},{"i":27,"j":11,"v":0.571},{"i":28,"j":11,"v":0.571},{"i":29,"j":11,"v":0.571},{"i":30,"j":11,"v":0.286},{"i":31,"j":11,"v":0.286},{"i":0,"j":12,"v":0.286},{"i":1,"j":12,"v":0.286},{"i":2,"j":12,"v":0.286},{"i":3,"j":12,"v":0.571},{"i":4,"j":12,"v":0.857},{"i":5,"j":12,"v":0.714},{"i":6,"j":12,"v":0.571},{"i":7,"j":12,"v":0.286},{"i":8,"j":12,"v":0.286},{"i":9,"j":12,"v":0.286},{"i":10,"j":12,"v":0.286},{"i":11,"j":12,"v":0.286},{"i":12,"j":12,"v":0.429},{"i":13,"j":12,"v":0.286},{"i":14,"j":12,"v":0.571},{"i":15,"j":12,"v":0.571},{"i":16,"j":12,"v":0.714},{"i":17,"j":12,"v":0.571},{"i":18,"j":12,"v":0.286},{"i":19,"j":12,"v":0.286},{"i":20,"j":12,"v":0.286},{"i":21,"j":12,"v":0.429},{"i":22,"j":12,"v":0.286},{"i":23,"j":12,"v":0.286},{"i":24,"j":12,"v":0.286},{"i":25,"j":12,"v":0.571},{"i":26,"j":12,"v":0.714},{"i":27,"j":12,"v":0.714},{"i":28,"j":12,"v":0.571},{"i":29,"j":12,"v":0.429},{"i":30,"j":12,"v":0.429},{"i":31,"j":12,"v":0.286},{"i":0,"j":13,"v":0.286},{"i":1,"j":13,"v":0.286},{"i":2,"j":13,"v":0.429},{"i":3,"j":13,"v":0.429},{"i":4,"j":13,"v":0.571},{"i":5,"j":13,"v":0.571},{"i":6,"j":13,"v":0.286},{"i":7,"j":13,"v":0.429},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.286},{"i":10,"j":13,"v":0.286},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.286},{"i":13,"j":13,"v":0.429},{"i":14,"j":13,"v":0.286},{"i":15,"j":13,"v":0.429},{"i":16,"j":13,"v":0.429},{"i":17,"j":13,"v":0.286},{"i":18,"j":13,"v":0.429},{"i":19,"j":13,"v":0.286},{"i":20,"j":13,"v":0.286},{"i":21,"j":13,"v":0.286},{"i":22,"j":13,"v":0.286},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.429},{"i":25,"j":13,"v":0.286},{"i":26,"j":13,"v":0.429},{"i":27,"j":13,"v":0.429},{"i":28,"j":13,"v":0.429},{"i":29,"j":13,"v":0.571},{"i":30,"j":13,"v":0.286},{"i":31,"j":13,"v":0.286},{"i":0,"j":14,"v":0.286},{"i":1,"j":14,"v":0.286},{"i":2,"j":14,"v":0.429},{"i":3,"j":14,"v":0.571},{"i":4,"j":14,"v":0.571},{"i":5,"j":14,"v":0.571},{"i":6,"j":14,"v":0.571},{"i":7,"j":14,"v":0.571},{"i":8,"j":14,"v":0.286},{"i":9,"j":14,"v":0.286},{"i":10,"j":14,"v":0.286},{"i":11,"j":14,"v":0.286},{"i":12,"j":14,"v":0.286},{"i":13,"j":14,"v":0.429},{"i":14,"j":14,"v":0.429},{"i":15,"j":14,"v":0.429},{"i":16,"j":14,"v":0.429},{"i":17,"j":14,"v":0.571},{"i":18,"j":14,"v":0.429},{"i":19,"j":14,"v":0.286},{"i":20,"j":14,"v":0.286},{"i":21,"j":14,"v":0.286},{"i":22,"j":14,"v":0.286},{"i":23,"j":14,"v":0.286},{"i":24,"j":14,"v":0.429},{"i":25,"j":14,"v":0.571},{"i":26,"j":14,"v":0.571},{"i":27,"j":14,"v":0.571},{"i":28,"j":14,"v":0.571},{"i":29,"j":14,"v":0.429},{"i":30,"j":14,"v":0.286},{"i":31,"j":14,"v":0.286},{"i":0,"j":15,"v":0.286},{"i":1,"j":15,"v":0.286},{"i":2,"j":15,"v":0.429},{"i":3,"j":15,"v":0.429},{"i":4,"j":15,"v":0.571},{"i":5,"j":15,"v":0.571},{"i":6,"j":15,"v":0.429},{"i":7,"j":15,"v":0.286},{"i":8,"j":15,"v":0.286},{"i":9,"j":15,"v":0.286},{"i":10,"j":15,"v":0.286},{"i":11,"j":15,"v":0.286},{"i":12,"j":15,"v":0.286},{"i":13,"j":15,"v":0.286},{"i":14,"j":15,"v":0.429},{"i":15,"j":15,"v":0.429},{"i":16,"j":15,"v":0.429},{"i":17,"j":15,"v":0.286},{"i":18,"j":15,"v":0.286},{"i":19,"j":15,"v":0.429},{"i":20,"j":15,"v":0.286},{"i":21,"j":15,"v":0.286},{"i":22,"j":15,"v":0.286},{"i":23,"j":15,"v":0.286},{"i":24,"j":15,"v":0.286},{"i":25,"j":15,"v":0.286},{"i":26,"j":15,"v":0.429},{"i":27,"j":15,"v":0.429},{"i":28,"j":15,"v":0.286},{"i":29,"j":15,"v":0.286},{"i":30,"j":15,"v":0.286},{"i":31,"j":15,"v":0.286},{"i":0,"j":16,"v":0.286},{"i":1,"j":16,"v":0.429},{"i":2,"j":16,"v":0.571},{"i":3,"j":16,"v":0.429},{"i":4,"j":16,"v":0.571},{"i":5,"j":16,"v":0.429},{"i":6,"j":16,"v":0.286},{"i":7,"j":16,"v":0.571},{"i":8,"j":16,"v":0.571},{"i":9,"j":16,"v":0.429},{"i":10,"j":16,"v":0.429},{"i":11,"j":16,"v":0.286},{"i":12,"j":16,"v":0.286},{"i":13,"j":16,"v":0.286},{"i":14,"j":16,"v":0.286},{"i":15,"j":16,"v":0.429},{"i":16,"j":16,"v":0.429},{"i":17,"j":16,"v":0.286},{"i":18,"j":16,"v":0.286},{"i":19,"j":16,"v":0.571},{"i":20,"j":16,"v":0.714},{"i":21,"j":16,"v":0.714},{"i":22,"j":16,"v":0.714},{"i":23,"j":16,"v":0.429},{"i":24,"j":16,"v":0.429},{"i":25,"j":16,"v":0.429},{"i":26,"j":16,"v":0.429},{"i":27,"j":16,"v":0.429},{"i":28,"j":16,"v":0.286},{"i":29,"j":16,"v":0.286},{"i":30,"j":16,"v":0.286},{"i":31,"j":16,"v":0.286},{"i":0,"j":17,"v":0.286},{"i":1,"j":17,"v":0.286},{"i":2,"j":17,"v":0.571},{"i":3,"j":17,"v":0.571},{"i":4,"j":17,"v":0.571},{"i":5,"j":17,"v":0.571},{"i":6,"j":17,"v":0.571},{"i":7,"j":17,"v":0.571},{"i":8,"j":17,"v":0.571},{"i":9,"j":17,"v":0.714},{"i":10,"j":17,"v":0.714},{"i":11,"j":17,"v":0.714},{"i":12,"j":17,"v":0.571},{"i":13,"j":17,"v":0.429},{"i":14,"j":17,"v":0.286},{"i":15,"j":17,"v":0.286},{"i":16,"j":17,"v":0.429},{"i":17,"j":17,"v":0.429},{"i":18,"j":17,"v":0.429},{"i":19,"j":17,"v":0.429},{"i":20,"j":17,"v":0.429},{"i":21,"j":17,"v":0.429},{"i":22,"j":17,"v":0.429},{"i":23,"j":17,"v":0.429},{"i":24,"j":17,"v":0.286},{"i":25,"j":17,"v":0.571},{"i":26,"j":17,"v":0.429},{"i":27,"j":17,"v":0.571},{"i":28,"j":17,"v":0.571},{"i":29,"j":17,"v":0.429},{"i":30,"j":17,"v":0.286},{"i":31,"j":17,"v":0.286},{"i":0,"j":18,"v":0.286},{"i":1,"j":18,"v":0.286},{"i":2,"j":18,"v":0.286},{"i":3,"j":18,"v":0.286},{"i":4,"j":18,"v":0.286},{"i":5,"j":18,"v":0.286},{"i":6,"j":18,"v":0.286},{"i":7,"j":18,"v":0.429},{"i":8,"j":18,"v":0.286},{"i":9,"j":18,"v":0.286},{"i":10,"j":18,"v":0.286},{"i":11,"j":18,"v":0.286},{"i":12,"j":18,"v":0.286},{"i":13,"j":18,"v":0.286},{"i":14,"j":18,"v":0.286},{"i":15,"j":18,"v":0.286},{"i":16,"j":18,"v":0.286},{"i":17,"j":18,"v":0.286},{"i":18,"j":18,"v":0.286},{"i":19,"j":18,"v":0.286},{"i":20,"j":18,"v":0.286},{"i":21,"j":18,"v":0.286},{"i":22,"j":18,"v":0.286},{"i":23,"j":18,"v":0.286},{"i":24,"j":18,"v":0.286},{"i":25,"j":18,"v":0.286},{"i":26,"j":18,"v":0.286},{"i":27,"j":18,"v":0.286},{"i":28,"j":18,"v":0.286},{"i":29,"j":18,"v":0.286},{"i":30,"j":18,"v":0.286},{"i":31,"j":18,"v":0.286},{"i":0,"j":19,"v":0.286},{"i":1,"j":19,"v":0.286},{"i":2,"j":19,"v":0.286},{"i":3,"j":19,"v":0.286},{"i":4,"j":19,"v":0.286},{"i":5,"j":19,"v":0.286},{"i":6,"j":19,"v":0.286},{"i":7,"j":19,"v":0.286},{"i":8,"j":19,"v":0.286},{"i":9,"j":19,"v":0.286},{"i":10,"j":19,"v":0.286},{"i":11,"j":19,"v":0.286},{"i":12,"j":19,"v":0.286},{"i":13,"j":19,"v":0.286},{"i":14,"j":19,"v":0.286},{"i":15,"j":19,"v":0.286},{"i":16,"j":19,"v":0.286},{"i":17,"j":19,"v":0.286},{"i":18,"j":19,"v":0.286},{"i":19,"j":19,"v":0.286},{"i":20,"j":19,"v":0.286},{"i":21,"j":19,"v":0.286},{"i":22,"j":19,"v":0.286},{"i":23,"j":19,"v":0.286},{"i":24,"j":19,"v":0.286},{"i":25,"j":19,"v":0.286},{"i":26,"j":19,"v":0.286},{"i":27,"j":19,"v":0.286},{"i":28,"j":19,"v":0.286},{"i":29,"j":19,"v":0.286},{"i":30,"j":19,"v":0.286},{"i":31,"j":19,"v":0.286},{"i":0,"j":20,"v":0.286},{"i":1,"j":20,"v":0.286},{"i":2,"j":20,"v":0.286},{"i":3,"j":20,"v":0.286},{"i":4,"j":20,"v":0.286},{"i":5,"j":20,"v":0.286},{"i":6,"j":20,"v":0.286},{"i":7,"j":20,"v":0.286},{"i":8,"j":20,"v":0.286},{"i":9,"j":20,"v":0.286},{"i":10,"j":20,"v":0.286},{"i":11,"j":20,"v":0.286},{"i":12,"j":20,"v":0.286},{"i":13,"j":20,"v":0.286},{"i":14,"j":20,"v":0.286},{"i":15,"j":20,"v":0.571},{"i":16,"j":20,"v":0.571},{"i":17,"j":20,"v":0.286},{"i":18,"j":20,"v":0.286},{"i":19,"j":20,"v":0.286},{"i":20,"j":20,"v":0.286},{"i":21,"j":20,"v":0.286},{"i":22,"j":20,"v":0.286},{"i":23,"j":20,"v":0.286},{"i":24,"j":20,"v":0.286},{"i":25,"j":20,"v":0.286},{"i":26,"j":20,"v":0.286},{"i":27,"j":20,"v":0.286},{"i":28,"j":20,"v":0.286},{"i":29,"j":20,"v":0.286},{"i":30,"j":20,"v":0.286},{"i":31,"j":20,"v":0.286},{"i":0,"j":21,"v":0.286},{"i":1,"j":21,"v":0.286},{"i":2,"j":21,"v":0.286},{"i":3,"j":21,"v":0.286},{"i":4,"j":21,"v":0.286},{"i":5,"j":21,"v":0.286},{"i":6,"j":21,"v":0.286},{"i":7,"j":21,"v":0.286},{"i":8,"j":21,"v":0.286},{"i":9,"j":21,"v":0.286},{"i":10,"j":21,"v":0.286},{"i":11,"j":21,"v":0.286},{"i":12,"j":21,"v":0.286},{"i":13,"j":21,"v":0.286},{"i":14,"j":21,"v":0.286},{"i":15,"j":21,"v":0.286},{"i":16,"j":21,"v":0.286},{"i":17,"j":21,"v":0.286},{"i":18,"j":21,"v":0.286},{"i":19,"j":21,"v":0.286},{"i":20,"j":21,"v":0.286},{"i":21,"j":21,"v":0.286},{"i":22,"j":21,"v":0.286},{"i":23,"j":21,"v":0.286},{"i":24,"j":21,"v":0.286},{"i":25,"j":21,"v":0.286},{"i":26,"j":21,"v":0.286},{"i":27,"j":21,"v":0.286},{"i":28,"j":21,"v":0.286},{"i":29,"j":21,"v":0.286},{"i":30,"j":21,"v":0.286},{"i":31,"j":21,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "divine_fx.troy-memory-field",
+      "type": "DIVINE_FX",
+      "statusWord": "RECOLLECTING",
+      "ink": {
+       "cols": 32,
+       "rows": 22,
+       "cells": 704,
+       "fill": 1
+      },
+      "wholeFrame": true
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_divine_fx_troy_memory_field",
+     "x": 0,
+     "z": 1,
+     "scale": 3.571,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "troy",
+      "state": null,
+      "authoredScale": 1,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r6",
+      "c": "nestor",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "nestor_host",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "telemachus",
+      "s": 5,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "alert",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "nestor",
+      "s": 7.43,
+      "d": 22.34,
+      "t": "Strangers, now that you have had your pleasure of the feast, it is fair to ask: who are you? From where do you sail the watery ways? Is it on business, or do you rove at hazard like raiders, who risk their own lives to bring evil upon other men?",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S02-T01",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "QUESTION",
+       "tactic": "probe",
+       "payload": "After the meal Nestor asks the strangers who they are and whether they are traders or raiders",
+       "direction": "the old king turns from host to questioner, kindly but keen",
+       "delivery": "aged king shifting from host to vast living archive of the war",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "After the meal Nestor asks the strangers who they are and whether they are traders or raiders"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S02.m4a"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "telemachus",
+      "s": 30.13,
+      "d": 27.38,
+      "t": "Nestor, son of Neleus, great glory of the Achaeans, we come from Ithaca below Neion, and the errand is my own: my father, hard-enduring Odysseus, who fought at your side and sacked the city of Troy. I beg you, do not soften anything out of pity for me; tell me exactly what your own eyes saw or what word has reached you.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S02-T02",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.nestor",
+       "act": "QUESTION",
+       "tactic": "probe",
+       "payload": "Telemachus identifies himself and asks for the unsoftened truth about Odysseus",
+       "direction": "on his feet, steadier with every word, the goddess firming his voice",
+       "delivery": "formal petitioner whose speech grows steadier under Athena's influence",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Telemachus identifies himself and asks for the unsoftened truth about Odysseus"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S02.m4a"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "nestor",
+      "s": 57.87,
+      "d": 30.29,
+      "t": "Friend, you bring it all back, what we suffered on that plain, and the best of us fallen: Ajax lies there, and Achilles, and Patroclus wise as the gods, and my own strong Antilochus. And in every craft of war your father had no rival; no man alive could match Odysseus for cunning. Truly you are his son, your very speech is his.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S02-T03",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "PRAISE",
+       "tactic": "elevate_listener_or_subject",
+       "payload": "Nestor remembers Troy and praises Odysseus's unequalled cunning",
+       "direction": "grief and wonder crossing the old face together as he studies the boy",
+       "delivery": "aged king shifting from host to vast living archive of the war",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Nestor remembers Troy and praises Odysseus's unequalled cunning"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S02.m4a"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "nestor",
+      "s": 88.53,
+      "d": 7.85,
+      "t": "Now, the going home. That was Athena's anger, and it began with a quarrel.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S02-T04",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "He begins the account of the quarrel that split the returning Greek fleet",
+       "direction": "settles back, eyes going distant, gathering the long memory like a man taking up a heavy rope",
+       "delivery": "aged king shifting from host to vast living archive of the war",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "He begins the account of the quarrel that split the returning Greek fleet"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S02.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B03-S03 · The Broken Return from Troy": {
+   "cast": {
+    "odysseus_01": {
+     "id": "odysseus_01",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1.05,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 1.48,
+     "z": 0.67,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-memory-variant",
+      "name": "Odysseus memory variant",
+      "statusWord": "COMMANDING",
+      "pose": null,
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.56,
+        "y": 0.8
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.34
+     }
+    },
+    "nestor_01": {
+     "id": "nestor_01",
+     "spec": {
+      "skin": "#d6c5a8",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 7,
+     "z": 1,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.nestor",
+      "name": "Nestor",
+      "statusWord": "REMEMBERING",
+      "pose": "nestor_telling",
+      "band": null,
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.85,
+        "y": 1
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#8f8b81",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.58
+     }
+    }
+   },
+   "assets": {
+    "a_set_piece_sea_route_map": {
+     "id": "a_set_piece_sea_route_map",
+     "word": "sea-route map",
+     "grid": {
+      "cols": 32,
+      "rows": 22,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.286},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.143},{"i":9,"j":0,"v":0.286},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.286},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.286},{"i":19,"j":0,"v":0.143},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.143},{"i":22,"j":0,"v":0.286},{"i":23,"j":0,"v":0.286},{"i":24,"j":0,"v":0.429},{"i":25,"j":0,"v":0.429},{"i":26,"j":0,"v":0.429},{"i":27,"j":0,"v":0.429},{"i":28,"j":0,"v":0.429},{"i":29,"j":0,"v":0.286},{"i":30,"j":0,"v":0.143},{"i":31,"j":0,"v":0.143},{"i":0,"j":1,"v":0.143},{"i":1,"j":1,"v":0.429},{"i":2,"j":1,"v":0.286},{"i":3,"j":1,"v":0.286},{"i":4,"j":1,"v":0.429},{"i":5,"j":1,"v":0.286},{"i":6,"j":1,"v":0.286},{"i":7,"j":1,"v":0.286},{"i":8,"j":1,"v":0.286},{"i":9,"j":1,"v":0.429},{"i":10,"j":1,"v":0.286},{"i":11,"j":1,"v":0.286},{"i":12,"j":1,"v":0.286},{"i":13,"j":1,"v":0.429},{"i":14,"j":1,"v":0.286},{"i":15,"j":1,"v":0.286},{"i":16,"j":1,"v":0.286},{"i":17,"j":1,"v":0.286},{"i":18,"j":1,"v":0.429},{"i":19,"j":1,"v":0.286},{"i":20,"j":1,"v":0.286},{"i":21,"j":1,"v":0.286},{"i":22,"j":1,"v":0.429},{"i":23,"j":1,"v":0.429},{"i":24,"j":1,"v":0.286},{"i":25,"j":1,"v":0.286},{"i":26,"j":1,"v":0.286},{"i":27,"j":1,"v":0.286},{"i":28,"j":1,"v":0.429},{"i":29,"j":1,"v":0.429},{"i":30,"j":1,"v":0.571},{"i":31,"j":1,"v":0.286},{"i":0,"j":2,"v":0.143},{"i":1,"j":2,"v":0.429},{"i":2,"j":2,"v":0.143},{"i":3,"j":2,"v":0.143},{"i":4,"j":2,"v":0.143},{"i":5,"j":2,"v":0.143},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.143},{"i":8,"j":2,"v":0.143},{"i":9,"j":2,"v":0.143},{"i":10,"j":2,"v":0.143},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.143},{"i":17,"j":2,"v":0.143},{"i":18,"j":2,"v":0.143},{"i":19,"j":2,"v":0.143},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.286},{"i":24,"j":2,"v":0.429},{"i":25,"j":2,"v":0.857},{"i":26,"j":2,"v":0.714},{"i":27,"j":2,"v":0.571},{"i":28,"j":2,"v":0.429},{"i":29,"j":2,"v":0.286},{"i":30,"j":2,"v":0.571},{"i":31,"j":2,"v":0.286},{"i":0,"j":3,"v":0.143},{"i":1,"j":3,"v":0.429},{"i":2,"j":3,"v":0.143},{"i":3,"j":3,"v":0.143},{"i":4,"j":3,"v":0.143},{"i":5,"j":3,"v":0.143},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.143},{"i":8,"j":3,"v":0.143},{"i":9,"j":3,"v":0.143},{"i":10,"j":3,"v":0.143},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.143},{"i":13,"j":3,"v":0.143},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.143},{"i":16,"j":3,"v":0.143},{"i":17,"j":3,"v":0.143},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.286},{"i":21,"j":3,"v":0.286},{"i":22,"j":3,"v":0.286},{"i":23,"j":3,"v":0.429},{"i":24,"j":3,"v":0.571},{"i":25,"j":3,"v":0.571},{"i":26,"j":3,"v":0.571},{"i":27,"j":3,"v":0.714},{"i":28,"j":3,"v":0.286},{"i":29,"j":3,"v":0.286},{"i":30,"j":3,"v":0.429},{"i":31,"j":3,"v":0.143},{"i":0,"j":4,"v":0.143},{"i":1,"j":4,"v":0.429},{"i":2,"j":4,"v":0.143},{"i":3,"j":4,"v":0.143},{"i":4,"j":4,"v":0.143},{"i":5,"j":4,"v":0.143},{"i":6,"j":4,"v":0.143},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.143},{"i":11,"j":4,"v":0.143},{"i":12,"j":4,"v":0.143},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.143},{"i":15,"j":4,"v":0.143},{"i":16,"j":4,"v":0.143},{"i":17,"j":4,"v":0.143},{"i":18,"j":4,"v":0.286},{"i":19,"j":4,"v":0.286},{"i":20,"j":4,"v":0.429},{"i":21,"j":4,"v":0.429},{"i":22,"j":4,"v":0.429},{"i":23,"j":4,"v":0.429},{"i":24,"j":4,"v":0.429},{"i":25,"j":4,"v":0.429},{"i":26,"j":4,"v":0.429},{"i":27,"j":4,"v":0.286},{"i":28,"j":4,"v":0.286},{"i":29,"j":4,"v":0.286},{"i":30,"j":4,"v":0.429},{"i":31,"j":4,"v":0.143},{"i":0,"j":5,"v":0.143},{"i":1,"j":5,"v":0.429},{"i":2,"j":5,"v":0.143},{"i":3,"j":5,"v":0.143},{"i":4,"j":5,"v":0.143},{"i":5,"j":5,"v":0.143},{"i":6,"j":5,"v":0.143},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.143},{"i":10,"j":5,"v":0.143},{"i":11,"j":5,"v":0.143},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.143},{"i":14,"j":5,"v":0.143},{"i":15,"j":5,"v":0.143},{"i":16,"j":5,"v":0.143},{"i":17,"j":5,"v":0.143},{"i":18,"j":5,"v":0.286},{"i":19,"j":5,"v":0.286},{"i":20,"j":5,"v":0.286},{"i":21,"j":5,"v":0.571},{"i":22,"j":5,"v":0.571},{"i":23,"j":5,"v":0.571},{"i":24,"j":5,"v":0.429},{"i":25,"j":5,"v":0.286},{"i":26,"j":5,"v":0.286},{"i":27,"j":5,"v":0.143},{"i":28,"j":5,"v":0.143},{"i":29,"j":5,"v":0.143},{"i":30,"j":5,"v":0.429},{"i":31,"j":5,"v":0.143},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.429},{"i":2,"j":6,"v":0.143},{"i":3,"j":6,"v":0.143},{"i":4,"j":6,"v":0.143},{"i":5,"j":6,"v":0.143},{"i":6,"j":6,"v":0.143},{"i":7,"j":6,"v":0.143},{"i":8,"j":6,"v":0.143},{"i":9,"j":6,"v":0.143},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.143},{"i":12,"j":6,"v":0.143},{"i":13,"j":6,"v":0.286},{"i":14,"j":6,"v":0.143},{"i":15,"j":6,"v":0.143},{"i":16,"j":6,"v":0.143},{"i":17,"j":6,"v":0.143},{"i":18,"j":6,"v":0.143},{"i":19,"j":6,"v":0.286},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.714},{"i":22,"j":6,"v":0.714},{"i":23,"j":6,"v":0.714},{"i":24,"j":6,"v":0.143},{"i":25,"j":6,"v":0.143},{"i":26,"j":6,"v":0.143},{"i":27,"j":6,"v":0.143},{"i":28,"j":6,"v":0.143},{"i":29,"j":6,"v":0.143},{"i":30,"j":6,"v":0.429},{"i":31,"j":6,"v":0.143},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.429},{"i":2,"j":7,"v":0.143},{"i":3,"j":7,"v":0.143},{"i":4,"j":7,"v":0.143},{"i":5,"j":7,"v":0.143},{"i":6,"j":7,"v":0.143},{"i":7,"j":7,"v":0.143},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.286},{"i":10,"j":7,"v":0.429},{"i":11,"j":7,"v":0.429},{"i":12,"j":7,"v":0.429},{"i":13,"j":7,"v":0.429},{"i":14,"j":7,"v":0.429},{"i":15,"j":7,"v":0.429},{"i":16,"j":7,"v":0.429},{"i":17,"j":7,"v":0.429},{"i":18,"j":7,"v":0.571},{"i":19,"j":7,"v":0.286},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.714},{"i":22,"j":7,"v":0.714},{"i":23,"j":7,"v":0.714},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.143},{"i":26,"j":7,"v":0.143},{"i":27,"j":7,"v":0.143},{"i":28,"j":7,"v":0.143},{"i":29,"j":7,"v":0.143},{"i":30,"j":7,"v":0.429},{"i":31,"j":7,"v":0.143},{"i":0,"j":8,"v":0.143},{"i":1,"j":8,"v":0.429},{"i":2,"j":8,"v":0.143},{"i":3,"j":8,"v":0.143},{"i":4,"j":8,"v":0.143},{"i":5,"j":8,"v":0.143},{"i":6,"j":8,"v":0.143},{"i":7,"j":8,"v":0.143},{"i":8,"j":8,"v":0.143},{"i":9,"j":8,"v":0.286},{"i":10,"j":8,"v":0.429},{"i":11,"j":8,"v":0.429},{"i":12,"j":8,"v":0.429},{"i":13,"j":8,"v":0.571},{"i":14,"j":8,"v":0.429},{"i":15,"j":8,"v":0.429},{"i":16,"j":8,"v":0.429},{"i":17,"j":8,"v":0.143},{"i":18,"j":8,"v":0.143},{"i":19,"j":8,"v":0.143},{"i":20,"j":8,"v":0.143},{"i":21,"j":8,"v":0.429},{"i":22,"j":8,"v":0.714},{"i":23,"j":8,"v":0.714},{"i":24,"j":8,"v":0.286},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.286},{"i":27,"j":8,"v":0.143},{"i":28,"j":8,"v":0.143},{"i":29,"j":8,"v":0.143},{"i":30,"j":8,"v":0.429},{"i":31,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":1,"j":9,"v":0.429},{"i":2,"j":9,"v":0.143},{"i":3,"j":9,"v":0.143},{"i":4,"j":9,"v":0.143},{"i":5,"j":9,"v":0.143},{"i":6,"j":9,"v":0.143},{"i":7,"j":9,"v":0.143},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.143},{"i":10,"j":9,"v":0.143},{"i":11,"j":9,"v":0.286},{"i":12,"j":9,"v":0.714},{"i":13,"j":9,"v":0.714},{"i":14,"j":9,"v":0.714},{"i":15,"j":9,"v":0.286},{"i":16,"j":9,"v":0.143},{"i":17,"j":9,"v":0.143},{"i":18,"j":9,"v":0.143},{"i":19,"j":9,"v":0.143},{"i":20,"j":9,"v":0.143},{"i":21,"j":9,"v":0.286},{"i":22,"j":9,"v":0.429},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":0.429},{"i":25,"j":9,"v":0.429},{"i":26,"j":9,"v":0.286},{"i":27,"j":9,"v":0.143},{"i":28,"j":9,"v":0.143},{"i":29,"j":9,"v":0.143},{"i":30,"j":9,"v":0.429},{"i":31,"j":9,"v":0.143},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.429},{"i":2,"j":10,"v":0.143},{"i":3,"j":10,"v":0.143},{"i":4,"j":10,"v":0.143},{"i":5,"j":10,"v":0.143},{"i":6,"j":10,"v":0.143},{"i":7,"j":10,"v":0.143},{"i":8,"j":10,"v":0.143},{"i":9,"j":10,"v":0.143},{"i":10,"j":10,"v":0.143},{"i":11,"j":10,"v":0.286},{"i":12,"j":10,"v":0.714},{"i":13,"j":10,"v":0.714},{"i":14,"j":10,"v":0.714},{"i":15,"j":10,"v":0.286},{"i":16,"j":10,"v":0.143},{"i":17,"j":10,"v":0.143},{"i":18,"j":10,"v":0.143},{"i":19,"j":10,"v":0.143},{"i":20,"j":10,"v":0.143},{"i":21,"j":10,"v":0.429},{"i":22,"j":10,"v":0.429},{"i":23,"j":10,"v":0.429},{"i":24,"j":10,"v":0.429},{"i":25,"j":10,"v":0.429},{"i":26,"j":10,"v":0.429},{"i":27,"j":10,"v":0.286},{"i":28,"j":10,"v":0.143},{"i":29,"j":10,"v":0.143},{"i":30,"j":10,"v":0.429},{"i":31,"j":10,"v":0.143},{"i":0,"j":11,"v":0.143},{"i":1,"j":11,"v":0.429},{"i":2,"j":11,"v":0.143},{"i":3,"j":11,"v":0.143},{"i":4,"j":11,"v":0.286},{"i":5,"j":11,"v":0.286},{"i":6,"j":11,"v":0.286},{"i":7,"j":11,"v":0.286},{"i":8,"j":11,"v":0.286},{"i":9,"j":11,"v":0.286},{"i":10,"j":11,"v":0.429},{"i":11,"j":11,"v":0.571},{"i":12,"j":11,"v":0.714},{"i":13,"j":11,"v":0.714},{"i":14,"j":11,"v":0.571},{"i":15,"j":11,"v":0.571},{"i":16,"j":11,"v":0.429},{"i":17,"j":11,"v":0.286},{"i":18,"j":11,"v":0.143},{"i":19,"j":11,"v":0.143},{"i":20,"j":11,"v":0.143},{"i":21,"j":11,"v":0.286},{"i":22,"j":11,"v":0.714},{"i":23,"j":11,"v":0.714},{"i":24,"j":11,"v":0.714},{"i":25,"j":11,"v":0.286},{"i":26,"j":11,"v":0.286},{"i":27,"j":11,"v":0.286},{"i":28,"j":11,"v":0.143},{"i":29,"j":11,"v":0.143},{"i":30,"j":11,"v":0.429},{"i":31,"j":11,"v":0.143},{"i":0,"j":12,"v":0.143},{"i":1,"j":12,"v":0.429},{"i":2,"j":12,"v":0.143},{"i":3,"j":12,"v":0.143},{"i":4,"j":12,"v":0.286},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":7,"j":12,"v":0.429},{"i":8,"j":12,"v":0.429},{"i":9,"j":12,"v":0.429},{"i":10,"j":12,"v":0.429},{"i":11,"j":12,"v":0.429},{"i":12,"j":12,"v":0.286},{"i":13,"j":12,"v":0.143},{"i":14,"j":12,"v":0.143},{"i":15,"j":12,"v":0.143},{"i":16,"j":12,"v":0.286},{"i":17,"j":12,"v":0.286},{"i":18,"j":12,"v":0.429},{"i":19,"j":12,"v":0.429},{"i":20,"j":12,"v":0.429},{"i":21,"j":12,"v":0.714},{"i":22,"j":12,"v":0.714},{"i":23,"j":12,"v":0.714},{"i":24,"j":12,"v":0.714},{"i":25,"j":12,"v":0.286},{"i":26,"j":12,"v":0.286},{"i":27,"j":12,"v":0.286},{"i":28,"j":12,"v":0.286},{"i":29,"j":12,"v":0.143},{"i":30,"j":12,"v":0.429},{"i":31,"j":12,"v":0.143},{"i":0,"j":13,"v":0.143},{"i":1,"j":13,"v":0.429},{"i":2,"j":13,"v":0.143},{"i":3,"j":13,"v":0.143},{"i":4,"j":13,"v":0.286},{"i":5,"j":13,"v":0.286},{"i":6,"j":13,"v":0.429},{"i":7,"j":13,"v":0.714},{"i":8,"j":13,"v":0.571},{"i":9,"j":13,"v":0.571},{"i":10,"j":13,"v":0.714},{"i":11,"j":13,"v":0.429},{"i":12,"j":13,"v":0.143},{"i":13,"j":13,"v":0.143},{"i":14,"j":13,"v":0.143},{"i":15,"j":13,"v":0.143},{"i":16,"j":13,"v":0.143},{"i":17,"j":13,"v":0.143},{"i":18,"j":13,"v":0.143},{"i":19,"j":13,"v":0.143},{"i":20,"j":13,"v":0.143},{"i":21,"j":13,"v":0.143},{"i":22,"j":13,"v":0.429},{"i":23,"j":13,"v":0.571},{"i":24,"j":13,"v":0.429},{"i":25,"j":13,"v":0.286},{"i":26,"j":13,"v":0.286},{"i":27,"j":13,"v":0.286},{"i":28,"j":13,"v":0.143},{"i":29,"j":13,"v":0.143},{"i":30,"j":13,"v":0.429},{"i":31,"j":13,"v":0.143},{"i":0,"j":14,"v":0.143},{"i":1,"j":14,"v":0.429},{"i":2,"j":14,"v":0.143},{"i":3,"j":14,"v":0.286},{"i":4,"j":14,"v":0.286},{"i":5,"j":14,"v":0.286},{"i":6,"j":14,"v":0.571},{"i":7,"j":14,"v":0.714},{"i":8,"j":14,"v":0.714},{"i":9,"j":14,"v":0.714},{"i":10,"j":14,"v":0.429},{"i":11,"j":14,"v":0.429},{"i":12,"j":14,"v":0.286},{"i":13,"j":14,"v":0.286},{"i":14,"j":14,"v":0.143},{"i":15,"j":14,"v":0.143},{"i":16,"j":14,"v":0.143},{"i":17,"j":14,"v":0.143},{"i":18,"j":14,"v":0.143},{"i":19,"j":14,"v":0.143},{"i":20,"j":14,"v":0.143},{"i":21,"j":14,"v":0.143},{"i":22,"j":14,"v":0.143},{"i":23,"j":14,"v":0.286},{"i":24,"j":14,"v":0.286},{"i":25,"j":14,"v":0.286},{"i":26,"j":14,"v":0.286},{"i":27,"j":14,"v":0.286},{"i":28,"j":14,"v":0.143},{"i":29,"j":14,"v":0.143},{"i":30,"j":14,"v":0.429},{"i":31,"j":14,"v":0.143},{"i":0,"j":15,"v":0.143},{"i":1,"j":15,"v":0.429},{"i":2,"j":15,"v":0.429},{"i":3,"j":15,"v":0.429},{"i":4,"j":15,"v":0.429},{"i":5,"j":15,"v":0.429},{"i":6,"j":15,"v":0.429},{"i":7,"j":15,"v":0.571},{"i":8,"j":15,"v":0.571},{"i":9,"j":15,"v":0.714},{"i":10,"j":15,"v":0.286},{"i":11,"j":15,"v":0.286},{"i":12,"j":15,"v":0.286},{"i":13,"j":15,"v":0.143},{"i":14,"j":15,"v":0.143},{"i":15,"j":15,"v":0.143},{"i":16,"j":15,"v":0.143},{"i":17,"j":15,"v":0.143},{"i":18,"j":15,"v":0.143},{"i":19,"j":15,"v":0.143},{"i":20,"j":15,"v":0.143},{"i":21,"j":15,"v":0.143},{"i":22,"j":15,"v":0.143},{"i":23,"j":15,"v":0.143},{"i":24,"j":15,"v":0.143},{"i":25,"j":15,"v":0.143},{"i":26,"j":15,"v":0.143},{"i":27,"j":15,"v":0.143},{"i":28,"j":15,"v":0.143},{"i":29,"j":15,"v":0.143},{"i":30,"j":15,"v":0.429},{"i":31,"j":15,"v":0.143},{"i":0,"j":16,"v":0.143},{"i":1,"j":16,"v":0.571},{"i":2,"j":16,"v":0.429},{"i":3,"j":16,"v":0.286},{"i":4,"j":16,"v":0.286},{"i":5,"j":16,"v":0.286},{"i":6,"j":16,"v":0.286},{"i":7,"j":16,"v":0.429},{"i":8,"j":16,"v":0.429},{"i":9,"j":16,"v":0.286},{"i":10,"j":16,"v":0.286},{"i":11,"j":16,"v":0.286},{"i":12,"j":16,"v":0.286},{"i":13,"j":16,"v":0.143},{"i":14,"j":16,"v":0.143},{"i":15,"j":16,"v":0.143},{"i":16,"j":16,"v":0.143},{"i":17,"j":16,"v":0.143},{"i":18,"j":16,"v":0.143},{"i":19,"j":16,"v":0.143},{"i":20,"j":16,"v":0.143},{"i":21,"j":16,"v":0.143},{"i":22,"j":16,"v":0.143},{"i":23,"j":16,"v":0.143},{"i":24,"j":16,"v":0.143},{"i":25,"j":16,"v":0.143},{"i":26,"j":16,"v":0.143},{"i":27,"j":16,"v":0.143},{"i":28,"j":16,"v":0.143},{"i":29,"j":16,"v":0.143},{"i":30,"j":16,"v":0.429},{"i":31,"j":16,"v":0.143},{"i":0,"j":17,"v":0.143},{"i":1,"j":17,"v":0.571},{"i":2,"j":17,"v":0.286},{"i":3,"j":17,"v":0.714},{"i":4,"j":17,"v":0.714},{"i":5,"j":17,"v":0.714},{"i":6,"j":17,"v":0.571},{"i":7,"j":17,"v":0.429},{"i":8,"j":17,"v":0.429},{"i":9,"j":17,"v":0.286},{"i":10,"j":17,"v":0.286},{"i":11,"j":17,"v":0.286},{"i":12,"j":17,"v":0.143},{"i":13,"j":17,"v":0.143},{"i":14,"j":17,"v":0.143},{"i":15,"j":17,"v":0.143},{"i":16,"j":17,"v":0.143},{"i":17,"j":17,"v":0.143},{"i":18,"j":17,"v":0.143},{"i":19,"j":17,"v":0.143},{"i":20,"j":17,"v":0.143},{"i":21,"j":17,"v":0.143},{"i":22,"j":17,"v":0.143},{"i":23,"j":17,"v":0.143},{"i":24,"j":17,"v":0.143},{"i":25,"j":17,"v":0.143},{"i":26,"j":17,"v":0.143},{"i":27,"j":17,"v":0.143},{"i":28,"j":17,"v":0.143},{"i":29,"j":17,"v":0.143},{"i":30,"j":17,"v":0.429},{"i":31,"j":17,"v":0.143},{"i":0,"j":18,"v":0.143},{"i":1,"j":18,"v":0.429},{"i":2,"j":18,"v":0.286},{"i":3,"j":18,"v":0.714},{"i":4,"j":18,"v":0.714},{"i":5,"j":18,"v":0.714},{"i":6,"j":18,"v":0.571},{"i":7,"j":18,"v":0.286},{"i":8,"j":18,"v":0.286},{"i":9,"j":18,"v":0.286},{"i":10,"j":18,"v":0.143},{"i":11,"j":18,"v":0.143},{"i":12,"j":18,"v":0.143},{"i":13,"j":18,"v":0.143},{"i":14,"j":18,"v":0.143},{"i":15,"j":18,"v":0.143},{"i":16,"j":18,"v":0.143},{"i":17,"j":18,"v":0.143},{"i":18,"j":18,"v":0.143},{"i":19,"j":18,"v":0.143},{"i":20,"j":18,"v":0.143},{"i":21,"j":18,"v":0.143},{"i":22,"j":18,"v":0.143},{"i":23,"j":18,"v":0.143},{"i":24,"j":18,"v":0.143},{"i":25,"j":18,"v":0.143},{"i":26,"j":18,"v":0.143},{"i":27,"j":18,"v":0.143},{"i":28,"j":18,"v":0.143},{"i":29,"j":18,"v":0.143},{"i":30,"j":18,"v":0.429},{"i":31,"j":18,"v":0.143},{"i":0,"j":19,"v":0.143},{"i":1,"j":19,"v":0.429},{"i":2,"j":19,"v":0.143},{"i":3,"j":19,"v":0.429},{"i":4,"j":19,"v":0.714},{"i":5,"j":19,"v":0.714},{"i":6,"j":19,"v":0.286},{"i":7,"j":19,"v":0.143},{"i":8,"j":19,"v":0.143},{"i":9,"j":19,"v":0.143},{"i":10,"j":19,"v":0.143},{"i":11,"j":19,"v":0.143},{"i":12,"j":19,"v":0.143},{"i":13,"j":19,"v":0.143},{"i":14,"j":19,"v":0.143},{"i":15,"j":19,"v":0.143},{"i":16,"j":19,"v":0.143},{"i":17,"j":19,"v":0.143},{"i":18,"j":19,"v":0.143},{"i":19,"j":19,"v":0.143},{"i":20,"j":19,"v":0.143},{"i":21,"j":19,"v":0.143},{"i":22,"j":19,"v":0.143},{"i":23,"j":19,"v":0.143},{"i":24,"j":19,"v":0.143},{"i":25,"j":19,"v":0.143},{"i":26,"j":19,"v":0.143},{"i":27,"j":19,"v":0.143},{"i":28,"j":19,"v":0.143},{"i":29,"j":19,"v":0.143},{"i":30,"j":19,"v":0.429},{"i":31,"j":19,"v":0.143},{"i":0,"j":20,"v":0.143},{"i":1,"j":20,"v":0.429},{"i":2,"j":20,"v":0.429},{"i":3,"j":20,"v":0.429},{"i":4,"j":20,"v":0.429},{"i":5,"j":20,"v":0.429},{"i":6,"j":20,"v":0.429},{"i":7,"j":20,"v":0.429},{"i":8,"j":20,"v":0.429},{"i":9,"j":20,"v":0.429},{"i":10,"j":20,"v":0.429},{"i":11,"j":20,"v":0.429},{"i":12,"j":20,"v":0.429},{"i":13,"j":20,"v":0.429},{"i":14,"j":20,"v":0.429},{"i":15,"j":20,"v":0.429},{"i":16,"j":20,"v":0.429},{"i":17,"j":20,"v":0.429},{"i":18,"j":20,"v":0.429},{"i":19,"j":20,"v":0.429},{"i":20,"j":20,"v":0.429},{"i":21,"j":20,"v":0.429},{"i":22,"j":20,"v":0.429},{"i":23,"j":20,"v":0.429},{"i":24,"j":20,"v":0.429},{"i":25,"j":20,"v":0.429},{"i":26,"j":20,"v":0.429},{"i":27,"j":20,"v":0.429},{"i":28,"j":20,"v":0.429},{"i":29,"j":20,"v":0.429},{"i":30,"j":20,"v":0.429},{"i":31,"j":20,"v":0.143},{"i":0,"j":21,"v":0.143},{"i":1,"j":21,"v":0.143},{"i":2,"j":21,"v":0.143},{"i":3,"j":21,"v":0.143},{"i":4,"j":21,"v":0.143},{"i":5,"j":21,"v":0.143},{"i":6,"j":21,"v":0.143},{"i":7,"j":21,"v":0.143},{"i":8,"j":21,"v":0.143},{"i":9,"j":21,"v":0.143},{"i":10,"j":21,"v":0.143},{"i":11,"j":21,"v":0.143},{"i":12,"j":21,"v":0.143},{"i":13,"j":21,"v":0.143},{"i":14,"j":21,"v":0.143},{"i":15,"j":21,"v":0.143},{"i":16,"j":21,"v":0.143},{"i":17,"j":21,"v":0.143},{"i":18,"j":21,"v":0.143},{"i":19,"j":21,"v":0.143},{"i":20,"j":21,"v":0.143},{"i":21,"j":21,"v":0.143},{"i":22,"j":21,"v":0.143},{"i":23,"j":21,"v":0.143},{"i":24,"j":21,"v":0.143},{"i":25,"j":21,"v":0.143},{"i":26,"j":21,"v":0.143},{"i":27,"j":21,"v":0.143},{"i":28,"j":21,"v":0.143},{"i":29,"j":21,"v":0.143},{"i":30,"j":21,"v":0.143},{"i":31,"j":21,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "set_piece.sea-route-map",
+      "type": "SET_PIECE",
+      "statusWord": "CHARTED",
+      "ink": {
+       "cols": 32,
+       "rows": 22,
+       "cells": 704,
+       "fill": 1
+      },
+      "wholeFrame": true
+     }
+    },
+    "a_ensemble_divided_achaean_fleet": {
+     "id": "a_ensemble_divided_achaean_fleet",
+     "word": "divided achaean fleet",
+     "grid": {
+      "cols": 32,
+      "rows": 22,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.143},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.143},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.143},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.143},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":27,"j":0,"v":0.143},{"i":28,"j":0,"v":0.143},{"i":29,"j":0,"v":0.143},{"i":30,"j":0,"v":0.143},{"i":31,"j":0,"v":0.143},{"i":0,"j":1,"v":0.143},{"i":1,"j":1,"v":0.143},{"i":2,"j":1,"v":0.143},{"i":3,"j":1,"v":0.143},{"i":4,"j":1,"v":0.143},{"i":5,"j":1,"v":0.143},{"i":6,"j":1,"v":0.143},{"i":7,"j":1,"v":0.143},{"i":8,"j":1,"v":0.143},{"i":9,"j":1,"v":0.143},{"i":10,"j":1,"v":0.143},{"i":11,"j":1,"v":0.143},{"i":12,"j":1,"v":0.143},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.143},{"i":17,"j":1,"v":0.143},{"i":18,"j":1,"v":0.143},{"i":19,"j":1,"v":0.143},{"i":20,"j":1,"v":0.143},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.143},{"i":23,"j":1,"v":0.143},{"i":24,"j":1,"v":0.143},{"i":25,"j":1,"v":0.143},{"i":26,"j":1,"v":0.143},{"i":27,"j":1,"v":0.143},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.143},{"i":30,"j":1,"v":0.143},{"i":31,"j":1,"v":0.143},{"i":0,"j":2,"v":0.143},{"i":1,"j":2,"v":0.143},{"i":2,"j":2,"v":0.143},{"i":3,"j":2,"v":0.143},{"i":4,"j":2,"v":0.143},{"i":5,"j":2,"v":0.143},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.143},{"i":8,"j":2,"v":0.143},{"i":9,"j":2,"v":0.143},{"i":10,"j":2,"v":0.143},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.143},{"i":17,"j":2,"v":0.143},{"i":18,"j":2,"v":0.143},{"i":19,"j":2,"v":0.143},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.143},{"i":24,"j":2,"v":0.143},{"i":25,"j":2,"v":0.143},{"i":26,"j":2,"v":0.143},{"i":27,"j":2,"v":0.143},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.143},{"i":30,"j":2,"v":0.143},{"i":31,"j":2,"v":0.143},{"i":0,"j":3,"v":0.143},{"i":1,"j":3,"v":0.143},{"i":2,"j":3,"v":0.143},{"i":3,"j":3,"v":0.143},{"i":4,"j":3,"v":0.143},{"i":5,"j":3,"v":0.143},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.143},{"i":8,"j":3,"v":0.143},{"i":9,"j":3,"v":0.143},{"i":10,"j":3,"v":0.143},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.143},{"i":13,"j":3,"v":0.143},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.143},{"i":16,"j":3,"v":0.143},{"i":17,"j":3,"v":0.143},{"i":18,"j":3,"v":0.143},{"i":19,"j":3,"v":0.143},{"i":20,"j":3,"v":0.143},{"i":21,"j":3,"v":0.143},{"i":22,"j":3,"v":0.143},{"i":23,"j":3,"v":0.143},{"i":24,"j":3,"v":0.143},{"i":25,"j":3,"v":0.143},{"i":26,"j":3,"v":0.143},{"i":27,"j":3,"v":0.143},{"i":28,"j":3,"v":0.143},{"i":29,"j":3,"v":0.143},{"i":30,"j":3,"v":0.143},{"i":31,"j":3,"v":0.143},{"i":0,"j":4,"v":0.143},{"i":1,"j":4,"v":0.143},{"i":2,"j":4,"v":0.143},{"i":3,"j":4,"v":0.143},{"i":4,"j":4,"v":0.143},{"i":5,"j":4,"v":0.143},{"i":6,"j":4,"v":0.143},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.143},{"i":11,"j":4,"v":0.143},{"i":12,"j":4,"v":0.143},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.143},{"i":15,"j":4,"v":0.143},{"i":16,"j":4,"v":0.143},{"i":17,"j":4,"v":0.143},{"i":18,"j":4,"v":0.143},{"i":19,"j":4,"v":0.143},{"i":20,"j":4,"v":0.143},{"i":21,"j":4,"v":0.143},{"i":22,"j":4,"v":0.143},{"i":23,"j":4,"v":0.143},{"i":24,"j":4,"v":0.143},{"i":25,"j":4,"v":0.143},{"i":26,"j":4,"v":0.143},{"i":27,"j":4,"v":0.143},{"i":28,"j":4,"v":0.143},{"i":29,"j":4,"v":0.143},{"i":30,"j":4,"v":0.143},{"i":31,"j":4,"v":0.143},{"i":0,"j":5,"v":0.143},{"i":1,"j":5,"v":0.286},{"i":2,"j":5,"v":0.286},{"i":3,"j":5,"v":0.286},{"i":4,"j":5,"v":0.286},{"i":5,"j":5,"v":0.286},{"i":6,"j":5,"v":0.286},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.286},{"i":10,"j":5,"v":0.286},{"i":11,"j":5,"v":0.143},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.286},{"i":14,"j":5,"v":0.286},{"i":15,"j":5,"v":0.286},{"i":16,"j":5,"v":0.286},{"i":17,"j":5,"v":0.286},{"i":18,"j":5,"v":0.286},{"i":19,"j":5,"v":0.143},{"i":20,"j":5,"v":0.143},{"i":21,"j":5,"v":0.286},{"i":22,"j":5,"v":0.286},{"i":23,"j":5,"v":0.143},{"i":24,"j":5,"v":0.143},{"i":25,"j":5,"v":0.286},{"i":26,"j":5,"v":0.286},{"i":27,"j":5,"v":0.286},{"i":28,"j":5,"v":0.286},{"i":29,"j":5,"v":0.286},{"i":30,"j":5,"v":0.286},{"i":31,"j":5,"v":0.143},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.143},{"i":2,"j":6,"v":0.143},{"i":3,"j":6,"v":0.286},{"i":4,"j":6,"v":0.286},{"i":5,"j":6,"v":0.143},{"i":6,"j":6,"v":0.143},{"i":7,"j":6,"v":0.143},{"i":8,"j":6,"v":0.143},{"i":9,"j":6,"v":0.143},{"i":10,"j":6,"v":0.286},{"i":11,"j":6,"v":0.286},{"i":12,"j":6,"v":0.286},{"i":13,"j":6,"v":0.143},{"i":14,"j":6,"v":0.143},{"i":15,"j":6,"v":0.143},{"i":16,"j":6,"v":0.143},{"i":17,"j":6,"v":0.143},{"i":18,"j":6,"v":0.143},{"i":19,"j":6,"v":0.286},{"i":20,"j":6,"v":0.286},{"i":21,"j":6,"v":0.286},{"i":22,"j":6,"v":0.286},{"i":23,"j":6,"v":0.143},{"i":24,"j":6,"v":0.143},{"i":25,"j":6,"v":0.286},{"i":26,"j":6,"v":0.286},{"i":27,"j":6,"v":0.286},{"i":28,"j":6,"v":0.286},{"i":29,"j":6,"v":0.143},{"i":30,"j":6,"v":0.143},{"i":31,"j":6,"v":0.143},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.143},{"i":2,"j":7,"v":0.143},{"i":3,"j":7,"v":0.286},{"i":4,"j":7,"v":0.143},{"i":5,"j":7,"v":0.143},{"i":6,"j":7,"v":0.286},{"i":7,"j":7,"v":0.286},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.286},{"i":12,"j":7,"v":0.143},{"i":13,"j":7,"v":0.286},{"i":14,"j":7,"v":0.143},{"i":15,"j":7,"v":0.286},{"i":16,"j":7,"v":0.143},{"i":17,"j":7,"v":0.143},{"i":18,"j":7,"v":0.143},{"i":19,"j":7,"v":0.143},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.429},{"i":22,"j":7,"v":0.429},{"i":23,"j":7,"v":0.429},{"i":24,"j":7,"v":0.429},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.429},{"i":27,"j":7,"v":0.429},{"i":28,"j":7,"v":0.429},{"i":29,"j":7,"v":0.429},{"i":30,"j":7,"v":0.143},{"i":31,"j":7,"v":0.143},{"i":0,"j":8,"v":0.286},{"i":1,"j":8,"v":0.286},{"i":2,"j":8,"v":0.286},{"i":3,"j":8,"v":0.429},{"i":4,"j":8,"v":0.286},{"i":5,"j":8,"v":0.429},{"i":6,"j":8,"v":0.286},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.429},{"i":9,"j":8,"v":0.429},{"i":10,"j":8,"v":0.286},{"i":11,"j":8,"v":0.429},{"i":12,"j":8,"v":0.429},{"i":13,"j":8,"v":0.571},{"i":14,"j":8,"v":0.714},{"i":15,"j":8,"v":0.571},{"i":16,"j":8,"v":0.571},{"i":17,"j":8,"v":0.571},{"i":18,"j":8,"v":0.571},{"i":19,"j":8,"v":0.571},{"i":20,"j":8,"v":0.571},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.571},{"i":23,"j":8,"v":0.571},{"i":24,"j":8,"v":0.571},{"i":25,"j":8,"v":0.571},{"i":26,"j":8,"v":0.571},{"i":27,"j":8,"v":0.286},{"i":28,"j":8,"v":0.286},{"i":29,"j":8,"v":0.571},{"i":30,"j":8,"v":0.286},{"i":31,"j":8,"v":0.286},{"i":0,"j":9,"v":0.286},{"i":1,"j":9,"v":0.286},{"i":2,"j":9,"v":0.429},{"i":3,"j":9,"v":0.286},{"i":4,"j":9,"v":0.429},{"i":5,"j":9,"v":0.571},{"i":6,"j":9,"v":0.714},{"i":7,"j":9,"v":0.714},{"i":8,"j":9,"v":0.714},{"i":9,"j":9,"v":0.714},{"i":10,"j":9,"v":0.714},{"i":11,"j":9,"v":0.714},{"i":12,"j":9,"v":0.714},{"i":13,"j":9,"v":0.714},{"i":14,"j":9,"v":0.714},{"i":15,"j":9,"v":0.714},{"i":16,"j":9,"v":0.571},{"i":17,"j":9,"v":0.571},{"i":18,"j":9,"v":0.571},{"i":19,"j":9,"v":0.571},{"i":20,"j":9,"v":0.714},{"i":21,"j":9,"v":0.714},{"i":22,"j":9,"v":0.429},{"i":23,"j":9,"v":0.286},{"i":24,"j":9,"v":0.286},{"i":25,"j":9,"v":0.286},{"i":26,"j":9,"v":0.429},{"i":27,"j":9,"v":0.429},{"i":28,"j":9,"v":0.286},{"i":29,"j":9,"v":0.429},{"i":30,"j":9,"v":0.286},{"i":31,"j":9,"v":0.286},{"i":0,"j":10,"v":0.286},{"i":1,"j":10,"v":0.286},{"i":2,"j":10,"v":0.286},{"i":3,"j":10,"v":0.286},{"i":4,"j":10,"v":0.286},{"i":5,"j":10,"v":0.714},{"i":6,"j":10,"v":0.571},{"i":7,"j":10,"v":0.429},{"i":8,"j":10,"v":0.429},{"i":9,"j":10,"v":0.429},{"i":10,"j":10,"v":0.429},{"i":11,"j":10,"v":0.429},{"i":12,"j":10,"v":0.429},{"i":13,"j":10,"v":0.429},{"i":14,"j":10,"v":0.429},{"i":15,"j":10,"v":0.429},{"i":16,"j":10,"v":0.429},{"i":17,"j":10,"v":0.429},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.429},{"i":20,"j":10,"v":0.429},{"i":21,"j":10,"v":0.571},{"i":22,"j":10,"v":0.286},{"i":23,"j":10,"v":0.286},{"i":24,"j":10,"v":0.286},{"i":25,"j":10,"v":0.286},{"i":26,"j":10,"v":0.286},{"i":27,"j":10,"v":0.429},{"i":28,"j":10,"v":0.286},{"i":29,"j":10,"v":0.571},{"i":30,"j":10,"v":0.286},{"i":31,"j":10,"v":0.286},{"i":0,"j":11,"v":0.286},{"i":1,"j":11,"v":0.286},{"i":2,"j":11,"v":0.286},{"i":3,"j":11,"v":0.286},{"i":4,"j":11,"v":0.286},{"i":5,"j":11,"v":0.714},{"i":6,"j":11,"v":0.571},{"i":7,"j":11,"v":0.429},{"i":8,"j":11,"v":0.429},{"i":9,"j":11,"v":0.429},{"i":10,"j":11,"v":0.429},{"i":11,"j":11,"v":0.429},{"i":12,"j":11,"v":0.429},{"i":13,"j":11,"v":0.429},{"i":14,"j":11,"v":0.429},{"i":15,"j":11,"v":0.429},{"i":16,"j":11,"v":0.429},{"i":17,"j":11,"v":0.429},{"i":18,"j":11,"v":0.429},{"i":19,"j":11,"v":0.429},{"i":20,"j":11,"v":0.429},{"i":21,"j":11,"v":0.571},{"i":22,"j":11,"v":0.286},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.286},{"i":25,"j":11,"v":0.286},{"i":26,"j":11,"v":0.429},{"i":27,"j":11,"v":0.571},{"i":28,"j":11,"v":0.429},{"i":29,"j":11,"v":0.429},{"i":30,"j":11,"v":0.286},{"i":31,"j":11,"v":0.286},{"i":0,"j":12,"v":0.286},{"i":1,"j":12,"v":0.286},{"i":2,"j":12,"v":0.286},{"i":3,"j":12,"v":0.286},{"i":4,"j":12,"v":0.429},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.714},{"i":7,"j":12,"v":0.429},{"i":8,"j":12,"v":0.429},{"i":9,"j":12,"v":0.429},{"i":10,"j":12,"v":0.429},{"i":11,"j":12,"v":0.429},{"i":12,"j":12,"v":0.429},{"i":13,"j":12,"v":0.429},{"i":14,"j":12,"v":0.429},{"i":15,"j":12,"v":0.429},{"i":16,"j":12,"v":0.429},{"i":17,"j":12,"v":0.429},{"i":18,"j":12,"v":0.429},{"i":19,"j":12,"v":0.429},{"i":20,"j":12,"v":0.429},{"i":21,"j":12,"v":0.571},{"i":22,"j":12,"v":0.286},{"i":23,"j":12,"v":0.286},{"i":24,"j":12,"v":0.286},{"i":25,"j":12,"v":0.286},{"i":26,"j":12,"v":0.571},{"i":27,"j":12,"v":0.571},{"i":28,"j":12,"v":0.571},{"i":29,"j":12,"v":0.429},{"i":30,"j":12,"v":0.286},{"i":31,"j":12,"v":0.286},{"i":0,"j":13,"v":0.286},{"i":1,"j":13,"v":0.286},{"i":2,"j":13,"v":0.286},{"i":3,"j":13,"v":0.286},{"i":4,"j":13,"v":0.286},{"i":5,"j":13,"v":0.571},{"i":6,"j":13,"v":0.714},{"i":7,"j":13,"v":0.429},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.429},{"i":10,"j":13,"v":0.429},{"i":11,"j":13,"v":0.429},{"i":12,"j":13,"v":0.429},{"i":13,"j":13,"v":0.429},{"i":14,"j":13,"v":0.429},{"i":15,"j":13,"v":0.429},{"i":16,"j":13,"v":0.429},{"i":17,"j":13,"v":0.429},{"i":18,"j":13,"v":0.429},{"i":19,"j":13,"v":0.429},{"i":20,"j":13,"v":0.571},{"i":21,"j":13,"v":0.429},{"i":22,"j":13,"v":0.286},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.286},{"i":25,"j":13,"v":0.286},{"i":26,"j":13,"v":0.714},{"i":27,"j":13,"v":0.714},{"i":28,"j":13,"v":0.429},{"i":29,"j":13,"v":0.286},{"i":30,"j":13,"v":0.286},{"i":31,"j":13,"v":0.286},{"i":0,"j":14,"v":0.286},{"i":1,"j":14,"v":0.286},{"i":2,"j":14,"v":0.286},{"i":3,"j":14,"v":0.286},{"i":4,"j":14,"v":0.286},{"i":5,"j":14,"v":0.571},{"i":6,"j":14,"v":0.714},{"i":7,"j":14,"v":0.429},{"i":8,"j":14,"v":0.429},{"i":9,"j":14,"v":0.429},{"i":10,"j":14,"v":0.429},{"i":11,"j":14,"v":0.429},{"i":12,"j":14,"v":0.429},{"i":13,"j":14,"v":0.429},{"i":14,"j":14,"v":0.429},{"i":15,"j":14,"v":0.429},{"i":16,"j":14,"v":0.429},{"i":17,"j":14,"v":0.429},{"i":18,"j":14,"v":0.429},{"i":19,"j":14,"v":0.429},{"i":20,"j":14,"v":0.571},{"i":21,"j":14,"v":0.429},{"i":22,"j":14,"v":0.429},{"i":23,"j":14,"v":0.429},{"i":24,"j":14,"v":0.429},{"i":25,"j":14,"v":0.571},{"i":26,"j":14,"v":0.286},{"i":27,"j":14,"v":0.571},{"i":28,"j":14,"v":0.286},{"i":29,"j":14,"v":0.286},{"i":30,"j":14,"v":0.286},{"i":31,"j":14,"v":0.286},{"i":0,"j":15,"v":0.286},{"i":1,"j":15,"v":0.286},{"i":2,"j":15,"v":0.286},{"i":3,"j":15,"v":0.286},{"i":4,"j":15,"v":0.429},{"i":5,"j":15,"v":0.571},{"i":6,"j":15,"v":0.571},{"i":7,"j":15,"v":0.429},{"i":8,"j":15,"v":0.429},{"i":9,"j":15,"v":0.429},{"i":10,"j":15,"v":0.429},{"i":11,"j":15,"v":0.429},{"i":12,"j":15,"v":0.429},{"i":13,"j":15,"v":0.429},{"i":14,"j":15,"v":0.429},{"i":15,"j":15,"v":0.429},{"i":16,"j":15,"v":0.429},{"i":17,"j":15,"v":0.429},{"i":18,"j":15,"v":0.429},{"i":19,"j":15,"v":0.429},{"i":20,"j":15,"v":0.714},{"i":21,"j":15,"v":0.714},{"i":22,"j":15,"v":0.429},{"i":23,"j":15,"v":0.429},{"i":24,"j":15,"v":0.429},{"i":25,"j":15,"v":0.429},{"i":26,"j":15,"v":0.286},{"i":27,"j":15,"v":0.571},{"i":28,"j":15,"v":0.286},{"i":29,"j":15,"v":0.286},{"i":30,"j":15,"v":0.286},{"i":31,"j":15,"v":0.286},{"i":0,"j":16,"v":0.286},{"i":1,"j":16,"v":0.286},{"i":2,"j":16,"v":0.286},{"i":3,"j":16,"v":0.286},{"i":4,"j":16,"v":0.571},{"i":5,"j":16,"v":0.429},{"i":6,"j":16,"v":0.429},{"i":7,"j":16,"v":0.571},{"i":8,"j":16,"v":0.429},{"i":9,"j":16,"v":0.429},{"i":10,"j":16,"v":0.429},{"i":11,"j":16,"v":0.429},{"i":12,"j":16,"v":0.429},{"i":13,"j":16,"v":0.429},{"i":14,"j":16,"v":0.429},{"i":15,"j":16,"v":0.429},{"i":16,"j":16,"v":0.429},{"i":17,"j":16,"v":0.429},{"i":18,"j":16,"v":0.429},{"i":19,"j":16,"v":0.429},{"i":20,"j":16,"v":0.714},{"i":21,"j":16,"v":0.857},{"i":22,"j":16,"v":0.714},{"i":23,"j":16,"v":0.714},{"i":24,"j":16,"v":0.714},{"i":25,"j":16,"v":0.714},{"i":26,"j":16,"v":0.714},{"i":27,"j":16,"v":0.429},{"i":28,"j":16,"v":0.286},{"i":29,"j":16,"v":0.286},{"i":30,"j":16,"v":0.286},{"i":31,"j":16,"v":0.286},{"i":0,"j":17,"v":0.286},{"i":1,"j":17,"v":0.286},{"i":2,"j":17,"v":0.286},{"i":3,"j":17,"v":0.286},{"i":4,"j":17,"v":0.571},{"i":5,"j":17,"v":0.286},{"i":6,"j":17,"v":0.429},{"i":7,"j":17,"v":0.571},{"i":8,"j":17,"v":0.429},{"i":9,"j":17,"v":0.429},{"i":10,"j":17,"v":0.429},{"i":11,"j":17,"v":0.429},{"i":12,"j":17,"v":0.429},{"i":13,"j":17,"v":0.429},{"i":14,"j":17,"v":0.429},{"i":15,"j":17,"v":0.429},{"i":16,"j":17,"v":0.429},{"i":17,"j":17,"v":0.429},{"i":18,"j":17,"v":0.429},{"i":19,"j":17,"v":0.429},{"i":20,"j":17,"v":0.714},{"i":21,"j":17,"v":0.714},{"i":22,"j":17,"v":0.857},{"i":23,"j":17,"v":0.714},{"i":24,"j":17,"v":0.714},{"i":25,"j":17,"v":0.714},{"i":26,"j":17,"v":0.429},{"i":27,"j":17,"v":0.286},{"i":28,"j":17,"v":0.286},{"i":29,"j":17,"v":0.286},{"i":30,"j":17,"v":0.286},{"i":31,"j":17,"v":0.286},{"i":0,"j":18,"v":0.286},{"i":1,"j":18,"v":0.286},{"i":2,"j":18,"v":0.286},{"i":3,"j":18,"v":0.286},{"i":4,"j":18,"v":0.571},{"i":5,"j":18,"v":0.286},{"i":6,"j":18,"v":0.286},{"i":7,"j":18,"v":0.714},{"i":8,"j":18,"v":0.714},{"i":9,"j":18,"v":0.714},{"i":10,"j":18,"v":0.714},{"i":11,"j":18,"v":0.714},{"i":12,"j":18,"v":0.714},{"i":13,"j":18,"v":0.714},{"i":14,"j":18,"v":0.714},{"i":15,"j":18,"v":0.714},{"i":16,"j":18,"v":0.714},{"i":17,"j":18,"v":0.714},{"i":18,"j":18,"v":0.714},{"i":19,"j":18,"v":0.714},{"i":20,"j":18,"v":0.857},{"i":21,"j":18,"v":0.857},{"i":22,"j":18,"v":0.857},{"i":23,"j":18,"v":0.714},{"i":24,"j":18,"v":0.571},{"i":25,"j":18,"v":0.286},{"i":26,"j":18,"v":0.286},{"i":27,"j":18,"v":0.286},{"i":28,"j":18,"v":0.286},{"i":29,"j":18,"v":0.286},{"i":30,"j":18,"v":0.286},{"i":31,"j":18,"v":0.286},{"i":0,"j":19,"v":0.286},{"i":1,"j":19,"v":0.286},{"i":2,"j":19,"v":0.286},{"i":3,"j":19,"v":0.286},{"i":4,"j":19,"v":0.571},{"i":5,"j":19,"v":0.429},{"i":6,"j":19,"v":0.286},{"i":7,"j":19,"v":0.286},{"i":8,"j":19,"v":0.286},{"i":9,"j":19,"v":0.571},{"i":10,"j":19,"v":0.714},{"i":11,"j":19,"v":0.714},{"i":12,"j":19,"v":0.714},{"i":13,"j":19,"v":0.714},{"i":14,"j":19,"v":0.714},{"i":15,"j":19,"v":0.714},{"i":16,"j":19,"v":0.714},{"i":17,"j":19,"v":0.714},{"i":18,"j":19,"v":0.714},{"i":19,"j":19,"v":0.714},{"i":20,"j":19,"v":0.571},{"i":21,"j":19,"v":0.429},{"i":22,"j":19,"v":0.571},{"i":23,"j":19,"v":0.571},{"i":24,"j":19,"v":0.286},{"i":25,"j":19,"v":0.286},{"i":26,"j":19,"v":0.286},{"i":27,"j":19,"v":0.286},{"i":28,"j":19,"v":0.286},{"i":29,"j":19,"v":0.286},{"i":30,"j":19,"v":0.286},{"i":31,"j":19,"v":0.286},{"i":0,"j":20,"v":0.286},{"i":1,"j":20,"v":0.286},{"i":2,"j":20,"v":0.286},{"i":3,"j":20,"v":0.286},{"i":4,"j":20,"v":0.286},{"i":5,"j":20,"v":0.857},{"i":6,"j":20,"v":0.857},{"i":7,"j":20,"v":0.857},{"i":8,"j":20,"v":0.857},{"i":9,"j":20,"v":0.857},{"i":10,"j":20,"v":0.857},{"i":11,"j":20,"v":0.857},{"i":12,"j":20,"v":0.857},{"i":13,"j":20,"v":0.857},{"i":14,"j":20,"v":0.857},{"i":15,"j":20,"v":0.857},{"i":16,"j":20,"v":0.857},{"i":17,"j":20,"v":0.857},{"i":18,"j":20,"v":0.857},{"i":19,"j":20,"v":0.857},{"i":20,"j":20,"v":0.857},{"i":21,"j":20,"v":0.857},{"i":22,"j":20,"v":0.714},{"i":23,"j":20,"v":0.286},{"i":24,"j":20,"v":0.286},{"i":25,"j":20,"v":0.286},{"i":26,"j":20,"v":0.286},{"i":27,"j":20,"v":0.286},{"i":28,"j":20,"v":0.286},{"i":29,"j":20,"v":0.286},{"i":30,"j":20,"v":0.286},{"i":31,"j":20,"v":0.286},{"i":0,"j":21,"v":0.286},{"i":1,"j":21,"v":0.286},{"i":2,"j":21,"v":0.286},{"i":3,"j":21,"v":0.286},{"i":4,"j":21,"v":0.286},{"i":5,"j":21,"v":0.286},{"i":6,"j":21,"v":0.714},{"i":7,"j":21,"v":0.857},{"i":8,"j":21,"v":0.857},{"i":9,"j":21,"v":0.857},{"i":10,"j":21,"v":0.857},{"i":11,"j":21,"v":0.857},{"i":12,"j":21,"v":0.857},{"i":13,"j":21,"v":0.857},{"i":14,"j":21,"v":0.857},{"i":15,"j":21,"v":0.857},{"i":16,"j":21,"v":0.857},{"i":17,"j":21,"v":0.857},{"i":18,"j":21,"v":0.857},{"i":19,"j":21,"v":0.857},{"i":20,"j":21,"v":0.857},{"i":21,"j":21,"v":0.714},{"i":22,"j":21,"v":0.286},{"i":23,"j":21,"v":0.286},{"i":24,"j":21,"v":0.286},{"i":25,"j":21,"v":0.286},{"i":26,"j":21,"v":0.286},{"i":27,"j":21,"v":0.286},{"i":28,"j":21,"v":0.286},{"i":29,"j":21,"v":0.286},{"i":30,"j":21,"v":0.286},{"i":31,"j":21,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "ensemble.divided-achaean-fleet",
+      "type": "ENSEMBLE",
+      "statusWord": "SCATTERING",
+      "ink": {
+       "cols": 32,
+       "rows": 22,
+       "cells": 704,
+       "fill": 1
+      },
+      "wholeFrame": true
+     }
+    },
+    "a_character_agamemnon_and_menelaus_memory_variants": {
+     "id": "a_character_agamemnon_and_menelaus_memory_variants",
+     "word": "agamemnon and menelaus memory variants",
+     "grid": {
+      "cols": 26,
+      "rows": 21,
+      "cells": [{"i":1,"j":0,"v":0.714},{"i":2,"j":0,"v":0.857},{"i":3,"j":0,"v":0.857},{"i":4,"j":0,"v":0.857},{"i":5,"j":0,"v":0.714},{"i":1,"j":1,"v":0.857},{"i":2,"j":1,"v":0.714},{"i":3,"j":1,"v":0.429},{"i":4,"j":1,"v":0.571},{"i":5,"j":1,"v":0.714},{"i":6,"j":1,"v":0.286},{"i":19,"j":1,"v":0.286},{"i":20,"j":1,"v":0.714},{"i":21,"j":1,"v":0.714},{"i":22,"j":1,"v":0.571},{"i":0,"j":2,"v":0.143},{"i":1,"j":2,"v":0.571},{"i":2,"j":2,"v":0.429},{"i":3,"j":2,"v":0.429},{"i":4,"j":2,"v":0.286},{"i":5,"j":2,"v":0.429},{"i":6,"j":2,"v":0.286},{"i":19,"j":2,"v":0.857},{"i":20,"j":2,"v":0.714},{"i":21,"j":2,"v":0.571},{"i":22,"j":2,"v":0.714},{"i":23,"j":2,"v":0.571},{"i":1,"j":3,"v":0.571},{"i":2,"j":3,"v":0.571},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.571},{"i":5,"j":3,"v":0.857},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.429},{"i":20,"j":3,"v":0.286},{"i":21,"j":3,"v":0.286},{"i":22,"j":3,"v":0.286},{"i":23,"j":3,"v":0.714},{"i":2,"j":4,"v":0.714},{"i":3,"j":4,"v":0.857},{"i":4,"j":4,"v":0.857},{"i":5,"j":4,"v":0.286},{"i":6,"j":4,"v":0.429},{"i":7,"j":4,"v":0.571},{"i":8,"j":4,"v":0.571},{"i":9,"j":4,"v":0.571},{"i":10,"j":4,"v":0.429},{"i":11,"j":4,"v":0.286},{"i":12,"j":4,"v":0.286},{"i":13,"j":4,"v":0.143},{"i":19,"j":4,"v":0.714},{"i":20,"j":4,"v":0.286},{"i":21,"j":4,"v":0.429},{"i":22,"j":4,"v":0.571},{"i":23,"j":4,"v":0.429},{"i":0,"j":5,"v":0.286},{"i":1,"j":5,"v":0.571},{"i":2,"j":5,"v":0.429},{"i":3,"j":5,"v":0.857},{"i":4,"j":5,"v":0.857},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.714},{"i":7,"j":5,"v":0.571},{"i":8,"j":5,"v":0.429},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.429},{"i":11,"j":5,"v":0.286},{"i":12,"j":5,"v":0.429},{"i":13,"j":5,"v":0.571},{"i":14,"j":5,"v":0.571},{"i":18,"j":5,"v":0.286},{"i":19,"j":5,"v":0.429},{"i":20,"j":5,"v":0.714},{"i":21,"j":5,"v":0.714},{"i":22,"j":5,"v":0.714},{"i":23,"j":5,"v":0.286},{"i":24,"j":5,"v":0.143},{"i":0,"j":6,"v":0.429},{"i":1,"j":6,"v":0.714},{"i":2,"j":6,"v":0.714},{"i":3,"j":6,"v":0.714},{"i":4,"j":6,"v":0.714},{"i":5,"j":6,"v":0.714},{"i":6,"j":6,"v":0.571},{"i":12,"j":6,"v":0.286},{"i":13,"j":6,"v":0.286},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.429},{"i":16,"j":6,"v":0.714},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.714},{"i":19,"j":6,"v":0.714},{"i":20,"j":6,"v":0.714},{"i":21,"j":6,"v":0.857},{"i":22,"j":6,"v":0.714},{"i":23,"j":6,"v":0.714},{"i":24,"j":6,"v":0.429},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.714},{"i":2,"j":7,"v":0.714},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.571},{"i":5,"j":7,"v":0.571},{"i":6,"j":7,"v":0.571},{"i":11,"j":7,"v":0.143},{"i":12,"j":7,"v":0.571},{"i":13,"j":7,"v":0.429},{"i":14,"j":7,"v":0.286},{"i":15,"j":7,"v":0.286},{"i":16,"j":7,"v":0.143},{"i":18,"j":7,"v":0.571},{"i":19,"j":7,"v":0.714},{"i":20,"j":7,"v":0.714},{"i":21,"j":7,"v":0.714},{"i":22,"j":7,"v":0.714},{"i":23,"j":7,"v":0.714},{"i":24,"j":7,"v":0.571},{"i":0,"j":8,"v":0.286},{"i":1,"j":8,"v":0.714},{"i":2,"j":8,"v":0.714},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.571},{"i":5,"j":8,"v":0.571},{"i":6,"j":8,"v":0.571},{"i":18,"j":8,"v":0.429},{"i":19,"j":8,"v":0.714},{"i":20,"j":8,"v":0.571},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.571},{"i":23,"j":8,"v":0.571},{"i":24,"j":8,"v":0.714},{"i":0,"j":9,"v":0.286},{"i":1,"j":9,"v":0.571},{"i":2,"j":9,"v":0.714},{"i":3,"j":9,"v":0.714},{"i":4,"j":9,"v":0.571},{"i":5,"j":9,"v":0.714},{"i":6,"j":9,"v":0.286},{"i":18,"j":9,"v":0.286},{"i":19,"j":9,"v":0.714},{"i":20,"j":9,"v":0.714},{"i":21,"j":9,"v":0.571},{"i":22,"j":9,"v":0.571},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":0.571},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.429},{"i":2,"j":10,"v":0.714},{"i":3,"j":10,"v":0.714},{"i":4,"j":10,"v":0.857},{"i":5,"j":10,"v":0.714},{"i":19,"j":10,"v":0.714},{"i":20,"j":10,"v":0.714},{"i":21,"j":10,"v":0.714},{"i":22,"j":10,"v":0.571},{"i":24,"j":10,"v":0.429},{"i":0,"j":11,"v":0.143},{"i":1,"j":11,"v":0.286},{"i":2,"j":11,"v":0.714},{"i":3,"j":11,"v":0.714},{"i":4,"j":11,"v":0.714},{"i":5,"j":11,"v":0.857},{"i":19,"j":11,"v":0.714},{"i":20,"j":11,"v":0.714},{"i":21,"j":11,"v":0.714},{"i":22,"j":11,"v":0.429},{"i":24,"j":11,"v":0.571},{"i":25,"j":11,"v":0.286},{"i":0,"j":12,"v":0.143},{"i":1,"j":12,"v":0.714},{"i":2,"j":12,"v":0.429},{"i":3,"j":12,"v":0.714},{"i":4,"j":12,"v":0.714},{"i":5,"j":12,"v":0.714},{"i":19,"j":12,"v":0.429},{"i":20,"j":12,"v":0.714},{"i":21,"j":12,"v":0.714},{"i":22,"j":12,"v":0.571},{"i":23,"j":12,"v":0.143},{"i":24,"j":12,"v":0.571},{"i":25,"j":12,"v":0.286},{"i":0,"j":13,"v":0.143},{"i":1,"j":13,"v":0.714},{"i":2,"j":13,"v":0.143},{"i":3,"j":13,"v":0.714},{"i":4,"j":13,"v":0.714},{"i":5,"j":13,"v":0.571},{"i":19,"j":13,"v":0.286},{"i":20,"j":13,"v":0.714},{"i":21,"j":13,"v":0.714},{"i":22,"j":13,"v":0.286},{"i":24,"j":13,"v":0.286},{"i":3,"j":14,"v":0.571},{"i":4,"j":14,"v":0.714},{"i":5,"j":14,"v":0.429},{"i":6,"j":14,"v":0.143},{"i":20,"j":14,"v":0.714},{"i":21,"j":14,"v":0.714},{"i":22,"j":14,"v":0.286},{"i":3,"j":15,"v":0.571},{"i":4,"j":15,"v":0.714},{"i":5,"j":15,"v":0.571},{"i":6,"j":15,"v":0.143},{"i":20,"j":15,"v":0.714},{"i":21,"j":15,"v":0.714},{"i":22,"j":15,"v":0.429},{"i":3,"j":16,"v":0.571},{"i":4,"j":16,"v":0.286},{"i":5,"j":16,"v":0.714},{"i":6,"j":16,"v":0.143},{"i":20,"j":16,"v":0.571},{"i":21,"j":16,"v":0.286},{"i":22,"j":16,"v":0.429},{"i":3,"j":17,"v":0.429},{"i":4,"j":17,"v":0.143},{"i":5,"j":17,"v":0.571},{"i":20,"j":17,"v":0.571},{"i":21,"j":17,"v":0.286},{"i":22,"j":17,"v":0.429},{"i":3,"j":18,"v":0.857},{"i":5,"j":18,"v":0.857},{"i":19,"j":18,"v":0.143},{"i":20,"j":18,"v":0.714},{"i":21,"j":18,"v":0.429},{"i":22,"j":18,"v":0.571},{"i":2,"j":19,"v":0.143},{"i":3,"j":19,"v":0.857},{"i":4,"j":19,"v":0.143},{"i":5,"j":19,"v":0.857},{"i":6,"j":19,"v":0.143},{"i":19,"j":19,"v":0.286},{"i":20,"j":19,"v":0.714},{"i":21,"j":19,"v":0.571},{"i":22,"j":19,"v":0.571},{"i":23,"j":19,"v":0.143},{"i":3,"j":20,"v":0.857},{"i":5,"j":20,"v":0.857},{"i":20,"j":20,"v":0.143},{"i":22,"j":20,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "character.agamemnon-and-menelaus-memory-variants",
+      "type": "CHARACTER",
+      "statusWord": "QUARREL",
+      "ink": {
+       "cols": 26,
+       "rows": 21,
+       "cells": 239,
+       "fill": 0.438
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_set_piece_sea_route_map",
+     "x": 0,
+     "z": 1,
+     "scale": 3.571,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "map_01",
+      "state": null,
+      "authoredScale": 1,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_ensemble_divided_achaean_fleet",
+     "x": 0,
+     "z": 0.08,
+     "scale": 1.786,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "fleet_01",
+      "state": null,
+      "authoredScale": 0.5,
+      "station": null
+     }
+    },
+    {
+     "id": "n3",
+     "assetId": "a_character_agamemnon_and_menelaus_memory_variants",
+     "x": -6.58,
+     "z": 0.38,
+     "scale": 1.5,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "kings_01",
+      "state": null,
+      "authoredScale": 0.42,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r9",
+      "c": "nestor_01",
+      "s": 3,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "nestor_mapping",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "nestor_01",
+      "s": 7.15,
+      "d": 33.22,
+      "t": "The two sons of Atreus called the army to assembly at sunset, a reckless hour, and stood and quarreled before us all. Menelaus said sail, sail now over the sea's broad back; Agamemnon would hold the host and slaughter hecatombs to appease Athena's wrath. Fool, for she was not to be turned so, and we split in two, and the night was ugly with shouting.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S03-T01",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.agamemnon-and-menelaus-memory-variants",
+       "act": "RECOUNT",
+       "tactic": "control_present_through_memory",
+       "payload": "Nestor recounts the feud between Agamemnon and Menelaus after Troy fell",
+       "direction": "mapping the old strategic ruin with regret and exact memory",
+       "delivery": "narrator mapping strategic choices with regret and exact route memory",
+       "conceal": [],
+       "reveal": [
+        "Nestor recounts the feud between Agamemnon and Menelaus after Troy fell"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S03.m4a"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "NARRATOR",
+      "s": 40.73,
+      "d": 3.45,
+      "t": "At dawn, half the host dragged their ships down to the bright water, and half stayed behind with Agamemnon, lord of men.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S03-T02",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.nestor",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "Half the fleet sailed",
+       "direction": "over the remembered beach, the fleet dividing",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [],
+       "reveal": [
+        "Half the fleet sailed"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S03.m4a"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "odysseus_01",
+      "s": 44.6,
+      "d": 5.01,
+      "t": "Turn her about. We go back to the king.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S03-T03",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.odysseus-memory-variant",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Odysseus turned back to support Agamemnon",
+       "direction": "in memory, swings his ships around off Tenedos and returns to Agamemnon's side",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Odysseus turned back to support Agamemnon"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S03.m4a"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "nestor_01",
+      "s": 49.91,
+      "d": 10.01,
+      "t": "So we ran the open sea, and came home alive.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S03-T04",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.agamemnon-and-menelaus-memory-variants",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Nestor, Diomedes, and Menelaus escaped by a difficult route and reached home",
+       "direction": "traces the route in the air with a hand: Lesbos, the long crossing to Euboea, Geraestus by night, home",
+       "delivery": "narrator mapping strategic choices with regret and exact route memory",
+       "conceal": [],
+       "reveal": [
+        "Nestor, Diomedes, and Menelaus escaped by a difficult route and reached home"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S03.m4a"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "nestor_01",
+      "s": 60.23,
+      "d": 27.26,
+      "t": "But of Odysseus I can tell you only what has drifted to my hearth, for I came home with no news of my own. They say the Myrmidons came safe, and Philoctetes, and Idomeneus lost not a man the war had spared; but of your father, living or dead, no traveler has brought me one certain word.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S03-T05",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.odysseus-memory-variant",
+       "act": "REPORT",
+       "tactic": "transfer_knowledge",
+       "payload": "Nestor admits he learned Odysseus's later fate only through scattered reports",
+       "direction": "honest hands open, the archive admitting its gap",
+       "delivery": "narrator mapping strategic choices with regret and exact route memory",
+       "conceal": [],
+       "reveal": [
+        "Nestor admits he learned Odysseus's later fate only through scattered reports"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S03.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B03-S04 · Orestes as the Measure": {
+   "cast": {
+    "nestor_01": {
+     "id": "nestor_01",
+     "spec": {
+      "skin": "#d6c5a8",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -6.9,
+     "z": 1,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.nestor",
+      "name": "Nestor",
+      "statusWord": "REMEMBERING",
+      "pose": "nestor_telling",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.155,
+        "y": 0.995
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#8f8b81",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.62
+     }
+    },
+    "telemachus_01": {
+     "id": "telemachus_01",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -2.9,
+     "z": 1,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "lean_forward",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.355,
+        "y": 1
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.52
+     }
+    },
+    "athena_01": {
+     "id": "athena_01",
+     "spec": {
+      "skin": "#cdb89c",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 0.4,
+     "z": 1,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.athena-as-mentor",
+      "name": "Athena as Mentor",
+      "statusWord": "COMMANDING",
+      "pose": "mentor_still",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.52,
+        "y": 1
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#7b776d",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.54
+     }
+    }
+   },
+   "assets": {
+    "a_divine_fx_orestes_and_aegisthus_memory_tableau": {
+     "id": "a_divine_fx_orestes_and_aegisthus_memory_tableau",
+     "word": "orestes and aegisthus memory tableau",
+     "grid": {
+      "cols": 29,
+      "rows": 20,
+      "cells": [{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.286},{"i":5,"j":0,"v":0.286},{"i":6,"j":0,"v":0.286},{"i":7,"j":0,"v":0.286},{"i":8,"j":0,"v":0.286},{"i":9,"j":0,"v":0.286},{"i":10,"j":0,"v":0.286},{"i":11,"j":0,"v":0.286},{"i":12,"j":0,"v":0.286},{"i":13,"j":0,"v":0.286},{"i":14,"j":0,"v":0.286},{"i":15,"j":0,"v":0.286},{"i":16,"j":0,"v":0.286},{"i":17,"j":0,"v":0.286},{"i":18,"j":0,"v":0.286},{"i":19,"j":0,"v":0.286},{"i":20,"j":0,"v":0.286},{"i":21,"j":0,"v":0.286},{"i":22,"j":0,"v":0.286},{"i":23,"j":0,"v":0.286},{"i":24,"j":0,"v":0.286},{"i":25,"j":0,"v":0.286},{"i":26,"j":0,"v":0.286},{"i":27,"j":0,"v":0.286},{"i":3,"j":1,"v":0.286},{"i":4,"j":1,"v":0.143},{"i":5,"j":1,"v":0.143},{"i":6,"j":1,"v":0.143},{"i":7,"j":1,"v":0.143},{"i":8,"j":1,"v":0.143},{"i":9,"j":1,"v":0.143},{"i":10,"j":1,"v":0.143},{"i":11,"j":1,"v":0.429},{"i":12,"j":1,"v":0.143},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.143},{"i":17,"j":1,"v":0.143},{"i":18,"j":1,"v":0.143},{"i":19,"j":1,"v":0.143},{"i":20,"j":1,"v":0.143},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.143},{"i":23,"j":1,"v":0.143},{"i":24,"j":1,"v":0.143},{"i":25,"j":1,"v":0.143},{"i":26,"j":1,"v":0.143},{"i":27,"j":1,"v":0.143},{"i":28,"j":1,"v":0.286},{"i":3,"j":2,"v":0.286},{"i":4,"j":2,"v":0.143},{"i":5,"j":2,"v":0.143},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.143},{"i":8,"j":2,"v":0.143},{"i":9,"j":2,"v":0.143},{"i":10,"j":2,"v":0.429},{"i":11,"j":2,"v":0.714},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.143},{"i":17,"j":2,"v":0.143},{"i":18,"j":2,"v":0.143},{"i":19,"j":2,"v":0.143},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.143},{"i":24,"j":2,"v":0.143},{"i":25,"j":2,"v":0.143},{"i":26,"j":2,"v":0.143},{"i":27,"j":2,"v":0.143},{"i":28,"j":2,"v":0.286},{"i":3,"j":3,"v":0.286},{"i":4,"j":3,"v":0.143},{"i":5,"j":3,"v":0.143},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.143},{"i":8,"j":3,"v":0.143},{"i":9,"j":3,"v":0.143},{"i":10,"j":3,"v":0.429},{"i":11,"j":3,"v":0.857},{"i":12,"j":3,"v":0.429},{"i":13,"j":3,"v":0.143},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.143},{"i":16,"j":3,"v":0.143},{"i":17,"j":3,"v":0.143},{"i":18,"j":3,"v":0.143},{"i":19,"j":3,"v":0.143},{"i":20,"j":3,"v":0.143},{"i":21,"j":3,"v":0.143},{"i":22,"j":3,"v":0.143},{"i":23,"j":3,"v":0.143},{"i":24,"j":3,"v":0.143},{"i":25,"j":3,"v":0.143},{"i":26,"j":3,"v":0.143},{"i":27,"j":3,"v":0.143},{"i":28,"j":3,"v":0.286},{"i":0,"j":4,"v":0.286},{"i":1,"j":4,"v":0.143},{"i":3,"j":4,"v":0.286},{"i":4,"j":4,"v":0.143},{"i":5,"j":4,"v":0.143},{"i":6,"j":4,"v":0.143},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.857},{"i":11,"j":4,"v":0.429},{"i":12,"j":4,"v":0.286},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.143},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.286},{"i":17,"j":4,"v":0.286},{"i":18,"j":4,"v":0.286},{"i":19,"j":4,"v":0.429},{"i":20,"j":4,"v":0.286},{"i":21,"j":4,"v":0.286},{"i":22,"j":4,"v":0.286},{"i":23,"j":4,"v":0.143},{"i":24,"j":4,"v":0.143},{"i":25,"j":4,"v":0.143},{"i":26,"j":4,"v":0.143},{"i":27,"j":4,"v":0.143},{"i":28,"j":4,"v":0.286},{"i":3,"j":5,"v":0.286},{"i":4,"j":5,"v":0.143},{"i":5,"j":5,"v":0.143},{"i":6,"j":5,"v":0.143},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.143},{"i":10,"j":5,"v":0.714},{"i":11,"j":5,"v":0.714},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.143},{"i":14,"j":5,"v":0.143},{"i":15,"j":5,"v":0.714},{"i":16,"j":5,"v":0.571},{"i":17,"j":5,"v":0.571},{"i":18,"j":5,"v":0.857},{"i":19,"j":5,"v":0.714},{"i":20,"j":5,"v":0.857},{"i":21,"j":5,"v":0.714},{"i":22,"j":5,"v":0.571},{"i":23,"j":5,"v":0.143},{"i":24,"j":5,"v":0.143},{"i":25,"j":5,"v":0.143},{"i":26,"j":5,"v":0.143},{"i":27,"j":5,"v":0.143},{"i":28,"j":5,"v":0.286},{"i":0,"j":6,"v":0.143},{"i":3,"j":6,"v":0.429},{"i":4,"j":6,"v":0.429},{"i":5,"j":6,"v":0.429},{"i":6,"j":6,"v":0.429},{"i":7,"j":6,"v":0.429},{"i":8,"j":6,"v":0.429},{"i":9,"j":6,"v":0.571},{"i":10,"j":6,"v":0.571},{"i":11,"j":6,"v":0.714},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.429},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.571},{"i":16,"j":6,"v":0.429},{"i":17,"j":6,"v":0.571},{"i":18,"j":6,"v":0.714},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.571},{"i":21,"j":6,"v":0.571},{"i":22,"j":6,"v":0.571},{"i":23,"j":6,"v":0.429},{"i":24,"j":6,"v":0.429},{"i":25,"j":6,"v":0.429},{"i":26,"j":6,"v":0.429},{"i":27,"j":6,"v":0.429},{"i":28,"j":6,"v":0.286},{"i":3,"j":7,"v":0.143},{"i":4,"j":7,"v":0.143},{"i":5,"j":7,"v":0.143},{"i":6,"j":7,"v":0.143},{"i":7,"j":7,"v":0.143},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.143},{"i":12,"j":7,"v":0.143},{"i":13,"j":7,"v":0.143},{"i":14,"j":7,"v":0.143},{"i":15,"j":7,"v":0.143},{"i":16,"j":7,"v":0.143},{"i":17,"j":7,"v":0.143},{"i":18,"j":7,"v":0.143},{"i":19,"j":7,"v":0.143},{"i":20,"j":7,"v":0.143},{"i":21,"j":7,"v":0.143},{"i":22,"j":7,"v":0.143},{"i":23,"j":7,"v":0.143},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.143},{"i":26,"j":7,"v":0.143},{"i":27,"j":7,"v":0.143},{"i":4,"j":8,"v":0.143},{"i":5,"j":8,"v":0.143},{"i":6,"j":8,"v":0.143},{"i":7,"j":8,"v":0.143},{"i":8,"j":8,"v":0.143},{"i":9,"j":8,"v":0.143},{"i":10,"j":8,"v":0.143},{"i":11,"j":8,"v":0.143},{"i":12,"j":8,"v":0.143},{"i":13,"j":8,"v":0.571},{"i":14,"j":8,"v":0.143},{"i":15,"j":8,"v":0.143},{"i":16,"j":8,"v":0.143},{"i":17,"j":8,"v":0.143},{"i":18,"j":8,"v":0.143},{"i":19,"j":8,"v":0.143},{"i":20,"j":8,"v":0.143},{"i":21,"j":8,"v":0.143},{"i":22,"j":8,"v":0.286},{"i":23,"j":8,"v":0.286},{"i":24,"j":8,"v":0.286},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.286},{"i":27,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":4,"j":9,"v":0.143},{"i":5,"j":9,"v":0.143},{"i":6,"j":9,"v":0.143},{"i":7,"j":9,"v":0.143},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.143},{"i":10,"j":9,"v":0.143},{"i":11,"j":9,"v":0.143},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.857},{"i":14,"j":9,"v":0.286},{"i":15,"j":9,"v":0.143},{"i":16,"j":9,"v":0.143},{"i":17,"j":9,"v":0.143},{"i":18,"j":9,"v":0.143},{"i":19,"j":9,"v":0.143},{"i":20,"j":9,"v":0.143},{"i":21,"j":9,"v":0.429},{"i":22,"j":9,"v":0.714},{"i":23,"j":9,"v":0.857},{"i":24,"j":9,"v":0.857},{"i":25,"j":9,"v":0.714},{"i":26,"j":9,"v":0.857},{"i":27,"j":9,"v":0.286},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.143},{"i":4,"j":10,"v":0.143},{"i":5,"j":10,"v":0.143},{"i":6,"j":10,"v":0.143},{"i":7,"j":10,"v":0.143},{"i":8,"j":10,"v":0.143},{"i":9,"j":10,"v":0.143},{"i":10,"j":10,"v":0.143},{"i":11,"j":10,"v":0.143},{"i":12,"j":10,"v":0.571},{"i":13,"j":10,"v":0.857},{"i":14,"j":10,"v":0.429},{"i":15,"j":10,"v":0.143},{"i":16,"j":10,"v":0.143},{"i":17,"j":10,"v":0.143},{"i":18,"j":10,"v":0.143},{"i":19,"j":10,"v":0.143},{"i":20,"j":10,"v":0.143},{"i":21,"j":10,"v":0.429},{"i":22,"j":10,"v":0.429},{"i":23,"j":10,"v":0.857},{"i":24,"j":10,"v":0.714},{"i":25,"j":10,"v":0.143},{"i":26,"j":10,"v":0.571},{"i":27,"j":10,"v":0.286},{"i":4,"j":11,"v":0.143},{"i":5,"j":11,"v":0.143},{"i":6,"j":11,"v":0.143},{"i":7,"j":11,"v":0.143},{"i":8,"j":11,"v":0.143},{"i":9,"j":11,"v":0.143},{"i":10,"j":11,"v":0.143},{"i":11,"j":11,"v":0.143},{"i":12,"j":11,"v":0.429},{"i":13,"j":11,"v":0.857},{"i":14,"j":11,"v":0.286},{"i":15,"j":11,"v":0.143},{"i":16,"j":11,"v":0.143},{"i":17,"j":11,"v":0.143},{"i":18,"j":11,"v":0.143},{"i":19,"j":11,"v":0.143},{"i":20,"j":11,"v":0.143},{"i":21,"j":11,"v":0.429},{"i":22,"j":11,"v":0.429},{"i":23,"j":11,"v":0.714},{"i":24,"j":11,"v":0.571},{"i":25,"j":11,"v":0.143},{"i":26,"j":11,"v":0.571},{"i":27,"j":11,"v":0.286},{"i":3,"j":12,"v":0.143},{"i":4,"j":12,"v":0.286},{"i":5,"j":12,"v":0.286},{"i":6,"j":12,"v":0.286},{"i":7,"j":12,"v":0.286},{"i":8,"j":12,"v":0.286},{"i":9,"j":12,"v":0.286},{"i":10,"j":12,"v":0.286},{"i":11,"j":12,"v":0.286},{"i":12,"j":12,"v":0.714},{"i":13,"j":12,"v":0.571},{"i":14,"j":12,"v":0.571},{"i":15,"j":12,"v":0.286},{"i":16,"j":12,"v":0.286},{"i":17,"j":12,"v":0.286},{"i":18,"j":12,"v":0.286},{"i":19,"j":12,"v":0.286},{"i":20,"j":12,"v":0.286},{"i":21,"j":12,"v":0.429},{"i":22,"j":12,"v":0.429},{"i":23,"j":12,"v":0.714},{"i":24,"j":12,"v":0.571},{"i":25,"j":12,"v":0.286},{"i":26,"j":12,"v":0.571},{"i":27,"j":12,"v":0.286},{"i":5,"j":13,"v":0.143},{"i":7,"j":13,"v":0.143},{"i":8,"j":13,"v":0.143},{"i":9,"j":13,"v":0.143},{"i":10,"j":13,"v":0.143},{"i":11,"j":13,"v":0.143},{"i":12,"j":13,"v":0.143},{"i":13,"j":13,"v":0.143},{"i":14,"j":13,"v":0.143},{"i":15,"j":13,"v":0.143},{"i":19,"j":13,"v":0.143},{"i":21,"j":13,"v":0.143},{"i":22,"j":13,"v":0.143},{"i":23,"j":13,"v":0.143},{"i":24,"j":13,"v":0.143},{"i":25,"j":13,"v":0.143},{"i":26,"j":13,"v":0.143},{"i":3,"j":14,"v":0.143},{"i":4,"j":14,"v":0.143},{"i":5,"j":14,"v":0.143},{"i":6,"j":14,"v":0.143},{"i":7,"j":14,"v":0.143},{"i":8,"j":14,"v":0.143},{"i":9,"j":14,"v":0.143},{"i":10,"j":14,"v":0.143},{"i":11,"j":14,"v":0.143},{"i":12,"j":14,"v":0.143},{"i":13,"j":14,"v":0.143},{"i":14,"j":14,"v":0.143},{"i":15,"j":14,"v":0.143},{"i":16,"j":14,"v":0.143},{"i":17,"j":14,"v":0.143},{"i":18,"j":14,"v":0.143},{"i":19,"j":14,"v":0.286},{"i":20,"j":14,"v":0.571},{"i":21,"j":14,"v":0.143},{"i":22,"j":14,"v":0.143},{"i":23,"j":14,"v":0.143},{"i":24,"j":14,"v":0.143},{"i":25,"j":14,"v":0.143},{"i":26,"j":14,"v":0.143},{"i":27,"j":14,"v":0.143},{"i":4,"j":15,"v":0.143},{"i":5,"j":15,"v":0.143},{"i":6,"j":15,"v":0.143},{"i":7,"j":15,"v":0.143},{"i":8,"j":15,"v":0.143},{"i":9,"j":15,"v":0.143},{"i":10,"j":15,"v":0.143},{"i":11,"j":15,"v":0.143},{"i":12,"j":15,"v":0.143},{"i":13,"j":15,"v":0.143},{"i":14,"j":15,"v":0.143},{"i":15,"j":15,"v":0.143},{"i":16,"j":15,"v":0.143},{"i":17,"j":15,"v":0.143},{"i":18,"j":15,"v":0.143},{"i":19,"j":15,"v":0.143},{"i":20,"j":15,"v":0.857},{"i":21,"j":15,"v":0.143},{"i":22,"j":15,"v":0.143},{"i":23,"j":15,"v":0.143},{"i":24,"j":15,"v":0.143},{"i":25,"j":15,"v":0.143},{"i":26,"j":15,"v":0.143},{"i":27,"j":15,"v":0.143},{"i":0,"j":16,"v":0.286},{"i":1,"j":16,"v":0.286},{"i":4,"j":16,"v":0.143},{"i":5,"j":16,"v":0.143},{"i":6,"j":16,"v":0.143},{"i":7,"j":16,"v":0.143},{"i":8,"j":16,"v":0.143},{"i":9,"j":16,"v":0.143},{"i":10,"j":16,"v":0.143},{"i":11,"j":16,"v":0.143},{"i":12,"j":16,"v":0.143},{"i":13,"j":16,"v":0.143},{"i":14,"j":16,"v":0.143},{"i":15,"j":16,"v":0.143},{"i":16,"j":16,"v":0.143},{"i":17,"j":16,"v":0.143},{"i":18,"j":16,"v":0.143},{"i":19,"j":16,"v":0.571},{"i":20,"j":16,"v":0.714},{"i":21,"j":16,"v":0.286},{"i":22,"j":16,"v":0.143},{"i":23,"j":16,"v":0.143},{"i":24,"j":16,"v":0.143},{"i":25,"j":16,"v":0.143},{"i":26,"j":16,"v":0.143},{"i":27,"j":16,"v":0.143},{"i":4,"j":17,"v":0.143},{"i":5,"j":17,"v":0.143},{"i":6,"j":17,"v":0.143},{"i":7,"j":17,"v":0.143},{"i":8,"j":17,"v":0.143},{"i":9,"j":17,"v":0.286},{"i":10,"j":17,"v":0.429},{"i":11,"j":17,"v":0.429},{"i":12,"j":17,"v":0.571},{"i":13,"j":17,"v":0.571},{"i":14,"j":17,"v":0.429},{"i":15,"j":17,"v":0.429},{"i":16,"j":17,"v":0.429},{"i":17,"j":17,"v":0.286},{"i":18,"j":17,"v":0.143},{"i":19,"j":17,"v":0.143},{"i":20,"j":17,"v":0.714},{"i":21,"j":17,"v":0.571},{"i":22,"j":17,"v":0.143},{"i":23,"j":17,"v":0.143},{"i":24,"j":17,"v":0.143},{"i":25,"j":17,"v":0.143},{"i":26,"j":17,"v":0.143},{"i":27,"j":17,"v":0.143},{"i":4,"j":18,"v":0.143},{"i":5,"j":18,"v":0.143},{"i":6,"j":18,"v":0.143},{"i":7,"j":18,"v":0.143},{"i":8,"j":18,"v":0.143},{"i":9,"j":18,"v":0.571},{"i":10,"j":18,"v":0.571},{"i":11,"j":18,"v":0.714},{"i":12,"j":18,"v":0.714},{"i":13,"j":18,"v":0.714},{"i":14,"j":18,"v":0.714},{"i":15,"j":18,"v":0.429},{"i":16,"j":18,"v":0.714},{"i":17,"j":18,"v":0.429},{"i":18,"j":18,"v":0.143},{"i":19,"j":18,"v":0.429},{"i":20,"j":18,"v":0.571},{"i":21,"j":18,"v":0.714},{"i":22,"j":18,"v":0.286},{"i":23,"j":18,"v":0.143},{"i":24,"j":18,"v":0.143},{"i":25,"j":18,"v":0.143},{"i":26,"j":18,"v":0.143},{"i":27,"j":18,"v":0.143},{"i":4,"j":19,"v":0.143},{"i":5,"j":19,"v":0.143},{"i":6,"j":19,"v":0.143},{"i":7,"j":19,"v":0.143},{"i":8,"j":19,"v":0.143},{"i":9,"j":19,"v":0.143},{"i":10,"j":19,"v":0.143},{"i":11,"j":19,"v":0.143},{"i":12,"j":19,"v":0.143},{"i":13,"j":19,"v":0.286},{"i":14,"j":19,"v":0.286},{"i":15,"j":19,"v":0.143},{"i":16,"j":19,"v":0.143},{"i":17,"j":19,"v":0.143},{"i":18,"j":19,"v":0.143},{"i":19,"j":19,"v":0.286},{"i":20,"j":19,"v":0.143},{"i":21,"j":19,"v":0.286},{"i":22,"j":19,"v":0.143},{"i":23,"j":19,"v":0.143},{"i":24,"j":19,"v":0.143},{"i":25,"j":19,"v":0.143},{"i":26,"j":19,"v":0.143},{"i":27,"j":19,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "divine_fx.orestes-and-aegisthus-memory-tableau",
+      "type": "DIVINE_FX",
+      "statusWord": "REMEMBERED",
+      "ink": {
+       "cols": 29,
+       "rows": 20,
+       "cells": 497,
+       "fill": 0.857
+      },
+      "wholeFrame": true
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_divine_fx_orestes_and_aegisthus_memory_tableau",
+     "x": 6.3,
+     "z": 1,
+     "scale": 2,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "memory_01",
+      "state": null,
+      "authoredScale": 0.56,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r6",
+      "c": "nestor_01",
+      "s": 3,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "nestor_warning",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "nestor_01",
+      "s": 7.19,
+      "d": 34.66,
+      "t": "You know how Aegisthus, while we bled at Troy, sat safe in horse-pasturing Argos and charmed Agamemnon's wife, and how he cut the king down at his own hearth on the day of his homecoming. But payment came for it: in the eighth year Orestes returned from Athens and killed his father's murderer, and all the Argives honored him for the deed.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S04-T01",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "DIRECT",
+       "tactic": "redirect_action",
+       "payload": "Nestor tells how Aegisthus murdered Agamemnon and how Orestes later took revenge",
+       "direction": "the remembered revenge held out to the boy, both warning and pattern",
+       "delivery": "mentor using a remembered revenge as both warning and model",
+       "conceal": [],
+       "reveal": [
+        "Nestor tells how Aegisthus murdered Agamemnon and how Orestes later took revenge"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S04.m4a"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "telemachus_01",
+      "s": 12,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "confrontation",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "telemachus_01",
+      "s": 17,
+      "d": 1,
+      "t": "",
+      "m": "pose=skeptical",
+      "x_odyssey": {
+       "pose": "skepticism",
+       "resolved": "skeptical"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "athena_01",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "mentor_command",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "nestor_01",
+      "s": 42.21,
+      "d": 19.25,
+      "t": "And you, my friend, tall and fine as I see you are, be brave, so that men not yet born will speak well of you. Do not wander long away from home while those proud men sit in your halls and eat everything you have.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S04-T02",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "URGE",
+       "tactic": "increase_courage_or_speed",
+       "payload": "He urges Telemachus to become a son whose deed will be sung",
+       "direction": "leaning close, urgency under the courtesy",
+       "delivery": "mentor using a remembered revenge as both warning and model",
+       "conceal": [],
+       "reveal": [
+        "He urges Telemachus to become a son whose deed will be sung"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S04.m4a"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "telemachus_01",
+      "s": 61.82,
+      "d": 8.45,
+      "t": "If only the gods would give me strength like that. But they will not, not for me, not for my father.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S04-T03",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "AUDIENCE.LOCAL",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus wishes for the power to punish the suitors but doubts the gods will grant it",
+       "direction": "eyes down, hands closing on nothing, the wish already half surrendered",
+       "delivery": "admiring Orestes yet shrinking from belief in his own capacity",
+       "conceal": [],
+       "reveal": [
+        "Telemachus wishes for the power to punish the suitors but doubts the gods will grant it"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S04.m4a"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "athena_01",
+      "s": 70.57,
+      "d": 20.63,
+      "t": "Telemachus, what word has escaped the barrier of your teeth? Easily, when he wills it, a god brings a man safe home from the ends of the earth. Better long roads and hard travel and a late return than to come home swiftly and die at your own hearth, as Agamemnon died.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S04-T04",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.athena-as-mentor",
+       "act": "ASSERT",
+       "tactic": "state_position",
+       "payload": "Athena rebukes his despair and insists a willing god can save a mortal",
+       "direction": "sharp as a slap, then steadying, Mentor's voice carrying more than Mentor's authority",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Athena rebukes his despair and insists a willing god can save a mortal"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S04.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B03-S05 · Athena Reveals Herself at Pylos": {
+   "cast": {
+    "nestor_01": {
+     "id": "nestor_01",
+     "spec": {
+      "skin": "#d6c5a8",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -4.2,
+     "z": 0.92,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.nestor",
+      "name": "Nestor",
+      "statusWord": "REMEMBERING",
+      "pose": "nestor_host",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.3,
+        "y": 0.92
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#8f8b81",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.34
+     }
+    },
+    "telemachus_01": {
+     "id": "telemachus_01",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 6.22,
+     "z": 0.94,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "alert",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.8,
+        "y": 0.93
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.3
+     }
+    }
+   },
+   "assets": {
+    "a_divine_fx_athena_to_sea_eagle_transformation": {
+     "id": "a_divine_fx_athena_to_sea_eagle_transformation",
+     "word": "athena-to-sea-eagle transformation",
+     "grid": {
+      "cols": 32,
+      "rows": 22,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.143},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.143},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.286},{"i":17,"j":0,"v":1},{"i":18,"j":0,"v":1},{"i":19,"j":0,"v":1},{"i":20,"j":0,"v":1},{"i":21,"j":0,"v":0.714},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":27,"j":0,"v":0.143},{"i":28,"j":0,"v":0.143},{"i":29,"j":0,"v":0.143},{"i":30,"j":0,"v":0.143},{"i":31,"j":0,"v":0.143},{"i":0,"j":1,"v":0.143},{"i":1,"j":1,"v":0.143},{"i":2,"j":1,"v":0.143},{"i":3,"j":1,"v":0.143},{"i":4,"j":1,"v":0.143},{"i":5,"j":1,"v":0.143},{"i":6,"j":1,"v":0.143},{"i":7,"j":1,"v":0.143},{"i":8,"j":1,"v":0.143},{"i":9,"j":1,"v":0.143},{"i":10,"j":1,"v":0.143},{"i":11,"j":1,"v":0.143},{"i":12,"j":1,"v":0.143},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.429},{"i":17,"j":1,"v":1},{"i":18,"j":1,"v":1},{"i":19,"j":1,"v":1},{"i":20,"j":1,"v":1},{"i":21,"j":1,"v":0.857},{"i":22,"j":1,"v":0.143},{"i":23,"j":1,"v":0.143},{"i":24,"j":1,"v":0.143},{"i":25,"j":1,"v":0.143},{"i":26,"j":1,"v":0.143},{"i":27,"j":1,"v":0.143},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.143},{"i":30,"j":1,"v":0.143},{"i":31,"j":1,"v":0.143},{"i":0,"j":2,"v":0.143},{"i":1,"j":2,"v":0.143},{"i":2,"j":2,"v":0.143},{"i":3,"j":2,"v":0.143},{"i":4,"j":2,"v":0.143},{"i":5,"j":2,"v":0.143},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.143},{"i":8,"j":2,"v":0.143},{"i":9,"j":2,"v":0.143},{"i":10,"j":2,"v":0.143},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.571},{"i":17,"j":2,"v":1},{"i":18,"j":2,"v":1},{"i":19,"j":2,"v":1},{"i":20,"j":2,"v":1},{"i":21,"j":2,"v":1},{"i":22,"j":2,"v":0.286},{"i":23,"j":2,"v":0.143},{"i":24,"j":2,"v":0.143},{"i":25,"j":2,"v":0.143},{"i":26,"j":2,"v":0.143},{"i":27,"j":2,"v":0.143},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.143},{"i":30,"j":2,"v":0.143},{"i":31,"j":2,"v":0.143},{"i":0,"j":3,"v":0.143},{"i":1,"j":3,"v":0.143},{"i":2,"j":3,"v":0.143},{"i":3,"j":3,"v":0.143},{"i":4,"j":3,"v":0.143},{"i":5,"j":3,"v":0.143},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.143},{"i":8,"j":3,"v":0.143},{"i":9,"j":3,"v":0.143},{"i":10,"j":3,"v":0.143},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.143},{"i":13,"j":3,"v":0.143},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.143},{"i":16,"j":3,"v":0.571},{"i":17,"j":3,"v":1},{"i":18,"j":3,"v":1},{"i":19,"j":3,"v":1},{"i":20,"j":3,"v":1},{"i":21,"j":3,"v":1},{"i":22,"j":3,"v":0.429},{"i":23,"j":3,"v":0.143},{"i":24,"j":3,"v":0.286},{"i":25,"j":3,"v":0.286},{"i":26,"j":3,"v":0.143},{"i":27,"j":3,"v":0.143},{"i":28,"j":3,"v":0.143},{"i":29,"j":3,"v":0.143},{"i":30,"j":3,"v":0.143},{"i":31,"j":3,"v":0.143},{"i":0,"j":4,"v":0.143},{"i":1,"j":4,"v":0.143},{"i":2,"j":4,"v":0.143},{"i":3,"j":4,"v":0.143},{"i":4,"j":4,"v":0.143},{"i":5,"j":4,"v":0.143},{"i":6,"j":4,"v":0.143},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.143},{"i":11,"j":4,"v":0.143},{"i":12,"j":4,"v":0.143},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.143},{"i":15,"j":4,"v":0.143},{"i":16,"j":4,"v":0.571},{"i":17,"j":4,"v":0.857},{"i":18,"j":4,"v":1},{"i":19,"j":4,"v":1},{"i":20,"j":4,"v":1},{"i":21,"j":4,"v":1},{"i":22,"j":4,"v":0.857},{"i":23,"j":4,"v":0.714},{"i":24,"j":4,"v":1},{"i":25,"j":4,"v":0.857},{"i":26,"j":4,"v":0.429},{"i":27,"j":4,"v":0.143},{"i":28,"j":4,"v":0.143},{"i":29,"j":4,"v":0.143},{"i":30,"j":4,"v":0.143},{"i":31,"j":4,"v":0.143},{"i":0,"j":5,"v":0.143},{"i":1,"j":5,"v":0.143},{"i":2,"j":5,"v":0.143},{"i":3,"j":5,"v":0.143},{"i":4,"j":5,"v":0.143},{"i":5,"j":5,"v":0.143},{"i":6,"j":5,"v":0.143},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.143},{"i":10,"j":5,"v":0.143},{"i":11,"j":5,"v":0.143},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.143},{"i":14,"j":5,"v":0.143},{"i":15,"j":5,"v":0.143},{"i":16,"j":5,"v":0.571},{"i":17,"j":5,"v":0.857},{"i":18,"j":5,"v":1},{"i":19,"j":5,"v":1},{"i":20,"j":5,"v":1},{"i":21,"j":5,"v":1},{"i":22,"j":5,"v":1},{"i":23,"j":5,"v":0.857},{"i":24,"j":5,"v":0.857},{"i":25,"j":5,"v":0.714},{"i":26,"j":5,"v":0.143},{"i":27,"j":5,"v":0.143},{"i":28,"j":5,"v":0.143},{"i":29,"j":5,"v":0.143},{"i":30,"j":5,"v":0.143},{"i":31,"j":5,"v":0.143},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.143},{"i":2,"j":6,"v":0.143},{"i":3,"j":6,"v":0.143},{"i":4,"j":6,"v":0.143},{"i":5,"j":6,"v":0.143},{"i":6,"j":6,"v":0.143},{"i":7,"j":6,"v":0.143},{"i":8,"j":6,"v":0.143},{"i":9,"j":6,"v":0.143},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.143},{"i":12,"j":6,"v":0.143},{"i":13,"j":6,"v":0.143},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.857},{"i":16,"j":6,"v":1},{"i":17,"j":6,"v":1},{"i":18,"j":6,"v":1},{"i":19,"j":6,"v":1},{"i":20,"j":6,"v":1},{"i":21,"j":6,"v":1},{"i":22,"j":6,"v":0.857},{"i":23,"j":6,"v":0.143},{"i":24,"j":6,"v":0.143},{"i":25,"j":6,"v":0.143},{"i":26,"j":6,"v":0.143},{"i":27,"j":6,"v":0.143},{"i":28,"j":6,"v":0.143},{"i":29,"j":6,"v":0.143},{"i":30,"j":6,"v":0.143},{"i":31,"j":6,"v":0.143},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.143},{"i":2,"j":7,"v":0.143},{"i":3,"j":7,"v":0.143},{"i":4,"j":7,"v":0.143},{"i":5,"j":7,"v":0.143},{"i":6,"j":7,"v":0.143},{"i":7,"j":7,"v":0.143},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.143},{"i":12,"j":7,"v":0.143},{"i":13,"j":7,"v":0.143},{"i":14,"j":7,"v":0.143},{"i":15,"j":7,"v":0.286},{"i":16,"j":7,"v":0.429},{"i":17,"j":7,"v":0.714},{"i":18,"j":7,"v":0.857},{"i":19,"j":7,"v":1},{"i":20,"j":7,"v":1},{"i":21,"j":7,"v":1},{"i":22,"j":7,"v":1},{"i":23,"j":7,"v":0.143},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.143},{"i":26,"j":7,"v":0.143},{"i":27,"j":7,"v":0.143},{"i":28,"j":7,"v":0.143},{"i":29,"j":7,"v":0.143},{"i":30,"j":7,"v":0.143},{"i":31,"j":7,"v":0.143},{"i":0,"j":8,"v":0.143},{"i":1,"j":8,"v":0.143},{"i":2,"j":8,"v":0.143},{"i":3,"j":8,"v":0.143},{"i":4,"j":8,"v":0.143},{"i":5,"j":8,"v":0.143},{"i":6,"j":8,"v":0.143},{"i":7,"j":8,"v":0.143},{"i":8,"j":8,"v":0.143},{"i":9,"j":8,"v":0.143},{"i":10,"j":8,"v":0.143},{"i":11,"j":8,"v":0.143},{"i":12,"j":8,"v":0.143},{"i":13,"j":8,"v":0.143},{"i":14,"j":8,"v":0.286},{"i":15,"j":8,"v":0.143},{"i":16,"j":8,"v":0.143},{"i":17,"j":8,"v":0.714},{"i":18,"j":8,"v":1},{"i":19,"j":8,"v":1},{"i":20,"j":8,"v":1},{"i":21,"j":8,"v":1},{"i":22,"j":8,"v":1},{"i":23,"j":8,"v":0.286},{"i":24,"j":8,"v":0.143},{"i":25,"j":8,"v":0.143},{"i":26,"j":8,"v":0.143},{"i":27,"j":8,"v":0.143},{"i":28,"j":8,"v":0.143},{"i":29,"j":8,"v":0.143},{"i":30,"j":8,"v":0.143},{"i":31,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":1,"j":9,"v":0.143},{"i":2,"j":9,"v":0.143},{"i":3,"j":9,"v":0.143},{"i":4,"j":9,"v":0.143},{"i":5,"j":9,"v":0.143},{"i":6,"j":9,"v":0.143},{"i":7,"j":9,"v":0.143},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.143},{"i":10,"j":9,"v":0.143},{"i":11,"j":9,"v":0.143},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.143},{"i":14,"j":9,"v":0.143},{"i":15,"j":9,"v":0.143},{"i":16,"j":9,"v":0.143},{"i":17,"j":9,"v":0.429},{"i":18,"j":9,"v":1},{"i":19,"j":9,"v":1},{"i":20,"j":9,"v":1},{"i":21,"j":9,"v":1},{"i":22,"j":9,"v":1},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":0.143},{"i":25,"j":9,"v":0.143},{"i":26,"j":9,"v":0.143},{"i":27,"j":9,"v":0.143},{"i":28,"j":9,"v":0.143},{"i":29,"j":9,"v":0.143},{"i":30,"j":9,"v":0.143},{"i":31,"j":9,"v":0.143},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.143},{"i":2,"j":10,"v":0.143},{"i":3,"j":10,"v":0.143},{"i":4,"j":10,"v":0.143},{"i":5,"j":10,"v":0.143},{"i":6,"j":10,"v":0.143},{"i":7,"j":10,"v":0.143},{"i":8,"j":10,"v":0.143},{"i":9,"j":10,"v":0.143},{"i":10,"j":10,"v":0.143},{"i":11,"j":10,"v":0.143},{"i":12,"j":10,"v":0.143},{"i":13,"j":10,"v":0.143},{"i":14,"j":10,"v":0.143},{"i":15,"j":10,"v":0.143},{"i":16,"j":10,"v":0.143},{"i":17,"j":10,"v":0.143},{"i":18,"j":10,"v":0.857},{"i":19,"j":10,"v":1},{"i":20,"j":10,"v":1},{"i":21,"j":10,"v":1},{"i":22,"j":10,"v":1},{"i":23,"j":10,"v":0.429},{"i":24,"j":10,"v":0.143},{"i":25,"j":10,"v":0.143},{"i":26,"j":10,"v":0.143},{"i":27,"j":10,"v":0.143},{"i":28,"j":10,"v":0.143},{"i":29,"j":10,"v":0.143},{"i":30,"j":10,"v":0.143},{"i":31,"j":10,"v":0.143},{"i":0,"j":11,"v":0.143},{"i":1,"j":11,"v":0.143},{"i":2,"j":11,"v":0.143},{"i":3,"j":11,"v":0.143},{"i":4,"j":11,"v":0.143},{"i":5,"j":11,"v":0.143},{"i":6,"j":11,"v":0.143},{"i":7,"j":11,"v":0.143},{"i":8,"j":11,"v":0.143},{"i":9,"j":11,"v":0.143},{"i":10,"j":11,"v":0.143},{"i":11,"j":11,"v":0.143},{"i":12,"j":11,"v":0.143},{"i":13,"j":11,"v":0.143},{"i":14,"j":11,"v":0.143},{"i":15,"j":11,"v":0.143},{"i":16,"j":11,"v":0.143},{"i":17,"j":11,"v":0.143},{"i":18,"j":11,"v":0.429},{"i":19,"j":11,"v":1},{"i":20,"j":11,"v":1},{"i":21,"j":11,"v":1},{"i":22,"j":11,"v":1},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.143},{"i":25,"j":11,"v":0.143},{"i":26,"j":11,"v":0.143},{"i":27,"j":11,"v":0.143},{"i":28,"j":11,"v":0.143},{"i":29,"j":11,"v":0.143},{"i":30,"j":11,"v":0.143},{"i":31,"j":11,"v":0.143},{"i":0,"j":12,"v":0.143},{"i":1,"j":12,"v":0.143},{"i":2,"j":12,"v":0.143},{"i":3,"j":12,"v":0.143},{"i":4,"j":12,"v":0.143},{"i":5,"j":12,"v":0.143},{"i":6,"j":12,"v":0.143},{"i":7,"j":12,"v":0.143},{"i":8,"j":12,"v":0.143},{"i":9,"j":12,"v":0.143},{"i":10,"j":12,"v":0.143},{"i":11,"j":12,"v":0.143},{"i":12,"j":12,"v":0.143},{"i":13,"j":12,"v":0.143},{"i":14,"j":12,"v":0.143},{"i":15,"j":12,"v":0.143},{"i":16,"j":12,"v":0.143},{"i":17,"j":12,"v":0.143},{"i":18,"j":12,"v":0.143},{"i":19,"j":12,"v":0.857},{"i":20,"j":12,"v":1},{"i":21,"j":12,"v":1},{"i":22,"j":12,"v":1},{"i":23,"j":12,"v":0.143},{"i":24,"j":12,"v":0.143},{"i":25,"j":12,"v":0.143},{"i":26,"j":12,"v":0.143},{"i":27,"j":12,"v":0.143},{"i":28,"j":12,"v":0.143},{"i":29,"j":12,"v":0.143},{"i":30,"j":12,"v":0.143},{"i":31,"j":12,"v":0.143},{"i":0,"j":13,"v":0.143},{"i":1,"j":13,"v":0.143},{"i":2,"j":13,"v":0.143},{"i":3,"j":13,"v":0.143},{"i":4,"j":13,"v":0.143},{"i":5,"j":13,"v":0.143},{"i":6,"j":13,"v":0.143},{"i":7,"j":13,"v":0.286},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.286},{"i":10,"j":13,"v":0.143},{"i":11,"j":13,"v":0.143},{"i":12,"j":13,"v":0.143},{"i":13,"j":13,"v":0.143},{"i":14,"j":13,"v":0.143},{"i":15,"j":13,"v":0.143},{"i":16,"j":13,"v":0.143},{"i":17,"j":13,"v":0.143},{"i":18,"j":13,"v":0.143},{"i":19,"j":13,"v":0.286},{"i":20,"j":13,"v":1},{"i":21,"j":13,"v":1},{"i":22,"j":13,"v":0.714},{"i":23,"j":13,"v":0.143},{"i":24,"j":13,"v":0.143},{"i":25,"j":13,"v":0.143},{"i":26,"j":13,"v":0.143},{"i":27,"j":13,"v":0.143},{"i":28,"j":13,"v":0.143},{"i":29,"j":13,"v":0.143},{"i":30,"j":13,"v":0.143},{"i":31,"j":13,"v":0.143},{"i":0,"j":14,"v":0.143},{"i":1,"j":14,"v":0.143},{"i":2,"j":14,"v":0.143},{"i":3,"j":14,"v":0.143},{"i":4,"j":14,"v":0.143},{"i":5,"j":14,"v":0.143},{"i":6,"j":14,"v":0.143},{"i":7,"j":14,"v":0.429},{"i":8,"j":14,"v":0.571},{"i":9,"j":14,"v":0.286},{"i":10,"j":14,"v":0.143},{"i":11,"j":14,"v":0.143},{"i":12,"j":14,"v":0.143},{"i":13,"j":14,"v":0.143},{"i":14,"j":14,"v":0.143},{"i":15,"j":14,"v":0.143},{"i":16,"j":14,"v":0.143},{"i":17,"j":14,"v":0.143},{"i":18,"j":14,"v":0.143},{"i":19,"j":14,"v":0.143},{"i":20,"j":14,"v":0.429},{"i":21,"j":14,"v":1},{"i":22,"j":14,"v":0.429},{"i":23,"j":14,"v":0.143},{"i":24,"j":14,"v":0.143},{"i":25,"j":14,"v":0.143},{"i":26,"j":14,"v":0.143},{"i":27,"j":14,"v":0.143},{"i":28,"j":14,"v":0.143},{"i":29,"j":14,"v":0.143},{"i":30,"j":14,"v":0.143},{"i":31,"j":14,"v":0.143},{"i":0,"j":15,"v":0.143},{"i":1,"j":15,"v":0.143},{"i":2,"j":15,"v":0.143},{"i":3,"j":15,"v":0.143},{"i":4,"j":15,"v":0.143},{"i":5,"j":15,"v":0.143},{"i":6,"j":15,"v":0.143},{"i":7,"j":15,"v":0.429},{"i":8,"j":15,"v":0.429},{"i":9,"j":15,"v":0.143},{"i":10,"j":15,"v":0.143},{"i":11,"j":15,"v":0.143},{"i":12,"j":15,"v":0.143},{"i":13,"j":15,"v":0.143},{"i":14,"j":15,"v":0.143},{"i":15,"j":15,"v":0.143},{"i":16,"j":15,"v":0.143},{"i":17,"j":15,"v":0.143},{"i":18,"j":15,"v":0.143},{"i":19,"j":15,"v":0.143},{"i":20,"j":15,"v":0.143},{"i":21,"j":15,"v":0.571},{"i":22,"j":15,"v":0.143},{"i":23,"j":15,"v":0.143},{"i":24,"j":15,"v":0.143},{"i":25,"j":15,"v":0.143},{"i":26,"j":15,"v":0.143},{"i":27,"j":15,"v":0.143},{"i":28,"j":15,"v":0.143},{"i":29,"j":15,"v":0.143},{"i":30,"j":15,"v":0.143},{"i":31,"j":15,"v":0.143},{"i":0,"j":16,"v":0.143},{"i":1,"j":16,"v":0.143},{"i":2,"j":16,"v":0.143},{"i":3,"j":16,"v":0.286},{"i":4,"j":16,"v":0.143},{"i":5,"j":16,"v":0.143},{"i":6,"j":16,"v":0.286},{"i":7,"j":16,"v":0.286},{"i":8,"j":16,"v":0.429},{"i":9,"j":16,"v":0.286},{"i":10,"j":16,"v":0.143},{"i":11,"j":16,"v":0.143},{"i":12,"j":16,"v":0.286},{"i":13,"j":16,"v":0.143},{"i":14,"j":16,"v":0.143},{"i":15,"j":16,"v":0.429},{"i":16,"j":16,"v":0.429},{"i":17,"j":16,"v":0.143},{"i":18,"j":16,"v":0.143},{"i":19,"j":16,"v":0.286},{"i":20,"j":16,"v":0.143},{"i":21,"j":16,"v":0.286},{"i":22,"j":16,"v":0.286},{"i":23,"j":16,"v":0.143},{"i":24,"j":16,"v":0.143},{"i":25,"j":16,"v":0.286},{"i":26,"j":16,"v":0.143},{"i":27,"j":16,"v":0.143},{"i":28,"j":16,"v":0.286},{"i":29,"j":16,"v":0.143},{"i":30,"j":16,"v":0.143},{"i":31,"j":16,"v":0.143},{"i":0,"j":17,"v":0.143},{"i":1,"j":17,"v":0.143},{"i":2,"j":17,"v":0.429},{"i":3,"j":17,"v":0.571},{"i":4,"j":17,"v":0.143},{"i":5,"j":17,"v":0.286},{"i":6,"j":17,"v":0.714},{"i":7,"j":17,"v":0.286},{"i":8,"j":17,"v":0.429},{"i":9,"j":17,"v":0.714},{"i":10,"j":17,"v":0.286},{"i":11,"j":17,"v":0.143},{"i":12,"j":17,"v":0.571},{"i":13,"j":17,"v":0.429},{"i":14,"j":17,"v":0.714},{"i":15,"j":17,"v":0.714},{"i":16,"j":17,"v":0.714},{"i":17,"j":17,"v":0.714},{"i":18,"j":17,"v":0.429},{"i":19,"j":17,"v":0.571},{"i":20,"j":17,"v":0.143},{"i":21,"j":17,"v":0.286},{"i":22,"j":17,"v":0.714},{"i":23,"j":17,"v":0.143},{"i":24,"j":17,"v":0.143},{"i":25,"j":17,"v":0.714},{"i":26,"j":17,"v":0.286},{"i":27,"j":17,"v":0.143},{"i":28,"j":17,"v":0.571},{"i":29,"j":17,"v":0.429},{"i":30,"j":17,"v":0.143},{"i":31,"j":17,"v":0.143},{"i":0,"j":18,"v":0.429},{"i":1,"j":18,"v":0.429},{"i":2,"j":18,"v":0.571},{"i":3,"j":18,"v":0.571},{"i":4,"j":18,"v":0.429},{"i":5,"j":18,"v":0.571},{"i":6,"j":18,"v":0.571},{"i":7,"j":18,"v":0.571},{"i":8,"j":18,"v":0.571},{"i":9,"j":18,"v":0.571},{"i":10,"j":18,"v":0.571},{"i":11,"j":18,"v":0.429},{"i":12,"j":18,"v":0.571},{"i":13,"j":18,"v":0.571},{"i":14,"j":18,"v":0.571},{"i":15,"j":18,"v":0.714},{"i":16,"j":18,"v":0.714},{"i":17,"j":18,"v":0.571},{"i":18,"j":18,"v":0.571},{"i":19,"j":18,"v":0.571},{"i":20,"j":18,"v":0.429},{"i":21,"j":18,"v":0.571},{"i":22,"j":18,"v":0.571},{"i":23,"j":18,"v":0.429},{"i":24,"j":18,"v":0.429},{"i":25,"j":18,"v":0.571},{"i":26,"j":18,"v":0.571},{"i":27,"j":18,"v":0.429},{"i":28,"j":18,"v":0.571},{"i":29,"j":18,"v":0.571},{"i":30,"j":18,"v":0.429},{"i":31,"j":18,"v":0.429},{"i":0,"j":19,"v":0.429},{"i":1,"j":19,"v":0.429},{"i":2,"j":19,"v":0.429},{"i":3,"j":19,"v":0.429},{"i":4,"j":19,"v":0.429},{"i":5,"j":19,"v":0.429},{"i":6,"j":19,"v":0.429},{"i":7,"j":19,"v":0.429},{"i":8,"j":19,"v":0.429},{"i":9,"j":19,"v":0.429},{"i":10,"j":19,"v":0.429},{"i":11,"j":19,"v":0.429},{"i":12,"j":19,"v":0.429},{"i":13,"j":19,"v":0.429},{"i":14,"j":19,"v":0.429},{"i":15,"j":19,"v":0.429},{"i":16,"j":19,"v":0.429},{"i":17,"j":19,"v":0.429},{"i":18,"j":19,"v":0.429},{"i":19,"j":19,"v":0.429},{"i":20,"j":19,"v":0.429},{"i":21,"j":19,"v":0.429},{"i":22,"j":19,"v":0.429},{"i":23,"j":19,"v":0.429},{"i":24,"j":19,"v":0.429},{"i":25,"j":19,"v":0.429},{"i":26,"j":19,"v":0.429},{"i":27,"j":19,"v":0.429},{"i":28,"j":19,"v":0.429},{"i":29,"j":19,"v":0.429},{"i":30,"j":19,"v":0.429},{"i":31,"j":19,"v":0.429},{"i":0,"j":20,"v":0.429},{"i":1,"j":20,"v":0.429},{"i":2,"j":20,"v":0.429},{"i":3,"j":20,"v":0.429},{"i":4,"j":20,"v":0.429},{"i":5,"j":20,"v":0.429},{"i":6,"j":20,"v":0.429},{"i":7,"j":20,"v":0.429},{"i":8,"j":20,"v":0.429},{"i":9,"j":20,"v":0.429},{"i":10,"j":20,"v":0.429},{"i":11,"j":20,"v":0.429},{"i":12,"j":20,"v":0.429},{"i":13,"j":20,"v":0.429},{"i":14,"j":20,"v":0.429},{"i":15,"j":20,"v":0.429},{"i":16,"j":20,"v":0.429},{"i":17,"j":20,"v":0.429},{"i":18,"j":20,"v":0.429},{"i":19,"j":20,"v":0.429},{"i":20,"j":20,"v":0.429},{"i":21,"j":20,"v":0.429},{"i":22,"j":20,"v":0.429},{"i":23,"j":20,"v":0.429},{"i":24,"j":20,"v":0.429},{"i":25,"j":20,"v":0.429},{"i":26,"j":20,"v":0.429},{"i":27,"j":20,"v":0.429},{"i":28,"j":20,"v":0.429},{"i":29,"j":20,"v":0.429},{"i":30,"j":20,"v":0.429},{"i":31,"j":20,"v":0.429},{"i":0,"j":21,"v":0.429},{"i":1,"j":21,"v":0.429},{"i":2,"j":21,"v":0.429},{"i":3,"j":21,"v":0.429},{"i":4,"j":21,"v":0.429},{"i":5,"j":21,"v":0.429},{"i":6,"j":21,"v":0.429},{"i":7,"j":21,"v":0.429},{"i":8,"j":21,"v":0.429},{"i":9,"j":21,"v":0.429},{"i":10,"j":21,"v":0.429},{"i":11,"j":21,"v":0.429},{"i":12,"j":21,"v":0.429},{"i":13,"j":21,"v":0.429},{"i":14,"j":21,"v":0.429},{"i":15,"j":21,"v":0.429},{"i":16,"j":21,"v":0.429},{"i":17,"j":21,"v":0.429},{"i":18,"j":21,"v":0.429},{"i":19,"j":21,"v":0.429},{"i":20,"j":21,"v":0.429},{"i":21,"j":21,"v":0.429},{"i":22,"j":21,"v":0.429},{"i":23,"j":21,"v":0.429},{"i":24,"j":21,"v":0.429},{"i":25,"j":21,"v":0.429},{"i":26,"j":21,"v":0.429},{"i":27,"j":21,"v":0.429},{"i":28,"j":21,"v":0.429},{"i":29,"j":21,"v":0.429},{"i":30,"j":21,"v":0.429},{"i":31,"j":21,"v":0.429}]
+     },
+     "x_odyssey": {
+      "asset": "divine_fx.athena-to-sea-eagle-transformation",
+      "type": "DIVINE_FX",
+      "statusWord": "CROSSING",
+      "ink": {
+       "cols": 32,
+       "rows": 22,
+       "cells": 704,
+       "fill": 1
+      },
+      "wholeFrame": true
+     }
+    },
+    "a_creature_gilded_heifer_ritual": {
+     "id": "a_creature_gilded_heifer_ritual",
+     "word": "gilded heifer ritual",
+     "grid": {
+      "cols": 16,
+      "rows": 14,
+      "cells": [{"i":13,"j":0,"v":0.286},{"i":14,"j":0,"v":0.571},{"i":13,"j":1,"v":0.571},{"i":14,"j":1,"v":0.429},{"i":15,"j":1,"v":0.286},{"i":13,"j":2,"v":0.429},{"i":14,"j":2,"v":0.429},{"i":15,"j":2,"v":0.143},{"i":12,"j":3,"v":0.143},{"i":13,"j":3,"v":0.286},{"i":14,"j":3,"v":0.429},{"i":11,"j":4,"v":0.429},{"i":12,"j":4,"v":0.857},{"i":13,"j":4,"v":0.857},{"i":14,"j":4,"v":0.286},{"i":10,"j":5,"v":0.429},{"i":11,"j":5,"v":0.714},{"i":12,"j":5,"v":0.714},{"i":13,"j":5,"v":0.714},{"i":14,"j":5,"v":0.571},{"i":1,"j":6,"v":0.429},{"i":2,"j":6,"v":0.429},{"i":3,"j":6,"v":0.429},{"i":4,"j":6,"v":0.571},{"i":5,"j":6,"v":0.571},{"i":6,"j":6,"v":0.571},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.571},{"i":9,"j":6,"v":0.714},{"i":10,"j":6,"v":0.714},{"i":11,"j":6,"v":0.857},{"i":12,"j":6,"v":0.714},{"i":13,"j":6,"v":0.714},{"i":14,"j":6,"v":0.571},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.857},{"i":2,"j":7,"v":0.714},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.571},{"i":5,"j":7,"v":0.571},{"i":6,"j":7,"v":0.571},{"i":7,"j":7,"v":0.571},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.857},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.714},{"i":12,"j":7,"v":0.714},{"i":13,"j":7,"v":0.429},{"i":0,"j":8,"v":0.571},{"i":1,"j":8,"v":0.714},{"i":2,"j":8,"v":0.714},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.571},{"i":5,"j":8,"v":0.571},{"i":6,"j":8,"v":0.571},{"i":7,"j":8,"v":0.571},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.857},{"i":10,"j":8,"v":0.571},{"i":11,"j":8,"v":0.571},{"i":12,"j":8,"v":0.571},{"i":0,"j":9,"v":0.714},{"i":1,"j":9,"v":0.714},{"i":2,"j":9,"v":0.714},{"i":3,"j":9,"v":0.571},{"i":4,"j":9,"v":0.571},{"i":5,"j":9,"v":0.571},{"i":6,"j":9,"v":0.571},{"i":7,"j":9,"v":0.571},{"i":8,"j":9,"v":0.714},{"i":9,"j":9,"v":0.714},{"i":10,"j":9,"v":0.714},{"i":11,"j":9,"v":0.714},{"i":12,"j":9,"v":0.143},{"i":0,"j":10,"v":0.714},{"i":1,"j":10,"v":0.714},{"i":2,"j":10,"v":0.857},{"i":3,"j":10,"v":0.571},{"i":4,"j":10,"v":0.571},{"i":5,"j":10,"v":0.571},{"i":6,"j":10,"v":0.571},{"i":7,"j":10,"v":0.571},{"i":8,"j":10,"v":0.714},{"i":9,"j":10,"v":0.714},{"i":10,"j":10,"v":0.429},{"i":0,"j":11,"v":0.714},{"i":1,"j":11,"v":0.857},{"i":2,"j":11,"v":0.714},{"i":3,"j":11,"v":0.571},{"i":4,"j":11,"v":0.571},{"i":5,"j":11,"v":0.571},{"i":6,"j":11,"v":0.571},{"i":7,"j":11,"v":0.714},{"i":8,"j":11,"v":0.714},{"i":9,"j":11,"v":0.714},{"i":0,"j":12,"v":0.857},{"i":1,"j":12,"v":0.857},{"i":2,"j":12,"v":0.571},{"i":3,"j":12,"v":0.286},{"i":4,"j":12,"v":0.429},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":7,"j":12,"v":0.286},{"i":8,"j":12,"v":0.714},{"i":9,"j":12,"v":0.714},{"i":0,"j":13,"v":0.286},{"i":1,"j":13,"v":0.857},{"i":2,"j":13,"v":0.286},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.857}]
+     },
+     "x_odyssey": {
+      "asset": "creature.gilded-heifer-ritual",
+      "type": "CREATURE",
+      "statusWord": "CONSECRATED",
+      "ink": {
+       "cols": 16,
+       "rows": 14,
+       "cells": 110,
+       "fill": 0.491
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_divine_fx_athena_to_sea_eagle_transformation",
+     "x": -1.43,
+     "z": 0.24,
+     "scale": 2.357,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "eagle_01",
+      "state": null,
+      "authoredScale": 0.66,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_creature_gilded_heifer_ritual",
+     "x": 0.8,
+     "z": 1,
+     "scale": 1.429,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "heifer_01",
+      "state": null,
+      "authoredScale": 0.4,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r3",
+      "c": "NARRATOR",
+      "s": 7.43,
+      "d": 7.61,
+      "t": "The sun sank and darkness came on, and Nestor would not hear of guests sleeping on a ship's hard planks while he lived and his sons after him. To the palace, then, and to soft beds.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S05-T01",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.nestor",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "Night approaches and Nestor invites the guests to his palace",
+       "direction": "as the shore fires burn low and the company rises",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Night approaches and Nestor invites the guests to his palace"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S05.m4a"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "nestor_01",
+      "s": 14,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "nestor_prayer",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "athena",
+      "s": 15.46,
+      "d": 26.58,
+      "t": "Go with him, Telemachus, and sleep at the king's house. But I will back to the ship, to hearten the crew, for I am the one old man among them; and at dawn I go on to the Cauconians, where a debt is owed me, no new thing and no small one.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S05-T02",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.nestor",
+       "act": "REFUSE",
+       "tactic": "hold_boundary",
+       "payload": "Athena refuses and suddenly flies away in the form of a sea-eagle",
+       "direction": "and with the last word she is gone, a sea-eagle rising off the sand; amazement seizes every man who sees it",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Athena refuses and suddenly flies away in the form of a sea-eagle"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S05.m4a"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "telemachus_01",
+      "s": 30,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "hospitality",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "nestor_01",
+      "s": 42.4,
+      "d": 47.58,
+      "t": "Dear boy, no fear that you prove base or weak, when gods walk beside you so young, and that was no other of the Olympians but the daughter of Zeus himself, the glorious grey-eyed one who honored your father among the Argives. Be gracious, mistress: grant fair fame to me, to my children, to my honored wife, and I will sacrifice to you a yearling heifer, broad-browed, unbroken, her horns wrapped in gold.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S05-T03",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "PRAYER",
+       "tactic": "appeal_upward",
+       "payload": "Nestor recognizes divine favor and prays to Athena",
+       "direction": "awe converting straight to prayer, arms lifted toward the vanished bird",
+       "delivery": "awed host immediately converting revelation into prayer and ritual action",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Nestor recognizes divine favor and prays to Athena"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S05.m4a"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "NARRATOR",
+      "s": 90.35,
+      "d": 5.09,
+      "t": "At dawn they did all the king had vowed. The smith sheathed the heifer's horns in gold, the axe fell, the women raised their cry, and the goddess came glad to her sacrifice.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S05-T04",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.nestor",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "At dawn a heifer is sacrificed",
+       "direction": "over the ritual, the smoke climbing straight in the morning air",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "At dawn a heifer is sacrificed"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S05.m4a"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "telemachus_01",
+      "s": 95.86,
+      "d": 4.85,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S05-T05",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.nestor",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus is bathed and dressed for departure",
+       "direction": "bathed and rubbed with oil by fair Polycaste, youngest of Nestor's daughters, he steps out in a fresh cloak and tunic, formed like the immortals",
+       "delivery": "silent witness marked by the goddess's public favor",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus is bathed and dressed for departure"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S05.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B03-S06 · The Chariot Road to Sparta": {
+   "cast": {
+    "telemachus_01": {
+     "id": "telemachus_01",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -8.17,
+     "z": 0.42,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "neutral",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.23,
+        "y": 0.678
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.285
+     }
+    },
+    "pisistratus_01": {
+     "id": "pisistratus_01",
+     "spec": {
+      "skin": "#dcc19a",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1.02,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -5.56,
+     "z": 0.42,
+     "face": 0.62,
+     "pose": "3/4 right",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.pisistratus",
+      "name": "Pisistratus",
+      "statusWord": "GRACIOUS",
+      "pose": "three_quarter_right",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.315,
+        "y": 0.682
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#6b4a2a",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.3
+     }
+    }
+   },
+   "assets": {
+    "a_creature_matched_horse_team": {
+     "id": "a_creature_matched_horse_team",
+     "word": "matched horse team",
+     "grid": {
+      "cols": 21,
+      "rows": 12,
+      "cells": [{"i":9,"j":0,"v":0.429},{"i":10,"j":0,"v":0.286},{"i":18,"j":0,"v":0.714},{"i":19,"j":0,"v":0.143},{"i":7,"j":1,"v":0.286},{"i":8,"j":1,"v":0.857},{"i":9,"j":1,"v":0.857},{"i":10,"j":1,"v":0.857},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.571},{"i":17,"j":1,"v":0.857},{"i":18,"j":1,"v":0.714},{"i":19,"j":1,"v":0.571},{"i":3,"j":2,"v":0.143},{"i":4,"j":2,"v":0.286},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.429},{"i":7,"j":2,"v":0.857},{"i":8,"j":2,"v":0.714},{"i":9,"j":2,"v":0.571},{"i":10,"j":2,"v":0.571},{"i":11,"j":2,"v":0.429},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.714},{"i":16,"j":2,"v":0.571},{"i":17,"j":2,"v":0.571},{"i":18,"j":2,"v":0.429},{"i":19,"j":2,"v":0.714},{"i":0,"j":3,"v":0.429},{"i":1,"j":3,"v":0.857},{"i":2,"j":3,"v":0.714},{"i":3,"j":3,"v":0.571},{"i":4,"j":3,"v":0.857},{"i":5,"j":3,"v":0.714},{"i":6,"j":3,"v":0.714},{"i":7,"j":3,"v":0.857},{"i":8,"j":3,"v":0.714},{"i":9,"j":3,"v":0.571},{"i":10,"j":3,"v":0.571},{"i":11,"j":3,"v":0.571},{"i":12,"j":3,"v":0.857},{"i":13,"j":3,"v":0.571},{"i":14,"j":3,"v":0.571},{"i":15,"j":3,"v":0.857},{"i":16,"j":3,"v":0.857},{"i":17,"j":3,"v":0.143},{"i":19,"j":3,"v":0.429},{"i":20,"j":3,"v":0.571},{"i":0,"j":4,"v":0.714},{"i":1,"j":4,"v":0.857},{"i":2,"j":4,"v":0.571},{"i":3,"j":4,"v":0.571},{"i":4,"j":4,"v":0.857},{"i":5,"j":4,"v":0.714},{"i":6,"j":4,"v":0.571},{"i":7,"j":4,"v":0.714},{"i":8,"j":4,"v":0.857},{"i":9,"j":4,"v":0.429},{"i":10,"j":4,"v":0.429},{"i":11,"j":4,"v":0.429},{"i":12,"j":4,"v":0.857},{"i":13,"j":4,"v":0.571},{"i":14,"j":4,"v":0.571},{"i":15,"j":4,"v":0.429},{"i":16,"j":4,"v":0.857},{"i":17,"j":4,"v":0.286},{"i":20,"j":4,"v":0.286},{"i":0,"j":5,"v":0.857},{"i":1,"j":5,"v":0.714},{"i":2,"j":5,"v":0.714},{"i":3,"j":5,"v":0.714},{"i":4,"j":5,"v":0.857},{"i":5,"j":5,"v":0.857},{"i":6,"j":5,"v":0.857},{"i":7,"j":5,"v":0.857},{"i":8,"j":5,"v":0.857},{"i":9,"j":5,"v":0.571},{"i":10,"j":5,"v":0.571},{"i":11,"j":5,"v":0.571},{"i":12,"j":5,"v":0.857},{"i":13,"j":5,"v":0.571},{"i":14,"j":5,"v":0.714},{"i":15,"j":5,"v":0.714},{"i":16,"j":5,"v":0.857},{"i":0,"j":6,"v":0.714},{"i":1,"j":6,"v":0.429},{"i":2,"j":6,"v":0.714},{"i":3,"j":6,"v":0.143},{"i":6,"j":6,"v":0.857},{"i":7,"j":6,"v":0.857},{"i":8,"j":6,"v":0.429},{"i":9,"j":6,"v":0.571},{"i":10,"j":6,"v":0.714},{"i":11,"j":6,"v":0.571},{"i":12,"j":6,"v":0.714},{"i":13,"j":6,"v":0.571},{"i":14,"j":6,"v":0.714},{"i":15,"j":6,"v":0.429},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.429},{"i":2,"j":7,"v":0.714},{"i":6,"j":7,"v":0.857},{"i":7,"j":7,"v":0.571},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.286},{"i":13,"j":7,"v":0.143},{"i":14,"j":7,"v":0.714},{"i":15,"j":7,"v":0.429},{"i":1,"j":8,"v":0.429},{"i":2,"j":8,"v":0.714},{"i":6,"j":8,"v":0.857},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.143},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.286},{"i":13,"j":8,"v":0.143},{"i":14,"j":8,"v":0.857},{"i":15,"j":8,"v":0.571},{"i":1,"j":9,"v":0.429},{"i":2,"j":9,"v":0.429},{"i":5,"j":9,"v":0.143},{"i":6,"j":9,"v":0.714},{"i":7,"j":9,"v":0.429},{"i":8,"j":9,"v":0.286},{"i":9,"j":9,"v":0.714},{"i":13,"j":9,"v":0.143},{"i":14,"j":9,"v":0.714},{"i":15,"j":9,"v":0.429},{"i":8,"j":10,"v":0.429},{"i":9,"j":10,"v":0.857},{"i":13,"j":10,"v":0.286},{"i":14,"j":10,"v":0.857},{"i":15,"j":10,"v":0.571},{"i":14,"j":11,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "creature.matched-horse-team",
+      "type": "CREATURE",
+      "statusWord": "HARNESSED",
+      "ink": {
+       "cols": 21,
+       "rows": 12,
+       "cells": 135,
+       "fill": 0.536
+      },
+      "wholeFrame": false
+     }
+    },
+    "a_vehicle_pylian_chariot": {
+     "id": "a_vehicle_pylian_chariot",
+     "word": "pylian chariot",
+     "grid": {
+      "cols": 26,
+      "rows": 11,
+      "cells": [{"i":1,"j":0,"v":0.429},{"i":2,"j":0,"v":0.571},{"i":3,"j":0,"v":0.714},{"i":4,"j":0,"v":0.714},{"i":5,"j":0,"v":0.714},{"i":6,"j":0,"v":0.714},{"i":7,"j":0,"v":0.714},{"i":8,"j":0,"v":0.714},{"i":9,"j":0,"v":0.857},{"i":10,"j":0,"v":0.714},{"i":11,"j":0,"v":0.429},{"i":0,"j":1,"v":0.714},{"i":1,"j":1,"v":0.857},{"i":2,"j":1,"v":0.857},{"i":3,"j":1,"v":0.571},{"i":4,"j":1,"v":0.571},{"i":5,"j":1,"v":0.571},{"i":6,"j":1,"v":0.571},{"i":7,"j":1,"v":0.571},{"i":8,"j":1,"v":0.571},{"i":9,"j":1,"v":0.429},{"i":10,"j":1,"v":0.571},{"i":11,"j":1,"v":0.857},{"i":12,"j":1,"v":0.714},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":0,"j":2,"v":0.857},{"i":1,"j":2,"v":0.857},{"i":2,"j":2,"v":0.714},{"i":3,"j":2,"v":0.429},{"i":4,"j":2,"v":0.429},{"i":5,"j":2,"v":0.429},{"i":6,"j":2,"v":0.429},{"i":7,"j":2,"v":0.429},{"i":8,"j":2,"v":0.429},{"i":9,"j":2,"v":0.429},{"i":10,"j":2,"v":0.429},{"i":11,"j":2,"v":0.429},{"i":12,"j":2,"v":0.857},{"i":13,"j":2,"v":0.286},{"i":17,"j":2,"v":0.286},{"i":18,"j":2,"v":0.286},{"i":0,"j":3,"v":0.286},{"i":1,"j":3,"v":0.857},{"i":2,"j":3,"v":0.571},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.429},{"i":5,"j":3,"v":0.429},{"i":6,"j":3,"v":0.571},{"i":7,"j":3,"v":0.714},{"i":8,"j":3,"v":0.571},{"i":9,"j":3,"v":0.429},{"i":10,"j":3,"v":0.429},{"i":11,"j":3,"v":0.429},{"i":12,"j":3,"v":0.571},{"i":13,"j":3,"v":0.571},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.286},{"i":1,"j":4,"v":0.857},{"i":2,"j":4,"v":0.429},{"i":3,"j":4,"v":0.429},{"i":4,"j":4,"v":0.429},{"i":5,"j":4,"v":0.857},{"i":6,"j":4,"v":0.857},{"i":7,"j":4,"v":0.571},{"i":8,"j":4,"v":0.857},{"i":9,"j":4,"v":0.857},{"i":10,"j":4,"v":0.571},{"i":11,"j":4,"v":0.429},{"i":12,"j":4,"v":0.429},{"i":13,"j":4,"v":0.857},{"i":21,"j":4,"v":0.143},{"i":22,"j":4,"v":0.571},{"i":23,"j":4,"v":0.857},{"i":24,"j":4,"v":0.429},{"i":25,"j":4,"v":0.286},{"i":1,"j":5,"v":0.857},{"i":2,"j":5,"v":0.429},{"i":3,"j":5,"v":0.429},{"i":4,"j":5,"v":0.857},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.571},{"i":7,"j":5,"v":0.429},{"i":8,"j":5,"v":0.714},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.857},{"i":11,"j":5,"v":0.429},{"i":12,"j":5,"v":0.429},{"i":13,"j":5,"v":0.857},{"i":16,"j":5,"v":0.143},{"i":17,"j":5,"v":0.286},{"i":18,"j":5,"v":0.429},{"i":19,"j":5,"v":0.429},{"i":20,"j":5,"v":0.571},{"i":21,"j":5,"v":0.714},{"i":22,"j":5,"v":0.714},{"i":23,"j":5,"v":0.857},{"i":24,"j":5,"v":0.857},{"i":25,"j":5,"v":0.429},{"i":1,"j":6,"v":0.857},{"i":2,"j":6,"v":0.571},{"i":3,"j":6,"v":0.571},{"i":4,"j":6,"v":0.857},{"i":5,"j":6,"v":0.714},{"i":6,"j":6,"v":0.714},{"i":7,"j":6,"v":0.857},{"i":8,"j":6,"v":0.714},{"i":9,"j":6,"v":0.714},{"i":10,"j":6,"v":0.857},{"i":11,"j":6,"v":0.571},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.857},{"i":14,"j":6,"v":0.714},{"i":15,"j":6,"v":0.857},{"i":16,"j":6,"v":0.857},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.571},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.286},{"i":22,"j":6,"v":0.143},{"i":24,"j":6,"v":0.714},{"i":1,"j":7,"v":0.286},{"i":2,"j":7,"v":0.286},{"i":3,"j":7,"v":0.429},{"i":4,"j":7,"v":0.714},{"i":5,"j":7,"v":0.429},{"i":6,"j":7,"v":0.857},{"i":7,"j":7,"v":0.857},{"i":8,"j":7,"v":0.857},{"i":9,"j":7,"v":0.429},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.429},{"i":12,"j":7,"v":0.429},{"i":13,"j":7,"v":0.429},{"i":14,"j":7,"v":0.286},{"i":15,"j":7,"v":0.143},{"i":4,"j":8,"v":0.857},{"i":5,"j":8,"v":0.571},{"i":6,"j":8,"v":0.571},{"i":7,"j":8,"v":0.714},{"i":8,"j":8,"v":0.571},{"i":9,"j":8,"v":0.571},{"i":10,"j":8,"v":0.857},{"i":4,"j":9,"v":0.429},{"i":5,"j":9,"v":0.714},{"i":6,"j":9,"v":0.714},{"i":7,"j":9,"v":0.286},{"i":8,"j":9,"v":0.714},{"i":9,"j":9,"v":0.714},{"i":10,"j":9,"v":0.571},{"i":5,"j":10,"v":0.571},{"i":6,"j":10,"v":0.857},{"i":7,"j":10,"v":0.857},{"i":8,"j":10,"v":0.857},{"i":9,"j":10,"v":0.571}]
+     },
+     "x_odyssey": {
+      "asset": "vehicle.pylian-chariot",
+      "type": "VEHICLE",
+      "statusWord": "AT REST",
+      "ink": {
+       "cols": 26,
+       "rows": 11,
+       "cells": 157,
+       "fill": 0.549
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_creature_matched_horse_team",
+     "x": 4.16,
+     "z": 0.77,
+     "scale": 1.964,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "team_01",
+      "state": null,
+      "authoredScale": 0.55,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_vehicle_pylian_chariot",
+     "x": -3.85,
+     "z": 0.89,
+     "scale": 2.429,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "chariot_01",
+      "state": null,
+      "authoredScale": 0.68,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r7",
+      "c": "pisistratus_01",
+      "s": 3,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "driving_reins",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "telemachus_01",
+      "s": 3.5,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "nestor",
+      "s": 6.43,
+      "d": 30.22,
+      "t": "Quickly now, my sons, harness the flowing-maned horses to the car for Telemachus, and let the housekeeper load bread and wine and such meats as kings' sons feed on. He has far to drive before nightfall.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S06-T01",
+       "speaker": "character.nestor",
+       "speakerName": "Nestor",
+       "addressee": "character.telemachus",
+       "act": "COMMAND",
+       "tactic": "compel_action",
+       "payload": "Nestor orders horses harnessed and provisions loaded for Telemachus",
+       "direction": "orders rolling out easy as breath, the household springing to them",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Nestor orders horses harnessed and provisions loaded for Telemachus"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S06.m4a"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "pisistratus_01",
+      "s": 37.01,
+      "d": 7.65,
+      "t": "Hup, on with you!",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S06-T02",
+       "speaker": "character.pisistratus",
+       "speakerName": "Pisistratus",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Pisistratus takes the reins beside him and drives out of Pylos",
+       "direction": "mounts the car beside Telemachus, gathers the reins, and cracks the team out through the echoing gate of Pylos",
+       "delivery": "competent young prince driving, hosting, and forming an easy peer bond",
+       "conceal": [],
+       "reveal": [
+        "Pisistratus takes the reins beside him and drives out of Pylos"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S06.m4a"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "pisistratus_01",
+      "s": 44.96,
+      "d": 6.89,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S06-T03",
+       "speaker": "character.pisistratus",
+       "speakerName": "Pisistratus",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "They spend the night at Phera under Diocles's hospitality",
+       "direction": "at dusk turns the sweating team in at the door of Diocles at Phera, where they are guested for the night as custom asks",
+       "delivery": "competent young prince driving, hosting, and forming an easy peer bond",
+       "conceal": [],
+       "reveal": [
+        "They spend the night at Phera under Diocles's hospitality"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S06.m4a"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "NARRATOR",
+      "s": 52.15,
+      "d": 12.25,
+      "t": "At first light they yoked the horses again and drove out through gate and ringing portico, all day through the wheatlands, until the sun sank and every road grew dark toward Lacedaemon.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B03-S06-T04",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.telemachus",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "At dawn they continue through wheatlands toward Lacedaemon",
+       "direction": "over the running car, the plain unrolling gold to the horizon",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [],
+       "reveal": [
+        "At dawn they continue through wheatlands toward Lacedaemon"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B03-S06.m4a"
+      }
+     }
+    ]
+   }
+  }
+ },
+ "ledger": [
+  {
+   "n": 1,
+   "src": "build",
+   "op": {
+    "op": "note",
+    "t": "odyssey book 3 → halfworld/v2"
+   }
+  },
+  {
+   "n": 2,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B03-S01 · Arrival at Poseidon's Sacrifice"
+   }
+  },
+  {
+   "n": 3,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B03-S02 · Telemachus Questions Nestor"
+   }
+  },
+  {
+   "n": 4,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B03-S03 · The Broken Return from Troy"
+   }
+  },
+  {
+   "n": 5,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B03-S04 · Orestes as the Measure"
+   }
+  },
+  {
+   "n": 6,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B03-S05 · Athena Reveals Herself at Pylos"
+   }
+  },
+  {
+   "n": 7,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B03-S06 · The Chariot Road to Sparta"
+   }
+  },
+  {
+   "n": 8,
+   "src": "build",
+   "op": {
+    "op": "note",
+    "t": "6 scenes · 42 rows · grid 32x22 · ink 0-7"
+   }
+  }
+ ],
+ "nextId": 12,
+ "turn": 0,
+ "x_odyssey": {
+  "book": 3,
+  "bookTitle": "King Nestor Remembers",
+  "sceneOrder": [
+   "OD-B03-S01 · Arrival at Poseidon's Sacrifice",
+   "OD-B03-S02 · Telemachus Questions Nestor",
+   "OD-B03-S03 · The Broken Return from Troy",
+   "OD-B03-S04 · Orestes as the Measure",
+   "OD-B03-S05 · Athena Reveals Herself at Pylos",
+   "OD-B03-S06 · The Chariot Road to Sparta"
+  ],
+  "scenes": {
+   "OD-B03-S01 · Arrival at Poseidon's Sacrifice": {
+    "id": "OD-B03-S01",
+    "title": "Arrival at Poseidon's Sacrifice",
+    "book": 1,
+    "bookTitle": "King Nestor Remembers",
+    "duration": 30,
+    "beats": [
+     "At sunrise the ship reaches Pylos, where nine great divisions sacrifice black bulls to Poseidon.",
+     "Telemachus hesitates to approach Nestor; Athena urges him past his shyness.",
+     "Pisistratus welcomes the strangers, seats them on fleeces, and offers the golden cup.",
+     "Athena prays to Poseidon and passes the cup to Telemachus."
+    ],
+    "plan": null,
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.pylos-sacrificial-beach",
+      "name": "Pylos Sacrificial Beach",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 1
+      }
+     }
+    ],
+    "exitState": "Athena prays to Poseidon and passes the cup to Telemachus.",
+    "exitOccupancy": null,
+    "audio": {
+     "file": "drive/voice/OD-B03-S01.m4a",
+     "total": 75.72
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 5,
+    "source": "scenes/OD-B03-S01.mjs"
+   },
+   "OD-B03-S02 · Telemachus Questions Nestor": {
+    "id": "OD-B03-S02",
+    "title": "Telemachus Questions Nestor",
+    "book": 1,
+    "bookTitle": "King Nestor Remembers",
+    "duration": 20,
+    "beats": [
+     "After the meal Nestor asks the strangers who they are — traders or raiders.",
+     "Telemachus names himself and asks for the unsoftened truth about Odysseus.",
+     "Nestor remembers Troy and praises Odysseus's unequalled cunning.",
+     "He begins the account of the quarrel that split the returning Greek fleet."
+    ],
+    "plan": null,
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.pylos-sacrificial-beach",
+      "name": "Pylos Sacrificial Beach",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 1
+      }
+     }
+    ],
+    "exitState": "He begins the account of the quarrel that split the returning Greek fleet.",
+    "exitOccupancy": null,
+    "audio": {
+     "file": "drive/voice/OD-B03-S02.m4a",
+     "total": 96.68
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 7,
+    "source": "scenes/OD-B03-S02.mjs"
+   },
+   "OD-B03-S03 · The Broken Return from Troy": {
+    "id": "OD-B03-S03",
+    "title": "The Broken Return from Troy",
+    "book": 1,
+    "bookTitle": "King Nestor Remembers",
+    "duration": 36,
+    "beats": [
+     "Nestor recounts the feud between Agamemnon and Menelaus after Troy fell.",
+     "Half the fleet sailed; Odysseus turned back to support Agamemnon.",
+     "Nestor, Diomedes, and Menelaus escaped by a difficult route and reached home.",
+     "Nestor admits he learned Odysseus's later fate only through scattered reports."
+    ],
+    "plan": null,
+    "derived": true,
+    "field": [],
+    "exitState": "Nestor admits he learned Odysseus's later fate only through scattered reports.",
+    "exitOccupancy": null,
+    "audio": {
+     "file": "drive/voice/OD-B03-S03.m4a",
+     "total": 87.85
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 3,
+    "source": "scenes/OD-B03-S03.mjs"
+   },
+   "OD-B03-S04 · Orestes as the Measure": {
+    "id": "OD-B03-S04",
+    "title": "Orestes as the Measure",
+    "book": 1,
+    "bookTitle": "King Nestor Remembers",
+    "duration": 30,
+    "beats": [
+     "Nestor tells how Aegisthus murdered Agamemnon and how Orestes later took revenge.",
+     "He urges Telemachus to become a son whose deed will be sung.",
+     "Telemachus wishes for the power to punish the suitors but doubts the gods will grant it.",
+     "Athena rebukes his despair and insists a willing god can save a mortal."
+    ],
+    "plan": null,
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.nestors-palace-and-courtyard",
+      "name": "Nestor's Palace and Courtyard",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 1
+      }
+     }
+    ],
+    "exitState": "Athena rebukes his despair and insists a willing god can save a mortal.",
+    "exitOccupancy": null,
+    "audio": {
+     "file": "drive/voice/OD-B03-S04.m4a",
+     "total": 91.56
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 1,
+      "target": "memory_01",
+      "args": {}
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 4,
+    "source": "scenes/OD-B03-S04.mjs"
+   },
+   "OD-B03-S05 · Athena Reveals Herself at Pylos": {
+    "id": "OD-B03-S05",
+    "title": "Athena Reveals Herself at Pylos",
+    "book": 1,
+    "bookTitle": "King Nestor Remembers",
+    "duration": 40,
+    "beats": [
+     "Night approaches and Nestor invites the guests to his palace.",
+     "Athena refuses and suddenly flies away in the form of a sea-eagle.",
+     "Nestor recognizes divine favour and prays to Athena.",
+     "At dawn a heifer is sacrificed; Telemachus is bathed and dressed for departure."
+    ],
+    "plan": null,
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.nestors-palace-and-courtyard",
+      "name": "Nestor's Palace and Courtyard",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 1
+      }
+     }
+    ],
+    "exitState": "At dawn a heifer is sacrificed; Telemachus is bathed and dressed for departure.",
+    "exitOccupancy": null,
+    "audio": {
+     "file": "drive/voice/OD-B03-S05.m4a",
+     "total": 101.01
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 8,
+      "target": "eagle_01",
+      "args": {}
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 2,
+    "source": "scenes/OD-B03-S05.mjs"
+   },
+   "OD-B03-S06 · The Chariot Road to Sparta": {
+    "id": "OD-B03-S06",
+    "title": "The Chariot Road to Sparta",
+    "book": 1,
+    "bookTitle": "King Nestor Remembers",
+    "duration": 40,
+    "beats": [
+     "Nestor orders the horses harnessed and provisions loaded for Telemachus.",
+     "Pisistratus takes the reins beside him and drives out of Pylos.",
+     "They spend the night at Phera under Diocles's hospitality.",
+     "At dawn they continue through the wheatlands toward Lacedaemon."
+    ],
+    "plan": null,
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.pylos-to-sparta-road",
+      "name": "Pylos-to-Sparta Road",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 1
+      }
+     }
+    ],
+    "exitState": "At dawn they continue through the wheatlands toward Lacedaemon.",
+    "exitOccupancy": null,
+    "audio": {
+     "file": "drive/voice/OD-B03-S06.m4a",
+     "total": 64.83
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 1,
+    "source": "scenes/OD-B03-S06.mjs"
+   }
+  },
+  "albums": []
+ }
+}

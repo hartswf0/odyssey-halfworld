@@ -1,0 +1,3940 @@
+{
+ "schema": "halfworld/v2",
+ "name": "ODYSSEY 23 · THE GREAT ROOTED BED",
+ "cast": {
+  "penelope": {
+   "id": "penelope",
+   "spec": {
+    "skin": "#e0d9cb",
+    "hair": "long",
+    "beard": false,
+    "glasses": false,
+    "garment": "dress",
+    "h": 0.97,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": 10,
+   "z": 0.08,
+   "face": -1,
+   "pose": "profile left",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.penelope",
+    "name": "Penelope",
+    "statusWord": "GRIEVING",
+    "pose": "profile_left",
+    "band": "threeq",
+    "station": null,
+    "derivedFrom": {
+     "anchor": {
+      "x": 0.7945,
+      "y": 0.346
+     },
+     "model": "blocking.project inverse"
+    },
+    "hairColor": "#33291f",
+    "cloak": false,
+    "bareLegs": false,
+    "figureScale": 0.285
+   }
+  },
+  "eurycleia": {
+   "id": "eurycleia",
+   "spec": {
+    "skin": "#dccfbd",
+    "hair": "cap",
+    "beard": false,
+    "glasses": false,
+    "garment": "dress",
+    "h": 0.94,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": -1.71,
+   "z": 0.85,
+   "face": -0.62,
+   "pose": "walk",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.eurycleia",
+    "name": "Eurycleia",
+    "statusWord": "FAITHFUL",
+    "pose": "walk_neutral",
+    "band": "threeq",
+    "station": null,
+    "derivedFrom": {
+     "anchor": {
+      "x": 0.42200000000000004,
+      "y": 0.885
+     },
+     "model": "blocking.project inverse"
+    },
+    "hairColor": "#b7b1a6",
+    "cloak": false,
+    "bareLegs": false,
+    "figureScale": 0.285
+   }
+  }
+ },
+ "assets": {
+  "a_set_piece_scar_evidence": {
+   "id": "a_set_piece_scar_evidence",
+   "word": "scar evidence",
+   "grid": {
+    "cols": 30,
+    "rows": 21,
+    "cells": [{"i":3,"j":0,"v":0.429},{"i":4,"j":0,"v":0.429},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.286},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.286},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.429},{"i":26,"j":0,"v":0.286},{"i":0,"j":1,"v":0.286},{"i":5,"j":1,"v":0.429},{"i":6,"j":1,"v":0.429},{"i":7,"j":1,"v":0.571},{"i":8,"j":1,"v":0.429},{"i":9,"j":1,"v":0.571},{"i":10,"j":1,"v":0.571},{"i":11,"j":1,"v":0.429},{"i":17,"j":1,"v":0.286},{"i":18,"j":1,"v":0.429},{"i":19,"j":1,"v":0.429},{"i":20,"j":1,"v":0.286},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.286},{"i":23,"j":1,"v":0.286},{"i":24,"j":1,"v":0.429},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.429},{"i":0,"j":2,"v":0.571},{"i":1,"j":2,"v":0.143},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.714},{"i":7,"j":2,"v":0.857},{"i":8,"j":2,"v":0.571},{"i":9,"j":2,"v":0.857},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.714},{"i":13,"j":2,"v":0.429},{"i":14,"j":2,"v":0.286},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.143},{"i":24,"j":2,"v":0.429},{"i":27,"j":2,"v":0.429},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.286},{"i":5,"j":3,"v":0.286},{"i":6,"j":3,"v":0.429},{"i":7,"j":3,"v":0.571},{"i":8,"j":3,"v":0.286},{"i":9,"j":3,"v":0.571},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.571},{"i":13,"j":3,"v":0.714},{"i":14,"j":3,"v":0.429},{"i":15,"j":3,"v":0.429},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.143},{"i":21,"j":3,"v":0.143},{"i":22,"j":3,"v":0.143},{"i":23,"j":3,"v":0.143},{"i":24,"j":3,"v":0.429},{"i":27,"j":3,"v":0.286},{"i":29,"j":3,"v":0.286},{"i":0,"j":4,"v":0.429},{"i":5,"j":4,"v":0.143},{"i":6,"j":4,"v":0.286},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.143},{"i":12,"j":4,"v":0.429},{"i":13,"j":4,"v":0.429},{"i":14,"j":4,"v":0.714},{"i":15,"j":4,"v":0.429},{"i":16,"j":4,"v":0.429},{"i":20,"j":4,"v":0.143},{"i":21,"j":4,"v":0.143},{"i":22,"j":4,"v":0.143},{"i":23,"j":4,"v":0.143},{"i":24,"j":4,"v":0.429},{"i":27,"j":4,"v":0.286},{"i":29,"j":4,"v":0.286},{"i":0,"j":5,"v":0.429},{"i":6,"j":5,"v":0.429},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.143},{"i":10,"j":5,"v":0.143},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":0.286},{"i":15,"j":5,"v":0.714},{"i":16,"j":5,"v":0.429},{"i":17,"j":5,"v":0.429},{"i":19,"j":5,"v":0.143},{"i":20,"j":5,"v":0.143},{"i":21,"j":5,"v":0.143},{"i":22,"j":5,"v":0.143},{"i":23,"j":5,"v":0.143},{"i":24,"j":5,"v":0.286},{"i":25,"j":5,"v":0.286},{"i":27,"j":5,"v":0.286},{"i":28,"j":5,"v":0.143},{"i":29,"j":5,"v":0.429},{"i":0,"j":6,"v":0.143},{"i":6,"j":6,"v":0.429},{"i":7,"j":6,"v":0.286},{"i":8,"j":6,"v":0.143},{"i":9,"j":6,"v":0.143},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.286},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.429},{"i":16,"j":6,"v":0.714},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.429},{"i":19,"j":6,"v":0.714},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.714},{"i":22,"j":6,"v":0.143},{"i":23,"j":6,"v":0.143},{"i":24,"j":6,"v":0.143},{"i":25,"j":6,"v":0.429},{"i":27,"j":6,"v":0.286},{"i":29,"j":6,"v":0.286},{"i":0,"j":7,"v":0.571},{"i":1,"j":7,"v":0.143},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.429},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.143},{"i":15,"j":7,"v":0.286},{"i":16,"j":7,"v":0.286},{"i":17,"j":7,"v":0.429},{"i":18,"j":7,"v":0.571},{"i":19,"j":7,"v":0.857},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.857},{"i":22,"j":7,"v":0.143},{"i":23,"j":7,"v":0.143},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.429},{"i":27,"j":7,"v":0.286},{"i":28,"j":7,"v":0.143},{"i":29,"j":7,"v":0.286},{"i":2,"j":8,"v":0.286},{"i":3,"j":8,"v":0.286},{"i":4,"j":8,"v":0.286},{"i":5,"j":8,"v":0.429},{"i":6,"j":8,"v":0.429},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.286},{"i":9,"j":8,"v":0.286},{"i":10,"j":8,"v":0.286},{"i":11,"j":8,"v":0.429},{"i":12,"j":8,"v":0.571},{"i":13,"j":8,"v":0.571},{"i":18,"j":8,"v":0.286},{"i":19,"j":8,"v":0.714},{"i":20,"j":8,"v":0.429},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.286},{"i":23,"j":8,"v":0.286},{"i":24,"j":8,"v":0.286},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.571},{"i":27,"j":8,"v":0.286},{"i":29,"j":8,"v":0.429},{"i":1,"j":9,"v":0.714},{"i":2,"j":9,"v":0.714},{"i":3,"j":9,"v":0.714},{"i":4,"j":9,"v":0.714},{"i":18,"j":9,"v":0.286},{"i":19,"j":9,"v":0.571},{"i":1,"j":10,"v":0.286},{"i":2,"j":10,"v":0.571},{"i":3,"j":10,"v":0.571},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.286},{"i":6,"j":10,"v":0.143},{"i":12,"j":10,"v":0.143},{"i":16,"j":10,"v":0.286},{"i":17,"j":10,"v":0.571},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.286},{"i":26,"j":10,"v":0.143},{"i":27,"j":10,"v":0.143},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":0.857},{"i":7,"j":11,"v":0.429},{"i":11,"j":11,"v":0.286},{"i":12,"j":11,"v":0.571},{"i":13,"j":11,"v":0.571},{"i":14,"j":11,"v":0.857},{"i":15,"j":11,"v":0.286},{"i":16,"j":11,"v":0.286},{"i":21,"j":11,"v":0.143},{"i":22,"j":11,"v":0.571},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.429},{"i":25,"j":11,"v":0.429},{"i":26,"j":11,"v":0.714},{"i":27,"j":11,"v":0.571},{"i":8,"j":12,"v":0.286},{"i":9,"j":12,"v":0.571},{"i":10,"j":12,"v":0.714},{"i":11,"j":12,"v":0.286},{"i":12,"j":12,"v":0.714},{"i":13,"j":12,"v":0.286},{"i":17,"j":12,"v":0.429},{"i":19,"j":12,"v":0.286},{"i":20,"j":12,"v":0.286},{"i":23,"j":12,"v":0.571},{"i":24,"j":12,"v":0.429},{"i":25,"j":12,"v":0.429},{"i":26,"j":12,"v":0.714},{"i":27,"j":12,"v":0.571},{"i":8,"j":13,"v":0.143},{"i":9,"j":13,"v":0.571},{"i":10,"j":13,"v":0.714},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.286},{"i":13,"j":13,"v":0.143},{"i":17,"j":13,"v":0.286},{"i":18,"j":13,"v":0.286},{"i":21,"j":13,"v":0.429},{"i":22,"j":13,"v":0.429},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.714},{"i":25,"j":13,"v":0.286},{"i":26,"j":13,"v":0.571},{"i":27,"j":13,"v":0.429},{"i":1,"j":14,"v":0.286},{"i":2,"j":14,"v":0.286},{"i":3,"j":14,"v":0.286},{"i":4,"j":14,"v":0.286},{"i":6,"j":14,"v":0.286},{"i":7,"j":14,"v":0.286},{"i":8,"j":14,"v":0.286},{"i":9,"j":14,"v":0.286},{"i":11,"j":14,"v":0.571},{"i":12,"j":14,"v":0.286},{"i":13,"j":14,"v":0.286},{"i":14,"j":14,"v":0.286},{"i":17,"j":14,"v":0.286},{"i":18,"j":14,"v":0.286},{"i":22,"j":14,"v":0.714},{"i":23,"j":14,"v":0.571},{"i":24,"j":14,"v":0.714},{"i":25,"j":14,"v":0.571},{"i":26,"j":14,"v":0.571},{"i":27,"j":14,"v":0.571},{"i":1,"j":15,"v":0.571},{"i":2,"j":15,"v":0.571},{"i":3,"j":15,"v":0.714},{"i":4,"j":15,"v":0.571},{"i":6,"j":15,"v":0.571},{"i":7,"j":15,"v":0.571},{"i":8,"j":15,"v":0.714},{"i":9,"j":15,"v":0.571},{"i":11,"j":15,"v":0.571},{"i":12,"j":15,"v":0.714},{"i":13,"j":15,"v":0.714},{"i":14,"j":15,"v":0.571},{"i":17,"j":15,"v":0.286},{"i":19,"j":15,"v":0.429},{"i":20,"j":15,"v":0.429},{"i":21,"j":15,"v":0.429},{"i":22,"j":15,"v":0.571},{"i":23,"j":15,"v":0.143},{"i":24,"j":15,"v":0.857},{"i":25,"j":15,"v":0.286},{"i":26,"j":15,"v":0.429},{"i":1,"j":16,"v":0.143},{"i":2,"j":16,"v":0.714},{"i":3,"j":16,"v":0.429},{"i":4,"j":16,"v":0.143},{"i":6,"j":16,"v":0.143},{"i":7,"j":16,"v":0.571},{"i":8,"j":16,"v":0.571},{"i":9,"j":16,"v":0.143},{"i":11,"j":16,"v":0.143},{"i":12,"j":16,"v":0.571},{"i":13,"j":16,"v":0.571},{"i":14,"j":16,"v":0.143},{"i":17,"j":16,"v":0.143},{"i":22,"j":16,"v":0.429},{"i":23,"j":16,"v":0.143},{"i":24,"j":16,"v":0.714},{"i":25,"j":16,"v":0.286},{"i":26,"j":16,"v":0.429},{"i":1,"j":17,"v":0.143},{"i":2,"j":17,"v":0.714},{"i":3,"j":17,"v":0.429},{"i":4,"j":17,"v":0.286},{"i":7,"j":17,"v":0.429},{"i":8,"j":17,"v":0.286},{"i":12,"j":17,"v":0.429},{"i":13,"j":17,"v":0.429},{"i":22,"j":17,"v":0.429},{"i":23,"j":17,"v":0.143},{"i":24,"j":17,"v":0.714},{"i":25,"j":17,"v":0.286},{"i":26,"j":17,"v":0.429},{"i":1,"j":18,"v":0.714},{"i":2,"j":18,"v":0.857},{"i":4,"j":18,"v":0.857},{"i":5,"j":18,"v":0.571},{"i":22,"j":18,"v":0.429},{"i":23,"j":18,"v":0.143},{"i":24,"j":18,"v":0.714},{"i":25,"j":18,"v":0.286},{"i":26,"j":18,"v":0.429},{"i":1,"j":19,"v":0.429},{"i":2,"j":19,"v":0.429},{"i":3,"j":19,"v":0.143},{"i":4,"j":19,"v":0.429},{"i":5,"j":19,"v":0.286},{"i":23,"j":19,"v":0.429},{"i":24,"j":19,"v":0.571},{"i":25,"j":19,"v":0.429},{"i":26,"j":19,"v":0.143},{"i":23,"j":20,"v":0.286},{"i":24,"j":20,"v":0.429},{"i":25,"j":20,"v":0.429}]
+   },
+   "x_odyssey": {
+    "asset": "set_piece.scar-evidence",
+    "type": "SET_PIECE",
+    "statusWord": "SPOKEN",
+    "ink": {
+     "cols": 30,
+     "rows": 21,
+     "cells": 337,
+     "fill": 0.535
+    },
+    "wholeFrame": false
+   }
+  }
+ },
+ "instances": [
+  {
+   "id": "n1",
+   "assetId": "a_set_piece_scar_evidence",
+   "x": -10,
+   "z": 0.08,
+   "scale": 0.714,
+   "rot": 0,
+   "x_odyssey": {
+    "instance": "scar_01",
+    "state": "spoken",
+    "authoredScale": 0.2,
+    "station": null
+   }
+  }
+ ],
+ "score": {
+  "fps": 24,
+  "rows": [
+   {
+    "id": "r7",
+    "c": "eurycleia",
+    "s": 0,
+    "d": 1,
+    "t": "",
+    "m": "pose=walk",
+    "x_odyssey": {
+     "pose": "walk_neutral",
+     "resolved": "walk"
+    }
+   },
+   {
+    "id": "r6",
+    "c": "penelope",
+    "s": 0,
+    "d": 1,
+    "t": "",
+    "m": "pose=profile left",
+    "x_odyssey": {
+     "pose": "profile_left",
+     "resolved": "profile left"
+    }
+   },
+   {
+    "id": "r2",
+    "c": "eurycleia",
+    "s": 10.62,
+    "d": 18.6,
+    "t": "Wake, my child, wake and see it with your own eyes. Odysseus is home, here in this house, and every suitor lies dead in the hall. The man you have mourned twenty years is sitting by his own fire.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B23-S01-T01",
+     "speaker": "character.eurycleia",
+     "speakerName": "Eurycleia",
+     "addressee": "character.penelope",
+     "act": "ASSERT",
+     "tactic": "state_position",
+     "payload": "Eurycleia wakes Penelope and says Odysseus has returned and killed the suitors",
+     "direction": "breathless at the bedside, shaking her",
+     "delivery": "elated witness trying to force belief through physical proof and detail",
+     "conceal": [
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Eurycleia wakes Penelope and says Odysseus has returned and killed the suitors"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B23-S01.m4a"
+    }
+   },
+   {
+    "id": "r8",
+    "c": "eurycleia",
+    "s": 20,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "eury_alarm",
+     "resolved": "neutral"
+    }
+   },
+   {
+    "id": "r9",
+    "c": "penelope",
+    "s": 22,
+    "d": 1,
+    "t": "",
+    "m": "pose=hands near face",
+    "x_odyssey": {
+     "pose": "hands_near_face",
+     "resolved": "hands near face"
+    }
+   },
+   {
+    "id": "r3",
+    "c": "penelope",
+    "s": 29.58,
+    "d": 7.52,
+    "t": "No. The gods have broken your wits, poor nurse.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B23-S01-T02",
+     "speaker": "character.penelope",
+     "speakerName": "Penelope",
+     "addressee": "character.eurycleia",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "Penelope first thinks the nurse has gone mad or that a god punished the men",
+     "direction": "recoils into the bedclothes, sleep-heavy",
+     "delivery": "sleep-heavy queen protecting herself against impossible hope",
+     "conceal": [
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Penelope first thinks the nurse has gone mad or that a god punished the men"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B23-S01.m4a"
+    }
+   },
+   {
+    "id": "r10",
+    "c": "penelope",
+    "s": 30,
+    "d": 1,
+    "t": "",
+    "m": "pose=skeptical",
+    "x_odyssey": {
+     "pose": "skepticism",
+     "resolved": "skeptical"
+    }
+   },
+   {
+    "id": "r11",
+    "c": "penelope",
+    "s": 33,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "penelope_plea",
+     "resolved": "neutral"
+    }
+   },
+   {
+    "id": "r4",
+    "c": "eurycleia",
+    "s": 37.4,
+    "d": 8.76,
+    "t": "The scar, child, the scar. I washed it with these hands.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B23-S01-T03",
+     "speaker": "character.eurycleia",
+     "speakerName": "Eurycleia",
+     "addressee": "character.penelope",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "Eurycleia offers the scar as proof and describes the king waiting below",
+     "direction": "mimes gripping the old wound, pulls her up",
+     "delivery": "elated witness trying to force belief through physical proof and detail",
+     "conceal": [
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Eurycleia offers the scar as proof and describes the king waiting below"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B23-S01.m4a"
+    }
+   },
+   {
+    "id": "r12",
+    "c": "eurycleia",
+    "s": 40,
+    "d": 1,
+    "t": "",
+    "m": "pose=open arms",
+    "x_odyssey": {
+     "pose": "offering_hand",
+     "resolved": "open arms"
+    }
+   },
+   {
+    "id": "r13",
+    "c": "penelope",
+    "s": 46,
+    "d": 1,
+    "t": "",
+    "m": "pose=arms crossed",
+    "x_odyssey": {
+     "pose": "guarded_withdrawal",
+     "resolved": "arms crossed"
+    }
+   },
+   {
+    "id": "r5",
+    "c": "penelope",
+    "s": 46.46,
+    "d": 9,
+    "t": "",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B23-S01-T04",
+     "speaker": "character.penelope",
+     "speakerName": "Penelope",
+     "addressee": "character.eurycleia",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "Penelope descends, divided between embracing him and testing him from a distance",
+     "direction": "descends the stair, stops short of him",
+     "delivery": "sleep-heavy queen protecting herself against impossible hope",
+     "conceal": [
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Penelope descends, divided between embracing him and testing him from a distance"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B23-S01.m4a"
+    }
+   },
+   {
+    "id": "r14",
+    "c": "eurycleia",
+    "s": 49,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "eury_hush",
+     "resolved": "neutral"
+    }
+   }
+  ]
+ },
+ "scenes": {
+  "OD-B23-S01 · Eurycleia Wakes Penelope": {
+   "cast": {
+    "penelope": {
+     "id": "penelope",
+     "spec": {
+      "skin": "#e0d9cb",
+      "hair": "long",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.97,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 10,
+     "z": 0.08,
+     "face": -1,
+     "pose": "profile left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.penelope",
+      "name": "Penelope",
+      "statusWord": "GRIEVING",
+      "pose": "profile_left",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.7945,
+        "y": 0.346
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#33291f",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.285
+     }
+    },
+    "eurycleia": {
+     "id": "eurycleia",
+     "spec": {
+      "skin": "#dccfbd",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.94,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -1.71,
+     "z": 0.85,
+     "face": -0.62,
+     "pose": "walk",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.eurycleia",
+      "name": "Eurycleia",
+      "statusWord": "FAITHFUL",
+      "pose": "walk_neutral",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.42200000000000004,
+        "y": 0.885
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#b7b1a6",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.285
+     }
+    }
+   },
+   "assets": {
+    "a_set_piece_scar_evidence": {
+     "id": "a_set_piece_scar_evidence",
+     "word": "scar evidence",
+     "grid": {
+      "cols": 30,
+      "rows": 21,
+      "cells": [{"i":3,"j":0,"v":0.429},{"i":4,"j":0,"v":0.429},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.286},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.286},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.429},{"i":26,"j":0,"v":0.286},{"i":0,"j":1,"v":0.286},{"i":5,"j":1,"v":0.429},{"i":6,"j":1,"v":0.429},{"i":7,"j":1,"v":0.571},{"i":8,"j":1,"v":0.429},{"i":9,"j":1,"v":0.571},{"i":10,"j":1,"v":0.571},{"i":11,"j":1,"v":0.429},{"i":17,"j":1,"v":0.286},{"i":18,"j":1,"v":0.429},{"i":19,"j":1,"v":0.429},{"i":20,"j":1,"v":0.286},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.286},{"i":23,"j":1,"v":0.286},{"i":24,"j":1,"v":0.429},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.429},{"i":0,"j":2,"v":0.571},{"i":1,"j":2,"v":0.143},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.714},{"i":7,"j":2,"v":0.857},{"i":8,"j":2,"v":0.571},{"i":9,"j":2,"v":0.857},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.714},{"i":13,"j":2,"v":0.429},{"i":14,"j":2,"v":0.286},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.143},{"i":24,"j":2,"v":0.429},{"i":27,"j":2,"v":0.429},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.286},{"i":5,"j":3,"v":0.286},{"i":6,"j":3,"v":0.429},{"i":7,"j":3,"v":0.571},{"i":8,"j":3,"v":0.286},{"i":9,"j":3,"v":0.571},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.571},{"i":13,"j":3,"v":0.714},{"i":14,"j":3,"v":0.429},{"i":15,"j":3,"v":0.429},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.143},{"i":21,"j":3,"v":0.143},{"i":22,"j":3,"v":0.143},{"i":23,"j":3,"v":0.143},{"i":24,"j":3,"v":0.429},{"i":27,"j":3,"v":0.286},{"i":29,"j":3,"v":0.286},{"i":0,"j":4,"v":0.429},{"i":5,"j":4,"v":0.143},{"i":6,"j":4,"v":0.286},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.143},{"i":12,"j":4,"v":0.429},{"i":13,"j":4,"v":0.429},{"i":14,"j":4,"v":0.714},{"i":15,"j":4,"v":0.429},{"i":16,"j":4,"v":0.429},{"i":20,"j":4,"v":0.143},{"i":21,"j":4,"v":0.143},{"i":22,"j":4,"v":0.143},{"i":23,"j":4,"v":0.143},{"i":24,"j":4,"v":0.429},{"i":27,"j":4,"v":0.286},{"i":29,"j":4,"v":0.286},{"i":0,"j":5,"v":0.429},{"i":6,"j":5,"v":0.429},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.143},{"i":10,"j":5,"v":0.143},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":0.286},{"i":15,"j":5,"v":0.714},{"i":16,"j":5,"v":0.429},{"i":17,"j":5,"v":0.429},{"i":19,"j":5,"v":0.143},{"i":20,"j":5,"v":0.143},{"i":21,"j":5,"v":0.143},{"i":22,"j":5,"v":0.143},{"i":23,"j":5,"v":0.143},{"i":24,"j":5,"v":0.286},{"i":25,"j":5,"v":0.286},{"i":27,"j":5,"v":0.286},{"i":28,"j":5,"v":0.143},{"i":29,"j":5,"v":0.429},{"i":0,"j":6,"v":0.143},{"i":6,"j":6,"v":0.429},{"i":7,"j":6,"v":0.286},{"i":8,"j":6,"v":0.143},{"i":9,"j":6,"v":0.143},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.286},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.429},{"i":16,"j":6,"v":0.714},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.429},{"i":19,"j":6,"v":0.714},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.714},{"i":22,"j":6,"v":0.143},{"i":23,"j":6,"v":0.143},{"i":24,"j":6,"v":0.143},{"i":25,"j":6,"v":0.429},{"i":27,"j":6,"v":0.286},{"i":29,"j":6,"v":0.286},{"i":0,"j":7,"v":0.571},{"i":1,"j":7,"v":0.143},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.429},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.143},{"i":15,"j":7,"v":0.286},{"i":16,"j":7,"v":0.286},{"i":17,"j":7,"v":0.429},{"i":18,"j":7,"v":0.571},{"i":19,"j":7,"v":0.857},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.857},{"i":22,"j":7,"v":0.143},{"i":23,"j":7,"v":0.143},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.429},{"i":27,"j":7,"v":0.286},{"i":28,"j":7,"v":0.143},{"i":29,"j":7,"v":0.286},{"i":2,"j":8,"v":0.286},{"i":3,"j":8,"v":0.286},{"i":4,"j":8,"v":0.286},{"i":5,"j":8,"v":0.429},{"i":6,"j":8,"v":0.429},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.286},{"i":9,"j":8,"v":0.286},{"i":10,"j":8,"v":0.286},{"i":11,"j":8,"v":0.429},{"i":12,"j":8,"v":0.571},{"i":13,"j":8,"v":0.571},{"i":18,"j":8,"v":0.286},{"i":19,"j":8,"v":0.714},{"i":20,"j":8,"v":0.429},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.286},{"i":23,"j":8,"v":0.286},{"i":24,"j":8,"v":0.286},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.571},{"i":27,"j":8,"v":0.286},{"i":29,"j":8,"v":0.429},{"i":1,"j":9,"v":0.714},{"i":2,"j":9,"v":0.714},{"i":3,"j":9,"v":0.714},{"i":4,"j":9,"v":0.714},{"i":18,"j":9,"v":0.286},{"i":19,"j":9,"v":0.571},{"i":1,"j":10,"v":0.286},{"i":2,"j":10,"v":0.571},{"i":3,"j":10,"v":0.571},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.286},{"i":6,"j":10,"v":0.143},{"i":12,"j":10,"v":0.143},{"i":16,"j":10,"v":0.286},{"i":17,"j":10,"v":0.571},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.286},{"i":26,"j":10,"v":0.143},{"i":27,"j":10,"v":0.143},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":0.857},{"i":7,"j":11,"v":0.429},{"i":11,"j":11,"v":0.286},{"i":12,"j":11,"v":0.571},{"i":13,"j":11,"v":0.571},{"i":14,"j":11,"v":0.857},{"i":15,"j":11,"v":0.286},{"i":16,"j":11,"v":0.286},{"i":21,"j":11,"v":0.143},{"i":22,"j":11,"v":0.571},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.429},{"i":25,"j":11,"v":0.429},{"i":26,"j":11,"v":0.714},{"i":27,"j":11,"v":0.571},{"i":8,"j":12,"v":0.286},{"i":9,"j":12,"v":0.571},{"i":10,"j":12,"v":0.714},{"i":11,"j":12,"v":0.286},{"i":12,"j":12,"v":0.714},{"i":13,"j":12,"v":0.286},{"i":17,"j":12,"v":0.429},{"i":19,"j":12,"v":0.286},{"i":20,"j":12,"v":0.286},{"i":23,"j":12,"v":0.571},{"i":24,"j":12,"v":0.429},{"i":25,"j":12,"v":0.429},{"i":26,"j":12,"v":0.714},{"i":27,"j":12,"v":0.571},{"i":8,"j":13,"v":0.143},{"i":9,"j":13,"v":0.571},{"i":10,"j":13,"v":0.714},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.286},{"i":13,"j":13,"v":0.143},{"i":17,"j":13,"v":0.286},{"i":18,"j":13,"v":0.286},{"i":21,"j":13,"v":0.429},{"i":22,"j":13,"v":0.429},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.714},{"i":25,"j":13,"v":0.286},{"i":26,"j":13,"v":0.571},{"i":27,"j":13,"v":0.429},{"i":1,"j":14,"v":0.286},{"i":2,"j":14,"v":0.286},{"i":3,"j":14,"v":0.286},{"i":4,"j":14,"v":0.286},{"i":6,"j":14,"v":0.286},{"i":7,"j":14,"v":0.286},{"i":8,"j":14,"v":0.286},{"i":9,"j":14,"v":0.286},{"i":11,"j":14,"v":0.571},{"i":12,"j":14,"v":0.286},{"i":13,"j":14,"v":0.286},{"i":14,"j":14,"v":0.286},{"i":17,"j":14,"v":0.286},{"i":18,"j":14,"v":0.286},{"i":22,"j":14,"v":0.714},{"i":23,"j":14,"v":0.571},{"i":24,"j":14,"v":0.714},{"i":25,"j":14,"v":0.571},{"i":26,"j":14,"v":0.571},{"i":27,"j":14,"v":0.571},{"i":1,"j":15,"v":0.571},{"i":2,"j":15,"v":0.571},{"i":3,"j":15,"v":0.714},{"i":4,"j":15,"v":0.571},{"i":6,"j":15,"v":0.571},{"i":7,"j":15,"v":0.571},{"i":8,"j":15,"v":0.714},{"i":9,"j":15,"v":0.571},{"i":11,"j":15,"v":0.571},{"i":12,"j":15,"v":0.714},{"i":13,"j":15,"v":0.714},{"i":14,"j":15,"v":0.571},{"i":17,"j":15,"v":0.286},{"i":19,"j":15,"v":0.429},{"i":20,"j":15,"v":0.429},{"i":21,"j":15,"v":0.429},{"i":22,"j":15,"v":0.571},{"i":23,"j":15,"v":0.143},{"i":24,"j":15,"v":0.857},{"i":25,"j":15,"v":0.286},{"i":26,"j":15,"v":0.429},{"i":1,"j":16,"v":0.143},{"i":2,"j":16,"v":0.714},{"i":3,"j":16,"v":0.429},{"i":4,"j":16,"v":0.143},{"i":6,"j":16,"v":0.143},{"i":7,"j":16,"v":0.571},{"i":8,"j":16,"v":0.571},{"i":9,"j":16,"v":0.143},{"i":11,"j":16,"v":0.143},{"i":12,"j":16,"v":0.571},{"i":13,"j":16,"v":0.571},{"i":14,"j":16,"v":0.143},{"i":17,"j":16,"v":0.143},{"i":22,"j":16,"v":0.429},{"i":23,"j":16,"v":0.143},{"i":24,"j":16,"v":0.714},{"i":25,"j":16,"v":0.286},{"i":26,"j":16,"v":0.429},{"i":1,"j":17,"v":0.143},{"i":2,"j":17,"v":0.714},{"i":3,"j":17,"v":0.429},{"i":4,"j":17,"v":0.286},{"i":7,"j":17,"v":0.429},{"i":8,"j":17,"v":0.286},{"i":12,"j":17,"v":0.429},{"i":13,"j":17,"v":0.429},{"i":22,"j":17,"v":0.429},{"i":23,"j":17,"v":0.143},{"i":24,"j":17,"v":0.714},{"i":25,"j":17,"v":0.286},{"i":26,"j":17,"v":0.429},{"i":1,"j":18,"v":0.714},{"i":2,"j":18,"v":0.857},{"i":4,"j":18,"v":0.857},{"i":5,"j":18,"v":0.571},{"i":22,"j":18,"v":0.429},{"i":23,"j":18,"v":0.143},{"i":24,"j":18,"v":0.714},{"i":25,"j":18,"v":0.286},{"i":26,"j":18,"v":0.429},{"i":1,"j":19,"v":0.429},{"i":2,"j":19,"v":0.429},{"i":3,"j":19,"v":0.143},{"i":4,"j":19,"v":0.429},{"i":5,"j":19,"v":0.286},{"i":23,"j":19,"v":0.429},{"i":24,"j":19,"v":0.571},{"i":25,"j":19,"v":0.429},{"i":26,"j":19,"v":0.143},{"i":23,"j":20,"v":0.286},{"i":24,"j":20,"v":0.429},{"i":25,"j":20,"v":0.429}]
+     },
+     "x_odyssey": {
+      "asset": "set_piece.scar-evidence",
+      "type": "SET_PIECE",
+      "statusWord": "SPOKEN",
+      "ink": {
+       "cols": 30,
+       "rows": 21,
+       "cells": 337,
+       "fill": 0.535
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_set_piece_scar_evidence",
+     "x": -10,
+     "z": 0.08,
+     "scale": 0.714,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "scar_01",
+      "state": "spoken",
+      "authoredScale": 0.2,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r7",
+      "c": "eurycleia",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "penelope",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=profile left",
+      "x_odyssey": {
+       "pose": "profile_left",
+       "resolved": "profile left"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "eurycleia",
+      "s": 10.62,
+      "d": 18.6,
+      "t": "Wake, my child, wake and see it with your own eyes. Odysseus is home, here in this house, and every suitor lies dead in the hall. The man you have mourned twenty years is sitting by his own fire.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S01-T01",
+       "speaker": "character.eurycleia",
+       "speakerName": "Eurycleia",
+       "addressee": "character.penelope",
+       "act": "ASSERT",
+       "tactic": "state_position",
+       "payload": "Eurycleia wakes Penelope and says Odysseus has returned and killed the suitors",
+       "direction": "breathless at the bedside, shaking her",
+       "delivery": "elated witness trying to force belief through physical proof and detail",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Eurycleia wakes Penelope and says Odysseus has returned and killed the suitors"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S01.m4a"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "eurycleia",
+      "s": 20,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eury_alarm",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "penelope",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=hands near face",
+      "x_odyssey": {
+       "pose": "hands_near_face",
+       "resolved": "hands near face"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "penelope",
+      "s": 29.58,
+      "d": 7.52,
+      "t": "No. The gods have broken your wits, poor nurse.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S01-T02",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.eurycleia",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Penelope first thinks the nurse has gone mad or that a god punished the men",
+       "direction": "recoils into the bedclothes, sleep-heavy",
+       "delivery": "sleep-heavy queen protecting herself against impossible hope",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Penelope first thinks the nurse has gone mad or that a god punished the men"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S01.m4a"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "penelope",
+      "s": 30,
+      "d": 1,
+      "t": "",
+      "m": "pose=skeptical",
+      "x_odyssey": {
+       "pose": "skepticism",
+       "resolved": "skeptical"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "penelope",
+      "s": 33,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "penelope_plea",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "eurycleia",
+      "s": 37.4,
+      "d": 8.76,
+      "t": "The scar, child, the scar. I washed it with these hands.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S01-T03",
+       "speaker": "character.eurycleia",
+       "speakerName": "Eurycleia",
+       "addressee": "character.penelope",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Eurycleia offers the scar as proof and describes the king waiting below",
+       "direction": "mimes gripping the old wound, pulls her up",
+       "delivery": "elated witness trying to force belief through physical proof and detail",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Eurycleia offers the scar as proof and describes the king waiting below"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S01.m4a"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "eurycleia",
+      "s": 40,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "penelope",
+      "s": 46,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "guarded_withdrawal",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "penelope",
+      "s": 46.46,
+      "d": 9,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S01-T04",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.eurycleia",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Penelope descends, divided between embracing him and testing him from a distance",
+       "direction": "descends the stair, stops short of him",
+       "delivery": "sleep-heavy queen protecting herself against impossible hope",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Penelope descends, divided between embracing him and testing him from a distance"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S01.m4a"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "eurycleia",
+      "s": 49,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eury_hush",
+       "resolved": "neutral"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B23-S02 · Penelope Studies the Stranger": {
+   "cast": {
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -4.8,
+     "z": 0.44,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "pillar_l",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.46,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "penelope": {
+     "id": "penelope",
+     "spec": {
+      "skin": "#e0d9cb",
+      "hair": "long",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.97,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 8.4,
+     "z": 0.66,
+     "face": -0.62,
+     "pose": "arms crossed",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.penelope",
+      "name": "Penelope",
+      "statusWord": "GRIEVING",
+      "pose": "guarded_withdrawal",
+      "band": "threeq",
+      "station": "stair_up",
+      "derivedFrom": null,
+      "hairColor": "#33291f",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.46
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -8,
+     "z": 0.9,
+     "face": 0.62,
+     "pose": "3/4 right",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "three_quarter_right",
+      "band": "threeq",
+      "station": "corner_dead",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.62
+     }
+    }
+   },
+   "assets": {},
+   "instances": [],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r8",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r1",
+      "c": "penelope",
+      "s": 0,
+      "d": 2,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S02-T01",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.odysseus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Penelope sits opposite Odysseus in silence and studies his face and clothing",
+       "direction": "sits opposite, studies his face in silence",
+       "delivery": "motionless examiner alternating flashes of recognition with defensive doubt",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Penelope sits opposite Odysseus in silence and studies his face and clothing"
+       ],
+       "timed": false,
+       "audio": "drive/voice/OD-B23-S02.m4a"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "penelope",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "guarded_withdrawal",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 right",
+      "x_odyssey": {
+       "pose": "three_quarter_right",
+       "resolved": "3/4 right"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "penelope",
+      "s": 2,
+      "d": 5,
+      "t": "",
+      "m": "walk=8.8,0.4",
+      "x_odyssey": {
+       "move": {
+        "from": "stair_up",
+        "to": "doorway_maid"
+       },
+       "planSpace": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "fromPlan": {
+        "x": 0.92,
+        "z": 0.66
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "telemachus",
+      "s": 7.26,
+      "d": 4.48,
+      "t": "Mother, no other woman has a heart like this.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S02-T02",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.penelope",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus rebukes her for hardness",
+       "direction": "steps between them, hot with anger",
+       "delivery": "impatient son unable to understand the spouses' private evidence system",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus rebukes her for hardness"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S02.m4a"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "penelope",
+      "s": 9,
+      "d": 6,
+      "t": "",
+      "m": "walk=4.8,0.44",
+      "x_odyssey": {
+       "move": {
+        "from": "doorway_maid",
+        "to": "pillar_r"
+       },
+       "planSpace": {
+        "x": 0.74,
+        "z": 0.44
+       },
+       "fromPlan": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "telemachus",
+      "s": 12.04,
+      "d": 6.28,
+      "t": "She will not come near you, father. She says the two of you keep signs no other soul has ever heard. Until those signs are spoken, she says, I am no son of hers to argue it.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S02-T03",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus",
+       "act": "ASSERT",
+       "tactic": "state_position",
+       "payload": "she says she and Odysseus share private signs",
+       "direction": "impatient, appealing over her head",
+       "delivery": "impatient son unable to understand the spouses' private evidence system",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "she says she and Odysseus share private signs"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S02.m4a"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "odysseus",
+      "s": 18.68,
+      "d": 12.48,
+      "t": "Let her take her time; my wife will know me in her own hour. There is a colder danger at the door. Kill one man in this land and his kinsmen come armed, and we have killed the flower of Ithaca.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S02-T04",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "AUDIENCE.LOCAL",
+       "act": "ACCEPT",
+       "tactic": "enter_obligation",
+       "payload": "Odysseus accepts the delay and turns to the danger from the suitors' families",
+       "direction": "quiet, already counting the roads",
+       "delivery": "husband enduring the test while immediately planning public concealment",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus accepts the delay and turns to the danger from the suitors' families"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S02.m4a"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "telemachus",
+      "s": 28,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "odysseus",
+      "s": 31.52,
+      "d": 9.72,
+      "t": "Wash yourselves and put on fresh tunics; let the singer strike up a wedding tune. Let every man who passes this gate say the queen has married at last. No word of the dead leaves this house until I give it.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S02-T05",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "AUDIENCE.LOCAL",
+       "act": "COMMAND",
+       "tactic": "compel_action",
+       "payload": "He orders the household to create the sound of a wedding so the deaths remain hidden",
+       "direction": "flat command to the whole household",
+       "delivery": "husband enduring the test while immediately planning public concealment",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "He orders the household to create the sound of a wedding so the deaths remain hidden"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S02.m4a"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "penelope",
+      "s": 35,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "telemachus",
+      "s": 35,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "odysseus",
+      "s": 41,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "penelope",
+      "s": 44,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "arms_crossed",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "odysseus",
+      "s": 47,
+      "d": 1,
+      "t": "",
+      "m": "pose=pointing",
+      "x_odyssey": {
+       "pose": "pointing_arm",
+       "resolved": "pointing"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "telemachus",
+      "s": 47,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "odysseus",
+      "s": 53,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B23-S03 · The False Wedding Noise": {
+   "cast": {
+    "phemius": {
+     "id": "phemius",
+     "spec": {
+      "skin": "#cdb999",
+      "hair": "cap",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1.03,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 8.8,
+     "z": 0.4,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.phemius",
+      "name": "Phemius",
+      "statusWord": "COERCED",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "doorway_maid",
+      "derivedFrom": null,
+      "hairColor": "#6d6a62",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.55
+     }
+    },
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -4.8,
+     "z": 0.44,
+     "face": -0.62,
+     "pose": "arms crossed",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "arms_crossed",
+      "band": "threeq",
+      "station": "pillar_l",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.46,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "penelope": {
+     "id": "penelope",
+     "spec": {
+      "skin": "#e0d9cb",
+      "hair": "long",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.97,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 4.8,
+     "z": 0.44,
+     "face": -0.62,
+     "pose": "arms crossed",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.penelope",
+      "name": "Penelope",
+      "statusWord": "GRIEVING",
+      "pose": "arms_crossed",
+      "band": "threeq",
+      "station": "pillar_r",
+      "derivedFrom": null,
+      "hairColor": "#33291f",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.46
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -8,
+     "z": 0.9,
+     "face": 0.62,
+     "pose": "3/4 right",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "three_quarter_right",
+      "band": "threeq",
+      "station": "corner_dead",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.62
+     }
+    }
+   },
+   "assets": {
+    "a_ensemble_household_dancers": {
+     "id": "a_ensemble_household_dancers",
+     "word": "household dancers",
+     "grid": {
+      "cols": 32,
+      "rows": 22,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.143},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.143},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.143},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.143},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":27,"j":0,"v":0.143},{"i":28,"j":0,"v":0.286},{"i":29,"j":0,"v":0.143},{"i":30,"j":0,"v":0.143},{"i":31,"j":0,"v":0.143},{"i":0,"j":1,"v":0.143},{"i":1,"j":1,"v":0.143},{"i":2,"j":1,"v":0.143},{"i":3,"j":1,"v":0.143},{"i":4,"j":1,"v":0.143},{"i":5,"j":1,"v":0.143},{"i":6,"j":1,"v":0.143},{"i":7,"j":1,"v":0.143},{"i":8,"j":1,"v":0.143},{"i":9,"j":1,"v":0.143},{"i":10,"j":1,"v":0.143},{"i":11,"j":1,"v":0.143},{"i":12,"j":1,"v":0.143},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.143},{"i":17,"j":1,"v":0.143},{"i":18,"j":1,"v":0.143},{"i":19,"j":1,"v":0.143},{"i":20,"j":1,"v":0.286},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.143},{"i":23,"j":1,"v":0.143},{"i":24,"j":1,"v":0.143},{"i":25,"j":1,"v":0.143},{"i":26,"j":1,"v":0.143},{"i":27,"j":1,"v":0.143},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.143},{"i":30,"j":1,"v":0.286},{"i":31,"j":1,"v":0.143},{"i":0,"j":2,"v":0.143},{"i":1,"j":2,"v":0.429},{"i":2,"j":2,"v":0.143},{"i":3,"j":2,"v":0.143},{"i":4,"j":2,"v":0.143},{"i":5,"j":2,"v":0.143},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.143},{"i":8,"j":2,"v":0.143},{"i":9,"j":2,"v":0.429},{"i":10,"j":2,"v":0.143},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.143},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.143},{"i":17,"j":2,"v":0.429},{"i":18,"j":2,"v":0.143},{"i":19,"j":2,"v":0.143},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.429},{"i":23,"j":2,"v":0.286},{"i":24,"j":2,"v":0.286},{"i":25,"j":2,"v":0.286},{"i":26,"j":2,"v":0.286},{"i":27,"j":2,"v":0.286},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.143},{"i":30,"j":2,"v":0.143},{"i":31,"j":2,"v":0.286},{"i":0,"j":3,"v":0.143},{"i":1,"j":3,"v":0.143},{"i":2,"j":3,"v":0.286},{"i":3,"j":3,"v":0.286},{"i":4,"j":3,"v":0.143},{"i":5,"j":3,"v":0.143},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.286},{"i":8,"j":3,"v":0.429},{"i":9,"j":3,"v":0.286},{"i":10,"j":3,"v":0.429},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.143},{"i":13,"j":3,"v":0.143},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.143},{"i":16,"j":3,"v":0.429},{"i":17,"j":3,"v":0.286},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.143},{"i":20,"j":3,"v":0.143},{"i":21,"j":3,"v":0.429},{"i":22,"j":3,"v":0.429},{"i":23,"j":3,"v":0.143},{"i":24,"j":3,"v":0.143},{"i":25,"j":3,"v":0.143},{"i":26,"j":3,"v":0.143},{"i":27,"j":3,"v":0.143},{"i":28,"j":3,"v":0.286},{"i":29,"j":3,"v":0.143},{"i":30,"j":3,"v":0.143},{"i":31,"j":3,"v":0.143},{"i":0,"j":4,"v":0.143},{"i":1,"j":4,"v":0.143},{"i":2,"j":4,"v":0.143},{"i":3,"j":4,"v":0.286},{"i":4,"j":4,"v":0.286},{"i":5,"j":4,"v":0.429},{"i":6,"j":4,"v":0.429},{"i":7,"j":4,"v":0.286},{"i":8,"j":4,"v":0.143},{"i":9,"j":4,"v":0.143},{"i":10,"j":4,"v":0.143},{"i":11,"j":4,"v":0.429},{"i":12,"j":4,"v":0.429},{"i":13,"j":4,"v":0.429},{"i":14,"j":4,"v":0.429},{"i":15,"j":4,"v":0.429},{"i":16,"j":4,"v":0.143},{"i":17,"j":4,"v":0.143},{"i":18,"j":4,"v":0.286},{"i":19,"j":4,"v":0.429},{"i":20,"j":4,"v":0.429},{"i":21,"j":4,"v":0.286},{"i":22,"j":4,"v":0.143},{"i":23,"j":4,"v":0.143},{"i":24,"j":4,"v":0.143},{"i":25,"j":4,"v":0.143},{"i":26,"j":4,"v":0.143},{"i":27,"j":4,"v":0.143},{"i":28,"j":4,"v":0.143},{"i":29,"j":4,"v":0.286},{"i":30,"j":4,"v":0.143},{"i":31,"j":4,"v":0.143},{"i":0,"j":5,"v":0.143},{"i":1,"j":5,"v":0.143},{"i":2,"j":5,"v":0.143},{"i":3,"j":5,"v":0.143},{"i":4,"j":5,"v":0.143},{"i":5,"j":5,"v":0.143},{"i":6,"j":5,"v":0.143},{"i":7,"j":5,"v":0.143},{"i":8,"j":5,"v":0.143},{"i":9,"j":5,"v":0.143},{"i":10,"j":5,"v":0.143},{"i":11,"j":5,"v":0.143},{"i":12,"j":5,"v":0.143},{"i":13,"j":5,"v":0.143},{"i":14,"j":5,"v":0.143},{"i":15,"j":5,"v":0.143},{"i":16,"j":5,"v":0.143},{"i":17,"j":5,"v":0.143},{"i":18,"j":5,"v":0.143},{"i":19,"j":5,"v":0.143},{"i":20,"j":5,"v":0.143},{"i":21,"j":5,"v":0.143},{"i":22,"j":5,"v":0.143},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":0.571},{"i":25,"j":5,"v":0.571},{"i":26,"j":5,"v":0.571},{"i":27,"j":5,"v":0.286},{"i":28,"j":5,"v":0.143},{"i":29,"j":5,"v":0.143},{"i":30,"j":5,"v":0.286},{"i":31,"j":5,"v":0.143},{"i":0,"j":6,"v":0.143},{"i":1,"j":6,"v":0.143},{"i":2,"j":6,"v":0.571},{"i":3,"j":6,"v":0.571},{"i":4,"j":6,"v":0.571},{"i":5,"j":6,"v":0.429},{"i":6,"j":6,"v":0.143},{"i":7,"j":6,"v":0.143},{"i":8,"j":6,"v":0.143},{"i":9,"j":6,"v":0.143},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.143},{"i":12,"j":6,"v":0.143},{"i":13,"j":6,"v":0.143},{"i":14,"j":6,"v":0.143},{"i":15,"j":6,"v":0.143},{"i":16,"j":6,"v":0.143},{"i":17,"j":6,"v":0.143},{"i":18,"j":6,"v":0.143},{"i":19,"j":6,"v":0.143},{"i":20,"j":6,"v":0.143},{"i":21,"j":6,"v":0.143},{"i":22,"j":6,"v":0.143},{"i":23,"j":6,"v":0.714},{"i":24,"j":6,"v":0.429},{"i":25,"j":6,"v":0.429},{"i":26,"j":6,"v":0.714},{"i":27,"j":6,"v":0.714},{"i":28,"j":6,"v":0.143},{"i":29,"j":6,"v":0.143},{"i":30,"j":6,"v":0.143},{"i":31,"j":6,"v":0.143},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.286},{"i":2,"j":7,"v":0.714},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.571},{"i":5,"j":7,"v":0.429},{"i":6,"j":7,"v":0.143},{"i":7,"j":7,"v":0.143},{"i":8,"j":7,"v":0.143},{"i":9,"j":7,"v":0.143},{"i":10,"j":7,"v":0.143},{"i":11,"j":7,"v":0.143},{"i":12,"j":7,"v":0.143},{"i":13,"j":7,"v":0.143},{"i":14,"j":7,"v":0.143},{"i":15,"j":7,"v":0.143},{"i":16,"j":7,"v":0.143},{"i":17,"j":7,"v":0.143},{"i":18,"j":7,"v":0.143},{"i":19,"j":7,"v":0.143},{"i":20,"j":7,"v":0.143},{"i":21,"j":7,"v":0.143},{"i":22,"j":7,"v":0.143},{"i":23,"j":7,"v":0.714},{"i":24,"j":7,"v":0.143},{"i":25,"j":7,"v":0.143},{"i":26,"j":7,"v":0.571},{"i":27,"j":7,"v":0.714},{"i":28,"j":7,"v":0.143},{"i":29,"j":7,"v":0.143},{"i":30,"j":7,"v":0.143},{"i":31,"j":7,"v":0.143},{"i":0,"j":8,"v":0.286},{"i":1,"j":8,"v":0.429},{"i":2,"j":8,"v":0.714},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.571},{"i":5,"j":8,"v":0.571},{"i":6,"j":8,"v":0.286},{"i":7,"j":8,"v":0.286},{"i":8,"j":8,"v":0.286},{"i":9,"j":8,"v":0.429},{"i":10,"j":8,"v":0.429},{"i":11,"j":8,"v":0.429},{"i":12,"j":8,"v":0.571},{"i":13,"j":8,"v":0.571},{"i":14,"j":8,"v":0.429},{"i":15,"j":8,"v":0.286},{"i":16,"j":8,"v":0.286},{"i":17,"j":8,"v":0.143},{"i":18,"j":8,"v":0.286},{"i":19,"j":8,"v":0.286},{"i":20,"j":8,"v":0.286},{"i":21,"j":8,"v":0.286},{"i":22,"j":8,"v":0.286},{"i":23,"j":8,"v":0.714},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.571},{"i":27,"j":8,"v":0.714},{"i":28,"j":8,"v":0.286},{"i":29,"j":8,"v":0.286},{"i":30,"j":8,"v":0.286},{"i":31,"j":8,"v":0.286},{"i":0,"j":9,"v":0.571},{"i":1,"j":9,"v":0.571},{"i":2,"j":9,"v":0.571},{"i":3,"j":9,"v":0.571},{"i":4,"j":9,"v":0.857},{"i":5,"j":9,"v":0.714},{"i":6,"j":9,"v":0.714},{"i":7,"j":9,"v":0.571},{"i":8,"j":9,"v":0.571},{"i":9,"j":9,"v":0.429},{"i":10,"j":9,"v":0.571},{"i":11,"j":9,"v":0.571},{"i":12,"j":9,"v":0.571},{"i":13,"j":9,"v":0.714},{"i":14,"j":9,"v":0.714},{"i":15,"j":9,"v":0.714},{"i":16,"j":9,"v":0.714},{"i":17,"j":9,"v":0.571},{"i":18,"j":9,"v":0.714},{"i":19,"j":9,"v":0.714},{"i":20,"j":9,"v":0.714},{"i":21,"j":9,"v":0.714},{"i":22,"j":9,"v":0.714},{"i":23,"j":9,"v":0.714},{"i":24,"j":9,"v":0.571},{"i":25,"j":9,"v":0.571},{"i":26,"j":9,"v":0.429},{"i":27,"j":9,"v":0.571},{"i":28,"j":9,"v":0.429},{"i":29,"j":9,"v":0.571},{"i":30,"j":9,"v":0.571},{"i":31,"j":9,"v":0.571},{"i":0,"j":10,"v":0.286},{"i":1,"j":10,"v":0.286},{"i":2,"j":10,"v":0.286},{"i":3,"j":10,"v":0.286},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.571},{"i":6,"j":10,"v":0.429},{"i":7,"j":10,"v":0.286},{"i":8,"j":10,"v":0.286},{"i":9,"j":10,"v":0.286},{"i":10,"j":10,"v":0.286},{"i":11,"j":10,"v":0.286},{"i":12,"j":10,"v":0.286},{"i":13,"j":10,"v":0.714},{"i":14,"j":10,"v":0.571},{"i":15,"j":10,"v":0.286},{"i":16,"j":10,"v":0.286},{"i":17,"j":10,"v":0.429},{"i":18,"j":10,"v":0.714},{"i":19,"j":10,"v":0.429},{"i":20,"j":10,"v":0.429},{"i":21,"j":10,"v":0.571},{"i":22,"j":10,"v":0.571},{"i":23,"j":10,"v":0.286},{"i":24,"j":10,"v":0.286},{"i":25,"j":10,"v":0.286},{"i":26,"j":10,"v":0.286},{"i":27,"j":10,"v":0.286},{"i":28,"j":10,"v":0.286},{"i":29,"j":10,"v":0.429},{"i":30,"j":10,"v":0.286},{"i":31,"j":10,"v":0.286},{"i":0,"j":11,"v":0.286},{"i":1,"j":11,"v":0.286},{"i":2,"j":11,"v":0.286},{"i":3,"j":11,"v":0.286},{"i":4,"j":11,"v":0.429},{"i":5,"j":11,"v":0.714},{"i":6,"j":11,"v":0.429},{"i":7,"j":11,"v":0.286},{"i":8,"j":11,"v":0.429},{"i":9,"j":11,"v":0.571},{"i":10,"j":11,"v":0.571},{"i":11,"j":11,"v":0.429},{"i":12,"j":11,"v":0.429},{"i":13,"j":11,"v":0.714},{"i":14,"j":11,"v":0.429},{"i":15,"j":11,"v":0.286},{"i":16,"j":11,"v":0.286},{"i":17,"j":11,"v":0.571},{"i":18,"j":11,"v":0.714},{"i":19,"j":11,"v":0.571},{"i":20,"j":11,"v":0.429},{"i":21,"j":11,"v":0.571},{"i":22,"j":11,"v":0.571},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.429},{"i":25,"j":11,"v":0.429},{"i":26,"j":11,"v":0.429},{"i":27,"j":11,"v":0.286},{"i":28,"j":11,"v":0.286},{"i":29,"j":11,"v":0.286},{"i":30,"j":11,"v":0.286},{"i":31,"j":11,"v":0.286},{"i":0,"j":12,"v":0.286},{"i":1,"j":12,"v":0.286},{"i":2,"j":12,"v":0.286},{"i":3,"j":12,"v":0.286},{"i":4,"j":12,"v":0.286},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.286},{"i":7,"j":12,"v":0.571},{"i":8,"j":12,"v":0.857},{"i":9,"j":12,"v":0.857},{"i":10,"j":12,"v":0.429},{"i":11,"j":12,"v":0.286},{"i":12,"j":12,"v":0.286},{"i":13,"j":12,"v":0.286},{"i":14,"j":12,"v":0.286},{"i":15,"j":12,"v":0.286},{"i":16,"j":12,"v":0.714},{"i":17,"j":12,"v":0.714},{"i":18,"j":12,"v":0.571},{"i":19,"j":12,"v":0.429},{"i":20,"j":12,"v":0.286},{"i":21,"j":12,"v":0.571},{"i":22,"j":12,"v":0.571},{"i":23,"j":12,"v":0.286},{"i":24,"j":12,"v":0.429},{"i":25,"j":12,"v":0.714},{"i":26,"j":12,"v":0.714},{"i":27,"j":12,"v":0.429},{"i":28,"j":12,"v":0.286},{"i":29,"j":12,"v":0.286},{"i":30,"j":12,"v":0.286},{"i":31,"j":12,"v":0.286},{"i":0,"j":13,"v":0.286},{"i":1,"j":13,"v":0.286},{"i":2,"j":13,"v":0.286},{"i":3,"j":13,"v":0.286},{"i":4,"j":13,"v":0.286},{"i":5,"j":13,"v":0.286},{"i":6,"j":13,"v":0.286},{"i":7,"j":13,"v":0.571},{"i":8,"j":13,"v":0.714},{"i":9,"j":13,"v":0.714},{"i":10,"j":13,"v":0.286},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.286},{"i":13,"j":13,"v":0.286},{"i":14,"j":13,"v":0.286},{"i":15,"j":13,"v":0.286},{"i":16,"j":13,"v":0.714},{"i":17,"j":13,"v":0.571},{"i":18,"j":13,"v":0.429},{"i":19,"j":13,"v":0.286},{"i":20,"j":13,"v":0.286},{"i":21,"j":13,"v":0.286},{"i":22,"j":13,"v":0.286},{"i":23,"j":13,"v":0.286},{"i":24,"j":13,"v":0.286},{"i":25,"j":13,"v":0.429},{"i":26,"j":13,"v":0.714},{"i":27,"j":13,"v":0.429},{"i":28,"j":13,"v":0.286},{"i":29,"j":13,"v":0.286},{"i":30,"j":13,"v":0.286},{"i":31,"j":13,"v":0.286},{"i":0,"j":14,"v":0.286},{"i":1,"j":14,"v":0.286},{"i":2,"j":14,"v":0.286},{"i":3,"j":14,"v":0.286},{"i":4,"j":14,"v":0.286},{"i":5,"j":14,"v":0.286},{"i":6,"j":14,"v":0.571},{"i":7,"j":14,"v":0.571},{"i":8,"j":14,"v":0.714},{"i":9,"j":14,"v":0.714},{"i":10,"j":14,"v":0.286},{"i":11,"j":14,"v":0.286},{"i":12,"j":14,"v":0.286},{"i":13,"j":14,"v":0.286},{"i":14,"j":14,"v":0.286},{"i":15,"j":14,"v":0.429},{"i":16,"j":14,"v":0.429},{"i":17,"j":14,"v":0.714},{"i":18,"j":14,"v":0.714},{"i":19,"j":14,"v":0.429},{"i":20,"j":14,"v":0.286},{"i":21,"j":14,"v":0.286},{"i":22,"j":14,"v":0.286},{"i":23,"j":14,"v":0.429},{"i":24,"j":14,"v":0.286},{"i":25,"j":14,"v":0.714},{"i":26,"j":14,"v":0.714},{"i":27,"j":14,"v":0.571},{"i":28,"j":14,"v":0.286},{"i":29,"j":14,"v":0.286},{"i":30,"j":14,"v":0.286},{"i":31,"j":14,"v":0.286},{"i":0,"j":15,"v":0.286},{"i":1,"j":15,"v":0.286},{"i":2,"j":15,"v":0.286},{"i":3,"j":15,"v":0.286},{"i":4,"j":15,"v":0.286},{"i":5,"j":15,"v":0.286},{"i":6,"j":15,"v":0.571},{"i":7,"j":15,"v":0.714},{"i":8,"j":15,"v":0.714},{"i":9,"j":15,"v":0.571},{"i":10,"j":15,"v":0.286},{"i":11,"j":15,"v":0.286},{"i":12,"j":15,"v":0.286},{"i":13,"j":15,"v":0.286},{"i":14,"j":15,"v":0.286},{"i":15,"j":15,"v":0.571},{"i":16,"j":15,"v":0.714},{"i":17,"j":15,"v":0.857},{"i":18,"j":15,"v":0.571},{"i":19,"j":15,"v":0.286},{"i":20,"j":15,"v":0.286},{"i":21,"j":15,"v":0.286},{"i":22,"j":15,"v":0.429},{"i":23,"j":15,"v":0.571},{"i":24,"j":15,"v":0.714},{"i":25,"j":15,"v":0.429},{"i":26,"j":15,"v":0.714},{"i":27,"j":15,"v":0.571},{"i":28,"j":15,"v":0.286},{"i":29,"j":15,"v":0.286},{"i":30,"j":15,"v":0.286},{"i":31,"j":15,"v":0.286},{"i":0,"j":16,"v":0.286},{"i":1,"j":16,"v":0.286},{"i":2,"j":16,"v":0.286},{"i":3,"j":16,"v":0.286},{"i":4,"j":16,"v":0.429},{"i":5,"j":16,"v":0.714},{"i":6,"j":16,"v":0.714},{"i":7,"j":16,"v":0.714},{"i":8,"j":16,"v":0.429},{"i":9,"j":16,"v":0.286},{"i":10,"j":16,"v":0.286},{"i":11,"j":16,"v":0.286},{"i":12,"j":16,"v":0.286},{"i":13,"j":16,"v":0.286},{"i":14,"j":16,"v":0.286},{"i":15,"j":16,"v":0.571},{"i":16,"j":16,"v":0.714},{"i":17,"j":16,"v":0.571},{"i":18,"j":16,"v":0.286},{"i":19,"j":16,"v":0.286},{"i":20,"j":16,"v":0.286},{"i":21,"j":16,"v":0.286},{"i":22,"j":16,"v":0.286},{"i":23,"j":16,"v":0.286},{"i":24,"j":16,"v":0.714},{"i":25,"j":16,"v":0.714},{"i":26,"j":16,"v":0.714},{"i":27,"j":16,"v":0.429},{"i":28,"j":16,"v":0.286},{"i":29,"j":16,"v":0.286},{"i":30,"j":16,"v":0.286},{"i":31,"j":16,"v":0.286},{"i":0,"j":17,"v":0.286},{"i":1,"j":17,"v":0.286},{"i":2,"j":17,"v":0.286},{"i":3,"j":17,"v":0.286},{"i":4,"j":17,"v":0.571},{"i":5,"j":17,"v":0.429},{"i":6,"j":17,"v":0.571},{"i":7,"j":17,"v":0.571},{"i":8,"j":17,"v":0.286},{"i":9,"j":17,"v":0.286},{"i":10,"j":17,"v":0.286},{"i":11,"j":17,"v":0.286},{"i":12,"j":17,"v":0.286},{"i":13,"j":17,"v":0.286},{"i":14,"j":17,"v":0.286},{"i":15,"j":17,"v":0.714},{"i":16,"j":17,"v":0.714},{"i":17,"j":17,"v":0.571},{"i":18,"j":17,"v":0.286},{"i":19,"j":17,"v":0.286},{"i":20,"j":17,"v":0.286},{"i":21,"j":17,"v":0.286},{"i":22,"j":17,"v":0.286},{"i":23,"j":17,"v":0.286},{"i":24,"j":17,"v":0.571},{"i":25,"j":17,"v":0.571},{"i":26,"j":17,"v":0.714},{"i":27,"j":17,"v":0.571},{"i":28,"j":17,"v":0.286},{"i":29,"j":17,"v":0.286},{"i":30,"j":17,"v":0.286},{"i":31,"j":17,"v":0.286},{"i":0,"j":18,"v":0.286},{"i":1,"j":18,"v":0.286},{"i":2,"j":18,"v":0.286},{"i":3,"j":18,"v":0.286},{"i":4,"j":18,"v":0.286},{"i":5,"j":18,"v":0.571},{"i":6,"j":18,"v":0.571},{"i":7,"j":18,"v":0.571},{"i":8,"j":18,"v":0.571},{"i":9,"j":18,"v":0.571},{"i":10,"j":18,"v":0.571},{"i":11,"j":18,"v":0.571},{"i":12,"j":18,"v":0.571},{"i":13,"j":18,"v":0.571},{"i":14,"j":18,"v":0.429},{"i":15,"j":18,"v":0.714},{"i":16,"j":18,"v":0.714},{"i":17,"j":18,"v":0.571},{"i":18,"j":18,"v":0.286},{"i":19,"j":18,"v":0.286},{"i":20,"j":18,"v":0.286},{"i":21,"j":18,"v":0.286},{"i":22,"j":18,"v":0.286},{"i":23,"j":18,"v":0.286},{"i":24,"j":18,"v":0.571},{"i":25,"j":18,"v":0.571},{"i":26,"j":18,"v":0.571},{"i":27,"j":18,"v":0.286},{"i":28,"j":18,"v":0.286},{"i":29,"j":18,"v":0.286},{"i":30,"j":18,"v":0.286},{"i":31,"j":18,"v":0.286},{"i":0,"j":19,"v":0.286},{"i":1,"j":19,"v":0.286},{"i":2,"j":19,"v":0.286},{"i":3,"j":19,"v":0.286},{"i":4,"j":19,"v":0.286},{"i":5,"j":19,"v":0.571},{"i":6,"j":19,"v":0.714},{"i":7,"j":19,"v":0.857},{"i":8,"j":19,"v":0.571},{"i":9,"j":19,"v":0.571},{"i":10,"j":19,"v":0.571},{"i":11,"j":19,"v":0.571},{"i":12,"j":19,"v":0.571},{"i":13,"j":19,"v":0.571},{"i":14,"j":19,"v":0.429},{"i":15,"j":19,"v":0.714},{"i":16,"j":19,"v":0.429},{"i":17,"j":19,"v":0.429},{"i":18,"j":19,"v":0.286},{"i":19,"j":19,"v":0.286},{"i":20,"j":19,"v":0.286},{"i":21,"j":19,"v":0.286},{"i":22,"j":19,"v":0.286},{"i":23,"j":19,"v":0.286},{"i":24,"j":19,"v":0.714},{"i":25,"j":19,"v":0.714},{"i":26,"j":19,"v":0.571},{"i":27,"j":19,"v":0.429},{"i":28,"j":19,"v":0.286},{"i":29,"j":19,"v":0.286},{"i":30,"j":19,"v":0.286},{"i":31,"j":19,"v":0.286},{"i":0,"j":20,"v":0.286},{"i":1,"j":20,"v":0.286},{"i":2,"j":20,"v":0.286},{"i":3,"j":20,"v":0.286},{"i":4,"j":20,"v":0.286},{"i":5,"j":20,"v":0.571},{"i":6,"j":20,"v":0.571},{"i":7,"j":20,"v":0.429},{"i":8,"j":20,"v":0.286},{"i":9,"j":20,"v":0.286},{"i":10,"j":20,"v":0.286},{"i":11,"j":20,"v":0.286},{"i":12,"j":20,"v":0.286},{"i":13,"j":20,"v":0.286},{"i":14,"j":20,"v":0.286},{"i":15,"j":20,"v":0.429},{"i":16,"j":20,"v":0.286},{"i":17,"j":20,"v":0.429},{"i":18,"j":20,"v":0.286},{"i":19,"j":20,"v":0.286},{"i":20,"j":20,"v":0.286},{"i":21,"j":20,"v":0.286},{"i":22,"j":20,"v":0.286},{"i":23,"j":20,"v":0.286},{"i":24,"j":20,"v":0.429},{"i":25,"j":20,"v":0.571},{"i":26,"j":20,"v":0.714},{"i":27,"j":20,"v":0.286},{"i":28,"j":20,"v":0.286},{"i":29,"j":20,"v":0.286},{"i":30,"j":20,"v":0.286},{"i":31,"j":20,"v":0.286},{"i":0,"j":21,"v":0.286},{"i":1,"j":21,"v":0.286},{"i":2,"j":21,"v":0.286},{"i":3,"j":21,"v":0.286},{"i":4,"j":21,"v":0.286},{"i":5,"j":21,"v":0.286},{"i":6,"j":21,"v":0.286},{"i":7,"j":21,"v":0.286},{"i":8,"j":21,"v":0.286},{"i":9,"j":21,"v":0.286},{"i":10,"j":21,"v":0.286},{"i":11,"j":21,"v":0.286},{"i":12,"j":21,"v":0.286},{"i":13,"j":21,"v":0.286},{"i":14,"j":21,"v":0.286},{"i":15,"j":21,"v":0.286},{"i":16,"j":21,"v":0.286},{"i":17,"j":21,"v":0.286},{"i":18,"j":21,"v":0.286},{"i":19,"j":21,"v":0.286},{"i":20,"j":21,"v":0.286},{"i":21,"j":21,"v":0.286},{"i":22,"j":21,"v":0.286},{"i":23,"j":21,"v":0.286},{"i":24,"j":21,"v":0.286},{"i":25,"j":21,"v":0.286},{"i":26,"j":21,"v":0.286},{"i":27,"j":21,"v":0.286},{"i":28,"j":21,"v":0.286},{"i":29,"j":21,"v":0.286},{"i":30,"j":21,"v":0.286},{"i":31,"j":21,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "ensemble.household-dancers",
+      "type": "ENSEMBLE",
+      "statusWord": "DANCING",
+      "ink": {
+       "cols": 32,
+       "rows": 22,
+       "cells": 704,
+       "fill": 1
+      },
+      "wholeFrame": true
+     }
+    },
+    "a_divine_fx_athenas_restoration": {
+     "id": "a_divine_fx_athenas_restoration",
+     "word": "athena's restoration",
+     "grid": {
+      "cols": 10,
+      "rows": 3,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":0,"j":1,"v":0.429},{"i":1,"j":1,"v":0.571},{"i":2,"j":1,"v":0.571},{"i":3,"j":1,"v":0.571},{"i":4,"j":1,"v":0.571},{"i":5,"j":1,"v":0.571},{"i":6,"j":1,"v":0.571},{"i":7,"j":1,"v":0.571},{"i":8,"j":1,"v":0.571},{"i":9,"j":1,"v":0.429},{"i":0,"j":2,"v":0.286},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.286},{"i":3,"j":2,"v":0.286},{"i":4,"j":2,"v":0.286},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.286},{"i":7,"j":2,"v":0.286},{"i":8,"j":2,"v":0.286},{"i":9,"j":2,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "divine-fx.athenas-restoration",
+      "type": "DIVINE_FX",
+      "statusWord": "RESTORING",
+      "ink": {
+       "cols": 10,
+       "rows": 3,
+       "cells": 22,
+       "fill": 0.733
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_ensemble_household_dancers",
+     "x": 0,
+     "z": 0.1,
+     "scale": 0.714,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "dancers_01",
+      "state": null,
+      "authoredScale": 0.2,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_divine_fx_athenas_restoration",
+     "x": 0,
+     "z": 1,
+     "scale": 3.571,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "restore_01",
+      "state": null,
+      "authoredScale": 1,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r10",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "arms_crossed",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "penelope",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "arms_crossed",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "phemius",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 right",
+      "x_odyssey": {
+       "pose": "three_quarter_right",
+       "resolved": "3/4 right"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "odysseus",
+      "s": 3,
+      "d": 5,
+      "t": "",
+      "m": "walk=-8.8,0.24",
+      "x_odyssey": {
+       "move": {
+        "from": "pillar_l",
+        "to": "postern"
+       },
+       "planSpace": {
+        "x": 0.06,
+        "z": 0.24
+       },
+       "fromPlan": {
+        "x": 0.26,
+        "z": 0.44
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "odysseus",
+      "s": 6.62,
+      "d": 7.56,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S03-T01",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.odysseus-restored",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Odysseus bathes while Athena restores his stature and beauty",
+       "direction": "rises from the bath, transfigured, taller",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus bathes while Athena restores his stature and beauty"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S03.m4a"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "phemius",
+      "s": 11,
+      "d": 5,
+      "t": "",
+      "m": "walk=8.4,0.66",
+      "x_odyssey": {
+       "move": {
+        "from": "doorway_maid",
+        "to": "stair_up"
+       },
+       "planSpace": {
+        "x": 0.92,
+        "z": 0.66
+       },
+       "fromPlan": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "telemachus",
+      "s": 11,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "phemius",
+      "s": 14.48,
+      "d": 8.8,
+      "t": "Sound the wedding. Dance, all of you, dance loud.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S03-T02",
+       "speaker": "character.phemius",
+       "speakerName": "Phemius",
+       "addressee": "ensemble.household-dancers",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Phemius plays the lyre and the household dances so neighbors believe a wedding is underway",
+       "direction": "strikes up a bright false wedding tune",
+       "delivery": "surviving bard producing a deliberately misleading celebration soundscape",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Phemius plays the lyre and the household dances so neighbors believe a wedding is underway"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S03.m4a"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "phemius",
+      "s": 15,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "telemachus",
+      "s": 17,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "odysseus",
+      "s": 23.58,
+      "d": 6.08,
+      "t": "Strange woman. The gods have given you a heart that nothing softens. Then let it stand; nurse, make up a bed for me alone, and I will sleep apart in my own house.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S03-T03",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.odysseus-restored",
+       "act": "REFUSE",
+       "tactic": "hold_boundary",
+       "payload": "Odysseus returns radiant, but Penelope still refuses immediate recognition",
+       "direction": "turns away, refusing to plead",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus returns radiant, but Penelope still refuses immediate recognition"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S03.m4a"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "phemius",
+      "s": 24,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "odysseus",
+      "s": 30,
+      "d": 8,
+      "t": "",
+      "m": "walk=-4.8,0.44",
+      "x_odyssey": {
+       "move": {
+        "from": "postern",
+        "to": "pillar_l"
+       },
+       "planSpace": {
+        "x": 0.26,
+        "z": 0.44
+       },
+       "fromPlan": {
+        "x": 0.06,
+        "z": 0.24
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "odysseus",
+      "s": 30.02,
+      "d": 7.48,
+      "t": "No other wife would sit across the room from a husband home in the twentieth year, worn down by salt and war. Your heart is harder than the stone under this floor.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S03-T04",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.odysseus-restored",
+       "act": "ACCUSE",
+       "tactic": "assign_responsibility",
+       "payload": "The king accuses her heart of being harder than stone",
+       "direction": "level accusation, not shouted",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "The king accuses her heart of being harder than stone"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S03.m4a"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "odysseus",
+      "s": 38,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "telemachus",
+      "s": 38,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "telemachus",
+      "s": 48,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "odysseus",
+      "s": 56,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "confrontation",
+       "resolved": "angry"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B23-S04 · The Bed Test": {
+   "cast": {
+    "phemius": {
+     "id": "phemius",
+     "spec": {
+      "skin": "#cdb999",
+      "hair": "cap",
+      "beard": true,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1.03,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 8.4,
+     "z": 0.66,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.phemius",
+      "name": "Phemius",
+      "statusWord": "COERCED",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "stair_up",
+      "derivedFrom": null,
+      "hairColor": "#6d6a62",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.52
+     }
+    },
+    "penelope": {
+     "id": "penelope",
+     "spec": {
+      "skin": "#e0d9cb",
+      "hair": "long",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.97,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 4.8,
+     "z": 0.44,
+     "face": -0.62,
+     "pose": "arms crossed",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.penelope",
+      "name": "Penelope",
+      "statusWord": "GRIEVING",
+      "pose": "guarded_withdrawal",
+      "band": "threeq",
+      "station": "pillar_r",
+      "derivedFrom": null,
+      "hairColor": "#33291f",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.46
+     }
+    },
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -4.8,
+     "z": 0.44,
+     "face": -0.62,
+     "pose": "arms crossed",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "arms_crossed",
+      "band": "threeq",
+      "station": "pillar_l",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.46,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "eurycleia": {
+     "id": "eurycleia",
+     "spec": {
+      "skin": "#dccfbd",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.94,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 8.8,
+     "z": 0.4,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.eurycleia",
+      "name": "Eurycleia",
+      "statusWord": "FAITHFUL",
+      "pose": "eury_clasp",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.787,
+        "y": 0.671
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#b7b1a6",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.45
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -8,
+     "z": 0.9,
+     "face": 0.62,
+     "pose": "3/4 right",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "three_quarter_right",
+      "band": "threeq",
+      "station": "corner_dead",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.59
+     }
+    }
+   },
+   "assets": {
+    "a_prop_olive_tree_marriage_bed": {
+     "id": "a_prop_olive_tree_marriage_bed",
+     "word": "olive-tree marriage bed",
+     "grid": {
+      "cols": 29,
+      "rows": 17,
+      "cells": [{"i":7,"j":0,"v":0.286},{"i":8,"j":0,"v":0.286},{"i":7,"j":1,"v":0.714},{"i":8,"j":1,"v":0.714},{"i":9,"j":1,"v":0.286},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.571},{"i":8,"j":2,"v":0.714},{"i":9,"j":2,"v":0.286},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.429},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.429},{"i":5,"j":3,"v":0.429},{"i":6,"j":3,"v":0.714},{"i":7,"j":3,"v":0.571},{"i":8,"j":3,"v":0.714},{"i":9,"j":3,"v":0.286},{"i":1,"j":4,"v":0.143},{"i":2,"j":4,"v":0.714},{"i":3,"j":4,"v":0.571},{"i":4,"j":4,"v":0.571},{"i":5,"j":4,"v":0.714},{"i":6,"j":4,"v":0.571},{"i":7,"j":4,"v":0.571},{"i":8,"j":4,"v":0.714},{"i":9,"j":4,"v":0.286},{"i":2,"j":5,"v":0.429},{"i":3,"j":5,"v":0.571},{"i":4,"j":5,"v":0.571},{"i":5,"j":5,"v":0.714},{"i":6,"j":5,"v":0.714},{"i":7,"j":5,"v":0.714},{"i":8,"j":5,"v":0.429},{"i":9,"j":5,"v":0.571},{"i":10,"j":5,"v":0.429},{"i":11,"j":5,"v":0.286},{"i":26,"j":5,"v":0.286},{"i":27,"j":5,"v":0.429},{"i":28,"j":5,"v":0.143},{"i":0,"j":6,"v":0.571},{"i":1,"j":6,"v":0.571},{"i":2,"j":6,"v":0.571},{"i":3,"j":6,"v":0.286},{"i":4,"j":6,"v":0.286},{"i":5,"j":6,"v":0.571},{"i":6,"j":6,"v":0.714},{"i":7,"j":6,"v":0.286},{"i":8,"j":6,"v":0.286},{"i":10,"j":6,"v":0.571},{"i":11,"j":6,"v":0.429},{"i":12,"j":6,"v":0.429},{"i":13,"j":6,"v":0.429},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.286},{"i":16,"j":6,"v":0.286},{"i":17,"j":6,"v":0.286},{"i":18,"j":6,"v":0.143},{"i":25,"j":6,"v":0.286},{"i":26,"j":6,"v":0.571},{"i":27,"j":6,"v":0.857},{"i":28,"j":6,"v":0.429},{"i":0,"j":7,"v":0.143},{"i":1,"j":7,"v":0.429},{"i":2,"j":7,"v":0.714},{"i":3,"j":7,"v":0.714},{"i":4,"j":7,"v":0.571},{"i":5,"j":7,"v":0.714},{"i":6,"j":7,"v":0.714},{"i":7,"j":7,"v":0.429},{"i":8,"j":7,"v":0.571},{"i":9,"j":7,"v":0.571},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.714},{"i":12,"j":7,"v":0.286},{"i":13,"j":7,"v":0.143},{"i":14,"j":7,"v":0.143},{"i":15,"j":7,"v":0.143},{"i":16,"j":7,"v":0.429},{"i":17,"j":7,"v":0.286},{"i":18,"j":7,"v":0.286},{"i":19,"j":7,"v":0.429},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.429},{"i":23,"j":7,"v":0.429},{"i":24,"j":7,"v":0.429},{"i":25,"j":7,"v":0.571},{"i":26,"j":7,"v":0.571},{"i":27,"j":7,"v":0.714},{"i":28,"j":7,"v":0.429},{"i":2,"j":8,"v":0.429},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.571},{"i":5,"j":8,"v":0.714},{"i":6,"j":8,"v":0.714},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.429},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.714},{"i":11,"j":8,"v":0.286},{"i":12,"j":8,"v":0.143},{"i":13,"j":8,"v":0.143},{"i":14,"j":8,"v":0.286},{"i":15,"j":8,"v":0.286},{"i":16,"j":8,"v":0.143},{"i":17,"j":8,"v":0.143},{"i":18,"j":8,"v":0.143},{"i":19,"j":8,"v":0.143},{"i":20,"j":8,"v":0.429},{"i":21,"j":8,"v":0.143},{"i":22,"j":8,"v":0.143},{"i":23,"j":8,"v":0.429},{"i":24,"j":8,"v":0.571},{"i":25,"j":8,"v":0.714},{"i":26,"j":8,"v":0.714},{"i":27,"j":8,"v":0.857},{"i":28,"j":8,"v":0.429},{"i":1,"j":9,"v":0.571},{"i":2,"j":9,"v":0.571},{"i":3,"j":9,"v":0.286},{"i":4,"j":9,"v":0.286},{"i":5,"j":9,"v":0.571},{"i":6,"j":9,"v":0.714},{"i":7,"j":9,"v":0.714},{"i":8,"j":9,"v":0.857},{"i":9,"j":9,"v":0.857},{"i":10,"j":9,"v":0.286},{"i":11,"j":9,"v":0.143},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.429},{"i":14,"j":9,"v":0.286},{"i":15,"j":9,"v":0.143},{"i":16,"j":9,"v":0.143},{"i":17,"j":9,"v":0.143},{"i":18,"j":9,"v":0.429},{"i":19,"j":9,"v":0.286},{"i":20,"j":9,"v":0.143},{"i":21,"j":9,"v":0.143},{"i":22,"j":9,"v":0.429},{"i":23,"j":9,"v":0.714},{"i":24,"j":9,"v":0.857},{"i":25,"j":9,"v":0.714},{"i":26,"j":9,"v":0.571},{"i":27,"j":9,"v":0.714},{"i":28,"j":9,"v":0.429},{"i":1,"j":10,"v":0.429},{"i":2,"j":10,"v":0.571},{"i":3,"j":10,"v":0.714},{"i":4,"j":10,"v":0.571},{"i":5,"j":10,"v":0.714},{"i":6,"j":10,"v":0.714},{"i":7,"j":10,"v":0.857},{"i":8,"j":10,"v":0.857},{"i":9,"j":10,"v":0.857},{"i":10,"j":10,"v":0.857},{"i":11,"j":10,"v":0.857},{"i":12,"j":10,"v":0.857},{"i":13,"j":10,"v":0.857},{"i":14,"j":10,"v":0.714},{"i":15,"j":10,"v":0.571},{"i":16,"j":10,"v":0.571},{"i":17,"j":10,"v":0.571},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.286},{"i":20,"j":10,"v":0.286},{"i":21,"j":10,"v":0.286},{"i":22,"j":10,"v":0.571},{"i":23,"j":10,"v":0.429},{"i":24,"j":10,"v":0.857},{"i":25,"j":10,"v":0.429},{"i":26,"j":10,"v":0.714},{"i":27,"j":10,"v":0.429},{"i":28,"j":10,"v":0.429},{"i":1,"j":11,"v":0.571},{"i":2,"j":11,"v":0.571},{"i":3,"j":11,"v":0.571},{"i":4,"j":11,"v":0.571},{"i":5,"j":11,"v":0.571},{"i":6,"j":11,"v":0.714},{"i":7,"j":11,"v":0.571},{"i":8,"j":11,"v":0.714},{"i":9,"j":11,"v":0.714},{"i":10,"j":11,"v":0.571},{"i":11,"j":11,"v":0.714},{"i":12,"j":11,"v":0.571},{"i":13,"j":11,"v":0.571},{"i":14,"j":11,"v":0.571},{"i":15,"j":11,"v":0.571},{"i":16,"j":11,"v":0.714},{"i":17,"j":11,"v":0.714},{"i":18,"j":11,"v":0.714},{"i":19,"j":11,"v":0.857},{"i":20,"j":11,"v":0.857},{"i":21,"j":11,"v":0.857},{"i":22,"j":11,"v":0.857},{"i":23,"j":11,"v":0.714},{"i":24,"j":11,"v":0.857},{"i":25,"j":11,"v":0.429},{"i":26,"j":11,"v":0.429},{"i":27,"j":11,"v":0.429},{"i":28,"j":11,"v":0.429},{"i":1,"j":12,"v":0.429},{"i":2,"j":12,"v":0.429},{"i":3,"j":12,"v":0.286},{"i":4,"j":12,"v":0.286},{"i":5,"j":12,"v":0.571},{"i":6,"j":12,"v":0.714},{"i":9,"j":12,"v":0.571},{"i":10,"j":12,"v":0.429},{"i":11,"j":12,"v":0.571},{"i":12,"j":12,"v":0.571},{"i":13,"j":12,"v":0.571},{"i":14,"j":12,"v":0.571},{"i":15,"j":12,"v":0.571},{"i":16,"j":12,"v":0.714},{"i":17,"j":12,"v":0.714},{"i":18,"j":12,"v":0.571},{"i":19,"j":12,"v":0.714},{"i":20,"j":12,"v":0.571},{"i":21,"j":12,"v":0.571},{"i":22,"j":12,"v":0.571},{"i":23,"j":12,"v":0.714},{"i":24,"j":12,"v":0.714},{"i":26,"j":12,"v":0.571},{"i":27,"j":12,"v":0.571},{"i":28,"j":12,"v":0.429},{"i":1,"j":13,"v":0.429},{"i":2,"j":13,"v":0.714},{"i":3,"j":13,"v":0.714},{"i":4,"j":13,"v":0.571},{"i":5,"j":13,"v":0.714},{"i":6,"j":13,"v":0.714},{"i":9,"j":13,"v":0.429},{"i":10,"j":13,"v":0.429},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.429},{"i":13,"j":13,"v":0.571},{"i":14,"j":13,"v":0.571},{"i":15,"j":13,"v":0.571},{"i":16,"j":13,"v":0.571},{"i":17,"j":13,"v":0.571},{"i":18,"j":13,"v":0.429},{"i":19,"j":13,"v":0.429},{"i":20,"j":13,"v":0.571},{"i":21,"j":13,"v":0.571},{"i":22,"j":13,"v":0.714},{"i":23,"j":13,"v":0.571},{"i":24,"j":13,"v":0.714},{"i":2,"j":14,"v":0.571},{"i":3,"j":14,"v":0.714},{"i":4,"j":14,"v":0.714},{"i":5,"j":14,"v":0.714},{"i":6,"j":14,"v":0.429},{"i":18,"j":14,"v":0.286},{"i":19,"j":14,"v":0.286},{"i":20,"j":14,"v":0.286},{"i":21,"j":14,"v":0.286},{"i":22,"j":14,"v":0.571},{"i":23,"j":14,"v":0.429},{"i":24,"j":14,"v":0.714},{"i":5,"j":15,"v":0.143},{"i":22,"j":15,"v":0.286},{"i":23,"j":15,"v":0.429},{"i":24,"j":15,"v":0.714},{"i":22,"j":16,"v":0.143},{"i":23,"j":16,"v":0.571},{"i":24,"j":16,"v":0.571}]
+     },
+     "x_odyssey": {
+      "asset": "prop.olive-tree-marriage-bed",
+      "type": "PROP",
+      "statusWord": "MADE",
+      "ink": {
+       "cols": 29,
+       "rows": 17,
+       "cells": 268,
+       "fill": 0.544
+      },
+      "wholeFrame": false
+     }
+    },
+    "a_divine_fx_athena_delays_dawn": {
+     "id": "a_divine_fx_athena_delays_dawn",
+     "word": "athena delays dawn",
+     "grid": {
+      "cols": 32,
+      "rows": 21,
+      "cells": [{"i":0,"j":0,"v":0.286},{"i":1,"j":0,"v":0.286},{"i":2,"j":0,"v":0.286},{"i":3,"j":0,"v":0.286},{"i":4,"j":0,"v":0.286},{"i":5,"j":0,"v":0.286},{"i":6,"j":0,"v":0.286},{"i":7,"j":0,"v":0.286},{"i":8,"j":0,"v":0.286},{"i":9,"j":0,"v":0.286},{"i":10,"j":0,"v":0.286},{"i":11,"j":0,"v":0.286},{"i":12,"j":0,"v":0.286},{"i":13,"j":0,"v":0.286},{"i":14,"j":0,"v":0.286},{"i":15,"j":0,"v":0.286},{"i":16,"j":0,"v":0.286},{"i":17,"j":0,"v":0.429},{"i":18,"j":0,"v":0.571},{"i":19,"j":0,"v":0.286},{"i":20,"j":0,"v":0.286},{"i":21,"j":0,"v":0.286},{"i":22,"j":0,"v":0.286},{"i":23,"j":0,"v":0.286},{"i":24,"j":0,"v":0.286},{"i":25,"j":0,"v":0.286},{"i":26,"j":0,"v":0.286},{"i":27,"j":0,"v":0.286},{"i":28,"j":0,"v":0.286},{"i":29,"j":0,"v":0.286},{"i":30,"j":0,"v":0.286},{"i":31,"j":0,"v":0.286},{"i":0,"j":1,"v":0.286},{"i":1,"j":1,"v":0.286},{"i":2,"j":1,"v":0.286},{"i":3,"j":1,"v":0.286},{"i":4,"j":1,"v":0.286},{"i":5,"j":1,"v":0.286},{"i":6,"j":1,"v":0.286},{"i":7,"j":1,"v":0.286},{"i":8,"j":1,"v":0.286},{"i":9,"j":1,"v":0.286},{"i":10,"j":1,"v":0.286},{"i":11,"j":1,"v":0.286},{"i":12,"j":1,"v":0.286},{"i":13,"j":1,"v":0.286},{"i":14,"j":1,"v":0.286},{"i":15,"j":1,"v":0.286},{"i":16,"j":1,"v":0.286},{"i":17,"j":1,"v":0.429},{"i":18,"j":1,"v":0.571},{"i":19,"j":1,"v":0.429},{"i":20,"j":1,"v":0.429},{"i":21,"j":1,"v":0.429},{"i":22,"j":1,"v":0.429},{"i":23,"j":1,"v":0.429},{"i":24,"j":1,"v":0.571},{"i":25,"j":1,"v":0.571},{"i":26,"j":1,"v":0.429},{"i":27,"j":1,"v":0.286},{"i":28,"j":1,"v":0.286},{"i":29,"j":1,"v":0.286},{"i":30,"j":1,"v":0.286},{"i":31,"j":1,"v":0.286},{"i":0,"j":2,"v":0.286},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.571},{"i":3,"j":2,"v":0.714},{"i":4,"j":2,"v":0.714},{"i":5,"j":2,"v":0.714},{"i":6,"j":2,"v":0.714},{"i":7,"j":2,"v":0.714},{"i":8,"j":2,"v":0.571},{"i":9,"j":2,"v":0.714},{"i":10,"j":2,"v":0.714},{"i":11,"j":2,"v":0.571},{"i":12,"j":2,"v":0.714},{"i":13,"j":2,"v":0.714},{"i":14,"j":2,"v":0.714},{"i":15,"j":2,"v":0.571},{"i":16,"j":2,"v":0.714},{"i":17,"j":2,"v":0.714},{"i":18,"j":2,"v":0.857},{"i":19,"j":2,"v":0.714},{"i":20,"j":2,"v":0.714},{"i":21,"j":2,"v":0.714},{"i":22,"j":2,"v":0.714},{"i":23,"j":2,"v":0.714},{"i":24,"j":2,"v":0.714},{"i":25,"j":2,"v":0.714},{"i":26,"j":2,"v":0.571},{"i":27,"j":2,"v":0.571},{"i":28,"j":2,"v":0.571},{"i":29,"j":2,"v":0.429},{"i":30,"j":2,"v":0.286},{"i":31,"j":2,"v":0.286},{"i":0,"j":3,"v":0.286},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.429},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.286},{"i":5,"j":3,"v":0.429},{"i":6,"j":3,"v":0.429},{"i":7,"j":3,"v":0.429},{"i":8,"j":3,"v":0.571},{"i":9,"j":3,"v":0.429},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.286},{"i":12,"j":3,"v":0.286},{"i":13,"j":3,"v":0.286},{"i":14,"j":3,"v":0.286},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.429},{"i":17,"j":3,"v":0.286},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.286},{"i":21,"j":3,"v":0.286},{"i":22,"j":3,"v":0.429},{"i":23,"j":3,"v":0.286},{"i":24,"j":3,"v":0.429},{"i":25,"j":3,"v":0.571},{"i":26,"j":3,"v":0.429},{"i":27,"j":3,"v":0.286},{"i":28,"j":3,"v":0.286},{"i":29,"j":3,"v":0.429},{"i":30,"j":3,"v":0.286},{"i":31,"j":3,"v":0.286},{"i":0,"j":4,"v":0.286},{"i":1,"j":4,"v":0.286},{"i":2,"j":4,"v":0.429},{"i":3,"j":4,"v":0.429},{"i":4,"j":4,"v":0.429},{"i":5,"j":4,"v":0.571},{"i":6,"j":4,"v":0.571},{"i":7,"j":4,"v":0.429},{"i":8,"j":4,"v":0.286},{"i":9,"j":4,"v":0.286},{"i":10,"j":4,"v":0.286},{"i":11,"j":4,"v":0.286},{"i":12,"j":4,"v":0.286},{"i":13,"j":4,"v":0.286},{"i":14,"j":4,"v":0.286},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.286},{"i":17,"j":4,"v":0.286},{"i":18,"j":4,"v":0.286},{"i":19,"j":4,"v":0.286},{"i":20,"j":4,"v":0.286},{"i":21,"j":4,"v":0.286},{"i":22,"j":4,"v":0.286},{"i":23,"j":4,"v":0.286},{"i":24,"j":4,"v":0.429},{"i":25,"j":4,"v":0.286},{"i":26,"j":4,"v":0.286},{"i":27,"j":4,"v":0.286},{"i":28,"j":4,"v":0.286},{"i":29,"j":4,"v":0.286},{"i":30,"j":4,"v":0.286},{"i":31,"j":4,"v":0.286},{"i":0,"j":5,"v":0.286},{"i":1,"j":5,"v":0.286},{"i":2,"j":5,"v":0.429},{"i":3,"j":5,"v":0.571},{"i":4,"j":5,"v":0.429},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.571},{"i":7,"j":5,"v":0.429},{"i":8,"j":5,"v":0.286},{"i":9,"j":5,"v":0.286},{"i":10,"j":5,"v":0.286},{"i":11,"j":5,"v":0.286},{"i":12,"j":5,"v":0.286},{"i":13,"j":5,"v":0.286},{"i":14,"j":5,"v":0.286},{"i":15,"j":5,"v":0.286},{"i":16,"j":5,"v":0.286},{"i":17,"j":5,"v":0.286},{"i":18,"j":5,"v":0.286},{"i":19,"j":5,"v":0.286},{"i":20,"j":5,"v":0.286},{"i":21,"j":5,"v":0.286},{"i":22,"j":5,"v":0.286},{"i":23,"j":5,"v":0.286},{"i":24,"j":5,"v":0.571},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":0.286},{"i":27,"j":5,"v":0.429},{"i":28,"j":5,"v":0.286},{"i":29,"j":5,"v":0.429},{"i":30,"j":5,"v":0.286},{"i":31,"j":5,"v":0.286},{"i":0,"j":6,"v":0.286},{"i":1,"j":6,"v":0.286},{"i":2,"j":6,"v":0.571},{"i":3,"j":6,"v":0.571},{"i":4,"j":6,"v":0.286},{"i":5,"j":6,"v":0.286},{"i":6,"j":6,"v":0.429},{"i":7,"j":6,"v":0.429},{"i":8,"j":6,"v":0.429},{"i":9,"j":6,"v":0.286},{"i":10,"j":6,"v":0.286},{"i":11,"j":6,"v":0.286},{"i":12,"j":6,"v":0.286},{"i":13,"j":6,"v":0.286},{"i":14,"j":6,"v":0.286},{"i":15,"j":6,"v":0.429},{"i":16,"j":6,"v":0.286},{"i":17,"j":6,"v":0.286},{"i":18,"j":6,"v":0.429},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.571},{"i":22,"j":6,"v":0.429},{"i":23,"j":6,"v":0.429},{"i":24,"j":6,"v":0.714},{"i":25,"j":6,"v":0.571},{"i":26,"j":6,"v":0.714},{"i":27,"j":6,"v":0.429},{"i":28,"j":6,"v":0.571},{"i":29,"j":6,"v":0.571},{"i":30,"j":6,"v":0.429},{"i":31,"j":6,"v":0.286},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.429},{"i":2,"j":7,"v":0.286},{"i":3,"j":7,"v":0.286},{"i":4,"j":7,"v":0.286},{"i":5,"j":7,"v":0.286},{"i":6,"j":7,"v":0.286},{"i":7,"j":7,"v":0.286},{"i":8,"j":7,"v":0.429},{"i":9,"j":7,"v":0.286},{"i":10,"j":7,"v":0.286},{"i":11,"j":7,"v":0.429},{"i":12,"j":7,"v":0.429},{"i":13,"j":7,"v":0.286},{"i":14,"j":7,"v":0.429},{"i":15,"j":7,"v":0.857},{"i":16,"j":7,"v":0.571},{"i":17,"j":7,"v":0.429},{"i":18,"j":7,"v":0.286},{"i":19,"j":7,"v":0.571},{"i":20,"j":7,"v":0.429},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.714},{"i":23,"j":7,"v":0.714},{"i":24,"j":7,"v":0.429},{"i":25,"j":7,"v":0.714},{"i":26,"j":7,"v":0.429},{"i":27,"j":7,"v":0.429},{"i":28,"j":7,"v":0.571},{"i":29,"j":7,"v":0.286},{"i":30,"j":7,"v":0.286},{"i":31,"j":7,"v":0.286},{"i":0,"j":8,"v":0.286},{"i":1,"j":8,"v":0.286},{"i":2,"j":8,"v":0.286},{"i":3,"j":8,"v":0.286},{"i":4,"j":8,"v":0.286},{"i":5,"j":8,"v":0.286},{"i":6,"j":8,"v":0.286},{"i":7,"j":8,"v":0.286},{"i":8,"j":8,"v":0.286},{"i":9,"j":8,"v":0.429},{"i":10,"j":8,"v":0.286},{"i":11,"j":8,"v":0.286},{"i":12,"j":8,"v":0.286},{"i":13,"j":8,"v":0.286},{"i":14,"j":8,"v":0.429},{"i":15,"j":8,"v":0.429},{"i":16,"j":8,"v":0.429},{"i":17,"j":8,"v":0.571},{"i":18,"j":8,"v":0.429},{"i":19,"j":8,"v":0.429},{"i":20,"j":8,"v":0.429},{"i":21,"j":8,"v":0.286},{"i":22,"j":8,"v":0.286},{"i":23,"j":8,"v":0.429},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.571},{"i":26,"j":8,"v":0.286},{"i":27,"j":8,"v":0.429},{"i":28,"j":8,"v":0.714},{"i":29,"j":8,"v":0.286},{"i":30,"j":8,"v":0.286},{"i":31,"j":8,"v":0.286},{"i":0,"j":9,"v":0.286},{"i":1,"j":9,"v":0.286},{"i":2,"j":9,"v":0.714},{"i":3,"j":9,"v":0.571},{"i":4,"j":9,"v":0.286},{"i":5,"j":9,"v":0.286},{"i":6,"j":9,"v":0.286},{"i":7,"j":9,"v":0.286},{"i":8,"j":9,"v":0.286},{"i":9,"j":9,"v":0.429},{"i":10,"j":9,"v":0.714},{"i":11,"j":9,"v":0.429},{"i":12,"j":9,"v":0.286},{"i":13,"j":9,"v":0.286},{"i":14,"j":9,"v":0.571},{"i":15,"j":9,"v":0.429},{"i":16,"j":9,"v":0.429},{"i":17,"j":9,"v":0.429},{"i":18,"j":9,"v":0.286},{"i":19,"j":9,"v":0.286},{"i":20,"j":9,"v":0.571},{"i":21,"j":9,"v":0.714},{"i":22,"j":9,"v":0.571},{"i":23,"j":9,"v":0.286},{"i":24,"j":9,"v":0.286},{"i":25,"j":9,"v":0.429},{"i":26,"j":9,"v":0.286},{"i":27,"j":9,"v":0.286},{"i":28,"j":9,"v":0.571},{"i":29,"j":9,"v":0.714},{"i":30,"j":9,"v":0.286},{"i":31,"j":9,"v":0.286},{"i":0,"j":10,"v":0.286},{"i":1,"j":10,"v":0.286},{"i":2,"j":10,"v":0.571},{"i":3,"j":10,"v":0.571},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.429},{"i":6,"j":10,"v":0.429},{"i":7,"j":10,"v":0.429},{"i":8,"j":10,"v":0.429},{"i":9,"j":10,"v":0.429},{"i":10,"j":10,"v":0.571},{"i":11,"j":10,"v":0.429},{"i":12,"j":10,"v":0.429},{"i":13,"j":10,"v":0.429},{"i":14,"j":10,"v":0.714},{"i":15,"j":10,"v":0.429},{"i":16,"j":10,"v":0.714},{"i":17,"j":10,"v":0.571},{"i":18,"j":10,"v":0.429},{"i":19,"j":10,"v":0.429},{"i":20,"j":10,"v":0.429},{"i":21,"j":10,"v":0.571},{"i":22,"j":10,"v":0.429},{"i":23,"j":10,"v":0.429},{"i":24,"j":10,"v":0.429},{"i":25,"j":10,"v":0.429},{"i":26,"j":10,"v":0.429},{"i":27,"j":10,"v":0.429},{"i":28,"j":10,"v":0.714},{"i":29,"j":10,"v":0.571},{"i":30,"j":10,"v":0.286},{"i":31,"j":10,"v":0.286},{"i":0,"j":11,"v":0.286},{"i":1,"j":11,"v":0.571},{"i":2,"j":11,"v":0.714},{"i":3,"j":11,"v":0.714},{"i":4,"j":11,"v":0.714},{"i":5,"j":11,"v":0.714},{"i":6,"j":11,"v":0.714},{"i":7,"j":11,"v":0.714},{"i":8,"j":11,"v":0.714},{"i":9,"j":11,"v":0.571},{"i":10,"j":11,"v":0.571},{"i":11,"j":11,"v":0.429},{"i":12,"j":11,"v":0.714},{"i":13,"j":11,"v":0.714},{"i":14,"j":11,"v":0.714},{"i":15,"j":11,"v":0.714},{"i":16,"j":11,"v":0.714},{"i":17,"j":11,"v":0.714},{"i":18,"j":11,"v":0.714},{"i":19,"j":11,"v":0.714},{"i":20,"j":11,"v":0.429},{"i":21,"j":11,"v":0.571},{"i":22,"j":11,"v":0.571},{"i":23,"j":11,"v":0.714},{"i":24,"j":11,"v":0.714},{"i":25,"j":11,"v":0.714},{"i":26,"j":11,"v":0.714},{"i":27,"j":11,"v":0.714},{"i":28,"j":11,"v":0.714},{"i":29,"j":11,"v":0.714},{"i":30,"j":11,"v":0.571},{"i":31,"j":11,"v":0.286},{"i":0,"j":12,"v":0.286},{"i":1,"j":12,"v":0.429},{"i":2,"j":12,"v":0.571},{"i":3,"j":12,"v":0.571},{"i":4,"j":12,"v":0.429},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":7,"j":12,"v":0.429},{"i":8,"j":12,"v":0.286},{"i":9,"j":12,"v":0.429},{"i":10,"j":12,"v":0.571},{"i":11,"j":12,"v":0.571},{"i":12,"j":12,"v":0.429},{"i":13,"j":12,"v":0.429},{"i":14,"j":12,"v":0.429},{"i":15,"j":12,"v":0.286},{"i":16,"j":12,"v":0.286},{"i":17,"j":12,"v":0.429},{"i":18,"j":12,"v":0.429},{"i":19,"j":12,"v":0.429},{"i":20,"j":12,"v":0.571},{"i":21,"j":12,"v":0.571},{"i":22,"j":12,"v":0.571},{"i":23,"j":12,"v":0.429},{"i":24,"j":12,"v":0.286},{"i":25,"j":12,"v":0.286},{"i":26,"j":12,"v":0.429},{"i":27,"j":12,"v":0.429},{"i":28,"j":12,"v":0.571},{"i":29,"j":12,"v":0.571},{"i":30,"j":12,"v":0.429},{"i":31,"j":12,"v":0.286},{"i":2,"j":13,"v":0.429},{"i":3,"j":13,"v":0.429},{"i":7,"j":13,"v":0.571},{"i":8,"j":13,"v":0.571},{"i":9,"j":13,"v":0.714},{"i":10,"j":13,"v":0.571},{"i":11,"j":13,"v":0.714},{"i":12,"j":13,"v":0.857},{"i":13,"j":13,"v":0.714},{"i":14,"j":13,"v":0.429},{"i":15,"j":13,"v":0.143},{"i":16,"j":13,"v":0.571},{"i":17,"j":13,"v":0.286},{"i":19,"j":13,"v":0.286},{"i":20,"j":13,"v":0.286},{"i":21,"j":13,"v":0.571},{"i":22,"j":13,"v":0.143},{"i":25,"j":13,"v":0.429},{"i":26,"j":13,"v":0.571},{"i":28,"j":13,"v":0.429},{"i":29,"j":13,"v":0.429},{"i":1,"j":14,"v":0.286},{"i":2,"j":14,"v":0.286},{"i":3,"j":14,"v":0.286},{"i":4,"j":14,"v":0.429},{"i":5,"j":14,"v":0.143},{"i":7,"j":14,"v":0.286},{"i":8,"j":14,"v":0.286},{"i":9,"j":14,"v":0.286},{"i":10,"j":14,"v":0.714},{"i":11,"j":14,"v":0.714},{"i":12,"j":14,"v":0.714},{"i":13,"j":14,"v":0.143},{"i":17,"j":14,"v":0.143},{"i":18,"j":14,"v":0.286},{"i":19,"j":14,"v":0.286},{"i":20,"j":14,"v":0.571},{"i":21,"j":14,"v":0.286},{"i":22,"j":14,"v":0.286},{"i":23,"j":14,"v":0.714},{"i":24,"j":14,"v":0.714},{"i":25,"j":14,"v":0.857},{"i":26,"j":14,"v":0.857},{"i":27,"j":14,"v":0.571},{"i":28,"j":14,"v":0.429},{"i":29,"j":14,"v":0.286},{"i":2,"j":15,"v":0.286},{"i":3,"j":15,"v":0.286},{"i":4,"j":15,"v":0.286},{"i":5,"j":15,"v":0.286},{"i":6,"j":15,"v":0.286},{"i":10,"j":15,"v":0.571},{"i":11,"j":15,"v":0.286},{"i":12,"j":15,"v":0.286},{"i":13,"j":15,"v":0.571},{"i":18,"j":15,"v":0.286},{"i":19,"j":15,"v":0.286},{"i":20,"j":15,"v":0.286},{"i":21,"j":15,"v":0.286},{"i":22,"j":15,"v":0.429},{"i":23,"j":15,"v":0.429},{"i":24,"j":15,"v":0.714},{"i":25,"j":15,"v":0.714},{"i":26,"j":15,"v":0.714},{"i":27,"j":15,"v":0.857},{"i":28,"j":15,"v":0.571},{"i":29,"j":15,"v":0.143},{"i":30,"j":15,"v":0.429},{"i":1,"j":16,"v":0.286},{"i":2,"j":16,"v":0.286},{"i":3,"j":16,"v":0.286},{"i":4,"j":16,"v":0.429},{"i":6,"j":16,"v":0.143},{"i":7,"j":16,"v":0.286},{"i":8,"j":16,"v":0.286},{"i":9,"j":16,"v":0.571},{"i":10,"j":16,"v":0.429},{"i":11,"j":16,"v":0.571},{"i":12,"j":16,"v":0.571},{"i":13,"j":16,"v":0.429},{"i":14,"j":16,"v":0.143},{"i":21,"j":16,"v":0.143},{"i":22,"j":16,"v":0.286},{"i":23,"j":16,"v":0.143},{"i":24,"j":16,"v":0.429},{"i":25,"j":16,"v":0.857},{"i":26,"j":16,"v":0.714},{"i":27,"j":16,"v":0.714},{"i":29,"j":16,"v":0.286},{"i":30,"j":16,"v":0.429},{"i":1,"j":17,"v":0.286},{"i":2,"j":17,"v":0.571},{"i":3,"j":17,"v":0.571},{"i":4,"j":17,"v":0.429},{"i":5,"j":17,"v":0.571},{"i":6,"j":17,"v":0.571},{"i":7,"j":17,"v":0.286},{"i":10,"j":17,"v":0.429},{"i":11,"j":17,"v":0.286},{"i":12,"j":17,"v":0.286},{"i":13,"j":17,"v":0.429},{"i":14,"j":17,"v":0.286},{"i":20,"j":17,"v":0.143},{"i":25,"j":17,"v":0.429},{"i":26,"j":17,"v":0.429},{"i":27,"j":17,"v":0.286},{"i":1,"j":18,"v":0.429},{"i":7,"j":18,"v":0.429},{"i":9,"j":18,"v":0.286},{"i":10,"j":18,"v":0.571},{"i":11,"j":18,"v":0.714},{"i":12,"j":18,"v":0.571},{"i":13,"j":18,"v":0.571},{"i":14,"j":18,"v":0.286},{"i":16,"j":18,"v":0.286},{"i":17,"j":18,"v":0.286},{"i":18,"j":18,"v":0.429},{"i":19,"j":18,"v":0.429},{"i":20,"j":18,"v":0.286},{"i":21,"j":18,"v":0.286},{"i":1,"j":19,"v":0.429},{"i":4,"j":19,"v":0.714},{"i":5,"j":19,"v":0.143},{"i":7,"j":19,"v":0.429},{"i":9,"j":19,"v":0.286},{"i":10,"j":19,"v":0.429},{"i":11,"j":19,"v":0.714},{"i":12,"j":19,"v":0.571},{"i":13,"j":19,"v":0.429},{"i":14,"j":19,"v":0.429},{"i":15,"j":19,"v":0.143},{"i":16,"j":19,"v":0.571},{"i":17,"j":19,"v":0.429},{"i":18,"j":19,"v":0.714},{"i":19,"j":19,"v":0.714},{"i":20,"j":19,"v":0.429},{"i":21,"j":19,"v":0.286},{"i":1,"j":20,"v":0.429},{"i":2,"j":20,"v":0.286},{"i":3,"j":20,"v":0.429},{"i":4,"j":20,"v":0.714},{"i":5,"j":20,"v":0.429},{"i":6,"j":20,"v":0.286},{"i":7,"j":20,"v":0.571},{"i":10,"j":20,"v":0.143},{"i":11,"j":20,"v":0.286},{"i":12,"j":20,"v":0.286},{"i":13,"j":20,"v":0.143},{"i":17,"j":20,"v":0.143},{"i":18,"j":20,"v":0.286},{"i":19,"j":20,"v":0.286},{"i":20,"j":20,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "divine-fx.athena-delays-dawn",
+      "type": "DIVINE_FX",
+      "statusWord": "HELD",
+      "ink": {
+       "cols": 32,
+       "rows": 21,
+       "cells": 568,
+       "fill": 0.845
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_prop_olive_tree_marriage_bed",
+     "x": 7.2,
+     "z": 0.88,
+     "scale": 1.25,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "bed_01",
+      "state": null,
+      "authoredScale": 0.35,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_divine_fx_athena_delays_dawn",
+     "x": -10,
+     "z": 0.08,
+     "scale": 0.607,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "dawn_01",
+      "state": null,
+      "authoredScale": 0.17,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r17",
+      "c": "eurycleia",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eury_clasp",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "arms_crossed",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "penelope",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "guarded_withdrawal",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "phemius",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 right",
+      "x_odyssey": {
+       "pose": "three_quarter_right",
+       "resolved": "3/4 right"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "phemius",
+      "s": 3,
+      "d": 4,
+      "t": "",
+      "m": "walk=8.8,0.4",
+      "x_odyssey": {
+       "move": {
+        "from": "stair_up",
+        "to": "doorway_maid"
+       },
+       "planSpace": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "fromPlan": {
+        "x": 0.92,
+        "z": 0.66
+       },
+       "plan": "megaron+b23s04"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "penelope",
+      "s": 5.38,
+      "d": 6.12,
+      "t": "Eurycleia, carry the great bed out of the bridal chamber and set it up in the hall. Spread the fleeces and the bright blankets on it for him there.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S04-T01",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.eurycleia",
+       "act": "COMMAND",
+       "tactic": "compel_action",
+       "payload": "Penelope orders Eurycleia to move the marriage bed outside the chamber for the stranger",
+       "direction": "calm, eyes never leaving him",
+       "delivery": "calm test-giver transforming instantly into full physical recognition",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Penelope orders Eurycleia to move the marriage bed outside the chamber for the stranger"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S04.m4a"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "eurycleia",
+      "s": 10,
+      "d": 3,
+      "t": "",
+      "m": "walk=8.8,0.4",
+      "x_odyssey": {
+       "move": {
+        "from": "passage",
+        "to": "doorway_maid"
+       },
+       "planSpace": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "fromPlan": null,
+       "plan": "megaron+b23s04"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "odysseus",
+      "s": 11.86,
+      "d": 12.76,
+      "t": "Woman, who has moved my bed? I built it myself around a living olive trunk still rooted in the ground, and I roofed the chamber over it. No man alive could shift that bed without taking an axe to the tree.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S04-T02",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.penelope",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Odysseus erupts, explaining that he built the bed around a living olive tree and no one could move it intact",
+       "direction": "erupts from the chair, voice cracking",
+       "delivery": "controlled claimant provoked into exact craft memory and then released into reunion",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus erupts, explaining that he built the bed around a living olive tree and no one could move it intact"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S04.m4a"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "penelope",
+      "s": 13,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "arms_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "telemachus",
+      "s": 13,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "eurycleia",
+      "s": 16,
+      "d": 4,
+      "t": "",
+      "m": "walk=8.4,0.66",
+      "x_odyssey": {
+       "move": {
+        "from": "doorway_maid",
+        "to": "stair_up"
+       },
+       "planSpace": {
+        "x": 0.92,
+        "z": 0.66
+       },
+       "fromPlan": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "plan": "megaron+b23s04"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "odysseus",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "confrontation",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "penelope",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=hands near face",
+      "x_odyssey": {
+       "pose": "hands_near_face",
+       "resolved": "hands near face"
+      }
+     },
+     {
+      "id": "r22",
+      "c": "telemachus",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "NARRATOR",
+      "s": 24.92,
+      "d": 5.16,
+      "t": "The sign is given, and it is his alone: the bed that cannot be carried, the secret two people kept. See how her knees go slack beneath her.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S04-T03",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.penelope",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "The secret proves identity",
+       "direction": "to the audience, low and steady",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "The secret proves identity"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S04.m4a"
+      }
+     },
+     {
+      "id": "r23",
+      "c": "odysseus",
+      "s": 28,
+      "d": 1,
+      "t": "",
+      "m": "pose=pointing",
+      "x_odyssey": {
+       "pose": "pointing_arm",
+       "resolved": "pointing"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "penelope",
+      "s": 30.5,
+      "d": 5.28,
+      "t": "Odysseus.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S04-T04",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.odysseus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Penelope runs to him and embraces him",
+       "direction": "runs, throws both arms round his neck",
+       "delivery": "calm test-giver transforming instantly into full physical recognition",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Penelope runs to him and embraces him"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S04.m4a"
+      }
+     },
+     {
+      "id": "r24",
+      "c": "odysseus",
+      "s": 32,
+      "d": 1,
+      "t": "",
+      "m": "pose=stop",
+      "x_odyssey": {
+       "pose": "reach_forward",
+       "resolved": "stop"
+      }
+     },
+     {
+      "id": "r25",
+      "c": "penelope",
+      "s": 32,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "penelope",
+      "s": 36.08,
+      "d": 6.2,
+      "t": "Do not be angry with me; of all men you were always the shrewdest. I was afraid some stranger would come with a smooth story and take me with it. Now the sign has come and my heart gives way, and you are as welcome to me as dry land to swimmers.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S04-T05",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.odysseus",
+       "act": "EXPLAIN",
+       "tactic": "make_causality_legible",
+       "payload": "She explains that fear of deception caused her delay",
+       "direction": "weeping, holding his face",
+       "delivery": "calm test-giver transforming instantly into full physical recognition",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "She explains that fear of deception caused her delay"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S04.m4a"
+      }
+     },
+     {
+      "id": "r26",
+      "c": "odysseus",
+      "s": 38,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r27",
+      "c": "telemachus",
+      "s": 42,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "athena",
+      "s": 42.64,
+      "d": 9.76,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S04-T06",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.penelope",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Athena holds back dawn while husband and wife weep and reunite",
+       "direction": "holds dawn back below the horizon",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Athena holds back dawn while husband and wife weep and reunite"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S04.m4a"
+      }
+     },
+     {
+      "id": "r29",
+      "c": "odysseus",
+      "s": 50,
+      "d": 1,
+      "t": "",
+      "m": "pose=sad",
+      "x_odyssey": {
+       "pose": "grief",
+       "resolved": "sad"
+      }
+     },
+     {
+      "id": "r28",
+      "c": "penelope",
+      "s": 50,
+      "d": 1,
+      "t": "",
+      "m": "pose=stop",
+      "x_odyssey": {
+       "pose": "reach_forward",
+       "resolved": "stop"
+      }
+     },
+     {
+      "id": "r30",
+      "c": "telemachus",
+      "s": 50,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "arms_crossed",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r31",
+      "c": "penelope",
+      "s": 58,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "penelope_plea",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "eurycleia",
+      "s": 60,
+      "d": 4,
+      "t": "",
+      "m": "walk=8.8,0.4",
+      "x_odyssey": {
+       "move": {
+        "from": "stair_up",
+        "to": "doorway_maid"
+       },
+       "planSpace": {
+        "x": 0.94,
+        "z": 0.4
+       },
+       "fromPlan": {
+        "x": 0.92,
+        "z": 0.66
+       },
+       "plan": "megaron+b23s04"
+      }
+     },
+     {
+      "id": "r32",
+      "c": "telemachus",
+      "s": 64,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r33",
+      "c": "penelope",
+      "s": 66,
+      "d": 1,
+      "t": "",
+      "m": "pose=sad",
+      "x_odyssey": {
+       "pose": "penelope_grief",
+       "resolved": "sad"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B23-S05 · Odysseus Tells the Remaining Journey": {
+   "cast": {
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -2.02,
+     "z": 0.37,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "lean_forward",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.436,
+        "y": 0.656
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.42,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "penelope": {
+     "id": "penelope",
+     "spec": {
+      "skin": "#e0d9cb",
+      "hair": "long",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.97,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 1.58,
+     "z": 0.37,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.penelope",
+      "name": "Penelope",
+      "statusWord": "GRIEVING",
+      "pose": "penelope_plea",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.55,
+        "y": 0.656
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#33291f",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.42
+     }
+    }
+   },
+   "assets": {},
+   "instances": [],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r7",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "penelope",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "penelope_plea",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r1",
+      "c": "odysseus",
+      "s": 6.7,
+      "d": 7.52,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S05-T01",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.penelope",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "In bed Odysseus and Penelope recount the years they spent apart",
+       "direction": "tells the years, her hand in his",
+       "delivery": "intimate narrator condensing war, wandering, and future obligation for his wife",
+       "conceal": [],
+       "reveal": [
+        "In bed Odysseus and Penelope recount the years they spent apart"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S05.m4a"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "odysseus",
+      "s": 14.52,
+      "d": 7.76,
+      "t": "One labour is still on me. Tiresias bids me walk inland with an oar on my shoulder until I come to men who know nothing of the sea. Where a stranger calls it a winnowing fan, there I plant it and make my peace with Poseidon.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S05-T02",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.penelope",
+       "act": "DIRECT",
+       "tactic": "redirect_action",
+       "payload": "He tells her Tiresias's command to travel inland with an oar and appease Poseidon",
+       "direction": "hand on her shoulder, unhurried",
+       "delivery": "intimate narrator condensing war, wandering, and future obligation for his wife",
+       "conceal": [],
+       "reveal": [
+        "He tells her Tiresias's command to travel inland with an oar and appease Poseidon"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S05.m4a"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "odysseus",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "odysseus",
+      "s": 22.64,
+      "d": 21.04,
+      "t": "And then a gentle death, out of the sea, in a rich old age.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S05-T03",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.penelope",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "He describes the eventual gentle death foretold for him",
+       "direction": "traces the long years ahead",
+       "delivery": "intimate narrator condensing war, wandering, and future obligation for his wife",
+       "conceal": [],
+       "reveal": [
+        "He describes the eventual gentle death foretold for him"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S05.m4a"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "odysseus",
+      "s": 40,
+      "d": 1,
+      "t": "",
+      "m": "pose=pointing",
+      "x_odyssey": {
+       "pose": "pointing_arm",
+       "resolved": "pointing"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "penelope",
+      "s": 43.98,
+      "d": 12.16,
+      "t": "If the gods have set a better old age at the end of that road, then go when you must go. I have waited before; I know the shape of waiting. Only come back to this bed.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S05-T04",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.odysseus",
+       "act": "ACCEPT",
+       "tactic": "enter_obligation",
+       "payload": "Penelope accepts that further movement remains even after homecoming",
+       "direction": "steady, no protest in it",
+       "delivery": "listener receiving both recovered past and the cost still attached to return",
+       "conceal": [],
+       "reveal": [
+        "Penelope accepts that further movement remains even after homecoming"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S05.m4a"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "odysseus",
+      "s": 52,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "penelope",
+      "s": 52,
+      "d": 1,
+      "t": "",
+      "m": "pose=hands near face",
+      "x_odyssey": {
+       "pose": "hands_near_face",
+       "resolved": "hands near face"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "penelope",
+      "s": 56.5,
+      "d": 7.4,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S05-T05",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.odysseus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "They sleep while Athena finally releases the dawn",
+       "direction": "sleeps; dawn released at last",
+       "delivery": "listener receiving both recovered past and the cost still attached to return",
+       "conceal": [],
+       "reveal": [
+        "They sleep while Athena finally releases the dawn"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S05.m4a"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "odysseus",
+      "s": 60,
+      "d": 1,
+      "t": "",
+      "m": "pose=one arm raised",
+      "x_odyssey": {
+       "pose": "one_arm_raised",
+       "resolved": "one arm raised"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "penelope",
+      "s": 60,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "odysseus",
+      "s": 68,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "open_palm",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "penelope",
+      "s": 68,
+      "d": 1,
+      "t": "",
+      "m": "pose=sad",
+      "x_odyssey": {
+       "pose": "penelope_grief",
+       "resolved": "sad"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "odysseus",
+      "s": 76,
+      "d": 1,
+      "t": "",
+      "m": "pose=stop",
+      "x_odyssey": {
+       "pose": "reach_forward",
+       "resolved": "stop"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "penelope",
+      "s": 76,
+      "d": 1,
+      "t": "",
+      "m": "pose=stop",
+      "x_odyssey": {
+       "pose": "reach_forward",
+       "resolved": "stop"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "odysseus",
+      "s": 80,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "penelope",
+      "s": 80,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B23-S06 · Departure for Laertes": {
+   "cast": {
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -8.44,
+     "z": 0.7,
+     "face": -0.62,
+     "pose": "angry",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "confrontation",
+      "band": "threeq",
+      "station": "fork_king",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.225,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -6.78,
+     "z": 0.86,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "alert",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.189,
+        "y": 0.89
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.264
+     }
+    }
+   },
+   "assets": {
+    "a_ensemble_eumaeus_and_philoetius": {
+     "id": "a_ensemble_eumaeus_and_philoetius",
+     "word": "eumaeus and philoetius",
+     "grid": {
+      "cols": 32,
+      "rows": 18,
+      "cells": [{"i":0,"j":0,"v":0.429},{"i":1,"j":0,"v":0.571},{"i":2,"j":0,"v":0.571},{"i":29,"j":0,"v":0.571},{"i":30,"j":0,"v":0.571},{"i":31,"j":0,"v":0.429},{"i":0,"j":1,"v":0.286},{"i":1,"j":1,"v":0.286},{"i":2,"j":1,"v":0.286},{"i":12,"j":1,"v":0.714},{"i":29,"j":1,"v":0.286},{"i":30,"j":1,"v":0.143},{"i":31,"j":1,"v":0.286},{"i":0,"j":2,"v":0.286},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.286},{"i":12,"j":2,"v":0.714},{"i":29,"j":2,"v":0.286},{"i":30,"j":2,"v":0.286},{"i":31,"j":2,"v":0.286},{"i":0,"j":3,"v":0.286},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.286},{"i":11,"j":3,"v":0.143},{"i":12,"j":3,"v":0.429},{"i":29,"j":3,"v":0.286},{"i":30,"j":3,"v":0.286},{"i":31,"j":3,"v":0.286},{"i":0,"j":4,"v":0.286},{"i":1,"j":4,"v":0.286},{"i":2,"j":4,"v":0.286},{"i":11,"j":4,"v":0.286},{"i":12,"j":4,"v":0.429},{"i":29,"j":4,"v":0.286},{"i":30,"j":4,"v":0.286},{"i":31,"j":4,"v":0.286},{"i":0,"j":5,"v":0.286},{"i":1,"j":5,"v":0.286},{"i":2,"j":5,"v":0.286},{"i":8,"j":5,"v":0.286},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.286},{"i":11,"j":5,"v":0.429},{"i":12,"j":5,"v":0.286},{"i":20,"j":5,"v":0.429},{"i":21,"j":5,"v":0.571},{"i":29,"j":5,"v":0.286},{"i":30,"j":5,"v":0.286},{"i":31,"j":5,"v":0.286},{"i":0,"j":6,"v":0.286},{"i":1,"j":6,"v":0.286},{"i":2,"j":6,"v":0.286},{"i":3,"j":6,"v":0.286},{"i":4,"j":6,"v":0.571},{"i":8,"j":6,"v":0.429},{"i":9,"j":6,"v":0.714},{"i":10,"j":6,"v":0.571},{"i":11,"j":6,"v":0.571},{"i":20,"j":6,"v":0.429},{"i":21,"j":6,"v":0.571},{"i":27,"j":6,"v":0.714},{"i":28,"j":6,"v":0.143},{"i":29,"j":6,"v":0.286},{"i":30,"j":6,"v":0.286},{"i":31,"j":6,"v":0.286},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.286},{"i":2,"j":7,"v":0.429},{"i":3,"j":7,"v":0.429},{"i":4,"j":7,"v":0.571},{"i":7,"j":7,"v":0.286},{"i":8,"j":7,"v":0.429},{"i":9,"j":7,"v":0.571},{"i":10,"j":7,"v":0.429},{"i":11,"j":7,"v":0.714},{"i":19,"j":7,"v":0.286},{"i":20,"j":7,"v":0.571},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.286},{"i":23,"j":7,"v":0.571},{"i":24,"j":7,"v":0.429},{"i":26,"j":7,"v":0.286},{"i":27,"j":7,"v":0.571},{"i":28,"j":7,"v":0.429},{"i":29,"j":7,"v":0.429},{"i":30,"j":7,"v":0.286},{"i":31,"j":7,"v":0.286},{"i":0,"j":8,"v":0.143},{"i":1,"j":8,"v":0.286},{"i":2,"j":8,"v":0.286},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.714},{"i":5,"j":8,"v":0.286},{"i":6,"j":8,"v":0.286},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.571},{"i":9,"j":8,"v":0.571},{"i":10,"j":8,"v":0.571},{"i":11,"j":8,"v":0.571},{"i":12,"j":8,"v":0.143},{"i":13,"j":8,"v":0.143},{"i":14,"j":8,"v":0.143},{"i":15,"j":8,"v":0.143},{"i":16,"j":8,"v":0.143},{"i":17,"j":8,"v":0.143},{"i":18,"j":8,"v":0.143},{"i":19,"j":8,"v":0.571},{"i":20,"j":8,"v":0.286},{"i":21,"j":8,"v":0.429},{"i":22,"j":8,"v":0.571},{"i":23,"j":8,"v":0.714},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.286},{"i":27,"j":8,"v":0.714},{"i":28,"j":8,"v":0.429},{"i":29,"j":8,"v":0.286},{"i":30,"j":8,"v":0.286},{"i":31,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":1,"j":9,"v":0.143},{"i":2,"j":9,"v":0.143},{"i":3,"j":9,"v":0.429},{"i":4,"j":9,"v":0.571},{"i":5,"j":9,"v":0.429},{"i":6,"j":9,"v":0.429},{"i":7,"j":9,"v":0.429},{"i":8,"j":9,"v":0.714},{"i":9,"j":9,"v":0.571},{"i":10,"j":9,"v":0.429},{"i":11,"j":9,"v":0.429},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.143},{"i":14,"j":9,"v":0.143},{"i":15,"j":9,"v":0.143},{"i":16,"j":9,"v":0.143},{"i":17,"j":9,"v":0.143},{"i":18,"j":9,"v":0.143},{"i":19,"j":9,"v":0.571},{"i":20,"j":9,"v":0.286},{"i":21,"j":9,"v":0.286},{"i":22,"j":9,"v":0.429},{"i":23,"j":9,"v":0.143},{"i":24,"j":9,"v":0.143},{"i":25,"j":9,"v":0.143},{"i":26,"j":9,"v":0.286},{"i":27,"j":9,"v":0.571},{"i":28,"j":9,"v":0.429},{"i":29,"j":9,"v":0.429},{"i":30,"j":9,"v":0.429},{"i":31,"j":9,"v":0.429},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.143},{"i":2,"j":10,"v":0.143},{"i":3,"j":10,"v":0.143},{"i":4,"j":10,"v":0.143},{"i":5,"j":10,"v":0.429},{"i":6,"j":10,"v":0.286},{"i":7,"j":10,"v":0.429},{"i":8,"j":10,"v":0.429},{"i":9,"j":10,"v":0.571},{"i":10,"j":10,"v":0.571},{"i":11,"j":10,"v":0.429},{"i":12,"j":10,"v":0.143},{"i":13,"j":10,"v":0.143},{"i":14,"j":10,"v":0.143},{"i":15,"j":10,"v":0.143},{"i":16,"j":10,"v":0.143},{"i":17,"j":10,"v":0.143},{"i":18,"j":10,"v":0.143},{"i":19,"j":10,"v":0.571},{"i":20,"j":10,"v":0.286},{"i":21,"j":10,"v":0.286},{"i":22,"j":10,"v":0.429},{"i":23,"j":10,"v":0.143},{"i":24,"j":10,"v":0.143},{"i":25,"j":10,"v":0.143},{"i":26,"j":10,"v":0.143},{"i":27,"j":10,"v":0.429},{"i":28,"j":10,"v":0.429},{"i":29,"j":10,"v":0.286},{"i":30,"j":10,"v":0.286},{"i":31,"j":10,"v":0.429},{"i":0,"j":11,"v":0.143},{"i":1,"j":11,"v":0.143},{"i":2,"j":11,"v":0.143},{"i":3,"j":11,"v":0.143},{"i":4,"j":11,"v":0.143},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":0.286},{"i":7,"j":11,"v":0.429},{"i":8,"j":11,"v":0.286},{"i":9,"j":11,"v":0.571},{"i":10,"j":11,"v":0.714},{"i":11,"j":11,"v":0.429},{"i":12,"j":11,"v":0.143},{"i":13,"j":11,"v":0.143},{"i":14,"j":11,"v":0.143},{"i":15,"j":11,"v":0.143},{"i":16,"j":11,"v":0.143},{"i":17,"j":11,"v":0.143},{"i":18,"j":11,"v":0.286},{"i":19,"j":11,"v":0.571},{"i":20,"j":11,"v":0.429},{"i":21,"j":11,"v":0.429},{"i":22,"j":11,"v":0.429},{"i":23,"j":11,"v":0.286},{"i":24,"j":11,"v":0.143},{"i":25,"j":11,"v":0.143},{"i":26,"j":11,"v":0.571},{"i":27,"j":11,"v":0.286},{"i":28,"j":11,"v":0.286},{"i":29,"j":11,"v":0.429},{"i":30,"j":11,"v":0.429},{"i":31,"j":11,"v":0.286},{"i":0,"j":12,"v":0.143},{"i":1,"j":12,"v":0.143},{"i":2,"j":12,"v":0.143},{"i":3,"j":12,"v":0.143},{"i":4,"j":12,"v":0.143},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":7,"j":12,"v":0.286},{"i":8,"j":12,"v":0.571},{"i":9,"j":12,"v":0.429},{"i":10,"j":12,"v":0.714},{"i":11,"j":12,"v":0.429},{"i":12,"j":12,"v":0.143},{"i":13,"j":12,"v":0.143},{"i":14,"j":12,"v":0.143},{"i":15,"j":12,"v":0.143},{"i":16,"j":12,"v":0.143},{"i":17,"j":12,"v":0.143},{"i":18,"j":12,"v":0.286},{"i":19,"j":12,"v":0.429},{"i":20,"j":12,"v":0.286},{"i":21,"j":12,"v":0.286},{"i":22,"j":12,"v":0.429},{"i":23,"j":12,"v":0.286},{"i":24,"j":12,"v":0.143},{"i":25,"j":12,"v":0.571},{"i":26,"j":12,"v":0.286},{"i":27,"j":12,"v":0.429},{"i":28,"j":12,"v":0.429},{"i":29,"j":12,"v":0.286},{"i":30,"j":12,"v":0.286},{"i":31,"j":12,"v":0.429},{"i":0,"j":13,"v":0.143},{"i":1,"j":13,"v":0.143},{"i":2,"j":13,"v":0.143},{"i":3,"j":13,"v":0.143},{"i":4,"j":13,"v":0.143},{"i":5,"j":13,"v":0.143},{"i":6,"j":13,"v":0.286},{"i":7,"j":13,"v":0.571},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.429},{"i":10,"j":13,"v":0.429},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.143},{"i":13,"j":13,"v":0.143},{"i":14,"j":13,"v":0.143},{"i":15,"j":13,"v":0.143},{"i":16,"j":13,"v":0.143},{"i":17,"j":13,"v":0.143},{"i":18,"j":13,"v":0.286},{"i":19,"j":13,"v":0.429},{"i":20,"j":13,"v":0.429},{"i":21,"j":13,"v":0.429},{"i":22,"j":13,"v":0.429},{"i":23,"j":13,"v":0.714},{"i":24,"j":13,"v":0.429},{"i":25,"j":13,"v":0.429},{"i":26,"j":13,"v":0.429},{"i":27,"j":13,"v":0.429},{"i":28,"j":13,"v":0.286},{"i":29,"j":13,"v":0.286},{"i":30,"j":13,"v":0.286},{"i":31,"j":13,"v":0.429},{"i":0,"j":14,"v":0.143},{"i":1,"j":14,"v":0.143},{"i":2,"j":14,"v":0.143},{"i":3,"j":14,"v":0.143},{"i":4,"j":14,"v":0.143},{"i":5,"j":14,"v":0.143},{"i":6,"j":14,"v":0.143},{"i":7,"j":14,"v":0.429},{"i":8,"j":14,"v":0.429},{"i":9,"j":14,"v":0.429},{"i":10,"j":14,"v":0.571},{"i":11,"j":14,"v":0.143},{"i":12,"j":14,"v":0.143},{"i":13,"j":14,"v":0.143},{"i":14,"j":14,"v":0.143},{"i":15,"j":14,"v":0.143},{"i":16,"j":14,"v":0.143},{"i":17,"j":14,"v":0.143},{"i":18,"j":14,"v":0.143},{"i":19,"j":14,"v":0.429},{"i":20,"j":14,"v":0.429},{"i":21,"j":14,"v":0.429},{"i":22,"j":14,"v":0.429},{"i":23,"j":14,"v":0.714},{"i":24,"j":14,"v":0.571},{"i":25,"j":14,"v":0.286},{"i":26,"j":14,"v":0.429},{"i":27,"j":14,"v":0.286},{"i":28,"j":14,"v":0.286},{"i":29,"j":14,"v":0.286},{"i":30,"j":14,"v":0.286},{"i":31,"j":14,"v":0.429},{"i":0,"j":15,"v":0.143},{"i":1,"j":15,"v":0.143},{"i":2,"j":15,"v":0.143},{"i":3,"j":15,"v":0.143},{"i":4,"j":15,"v":0.143},{"i":5,"j":15,"v":0.143},{"i":6,"j":15,"v":0.143},{"i":7,"j":15,"v":0.429},{"i":8,"j":15,"v":0.429},{"i":9,"j":15,"v":0.429},{"i":10,"j":15,"v":0.429},{"i":11,"j":15,"v":0.143},{"i":12,"j":15,"v":0.143},{"i":13,"j":15,"v":0.143},{"i":14,"j":15,"v":0.143},{"i":15,"j":15,"v":0.143},{"i":16,"j":15,"v":0.143},{"i":17,"j":15,"v":0.143},{"i":18,"j":15,"v":0.143},{"i":19,"j":15,"v":0.429},{"i":20,"j":15,"v":0.429},{"i":21,"j":15,"v":0.429},{"i":22,"j":15,"v":0.571},{"i":23,"j":15,"v":0.714},{"i":24,"j":15,"v":0.286},{"i":25,"j":15,"v":0.429},{"i":26,"j":15,"v":0.286},{"i":27,"j":15,"v":0.429},{"i":28,"j":15,"v":0.286},{"i":29,"j":15,"v":0.286},{"i":30,"j":15,"v":0.286},{"i":31,"j":15,"v":0.286},{"i":0,"j":16,"v":0.143},{"i":1,"j":16,"v":0.143},{"i":2,"j":16,"v":0.143},{"i":3,"j":16,"v":0.143},{"i":4,"j":16,"v":0.143},{"i":5,"j":16,"v":0.143},{"i":6,"j":16,"v":0.143},{"i":7,"j":16,"v":0.429},{"i":8,"j":16,"v":0.429},{"i":9,"j":16,"v":0.286},{"i":10,"j":16,"v":0.429},{"i":11,"j":16,"v":0.286},{"i":12,"j":16,"v":0.143},{"i":13,"j":16,"v":0.143},{"i":14,"j":16,"v":0.143},{"i":15,"j":16,"v":0.143},{"i":16,"j":16,"v":0.143},{"i":17,"j":16,"v":0.143},{"i":18,"j":16,"v":0.143},{"i":19,"j":16,"v":0.429},{"i":20,"j":16,"v":0.429},{"i":21,"j":16,"v":0.429},{"i":22,"j":16,"v":0.571},{"i":23,"j":16,"v":0.714},{"i":24,"j":16,"v":0.286},{"i":25,"j":16,"v":0.429},{"i":26,"j":16,"v":0.286},{"i":27,"j":16,"v":0.286},{"i":28,"j":16,"v":0.429},{"i":29,"j":16,"v":0.429},{"i":30,"j":16,"v":0.286},{"i":31,"j":16,"v":0.286},{"i":0,"j":17,"v":0.143},{"i":1,"j":17,"v":0.143},{"i":2,"j":17,"v":0.143},{"i":3,"j":17,"v":0.143},{"i":4,"j":17,"v":0.143},{"i":5,"j":17,"v":0.143},{"i":6,"j":17,"v":0.143},{"i":7,"j":17,"v":0.429},{"i":8,"j":17,"v":0.286},{"i":9,"j":17,"v":0.143},{"i":10,"j":17,"v":0.429},{"i":11,"j":17,"v":0.143},{"i":12,"j":17,"v":0.143},{"i":13,"j":17,"v":0.143},{"i":14,"j":17,"v":0.143},{"i":15,"j":17,"v":0.143},{"i":16,"j":17,"v":0.143},{"i":17,"j":17,"v":0.143},{"i":18,"j":17,"v":0.143},{"i":19,"j":17,"v":0.429},{"i":20,"j":17,"v":0.286},{"i":21,"j":17,"v":0.286},{"i":22,"j":17,"v":0.429},{"i":23,"j":17,"v":0.571},{"i":24,"j":17,"v":0.286},{"i":25,"j":17,"v":0.429},{"i":26,"j":17,"v":0.286},{"i":27,"j":17,"v":0.286},{"i":28,"j":17,"v":0.286},{"i":29,"j":17,"v":0.286},{"i":30,"j":17,"v":0.286},{"i":31,"j":17,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "ensemble.eumaeus-and-philoetius",
+      "type": "ENSEMBLE",
+      "statusWord": "ARMING",
+      "ink": {
+       "cols": 32,
+       "rows": 18,
+       "cells": 407,
+       "fill": 0.707
+      },
+      "wholeFrame": false
+     }
+    },
+    "a_divine_fx_athenas_departure_darkness": {
+     "id": "a_divine_fx_athenas_departure_darkness",
+     "word": "athena's departure darkness",
+     "grid": {
+      "cols": 29,
+      "rows": 21,
+      "cells": [{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.429},{"i":7,"j":0,"v":0.714},{"i":8,"j":0,"v":0.571},{"i":9,"j":0,"v":0.286},{"i":25,"j":0,"v":0.429},{"i":26,"j":0,"v":0.714},{"i":1,"j":1,"v":0.143},{"i":3,"j":1,"v":0.143},{"i":4,"j":1,"v":0.286},{"i":5,"j":1,"v":0.429},{"i":7,"j":1,"v":0.714},{"i":8,"j":1,"v":0.714},{"i":9,"j":1,"v":0.429},{"i":14,"j":1,"v":0.286},{"i":25,"j":1,"v":0.571},{"i":26,"j":1,"v":0.714},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.857},{"i":3,"j":2,"v":0.286},{"i":4,"j":2,"v":0.429},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.429},{"i":7,"j":2,"v":0.857},{"i":8,"j":2,"v":0.714},{"i":9,"j":2,"v":0.143},{"i":14,"j":2,"v":0.286},{"i":15,"j":2,"v":0.429},{"i":16,"j":2,"v":0.429},{"i":17,"j":2,"v":0.429},{"i":18,"j":2,"v":0.429},{"i":19,"j":2,"v":0.286},{"i":21,"j":2,"v":0.286},{"i":22,"j":2,"v":0.429},{"i":23,"j":2,"v":0.429},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.429},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.429},{"i":5,"j":3,"v":0.429},{"i":6,"j":3,"v":0.429},{"i":7,"j":3,"v":0.429},{"i":8,"j":3,"v":0.571},{"i":9,"j":3,"v":0.571},{"i":10,"j":3,"v":0.286},{"i":11,"j":3,"v":0.571},{"i":12,"j":3,"v":0.571},{"i":13,"j":3,"v":0.429},{"i":14,"j":3,"v":0.429},{"i":15,"j":3,"v":0.286},{"i":21,"j":3,"v":0.714},{"i":22,"j":3,"v":0.571},{"i":23,"j":3,"v":0.571},{"i":24,"j":3,"v":0.857},{"i":27,"j":3,"v":0.143},{"i":1,"j":4,"v":0.571},{"i":2,"j":4,"v":0.571},{"i":3,"j":4,"v":0.571},{"i":4,"j":4,"v":0.571},{"i":5,"j":4,"v":0.571},{"i":6,"j":4,"v":0.571},{"i":8,"j":4,"v":0.429},{"i":9,"j":4,"v":0.429},{"i":10,"j":4,"v":0.571},{"i":11,"j":4,"v":0.429},{"i":12,"j":4,"v":0.429},{"i":13,"j":4,"v":0.429},{"i":14,"j":4,"v":0.714},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.571},{"i":17,"j":4,"v":0.571},{"i":18,"j":4,"v":0.571},{"i":19,"j":4,"v":0.571},{"i":20,"j":4,"v":0.571},{"i":21,"j":4,"v":0.571},{"i":22,"j":4,"v":0.571},{"i":23,"j":4,"v":0.571},{"i":24,"j":4,"v":0.571},{"i":25,"j":4,"v":0.571},{"i":26,"j":4,"v":0.714},{"i":27,"j":4,"v":0.571},{"i":28,"j":4,"v":0.571},{"i":1,"j":5,"v":0.429},{"i":2,"j":5,"v":0.429},{"i":3,"j":5,"v":0.571},{"i":4,"j":5,"v":0.714},{"i":5,"j":5,"v":0.571},{"i":6,"j":5,"v":0.429},{"i":8,"j":5,"v":0.429},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.571},{"i":11,"j":5,"v":0.571},{"i":12,"j":5,"v":0.714},{"i":13,"j":5,"v":0.571},{"i":14,"j":5,"v":0.429},{"i":16,"j":5,"v":0.429},{"i":17,"j":5,"v":0.429},{"i":18,"j":5,"v":0.571},{"i":19,"j":5,"v":0.714},{"i":20,"j":5,"v":0.714},{"i":21,"j":5,"v":0.571},{"i":22,"j":5,"v":0.429},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":0.429},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":0.429},{"i":27,"j":5,"v":0.571},{"i":28,"j":5,"v":0.429},{"i":3,"j":6,"v":0.143},{"i":4,"j":6,"v":0.143},{"i":9,"j":6,"v":0.286},{"i":10,"j":6,"v":0.286},{"i":11,"j":6,"v":0.286},{"i":12,"j":6,"v":0.286},{"i":13,"j":6,"v":0.286},{"i":14,"j":6,"v":0.143},{"i":18,"j":6,"v":0.714},{"i":19,"j":6,"v":0.571},{"i":20,"j":6,"v":0.571},{"i":23,"j":6,"v":0.286},{"i":24,"j":6,"v":0.143},{"i":25,"j":6,"v":0.143},{"i":26,"j":6,"v":0.143},{"i":27,"j":6,"v":0.143},{"i":1,"j":7,"v":0.571},{"i":2,"j":7,"v":0.429},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.429},{"i":5,"j":7,"v":0.429},{"i":6,"j":7,"v":0.429},{"i":8,"j":7,"v":0.429},{"i":9,"j":7,"v":0.286},{"i":10,"j":7,"v":0.429},{"i":11,"j":7,"v":0.429},{"i":12,"j":7,"v":0.429},{"i":13,"j":7,"v":0.429},{"i":14,"j":7,"v":0.714},{"i":15,"j":7,"v":0.571},{"i":16,"j":7,"v":0.714},{"i":17,"j":7,"v":0.571},{"i":18,"j":7,"v":0.571},{"i":19,"j":7,"v":0.571},{"i":20,"j":7,"v":0.571},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.429},{"i":23,"j":7,"v":0.143},{"i":24,"j":7,"v":0.571},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.571},{"i":27,"j":7,"v":0.571},{"i":28,"j":7,"v":0.571},{"i":1,"j":8,"v":0.571},{"i":2,"j":8,"v":0.429},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.714},{"i":5,"j":8,"v":0.714},{"i":6,"j":8,"v":0.429},{"i":8,"j":8,"v":0.429},{"i":9,"j":8,"v":0.429},{"i":10,"j":8,"v":0.571},{"i":11,"j":8,"v":0.571},{"i":12,"j":8,"v":0.714},{"i":13,"j":8,"v":0.714},{"i":14,"j":8,"v":0.714},{"i":15,"j":8,"v":0.286},{"i":16,"j":8,"v":0.714},{"i":17,"j":8,"v":0.714},{"i":18,"j":8,"v":0.571},{"i":19,"j":8,"v":0.714},{"i":20,"j":8,"v":0.857},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.286},{"i":23,"j":8,"v":0.429},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.429},{"i":26,"j":8,"v":0.571},{"i":27,"j":8,"v":0.714},{"i":28,"j":8,"v":0.429},{"i":9,"j":9,"v":0.286},{"i":10,"j":9,"v":0.286},{"i":11,"j":9,"v":0.571},{"i":12,"j":9,"v":0.143},{"i":13,"j":9,"v":0.571},{"i":14,"j":9,"v":0.429},{"i":16,"j":9,"v":0.571},{"i":17,"j":9,"v":0.714},{"i":18,"j":9,"v":0.571},{"i":19,"j":9,"v":0.714},{"i":20,"j":9,"v":0.286},{"i":21,"j":9,"v":0.571},{"i":22,"j":9,"v":0.714},{"i":23,"j":9,"v":0.143},{"i":25,"j":9,"v":0.286},{"i":26,"j":9,"v":0.714},{"i":27,"j":9,"v":0.571},{"i":28,"j":9,"v":0.429},{"i":1,"j":10,"v":0.429},{"i":2,"j":10,"v":0.429},{"i":3,"j":10,"v":0.571},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.429},{"i":6,"j":10,"v":0.714},{"i":7,"j":10,"v":0.571},{"i":8,"j":10,"v":0.714},{"i":9,"j":10,"v":0.714},{"i":10,"j":10,"v":0.714},{"i":11,"j":10,"v":0.714},{"i":12,"j":10,"v":0.571},{"i":13,"j":10,"v":0.714},{"i":14,"j":10,"v":0.857},{"i":15,"j":10,"v":0.429},{"i":16,"j":10,"v":0.714},{"i":17,"j":10,"v":0.714},{"i":18,"j":10,"v":0.571},{"i":19,"j":10,"v":0.714},{"i":20,"j":10,"v":0.571},{"i":21,"j":10,"v":0.571},{"i":22,"j":10,"v":0.286},{"i":23,"j":10,"v":0.286},{"i":24,"j":10,"v":0.571},{"i":25,"j":10,"v":0.571},{"i":26,"j":10,"v":0.571},{"i":27,"j":10,"v":0.571},{"i":28,"j":10,"v":0.571},{"i":1,"j":11,"v":0.571},{"i":2,"j":11,"v":0.571},{"i":3,"j":11,"v":0.714},{"i":4,"j":11,"v":0.714},{"i":5,"j":11,"v":0.714},{"i":6,"j":11,"v":0.714},{"i":7,"j":11,"v":0.571},{"i":8,"j":11,"v":0.714},{"i":9,"j":11,"v":0.571},{"i":10,"j":11,"v":0.571},{"i":11,"j":11,"v":0.571},{"i":12,"j":11,"v":0.714},{"i":13,"j":11,"v":0.571},{"i":14,"j":11,"v":0.714},{"i":15,"j":11,"v":0.714},{"i":16,"j":11,"v":0.857},{"i":17,"j":11,"v":0.571},{"i":18,"j":11,"v":0.571},{"i":19,"j":11,"v":0.714},{"i":20,"j":11,"v":0.857},{"i":21,"j":11,"v":0.714},{"i":22,"j":11,"v":0.143},{"i":24,"j":11,"v":0.571},{"i":25,"j":11,"v":0.571},{"i":26,"j":11,"v":0.571},{"i":27,"j":11,"v":0.714},{"i":28,"j":11,"v":0.429},{"i":0,"j":12,"v":0.286},{"i":1,"j":12,"v":0.857},{"i":2,"j":12,"v":0.429},{"i":3,"j":12,"v":0.857},{"i":4,"j":12,"v":0.571},{"i":5,"j":12,"v":0.286},{"i":7,"j":12,"v":0.143},{"i":8,"j":12,"v":0.143},{"i":9,"j":12,"v":0.286},{"i":10,"j":12,"v":0.286},{"i":11,"j":12,"v":0.429},{"i":12,"j":12,"v":0.286},{"i":13,"j":12,"v":0.286},{"i":14,"j":12,"v":0.286},{"i":15,"j":12,"v":0.286},{"i":1,"j":13,"v":0.286},{"i":2,"j":13,"v":0.429},{"i":3,"j":13,"v":0.286},{"i":4,"j":13,"v":0.429},{"i":5,"j":13,"v":0.714},{"i":6,"j":13,"v":0.429},{"i":7,"j":13,"v":0.286},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.714},{"i":10,"j":13,"v":0.286},{"i":11,"j":13,"v":0.286},{"i":12,"j":13,"v":0.429},{"i":13,"j":13,"v":0.571},{"i":14,"j":13,"v":0.571},{"i":16,"j":13,"v":0.286},{"i":17,"j":13,"v":0.571},{"i":18,"j":13,"v":0.429},{"i":19,"j":13,"v":0.143},{"i":2,"j":14,"v":0.286},{"i":3,"j":14,"v":0.714},{"i":4,"j":14,"v":0.857},{"i":5,"j":14,"v":0.857},{"i":6,"j":14,"v":0.714},{"i":7,"j":14,"v":0.714},{"i":8,"j":14,"v":0.714},{"i":9,"j":14,"v":0.857},{"i":10,"j":14,"v":0.857},{"i":11,"j":14,"v":0.714},{"i":12,"j":14,"v":0.857},{"i":13,"j":14,"v":0.714},{"i":14,"j":14,"v":0.714},{"i":15,"j":14,"v":0.714},{"i":16,"j":14,"v":0.714},{"i":17,"j":14,"v":0.857},{"i":18,"j":14,"v":0.857},{"i":19,"j":14,"v":0.857},{"i":20,"j":14,"v":0.429},{"i":3,"j":15,"v":0.429},{"i":4,"j":15,"v":0.286},{"i":5,"j":15,"v":0.714},{"i":7,"j":15,"v":0.286},{"i":8,"j":15,"v":0.286},{"i":9,"j":15,"v":0.571},{"i":10,"j":15,"v":0.429},{"i":11,"j":15,"v":0.286},{"i":12,"j":15,"v":0.143},{"i":13,"j":15,"v":0.571},{"i":14,"j":15,"v":0.429},{"i":15,"j":15,"v":0.286},{"i":16,"j":15,"v":0.286},{"i":17,"j":15,"v":0.286},{"i":18,"j":15,"v":0.571},{"i":19,"j":15,"v":0.286},{"i":20,"j":15,"v":0.429},{"i":21,"j":15,"v":0.286},{"i":22,"j":15,"v":0.571},{"i":23,"j":15,"v":0.429},{"i":24,"j":15,"v":0.286},{"i":25,"j":15,"v":0.429},{"i":27,"j":15,"v":0.429},{"i":28,"j":15,"v":0.286},{"i":3,"j":16,"v":0.429},{"i":4,"j":16,"v":0.571},{"i":5,"j":16,"v":0.857},{"i":7,"j":16,"v":0.143},{"i":8,"j":16,"v":0.571},{"i":9,"j":16,"v":0.857},{"i":10,"j":16,"v":0.429},{"i":12,"j":16,"v":0.143},{"i":13,"j":16,"v":0.857},{"i":14,"j":16,"v":0.571},{"i":15,"j":16,"v":0.143},{"i":17,"j":16,"v":0.714},{"i":18,"j":16,"v":0.714},{"i":19,"j":16,"v":0.143},{"i":20,"j":16,"v":0.429},{"i":21,"j":16,"v":0.143},{"i":22,"j":16,"v":0.429},{"i":23,"j":16,"v":0.286},{"i":24,"j":16,"v":0.714},{"i":25,"j":16,"v":0.714},{"i":26,"j":16,"v":0.286},{"i":27,"j":16,"v":0.286},{"i":28,"j":16,"v":0.429},{"i":3,"j":17,"v":0.429},{"i":4,"j":17,"v":0.571},{"i":5,"j":17,"v":0.714},{"i":7,"j":17,"v":0.143},{"i":8,"j":17,"v":0.571},{"i":9,"j":17,"v":0.714},{"i":10,"j":17,"v":0.571},{"i":13,"j":17,"v":0.714},{"i":14,"j":17,"v":0.571},{"i":15,"j":17,"v":0.143},{"i":17,"j":17,"v":0.571},{"i":18,"j":17,"v":0.714},{"i":19,"j":17,"v":0.143},{"i":20,"j":17,"v":0.429},{"i":21,"j":17,"v":0.143},{"i":22,"j":17,"v":0.286},{"i":24,"j":17,"v":0.286},{"i":25,"j":17,"v":0.286},{"i":27,"j":17,"v":0.571},{"i":3,"j":18,"v":0.429},{"i":4,"j":18,"v":0.571},{"i":5,"j":18,"v":0.857},{"i":6,"j":18,"v":0.286},{"i":7,"j":18,"v":0.286},{"i":8,"j":18,"v":0.571},{"i":9,"j":18,"v":0.857},{"i":10,"j":18,"v":0.571},{"i":11,"j":18,"v":0.286},{"i":12,"j":18,"v":0.286},{"i":13,"j":18,"v":0.857},{"i":14,"j":18,"v":0.714},{"i":15,"j":18,"v":0.286},{"i":16,"j":18,"v":0.286},{"i":17,"j":18,"v":0.714},{"i":18,"j":18,"v":0.857},{"i":19,"j":18,"v":0.429},{"i":20,"j":18,"v":0.286},{"i":22,"j":18,"v":0.286},{"i":24,"j":18,"v":0.286},{"i":25,"j":18,"v":0.286},{"i":27,"j":18,"v":0.286},{"i":2,"j":19,"v":0.429},{"i":3,"j":19,"v":0.429},{"i":4,"j":19,"v":0.714},{"i":5,"j":19,"v":0.857},{"i":6,"j":19,"v":0.571},{"i":7,"j":19,"v":0.571},{"i":8,"j":19,"v":0.429},{"i":9,"j":19,"v":0.714},{"i":10,"j":19,"v":0.571},{"i":11,"j":19,"v":0.571},{"i":12,"j":19,"v":0.571},{"i":13,"j":19,"v":0.714},{"i":14,"j":19,"v":0.571},{"i":15,"j":19,"v":0.286},{"i":16,"j":19,"v":0.571},{"i":17,"j":19,"v":0.714},{"i":18,"j":19,"v":0.714},{"i":19,"j":19,"v":0.571},{"i":20,"j":19,"v":0.429},{"i":21,"j":19,"v":0.429},{"i":22,"j":19,"v":0.286},{"i":5,"j":20,"v":0.143},{"i":9,"j":20,"v":0.286},{"i":13,"j":20,"v":0.286},{"i":18,"j":20,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "divine-fx.athenas-departure-darkness",
+      "type": "DIVINE_FX",
+      "statusWord": "LEADING",
+      "ink": {
+       "cols": 29,
+       "rows": 21,
+       "cells": 416,
+       "fill": 0.683
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_ensemble_eumaeus_and_philoetius",
+     "x": -4.98,
+     "z": 1,
+     "scale": 1.175,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "herdsmen",
+      "state": "serving",
+      "authoredScale": 0.329,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_divine_fx_athenas_departure_darkness",
+     "x": 10,
+     "z": 0.08,
+     "scale": 1.643,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "cover_01",
+      "state": null,
+      "authoredScale": 0.46,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r16",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "alert",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "odysseus",
+      "s": 6.62,
+      "d": 8.48,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S06-T01",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "At dawn Odysseus arms himself with Telemachus, Eumaeus, and Philoetius",
+       "direction": "buckles bronze, hands out spears",
+       "delivery": "reunited king immediately resuming field command",
+       "conceal": [],
+       "reveal": [
+        "At dawn Odysseus arms himself with Telemachus, Eumaeus, and Philoetius"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S06.m4a"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "odysseus",
+      "s": 14,
+      "d": 1,
+      "t": "",
+      "m": "pose=pointing",
+      "x_odyssey": {
+       "pose": "pointing_arm",
+       "resolved": "pointing"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "odysseus",
+      "s": 15.4,
+      "d": 12.96,
+      "t": "Stay within doors, all of you, and bar them; let no woman lean out to look. Word of the dead will run through the town before noon. See nothing, say nothing, until I send for you.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S06-T02",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.telemachus",
+       "act": "COMMAND",
+       "tactic": "compel_action",
+       "payload": "He orders Penelope and the women to remain inside and reveal nothing",
+       "direction": "at the threshold, already moving",
+       "delivery": "reunited king immediately resuming field command",
+       "conceal": [],
+       "reveal": [
+        "He orders Penelope and the women to remain inside and reveal nothing"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S06.m4a"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "odysseus",
+      "s": 26,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "confrontation",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "athena",
+      "s": 28.72,
+      "d": 7.2,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S06-T03",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.odysseus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Athena covers the four men in darkness as they leave the city",
+       "direction": "draws night around the four men",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Athena covers the four men in darkness as they leave the city"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S06.m4a"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "athena",
+      "s": 36.22,
+      "d": 8.96,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B23-S06-T04",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "AUDIENCE.LOCAL",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "They travel toward Laertes's farm before the suitors' deaths become public",
+       "direction": "speeds them toward the orchard farm",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "They travel toward Laertes's farm before the suitors' deaths become public"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B23-S06.m4a"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "odysseus",
+      "s": 38,
+      "d": 1,
+      "t": "",
+      "m": "pose=one arm raised",
+      "x_odyssey": {
+       "pose": "one_arm_raised",
+       "resolved": "one arm raised"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "telemachus",
+      "s": 38,
+      "d": 1,
+      "t": "",
+      "m": "pose=stop",
+      "x_odyssey": {
+       "pose": "protective_block",
+       "resolved": "stop"
+      }
+     },
+     {
+      "id": "r22",
+      "c": "odysseus",
+      "s": 44,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "odysseus",
+      "s": 44,
+      "d": 9,
+      "t": "",
+      "m": "walk=-6.29,0.51",
+      "x_odyssey": {
+       "move": {
+        "from": "fork_king",
+        "to": "bend_king"
+       },
+       "planSpace": {
+        "x": 0.1853,
+        "z": 0.5051
+       },
+       "fromPlan": {
+        "x": 0.0779,
+        "z": 0.696
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r23",
+      "c": "telemachus",
+      "s": 47,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "telemachus",
+      "s": 47,
+      "d": 9,
+      "t": "",
+      "m": "walk=-7.14,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "boundary_son",
+        "to": "fork_son"
+       },
+       "planSpace": {
+        "x": 0.1429,
+        "z": 0.696
+       },
+       "fromPlan": {
+        "x": 0.1613,
+        "z": 0.8583
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "herdsmen",
+      "s": 50,
+      "d": 9,
+      "t": "",
+      "m": "walk=-7.47,0.86",
+      "x_odyssey": {
+       "move": {
+        "from": "lower",
+        "to": "boundary"
+       },
+       "planSpace": {
+        "x": 0.1263,
+        "z": 0.8583
+       },
+       "fromPlan": {
+        "x": 0.251,
+        "z": 1
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "odysseus",
+      "s": 53,
+      "d": 8,
+      "t": "",
+      "m": "walk=-4.71,0.43",
+      "x_odyssey": {
+       "move": {
+        "from": "bend_king",
+        "to": "spur_king"
+       },
+       "planSpace": {
+        "x": 0.2646,
+        "z": 0.4259
+       },
+       "fromPlan": {
+        "x": 0.1853,
+        "z": 0.5051
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "telemachus",
+      "s": 56,
+      "d": 8,
+      "t": "",
+      "m": "walk=-4.99,0.51",
+      "x_odyssey": {
+       "move": {
+        "from": "fork_son",
+        "to": "bend_son"
+       },
+       "planSpace": {
+        "x": 0.2503,
+        "z": 0.5051
+       },
+       "fromPlan": {
+        "x": 0.1429,
+        "z": 0.696
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "herdsmen",
+      "s": 59,
+      "d": 8,
+      "t": "",
+      "m": "walk=-7.84,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "boundary",
+        "to": "fork"
+       },
+       "planSpace": {
+        "x": 0.1079,
+        "z": 0.696
+       },
+       "fromPlan": {
+        "x": 0.1263,
+        "z": 0.8583
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "odysseus",
+      "s": 61,
+      "d": 9,
+      "t": "",
+      "m": "walk=-0.96,0.33",
+      "x_odyssey": {
+       "move": {
+        "from": "spur_king",
+        "to": "mid_king"
+       },
+       "planSpace": {
+        "x": 0.452,
+        "z": 0.328
+       },
+       "fromPlan": {
+        "x": 0.2646,
+        "z": 0.4259
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "telemachus",
+      "s": 64,
+      "d": 9,
+      "t": "",
+      "m": "walk=-3.41,0.43",
+      "x_odyssey": {
+       "move": {
+        "from": "bend_son",
+        "to": "spur_son"
+       },
+       "planSpace": {
+        "x": 0.3296,
+        "z": 0.4259
+       },
+       "fromPlan": {
+        "x": 0.2503,
+        "z": 0.5051
+       },
+       "plan": "road-to-laertes"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "herdsmen",
+      "s": 67,
+      "d": 9,
+      "t": "",
+      "m": "walk=-5.69,0.51",
+      "x_odyssey": {
+       "move": {
+        "from": "fork",
+        "to": "bend"
+       },
+       "planSpace": {
+        "x": 0.2153,
+        "z": 0.5051
+       },
+       "fromPlan": {
+        "x": 0.1079,
+        "z": 0.696
+       },
+       "plan": "road-to-laertes"
+      }
+     }
+    ]
+   }
+  }
+ },
+ "ledger": [
+  {
+   "n": 1,
+   "src": "build",
+   "op": {
+    "op": "note",
+    "t": "odyssey book 23 → halfworld/v2"
+   }
+  },
+  {
+   "n": 2,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B23-S01 · Eurycleia Wakes Penelope"
+   }
+  },
+  {
+   "n": 3,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B23-S02 · Penelope Studies the Stranger"
+   }
+  },
+  {
+   "n": 4,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B23-S03 · The False Wedding Noise"
+   }
+  },
+  {
+   "n": 5,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B23-S04 · The Bed Test"
+   }
+  },
+  {
+   "n": 6,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B23-S05 · Odysseus Tells the Remaining Journey"
+   }
+  },
+  {
+   "n": 7,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B23-S06 · Departure for Laertes"
+   }
+  },
+  {
+   "n": 8,
+   "src": "build",
+   "op": {
+    "op": "note",
+    "t": "6 scenes · 121 rows · grid 32x22 · ink 0-7"
+   }
+  }
+ ],
+ "nextId": 34,
+ "turn": 0,
+ "x_odyssey": {
+  "book": 23,
+  "bookTitle": "The Great Rooted Bed",
+  "sceneOrder": [
+   "OD-B23-S01 · Eurycleia Wakes Penelope",
+   "OD-B23-S02 · Penelope Studies the Stranger",
+   "OD-B23-S03 · The False Wedding Noise",
+   "OD-B23-S04 · The Bed Test",
+   "OD-B23-S05 · Odysseus Tells the Remaining Journey",
+   "OD-B23-S06 · Departure for Laertes"
+  ],
+  "scenes": {
+   "OD-B23-S01 · Eurycleia Wakes Penelope": {
+    "id": "OD-B23-S01",
+    "title": "Eurycleia Wakes Penelope",
+    "book": 23,
+    "bookTitle": "The Great Rooted Bed",
+    "duration": 74,
+    "beats": [
+     "Eurycleia wakes Penelope and says Odysseus has returned and killed the suitors.",
+     "Penelope first thinks the nurse has gone mad or that a god punished the men.",
+     "Eurycleia offers the scar as proof and describes the king waiting below.",
+     "Penelope descends, divided between embracing him and testing him from a distance."
+    ],
+    "plan": "upper-chamber-and-stair (cutaway section — the room's own station table)",
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.upper-chamber-and-stair",
+      "name": "Upper Chamber and Stair",
+      "type": "LOCATION",
+      "state": "night",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Night, in the house of Odysseus, at the head of the stair and the bottom of it. Penelope is off her bed, out of her chamber and DOWN — standing inside the doorway of the hall at `threshold_r`, one step short of crossing it, with the hall burning in front of her: she has come to look and has not decided to believe. Eurycleia has gone down ahead of her and is standing off on the low floor at `low_floor`, having told it twice and offered the scar; the scar is SPOKEN and reserved, not accepted — the queen keeps her own test, which is the bed, and it is not spent yet. The chamber above is left as she left it: covers thrown back, the clothes chest open, the robe gone off its peg, the lamp low and the chamber door standing open. S02 opens on exactly this frame, from inside the hall: the queen in the doorway at the head of the megaron's `stair_up` corner, the man across the fire, and nobody yet moving toward anybody.",
+    "exitOccupancy": {
+     "penelope": "threshold_r",
+     "eurycleia": "low_floor"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B23-S01.m4a",
+     "total": 55.76
+    },
+    "fx": [],
+    "sound": [],
+    "states": [
+     {
+      "op": "set.state",
+      "at": 20,
+      "target": "field_01",
+      "args": {
+       "state": "waking"
+      }
+     },
+     {
+      "op": "set.state",
+      "at": 40,
+      "target": "field_01",
+      "args": {
+       "state": "dressing"
+      }
+     },
+     {
+      "op": "prop.state",
+      "at": 40,
+      "target": "scar_01",
+      "args": {
+       "mode": "spoken"
+      }
+     },
+     {
+      "op": "prop.state",
+      "at": 43,
+      "target": "scar_01",
+      "args": {
+       "mode": "heard"
+      }
+     },
+     {
+      "op": "prop.state",
+      "at": 46,
+      "target": "scar_01",
+      "args": {
+       "mode": "doubted"
+      }
+     },
+     {
+      "op": "prop.state",
+      "at": 49,
+      "target": "scar_01",
+      "args": {
+       "mode": "reserved"
+      }
+     },
+     {
+      "op": "set.state",
+      "at": 52,
+      "target": "field_01",
+      "args": {
+       "state": "descent"
+      }
+     },
+     {
+      "op": "set.state",
+      "at": 69,
+      "target": "field_01",
+      "args": {
+       "state": "first_sight"
+      }
+     }
+    ],
+    "gaze": 10,
+    "source": "scenes/OD-B23-S01.mjs"
+   },
+   "OD-B23-S02 · Penelope Studies the Stranger": {
+    "id": "OD-B23-S02",
+    "title": "Penelope Studies the Stranger",
+    "book": 23,
+    "bookTitle": "The Great Rooted Bed",
+    "duration": 62,
+    "beats": [
+     "Penelope sits opposite Odysseus in silence and studies his face and clothing.",
+     "Telemachus rebukes her for hardness; she says she and Odysseus share private signs.",
+     "Odysseus accepts the delay and turns to the danger from the suitors' families.",
+     "He orders the household to create the sound of a wedding so the deaths remain hidden."
+    ],
+    "plan": "megaron",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.megaron-hall",
+      "name": "Megaron Hall",
+      "type": "LOCATION",
+      "state": "cleaned",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Night in the scoured hall — bodies out, floor washed, the sulphur brazier still smoking beside a fresh fire, the benches and boards back in order, the peg rails bare. Three people and the whole width of the room between them. Odysseus holds the left roof-pillar (`pillar_l`) where he sat down to wait, and he has NOT been recognized: he is one body at one held guise position — the king's height and colour in the beggar's rags, u=0.44, the garment still short of its snap — because he has not bathed yet, and that unwashed clothing is the whole reason she cannot know him. He has said the two things this scene exists for: let her test me as long as she likes, and the men we killed have fathers who will come. Penelope holds the right roof-pillar (`pillar_r`), opposite him across the fire, exactly as far off as the room allows: she came down her own wall to get there, she has studied his face and his clothes in silence, she has been called hard-hearted by her own son and has answered him — there are signs the two of them know and nobody else does — and she has neither crossed to him nor spent that test, which is the bed, and is still hers to spend. Telemachus has not moved out of the near-left corner (`corner_dead`) that he had scoured out at the end of Book XXII: downstage of his father, the largest body in the frame, rebuked by his mother's answer and holding his father's order. THE ORDER IS THE HANDOFF: the household is to raise the sound of a wedding — lyre, stamping feet, festive calls — loud enough to go out through the wall and be believed in the street, so the town says the queen has married at last instead of counting its dead sons. sound_source.false-wedding-music is CUED and not yet playing; the great doors are open, nobody in the town knows anything, and no member of the household is in the frame yet. S03 opens on exactly this: the same hall, the same three marks, and the bard sent for.",
+    "exitOccupancy": {
+     "penelope": "pillar_r",
+     "odysseus": "pillar_l",
+     "telemachus": "corner_dead"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B23-S02.m4a",
+     "total": 41.6
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 14,
+    "source": "scenes/OD-B23-S02.mjs"
+   },
+   "OD-B23-S03 · The False Wedding Noise": {
+    "id": "OD-B23-S03",
+    "title": "The False Wedding Noise",
+    "book": 23,
+    "bookTitle": "The Great Rooted Bed",
+    "duration": 68,
+    "beats": [
+     "Odysseus bathes while Athena restores his stature and beauty.",
+     "Phemius plays the lyre and the household dances so neighbours believe a wedding is underway.",
+     "Odysseus returns radiant, but Penelope still refuses immediate recognition.",
+     "The king accuses her heart of being harder than stone."
+    ],
+    "plan": "megaron",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.megaron-hall",
+      "name": "Megaron Hall",
+      "type": "LOCATION",
+      "state": "cleaned",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Night in the scoured hall, and the house is roaring. The false wedding is PLAYING and it is BELIEVED: Phemius holds the lyre at the foot of the hall stair (`stair_up`) and does not stop, two of the household stamp and clap on the floor just inside the open great doors, and the bed of noise is carrying through the palace wall and out into the street, where the town has decided the queen has married at last instead of counting its dead sons. sound_source.false-wedding-music is at full intensity, full reach, believed:true, and it is NOT stopped — it runs on under the whole of the next scene. Odysseus has been washed and Athena has finished him: he is ONE body at guise u=1, `restored`, the ramp S02 held at 0.44 completed across his walk back in from the side door, the garment snapped at u=0.5 under the restoration flare and nothing cut. He is back down against the left roof-pillar (`pillar_l`) opposite his wife, taller and darker-haired than the man who left the room, and he has said the last thing this scene exists for: no other woman's heart would hold out against her husband like this — hers is harder than stone. Penelope holds the right roof-pillar (`pillar_r`) across the fire, and SHE HAS STILL NOT SAID HIS NAME. She has watched him come back changed and has not risen, not crossed, not spoken the word; she has one test left and it is the bed, and it is still hers to spend. Telemachus has not moved out of the near-left corner (`corner_dead`) he had scoured; he has seen his father made whole and has said nothing to his mother since she was answered. Nobody in the room has touched anybody. S04 opens on exactly this: the same hall, the same four marks, the noise still going out through the wall, and the bed to come.",
+    "exitOccupancy": {
+     "penelope": "pillar_r",
+     "odysseus": "pillar_l",
+     "telemachus": "corner_dead",
+     "phemius": "stair_up"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B23-S03.m4a",
+     "total": 37.86
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 30,
+      "target": "restore_01",
+      "args": {
+       "dir": "restore"
+      }
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 19,
+    "source": "scenes/OD-B23-S03.mjs"
+   },
+   "OD-B23-S04 · The Bed Test": {
+    "id": "OD-B23-S04",
+    "title": "The Bed Test",
+    "book": 23,
+    "bookTitle": "The Great Rooted Bed",
+    "duration": 78,
+    "beats": [
+     "Penelope orders Eurycleia to move the marriage bed outside the chamber for the stranger.",
+     "Odysseus erupts, explaining that he built the bed around a living olive tree and no one could move it intact.",
+     "The secret proves identity; Penelope runs to him and embraces him.",
+     "She explains that fear of deception caused her delay.",
+     "Athena holds back dawn while husband and wife weep and reunite."
+    ],
+    "plan": "megaron+b23s04",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.megaron-hall",
+      "name": "Megaron Hall",
+      "type": "LOCATION",
+      "state": "cleaned",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "The scoured hall, deep in a night that is no longer running. THE TEST IS SPENT AND IT WENT THE ONLY WAY IT COULD: the queen ordered the marriage bed stripped and carried out of the chamber for a stranger, and the stranger came off the pillar and told her that no man alive could shift it, because he cut the crown off a long-leaved olive that was growing in the court, trimmed the trunk from the root up, dressed it true with the adze, bored it, and joined the whole frame to that one post, which is still in the ground. prop.olive-tree-marriage-bed has run its whole machine on one clock — STRIPPED at the order, IMMOVABLE under the ghost and the blocked push vector, ROOTED with the floor cut away and the root mass showing, and now REUNION with the fleeces and the coverlet back on it AND THE FLOOR STILL CUT: it is made up for them again and it has not moved a finger's breadth. ODYSSEUS AND PENELOPE ARE TOUCHING for the first time in twenty years, on the contact pair in the open floor in front of the fire (`embrace_l` / `embrace_r`, 105px between centres, four pixels of silhouette shared, no coordinate shared): she ran round the far side of the fire and put her arms round his neck, and he is weeping into her hair. She has said the thing she was keeping — it was never coldness, it was the fear of a man who would come and say the words and not be him. He is ONE body at guise `restored`, held, no ramp and no flare: nothing about him changed in this scene, only what she knows. ATHENA HAS HOLD OF THE CLOCK. divine-fx.athena-delays-dawn is at hold 1, night 0.66, rise 0.30, watch 1 — the gate is down, the clamp is closed on the latch, Dawn is pressed up under the rule with every ray cut off flat, her chariot is chocked and her yoke is lying with both collars crossed out. The night is not darker, it is LONGER, and it is still running when this scene ends; S05 inherits it HELD and is the scene that spends it. Telemachus has not moved out of the near-left corner (`corner_dead`) he scoured; he has watched his parents recognize each other and has said nothing. Eurycleia is back down off the stair, in the household doorway the bed up in the chamber, and she keeps the house's other secret: the dead are still in the outbuilding and the town outside still thinks it heard a wedding. Phemius is out through the household door (`doorway_maid`) and has never stopped playing — sound_source.false-wedding-music is still at full reach, still believed, and nobody has told him to stop. S05 opens on the two of them going up to that bed.",
+    "exitOccupancy": {
+     "penelope": "embrace_r",
+     "odysseus": "embrace_l",
+     "telemachus": "corner_dead",
+     "phemius": "passage",
+     "eurycleia": "doorway_maid"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B23-S04.m4a",
+     "total": 52.7
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 64,
+      "target": "dawn_01",
+      "args": {
+       "dir": "hold"
+      }
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 25,
+    "source": "scenes/OD-B23-S04.mjs"
+   },
+   "OD-B23-S05 · Odysseus Tells the Remaining Journey": {
+    "id": "OD-B23-S05",
+    "title": "Odysseus Tells the Remaining Journey",
+    "book": 23,
+    "bookTitle": "The Great Rooted Bed",
+    "duration": 96,
+    "beats": [
+     "In bed Odysseus and Penelope recount the years they spent apart.",
+     "He tells her Tiresias's command to travel inland with an oar and appease Poseidon.",
+     "He describes the eventual gentle death foretold for him.",
+     "Penelope accepts that further movement remains even after homecoming.",
+     "They sleep while Athena finally releases the dawn."
+    ],
+    "plan": "thalamos+b23s05",
+    "derived": true,
+    "field": [
+     {
+      "asset": "location.marriage-chamber",
+      "name": "Marriage Chamber",
+      "type": "LOCATION",
+      "state": "lamplit",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "The marriage chamber at Ithaca, and the night is finally over. THE TWO OF THEM ARE ASLEEP IN THE BED ODYSSEUS BUILT AROUND THE OLIVE, on the two marks of its one contact pair (`bed_in_l` / `bed_in_r`, 127px between centres, one pillow each, 27px of shared silhouette and no coordinate shared), lying back low, head and shoulders above the coverlet and the rest of them under it: the same two bodies that ended S04 holding each other on the floor of the great hall, in the same left/right order, one room later. THE ACCOUNT IS SETTLED. She has told him what the twenty years in this house cost her and he has told her the whole of his own, and then he told her the one part that is not over: Tiresias' last command. divine_fx.inland-oar-prophecy has run its whole machine on this clock — the prophecy issuing at the water's edge, the stepped ONE-WAY route inland with its milestones, the borne-oar token walking that route, the misreading (they will call the blade a winnowing fan, and that is the sign), and PLANTED: the oar upright in inland earth, the threefold offering to Poseidon smoking beside it, the route closed with a check. After that a gentle death, at sea's distance from the sea, in sleek old age, with his people prosperous around him. SHE HAS ACCEPTED IT — that the homecoming is not the end of the moving — and THE ROUTE IS STILL DRAWN OVER THE BED while they sleep: the household that Book XXIV inherits has one journey left in it, and both of them know the shape of it. ATHENA HAS LET GO OF THE CLOCK. The hold S04 exported is SPENT: location.marriage-chamber is in state `dawn` — the stop bar that pinned the gauge at the sill is gone, the slot in the right wall is full of paper-white morning, two pools of it are on the floor, one door leaf is ajar and the torch-lamp is guttering with one thread of smoke. The bedding is slept-in and the near bolster is dented. Odysseus is ONE body at guise `restored`, held, no ramp and no flare: nothing about him changed in this scene either. Telemachus, Phemius and Eurycleia are all still in the great hall and none of them is in this room.",
+    "exitOccupancy": {
+     "penelope": "bed_in_r",
+     "odysseus": "bed_in_l"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B23-S05.m4a",
+     "total": 64.2
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 30,
+      "target": "prophecy_01",
+      "args": {
+       "dir": "shore"
+      }
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 16,
+    "source": "scenes/OD-B23-S05.mjs"
+   },
+   "OD-B23-S06 · Departure for Laertes": {
+    "id": "OD-B23-S06",
+    "title": "Departure for Laertes",
+    "book": 23,
+    "bookTitle": "The Great Rooted Bed",
+    "duration": 84,
+    "beats": [
+     "At dawn Odysseus arms himself with Telemachus, Eumaeus, and Philoetius.",
+     "He orders Penelope and the women to remain inside and reveal nothing.",
+     "Athena covers the four men in darkness as they leave the city.",
+     "They travel toward Laertes's farm before the suitors' deaths become public."
+    ],
+    "plan": "road-to-laertes",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.road-to-laertess-farm",
+      "name": "Road to Laertes's Farm",
+      "type": "LOCATION",
+      "state": "day",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 1
+      }
+     }
+    ],
+    "exitState": "The road out of the town of Ithaca, in first light, and THE FOUR OF THEM ARE ON IT AND STILL WALKING. They are a file strung out along one carriageway, near to far: the two herdsmen on the centre-line at the bend (`bend`, 145px men), Telemachus one leg ahead of them in the right-hand lane at the city spur (`spur_son`), and ODYSSEUS AT THE HEAD OF IT in the left-hand lane at `mid` — four fifths of the way to the orchard wall, with the farm gate and the smoke of the old man's house at the far end of the same road, unreached. THEY ARE ARMED. ensemble.eumaeus-and-philoetius has run its whole kit ladder on this clock — farm kit, the helmet taken up in the fist, THE SNAP where the tool leaves the hand and shield and spear take it, shield at the shoulder — staggered, so the swineherd was a soldier while the cowherd was still holding his helmet, and both of them are now in the module's own walking formation, `advance`. THE ORDER WAS GIVEN AND IT STANDS: Penelope and the women of the house are inside, behind the wall this set paints, under the palace roofline over his left shoulder, and they will say nothing — she is the one body S05 handed over that is deliberately NOT on this road. THE COVER IS SPENT. divine_fx.athenas-departure-darkness ran all four of its channels here: the pocket of night gathered at first light, took the four of them into a chamfered envelope with each man tethered by a dashed line up into its lid, travelled the whole run out of town with dawn's rays dying on that lid, and was LET GO at RELEASE — the envelope is a shallow remnant, the tethers are gone, the men stand free of it in open morning, and the count that closes the register is 00: nobody in the town saw them go. THE DEATHS ARE STILL NOT PUBLIC. Odysseus is ONE body at guise `restored`, held, no ramp and no flare: nothing about him changed in this scene either. The household Book XXIV inherits is split — four armed men on the road to Laertes, a queen and her women silent in the house, and a town that does not yet know.",
+    "exitOccupancy": {
+     "odysseus": "mid_king",
+     "telemachus": "spur_son",
+     "herdsmen": "bend"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B23-S06.m4a",
+     "total": 45.48
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 38,
+      "target": "cover_01",
+      "args": {
+       "dir": "gathering"
+      }
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 10,
+    "source": "scenes/OD-B23-S06.mjs"
+   }
+  },
+  "albums": []
+ }
+}

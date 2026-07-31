@@ -1,0 +1,4290 @@
+{
+ "schema": "halfworld/v2",
+ "name": "ODYSSEY 16 · FATHER AND SON",
+ "cast": {
+  "eumaeus": {
+   "id": "eumaeus",
+   "spec": {
+    "skin": "#c6a37c",
+    "hair": "cap",
+    "beard": true,
+    "glasses": false,
+    "garment": "tunic",
+    "h": 1.02,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": 7.6,
+   "z": 0.3,
+   "face": -0.62,
+   "pose": "neutral",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.eumaeus",
+    "name": "Eumaeus",
+    "statusWord": "LOYAL",
+    "pose": "eum_listen",
+    "band": "threeq",
+    "station": "pen_wall",
+    "derivedFrom": null,
+    "hairColor": "#6d6459",
+    "cloak": true,
+    "bareLegs": true,
+    "figureScale": 0.55
+   }
+  },
+  "telemachus": {
+   "id": "telemachus",
+   "spec": {
+    "skin": "#d8c3a2",
+    "hair": "cap",
+    "beard": false,
+    "glasses": false,
+    "garment": "tunic",
+    "h": 0.9,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": 0,
+   "z": 0.06,
+   "face": -0.62,
+   "pose": "walk",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.telemachus",
+    "name": "Telemachus",
+    "statusWord": "GRIEVING",
+    "pose": "walk_neutral",
+    "band": "threeq",
+    "station": "yard",
+    "derivedFrom": null,
+    "hairColor": "#2a2118",
+    "cloak": true,
+    "bareLegs": true,
+    "figureScale": 0.54
+   }
+  },
+  "odysseus": {
+   "id": "odysseus",
+   "spec": {
+    "skin": "#cdb89a",
+    "hair": "curly",
+    "beard": true,
+    "glasses": false,
+    "garment": "tunic",
+    "h": 1,
+    "headS": 1,
+    "build": 1,
+    "browW": 1,
+    "eyeS": 1,
+    "mouthW": 1,
+    "shirt": "#d3d3cd"
+   },
+   "x": 3.2,
+   "z": 0.66,
+   "face": -0.62,
+   "pose": "3/4 left",
+   "decals": {
+    "head": [],
+    "torso": []
+   },
+   "x_odyssey": {
+    "asset": "character.odysseus-b16",
+    "name": "Odysseus",
+    "statusWord": "CRAFTY",
+    "pose": "three_quarter_left",
+    "band": "threeq",
+    "station": "seat_guest",
+    "derivedFrom": null,
+    "hairColor": "#241d16",
+    "cloak": true,
+    "bareLegs": true,
+    "figureScale": 0.56,
+    "guises": [
+     "king",
+     "restored",
+     "beggar",
+     "old-beggar",
+     "trojan-beggar"
+    ],
+    "guiseAt": null
+   }
+  }
+ },
+ "assets": {
+  "a_creature_friendly_farm_dogs": {
+   "id": "a_creature_friendly_farm_dogs",
+   "word": "friendly farm dogs",
+   "grid": {
+    "cols": 22,
+    "rows": 10,
+    "cells": [{"i":0,"j":0,"v":0.286},{"i":1,"j":0,"v":0.286},{"i":4,"j":0,"v":0.286},{"i":5,"j":0,"v":0.143},{"i":1,"j":1,"v":0.714},{"i":2,"j":1,"v":0.429},{"i":3,"j":1,"v":0.429},{"i":4,"j":1,"v":0.714},{"i":5,"j":1,"v":0.714},{"i":6,"j":1,"v":0.286},{"i":16,"j":1,"v":0.286},{"i":21,"j":1,"v":0.429},{"i":1,"j":2,"v":0.429},{"i":2,"j":2,"v":0.714},{"i":3,"j":2,"v":0.714},{"i":4,"j":2,"v":0.571},{"i":15,"j":2,"v":0.714},{"i":16,"j":2,"v":0.714},{"i":17,"j":2,"v":0.714},{"i":18,"j":2,"v":0.286},{"i":19,"j":2,"v":0.286},{"i":20,"j":2,"v":0.429},{"i":21,"j":2,"v":0.571},{"i":1,"j":3,"v":0.429},{"i":2,"j":3,"v":0.286},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.143},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.286},{"i":17,"j":3,"v":0.857},{"i":18,"j":3,"v":0.714},{"i":19,"j":3,"v":0.714},{"i":20,"j":3,"v":0.714},{"i":17,"j":4,"v":0.571},{"i":18,"j":4,"v":0.714},{"i":19,"j":4,"v":0.571},{"i":20,"j":4,"v":0.571},{"i":5,"j":5,"v":0.571},{"i":12,"j":5,"v":0.286},{"i":20,"j":5,"v":0.143},{"i":5,"j":6,"v":0.429},{"i":6,"j":6,"v":0.714},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.286},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.714},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.571},{"i":14,"j":6,"v":0.286},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.857},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.714},{"i":12,"j":7,"v":0.714},{"i":13,"j":7,"v":0.571},{"i":14,"j":7,"v":0.714},{"i":7,"j":8,"v":0.857},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.857},{"i":11,"j":8,"v":0.571},{"i":6,"j":9,"v":0.286},{"i":7,"j":9,"v":0.857},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.286},{"i":10,"j":9,"v":0.714},{"i":11,"j":9,"v":0.857},{"i":12,"j":9,"v":0.571}]
+   },
+   "x_odyssey": {
+    "asset": "creature.friendly-farm-dogs",
+    "type": "CREATURE",
+    "statusWord": "FAWNING",
+    "ink": {
+     "cols": 22,
+     "rows": 10,
+     "cells": 70,
+     "fill": 0.318
+    },
+    "wholeFrame": false
+   }
+  }
+ },
+ "instances": [
+  {
+   "id": "n1",
+   "assetId": "a_creature_friendly_farm_dogs",
+   "x": 0,
+   "z": 0.62,
+   "scale": 2.214,
+   "rot": 0,
+   "x_odyssey": {
+    "instance": "dogs",
+    "state": null,
+    "authoredScale": 0.62,
+    "station": "centre"
+   }
+  }
+ ],
+ "score": {
+  "fps": 24,
+  "rows": [
+   {
+    "id": "r13",
+    "c": "eumaeus",
+    "s": 0,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "eum_listen",
+     "resolved": "neutral"
+    }
+   },
+   {
+    "id": "r14",
+    "c": "odysseus",
+    "s": 0,
+    "d": 1,
+    "t": "",
+    "m": "pose=3/4 left",
+    "x_odyssey": {
+     "pose": "three_quarter_left",
+     "resolved": "3/4 left"
+    }
+   },
+   {
+    "id": "r12",
+    "c": "telemachus",
+    "s": 0,
+    "d": 1,
+    "t": "",
+    "m": "pose=walk",
+    "x_odyssey": {
+     "pose": "walk_neutral",
+     "resolved": "walk"
+    }
+   },
+   {
+    "id": "r6",
+    "c": "telemachus",
+    "s": 4,
+    "d": 7,
+    "t": "",
+    "m": "walk=0,0.14",
+    "x_odyssey": {
+     "move": {
+      "from": "yard",
+      "to": "door"
+     },
+     "planSpace": {
+      "x": 0.5,
+      "z": 0.14
+     },
+     "fromPlan": {
+      "x": 0.5,
+      "z": 0.06
+     },
+     "plan": "eumaeus-hut"
+    }
+   },
+   {
+    "id": "r2",
+    "c": "telemachus",
+    "s": 10.78,
+    "d": 8.36,
+    "t": "Down, good dogs. You still know my step.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B16-S01-T01",
+     "speaker": "character.telemachus",
+     "speakerName": "Telemachus",
+     "addressee": "character.eumaeus",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "Telemachus approaches Eumaeus's farm and the dogs greet him without aggression",
+     "direction": "the hounds fawn around him without one bark",
+     "delivery": "returning prince receiving intimate servant love while scanning an unknown guest",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it",
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Telemachus approaches Eumaeus's farm and the dogs greet him without aggression"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B16-S01.m4a"
+    }
+   },
+   {
+    "id": "r15",
+    "c": "odysseus",
+    "s": 12,
+    "d": 1,
+    "t": "",
+    "m": "pose=open arms",
+    "x_odyssey": {
+     "pose": "offering_hand",
+     "resolved": "open arms"
+    }
+   },
+   {
+    "id": "r7",
+    "c": "odysseus",
+    "s": 12,
+    "d": 5,
+    "t": "",
+    "m": "walk=-7.2,0.56",
+    "x_odyssey": {
+     "move": {
+      "from": "seat_guest",
+      "to": "corner_dark"
+     },
+     "planSpace": {
+      "x": 0.14,
+      "z": 0.56
+     },
+     "fromPlan": {
+      "x": 0.66,
+      "z": 0.66
+     },
+     "plan": "eumaeus-hut"
+    }
+   },
+   {
+    "id": "r8",
+    "c": "telemachus",
+    "s": 13,
+    "d": 6,
+    "t": "",
+    "m": "walk=0,0.72",
+    "x_odyssey": {
+     "move": {
+      "from": "door",
+      "to": "centre_l"
+     },
+     "planSpace": {
+      "x": 0.5,
+      "z": 0.72
+     },
+     "fromPlan": {
+      "x": 0.5,
+      "z": 0.14
+     },
+     "plan": "eumaeus-hut"
+    }
+   },
+   {
+    "id": "r9",
+    "c": "eumaeus",
+    "s": 14,
+    "d": 6,
+    "t": "",
+    "m": "walk=2.4,0.72",
+    "x_odyssey": {
+     "move": {
+      "from": "pen_wall",
+      "to": "centre_r"
+     },
+     "planSpace": {
+      "x": 0.62,
+      "z": 0.72
+     },
+     "fromPlan": {
+      "x": 0.88,
+      "z": 0.3
+     },
+     "plan": "eumaeus-hut"
+    }
+   },
+   {
+    "id": "r16",
+    "c": "odysseus",
+    "s": 17,
+    "d": 1,
+    "t": "",
+    "m": "pose=look down",
+    "x_odyssey": {
+     "pose": "head_lowered",
+     "resolved": "look down"
+    }
+   },
+   {
+    "id": "r17",
+    "c": "telemachus",
+    "s": 19,
+    "d": 1,
+    "t": "",
+    "m": "pose=open arms",
+    "x_odyssey": {
+     "pose": "torso_open",
+     "resolved": "open arms"
+    }
+   },
+   {
+    "id": "r3",
+    "c": "eumaeus",
+    "s": 19.44,
+    "d": 10.68,
+    "t": "Light of my eyes, you came back to me. I never thought to see you walk through that gate again.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B16-S01-T02",
+     "speaker": "character.eumaeus",
+     "speakerName": "Eumaeus",
+     "addressee": "character.telemachus",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "Eumaeus recognizes him, drops his bowl, and kisses him like a father receiving a lost son",
+     "direction": "bowl falls, wine spills, he kisses his head and both hands, weeping",
+     "delivery": "overwhelmed guardian shifting from work to tears, embraces, and rapid service",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it",
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Eumaeus recognizes him, drops his bowl, and kisses him like a father receiving a lost son"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B16-S01.m4a"
+    }
+   },
+   {
+    "id": "r18",
+    "c": "eumaeus",
+    "s": 20,
+    "d": 1,
+    "t": "",
+    "m": "pose=open arms",
+    "x_odyssey": {
+     "pose": "arms_open",
+     "resolved": "open arms"
+    }
+   },
+   {
+    "id": "r19",
+    "c": "eumaeus",
+    "s": 26,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "eum_speak",
+     "resolved": "neutral"
+    }
+   },
+   {
+    "id": "r10",
+    "c": "eumaeus",
+    "s": 26,
+    "d": 5,
+    "t": "",
+    "m": "walk=-1.6,0.52",
+    "x_odyssey": {
+     "move": {
+      "from": "centre_r",
+      "to": "hearth"
+     },
+     "planSpace": {
+      "x": 0.42,
+      "z": 0.52
+     },
+     "fromPlan": {
+      "x": 0.62,
+      "z": 0.72
+     },
+     "plan": "eumaeus-hut"
+    }
+   },
+   {
+    "id": "r4",
+    "c": "odysseus",
+    "s": 30.42,
+    "d": 6.84,
+    "t": "Sit here, young lord. The stool is yours. I will find a place by the door.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B16-S01-T03",
+     "speaker": "character.odysseus",
+     "speakerName": "Odysseus",
+     "addressee": "character.odysseus-as-beggar",
+     "act": "EMBODIED_ACTION",
+     "tactic": "advance_scene_through_action",
+     "payload": "The disguised Odysseus rises and offers his seat",
+     "direction": "rises stiffly and sweeps the fleece aside",
+     "delivery": "derive from current embodied condition and relationship pressure",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it",
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "The disguised Odysseus rises and offers his seat"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B16-S01.m4a"
+    }
+   },
+   {
+    "id": "r20",
+    "c": "telemachus",
+    "s": 33,
+    "d": 1,
+    "t": "",
+    "m": "pose=walk",
+    "x_odyssey": {
+     "pose": "walk_neutral",
+     "resolved": "walk"
+    }
+   },
+   {
+    "id": "r11",
+    "c": "telemachus",
+    "s": 33,
+    "d": 5,
+    "t": "",
+    "m": "walk=3.2,0.66",
+    "x_odyssey": {
+     "move": {
+      "from": "centre_l",
+      "to": "seat_guest"
+     },
+     "planSpace": {
+      "x": 0.66,
+      "z": 0.66
+     },
+     "fromPlan": {
+      "x": 0.5,
+      "z": 0.72
+     },
+     "plan": "eumaeus-hut"
+    }
+   },
+   {
+    "id": "r5",
+    "c": "telemachus",
+    "s": 37.56,
+    "d": 8.72,
+    "t": "Keep your seat, stranger. Eumaeus will pile me brushwood. Tell me instead who you are, and what ship set you down on Ithaca.",
+    "m": "",
+    "x_odyssey": {
+     "turn": "OD-B16-S01-T04",
+     "speaker": "character.telemachus",
+     "speakerName": "Telemachus",
+     "addressee": "character.odysseus-as-beggar",
+     "act": "QUESTION",
+     "tactic": "probe",
+     "payload": "Telemachus asks for news and enters the hut beside the unknown beggar",
+     "direction": "ducks under the lintel and sits beside him",
+     "delivery": "returning prince receiving intimate servant love while scanning an unknown guest",
+     "conceal": [
+      "true identity unless the source beat explicitly reveals it",
+      "full recognition until required private evidence is supplied"
+     ],
+     "reveal": [
+      "Telemachus asks for news and enters the hut beside the unknown beggar"
+     ],
+     "timed": true,
+     "audio": "drive/voice/OD-B16-S01.m4a"
+    }
+   },
+   {
+    "id": "r21",
+    "c": "telemachus",
+    "s": 38,
+    "d": 1,
+    "t": "",
+    "m": "pose=neutral",
+    "x_odyssey": {
+     "pose": "lean_forward",
+     "resolved": "neutral"
+    }
+   }
+  ]
+ },
+ "scenes": {
+  "OD-B16-S01 · The Son Reaches the Hut": {
+   "cast": {
+    "eumaeus": {
+     "id": "eumaeus",
+     "spec": {
+      "skin": "#c6a37c",
+      "hair": "cap",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1.02,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 7.6,
+     "z": 0.3,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.eumaeus",
+      "name": "Eumaeus",
+      "statusWord": "LOYAL",
+      "pose": "eum_listen",
+      "band": "threeq",
+      "station": "pen_wall",
+      "derivedFrom": null,
+      "hairColor": "#6d6459",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.55
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 0,
+     "z": 0.06,
+     "face": -0.62,
+     "pose": "walk",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "walk_neutral",
+      "band": "threeq",
+      "station": "yard",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.54
+     }
+    },
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 3.2,
+     "z": 0.66,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "seat_guest",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.56,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    }
+   },
+   "assets": {
+    "a_creature_friendly_farm_dogs": {
+     "id": "a_creature_friendly_farm_dogs",
+     "word": "friendly farm dogs",
+     "grid": {
+      "cols": 22,
+      "rows": 10,
+      "cells": [{"i":0,"j":0,"v":0.286},{"i":1,"j":0,"v":0.286},{"i":4,"j":0,"v":0.286},{"i":5,"j":0,"v":0.143},{"i":1,"j":1,"v":0.714},{"i":2,"j":1,"v":0.429},{"i":3,"j":1,"v":0.429},{"i":4,"j":1,"v":0.714},{"i":5,"j":1,"v":0.714},{"i":6,"j":1,"v":0.286},{"i":16,"j":1,"v":0.286},{"i":21,"j":1,"v":0.429},{"i":1,"j":2,"v":0.429},{"i":2,"j":2,"v":0.714},{"i":3,"j":2,"v":0.714},{"i":4,"j":2,"v":0.571},{"i":15,"j":2,"v":0.714},{"i":16,"j":2,"v":0.714},{"i":17,"j":2,"v":0.714},{"i":18,"j":2,"v":0.286},{"i":19,"j":2,"v":0.286},{"i":20,"j":2,"v":0.429},{"i":21,"j":2,"v":0.571},{"i":1,"j":3,"v":0.429},{"i":2,"j":3,"v":0.286},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.143},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.286},{"i":17,"j":3,"v":0.857},{"i":18,"j":3,"v":0.714},{"i":19,"j":3,"v":0.714},{"i":20,"j":3,"v":0.714},{"i":17,"j":4,"v":0.571},{"i":18,"j":4,"v":0.714},{"i":19,"j":4,"v":0.571},{"i":20,"j":4,"v":0.571},{"i":5,"j":5,"v":0.571},{"i":12,"j":5,"v":0.286},{"i":20,"j":5,"v":0.143},{"i":5,"j":6,"v":0.429},{"i":6,"j":6,"v":0.714},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.286},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.714},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.571},{"i":14,"j":6,"v":0.286},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.857},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.714},{"i":12,"j":7,"v":0.714},{"i":13,"j":7,"v":0.571},{"i":14,"j":7,"v":0.714},{"i":7,"j":8,"v":0.857},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.857},{"i":11,"j":8,"v":0.571},{"i":6,"j":9,"v":0.286},{"i":7,"j":9,"v":0.857},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.286},{"i":10,"j":9,"v":0.714},{"i":11,"j":9,"v":0.857},{"i":12,"j":9,"v":0.571}]
+     },
+     "x_odyssey": {
+      "asset": "creature.friendly-farm-dogs",
+      "type": "CREATURE",
+      "statusWord": "FAWNING",
+      "ink": {
+       "cols": 22,
+       "rows": 10,
+       "cells": 70,
+       "fill": 0.318
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_creature_friendly_farm_dogs",
+     "x": 0,
+     "z": 0.62,
+     "scale": 2.214,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "dogs",
+      "state": null,
+      "authoredScale": 0.62,
+      "station": "centre"
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r13",
+      "c": "eumaeus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eum_listen",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "telemachus",
+      "s": 4,
+      "d": 7,
+      "t": "",
+      "m": "walk=0,0.14",
+      "x_odyssey": {
+       "move": {
+        "from": "yard",
+        "to": "door"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.06
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "telemachus",
+      "s": 10.78,
+      "d": 8.36,
+      "t": "Down, good dogs. You still know my step.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S01-T01",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.eumaeus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus approaches Eumaeus's farm and the dogs greet him without aggression",
+       "direction": "the hounds fawn around him without one bark",
+       "delivery": "returning prince receiving intimate servant love while scanning an unknown guest",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus approaches Eumaeus's farm and the dogs greet him without aggression"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S01.m4a"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "odysseus",
+      "s": 12,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "odysseus",
+      "s": 12,
+      "d": 5,
+      "t": "",
+      "m": "walk=-7.2,0.56",
+      "x_odyssey": {
+       "move": {
+        "from": "seat_guest",
+        "to": "corner_dark"
+       },
+       "planSpace": {
+        "x": 0.14,
+        "z": 0.56
+       },
+       "fromPlan": {
+        "x": 0.66,
+        "z": 0.66
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "telemachus",
+      "s": 13,
+      "d": 6,
+      "t": "",
+      "m": "walk=0,0.72",
+      "x_odyssey": {
+       "move": {
+        "from": "door",
+        "to": "centre_l"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.72
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "eumaeus",
+      "s": 14,
+      "d": 6,
+      "t": "",
+      "m": "walk=2.4,0.72",
+      "x_odyssey": {
+       "move": {
+        "from": "pen_wall",
+        "to": "centre_r"
+       },
+       "planSpace": {
+        "x": 0.62,
+        "z": 0.72
+       },
+       "fromPlan": {
+        "x": 0.88,
+        "z": 0.3
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "odysseus",
+      "s": 17,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "telemachus",
+      "s": 19,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "eumaeus",
+      "s": 19.44,
+      "d": 10.68,
+      "t": "Light of my eyes, you came back to me. I never thought to see you walk through that gate again.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S01-T02",
+       "speaker": "character.eumaeus",
+       "speakerName": "Eumaeus",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Eumaeus recognizes him, drops his bowl, and kisses him like a father receiving a lost son",
+       "direction": "bowl falls, wine spills, he kisses his head and both hands, weeping",
+       "delivery": "overwhelmed guardian shifting from work to tears, embraces, and rapid service",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Eumaeus recognizes him, drops his bowl, and kisses him like a father receiving a lost son"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S01.m4a"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "eumaeus",
+      "s": 20,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "arms_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "eumaeus",
+      "s": 26,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eum_speak",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "eumaeus",
+      "s": 26,
+      "d": 5,
+      "t": "",
+      "m": "walk=-1.6,0.52",
+      "x_odyssey": {
+       "move": {
+        "from": "centre_r",
+        "to": "hearth"
+       },
+       "planSpace": {
+        "x": 0.42,
+        "z": 0.52
+       },
+       "fromPlan": {
+        "x": 0.62,
+        "z": 0.72
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "odysseus",
+      "s": 30.42,
+      "d": 6.84,
+      "t": "Sit here, young lord. The stool is yours. I will find a place by the door.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S01-T03",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.odysseus-as-beggar",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "The disguised Odysseus rises and offers his seat",
+       "direction": "rises stiffly and sweeps the fleece aside",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "The disguised Odysseus rises and offers his seat"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S01.m4a"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "telemachus",
+      "s": 33,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "telemachus",
+      "s": 33,
+      "d": 5,
+      "t": "",
+      "m": "walk=3.2,0.66",
+      "x_odyssey": {
+       "move": {
+        "from": "centre_l",
+        "to": "seat_guest"
+       },
+       "planSpace": {
+        "x": 0.66,
+        "z": 0.66
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.72
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "telemachus",
+      "s": 37.56,
+      "d": 8.72,
+      "t": "Keep your seat, stranger. Eumaeus will pile me brushwood. Tell me instead who you are, and what ship set you down on Ithaca.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S01-T04",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus-as-beggar",
+       "act": "QUESTION",
+       "tactic": "probe",
+       "payload": "Telemachus asks for news and enters the hut beside the unknown beggar",
+       "direction": "ducks under the lintel and sits beside him",
+       "delivery": "returning prince receiving intimate servant love while scanning an unknown guest",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus asks for news and enters the hut beside the unknown beggar"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S01.m4a"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "telemachus",
+      "s": 38,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B16-S02 · Eumaeus Carries News to Penelope": {
+   "cast": {
+    "athena": {
+     "id": "athena",
+     "spec": {
+      "skin": "#dcd6c8",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "armor",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 0,
+     "z": 0.06,
+     "face": -0.62,
+     "pose": "angry",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.athena",
+      "name": "Athena",
+      "statusWord": "STRATEGIST",
+      "pose": "athena_command",
+      "band": "threeq",
+      "station": "yard",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.56
+     }
+    },
+    "eumaeus": {
+     "id": "eumaeus",
+     "spec": {
+      "skin": "#c6a37c",
+      "hair": "cap",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1.02,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -1.6,
+     "z": 0.52,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.eumaeus",
+      "name": "Eumaeus",
+      "statusWord": "LOYAL",
+      "pose": "eum_listen",
+      "band": "threeq",
+      "station": "hearth",
+      "derivedFrom": null,
+      "hairColor": "#6d6459",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.55
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 3.2,
+     "z": 0.66,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "lean_forward",
+      "band": "threeq",
+      "station": "seat_guest",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.54
+     }
+    },
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -7.2,
+     "z": 0.56,
+     "face": -0.62,
+     "pose": "look down",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "head_lowered",
+      "band": "threeq",
+      "station": "corner_dark",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.56,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    }
+   },
+   "assets": {
+    "a_creature_friendly_farm_dogs": {
+     "id": "a_creature_friendly_farm_dogs",
+     "word": "friendly farm dogs",
+     "grid": {
+      "cols": 22,
+      "rows": 10,
+      "cells": [{"i":0,"j":0,"v":0.286},{"i":1,"j":0,"v":0.286},{"i":4,"j":0,"v":0.286},{"i":5,"j":0,"v":0.143},{"i":1,"j":1,"v":0.714},{"i":2,"j":1,"v":0.429},{"i":3,"j":1,"v":0.429},{"i":4,"j":1,"v":0.714},{"i":5,"j":1,"v":0.714},{"i":6,"j":1,"v":0.286},{"i":16,"j":1,"v":0.286},{"i":21,"j":1,"v":0.429},{"i":1,"j":2,"v":0.429},{"i":2,"j":2,"v":0.714},{"i":3,"j":2,"v":0.714},{"i":4,"j":2,"v":0.571},{"i":15,"j":2,"v":0.714},{"i":16,"j":2,"v":0.714},{"i":17,"j":2,"v":0.714},{"i":18,"j":2,"v":0.286},{"i":19,"j":2,"v":0.286},{"i":20,"j":2,"v":0.429},{"i":21,"j":2,"v":0.571},{"i":1,"j":3,"v":0.429},{"i":2,"j":3,"v":0.286},{"i":3,"j":3,"v":0.429},{"i":4,"j":3,"v":0.143},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.286},{"i":17,"j":3,"v":0.857},{"i":18,"j":3,"v":0.714},{"i":19,"j":3,"v":0.714},{"i":20,"j":3,"v":0.714},{"i":17,"j":4,"v":0.571},{"i":18,"j":4,"v":0.714},{"i":19,"j":4,"v":0.571},{"i":20,"j":4,"v":0.571},{"i":5,"j":5,"v":0.571},{"i":12,"j":5,"v":0.286},{"i":20,"j":5,"v":0.143},{"i":5,"j":6,"v":0.429},{"i":6,"j":6,"v":0.714},{"i":7,"j":6,"v":0.571},{"i":8,"j":6,"v":0.286},{"i":10,"j":6,"v":0.143},{"i":11,"j":6,"v":0.714},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.571},{"i":14,"j":6,"v":0.286},{"i":6,"j":7,"v":0.429},{"i":7,"j":7,"v":0.857},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.714},{"i":12,"j":7,"v":0.714},{"i":13,"j":7,"v":0.571},{"i":14,"j":7,"v":0.714},{"i":7,"j":8,"v":0.857},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.714},{"i":10,"j":8,"v":0.857},{"i":11,"j":8,"v":0.571},{"i":6,"j":9,"v":0.286},{"i":7,"j":9,"v":0.857},{"i":8,"j":9,"v":0.143},{"i":9,"j":9,"v":0.286},{"i":10,"j":9,"v":0.714},{"i":11,"j":9,"v":0.857},{"i":12,"j":9,"v":0.571}]
+     },
+     "x_odyssey": {
+      "asset": "creature.friendly-farm-dogs",
+      "type": "CREATURE",
+      "statusWord": "FAWNING",
+      "ink": {
+       "cols": 22,
+       "rows": 10,
+       "cells": 70,
+       "fill": 0.318
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_creature_friendly_farm_dogs",
+     "x": 0,
+     "z": 0.62,
+     "scale": 2.214,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "dogs",
+      "state": null,
+      "authoredScale": 0.62,
+      "station": "centre"
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r12",
+      "c": "eumaeus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eum_listen",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "telemachus",
+      "s": 6,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "open_palm",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "telemachus",
+      "s": 8.58,
+      "d": 7.04,
+      "t": "A Cretan, then, and hard luck carried you here. Eumaeus, go quietly to my mother and tell her I am home. Her ears only, no crier in the yard.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S02-T01",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.eumaeus",
+       "act": "QUESTION",
+       "tactic": "probe",
+       "payload": "Telemachus hears the beggar's claimed Cretan origin and asks Eumaeus to report his safe return to Penelope privately",
+       "direction": "lowers his voice, glancing at the stranger",
+       "delivery": "careful organizer protecting his mother from public rumor",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus hears the beggar's claimed Cretan origin and asks Eumaeus to report his safe return to Penelope privately"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S02.m4a"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "eumaeus",
+      "s": 10,
+      "d": 1,
+      "t": "",
+      "m": "pose=nod",
+      "x_odyssey": {
+       "pose": "repeated_nod",
+       "resolved": "nod"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "eumaeus",
+      "s": 14,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "eumaeus",
+      "s": 14,
+      "d": 6,
+      "t": "",
+      "m": "walk=0,0.14",
+      "x_odyssey": {
+       "move": {
+        "from": "hearth",
+        "to": "door"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "fromPlan": {
+        "x": 0.42,
+        "z": 0.52
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "eumaeus",
+      "s": 15.98,
+      "d": 6.92,
+      "t": "It is done. I take the low road and I say it to no one else.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S02-T02",
+       "speaker": "character.eumaeus",
+       "speakerName": "Eumaeus",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Eumaeus leaves for town, taking the farm-to-palace road",
+       "direction": "binds his sandals and starts down the farm road to town",
+       "delivery": "trusted messenger leaving the two strangers together",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Eumaeus leaves for town, taking the farm-to-palace road"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S02.m4a"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "dogs",
+      "s": 18,
+      "d": 6,
+      "t": "",
+      "m": "walk=0,0.06",
+      "x_odyssey": {
+       "move": {
+        "from": "centre",
+        "to": "yard"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.06
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.62
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "eumaeus",
+      "s": 20,
+      "d": 5,
+      "t": "",
+      "m": "walk=0,0.06",
+      "x_odyssey": {
+       "move": {
+        "from": "door",
+        "to": "yard"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.06
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "athena",
+      "s": 23.2,
+      "d": 11.48,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S02-T03",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Athena appears outside the hut, visible only to Odysseus, and signals that recognition may begin",
+       "direction": "stands tall at the gate and beckons him out, unseen by the son",
+       "delivery": "invisible-to-son director opening the private recognition window",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Athena appears outside the hut, visible only to Odysseus, and signals that recognition may begin"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S02.m4a"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "odysseus",
+      "s": 26,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "telemachus",
+      "s": 28,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "telemachus",
+      "s": 28,
+      "d": 6,
+      "t": "",
+      "m": "walk=4,0.42",
+      "x_odyssey": {
+       "move": {
+        "from": "seat_guest",
+        "to": "bench_far"
+       },
+       "planSpace": {
+        "x": 0.7,
+        "z": 0.42
+       },
+       "fromPlan": {
+        "x": 0.66,
+        "z": 0.66
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "odysseus",
+      "s": 30,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "odysseus",
+      "s": 30,
+      "d": 6,
+      "t": "",
+      "m": "walk=-4,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "corner_dark",
+        "to": "bench_near"
+       },
+       "planSpace": {
+        "x": 0.3,
+        "z": 0.7
+       },
+       "fromPlan": {
+        "x": 0.14,
+        "z": 0.56
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "athena",
+      "s": 34,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "athena_command",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "telemachus",
+      "s": 34,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "odysseus",
+      "s": 34.98,
+      "d": 6.4,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S02-T04",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.telemachus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Odysseus follows her outside while Telemachus remains within",
+       "direction": "sets down his staff and steps into the yard after her",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus follows her outside while Telemachus remains within"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S02.m4a"
+      }
+     },
+     {
+      "id": "r22",
+      "c": "odysseus",
+      "s": 36,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B16-S03 · The Father Reveals Himself": {
+   "cast": {
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -4,
+     "z": 0.7,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "bench_near",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.58,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 4,
+     "z": 0.42,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "alert",
+      "band": "threeq",
+      "station": "bench_far",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.54
+     }
+    }
+   },
+   "assets": {
+    "a_divine_fx_athenas_restoration": {
+     "id": "a_divine_fx_athenas_restoration",
+     "word": "athena's restoration",
+     "grid": {
+      "cols": 10,
+      "rows": 3,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":0,"j":1,"v":0.429},{"i":1,"j":1,"v":0.571},{"i":2,"j":1,"v":0.571},{"i":3,"j":1,"v":0.571},{"i":4,"j":1,"v":0.571},{"i":5,"j":1,"v":0.571},{"i":6,"j":1,"v":0.571},{"i":7,"j":1,"v":0.571},{"i":8,"j":1,"v":0.571},{"i":9,"j":1,"v":0.429},{"i":0,"j":2,"v":0.286},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.286},{"i":3,"j":2,"v":0.286},{"i":4,"j":2,"v":0.286},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.286},{"i":7,"j":2,"v":0.286},{"i":8,"j":2,"v":0.286},{"i":9,"j":2,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "divine-fx.athenas-restoration",
+      "type": "DIVINE_FX",
+      "statusWord": "RESTORING",
+      "ink": {
+       "cols": 10,
+       "rows": 3,
+       "cells": 22,
+       "fill": 0.733
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_divine_fx_athenas_restoration",
+     "x": 0,
+     "z": 0.96,
+     "scale": 3.571,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "restore_01",
+      "state": null,
+      "authoredScale": 1,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r13",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "alert",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "odysseus",
+      "s": 2,
+      "d": 4,
+      "t": "",
+      "m": "walk=0,0.06",
+      "x_odyssey": {
+       "move": {
+        "from": "seat_guest",
+        "to": "yard"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.06
+       },
+       "fromPlan": {
+        "x": 0.66,
+        "z": 0.66
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "athena",
+      "s": 6.58,
+      "d": 10.08,
+      "t": "Stand straight, son of Laertes. The years come off you now.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S03-T01",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.odysseus-restored",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Athena restores Odysseus's strength, clothing, skin, and dark hair outside the hut",
+       "direction": "golden wand across him; skin darkens, beard blackens, fresh cloak falls",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Athena restores Odysseus's strength, clothing, skin, and dark hair outside the hut"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S03.m4a"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "odysseus",
+      "s": 12,
+      "d": 3,
+      "t": "",
+      "m": "walk=0,0.14",
+      "x_odyssey": {
+       "move": {
+        "from": "yard",
+        "to": "door"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.06
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "odysseus",
+      "s": 15,
+      "d": 1,
+      "t": "",
+      "m": "pose=one arm raised",
+      "x_odyssey": {
+       "pose": "one_arm_raised",
+       "resolved": "one arm raised"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "odysseus",
+      "s": 16,
+      "d": 5,
+      "t": "",
+      "m": "walk=2.4,0.72",
+      "x_odyssey": {
+       "move": {
+        "from": "door",
+        "to": "centre_r"
+       },
+       "planSpace": {
+        "x": 0.62,
+        "z": 0.72
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "athena",
+      "s": 16.96,
+      "d": 5.56,
+      "t": "",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S03-T02",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.odysseus-restored",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "He reenters transformed",
+       "direction": "he ducks back through the low door, tall and shining",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "He reenters transformed"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S03.m4a"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "telemachus",
+      "s": 17,
+      "d": 1,
+      "t": "",
+      "m": "pose=sad",
+      "x_odyssey": {
+       "pose": "grief",
+       "resolved": "sad"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "telemachus",
+      "s": 17,
+      "d": 5,
+      "t": "",
+      "m": "walk=-7.2,0.56",
+      "x_odyssey": {
+       "move": {
+        "from": "bench_far",
+        "to": "corner_dark"
+       },
+       "planSpace": {
+        "x": 0.14,
+        "z": 0.56
+       },
+       "fromPlan": {
+        "x": 0.7,
+        "z": 0.42
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "odysseus",
+      "s": 22,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "telemachus",
+      "s": 22.82,
+      "d": 6.48,
+      "t": "Stranger, you are changed. Some god is standing in this hut, and I have nothing here to offer you.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S03-T03",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus-restored",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus recoils, believing he is a god",
+       "direction": "starts back, drops his eyes, lifts both hands",
+       "delivery": "fear, disbelief, analytical questioning, recognition, and uncontrolled reunion",
+       "conceal": [],
+       "reveal": [
+        "Telemachus recoils, believing he is a god"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S03.m4a"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "telemachus",
+      "s": 27,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "listening",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "odysseus",
+      "s": 29.6,
+      "d": 7.2,
+      "t": "I am no god. Why do you liken me to the immortals? I am your father, Telemachus, the man you have grieved for all these years.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S03-T04",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.odysseus-restored",
+       "act": "DECLARE",
+       "tactic": "define_public_reality",
+       "payload": "Odysseus declares himself the father for whom Telemachus has suffered",
+       "direction": "steps into the firelight, arms open",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Odysseus declares himself the father for whom Telemachus has suffered"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S03.m4a"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "telemachus",
+      "s": 33,
+      "d": 6,
+      "t": "",
+      "m": "walk=0,0.72",
+      "x_odyssey": {
+       "move": {
+        "from": "corner_dark",
+        "to": "centre_l"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.72
+       },
+       "fromPlan": {
+        "x": 0.14,
+        "z": 0.56
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "telemachus",
+      "s": 36,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "telemachus",
+      "s": 37.16,
+      "d": 5.36,
+      "t": "You are not my father. No mortal man makes himself young at will, and no beggar puts on a king in one breath. This is a god's work, and it is mocking my grief.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S03-T05",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus-restored",
+       "act": "EXPLAIN",
+       "tactic": "make_causality_legible",
+       "payload": "Telemachus doubts him until Odysseus explains Athena's control of his appearance",
+       "direction": "shakes his head, backing toward the wall",
+       "delivery": "fear, disbelief, analytical questioning, recognition, and uncontrolled reunion",
+       "conceal": [],
+       "reveal": [
+        "Telemachus doubts him until Odysseus explains Athena's control of his appearance"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S03.m4a"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "odysseus",
+      "s": 39,
+      "d": 1,
+      "t": "",
+      "m": "pose=sad",
+      "x_odyssey": {
+       "pose": "grief",
+       "resolved": "sad"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "telemachus",
+      "s": 39,
+      "d": 1,
+      "t": "",
+      "m": "pose=sad",
+      "x_odyssey": {
+       "pose": "grief",
+       "resolved": "sad"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "telemachus",
+      "s": 42.88,
+      "d": 8,
+      "t": "Father.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S03-T06",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus-restored",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "They embrace and weep with the force of birds robbed of their young",
+       "direction": "they cling and cry, shrill as birds robbed of their young",
+       "delivery": "fear, disbelief, analytical questioning, recognition, and uncontrolled reunion",
+       "conceal": [],
+       "reveal": [
+        "They embrace and weep with the force of birds robbed of their young"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S03.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B16-S04 · The Plan against the Suitors": {
+   "cast": {
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 0,
+     "z": 0.74,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.5,
+        "y": 0.83
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.5,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -6.76,
+     "z": 0.76,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "lean_forward",
+      "band": "threeq",
+      "station": null,
+      "derivedFrom": {
+       "anchor": {
+        "x": 0.21,
+        "y": 0.84
+       },
+       "model": "blocking.project inverse"
+      },
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.47
+     }
+    }
+   },
+   "assets": {
+    "a_set_piece_suitor_force_map": {
+     "id": "a_set_piece_suitor_force_map",
+     "word": "suitor force map",
+     "grid": {
+      "cols": 30,
+      "rows": 21,
+      "cells": [{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.143},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.143},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.143},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.143},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":27,"j":0,"v":0.143},{"i":28,"j":0,"v":0.143},{"i":0,"j":1,"v":0.286},{"i":2,"j":1,"v":0.286},{"i":3,"j":1,"v":0.571},{"i":4,"j":1,"v":0.571},{"i":5,"j":1,"v":0.571},{"i":27,"j":1,"v":0.571},{"i":28,"j":1,"v":0.286},{"i":29,"j":1,"v":0.286},{"i":0,"j":2,"v":0.286},{"i":2,"j":2,"v":0.429},{"i":3,"j":2,"v":0.571},{"i":4,"j":2,"v":0.429},{"i":5,"j":2,"v":0.429},{"i":6,"j":2,"v":0.286},{"i":7,"j":2,"v":0.286},{"i":8,"j":2,"v":0.286},{"i":9,"j":2,"v":0.286},{"i":10,"j":2,"v":0.286},{"i":11,"j":2,"v":0.286},{"i":12,"j":2,"v":0.286},{"i":13,"j":2,"v":0.286},{"i":14,"j":2,"v":0.286},{"i":15,"j":2,"v":0.286},{"i":16,"j":2,"v":0.286},{"i":17,"j":2,"v":0.286},{"i":18,"j":2,"v":0.286},{"i":19,"j":2,"v":0.286},{"i":20,"j":2,"v":0.286},{"i":21,"j":2,"v":0.286},{"i":22,"j":2,"v":0.286},{"i":23,"j":2,"v":0.286},{"i":24,"j":2,"v":0.286},{"i":25,"j":2,"v":0.286},{"i":26,"j":2,"v":0.286},{"i":27,"j":2,"v":0.714},{"i":28,"j":2,"v":0.571},{"i":29,"j":2,"v":0.286},{"i":0,"j":3,"v":0.286},{"i":1,"j":3,"v":0.286},{"i":2,"j":3,"v":0.571},{"i":3,"j":3,"v":0.571},{"i":4,"j":3,"v":0.571},{"i":5,"j":3,"v":0.429},{"i":6,"j":3,"v":0.571},{"i":7,"j":3,"v":0.571},{"i":8,"j":3,"v":0.714},{"i":9,"j":3,"v":0.429},{"i":10,"j":3,"v":0.714},{"i":11,"j":3,"v":0.571},{"i":12,"j":3,"v":0.286},{"i":13,"j":3,"v":0.286},{"i":14,"j":3,"v":0.286},{"i":15,"j":3,"v":0.286},{"i":16,"j":3,"v":0.286},{"i":17,"j":3,"v":0.286},{"i":18,"j":3,"v":0.286},{"i":19,"j":3,"v":0.286},{"i":20,"j":3,"v":0.286},{"i":21,"j":3,"v":0.286},{"i":22,"j":3,"v":0.286},{"i":23,"j":3,"v":0.286},{"i":24,"j":3,"v":0.286},{"i":25,"j":3,"v":0.286},{"i":26,"j":3,"v":0.429},{"i":27,"j":3,"v":0.571},{"i":28,"j":3,"v":0.429},{"i":29,"j":3,"v":0.286},{"i":0,"j":4,"v":0.286},{"i":2,"j":4,"v":0.714},{"i":3,"j":4,"v":0.571},{"i":4,"j":4,"v":0.714},{"i":5,"j":4,"v":0.429},{"i":6,"j":4,"v":0.714},{"i":7,"j":4,"v":0.429},{"i":8,"j":4,"v":0.714},{"i":9,"j":4,"v":0.429},{"i":10,"j":4,"v":0.714},{"i":11,"j":4,"v":0.571},{"i":12,"j":4,"v":0.571},{"i":13,"j":4,"v":0.286},{"i":14,"j":4,"v":0.571},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.571},{"i":17,"j":4,"v":0.286},{"i":18,"j":4,"v":0.571},{"i":19,"j":4,"v":0.286},{"i":20,"j":4,"v":0.571},{"i":21,"j":4,"v":0.286},{"i":22,"j":4,"v":0.571},{"i":23,"j":4,"v":0.286},{"i":24,"j":4,"v":0.571},{"i":25,"j":4,"v":0.286},{"i":26,"j":4,"v":0.714},{"i":27,"j":4,"v":0.571},{"i":28,"j":4,"v":0.143},{"i":29,"j":4,"v":0.286},{"i":0,"j":5,"v":0.286},{"i":2,"j":5,"v":1},{"i":3,"j":5,"v":0.429},{"i":4,"j":5,"v":1},{"i":5,"j":5,"v":0.429},{"i":6,"j":5,"v":1},{"i":7,"j":5,"v":0.429},{"i":8,"j":5,"v":1},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":1},{"i":11,"j":5,"v":0.429},{"i":12,"j":5,"v":1},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":1},{"i":15,"j":5,"v":0.429},{"i":16,"j":5,"v":1},{"i":17,"j":5,"v":0.429},{"i":18,"j":5,"v":1},{"i":19,"j":5,"v":0.429},{"i":20,"j":5,"v":1},{"i":21,"j":5,"v":0.429},{"i":22,"j":5,"v":1},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":1},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":1},{"i":27,"j":5,"v":0.429},{"i":29,"j":5,"v":0.286},{"i":0,"j":6,"v":0.286},{"i":2,"j":6,"v":0.857},{"i":3,"j":6,"v":0.429},{"i":4,"j":6,"v":0.857},{"i":5,"j":6,"v":0.429},{"i":6,"j":6,"v":0.857},{"i":7,"j":6,"v":0.429},{"i":8,"j":6,"v":0.857},{"i":9,"j":6,"v":0.429},{"i":10,"j":6,"v":0.857},{"i":11,"j":6,"v":0.429},{"i":12,"j":6,"v":0.857},{"i":13,"j":6,"v":0.429},{"i":14,"j":6,"v":0.857},{"i":15,"j":6,"v":0.429},{"i":16,"j":6,"v":0.857},{"i":17,"j":6,"v":0.429},{"i":18,"j":6,"v":0.857},{"i":19,"j":6,"v":0.429},{"i":20,"j":6,"v":0.857},{"i":21,"j":6,"v":0.429},{"i":22,"j":6,"v":0.857},{"i":23,"j":6,"v":0.429},{"i":24,"j":6,"v":0.857},{"i":25,"j":6,"v":0.429},{"i":26,"j":6,"v":0.857},{"i":27,"j":6,"v":0.429},{"i":29,"j":6,"v":0.286},{"i":0,"j":7,"v":0.286},{"i":2,"j":7,"v":0.857},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.857},{"i":5,"j":7,"v":0.571},{"i":6,"j":7,"v":1},{"i":7,"j":7,"v":0.429},{"i":8,"j":7,"v":0.857},{"i":9,"j":7,"v":0.429},{"i":10,"j":7,"v":0.857},{"i":11,"j":7,"v":0.429},{"i":12,"j":7,"v":0.857},{"i":13,"j":7,"v":0.429},{"i":14,"j":7,"v":0.857},{"i":15,"j":7,"v":0.429},{"i":16,"j":7,"v":0.857},{"i":17,"j":7,"v":0.429},{"i":18,"j":7,"v":0.857},{"i":19,"j":7,"v":0.429},{"i":20,"j":7,"v":0.857},{"i":21,"j":7,"v":0.429},{"i":22,"j":7,"v":0.857},{"i":23,"j":7,"v":0.429},{"i":24,"j":7,"v":0.857},{"i":25,"j":7,"v":0.429},{"i":26,"j":7,"v":0.857},{"i":27,"j":7,"v":0.429},{"i":29,"j":7,"v":0.286},{"i":0,"j":8,"v":0.286},{"i":2,"j":8,"v":0.857},{"i":3,"j":8,"v":0.571},{"i":4,"j":8,"v":0.857},{"i":5,"j":8,"v":0.429},{"i":6,"j":8,"v":0.857},{"i":7,"j":8,"v":0.286},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.286},{"i":10,"j":8,"v":0.714},{"i":11,"j":8,"v":0.286},{"i":12,"j":8,"v":0.714},{"i":13,"j":8,"v":0.286},{"i":14,"j":8,"v":0.714},{"i":15,"j":8,"v":0.286},{"i":16,"j":8,"v":0.714},{"i":17,"j":8,"v":0.286},{"i":18,"j":8,"v":0.714},{"i":19,"j":8,"v":0.286},{"i":20,"j":8,"v":0.714},{"i":21,"j":8,"v":0.286},{"i":22,"j":8,"v":0.714},{"i":23,"j":8,"v":0.286},{"i":24,"j":8,"v":0.714},{"i":25,"j":8,"v":0.286},{"i":26,"j":8,"v":0.286},{"i":27,"j":8,"v":0.286},{"i":29,"j":8,"v":0.286},{"i":0,"j":9,"v":0.286},{"i":2,"j":9,"v":1},{"i":3,"j":9,"v":0.429},{"i":4,"j":9,"v":0.857},{"i":5,"j":9,"v":0.571},{"i":6,"j":9,"v":1},{"i":7,"j":9,"v":0.571},{"i":8,"j":9,"v":0.857},{"i":9,"j":9,"v":0.571},{"i":10,"j":9,"v":1},{"i":11,"j":9,"v":0.571},{"i":12,"j":9,"v":1},{"i":13,"j":9,"v":0.429},{"i":14,"j":9,"v":1},{"i":15,"j":9,"v":0.429},{"i":16,"j":9,"v":1},{"i":17,"j":9,"v":0.429},{"i":18,"j":9,"v":1},{"i":19,"j":9,"v":0.429},{"i":20,"j":9,"v":1},{"i":21,"j":9,"v":0.429},{"i":22,"j":9,"v":1},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":1},{"i":25,"j":9,"v":0.429},{"i":29,"j":9,"v":0.286},{"i":0,"j":10,"v":0.286},{"i":2,"j":10,"v":0.857},{"i":3,"j":10,"v":0.571},{"i":4,"j":10,"v":0.714},{"i":5,"j":10,"v":0.429},{"i":6,"j":10,"v":0.714},{"i":7,"j":10,"v":0.429},{"i":8,"j":10,"v":0.714},{"i":9,"j":10,"v":0.571},{"i":10,"j":10,"v":0.714},{"i":11,"j":10,"v":0.429},{"i":12,"j":10,"v":0.857},{"i":13,"j":10,"v":0.286},{"i":14,"j":10,"v":0.714},{"i":15,"j":10,"v":0.286},{"i":16,"j":10,"v":0.714},{"i":17,"j":10,"v":0.286},{"i":18,"j":10,"v":0.714},{"i":19,"j":10,"v":0.286},{"i":20,"j":10,"v":0.714},{"i":21,"j":10,"v":0.286},{"i":22,"j":10,"v":0.429},{"i":23,"j":10,"v":0.143},{"i":24,"j":10,"v":0.429},{"i":25,"j":10,"v":0.143},{"i":26,"j":10,"v":0.429},{"i":27,"j":10,"v":0.571},{"i":28,"j":10,"v":0.143},{"i":29,"j":10,"v":0.286},{"i":0,"j":11,"v":0.286},{"i":2,"j":11,"v":1},{"i":3,"j":11,"v":0.429},{"i":4,"j":11,"v":1},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":1},{"i":7,"j":11,"v":0.429},{"i":8,"j":11,"v":1},{"i":9,"j":11,"v":0.429},{"i":10,"j":11,"v":1},{"i":11,"j":11,"v":0.429},{"i":12,"j":11,"v":1},{"i":13,"j":11,"v":0.429},{"i":14,"j":11,"v":1},{"i":15,"j":11,"v":0.429},{"i":16,"j":11,"v":1},{"i":17,"j":11,"v":0.429},{"i":18,"j":11,"v":1},{"i":19,"j":11,"v":0.429},{"i":20,"j":11,"v":1},{"i":21,"j":11,"v":0.429},{"i":29,"j":11,"v":0.286},{"i":0,"j":12,"v":0.286},{"i":1,"j":12,"v":0.143},{"i":2,"j":12,"v":0.714},{"i":3,"j":12,"v":0.571},{"i":4,"j":12,"v":0.857},{"i":5,"j":12,"v":0.571},{"i":6,"j":12,"v":0.857},{"i":7,"j":12,"v":0.571},{"i":8,"j":12,"v":0.857},{"i":9,"j":12,"v":0.286},{"i":10,"j":12,"v":0.714},{"i":11,"j":12,"v":0.286},{"i":12,"j":12,"v":0.714},{"i":13,"j":12,"v":0.286},{"i":14,"j":12,"v":0.714},{"i":15,"j":12,"v":0.286},{"i":16,"j":12,"v":0.714},{"i":17,"j":12,"v":0.286},{"i":18,"j":12,"v":0.714},{"i":19,"j":12,"v":0.286},{"i":20,"j":12,"v":0.714},{"i":21,"j":12,"v":0.286},{"i":27,"j":12,"v":0.286},{"i":28,"j":12,"v":0.143},{"i":29,"j":12,"v":0.286},{"i":0,"j":13,"v":0.286},{"i":2,"j":13,"v":0.857},{"i":3,"j":13,"v":0.571},{"i":4,"j":13,"v":0.857},{"i":5,"j":13,"v":0.429},{"i":6,"j":13,"v":0.857},{"i":7,"j":13,"v":0.429},{"i":8,"j":13,"v":0.857},{"i":9,"j":13,"v":0.429},{"i":10,"j":13,"v":0.857},{"i":11,"j":13,"v":0.571},{"i":12,"j":13,"v":0.857},{"i":13,"j":13,"v":0.571},{"i":14,"j":13,"v":0.857},{"i":15,"j":13,"v":0.571},{"i":16,"j":13,"v":0.857},{"i":17,"j":13,"v":0.429},{"i":18,"j":13,"v":0.857},{"i":19,"j":13,"v":0.429},{"i":20,"j":13,"v":0.857},{"i":21,"j":13,"v":0.429},{"i":22,"j":13,"v":0.857},{"i":23,"j":13,"v":0.429},{"i":24,"j":13,"v":0.857},{"i":25,"j":13,"v":0.429},{"i":27,"j":13,"v":0.143},{"i":29,"j":13,"v":0.286},{"i":0,"j":14,"v":0.286},{"i":1,"j":14,"v":0.143},{"i":2,"j":14,"v":0.714},{"i":3,"j":14,"v":0.571},{"i":4,"j":14,"v":0.571},{"i":5,"j":14,"v":0.571},{"i":6,"j":14,"v":0.429},{"i":7,"j":14,"v":0.286},{"i":8,"j":14,"v":0.571},{"i":9,"j":14,"v":0.143},{"i":10,"j":14,"v":0.429},{"i":11,"j":14,"v":0.429},{"i":12,"j":14,"v":0.714},{"i":13,"j":14,"v":0.571},{"i":14,"j":14,"v":0.429},{"i":15,"j":14,"v":0.429},{"i":16,"j":14,"v":0.429},{"i":17,"j":14,"v":0.143},{"i":18,"j":14,"v":0.286},{"i":19,"j":14,"v":0.143},{"i":20,"j":14,"v":0.286},{"i":21,"j":14,"v":0.143},{"i":22,"j":14,"v":0.286},{"i":23,"j":14,"v":0.143},{"i":24,"j":14,"v":0.286},{"i":25,"j":14,"v":0.143},{"i":27,"j":14,"v":0.429},{"i":28,"j":14,"v":0.286},{"i":29,"j":14,"v":0.286},{"i":0,"j":15,"v":0.286},{"i":1,"j":15,"v":0.857},{"i":2,"j":15,"v":0.714},{"i":3,"j":15,"v":0.714},{"i":4,"j":15,"v":0.714},{"i":5,"j":15,"v":0.714},{"i":6,"j":15,"v":0.571},{"i":7,"j":15,"v":0.571},{"i":8,"j":15,"v":0.571},{"i":9,"j":15,"v":0.714},{"i":10,"j":15,"v":0.857},{"i":11,"j":15,"v":0.714},{"i":12,"j":15,"v":0.571},{"i":13,"j":15,"v":0.714},{"i":14,"j":15,"v":0.857},{"i":15,"j":15,"v":0.857},{"i":16,"j":15,"v":0.714},{"i":17,"j":15,"v":0.571},{"i":18,"j":15,"v":0.571},{"i":19,"j":15,"v":0.571},{"i":20,"j":15,"v":0.571},{"i":21,"j":15,"v":0.429},{"i":22,"j":15,"v":0.429},{"i":23,"j":15,"v":0.429},{"i":24,"j":15,"v":0.429},{"i":25,"j":15,"v":0.429},{"i":26,"j":15,"v":0.429},{"i":27,"j":15,"v":0.571},{"i":28,"j":15,"v":0.857},{"i":29,"j":15,"v":0.286},{"i":0,"j":16,"v":0.286},{"i":1,"j":16,"v":0.429},{"i":2,"j":16,"v":0.571},{"i":3,"j":16,"v":0.571},{"i":4,"j":16,"v":0.571},{"i":5,"j":16,"v":0.429},{"i":10,"j":16,"v":0.286},{"i":11,"j":16,"v":0.286},{"i":12,"j":16,"v":0.429},{"i":13,"j":16,"v":0.143},{"i":17,"j":16,"v":0.286},{"i":18,"j":16,"v":0.571},{"i":19,"j":16,"v":0.286},{"i":20,"j":16,"v":0.571},{"i":21,"j":16,"v":0.143},{"i":28,"j":16,"v":0.286},{"i":29,"j":16,"v":0.286},{"i":0,"j":17,"v":0.286},{"i":1,"j":17,"v":0.286},{"i":2,"j":17,"v":0.571},{"i":3,"j":17,"v":0.714},{"i":4,"j":17,"v":0.714},{"i":5,"j":17,"v":0.571},{"i":6,"j":17,"v":0.286},{"i":9,"j":17,"v":0.143},{"i":10,"j":17,"v":0.429},{"i":11,"j":17,"v":0.429},{"i":12,"j":17,"v":0.429},{"i":13,"j":17,"v":0.429},{"i":14,"j":17,"v":0.429},{"i":15,"j":17,"v":0.429},{"i":17,"j":17,"v":0.286},{"i":18,"j":17,"v":0.714},{"i":19,"j":17,"v":0.714},{"i":20,"j":17,"v":0.857},{"i":21,"j":17,"v":0.571},{"i":22,"j":17,"v":0.429},{"i":23,"j":17,"v":0.286},{"i":29,"j":17,"v":0.286},{"i":0,"j":18,"v":0.286},{"i":1,"j":18,"v":0.286},{"i":2,"j":18,"v":0.571},{"i":3,"j":18,"v":0.429},{"i":4,"j":18,"v":0.571},{"i":5,"j":18,"v":0.571},{"i":6,"j":18,"v":0.571},{"i":7,"j":18,"v":0.429},{"i":8,"j":18,"v":0.571},{"i":9,"j":18,"v":0.571},{"i":10,"j":18,"v":0.571},{"i":11,"j":18,"v":0.571},{"i":12,"j":18,"v":0.571},{"i":13,"j":18,"v":0.571},{"i":14,"j":18,"v":0.571},{"i":15,"j":18,"v":0.571},{"i":16,"j":18,"v":0.571},{"i":17,"j":18,"v":0.571},{"i":18,"j":18,"v":0.571},{"i":19,"j":18,"v":0.571},{"i":20,"j":18,"v":0.571},{"i":21,"j":18,"v":0.571},{"i":22,"j":18,"v":0.571},{"i":23,"j":18,"v":0.571},{"i":24,"j":18,"v":0.571},{"i":25,"j":18,"v":0.571},{"i":26,"j":18,"v":0.571},{"i":27,"j":18,"v":0.571},{"i":28,"j":18,"v":0.286},{"i":29,"j":18,"v":0.286},{"i":0,"j":19,"v":0.286},{"i":1,"j":19,"v":0.429},{"i":2,"j":19,"v":0.429},{"i":3,"j":19,"v":0.286},{"i":4,"j":19,"v":0.286},{"i":5,"j":19,"v":0.286},{"i":6,"j":19,"v":0.286},{"i":7,"j":19,"v":0.286},{"i":8,"j":19,"v":0.714},{"i":9,"j":19,"v":0.571},{"i":10,"j":19,"v":0.714},{"i":11,"j":19,"v":0.429},{"i":12,"j":19,"v":0.429},{"i":13,"j":19,"v":0.714},{"i":14,"j":19,"v":0.286},{"i":15,"j":19,"v":0.714},{"i":16,"j":19,"v":0.286},{"i":17,"j":19,"v":0.571},{"i":18,"j":19,"v":0.429},{"i":19,"j":19,"v":0.429},{"i":20,"j":19,"v":0.714},{"i":21,"j":19,"v":0.286},{"i":22,"j":19,"v":0.857},{"i":23,"j":19,"v":0.857},{"i":24,"j":19,"v":0.429},{"i":25,"j":19,"v":0.714},{"i":26,"j":19,"v":0.571},{"i":27,"j":19,"v":0.429},{"i":28,"j":19,"v":0.429},{"i":29,"j":19,"v":0.286},{"i":0,"j":20,"v":0.286},{"i":1,"j":20,"v":0.714},{"i":2,"j":20,"v":0.714},{"i":3,"j":20,"v":0.571},{"i":4,"j":20,"v":0.571},{"i":5,"j":20,"v":0.571},{"i":6,"j":20,"v":0.571},{"i":7,"j":20,"v":0.571},{"i":8,"j":20,"v":0.714},{"i":9,"j":20,"v":0.714},{"i":10,"j":20,"v":0.857},{"i":11,"j":20,"v":0.714},{"i":12,"j":20,"v":0.714},{"i":13,"j":20,"v":0.857},{"i":14,"j":20,"v":0.571},{"i":15,"j":20,"v":0.857},{"i":16,"j":20,"v":0.571},{"i":17,"j":20,"v":0.857},{"i":18,"j":20,"v":0.714},{"i":19,"j":20,"v":0.714},{"i":20,"j":20,"v":0.857},{"i":21,"j":20,"v":0.571},{"i":22,"j":20,"v":0.857},{"i":23,"j":20,"v":0.857},{"i":24,"j":20,"v":0.714},{"i":25,"j":20,"v":0.857},{"i":26,"j":20,"v":0.714},{"i":27,"j":20,"v":0.714},{"i":28,"j":20,"v":0.571},{"i":29,"j":20,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "set_piece.suitor-force-map",
+      "type": "SET_PIECE",
+      "statusWord": "COUNTED",
+      "ink": {
+       "cols": 30,
+       "rows": 21,
+       "cells": 553,
+       "fill": 0.878
+      },
+      "wholeFrame": true
+     }
+    },
+    "a_prop_palace_weapons": {
+     "id": "a_prop_palace_weapons",
+     "word": "palace weapons",
+     "grid": {
+      "cols": 30,
+      "rows": 20,
+      "cells": [{"i":3,"j":0,"v":0.143},{"i":7,"j":0,"v":0.286},{"i":8,"j":0,"v":0.143},{"i":22,"j":0,"v":0.286},{"i":23,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":0,"j":1,"v":0.571},{"i":1,"j":1,"v":0.429},{"i":2,"j":1,"v":0.143},{"i":3,"j":1,"v":0.857},{"i":6,"j":1,"v":0.286},{"i":7,"j":1,"v":0.714},{"i":8,"j":1,"v":0.429},{"i":21,"j":1,"v":0.286},{"i":22,"j":1,"v":0.857},{"i":23,"j":1,"v":0.571},{"i":26,"j":1,"v":0.857},{"i":28,"j":1,"v":0.429},{"i":29,"j":1,"v":0.571},{"i":0,"j":2,"v":0.714},{"i":1,"j":2,"v":0.571},{"i":2,"j":2,"v":0.286},{"i":3,"j":2,"v":0.714},{"i":4,"j":2,"v":0.286},{"i":6,"j":2,"v":0.571},{"i":7,"j":2,"v":0.714},{"i":8,"j":2,"v":0.571},{"i":21,"j":2,"v":0.571},{"i":22,"j":2,"v":0.714},{"i":23,"j":2,"v":0.571},{"i":25,"j":2,"v":0.286},{"i":26,"j":2,"v":0.714},{"i":27,"j":2,"v":0.286},{"i":28,"j":2,"v":0.571},{"i":29,"j":2,"v":0.714},{"i":0,"j":3,"v":0.571},{"i":1,"j":3,"v":0.571},{"i":3,"j":3,"v":0.857},{"i":4,"j":3,"v":0.143},{"i":6,"j":3,"v":0.571},{"i":7,"j":3,"v":0.857},{"i":8,"j":3,"v":0.429},{"i":21,"j":3,"v":0.429},{"i":22,"j":3,"v":0.857},{"i":23,"j":3,"v":0.571},{"i":25,"j":3,"v":0.143},{"i":26,"j":3,"v":0.857},{"i":28,"j":3,"v":0.571},{"i":29,"j":3,"v":0.571},{"i":0,"j":4,"v":0.429},{"i":1,"j":4,"v":0.571},{"i":2,"j":4,"v":0.571},{"i":3,"j":4,"v":0.714},{"i":4,"j":4,"v":0.571},{"i":5,"j":4,"v":0.571},{"i":6,"j":4,"v":0.571},{"i":7,"j":4,"v":0.714},{"i":8,"j":4,"v":0.571},{"i":9,"j":4,"v":0.571},{"i":10,"j":4,"v":0.571},{"i":11,"j":4,"v":0.571},{"i":12,"j":4,"v":0.571},{"i":13,"j":4,"v":0.571},{"i":14,"j":4,"v":0.571},{"i":15,"j":4,"v":0.571},{"i":16,"j":4,"v":0.571},{"i":17,"j":4,"v":0.571},{"i":18,"j":4,"v":0.571},{"i":19,"j":4,"v":0.571},{"i":20,"j":4,"v":0.571},{"i":21,"j":4,"v":0.571},{"i":22,"j":4,"v":0.714},{"i":23,"j":4,"v":0.571},{"i":24,"j":4,"v":0.571},{"i":25,"j":4,"v":0.571},{"i":26,"j":4,"v":0.714},{"i":27,"j":4,"v":0.571},{"i":28,"j":4,"v":0.571},{"i":29,"j":4,"v":0.429},{"i":0,"j":5,"v":0.429},{"i":1,"j":5,"v":0.571},{"i":2,"j":5,"v":0.429},{"i":3,"j":5,"v":0.714},{"i":4,"j":5,"v":0.429},{"i":5,"j":5,"v":0.429},{"i":6,"j":5,"v":0.429},{"i":7,"j":5,"v":0.857},{"i":8,"j":5,"v":0.429},{"i":9,"j":5,"v":0.429},{"i":10,"j":5,"v":0.429},{"i":11,"j":5,"v":0.429},{"i":12,"j":5,"v":0.429},{"i":13,"j":5,"v":0.429},{"i":14,"j":5,"v":0.714},{"i":15,"j":5,"v":0.714},{"i":16,"j":5,"v":0.429},{"i":17,"j":5,"v":0.429},{"i":18,"j":5,"v":0.429},{"i":19,"j":5,"v":0.429},{"i":20,"j":5,"v":0.429},{"i":21,"j":5,"v":0.429},{"i":22,"j":5,"v":0.857},{"i":23,"j":5,"v":0.429},{"i":24,"j":5,"v":0.429},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":0.714},{"i":27,"j":5,"v":0.429},{"i":28,"j":5,"v":0.571},{"i":29,"j":5,"v":0.429},{"i":0,"j":6,"v":0.286},{"i":1,"j":6,"v":0.429},{"i":3,"j":6,"v":0.571},{"i":5,"j":6,"v":0.286},{"i":6,"j":6,"v":0.571},{"i":7,"j":6,"v":0.857},{"i":8,"j":6,"v":0.571},{"i":9,"j":6,"v":0.286},{"i":13,"j":6,"v":0.143},{"i":14,"j":6,"v":0.571},{"i":15,"j":6,"v":0.571},{"i":16,"j":6,"v":0.143},{"i":20,"j":6,"v":0.286},{"i":21,"j":6,"v":0.571},{"i":22,"j":6,"v":0.857},{"i":23,"j":6,"v":0.571},{"i":24,"j":6,"v":0.286},{"i":26,"j":6,"v":0.571},{"i":28,"j":6,"v":0.429},{"i":29,"j":6,"v":0.286},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.429},{"i":3,"j":7,"v":0.571},{"i":4,"j":7,"v":0.571},{"i":5,"j":7,"v":0.714},{"i":6,"j":7,"v":0.571},{"i":7,"j":7,"v":0.429},{"i":8,"j":7,"v":0.571},{"i":9,"j":7,"v":0.714},{"i":10,"j":7,"v":0.429},{"i":13,"j":7,"v":0.714},{"i":14,"j":7,"v":0.571},{"i":15,"j":7,"v":0.571},{"i":16,"j":7,"v":0.714},{"i":19,"j":7,"v":0.429},{"i":20,"j":7,"v":0.714},{"i":21,"j":7,"v":0.571},{"i":22,"j":7,"v":0.429},{"i":23,"j":7,"v":0.571},{"i":24,"j":7,"v":0.714},{"i":25,"j":7,"v":0.571},{"i":26,"j":7,"v":0.571},{"i":28,"j":7,"v":0.429},{"i":29,"j":7,"v":0.286},{"i":0,"j":8,"v":0.286},{"i":1,"j":8,"v":0.429},{"i":3,"j":8,"v":0.714},{"i":4,"j":8,"v":0.714},{"i":5,"j":8,"v":0.429},{"i":6,"j":8,"v":0.429},{"i":7,"j":8,"v":0.429},{"i":8,"j":8,"v":0.429},{"i":9,"j":8,"v":0.429},{"i":10,"j":8,"v":0.714},{"i":11,"j":8,"v":0.286},{"i":13,"j":8,"v":0.714},{"i":14,"j":8,"v":0.571},{"i":15,"j":8,"v":0.571},{"i":16,"j":8,"v":0.714},{"i":18,"j":8,"v":0.286},{"i":19,"j":8,"v":0.714},{"i":20,"j":8,"v":0.429},{"i":21,"j":8,"v":0.429},{"i":22,"j":8,"v":0.429},{"i":23,"j":8,"v":0.429},{"i":24,"j":8,"v":0.429},{"i":25,"j":8,"v":0.714},{"i":26,"j":8,"v":0.714},{"i":28,"j":8,"v":0.429},{"i":29,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":1,"j":9,"v":0.429},{"i":3,"j":9,"v":0.714},{"i":4,"j":9,"v":0.571},{"i":5,"j":9,"v":0.429},{"i":6,"j":9,"v":0.429},{"i":7,"j":9,"v":0.571},{"i":8,"j":9,"v":0.286},{"i":9,"j":9,"v":0.429},{"i":10,"j":9,"v":0.571},{"i":11,"j":9,"v":0.571},{"i":13,"j":9,"v":0.571},{"i":14,"j":9,"v":0.714},{"i":15,"j":9,"v":0.714},{"i":16,"j":9,"v":0.571},{"i":18,"j":9,"v":0.571},{"i":19,"j":9,"v":0.571},{"i":20,"j":9,"v":0.429},{"i":21,"j":9,"v":0.286},{"i":22,"j":9,"v":0.571},{"i":23,"j":9,"v":0.429},{"i":24,"j":9,"v":0.429},{"i":25,"j":9,"v":0.571},{"i":26,"j":9,"v":0.714},{"i":28,"j":9,"v":0.429},{"i":29,"j":9,"v":0.143},{"i":0,"j":10,"v":0.143},{"i":1,"j":10,"v":0.429},{"i":3,"j":10,"v":0.714},{"i":4,"j":10,"v":0.429},{"i":5,"j":10,"v":0.429},{"i":6,"j":10,"v":0.714},{"i":7,"j":10,"v":0.714},{"i":8,"j":10,"v":0.571},{"i":9,"j":10,"v":0.429},{"i":10,"j":10,"v":0.429},{"i":11,"j":10,"v":0.714},{"i":13,"j":10,"v":0.429},{"i":14,"j":10,"v":0.571},{"i":15,"j":10,"v":0.571},{"i":16,"j":10,"v":0.429},{"i":18,"j":10,"v":0.714},{"i":19,"j":10,"v":0.429},{"i":20,"j":10,"v":0.429},{"i":21,"j":10,"v":0.571},{"i":22,"j":10,"v":0.714},{"i":23,"j":10,"v":0.714},{"i":24,"j":10,"v":0.429},{"i":25,"j":10,"v":0.429},{"i":26,"j":10,"v":0.714},{"i":28,"j":10,"v":0.429},{"i":29,"j":10,"v":0.143},{"i":1,"j":11,"v":0.571},{"i":3,"j":11,"v":0.571},{"i":4,"j":11,"v":0.429},{"i":5,"j":11,"v":0.429},{"i":6,"j":11,"v":0.429},{"i":7,"j":11,"v":0.714},{"i":8,"j":11,"v":0.429},{"i":9,"j":11,"v":0.429},{"i":10,"j":11,"v":0.571},{"i":11,"j":11,"v":0.571},{"i":13,"j":11,"v":0.571},{"i":14,"j":11,"v":0.714},{"i":15,"j":11,"v":0.714},{"i":16,"j":11,"v":0.571},{"i":18,"j":11,"v":0.571},{"i":19,"j":11,"v":0.571},{"i":20,"j":11,"v":0.429},{"i":21,"j":11,"v":0.429},{"i":22,"j":11,"v":0.714},{"i":23,"j":11,"v":0.429},{"i":24,"j":11,"v":0.429},{"i":25,"j":11,"v":0.429},{"i":26,"j":11,"v":0.571},{"i":28,"j":11,"v":0.571},{"i":1,"j":12,"v":0.571},{"i":3,"j":12,"v":0.714},{"i":4,"j":12,"v":0.714},{"i":5,"j":12,"v":0.429},{"i":6,"j":12,"v":0.429},{"i":7,"j":12,"v":0.286},{"i":8,"j":12,"v":0.429},{"i":9,"j":12,"v":0.429},{"i":10,"j":12,"v":0.714},{"i":11,"j":12,"v":0.429},{"i":12,"j":12,"v":0.143},{"i":13,"j":12,"v":0.714},{"i":14,"j":12,"v":0.714},{"i":15,"j":12,"v":0.714},{"i":16,"j":12,"v":0.714},{"i":17,"j":12,"v":0.143},{"i":18,"j":12,"v":0.429},{"i":19,"j":12,"v":0.714},{"i":20,"j":12,"v":0.429},{"i":21,"j":12,"v":0.429},{"i":22,"j":12,"v":0.286},{"i":23,"j":12,"v":0.429},{"i":24,"j":12,"v":0.429},{"i":25,"j":12,"v":0.714},{"i":26,"j":12,"v":0.714},{"i":28,"j":12,"v":0.571},{"i":1,"j":13,"v":0.571},{"i":3,"j":13,"v":0.571},{"i":4,"j":13,"v":0.714},{"i":5,"j":13,"v":0.714},{"i":6,"j":13,"v":0.429},{"i":7,"j":13,"v":0.429},{"i":8,"j":13,"v":0.429},{"i":9,"j":13,"v":0.714},{"i":10,"j":13,"v":0.571},{"i":13,"j":13,"v":0.143},{"i":16,"j":13,"v":0.143},{"i":19,"j":13,"v":0.571},{"i":20,"j":13,"v":0.714},{"i":21,"j":13,"v":0.429},{"i":22,"j":13,"v":0.429},{"i":23,"j":13,"v":0.429},{"i":24,"j":13,"v":0.714},{"i":25,"j":13,"v":0.714},{"i":26,"j":13,"v":0.429},{"i":28,"j":13,"v":0.571},{"i":1,"j":14,"v":0.571},{"i":3,"j":14,"v":0.429},{"i":4,"j":14,"v":0.286},{"i":5,"j":14,"v":0.429},{"i":6,"j":14,"v":0.714},{"i":7,"j":14,"v":0.714},{"i":8,"j":14,"v":0.714},{"i":9,"j":14,"v":0.429},{"i":12,"j":14,"v":0.571},{"i":13,"j":14,"v":0.571},{"i":16,"j":14,"v":0.571},{"i":17,"j":14,"v":0.571},{"i":20,"j":14,"v":0.429},{"i":21,"j":14,"v":0.714},{"i":22,"j":14,"v":0.714},{"i":23,"j":14,"v":0.714},{"i":24,"j":14,"v":0.429},{"i":25,"j":14,"v":0.286},{"i":26,"j":14,"v":0.429},{"i":28,"j":14,"v":0.571},{"i":1,"j":15,"v":0.571},{"i":3,"j":15,"v":0.429},{"i":4,"j":15,"v":0.143},{"i":12,"j":15,"v":0.571},{"i":13,"j":15,"v":0.571},{"i":16,"j":15,"v":0.571},{"i":17,"j":15,"v":0.571},{"i":25,"j":15,"v":0.143},{"i":26,"j":15,"v":0.429},{"i":28,"j":15,"v":0.571},{"i":1,"j":16,"v":0.571},{"i":3,"j":16,"v":0.429},{"i":4,"j":16,"v":0.143},{"i":12,"j":16,"v":0.571},{"i":13,"j":16,"v":0.429},{"i":16,"j":16,"v":0.429},{"i":17,"j":16,"v":0.571},{"i":25,"j":16,"v":0.143},{"i":26,"j":16,"v":0.429},{"i":28,"j":16,"v":0.571},{"i":1,"j":17,"v":0.571},{"i":3,"j":17,"v":0.429},{"i":4,"j":17,"v":0.143},{"i":12,"j":17,"v":0.286},{"i":13,"j":17,"v":0.143},{"i":16,"j":17,"v":0.143},{"i":17,"j":17,"v":0.286},{"i":25,"j":17,"v":0.286},{"i":26,"j":17,"v":0.429},{"i":28,"j":17,"v":0.571},{"i":1,"j":18,"v":0.714},{"i":2,"j":18,"v":0.286},{"i":3,"j":18,"v":0.571},{"i":4,"j":18,"v":0.286},{"i":25,"j":18,"v":0.286},{"i":26,"j":18,"v":0.571},{"i":27,"j":18,"v":0.286},{"i":28,"j":18,"v":0.714},{"i":1,"j":19,"v":0.571},{"i":2,"j":19,"v":0.429},{"i":3,"j":19,"v":0.571},{"i":4,"j":19,"v":0.429},{"i":5,"j":19,"v":0.286},{"i":6,"j":19,"v":0.286},{"i":7,"j":19,"v":0.286},{"i":8,"j":19,"v":0.286},{"i":9,"j":19,"v":0.286},{"i":10,"j":19,"v":0.286},{"i":11,"j":19,"v":0.286},{"i":12,"j":19,"v":0.286},{"i":13,"j":19,"v":0.286},{"i":14,"j":19,"v":0.286},{"i":15,"j":19,"v":0.286},{"i":16,"j":19,"v":0.286},{"i":17,"j":19,"v":0.286},{"i":18,"j":19,"v":0.286},{"i":19,"j":19,"v":0.286},{"i":20,"j":19,"v":0.286},{"i":21,"j":19,"v":0.286},{"i":22,"j":19,"v":0.286},{"i":23,"j":19,"v":0.286},{"i":24,"j":19,"v":0.286},{"i":25,"j":19,"v":0.429},{"i":26,"j":19,"v":0.571},{"i":27,"j":19,"v":0.429},{"i":28,"j":19,"v":0.571}]
+     },
+     "x_odyssey": {
+      "asset": "prop.palace-weapons",
+      "type": "PROP",
+      "statusWord": "RACKED",
+      "ink": {
+       "cols": 30,
+       "rows": 20,
+       "cells": 387,
+       "fill": 0.645
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_set_piece_suitor_force_map",
+     "x": -8.91,
+     "z": 0.24,
+     "scale": 1.071,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "forcemap_01",
+      "state": null,
+      "authoredScale": 0.3,
+      "station": null
+     }
+    },
+    {
+     "id": "n2",
+     "assetId": "a_prop_palace_weapons",
+     "x": 4.74,
+     "z": 0.44,
+     "scale": 1.214,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "weapons_01",
+      "state": null,
+      "authoredScale": 0.34,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r13",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "odysseus",
+      "s": 6,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "torso_open",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "odysseus",
+      "s": 6.78,
+      "d": 5,
+      "t": "The Phaeacians rowed me home asleep and left me with their gifts on the shore. Now tell me plainly: how many suitors, and out of what houses?",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S04-T01",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.telemachus",
+       "act": "QUESTION",
+       "tactic": "probe",
+       "payload": "Odysseus tells how the Phaeacians returned him and asks for the exact number of suitors",
+       "direction": "sits close, keeping his voice under the fire's noise",
+       "delivery": "strategic father building confidence through exact roles, secrecy, and divine backing",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus tells how the Phaeacians returned him and asks for the exact number of suitors"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S04.m4a"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "telemachus",
+      "s": 9,
+      "d": 6,
+      "t": "",
+      "m": "walk=-5.2,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "bench_l2",
+        "to": "table_l"
+       },
+       "planSpace": {
+        "x": 0.24,
+        "z": 0.7
+       },
+       "fromPlan": {
+        "x": 0.16,
+        "z": 0.76
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "telemachus",
+      "s": 11,
+      "d": 1,
+      "t": "",
+      "m": "pose=pointing",
+      "x_odyssey": {
+       "pose": "pointing_arm",
+       "resolved": "pointing"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "telemachus",
+      "s": 12.14,
+      "d": 6.84,
+      "t": "Fifty-two from Dulichium, twenty-four from Same, twenty from Zacynthus, twelve of Ithaca itself, with a herald and a singer beside them. A hundred and eight, Father, and we are two. Two men cannot stand against so many in that hall.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S04-T02",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus",
+       "act": "WARN",
+       "tactic": "make_future_cost_present",
+       "payload": "Telemachus lists the factions and warns that two men cannot fight so many",
+       "direction": "counts them off on his fingers",
+       "delivery": "realistic planner accepting a high-risk two-man operation",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus lists the factions and warns that two men cannot fight so many"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S04.m4a"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "telemachus",
+      "s": 18,
+      "d": 1,
+      "t": "",
+      "m": "pose=hands near face",
+      "x_odyssey": {
+       "pose": "desperation",
+       "resolved": "hands near face"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "odysseus",
+      "s": 19,
+      "d": 6,
+      "t": "",
+      "m": "walk=5.2,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "axe_last",
+        "to": "table_r"
+       },
+       "planSpace": {
+        "x": 0.76,
+        "z": 0.7
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.74
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "odysseus",
+      "s": 19.34,
+      "d": 11.64,
+      "t": "Zeus and Athena stand with us, and they are worth more than a hundred spears. Carry every weapon out of the hall to the storeroom, and leave two swords, two spears, two shields where our hands can reach them.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S04-T03",
+       "speaker": "character.odysseus",
+       "speakerName": "Odysseus",
+       "addressee": "character.telemachus",
+       "act": "DECLARE",
+       "tactic": "define_public_reality",
+       "payload": "Odysseus names Zeus and Athena as allies and lays out the weapons-removal plan",
+       "direction": "grips his son's forearm",
+       "delivery": "strategic father building confidence through exact roles, secrecy, and divine backing",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Odysseus names Zeus and Athena as allies and lays out the weapons-removal plan"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S04.m4a"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "odysseus",
+      "s": 20,
+      "d": 1,
+      "t": "",
+      "m": "pose=one arm raised",
+      "x_odyssey": {
+       "pose": "one_arm_raised",
+       "resolved": "one arm raised"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "odysseus",
+      "s": 25,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "telemachus",
+      "s": 26,
+      "d": 6,
+      "t": "",
+      "m": "walk=-4.8,0.44",
+      "x_odyssey": {
+       "move": {
+        "from": "table_l",
+        "to": "pillar_l"
+       },
+       "planSpace": {
+        "x": 0.26,
+        "z": 0.44
+       },
+       "fromPlan": {
+        "x": 0.24,
+        "z": 0.7
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "telemachus",
+      "s": 27,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "telemachus",
+      "s": 31.34,
+      "d": 10.92,
+      "t": "I will go back and swallow their laughter without a word. Not my mother, not Laertes. No one hears this from me.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S04-T04",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus must return to the palace, endure insults, and tell no one—not even Penelope or Laertes",
+       "direction": "takes up his spear and sets his face",
+       "delivery": "realistic planner accepting a high-risk two-man operation",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "Telemachus must return to the palace, endure insults, and tell no one—not even Penelope or Laertes"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S04.m4a"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "odysseus",
+      "s": 32,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "confrontation",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r22",
+      "c": "telemachus",
+      "s": 34,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "telemachus",
+      "s": 38,
+      "d": 6,
+      "t": "",
+      "m": "walk=0,0.16",
+      "x_odyssey": {
+       "move": {
+        "from": "pillar_l",
+        "to": "threshold"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.16
+       },
+       "fromPlan": {
+        "x": 0.26,
+        "z": 0.44
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r23",
+      "c": "odysseus",
+      "s": 39,
+      "d": 1,
+      "t": "",
+      "m": "pose=pointing",
+      "x_odyssey": {
+       "pose": "pointing_arm",
+       "resolved": "pointing"
+      }
+     },
+     {
+      "id": "r24",
+      "c": "telemachus",
+      "s": 40,
+      "d": 1,
+      "t": "",
+      "m": "pose=walk",
+      "x_odyssey": {
+       "pose": "walk_neutral",
+       "resolved": "walk"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "telemachus",
+      "s": 42.56,
+      "d": 6.2,
+      "t": "Let Eumaeus walk the stranger down to town when the sun is high, and let him beg his bread there like any other.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S04-T05",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.odysseus",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "They assign Eumaeus to bring the beggar later",
+       "direction": "clasps his father's hand at the door",
+       "delivery": "realistic planner accepting a high-risk two-man operation",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it",
+        "full recognition until required private evidence is supplied"
+       ],
+       "reveal": [
+        "They assign Eumaeus to bring the beggar later"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S04.m4a"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "odysseus",
+      "s": 43,
+      "d": 4,
+      "t": "",
+      "m": "walk=6.8,0.76",
+      "x_odyssey": {
+       "move": {
+        "from": "table_r",
+        "to": "bench_r2"
+       },
+       "planSpace": {
+        "x": 0.84,
+        "z": 0.76
+       },
+       "fromPlan": {
+        "x": 0.76,
+        "z": 0.7
+       },
+       "plan": "megaron"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B16-S05 · The Ambush Fails and the Suitors Divide": {
+   "cast": {
+    "amphinomus": {
+     "id": "amphinomus",
+     "spec": {
+      "skin": "#cfb999",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.96,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -6.4,
+     "z": 0.62,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.amphinomus",
+      "name": "Amphinomus",
+      "statusWord": "CAUTIOUS",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "bench_l1",
+      "derivedFrom": null,
+      "hairColor": "#33261a",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.37
+     }
+    },
+    "antinous": {
+     "id": "antinous",
+     "spec": {
+      "skin": "#d8c2a4",
+      "hair": "cap",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1.02,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 6.4,
+     "z": 0.62,
+     "face": 0.62,
+     "pose": "3/4 right",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.antinous",
+      "name": "Antinous",
+      "statusWord": "ARROGANT",
+      "pose": "three_quarter_right",
+      "band": "threeq",
+      "station": "bench_r1",
+      "derivedFrom": null,
+      "hairColor": "#20170f",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.37
+     }
+    },
+    "penelope": {
+     "id": "penelope",
+     "spec": {
+      "skin": "#e0d9cb",
+      "hair": "long",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 0.97,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 8.4,
+     "z": 0.66,
+     "face": -0.62,
+     "pose": "sad",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.penelope",
+      "name": "Penelope",
+      "statusWord": "GRIEVING",
+      "pose": "penelope_grief",
+      "band": "threeq",
+      "station": "stair_up",
+      "derivedFrom": null,
+      "hairColor": "#33291f",
+      "cloak": false,
+      "bareLegs": false,
+      "figureScale": 0.36
+     }
+    },
+    "eurymachus": {
+     "id": "eurymachus",
+     "spec": {
+      "skin": "#d9c1a0",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "dress",
+      "h": 1.04,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": -6.8,
+     "z": 0.76,
+     "face": -0.62,
+     "pose": "skeptical",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.eurymachus",
+      "name": "Eurymachus",
+      "statusWord": "SCORNFUL",
+      "pose": "skepticism",
+      "band": "threeq",
+      "station": "bench_l2",
+      "derivedFrom": null,
+      "hairColor": "#20180f",
+      "cloak": true,
+      "bareLegs": false,
+      "figureScale": 0.37
+     }
+    }
+   },
+   "assets": {
+    "a_ensemble_suitor_council": {
+     "id": "a_ensemble_suitor_council",
+     "word": "suitor council",
+     "grid": {
+      "cols": 32,
+      "rows": 22,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":1,"j":0,"v":0.143},{"i":2,"j":0,"v":0.143},{"i":3,"j":0,"v":0.143},{"i":4,"j":0,"v":0.143},{"i":5,"j":0,"v":0.143},{"i":6,"j":0,"v":0.143},{"i":7,"j":0,"v":0.143},{"i":8,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":10,"j":0,"v":0.143},{"i":11,"j":0,"v":0.143},{"i":12,"j":0,"v":0.143},{"i":13,"j":0,"v":0.143},{"i":14,"j":0,"v":0.143},{"i":15,"j":0,"v":0.143},{"i":16,"j":0,"v":0.143},{"i":17,"j":0,"v":0.143},{"i":18,"j":0,"v":0.143},{"i":19,"j":0,"v":0.143},{"i":20,"j":0,"v":0.143},{"i":21,"j":0,"v":0.143},{"i":22,"j":0,"v":0.143},{"i":23,"j":0,"v":0.143},{"i":24,"j":0,"v":0.143},{"i":25,"j":0,"v":0.143},{"i":26,"j":0,"v":0.143},{"i":27,"j":0,"v":0.143},{"i":28,"j":0,"v":0.143},{"i":29,"j":0,"v":0.143},{"i":30,"j":0,"v":0.143},{"i":31,"j":0,"v":0.143},{"i":0,"j":1,"v":0.143},{"i":1,"j":1,"v":0.143},{"i":2,"j":1,"v":0.143},{"i":3,"j":1,"v":0.143},{"i":4,"j":1,"v":0.143},{"i":5,"j":1,"v":0.143},{"i":6,"j":1,"v":0.143},{"i":7,"j":1,"v":0.143},{"i":8,"j":1,"v":0.143},{"i":9,"j":1,"v":0.143},{"i":10,"j":1,"v":0.143},{"i":11,"j":1,"v":0.143},{"i":12,"j":1,"v":0.143},{"i":13,"j":1,"v":0.143},{"i":14,"j":1,"v":0.143},{"i":15,"j":1,"v":0.143},{"i":16,"j":1,"v":0.143},{"i":17,"j":1,"v":0.143},{"i":18,"j":1,"v":0.143},{"i":19,"j":1,"v":0.143},{"i":20,"j":1,"v":0.143},{"i":21,"j":1,"v":0.143},{"i":22,"j":1,"v":0.143},{"i":23,"j":1,"v":0.143},{"i":24,"j":1,"v":0.143},{"i":25,"j":1,"v":0.143},{"i":26,"j":1,"v":0.143},{"i":27,"j":1,"v":0.143},{"i":28,"j":1,"v":0.143},{"i":29,"j":1,"v":0.143},{"i":30,"j":1,"v":0.143},{"i":31,"j":1,"v":0.143},{"i":0,"j":2,"v":0.286},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.286},{"i":3,"j":2,"v":0.286},{"i":4,"j":2,"v":0.429},{"i":5,"j":2,"v":0.429},{"i":6,"j":2,"v":0.143},{"i":7,"j":2,"v":0.143},{"i":8,"j":2,"v":0.143},{"i":9,"j":2,"v":0.143},{"i":10,"j":2,"v":0.143},{"i":11,"j":2,"v":0.143},{"i":12,"j":2,"v":0.286},{"i":13,"j":2,"v":0.143},{"i":14,"j":2,"v":0.143},{"i":15,"j":2,"v":0.143},{"i":16,"j":2,"v":0.143},{"i":17,"j":2,"v":0.143},{"i":18,"j":2,"v":0.143},{"i":19,"j":2,"v":0.286},{"i":20,"j":2,"v":0.143},{"i":21,"j":2,"v":0.143},{"i":22,"j":2,"v":0.143},{"i":23,"j":2,"v":0.143},{"i":24,"j":2,"v":0.143},{"i":25,"j":2,"v":0.143},{"i":26,"j":2,"v":0.429},{"i":27,"j":2,"v":0.429},{"i":28,"j":2,"v":0.143},{"i":29,"j":2,"v":0.143},{"i":30,"j":2,"v":0.143},{"i":31,"j":2,"v":0.143},{"i":0,"j":3,"v":0.714},{"i":1,"j":3,"v":0.857},{"i":2,"j":3,"v":0.714},{"i":3,"j":3,"v":0.286},{"i":4,"j":3,"v":0.714},{"i":5,"j":3,"v":0.571},{"i":6,"j":3,"v":0.143},{"i":7,"j":3,"v":0.143},{"i":8,"j":3,"v":0.714},{"i":9,"j":3,"v":0.714},{"i":10,"j":3,"v":0.143},{"i":11,"j":3,"v":0.571},{"i":12,"j":3,"v":0.714},{"i":13,"j":3,"v":0.429},{"i":14,"j":3,"v":0.143},{"i":15,"j":3,"v":0.714},{"i":16,"j":3,"v":0.714},{"i":17,"j":3,"v":0.143},{"i":18,"j":3,"v":0.429},{"i":19,"j":3,"v":0.714},{"i":20,"j":3,"v":0.571},{"i":21,"j":3,"v":0.143},{"i":22,"j":3,"v":0.714},{"i":23,"j":3,"v":0.714},{"i":24,"j":3,"v":0.143},{"i":25,"j":3,"v":0.143},{"i":26,"j":3,"v":0.714},{"i":27,"j":3,"v":0.571},{"i":28,"j":3,"v":0.143},{"i":29,"j":3,"v":0.143},{"i":30,"j":3,"v":0.143},{"i":31,"j":3,"v":0.143},{"i":0,"j":4,"v":0.714},{"i":1,"j":4,"v":0.714},{"i":2,"j":4,"v":0.714},{"i":3,"j":4,"v":0.429},{"i":4,"j":4,"v":0.714},{"i":5,"j":4,"v":0.571},{"i":6,"j":4,"v":0.143},{"i":7,"j":4,"v":0.143},{"i":8,"j":4,"v":0.286},{"i":9,"j":4,"v":0.286},{"i":10,"j":4,"v":0.286},{"i":11,"j":4,"v":0.143},{"i":12,"j":4,"v":0.429},{"i":13,"j":4,"v":0.143},{"i":14,"j":4,"v":0.143},{"i":15,"j":4,"v":0.286},{"i":16,"j":4,"v":0.286},{"i":17,"j":4,"v":0.143},{"i":18,"j":4,"v":0.571},{"i":19,"j":4,"v":0.429},{"i":20,"j":4,"v":0.429},{"i":21,"j":4,"v":0.429},{"i":22,"j":4,"v":0.286},{"i":23,"j":4,"v":0.714},{"i":24,"j":4,"v":0.286},{"i":25,"j":4,"v":0.143},{"i":26,"j":4,"v":0.571},{"i":27,"j":4,"v":0.571},{"i":28,"j":4,"v":0.143},{"i":29,"j":4,"v":0.143},{"i":30,"j":4,"v":0.143},{"i":31,"j":4,"v":0.143},{"i":0,"j":5,"v":0.714},{"i":1,"j":5,"v":0.714},{"i":2,"j":5,"v":0.714},{"i":3,"j":5,"v":0.571},{"i":4,"j":5,"v":0.571},{"i":5,"j":5,"v":0.714},{"i":6,"j":5,"v":0.571},{"i":7,"j":5,"v":0.714},{"i":8,"j":5,"v":0.286},{"i":9,"j":5,"v":0.571},{"i":10,"j":5,"v":0.714},{"i":11,"j":5,"v":0.286},{"i":12,"j":5,"v":0.286},{"i":13,"j":5,"v":0.286},{"i":14,"j":5,"v":0.286},{"i":15,"j":5,"v":0.286},{"i":16,"j":5,"v":0.286},{"i":17,"j":5,"v":0.571},{"i":18,"j":5,"v":0.571},{"i":19,"j":5,"v":0.571},{"i":20,"j":5,"v":0.714},{"i":21,"j":5,"v":0.571},{"i":22,"j":5,"v":0.571},{"i":23,"j":5,"v":0.714},{"i":24,"j":5,"v":0.571},{"i":25,"j":5,"v":0.429},{"i":26,"j":5,"v":0.714},{"i":27,"j":5,"v":0.571},{"i":28,"j":5,"v":0.429},{"i":29,"j":5,"v":0.286},{"i":30,"j":5,"v":0.286},{"i":31,"j":5,"v":0.286},{"i":0,"j":6,"v":0.714},{"i":1,"j":6,"v":0.714},{"i":2,"j":6,"v":0.714},{"i":3,"j":6,"v":0.714},{"i":4,"j":6,"v":0.571},{"i":5,"j":6,"v":0.714},{"i":6,"j":6,"v":0.571},{"i":7,"j":6,"v":0.714},{"i":8,"j":6,"v":0.571},{"i":9,"j":6,"v":0.714},{"i":10,"j":6,"v":0.857},{"i":11,"j":6,"v":0.714},{"i":12,"j":6,"v":0.571},{"i":13,"j":6,"v":0.429},{"i":14,"j":6,"v":0.429},{"i":15,"j":6,"v":0.429},{"i":16,"j":6,"v":0.429},{"i":17,"j":6,"v":0.714},{"i":18,"j":6,"v":0.714},{"i":19,"j":6,"v":0.714},{"i":20,"j":6,"v":0.714},{"i":21,"j":6,"v":0.857},{"i":22,"j":6,"v":0.571},{"i":23,"j":6,"v":0.714},{"i":24,"j":6,"v":0.714},{"i":25,"j":6,"v":0.571},{"i":26,"j":6,"v":0.571},{"i":27,"j":6,"v":0.714},{"i":28,"j":6,"v":0.571},{"i":29,"j":6,"v":0.429},{"i":30,"j":6,"v":0.429},{"i":31,"j":6,"v":0.429},{"i":0,"j":7,"v":0.286},{"i":1,"j":7,"v":0.286},{"i":2,"j":7,"v":0.714},{"i":3,"j":7,"v":0.714},{"i":4,"j":7,"v":0.571},{"i":5,"j":7,"v":0.714},{"i":6,"j":7,"v":0.571},{"i":7,"j":7,"v":0.429},{"i":8,"j":7,"v":0.714},{"i":9,"j":7,"v":0.429},{"i":10,"j":7,"v":0.714},{"i":11,"j":7,"v":0.286},{"i":12,"j":7,"v":0.571},{"i":16,"j":7,"v":0.571},{"i":17,"j":7,"v":0.714},{"i":18,"j":7,"v":0.714},{"i":19,"j":7,"v":0.714},{"i":20,"j":7,"v":0.571},{"i":21,"j":7,"v":0.714},{"i":22,"j":7,"v":0.571},{"i":23,"j":7,"v":0.429},{"i":24,"j":7,"v":0.714},{"i":25,"j":7,"v":0.714},{"i":26,"j":7,"v":0.714},{"i":27,"j":7,"v":0.714},{"i":28,"j":7,"v":0.714},{"i":29,"j":7,"v":0.286},{"i":30,"j":7,"v":0.286},{"i":31,"j":7,"v":0.286},{"i":0,"j":8,"v":0.143},{"i":1,"j":8,"v":0.286},{"i":2,"j":8,"v":0.571},{"i":3,"j":8,"v":0.429},{"i":4,"j":8,"v":0.714},{"i":5,"j":8,"v":0.714},{"i":6,"j":8,"v":0.714},{"i":7,"j":8,"v":0.714},{"i":8,"j":8,"v":0.714},{"i":9,"j":8,"v":0.571},{"i":10,"j":8,"v":0.714},{"i":11,"j":8,"v":0.714},{"i":12,"j":8,"v":0.714},{"i":16,"j":8,"v":0.571},{"i":17,"j":8,"v":0.429},{"i":18,"j":8,"v":0.429},{"i":19,"j":8,"v":0.857},{"i":20,"j":8,"v":0.714},{"i":21,"j":8,"v":0.571},{"i":22,"j":8,"v":0.714},{"i":23,"j":8,"v":0.714},{"i":24,"j":8,"v":0.857},{"i":25,"j":8,"v":0.571},{"i":26,"j":8,"v":0.571},{"i":27,"j":8,"v":0.429},{"i":28,"j":8,"v":0.714},{"i":29,"j":8,"v":0.429},{"i":30,"j":8,"v":0.143},{"i":31,"j":8,"v":0.143},{"i":0,"j":9,"v":0.143},{"i":1,"j":9,"v":0.286},{"i":2,"j":9,"v":0.571},{"i":3,"j":9,"v":0.429},{"i":4,"j":9,"v":0.714},{"i":5,"j":9,"v":0.714},{"i":6,"j":9,"v":0.571},{"i":7,"j":9,"v":0.571},{"i":8,"j":9,"v":0.571},{"i":9,"j":9,"v":0.714},{"i":10,"j":9,"v":0.429},{"i":11,"j":9,"v":0.429},{"i":12,"j":9,"v":0.714},{"i":16,"j":9,"v":0.571},{"i":17,"j":9,"v":0.571},{"i":18,"j":9,"v":0.429},{"i":19,"j":9,"v":0.857},{"i":20,"j":9,"v":0.571},{"i":21,"j":9,"v":0.714},{"i":22,"j":9,"v":0.571},{"i":23,"j":9,"v":0.714},{"i":24,"j":9,"v":0.714},{"i":25,"j":9,"v":0.857},{"i":26,"j":9,"v":0.857},{"i":27,"j":9,"v":0.429},{"i":28,"j":9,"v":0.714},{"i":29,"j":9,"v":0.714},{"i":30,"j":9,"v":0.143},{"i":31,"j":9,"v":0.143},{"i":0,"j":10,"v":0.286},{"i":1,"j":10,"v":0.571},{"i":2,"j":10,"v":0.714},{"i":3,"j":10,"v":0.857},{"i":4,"j":10,"v":0.714},{"i":5,"j":10,"v":0.714},{"i":6,"j":10,"v":0.571},{"i":7,"j":10,"v":0.714},{"i":8,"j":10,"v":0.714},{"i":9,"j":10,"v":0.714},{"i":10,"j":10,"v":0.429},{"i":11,"j":10,"v":0.571},{"i":12,"j":10,"v":0.714},{"i":16,"j":10,"v":0.571},{"i":17,"j":10,"v":0.857},{"i":18,"j":10,"v":0.857},{"i":19,"j":10,"v":0.857},{"i":20,"j":10,"v":0.857},{"i":21,"j":10,"v":0.714},{"i":22,"j":10,"v":0.571},{"i":23,"j":10,"v":0.714},{"i":24,"j":10,"v":0.714},{"i":25,"j":10,"v":0.714},{"i":26,"j":10,"v":0.857},{"i":27,"j":10,"v":0.857},{"i":28,"j":10,"v":0.857},{"i":29,"j":10,"v":0.714},{"i":30,"j":10,"v":0.286},{"i":31,"j":10,"v":0.143},{"i":0,"j":11,"v":0.286},{"i":1,"j":11,"v":0.429},{"i":2,"j":11,"v":0.571},{"i":3,"j":11,"v":0.714},{"i":4,"j":11,"v":0.714},{"i":5,"j":11,"v":0.714},{"i":6,"j":11,"v":0.571},{"i":7,"j":11,"v":0.714},{"i":8,"j":11,"v":0.857},{"i":9,"j":11,"v":0.714},{"i":10,"j":11,"v":0.571},{"i":11,"j":11,"v":0.571},{"i":12,"j":11,"v":0.714},{"i":16,"j":11,"v":0.571},{"i":17,"j":11,"v":0.714},{"i":18,"j":11,"v":0.714},{"i":19,"j":11,"v":0.714},{"i":20,"j":11,"v":0.714},{"i":21,"j":11,"v":0.857},{"i":22,"j":11,"v":0.857},{"i":23,"j":11,"v":0.857},{"i":24,"j":11,"v":0.714},{"i":25,"j":11,"v":0.857},{"i":26,"j":11,"v":0.714},{"i":27,"j":11,"v":0.714},{"i":28,"j":11,"v":0.714},{"i":29,"j":11,"v":0.714},{"i":30,"j":11,"v":0.571},{"i":31,"j":11,"v":0.143},{"i":0,"j":12,"v":0.429},{"i":1,"j":12,"v":0.429},{"i":2,"j":12,"v":0.571},{"i":3,"j":12,"v":0.714},{"i":4,"j":12,"v":0.714},{"i":5,"j":12,"v":0.571},{"i":6,"j":12,"v":0.429},{"i":7,"j":12,"v":0.571},{"i":8,"j":12,"v":0.714},{"i":9,"j":12,"v":0.714},{"i":10,"j":12,"v":0.714},{"i":11,"j":12,"v":0.571},{"i":12,"j":12,"v":0.571},{"i":16,"j":12,"v":0.429},{"i":17,"j":12,"v":0.714},{"i":18,"j":12,"v":0.714},{"i":19,"j":12,"v":0.571},{"i":20,"j":12,"v":0.714},{"i":21,"j":12,"v":0.857},{"i":22,"j":12,"v":0.714},{"i":23,"j":12,"v":0.714},{"i":24,"j":12,"v":0.714},{"i":25,"j":12,"v":0.857},{"i":26,"j":12,"v":0.714},{"i":27,"j":12,"v":0.714},{"i":28,"j":12,"v":0.714},{"i":29,"j":12,"v":0.714},{"i":30,"j":12,"v":0.714},{"i":31,"j":12,"v":0.143},{"i":0,"j":13,"v":0.429},{"i":1,"j":13,"v":0.429},{"i":2,"j":13,"v":0.429},{"i":3,"j":13,"v":0.714},{"i":4,"j":13,"v":0.714},{"i":5,"j":13,"v":0.714},{"i":6,"j":13,"v":0.429},{"i":7,"j":13,"v":0.571},{"i":8,"j":13,"v":0.714},{"i":9,"j":13,"v":0.714},{"i":10,"j":13,"v":0.571},{"i":11,"j":13,"v":0.571},{"i":12,"j":13,"v":0.286},{"i":16,"j":13,"v":0.429},{"i":17,"j":13,"v":0.714},{"i":18,"j":13,"v":0.714},{"i":19,"j":13,"v":0.714},{"i":20,"j":13,"v":0.714},{"i":21,"j":13,"v":0.714},{"i":22,"j":13,"v":0.714},{"i":23,"j":13,"v":0.714},{"i":24,"j":13,"v":0.714},{"i":25,"j":13,"v":0.714},{"i":26,"j":13,"v":0.714},{"i":27,"j":13,"v":0.714},{"i":28,"j":13,"v":0.714},{"i":29,"j":13,"v":0.714},{"i":30,"j":13,"v":0.714},{"i":31,"j":13,"v":0.429},{"i":0,"j":14,"v":0.429},{"i":1,"j":14,"v":0.571},{"i":2,"j":14,"v":0.571},{"i":3,"j":14,"v":0.714},{"i":4,"j":14,"v":0.714},{"i":5,"j":14,"v":0.714},{"i":6,"j":14,"v":0.429},{"i":7,"j":14,"v":0.429},{"i":8,"j":14,"v":0.714},{"i":9,"j":14,"v":0.714},{"i":10,"j":14,"v":0.714},{"i":11,"j":14,"v":0.571},{"i":12,"j":14,"v":0.286},{"i":16,"j":14,"v":0.429},{"i":17,"j":14,"v":0.714},{"i":18,"j":14,"v":0.714},{"i":19,"j":14,"v":0.857},{"i":20,"j":14,"v":0.714},{"i":21,"j":14,"v":0.857},{"i":22,"j":14,"v":0.714},{"i":23,"j":14,"v":0.714},{"i":24,"j":14,"v":0.714},{"i":25,"j":14,"v":0.714},{"i":26,"j":14,"v":0.857},{"i":27,"j":14,"v":0.714},{"i":28,"j":14,"v":0.714},{"i":29,"j":14,"v":0.857},{"i":30,"j":14,"v":0.857},{"i":31,"j":14,"v":0.429},{"i":0,"j":15,"v":0.143},{"i":1,"j":15,"v":0.571},{"i":2,"j":15,"v":0.429},{"i":3,"j":15,"v":0.429},{"i":4,"j":15,"v":0.429},{"i":5,"j":15,"v":0.571},{"i":6,"j":15,"v":0.571},{"i":7,"j":15,"v":0.571},{"i":8,"j":15,"v":0.714},{"i":9,"j":15,"v":0.714},{"i":10,"j":15,"v":0.571},{"i":11,"j":15,"v":0.143},{"i":17,"j":15,"v":0.286},{"i":18,"j":15,"v":0.429},{"i":19,"j":15,"v":0.429},{"i":20,"j":15,"v":0.571},{"i":21,"j":15,"v":0.857},{"i":22,"j":15,"v":0.714},{"i":23,"j":15,"v":0.714},{"i":24,"j":15,"v":0.857},{"i":25,"j":15,"v":0.857},{"i":26,"j":15,"v":0.571},{"i":27,"j":15,"v":0.429},{"i":28,"j":15,"v":0.429},{"i":29,"j":15,"v":0.429},{"i":30,"j":15,"v":0.714},{"i":31,"j":15,"v":0.714},{"i":0,"j":16,"v":0.143},{"i":1,"j":16,"v":0.429},{"i":2,"j":16,"v":0.429},{"i":3,"j":16,"v":0.429},{"i":4,"j":16,"v":0.429},{"i":5,"j":16,"v":0.286},{"i":6,"j":16,"v":0.571},{"i":7,"j":16,"v":0.429},{"i":8,"j":16,"v":0.429},{"i":9,"j":16,"v":0.429},{"i":10,"j":16,"v":0.143},{"i":11,"j":16,"v":0.143},{"i":17,"j":16,"v":0.286},{"i":18,"j":16,"v":0.429},{"i":19,"j":16,"v":0.286},{"i":20,"j":16,"v":0.429},{"i":21,"j":16,"v":0.429},{"i":22,"j":16,"v":0.714},{"i":23,"j":16,"v":0.429},{"i":24,"j":16,"v":0.429},{"i":25,"j":16,"v":0.571},{"i":26,"j":16,"v":0.714},{"i":27,"j":16,"v":0.429},{"i":28,"j":16,"v":0.429},{"i":29,"j":16,"v":0.429},{"i":30,"j":16,"v":0.429},{"i":31,"j":16,"v":0.571},{"i":0,"j":17,"v":0.143},{"i":1,"j":17,"v":0.429},{"i":2,"j":17,"v":0.571},{"i":3,"j":17,"v":0.429},{"i":4,"j":17,"v":0.429},{"i":5,"j":17,"v":0.143},{"i":6,"j":17,"v":0.429},{"i":7,"j":17,"v":0.429},{"i":8,"j":17,"v":0.429},{"i":9,"j":17,"v":0.429},{"i":10,"j":17,"v":0.143},{"i":11,"j":17,"v":0.143},{"i":17,"j":17,"v":0.286},{"i":18,"j":17,"v":0.857},{"i":19,"j":17,"v":0.429},{"i":20,"j":17,"v":0.571},{"i":21,"j":17,"v":0.143},{"i":22,"j":17,"v":0.571},{"i":23,"j":17,"v":0.429},{"i":24,"j":17,"v":0.429},{"i":25,"j":17,"v":0.429},{"i":26,"j":17,"v":0.571},{"i":27,"j":17,"v":0.714},{"i":28,"j":17,"v":0.429},{"i":29,"j":17,"v":0.571},{"i":30,"j":17,"v":0.429},{"i":31,"j":17,"v":0.143},{"i":0,"j":18,"v":0.143},{"i":1,"j":18,"v":0.286},{"i":2,"j":18,"v":0.429},{"i":3,"j":18,"v":0.286},{"i":4,"j":18,"v":0.286},{"i":5,"j":18,"v":0.143},{"i":6,"j":18,"v":0.429},{"i":7,"j":18,"v":0.429},{"i":8,"j":18,"v":0.571},{"i":9,"j":18,"v":0.429},{"i":10,"j":18,"v":0.143},{"i":11,"j":18,"v":0.143},{"i":18,"j":18,"v":0.571},{"i":19,"j":18,"v":0.143},{"i":20,"j":18,"v":0.429},{"i":21,"j":18,"v":0.143},{"i":22,"j":18,"v":0.429},{"i":23,"j":18,"v":0.571},{"i":24,"j":18,"v":0.429},{"i":25,"j":18,"v":0.429},{"i":26,"j":18,"v":0.143},{"i":27,"j":18,"v":0.429},{"i":28,"j":18,"v":0.286},{"i":29,"j":18,"v":0.429},{"i":30,"j":18,"v":0.286},{"i":31,"j":18,"v":0.143},{"i":0,"j":19,"v":0.143},{"i":1,"j":19,"v":0.143},{"i":2,"j":19,"v":0.143},{"i":3,"j":19,"v":0.143},{"i":4,"j":19,"v":0.143},{"i":5,"j":19,"v":0.143},{"i":6,"j":19,"v":0.286},{"i":7,"j":19,"v":0.286},{"i":8,"j":19,"v":0.429},{"i":9,"j":19,"v":0.286},{"i":10,"j":19,"v":0.143},{"i":11,"j":19,"v":0.143},{"i":15,"j":19,"v":0.143},{"i":16,"j":19,"v":0.143},{"i":18,"j":19,"v":0.286},{"i":20,"j":19,"v":0.143},{"i":21,"j":19,"v":0.143},{"i":22,"j":19,"v":0.286},{"i":23,"j":19,"v":0.429},{"i":24,"j":19,"v":0.286},{"i":25,"j":19,"v":0.286},{"i":26,"j":19,"v":0.143},{"i":27,"j":19,"v":0.143},{"i":28,"j":19,"v":0.143},{"i":29,"j":19,"v":0.143},{"i":30,"j":19,"v":0.143},{"i":31,"j":19,"v":0.143},{"i":0,"j":20,"v":0.143},{"i":1,"j":20,"v":0.143},{"i":2,"j":20,"v":0.143},{"i":3,"j":20,"v":0.143},{"i":4,"j":20,"v":0.143},{"i":5,"j":20,"v":0.143},{"i":6,"j":20,"v":0.143},{"i":7,"j":20,"v":0.143},{"i":8,"j":20,"v":0.143},{"i":9,"j":20,"v":0.143},{"i":10,"j":20,"v":0.143},{"i":13,"j":20,"v":0.143},{"i":14,"j":20,"v":0.714},{"i":15,"j":20,"v":0.857},{"i":16,"j":20,"v":0.857},{"i":17,"j":20,"v":0.714},{"i":18,"j":20,"v":0.429},{"i":21,"j":20,"v":0.143},{"i":22,"j":20,"v":0.143},{"i":23,"j":20,"v":0.143},{"i":24,"j":20,"v":0.143},{"i":25,"j":20,"v":0.143},{"i":26,"j":20,"v":0.143},{"i":27,"j":20,"v":0.143},{"i":28,"j":20,"v":0.143},{"i":29,"j":20,"v":0.143},{"i":30,"j":20,"v":0.143},{"i":31,"j":20,"v":0.143},{"i":0,"j":21,"v":0.143},{"i":1,"j":21,"v":0.143},{"i":2,"j":21,"v":0.143},{"i":3,"j":21,"v":0.143},{"i":4,"j":21,"v":0.143},{"i":5,"j":21,"v":0.143},{"i":6,"j":21,"v":0.143},{"i":7,"j":21,"v":0.143},{"i":8,"j":21,"v":0.143},{"i":9,"j":21,"v":0.143},{"i":10,"j":21,"v":0.143},{"i":14,"j":21,"v":0.429},{"i":15,"j":21,"v":0.571},{"i":16,"j":21,"v":0.571},{"i":17,"j":21,"v":0.429},{"i":21,"j":21,"v":0.143},{"i":22,"j":21,"v":0.143},{"i":23,"j":21,"v":0.143},{"i":24,"j":21,"v":0.143},{"i":25,"j":21,"v":0.143},{"i":26,"j":21,"v":0.143},{"i":27,"j":21,"v":0.143},{"i":28,"j":21,"v":0.143},{"i":29,"j":21,"v":0.143},{"i":30,"j":21,"v":0.143},{"i":31,"j":21,"v":0.143}]
+     },
+     "x_odyssey": {
+      "asset": "ensemble.suitor-council",
+      "type": "ENSEMBLE",
+      "statusWord": "PLOTTING",
+      "ink": {
+       "cols": 32,
+       "rows": 22,
+       "cells": 644,
+       "fill": 0.915
+      },
+      "wholeFrame": true
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_ensemble_suitor_council",
+     "x": 0,
+     "z": 0.74,
+     "scale": 1.786,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "council_01",
+      "state": null,
+      "authoredScale": 0.5,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r13",
+      "c": "amphinomus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r12",
+      "c": "antinous",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=arms crossed",
+      "x_odyssey": {
+       "pose": "arms_crossed",
+       "resolved": "arms crossed"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "eurymachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "appraising",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "telemachus",
+      "s": 9.3,
+      "d": 7.36,
+      "t": "Ship the oars. We are inside the point, and their sail is nowhere.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S05-T01",
+       "speaker": "character.telemachus",
+       "speakerName": "Telemachus",
+       "addressee": "character.antinous",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Telemachus's ship reaches harbor before the ambush vessel can intercept it",
+       "direction": "the ship slips into harbor ahead of the ambush",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [],
+       "reveal": [
+        "Telemachus's ship reaches harbor before the ambush vessel can intercept it"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S05.m4a"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "antinous",
+      "s": 10,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "commanding_stance",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "amphinomus",
+      "s": 12,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "antinous",
+      "s": 16,
+      "d": 6,
+      "t": "",
+      "m": "walk=5.2,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "bench_r1",
+        "to": "table_r"
+       },
+       "planSpace": {
+        "x": 0.76,
+        "z": 0.7
+       },
+       "fromPlan": {
+        "x": 0.82,
+        "z": 0.62
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "NARRATOR",
+      "s": 16.96,
+      "d": 8.52,
+      "t": "Hear it in the hall. Telemachus, son of Odysseus, has come home to Ithaca this hour, safe out of Pylos, and his ship lies drawn up in the harbor.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S05-T02",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.antinous",
+       "act": "DECLARE",
+       "tactic": "define_public_reality",
+       "payload": "A herald publicly announces the prince's return before Eumaeus can deliver the private message",
+       "direction": "the herald calls it from the courtyard stones",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [],
+       "reveal": [
+        "A herald publicly announces the prince's return before Eumaeus can deliver the private message"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S05.m4a"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "amphinomus",
+      "s": 24,
+      "d": 6,
+      "t": "",
+      "m": "walk=-5.2,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "bench_l1",
+        "to": "table_l"
+       },
+       "planSpace": {
+        "x": 0.24,
+        "z": 0.7
+       },
+       "fromPlan": {
+        "x": 0.18,
+        "z": 0.62
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "NARRATOR",
+      "s": 25.9,
+      "d": 4.16,
+      "t": "The suitors leave their seats and crowd into the yard, staring at one another. The boy they meant to bury is walking in through his own gate.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S05-T03",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "ensemble.suitor-council",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "The suitors gather in alarm",
+       "direction": "steps aside as the crowd surges",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [],
+       "reveal": [
+        "The suitors gather in alarm"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S05.m4a"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "antinous",
+      "s": 30.48,
+      "d": 6.16,
+      "t": "The sea has failed us and their ship is past our teeth. Then take him on the road outside town, in the fields, before he stands in assembly and turns the people against us.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S05-T04",
+       "speaker": "character.antinous",
+       "speakerName": "Antinous",
+       "addressee": "character.amphinomus",
+       "act": "PROPOSE",
+       "tactic": "offer_plan",
+       "payload": "Antinous proposes murder outside town",
+       "direction": "leans in over the wine, voice low and fast",
+       "delivery": "plotter humiliated by failed interception and pushing immediate land murder",
+       "conceal": [],
+       "reveal": [
+        "Antinous proposes murder outside town"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S05.m4a"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "penelope",
+      "s": 32,
+      "d": 7,
+      "t": "",
+      "m": "walk=0,0.74",
+      "x_odyssey": {
+       "move": {
+        "from": "stair_up",
+        "to": "axe_last"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.74
+       },
+       "fromPlan": {
+        "x": 0.92,
+        "z": 0.66
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "penelope",
+      "s": 33,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "penelope_plea",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "amphinomus",
+      "s": 37,
+      "d": 7.28,
+      "t": "I will not lift a hand against a king's son until the gods say so. Ask Zeus for a sign first. If the omens come out favorable, I will strike the blow myself; if they do not, I tell you to leave him alone.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S05-T05",
+       "speaker": "character.amphinomus",
+       "speakerName": "Amphinomus",
+       "addressee": "character.antinous",
+       "act": "ASSERT",
+       "tactic": "state_position",
+       "payload": "Amphinomus argues they must seek a favorable omen first",
+       "direction": "sets down his cup and holds the table's eye",
+       "delivery": "more cautious suitor placing a divine condition on the conspiracy",
+       "conceal": [],
+       "reveal": [
+        "Amphinomus argues they must seek a favorable omen first"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S05.m4a"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "eurymachus",
+      "s": 38,
+      "d": 7,
+      "t": "",
+      "m": "walk=-8,0.9",
+      "x_odyssey": {
+       "move": {
+        "from": "bench_l2",
+        "to": "corner_dead"
+       },
+       "planSpace": {
+        "x": 0.1,
+        "z": 0.9
+       },
+       "fromPlan": {
+        "x": 0.16,
+        "z": 0.76
+       },
+       "plan": "megaron"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "antinous",
+      "s": 39,
+      "d": 1,
+      "t": "",
+      "m": "pose=skeptical",
+      "x_odyssey": {
+       "pose": "skepticism",
+       "resolved": "skeptical"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "penelope",
+      "s": 39,
+      "d": 1,
+      "t": "",
+      "m": "pose=angry",
+      "x_odyssey": {
+       "pose": "confrontation",
+       "resolved": "angry"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "eurymachus",
+      "s": 42,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "penelope",
+      "s": 44.64,
+      "d": 5.04,
+      "t": "Antinous, your own father came here hunted, and Odysseus sheltered him under this roof. This is how you pay that debt, by plotting my son's death. Plot it again and every man on Ithaca hears it from my own mouth.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S05-T06",
+       "speaker": "character.penelope",
+       "speakerName": "Penelope",
+       "addressee": "character.antinous",
+       "act": "PROMISE",
+       "tactic": "bind_future",
+       "payload": "Penelope confronts Antinous, and Eurymachus falsely promises protection",
+       "direction": "comes down to the threshold, veil drawn across her face",
+       "delivery": "informed queen entering the hall to accuse the man whose family Odysseus once saved",
+       "conceal": [],
+       "reveal": [
+        "Penelope confronts Antinous, and Eurymachus falsely promises protection"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S05.m4a"
+      }
+     }
+    ]
+   }
+  },
+  "OD-B16-S06 · The Beggar Returns": {
+   "cast": {
+    "odysseus": {
+     "id": "odysseus",
+     "spec": {
+      "skin": "#cdb89a",
+      "hair": "curly",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 3.2,
+     "z": 0.66,
+     "face": -0.62,
+     "pose": "3/4 left",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.odysseus-b16",
+      "name": "Odysseus",
+      "statusWord": "CRAFTY",
+      "pose": "three_quarter_left",
+      "band": "threeq",
+      "station": "seat_guest",
+      "derivedFrom": null,
+      "hairColor": "#241d16",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.52,
+      "guises": [
+       "king",
+       "restored",
+       "beggar",
+       "old-beggar",
+       "trojan-beggar"
+      ],
+      "guiseAt": null
+     }
+    },
+    "telemachus": {
+     "id": "telemachus",
+     "spec": {
+      "skin": "#d8c3a2",
+      "hair": "cap",
+      "beard": false,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 0.9,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 0,
+     "z": 0.14,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.telemachus",
+      "name": "Telemachus",
+      "statusWord": "GRIEVING",
+      "pose": "lean_forward",
+      "band": "threeq",
+      "station": "door",
+      "derivedFrom": null,
+      "hairColor": "#2a2118",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.5
+     }
+    },
+    "eumaeus": {
+     "id": "eumaeus",
+     "spec": {
+      "skin": "#c6a37c",
+      "hair": "cap",
+      "beard": true,
+      "glasses": false,
+      "garment": "tunic",
+      "h": 1.02,
+      "headS": 1,
+      "build": 1,
+      "browW": 1,
+      "eyeS": 1,
+      "mouthW": 1,
+      "shirt": "#d3d3cd"
+     },
+     "x": 0,
+     "z": 0.06,
+     "face": -0.62,
+     "pose": "neutral",
+     "decals": {
+      "head": [],
+      "torso": []
+     },
+     "x_odyssey": {
+      "asset": "character.eumaeus",
+      "name": "Eumaeus",
+      "statusWord": "LOYAL",
+      "pose": "eum_welcome",
+      "band": "threeq",
+      "station": "yard",
+      "derivedFrom": null,
+      "hairColor": "#6d6459",
+      "cloak": true,
+      "bareLegs": true,
+      "figureScale": 0.5
+     }
+    }
+   },
+   "assets": {
+    "a_divine_fx_athenas_restoration": {
+     "id": "a_divine_fx_athenas_restoration",
+     "word": "athena's restoration",
+     "grid": {
+      "cols": 10,
+      "rows": 3,
+      "cells": [{"i":0,"j":0,"v":0.143},{"i":9,"j":0,"v":0.143},{"i":0,"j":1,"v":0.429},{"i":1,"j":1,"v":0.571},{"i":2,"j":1,"v":0.571},{"i":3,"j":1,"v":0.571},{"i":4,"j":1,"v":0.571},{"i":5,"j":1,"v":0.571},{"i":6,"j":1,"v":0.571},{"i":7,"j":1,"v":0.571},{"i":8,"j":1,"v":0.571},{"i":9,"j":1,"v":0.429},{"i":0,"j":2,"v":0.286},{"i":1,"j":2,"v":0.286},{"i":2,"j":2,"v":0.286},{"i":3,"j":2,"v":0.286},{"i":4,"j":2,"v":0.286},{"i":5,"j":2,"v":0.286},{"i":6,"j":2,"v":0.286},{"i":7,"j":2,"v":0.286},{"i":8,"j":2,"v":0.286},{"i":9,"j":2,"v":0.286}]
+     },
+     "x_odyssey": {
+      "asset": "divine-fx.athenas-restoration",
+      "type": "DIVINE_FX",
+      "statusWord": "RESTORING",
+      "ink": {
+       "cols": 10,
+       "rows": 3,
+       "cells": 22,
+       "fill": 0.733
+      },
+      "wholeFrame": false
+     }
+    }
+   },
+   "instances": [
+    {
+     "id": "n1",
+     "assetId": "a_divine_fx_athenas_restoration",
+     "x": 0,
+     "z": 1,
+     "scale": 3.571,
+     "rot": 0,
+     "x_odyssey": {
+      "instance": "reveil_01",
+      "state": null,
+      "authoredScale": 1,
+      "station": null
+     }
+    }
+   ],
+   "score": {
+    "fps": 24,
+    "rows": [
+     {
+      "id": "r12",
+      "c": "odysseus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r13",
+      "c": "telemachus",
+      "s": 0,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "lean_forward",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r6",
+      "c": "telemachus",
+      "s": 1,
+      "d": 5,
+      "t": "",
+      "m": "walk=-4,0.7",
+      "x_odyssey": {
+       "move": {
+        "from": "door",
+        "to": "bench_near"
+       },
+       "planSpace": {
+        "x": 0.3,
+        "z": 0.7
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r7",
+      "c": "odysseus",
+      "s": 3,
+      "d": 4,
+      "t": "",
+      "m": "walk=0,0.62",
+      "x_odyssey": {
+       "move": {
+        "from": "seat_guest",
+        "to": "centre"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.62
+       },
+       "fromPlan": {
+        "x": 0.66,
+        "z": 0.66
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r2",
+      "c": "athena",
+      "s": 6.18,
+      "d": 8.8,
+      "t": "Bend down again, old wanderer. The swineherd is on the path, and he must find nothing here but rags.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S06-T01",
+       "speaker": "character.athena",
+       "speakerName": "Athena",
+       "addressee": "character.odysseus-as-beggar",
+       "act": "EMBODIED_ACTION",
+       "tactic": "advance_scene_through_action",
+       "payload": "Athena changes Odysseus back into the old beggar before Eumaeus returns",
+       "direction": "wand touch; shoulders stoop, skin withers, the rags return",
+       "delivery": "derive from current embodied condition and relationship pressure",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Athena changes Odysseus back into the old beggar before Eumaeus returns"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S06.m4a"
+      }
+     },
+     {
+      "id": "r14",
+      "c": "odysseus",
+      "s": 8,
+      "d": 1,
+      "t": "",
+      "m": "pose=one arm raised",
+      "x_odyssey": {
+       "pose": "one_arm_raised",
+       "resolved": "one arm raised"
+      }
+     },
+     {
+      "id": "r15",
+      "c": "telemachus",
+      "s": 8,
+      "d": 1,
+      "t": "",
+      "m": "pose=hands near face",
+      "x_odyssey": {
+       "pose": "hands_near_face",
+       "resolved": "hands near face"
+      }
+     },
+     {
+      "id": "r16",
+      "c": "odysseus",
+      "s": 13,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r8",
+      "c": "odysseus",
+      "s": 15,
+      "d": 5,
+      "t": "",
+      "m": "walk=3.2,0.66",
+      "x_odyssey": {
+       "move": {
+        "from": "centre",
+        "to": "seat_guest"
+       },
+       "planSpace": {
+        "x": 0.66,
+        "z": 0.66
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.62
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r3",
+      "c": "eumaeus",
+      "s": 15.28,
+      "d": 7,
+      "t": "The prince is home and safe, and I put the word in the queen's ear myself. The ship that lay in wait for him came slinking into harbor with empty hands.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S06-T02",
+       "speaker": "character.eumaeus",
+       "speakerName": "Eumaeus",
+       "addressee": "character.telemachus",
+       "act": "REPORT",
+       "tactic": "transfer_knowledge",
+       "payload": "Eumaeus reports Telemachus's safe arrival and the suitors' failed ship",
+       "direction": "drops his stick by the door, breathing hard from the road",
+       "delivery": "unaware messenger sharing observations that both other men interpret differently",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "Eumaeus reports Telemachus's safe arrival and the suitors' failed ship"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S06.m4a"
+      }
+     },
+     {
+      "id": "r17",
+      "c": "odysseus",
+      "s": 20,
+      "d": 1,
+      "t": "",
+      "m": "pose=open arms",
+      "x_odyssey": {
+       "pose": "offering_hand",
+       "resolved": "open arms"
+      }
+     },
+     {
+      "id": "r18",
+      "c": "telemachus",
+      "s": 20,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "neutral_front",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r9",
+      "c": "eumaeus",
+      "s": 22,
+      "d": 4,
+      "t": "",
+      "m": "walk=0,0.14",
+      "x_odyssey": {
+       "move": {
+        "from": "yard",
+        "to": "door"
+       },
+       "planSpace": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.06
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r4",
+      "c": "NARRATOR",
+      "s": 22.64,
+      "d": 6.48,
+      "t": "In that same hour a man from the crew reaches Penelope with the same news, so the queen hears twice what the suitors dread once.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S06-T03",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "AUDIENCE.LOCAL",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "A messenger from the crew reaches Penelope with the same news",
+       "direction": "turns the audience toward the palace",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "A messenger from the crew reaches Penelope with the same news"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S06.m4a"
+      }
+     },
+     {
+      "id": "r19",
+      "c": "eumaeus",
+      "s": 26,
+      "d": 1,
+      "t": "",
+      "m": "pose=neutral",
+      "x_odyssey": {
+       "pose": "eum_welcome",
+       "resolved": "neutral"
+      }
+     },
+     {
+      "id": "r10",
+      "c": "eumaeus",
+      "s": 26,
+      "d": 5,
+      "t": "",
+      "m": "walk=-1.6,0.52",
+      "x_odyssey": {
+       "move": {
+        "from": "door",
+        "to": "hearth"
+       },
+       "planSpace": {
+        "x": 0.42,
+        "z": 0.52
+       },
+       "fromPlan": {
+        "x": 0.5,
+        "z": 0.14
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r5",
+      "c": "NARRATOR",
+      "s": 29.54,
+      "d": 7.4,
+      "t": "They eat their supper in the firelight and lie down. The father says nothing, the son says nothing, and the secret sleeps between them.",
+      "m": "",
+      "x_odyssey": {
+       "turn": "OD-B16-S06-T04",
+       "speaker": "PERFORMER.NARRATOR",
+       "speakerName": "Epic Narrator",
+       "addressee": "character.odysseus-as-beggar",
+       "act": "NARRATE",
+       "tactic": "advance_scene_through_action",
+       "payload": "The three men eat and sleep while father and son preserve the secret",
+       "direction": "lets the fire settle into embers",
+       "delivery": "frame the action without replacing character agency",
+       "conceal": [
+        "true identity unless the source beat explicitly reveals it"
+       ],
+       "reveal": [
+        "The three men eat and sleep while father and son preserve the secret"
+       ],
+       "timed": true,
+       "audio": "drive/voice/OD-B16-S06.m4a"
+      }
+     },
+     {
+      "id": "r20",
+      "c": "odysseus",
+      "s": 33,
+      "d": 1,
+      "t": "",
+      "m": "pose=3/4 left",
+      "x_odyssey": {
+       "pose": "three_quarter_left",
+       "resolved": "3/4 left"
+      }
+     },
+     {
+      "id": "r11",
+      "c": "eumaeus",
+      "s": 42,
+      "d": 5,
+      "t": "",
+      "m": "walk=4,0.42",
+      "x_odyssey": {
+       "move": {
+        "from": "hearth",
+        "to": "bench_far"
+       },
+       "planSpace": {
+        "x": 0.7,
+        "z": 0.42
+       },
+       "fromPlan": {
+        "x": 0.42,
+        "z": 0.52
+       },
+       "plan": "eumaeus-hut"
+      }
+     },
+     {
+      "id": "r21",
+      "c": "telemachus",
+      "s": 44,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     },
+     {
+      "id": "r22",
+      "c": "odysseus",
+      "s": 46,
+      "d": 1,
+      "t": "",
+      "m": "pose=look down",
+      "x_odyssey": {
+       "pose": "head_lowered",
+       "resolved": "look down"
+      }
+     }
+    ]
+   }
+  }
+ },
+ "ledger": [
+  {
+   "n": 1,
+   "src": "build",
+   "op": {
+    "op": "note",
+    "t": "odyssey book 16 → halfworld/v2"
+   }
+  },
+  {
+   "n": 2,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B16-S01 · The Son Reaches the Hut"
+   }
+  },
+  {
+   "n": 3,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B16-S02 · Eumaeus Carries News to Penelope"
+   }
+  },
+  {
+   "n": 4,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B16-S03 · The Father Reveals Himself"
+   }
+  },
+  {
+   "n": 5,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B16-S04 · The Plan against the Suitors"
+   }
+  },
+  {
+   "n": 6,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B16-S05 · The Ambush Fails and the Suitors Divide"
+   }
+  },
+  {
+   "n": 7,
+   "src": "build",
+   "op": {
+    "op": "scene-save",
+    "name": "OD-B16-S06 · The Beggar Returns"
+   }
+  },
+  {
+   "n": 8,
+   "src": "build",
+   "op": {
+    "op": "note",
+    "t": "6 scenes · 123 rows · grid 32x22 · ink 0-7"
+   }
+  }
+ ],
+ "nextId": 25,
+ "turn": 0,
+ "x_odyssey": {
+  "book": 16,
+  "bookTitle": "Father and Son",
+  "sceneOrder": [
+   "OD-B16-S01 · The Son Reaches the Hut",
+   "OD-B16-S02 · Eumaeus Carries News to Penelope",
+   "OD-B16-S03 · The Father Reveals Himself",
+   "OD-B16-S04 · The Plan against the Suitors",
+   "OD-B16-S05 · The Ambush Fails and the Suitors Divide",
+   "OD-B16-S06 · The Beggar Returns"
+  ],
+  "scenes": {
+   "OD-B16-S01 · The Son Reaches the Hut": {
+    "id": "OD-B16-S01",
+    "title": "The Son Reaches the Hut",
+    "book": 16,
+    "bookTitle": "Father and Son",
+    "duration": 42,
+    "beats": [
+     "Telemachus comes up to Eumaeus's steading; the dogs that floored the beggar fawn on him and do not bark.",
+     "Eumaeus drops what he is holding and kisses him like a father receiving a son given up for dead.",
+     "The strange beggar rises and gives up the guest stool to the young master.",
+     "Telemachus takes the seat beside the unknown man and asks for news of the house."
+    ],
+    "plan": "eumaeus-hut",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.eumaeus-hut-interior",
+      "name": "Eumaeus's Hut — Interior",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Telemachus is seated on the guest stool with Eumaeus back at his hearth; the beggar — his father, unrecognized — has withdrawn to the dark corner, and the dogs are settled on the hut floor. Three men in the room and one secret.",
+    "exitOccupancy": {
+     "telemachus": "seat_guest",
+     "eumaeus": "hearth",
+     "odysseus": "corner_dark",
+     "dogs": "centre"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B16-S01.m4a",
+     "total": 46.64
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 3,
+    "source": "scenes/OD-B16-S01.mjs"
+   },
+   "OD-B16-S02 · Eumaeus Carries News to Penelope": {
+    "id": "OD-B16-S02",
+    "title": "Eumaeus Carries News to Penelope",
+    "book": 16,
+    "bookTitle": "Father and Son",
+    "duration": 44,
+    "beats": [
+     "Telemachus, having heard the stranger's Cretan story, asks Eumaeus to go down to town and tell Penelope privately that her son is home.",
+     "Eumaeus takes up his staff and goes out through the one door for the farm-to-palace road.",
+     "The dogs go out at his heel; the hut is left to two men and a fire.",
+     "Athena stands in the yard beyond the door, seen by Odysseus and by no one else, and gives the sign that the recognition may begin."
+    ],
+    "plan": "eumaeus-hut",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.eumaeus-hut-interior",
+      "name": "Eumaeus's Hut — Interior",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Eumaeus is on the road to the palace with the news; the dogs went out with him. The hut holds only Telemachus, on the far bench, and the beggar, moved up to the near bench — father and son alone and unknown to each other. Athena waits in the yard with the sign given; the crossing of the threshold is the first beat of OD-B16-S03.",
+    "exitOccupancy": {
+     "telemachus": "bench_far",
+     "odysseus": "bench_near"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B16-S02.m4a",
+     "total": 41.68
+    },
+    "fx": [],
+    "sound": [],
+    "states": [],
+    "gaze": 3,
+    "source": "scenes/OD-B16-S02.mjs"
+   },
+   "OD-B16-S03 · The Father Reveals Himself": {
+    "id": "OD-B16-S03",
+    "title": "The Father Reveals Himself",
+    "book": 16,
+    "bookTitle": "Father and Son",
+    "duration": 46,
+    "beats": [
+     "Athena signals from the doorway and Odysseus follows her out.",
+     "She strikes away the disguise; he returns to the hut as himself.",
+     "Telemachus takes him for a god and shrinks back, afraid to look.",
+     "Odysseus says he is no god but his father, home in the twentieth year.",
+     "Telemachus refuses it — no mortal could change so. Odysseus names Athena's work.",
+     "They embrace and weep, longer and louder than birds robbed of their young."
+    ],
+    "plan": "eumaeus-hut",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.eumaeus-hut-interior",
+      "name": "Eumaeus's Hut — Interior",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Father and son stand together at the centre of the hut, recognized; Eumaeus is still away at the palace.",
+    "exitOccupancy": {
+     "telemachus": "centre_l",
+     "odysseus": "centre_r"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B16-S03.m4a",
+     "total": 51.18
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 8,
+      "target": "restore_01",
+      "args": {
+       "dir": "restore"
+      }
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 1,
+    "source": "scenes/OD-B16-S03.mjs"
+   },
+   "OD-B16-S04 · The Plan against the Suitors": {
+    "id": "OD-B16-S04",
+    "title": "The Plan against the Suitors",
+    "book": 16,
+    "bookTitle": "Father and Son",
+    "duration": 48,
+    "beats": [
+     "Odysseus tells how the Phaeacians set him ashore asleep, and asks how many suitors there are.",
+     "Telemachus counts the factions off — Dulichium, Same, Zacynthus, Ithaca — and says two men cannot fight so many.",
+     "Odysseus names Zeus and Athena as allies enough, and lays out the removal of the arms from the hall.",
+     "Telemachus must go back to the palace, endure the insults, and tell no one — not Penelope, not Laertes.",
+     "Eumaeus is given the errand: he is to bring the beggar down to the town later."
+    ],
+    "plan": "megaron",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.megaron-hall",
+      "name": "Megaron Hall",
+      "type": "LOCATION",
+      "state": "day",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Father and son have agreed the plan in the hall: the arms come off the walls, Telemachus goes back among the suitors and says nothing, and Eumaeus will bring the beggar down later. Telemachus stands on the threshold ready to walk back to the town; Odysseus has drawn back to the bench under the weapon beam.",
+    "exitOccupancy": {
+     "odysseus": "bench_r2",
+     "telemachus": "threshold"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B16-S04.m4a",
+     "total": 49.06
+    },
+    "fx": [],
+    "sound": [],
+    "states": [
+     {
+      "op": "prop.state",
+      "at": 6,
+      "target": "forcemap_01",
+      "args": {
+       "focus": "all"
+      }
+     },
+     {
+      "op": "prop.state",
+      "at": 25,
+      "target": "weapons_01",
+      "args": {
+       "mode": "displayed",
+       "note": "marked for removal"
+      }
+     },
+     {
+      "op": "prop.state",
+      "at": 27,
+      "target": "forcemap_01",
+      "args": {
+       "hide": true
+      }
+     }
+    ],
+    "gaze": 4,
+    "source": "scenes/OD-B16-S04.mjs"
+   },
+   "OD-B16-S05 · The Ambush Fails and the Suitors Divide": {
+    "id": "OD-B16-S05",
+    "title": "The Ambush Fails and the Suitors Divide",
+    "book": 16,
+    "bookTitle": "Father and Son",
+    "duration": 50,
+    "beats": [
+     "Telemachus's ship comes into the harbour ahead of the vessel sent to intercept it.",
+     "A herald announces the prince's return in the open, before Eumaeus can deliver the message privately.",
+     "The suitors gather in alarm; Antinous proposes killing him in the fields, outside the town.",
+     "Amphinomus puts a condition on the murder — not until they have asked the will of Zeus.",
+     "Penelope comes down on Antinous for plotting against her son, and Eurymachus falsely promises protection."
+    ],
+    "plan": "megaron",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.megaron-hall",
+      "name": "Megaron Hall",
+      "type": "LOCATION",
+      "state": "feast",
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "The council has split and then closed ranks: the murder is agreed in principle but suspended on an omen, Penelope has named the plot aloud, and Eurymachus has publicly promised the boy's safety while intending nothing of the kind. Antinous holds the right-hand table, Amphinomus the left, Penelope the floor between them, Eurymachus the near corner.",
+    "exitOccupancy": {
+     "odysseus": "bench_r2",
+     "telemachus": "threshold",
+     "antinous": "table_r",
+     "amphinomus": "table_l",
+     "eurymachus": "corner_dead",
+     "penelope": "axe_last"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B16-S05.m4a",
+     "total": 50.04
+    },
+    "fx": [],
+    "sound": [],
+    "states": [
+     {
+      "op": "crowd.state",
+      "at": 0,
+      "target": "council_01",
+      "args": {
+       "formation": "council",
+       "status": "ASSEMBLED"
+      }
+     },
+     {
+      "op": "crowd.state",
+      "at": 8,
+      "target": "council_01",
+      "args": {
+       "formation": "council",
+       "status": "ALARMED",
+       "wave": 0
+      }
+     },
+     {
+      "op": "crowd.state",
+      "at": 17,
+      "target": "council_01",
+      "args": {
+       "formation": "council",
+       "status": "IN UPROAR"
+      }
+     },
+     {
+      "op": "crowd.state",
+      "at": 22,
+      "target": "council_01",
+      "args": {
+       "formation": "split",
+       "status": "FOR MURDER"
+      }
+     },
+     {
+      "op": "crowd.state",
+      "at": 30,
+      "target": "council_01",
+      "args": {
+       "formation": "split",
+       "status": "FOR THE OMEN"
+      }
+     },
+     {
+      "op": "crowd.state",
+      "at": 38,
+      "target": "council_01",
+      "args": {
+       "formation": "huddle",
+       "status": "CONCEALING"
+      }
+     }
+    ],
+    "gaze": 5,
+    "source": "scenes/OD-B16-S05.mjs"
+   },
+   "OD-B16-S06 · The Beggar Returns": {
+    "id": "OD-B16-S06",
+    "title": "The Beggar Returns",
+    "book": 16,
+    "bookTitle": "Father and Son",
+    "duration": 52,
+    "beats": [
+     "Athena comes to the hut and lays the beggar back over the king before the swineherd can see him.",
+     "Eumaeus comes in from the town and reports Telemachus safely home and the ambush ship come back empty.",
+     "A crewman's message reaches Penelope in the same hour, so the news is public before the plot can move.",
+     "The three men eat and lie down; father and son give nothing away."
+    ],
+    "plan": "eumaeus-hut",
+    "derived": false,
+    "field": [
+     {
+      "asset": "location.eumaeus-hut-interior",
+      "name": "Eumaeus's Hut — Interior",
+      "type": "LOCATION",
+      "state": null,
+      "scale": 1,
+      "anchor": {
+       "x": 0.5,
+       "y": 0.99
+      }
+     }
+    ],
+    "exitState": "Odysseus is the old beggar again on his stool, Telemachus on the near bench, Eumaeus across the hut at the far bench, the fire banked for the night. Nothing has been said aloud; Book XVII opens with the walk down to the town.",
+    "exitOccupancy": {
+     "odysseus": "seat_guest",
+     "telemachus": "bench_near",
+     "eumaeus": "bench_far"
+    },
+    "audio": {
+     "file": "drive/voice/OD-B16-S06.m4a",
+     "total": 37.36
+    },
+    "fx": [
+     {
+      "op": "fx.play",
+      "at": 7,
+      "target": "reveil_01",
+      "args": {
+       "dir": "reveil"
+      }
+     }
+    ],
+    "sound": [],
+    "states": [],
+    "gaze": 2,
+    "source": "scenes/OD-B16-S06.mjs"
+   }
+  },
+  "albums": []
+ }
+}
