@@ -34,22 +34,76 @@
     font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);
     background:rgba(247,246,242,.9);border:1px solid var(--ink);padding:6px 14px}
   #hint{position:fixed;left:0;right:0;bottom:0;height:30px;z-index:15;display:flex;align-items:center;
-    justify-content:center;gap:20px;background:var(--paper);border-top:1px solid var(--ink);
-    font-size:8.5px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+    justify-content:center;gap:16px;background:var(--paper);border-top:1px solid var(--ink);
+    font-size:8.5px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+  @media(pointer:coarse){ #hint{display:none} }
   #boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--paper)}
   #boot .b{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--dim);animation:pulse 1.4s infinite}
   @keyframes pulse{50%{opacity:.4}}
+
+  /* ── the contextual affordance line: what this thing will do if you press E ── */
+  #prompt{position:fixed;left:50%;bottom:170px;transform:translateX(-50%);z-index:16;display:none;
+    background:var(--ink);color:var(--paper);padding:9px 15px;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis;
+    box-shadow:4px 4px 0 rgba(20,20,20,.2)}
+  #prompt.on{display:block}
+  #prompt b{color:#ffd23f}
+  /* ── what you are carrying — a real 52px target ── */
+  #held{position:fixed;right:12px;top:56px;z-index:18;display:none;align-items:center;gap:8px;
+    min-height:52px;padding:5px 9px;border:2px solid var(--ink);background:var(--card);cursor:pointer;
+    box-shadow:3px 3px 0 rgba(20,20,20,.16)}
+  #held.on{display:flex}
+  #held canvas{width:42px;height:42px;flex:none}
+  #held span{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;max-width:118px;line-height:1.35}
+  #held span i{font-style:normal;color:var(--dim);display:block}
+  /* ── duel: the beats made readable ── */
+  #duelHud{position:fixed;left:50%;top:96px;transform:translateX(-50%);z-index:16;display:none;
+    width:min(360px,90vw);border:2px solid var(--ink);background:rgba(247,246,242,.96);padding:8px 12px;
+    box-shadow:5px 5px 0 rgba(20,20,20,.14)}
+  #duelHud.on{display:block}
+  #duelHud .row{display:flex;justify-content:space-between;gap:10px;font-size:12px;letter-spacing:.08em;font-weight:700}
+  #duelHud .ph{font-size:8.5px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin-top:5px}
+  #parry{height:9px;border:1px solid var(--ink);margin-top:5px;position:relative;background:var(--paper);overflow:hidden}
+  #parry i{position:absolute;top:0;bottom:0;left:0;background:var(--dim);width:0%}
+  #parry.win i{background:var(--red)}
+  #parry.win{box-shadow:0 0 0 2px var(--red)}
+  /* ── chat: a real panel, never more than 46vh ── */
+  #chat{position:fixed;left:0;right:0;bottom:0;z-index:40;height:min(46vh,400px);display:none;
+    flex-direction:column;background:var(--card);border-top:2px solid var(--ink)}
+  #chat.on{display:flex}
+  #chatHead{display:flex;align-items:center;gap:10px;padding:7px 9px;border-bottom:1px solid var(--faint)}
+  #chatHead canvas{width:46px;height:46px;flex:none;border:1px solid var(--faint);background:#fff}
+  #chatWho{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;flex:1;min-width:0}
+  #chatWho em{display:block;font-style:normal;font-size:8px;letter-spacing:.14em;color:var(--dim);margin-top:2px}
+  #chatX{width:52px;height:46px;border:2px solid var(--ink);background:var(--paper);
+    font-family:var(--mono);font-size:15px;font-weight:900;cursor:pointer}
+  #chatLog{flex:1;overflow-y:auto;padding:10px 12px;font-size:12px;line-height:1.55;-webkit-overflow-scrolling:touch}
+  #chatLog .m{margin-bottom:10px}
+  #chatLog .m b{display:block;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+  #chatLog .me b{color:var(--blue)}
+  #chatLog .m i{font-style:normal;color:var(--dim);font-size:10.5px;display:block;margin-top:2px}
+  #chatForm{display:flex;gap:6px;padding:8px;border-top:1px solid var(--faint);
+    padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+  #chatIn{flex:1;min-width:0;height:52px;border:2px solid var(--ink);background:#fff;
+    font-family:var(--mono);font-size:13px;padding:0 10px}
+  #chatSend,#chatSay{height:52px;min-width:52px;border:2px solid var(--ink);background:var(--ink);
+    color:var(--paper);font-family:var(--mono);font-size:11px;font-weight:900;cursor:pointer;padding:0 11px}
+  #chatSay{background:var(--paper);color:var(--ink)}
+  body.chatting #touch,body.chatting #caption,body.chatting #prompt{display:none}
+
   /* touch deck — appears on coarse pointers */
-  #touch{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;gap:8px;
+  #touch{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;gap:8px;align-items:flex-end;
     padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));justify-content:space-between;
     pointer-events:none}
   @media(pointer:coarse){ #touch{display:flex} }
+  #touch.force{display:flex}
   #touch .tg{display:flex;gap:8px;pointer-events:auto}
-  #touch button{width:56px;height:56px;border:2px solid var(--ink);background:rgba(247,246,242,.88);
+  #touch .acts{display:grid;grid-template-columns:repeat(2,54px);gap:8px}
+  #touch button{width:54px;height:54px;border:2px solid var(--ink);background:rgba(247,246,242,.9);
     font-family:var(--mono);font-size:15px;font-weight:900;color:var(--ink);border-radius:0;
     -webkit-tap-highlight-color:transparent;touch-action:none}
   #touch button:active{background:var(--ink);color:var(--paper)}
-  #touch button small{display:block;font-size:7px;letter-spacing:.1em;font-weight:700}
+  #touch button small{display:block;font-size:7px;letter-spacing:.08em;font-weight:700}
 </style>
 </head>
 <body>
@@ -64,39 +118,81 @@
 <canvas id="cv"></canvas>
 <div id="touch">
   <div class="tg"><button data-k="ArrowLeft">◀</button><button data-k="ArrowRight">▶</button></div>
-  <div class="tg"><button data-k="e">E<small>PERF</small></button>
+  <div class="tg acts">
+    <button data-k="jump">⤒<small>JUMP</small></button>
+    <button data-k="e">E<small>USE</small></button>
     <button data-k="c">C<small>CHAT</small></button>
-    <button data-k="f">F<small>DUEL</small></button></div>
+    <button data-k="f">F<small>DUEL</small></button>
+  </div>
 </div>
 <div id="sceneTitle"></div>
 <div id="caption"></div>
-<div id="hint"><span>←→ / A D · WALK</span><span>CLICK GROUND · WALK THERE</span><span>E · TALK</span><span>1–5 · ACT</span></div>
+<div id="prompt"></div>
+<div id="held"><canvas width="84" height="84"></canvas><span></span></div>
+<div id="duelHud">
+  <div class="row"><span id="dhP">ODYSSEUS ♥♥♥</span><span id="dhN">♥♥♥</span></div>
+  <div class="ph" id="dhPhase">THE CIRCLE IS DRAWN</div>
+  <div id="parry"><i></i></div>
+</div>
+<div id="chat">
+  <div id="chatHead"><canvas width="92" height="92"></canvas>
+    <div id="chatWho"></div><button id="chatX" type="button">✕</button></div>
+  <div id="chatLog"></div>
+  <form id="chatForm" autocomplete="off">
+    <input id="chatIn" type="text" placeholder="say something…" enterkeyhint="send">
+    <button id="chatSend" type="submit">SEND</button>
+    <button id="chatSay" type="button" title="speak the last reply again">♪</button>
+  </form>
+</div>
+<div id="hint"><span>←→ / A D · WALK</span><span>SPACE · JUMP</span><span>E · USE / SPEAK</span><span>C · CHAT</span><span>F · DUEL</span><span>1–5 · ACT</span></div>
 <div id="boot"><div class="b">BUILDING THE ROAD…</div></div>
 
 <script type="module">
 /* ============================================================
    ODYSSEY GAME — every book is a level. You are Odysseus: the
    real rig, walking. Each scene of the book is a stretch of road
-   with its own location behind it and its cast standing in it,
-   spaced out, alive. Walk up to someone and press E — they answer
-   with their actual performance line from the atlas.
-   Nothing assembled, nothing stacked: a place you walk through.
+   with its own location behind it, its cast standing in it, and
+   — this is the upgrade — EVERY OTHER ASSET THE SCENE DECLARES
+   standing there too, as a thing you can pick up, tip over, open,
+   board, sound, jump onto or carry. The manifest is the level.
+
+   Five systems on top of the walk:
+     LIVENESS  engine/liveness.mjs breathes every body, deterministically
+     OBJECTS   props/set-pieces/vehicles/wearables/sound-sources placed
+               from the manifest's TYPES — affordances, not scenery
+     PHYSICS   a real jump arc, platforms, blocking, landing foley
+     DUEL      wind-up → parry window → strike → stagger, poses on the beats
+     CHAT      a panel with history, portrait, input and a spoken reply
    ============================================================ */
-import { keyedModuleCanvas } from "./engine/halfworld-engine.mjs";
-const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"];
+import { keyedModuleCanvas, inkCutout } from "./engine/halfworld-engine.mjs";
+import { liveness, seedOf } from "./engine/liveness.mjs";
+
+const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
+  "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 const $=id=>document.getElementById(id);
 const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
-const seedOf=s=>{let h=0;for(const ch of s)h=(h*31+ch.charCodeAt(0))|0;return (h>>>0)/4294967295;};
+/* NOTE — engine/liveness.mjs's seedOf() can return a NEGATIVE fraction: the
+   final `h ^= h >>> 16` of its hash is not re-cast with >>>0, so ~half of all
+   ids come back signed (seedOf("character.athena") = −0.2139…). liveness()
+   itself only feeds it to sines, so the film is unaffected; but anything that
+   indexes an array with it lands out of bounds. We normalise here rather than
+   edit that shared file. */
+const sd=id=>{const v=seedOf(id);return ((v%1)+1)%1;};
+const pidx=(i,n)=>n>0?((Math.round(i)%n)+n)%n:0;
 const modCache=new Map();
 async function imp(path){const p=path.replace(/^\//,"./");
   if(modCache.has(p))return modCache.get(p);
   const m=await import(p);const mod=m.default||m.asset||m.scene||m;modCache.set(p,mod);return mod;}
 
 let MAN=null, assetById=new Map();
-let book=1, SEGS=[];              // [{scene, loc(canvas), npcs:[{a,mod,wx,state...}], beat}]
+let book=1, SEGS=[];              // [{scene, loc(canvas), npcs:[], objects:[]}]
 const SEGW=1900;                  // world px per scene
-let player=null;                  // {mod, wx, vx, faceLeft, pose, gestureUntil}
+let player=null;
 let camX=0, talkNPC=null;
+/* ONE game clock. rAF advances it; __game.step(dt) advances it too, so the
+   whole simulation is drivable headlessly without a live rAF. */
+let GT=0;
+const perfNow=()=>GT;
 
 const cv=$("cv"), g=cv.getContext("2d");
 const VW=1280, VH=760;
@@ -104,7 +200,7 @@ const off=document.createElement("canvas"); off.width=VW; off.height=VH;
 const og=off.getContext("2d",{willReadFrequently:true});
 function fit(){
   const r=cv.getBoundingClientRect();
-  cv.width=Math.round(r.width*1.3); cv.height=Math.round(r.height*1.3);
+  cv.width=Math.max(2,Math.round(r.width*1.3)); cv.height=Math.max(2,Math.round(r.height*1.3));
 }
 addEventListener("resize",fit);
 
@@ -139,18 +235,67 @@ function dotify(){
     g.fill();}
 }
 
+/* ══════════════════════════════════════════════════════════════
+   THE THING TABLE — the manifest's asset TYPE decides what a thing
+   IS in the world. No per-scene authoring: every scene in all 24
+   books gets its full declared inventory, placed and touchable.
+   ══════════════════════════════════════════════════════════════ */
+const OBJ_TYPES=/^(prop|set_piece|vehicle|wearable|sound_source|environment|divine_fx)$/;
+const ACTOR_TYPES=/^(character|ensemble|creature)$/;
+/* drawn height as a fraction of the frame, per type */
+const OBJH={prop:.17,wearable:.15,set_piece:.30,vehicle:.42,environment:.46,sound_source:.19,divine_fx:.30};
+/* id vocabularies — read the atlas's own names */
+const RX_BOW  =/bow|quiver|arrow/i;
+const RX_CUP  =/cup|goblet|krater|bowl|wine|nectar|ambrosia|milk|vessel|drink|cheese|bread|meat|feast-table|pitcher|basin|jug|ewer|amphora|flask|skin|loaf|provision/i;
+const RX_SEAT =/stool|chair|bench|seat|throne|couch|footstool|table|loom|bed|rack|chest/i;
+const RX_DOOR =/door|gate|threshold|stone|bolt|lock|portal|hatch/i;
+const RX_WEAP =/spear|sword|blade|axe|dagger|knife|shield|helmet|armou?r|panopl|aegis|club|staff/i;
+const RX_WEAR =/rag|cloak|garment|robe|veil|sandal|tunic|girdle/i;
+function affordOf(a){
+  const id=a.id||"", t=a.type||"";
+  if(t==="sound_source")return {verb:"SOUND", carry:false, solid:false};
+  if(t==="divine_fx")   return {verb:"INVOKE",carry:false, solid:false};
+  if(t==="vehicle")     return {verb:"BOARD", carry:false, solid:true};
+  if(t==="environment") return {verb:"READ",  carry:false, solid:true};
+  if(t==="wearable")    return {verb:"WEAR",  carry:true,  solid:false};
+  if(RX_DOOR.test(id))  return {verb:"OPEN",  carry:false, solid:true};
+  if(RX_SEAT.test(id))  return {verb:"TIP",   carry:false, solid:true};
+  if(t==="set_piece")   return {verb:"READ",  carry:false, solid:true};
+  if(RX_BOW.test(id))   return {verb:"TAKE",  carry:true,  solid:false};
+  if(RX_CUP.test(id))   return {verb:"LIFT",  carry:true,  solid:false};
+  if(RX_WEAP.test(id))  return {verb:"TAKE",  carry:true,  solid:false};
+  if(RX_WEAR.test(id))  return {verb:"WEAR",  carry:true,  solid:false};
+  return {verb:"TAKE", carry:true, solid:false};
+}
+function baseState(o){
+  const n=o.nodes[o.si];
+  const st={...(o.mod.preview?o.mod.preview():{}),...(n?n.prev():{})};
+  delete st.status;delete st.progress;return st;
+}
+/* measured once, memoized: true aspect from the ink, then the world box */
+function dims(o){
+  if(o._d)return o._d;
+  let ar=1;
+  try{ ar=(inkCutout(o.mod,baseState(o),"gm").ar)||1; }catch(e){}
+  const h=(OBJH[o.kind]||.18)*VH, w=h*clamp(ar,.18,4.4);
+  o._d={w,h,ar,halfW:Math.max(44,w*.40),platH:Math.min(h*.72,150)};
+  return o._d;
+}
+
 /* ── build the road for a book ── */
 async function buildBook(b){
   $("boot").style.display="grid";
-  SEGS=[]; talkNPC=null; hideCaption();
+  SEGS=[]; talkNPC=null; DUEL=null; ARROWS.length=0; closeChat(); hideCaption();
+  $("duelHud").classList.remove("on");
   const scenes=MAN.scenes.filter(s=>s.book===b);
   for(const sc of scenes){
-    const seg={scene:sc, loc:null, npcs:[]};
-    // the scene's own location, rendered once
-    const locId=(sc.assets||[]).find(id=>(assetById.get(id)||{}).type==="location");
-    if(locId){
+    const seg={scene:sc, loc:null, npcs:[], objects:[]};
+    const all=(sc.assets||[]).map(id=>assetById.get(id)).filter(Boolean);
+    // the scene's own location, rendered once as the set behind the road
+    const locA=all.find(a=>a.type==="location");
+    if(locA){
       try{
-        const mod=await imp(assetById.get(locId).path);
+        const mod=await imp(locA.path);
         const c=document.createElement("canvas");c.width=1120;c.height=760;
         const cg=c.getContext("2d");
         cg.fillStyle="#fff";cg.fillRect(0,0,1120,760);
@@ -158,34 +303,47 @@ async function buildBook(b){
         seg.loc=c;
       }catch(e){}
     }
-    // sparse cast: drivable characters, max 4, never the player himself
-    const ids=(sc.assets||[]).filter(id=>{
-      const t=(assetById.get(id)||{}).type||"";
-      return /character|ensemble|creature/.test(t) && !/odysseus$/.test(id);
-    }).slice(0,4);
-    for(let i=0;i<ids.length;i++){
-      const a=assetById.get(ids[i]);if(!a)continue;
+    const actors=all.filter(a=>ACTOR_TYPES.test(a.type)&&!/odysseus$/.test(a.id)).slice(0,5);
+    const things=all.filter(a=>OBJ_TYPES.test(a.type)).slice(0,8);
+    /* interleave so the walk alternates a body, a thing, a body, a thing */
+    const lane=[]; let i=0,j=0;
+    while(i<actors.length||j<things.length){
+      if(i<actors.length)lane.push({a:actors[i++],k:"npc"});
+      if(j<things.length)lane.push({a:things[j++],k:"obj"});
+    }
+    const base=SEGS.length*SEGW;
+    for(let k=0;k<lane.length;k++){
+      const {a,k:kind}=lane[k];
       let mod=null;try{mod=await imp(a.path);}catch(e){continue;}
-      seg.npcs.push({a,mod,
-        wx:SEGS.length*SEGW + SEGW*(.30+.55*(i+.5)/ids.length),
-        seed:seedOf(a.id), talking:0});
+      const wx=base+SEGW*(.17+.66*(k+.5)/Math.max(1,lane.length));
+      if(kind==="npc"){
+        seg.npcs.push({a,mod,wx,seed:sd(a.id),talking:0,face:1,faceT:1,
+          node:null,prev:null,mix:1,mood:null,impact:0,gift:0});
+      }else{
+        const af=affordOf(a);
+        seg.objects.push({a,mod,wx,kind:a.type,seed:sd(a.id),
+          nodes:normNodes(mod),si:0,prevSi:0,mix:1,acted:0,taken:false,held:false,
+          verb:af.verb,carry:af.carry,solid:af.solid,tilt:0,tipping:0,openU:0,opening:0,lastSnd:-99});
+      }
     }
     SEGS.push(seg);
   }
-  // the player: Odysseus, the real rig
   if(!player){
-    const ody=MAN.assets.find(a=>a.id==="character.odysseus");
+    const ody=MAN.assets.find(a=>a.id==="character.odysseus")||MAN.assets.find(a=>/odysseus/.test(a.id));
     const mod=await imp(ody.path);
-    player={mod, wx:SEGW*.12, vx:0, faceLeft:false, walkTo:null, gesture:null, gestureUntil:0};
+    player={mod,id:ody.id,wx:0,vx:0,faceLeft:false,walkTo:null,gesture:null,gestureUntil:0,
+      y:0,vy:0,grounded:true,onObj:null,gait:0,holding:null,land:-99,hurt:-99,blockedBy:null,moving:false};
   }
-  player.wx=SEGW*.12; player.walkTo=null; camX=0;
-  $("prog").textContent="BOOK "+ROMAN[b]+" · "+scenes.length+" SCENES";
+  player.wx=SEGW*.12; player.walkTo=null; player.y=0; player.vy=0; player.grounded=true;
+  player.onObj=null; player.holding=null; paintHeld();
+  camX=0;
+  const nO=SEGS.reduce((s,x)=>s+x.objects.length,0), nN=SEGS.reduce((s,x)=>s+x.npcs.length,0);
+  $("prog").textContent="BOOK "+ROMAN[b]+" · "+scenes.length+" SCENES · "+nN+" BODIES · "+nO+" THINGS";
   $("boot").style.display="none";
-  showTitle();
-  showCircle(b);
-  playBookMusic(b);
+  showTitle(); showCircle(b); playBookMusic(b);
 }
 function segAt(wx){return SEGS[clamp(Math.floor(wx/SEGW),0,SEGS.length-1)];}
+function segIdxNow(){return clamp(Math.floor(player.wx/SEGW),0,SEGS.length-1);}
 function showTitle(){
   const seg=segAt(player.wx);if(!seg)return;
   $("sceneTitle").textContent=seg.scene.id+" · "+seg.scene.title;
@@ -195,7 +353,7 @@ function showCaption(head,text){
 }
 function hideCaption(){$("caption").classList.remove("on");}
 
-/* ── procedural FOLEY: steps, speech, blows — synthesized, no assets ── */
+/* ── procedural FOLEY: steps, speech, blows, timber, strings ── */
 let FAC=null;
 function fac(){ FAC=FAC||new (window.AudioContext||window.webkitAudioContext)();
   if(FAC.state==="suspended")FAC.resume(); return FAC; }
@@ -214,7 +372,7 @@ function fnoise(dur,vol,fc){ try{ const a=fac(),t=a.currentTime;
   const g=a.createGain(); g.gain.value=vol;
   src.connect(f); f.connect(g); g.connect(a.destination); src.start(t);
 }catch(e){} }
-let stepT=0, stepAlt=false;
+let stepAlt=false;
 function foleyStep(){ stepAlt=!stepAlt;
   fnoise(.07,.16,stepAlt?820:640); ftone(stepAlt?88:72,"sine",.06,.10); }
 function foleyTalk(n){ for(let i=0;i<(n||4);i++)
@@ -224,9 +382,26 @@ function foleyHurt(){ ftone(260,"sawtooth",.16,.14,90); }
 function foleyWin(){ [220,330,440].forEach((f,i)=>setTimeout(()=>ftone(f,"triangle",.20,.14),i*110)); }
 function foleyLose(){ [300,220,140].forEach((f,i)=>setTimeout(()=>ftone(f,"sine",.24,.14),i*130)); }
 function foleyBook(){ ftone(60,"sine",1.4,.16,220); fnoise(.9,.08,300); }
+function foleyJump(){ fnoise(.05,.10,1500); ftone(200,"sine",.09,.07,330); }
+function foleyLand(h){ const k=clamp(h/160,.3,1); fnoise(.11,.10+.20*k,480); ftone(72,"sine",.13,.10+.10*k,38); }
+function foleyWind(s){ ftone(150,"sawtooth",(s||1)*.34,.07,430); }   // the telegraph
+function foleyBlock(){ fnoise(.05,.24,3200); ftone(1500,"square",.05,.09,760); }
+function foleyParry(){ [1400,2100,1750].forEach((f,i)=>setTimeout(()=>ftone(f,"square",.09,.08,f*.6),i*55)); fnoise(.06,.18,4200); }
+function foleyThud(){ fnoise(.13,.24,380); ftone(80,"sine",.16,.14,44); }
+function foleyString(){ ftone(320,"sawtooth",.30,.13,120); fnoise(.06,.10,2600); }
+/* a sound_source speaks in its own family, chosen from its id */
+function foleySource(o){
+  const id=o.a.id;
+  if(/chorus|voice|wive/i.test(id)){ [180,240,300,210].forEach((f,i)=>setTimeout(()=>ftone(f,"sine",.55,.05,f*.85),i*160)); return; }
+  if(/music|wedding|song|lyre/i.test(id)){ [392,523,587,659].forEach((f,i)=>setTimeout(()=>ftone(f,"triangle",.34,.07),i*180)); return; }
+  if(/bow-string/i.test(id)){ foleyString(); return; }
+  if(/sneeze|omen/i.test(id)){ fnoise(.17,.28,1700); ftone(420,"sawtooth",.13,.10,150); return; }
+  if(/feast|noise/i.test(id)){ for(let i=0;i<7;i++)setTimeout(()=>{fnoise(.09,.07,700+Math.random()*900);ftone(150+Math.random()*220,"square",.06,.03);},i*115); return; }
+  ftone(240,"sine",.5,.07,180); fnoise(.3,.06,900);
+}
 addEventListener("pointerdown",()=>{ try{fac();}catch(e){} },{once:true,capture:true});
 
-/* ── the book's track scores the level (same clock family as the suite) ── */
+/* ── the book's track scores the level ── */
 let AL=null, musicOn=true, MAUD=new Audio(), musBook=0;
 MAUD.loop=true; MAUD.volume=.75;
 const LSJ=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d;}catch(e){return d;}};
@@ -244,29 +419,55 @@ async function playBookMusic(b){
   const tr=await bookTrackUrl(b); if(!tr)return;
   musBook=b;
   if(!MAUD.src.endsWith(tr.url.split("/").pop()))MAUD.src=tr.url;
-  if(musicOn)MAUD.play().catch(()=>{});   // autoplay may defer to first gesture
+  if(musicOn)MAUD.play().catch(()=>{});
   $("musBtn").textContent=musicOn?("♪ "+tr.title.slice(0,16).toUpperCase()):"♪ OFF";
 }
 addEventListener("pointerdown",()=>{ if(musicOn&&MAUD.src&&MAUD.paused)MAUD.play().catch(()=>{}); },{capture:true});
 
-/* the METIS-PERFORM score: each NPC performs their actual turns in the scene */
+/* the METIS-PERFORM score */
 let PT=null,LINES={};
 fetch("viewer/performance-turns.json").then(r=>r.json()).then(j=>PT=j).catch(()=>{});
 fetch("viewer/spoken-lines.json").then(r=>r.json()).then(j=>LINES=j.lines||j).catch(()=>{});
-/* speak a caption aloud — voices unlocked by the kit's first-gesture prime */
-function speakCap(who,text){
-  if(!window.speechSynthesis)return;
-  text=String(text||"").replace(/<[^>]*>/g,"").trim(); if(!text||text==="…")return;
-  try{speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(text.slice(0,300));
-    let h=0;for(const c of String(who))h=(h*31+c.charCodeAt(0))>>>0;
-    const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));
-    if(vs.length)u.voice=vs[h%vs.length];
-    u.pitch=.7+((h%40)/100); u.rate=.9+((h%18)/100); u.volume=.95;
-    speechSynthesis.speak(u); speechSynthesis.resume();
-  }catch(e){}
+const turnsFor=(sceneId,who)=>((PT&&PT.byScene&&PT.byScene[sceneId])||[]).filter(t=>t.sp===who);
+
+/* ── VOICE. Priority: (a) the studio slice for a scored turn, (b) Web Speech
+   with a STABLE per-character voice. Reports which path it took. ── */
+let VOICE_LOG={path:"none",turnId:null,who:null,text:""};
+function pickVoice(who){
+  if(!window.speechSynthesis)return null;
+  let h=0;for(const c of String(who))h=(h*31+c.charCodeAt(0))>>>0;
+  const all=speechSynthesis.getVoices()||[];
+  const vs=all.filter(v=>/^en/i.test(v.lang));
+  const pool=vs.length?vs:all;
+  return {voice:pool.length?pool[h%pool.length]:null, pitch:.7+((h%40)/100), rate:.9+((h%18)/100)};
 }
-const turnsFor=(sceneId,who)=>((PT&&PT.byScene[sceneId])||[]).filter(t=>t.sp===who);
+function speakText(who,text){
+  if(!window.speechSynthesis)return false;
+  text=String(text||"").replace(/<[^>]*>/g,"").trim(); if(!text||text==="…")return false;
+  try{speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text.slice(0,320));
+    const v=pickVoice(who);
+    if(v){ if(v.voice)u.voice=v.voice; u.pitch=v.pitch; u.rate=v.rate; }
+    u.volume=.95; u.lang="en-US";
+    speechSynthesis.speak(u); speechSynthesis.resume();
+    return true;
+  }catch(e){return false;}
+}
+function voiceFor(who,text,turnId){
+  let path="none";
+  if(turnId&&window.kitVO&&window.kitVO.has&&window.kitVO.has(turnId)){
+    if(window.kitVO.tryTurn(turnId))path="studio";
+  }
+  if(path==="none"&&speakText(who,text))path="speech";
+  VOICE_LOG={path,turnId:turnId||null,who,text:String(text||"").slice(0,90)};
+  return path;
+}
+/* replay the last spoken reply INSIDE a user gesture — the iOS-safe path */
+let LAST_SPOKEN=null;
+function sayAgain(){
+  if(!LAST_SPOKEN)return "none";
+  return voiceFor(LAST_SPOKEN.who,LAST_SPOKEN.text,LAST_SPOKEN.turnId);
+}
 
 /* both rig shapes → [{key, prev()}] */
 function normNodes(mod){
@@ -279,8 +480,7 @@ function normNodes(mod){
     prev:()=>typeof (v||{}).preview==="function"?(v.preview()||{}):((v||{}).preview||v||{})}));
 }
 
-/* ── the magic circle: each book is its own game ──
-   circle = the temporary perfect order · spoil = what shatters it */
+/* ── the magic circle: each book is its own game ── */
 const RULES={
   1:{t:"THE COUNCIL GAME",r:"Speak only as one who believes the absent king lives.",s:"Naming Odysseus dead ends the assembly."},
   2:{t:"THE SPEAKER'S STAFF",r:"Hold the floor: whoever gestures grandest is heard.",s:"Grief that breaks decorum scatters the crowd."},
@@ -296,15 +496,311 @@ const RULES={
   12:{t:"THE BOUND HELMSMAN",r:"Hear the song only tied; wax for every other ear.",s:"Begging to be untied counts as untying."},
   13:{t:"THE LANDING DISGUISE",r:"Home must be entered as a stranger; lie beautifully.",s:"Recognizing the land aloud before the goddess allows."},
   14:{t:"THE LOYALTY TEST",r:"The beggar praises the absent master; the host must not know.",s:"Claiming the master's seat too early."},
-  15:{t:"THE RETURN ROAD",r:"Travel at the god's hour; gifts bind the giver.",s:"Refusing an omen read in birds."}};
+  15:{t:"THE RETURN ROAD",r:"Travel at the god's hour; gifts bind the giver.",s:"Refusing an omen read in birds."},
+  16:{t:"THE HUT OF RECOGNITION",r:"Only the son may be told; the swineherd must be sent away first.",s:"Revealing the king while a third pair of ears remains."},
+  17:{t:"THE BEGGAR'S ROUNDS",r:"Ask every man at table in turn; take what is given.",s:"Answering a blow with a blow before the day."},
+  18:{t:"THE BEGGARS' BOUT",r:"The hall's sport decides who eats: fists, not iron.",s:"Killing where the game called only for a fall."},
+  19:{t:"THE FOOTBATH",r:"Ask the stranger everything; do not name the scar aloud.",s:"Crying out the name your hands have found."},
+  20:{t:"THE LAST FEAST",r:"Endure. Count the omens; strike nothing yet.",s:"Letting the hand move before the god's sign."},
+  21:{t:"THE CONTEST OF THE BOW",r:"String it, then send the shaft through twelve axes.",s:"Refusing the beggar his turn at the bow."},
+  22:{t:"THE HALL CLEARED",r:"No door, no mercy, no herald spared but the singer.",s:"Boasting over the dead."},
+  23:{t:"THE TEST OF THE BED",r:"The sign is a secret only two share; prove it without pleading.",s:"Moving the rooted bed."},
+  24:{t:"THE PEACE IMPOSED",r:"Names are settled below; oaths above.",s:"Continuing the feud after the god forbids it."}};
 function showCircle(b){
-  const R=RULES[b];if(!R)return;
+  const R=RULES[b]||{t:"THE ROAD",r:"Walk the book. Everything the scene declares is standing in it.",s:"Leaving a thing unturned."};
   showCaption("BOOK "+ROMAN[b]+" · "+R.t, R.r+"<br><span style='color:#8a8a86'>SPOIL-SPORT: "+R.s+"</span>"+
-    "<br><span style='color:#8a8a86'>E PERF · C CHAT · F DUEL · 1–5 ACT</span>");
+    "<br><span style='color:#8a8a86'>E USE/SPEAK · C CHAT · F DUEL · SPACE JUMP · 1–5 ACT</span>");
   clearTimeout(showCircle._t); showCircle._t=setTimeout(hideCaption,7000);
 }
 
-/* ── chat: composed from the atlas genome (perfs + prompt + beats) ── */
+/* ══════════════════════════════════════════════════════════════
+   AFFORDANCES — proximity, the prompt line, and what E does
+   ══════════════════════════════════════════════════════════════ */
+let promptMsg="", promptUntil=-99;
+function flash(msg){ promptMsg=msg; promptUntil=perfNow()+1.9; }
+function eachObj(fn,span=1){
+  const si=segIdxNow();
+  for(let i=Math.max(0,si-span);i<=Math.min(SEGS.length-1,si+span);i++)
+    for(const o of SEGS[i].objects)fn(o,SEGS[i]);
+}
+function nearObjs(range){const out=[];eachObj(o=>{if(!o.taken&&Math.abs(o.wx-player.wx)<range)out.push(o);});return out;}
+function nearestObj(range=190){
+  let best=null,bd=range;
+  eachObj(o=>{if(o.taken)return;const d=Math.abs(o.wx-player.wx);if(d<bd){bd=d;best=o;}});
+  return best;
+}
+function nearestNpc(range=260){
+  const si=segIdxNow();
+  let best=null,bd=range,bseg=null;
+  for(let i=Math.max(0,si-1);i<=Math.min(SEGS.length-1,si+1);i++)
+    for(const n of SEGS[i].npcs){const d=Math.abs(n.wx-player.wx);if(d<bd){bd=d;best=n;bseg=SEGS[i];}}
+  return best&&{n:best,seg:bseg};
+}
+function currentTarget(){
+  const o=nearestObj(190), h=nearestNpc(250);
+  if(o&&(!h||Math.abs(o.wx-player.wx)<Math.abs(h.n.wx-player.wx)))return {kind:"obj",o};
+  if(h)return {kind:"npc",n:h.n,seg:h.seg};
+  return null;
+}
+/* ── interact: the thing responds, and its STATE changes ── */
+function interact(o){
+  if(!o||o.taken)return false;
+  o.acted=(o.acted||0)+1;
+  if(o.nodes.length>1){o.prevSi=o.si;o.si=(o.si+1)%o.nodes.length;o.mix=0;}
+  const nm=o.a.name;
+  switch(o.verb){
+    case"TAKE": case"LIFT": case"WEAR":
+      if(player.holding&&player.holding!==o)dropHeld(true);
+      player.holding=o;o.taken=true;o.held=true;
+      fnoise(.09,.16,1200); ftone(300,"triangle",.12,.10,520);
+      flash((o.verb==="WEAR"?"WORN · ":"CARRYING · ")+nm+" — E TO USE"); paintHeld();
+      break;
+    case"TIP":
+      o.tipping=perfNow(); foleyThud();
+      flash(nm+" — TIPPED OVER"); break;
+    case"OPEN":
+      o.opening=perfNow(); o.openTo=o.openU>.5?0:1;
+      ftone(140,"sawtooth",.5,.09,70); fnoise(.42,.10,300);
+      flash(nm+" — "+(o.openTo?"OPENED":"SHUT")); break;
+    case"BOARD":{
+      const d=dims(o);
+      player.wx=o.wx; player.y=d.platH; player.vy=0; player.grounded=true; player.onObj=o;
+      fnoise(.2,.16,300); ftone(96,"sine",.3,.12,60);
+      flash("ABOARD · "+nm); break;}
+    case"SOUND": foleySource(o); o.lastSnd=perfNow(); flash(nm+" — SOUNDS"); break;
+    case"INVOKE": ftone(520,"sine",.7,.09,940); fnoise(.5,.06,2600); flash(nm+" — THE SIGN ANSWERS"); break;
+    default:
+      fnoise(.08,.14,900);
+      flash(nm+" — "+((o.nodes[o.si]&&o.nodes[o.si].key)||"USED").toUpperCase());
+  }
+  return true;
+}
+function dropHeld(quiet){
+  const o=player.holding; if(!o)return false;
+  o.taken=false;o.held=false;
+  o.wx=player.wx+(player.faceLeft?-70:70);
+  player.holding=null; paintHeld();
+  if(!quiet){foleyThud();flash("SET DOWN · "+o.a.name);}
+  return true;
+}
+const ARROWS=[];
+function shoot(){
+  foleyString();
+  ARROWS.push({wx:player.wx+(player.faceLeft?-60:60),y:player.y+VH*.30,
+    dir:player.faceLeft?-1:1,t:perfNow()});
+  flash("LOOSED");
+  if(player.holding){player.holding.acted++;if(player.holding.nodes.length>1)player.holding.si=(player.holding.si+1)%player.holding.nodes.length;}
+}
+function useHeld(){
+  const o=player.holding; if(!o)return false;
+  const id=o.a.id;
+  if(RX_BOW.test(id)){ shoot(); return true; }
+  if(RX_CUP.test(id)){
+    const h=nearestNpc(320);
+    if(h){ h.n.talking=perfNow()+3.4; h.n.gift=(h.n.gift||0)+1;
+      ftone(600,"sine",.3,.07,900); foleyTalk(4);
+      flash(h.n.a.name.toUpperCase()+" ACCEPTS — GUEST-RIGHT IS GIVEN"); }
+    else { ftone(340,"sine",.28,.08,220); fnoise(.2,.07,600); flash("YOU DRINK"); }
+    return true;
+  }
+  if(RX_WEAP.test(id)){ foleyStrike(); flash(o.a.name+" — RAISED");
+    playerPose(/strike|draw|aim|attack|swing|confront|raise|spear|bow/i); return true; }
+  dropHeld(); return true;
+}
+/* ── E: the single context key ── */
+function use(){
+  const T=currentTarget();
+  if(T&&T.kind==="obj")return interact(T.o);
+  if(T&&T.kind==="npc"){talk();return true;}
+  if(player.holding)return useHeld();
+  flash("NOTHING WITHIN REACH");
+  return false;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PHYSICS — a real arc, platforms you can land on, walls you must
+   clear. 2.5D, no engine: one height channel and one support test.
+   ══════════════════════════════════════════════════════════════ */
+const GRAV=2400, JUMPV=880;
+function jump(){
+  if(!player.grounded)return false;
+  player.vy=JUMPV; player.grounded=false; player.onObj=null; foleyJump();
+  return true;
+}
+function stepPhysics(dt){
+  if(!player.grounded){
+    const prev=player.y;
+    player.vy-=GRAV*dt; player.y+=player.vy*dt;
+    let floor=0,onO=null;
+    if(player.vy<=0)for(const o of nearObjs(260)){
+      if(!o.solid)continue;
+      const d=dims(o);
+      if(Math.abs(o.wx-player.wx)>d.halfW)continue;
+      if(prev>=d.platH-2&&player.y<=d.platH&&d.platH>floor){floor=d.platH;onO=o;}
+    }
+    if(player.y<=floor){
+      const drop=Math.max(0,prev-floor);
+      player.y=floor;player.vy=0;player.grounded=true;player.onObj=onO;player.land=perfNow();
+      foleyLand(drop);
+      if(onO&&!onO._stood){onO._stood=true;onO.acted++;flash("STANDING ON "+onO.a.name);}
+    }
+  }else{
+    const o=player.onObj;
+    if(o){const d=dims(o);
+      if(o.taken||Math.abs(o.wx-player.wx)>d.halfW){player.grounded=false;player.vy=0;player.onObj=null;}}
+    else if(player.y>0.5){player.grounded=false;}
+  }
+}
+/* walking into something tall: you must jump it. Always free to move away. */
+function moveTo(nx){
+  player.blockedBy=null;
+  for(const o of nearObjs(340)){
+    if(!o.solid)continue;
+    const d=dims(o);
+    if(d.platH<=56)continue;
+    if(player.y>=d.platH-18)continue;
+    const cur=Math.abs(o.wx-player.wx), nxt=Math.abs(o.wx-nx);
+    if(nxt<d.halfW*.72&&nxt<cur){player.blockedBy=o;return false;}
+  }
+  player.wx=nx;return true;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DUEL — telegraph, parry window, strike, stagger. Every beat has
+   a pose, a sound and a consequence; the NPC's state changes after.
+   ══════════════════════════════════════════════════════════════ */
+let DUEL=null;
+const PARRY_LO=.60;                    // the last 40% of the wind-up is the window
+const H=k=>"♥".repeat(Math.max(0,k))+"·".repeat(Math.max(0,3-k));
+function dhash(s,i){let h=2166136261>>>0;const t=String(s)+"#"+i;
+  for(let k=0;k<t.length;k++){h^=t.charCodeAt(k);h=Math.imul(h,16777619)>>>0;}
+  return ((h>>>8)/16777216);}
+function npcPose(n,rx){
+  const nn=normNodes(n.mod);
+  const f=nn.find(x=>rx.test(x.key));
+  if(f){n.forced=f.prev();n.forcedUntil=perfNow()+1.0;}
+}
+function playerPose(rx){
+  const pn=normNodes(player.mod);
+  const f=pn.find(x=>rx.test(x.key));
+  if(f){player.gesture=f.prev();player.gestureUntil=perfNow()+.9;}
+}
+function duelStart(n,seg){
+  DUEL={n,seg,php:3,nhp:3,phase:"ready",t0:perfNow(),dur:.85+sd(n.a.id)*.55,
+    parry:false,round:0,wasOpen:false,note:"THE CIRCLE IS DRAWN — F AT THE RED BAR"};
+  n.talking=0; n.forced=null;
+  $("duelHud").classList.add("on");
+  ftone(150,"triangle",.5,.11,90);
+  paintDuel();
+}
+function duelPhase(p,dur,note){DUEL.phase=p;DUEL.t0=perfNow();DUEL.dur=dur;if(note)DUEL.note=note;}
+function duelEnd(kind){
+  const D=DUEL;if(!D)return;
+  const n=D.n;
+  if(kind==="WIN"){
+    n.mood="yielded"; n.moodSince=perfNow();
+    npcPose(n,/plea|kneel|yield|fall|recoil|grief|wound|supplic|bow|lower/i);
+    n.forcedUntil=perfNow()+4;
+    foleyWin();
+    const perf=(n.a.perfs||[])[0];
+    showCaption(n.a.name+" YIELDS",(perf?perf.perf:"The circle closes; order returns.")+
+      "<br><span style='color:#8a8a86'>he speaks differently now — C to talk to a beaten man</span>");
+  }else if(kind==="LOSE"){
+    n.mood="victor"; n.moodSince=perfNow();
+    npcPose(n,/confront|command|raise|stand|authority|triumph/i); n.forcedUntil=perfNow()+3;
+    foleyLose(); player.hurt=perfNow();
+    showCaption("ODYSSEUS FALLS","The road picks him back up — the play-world endures."+
+      "<br><span style='color:#8a8a86'>F to draw the circle again</span>");
+  }else{
+    flash("THE CIRCLE BREAKS");
+  }
+  DUEL=null; $("duelHud").classList.remove("on");
+}
+function duelStep(now){
+  if(!DUEL)return;
+  const D=DUEL;
+  if(Math.abs(D.n.wx-player.wx)>470)return duelEnd("BROKEN");
+  const u=(now-D.t0)/D.dur;
+  if(u<1){paintDuel(u);return;}
+  switch(D.phase){
+    case"ready":
+      npcPose(D.n,/rais|draw|aim|strike|threat|confront|attack|defi|command|spear|sword/i);
+      foleyWind(1); duelPhase("wind",.66,D.n.a.name.toUpperCase()+" WINDS UP — PARRY NOW");
+      break;
+    case"wind":
+      if(D.parry){
+        D.parry=false; foleyParry(); D.n.impact=now;
+        npcPose(D.n,/recoil|stagger|flinch|fear|fall|wound|off-?balance/i);
+        duelPhase("nstagger",1.0,"PARRIED — HE IS OPEN. F TO STRIKE");
+      }else{
+        foleyStrike(); D.php=Math.max(0,D.php-1); player.hurt=now;
+        playerPose(/recoil|grief|fall|crouch|head_lowered|flinch|wound/i);
+        setTimeout(foleyHurt,140);
+        duelPhase("nstrike",.22,"HE LANDS IT — you were not guarding");
+      }
+      break;
+    case"nstrike": duelPhase("nrecover",.55,"he recovers — an opening"); break;
+    case"nrecover": duelPhase("ready",.55+dhash(D.n.a.id,D.round)*.7,"he circles"); D.round++; break;
+    case"nstagger": duelPhase("ready",.55,"he recovers his guard"); break;
+    case"pwind":{
+      const open=D.wasOpen;
+      const blocked=!open&&dhash(D.n.a.id,"b"+D.round)<.42;
+      if(blocked){ foleyBlock(); npcPose(D.n,/defend|guard|shield|block|brace|arms_crossed/i);
+        duelPhase("pstrike",.24,D.n.a.name.toUpperCase()+" BLOCKS"); }
+      else{
+        const armed=player.holding&&RX_WEAP.test(player.holding.a.id);
+        const dmg=1+(armed?1:0);
+        D.nhp=Math.max(0,D.nhp-dmg); foleyStrike(); D.n.impact=now;
+        npcPose(D.n,/recoil|stagger|wound|fall|flinch|plea|grief/i);
+        duelPhase("pstrike",.24,armed?"A WEAPONED STRIKE — 2":"A CLEAN STRIKE");
+      }
+      break;}
+    case"pstrike": duelPhase("ready",.5,"the circle holds"); break;
+  }
+  if(D.nhp<=0)return duelEnd("WIN");
+  if(D.php<=0)return duelEnd("LOSE");
+  paintDuel(0);
+}
+/* F — start the circle, guard inside the window, or strike into an opening */
+function duel(){
+  if(!DUEL){
+    const h=nearestNpc(330);
+    if(!h){flash("NO ONE TO FACE");return false;}
+    duelStart(h.n,h.seg);return true;
+  }
+  const D=DUEL,now=perfNow(),u=(now-D.t0)/D.dur;
+  if(D.phase==="wind"){
+    if(u>=PARRY_LO){D.parry=true;ftone(900,"square",.06,.07);D.note="GUARD UP — INSIDE THE WINDOW";}
+    else{D.parry=false;ftone(200,"sine",.10,.06,120);D.note="TOO EARLY — GUARD BROKEN";}
+    paintDuel(u);return true;
+  }
+  if(D.phase==="ready"||D.phase==="nrecover"||D.phase==="nstagger"){
+    D.wasOpen=(D.phase==="nstagger");
+    playerPose(/strike|draw|aim|attack|swing|confront|raise|spear|bow|throw/i);
+    foleyWind(.55); duelPhase("pwind",.28,"ODYSSEUS WINDS UP");
+    return true;
+  }
+  D.note="NO OPENING — WAIT FOR THE TELEGRAPH"; paintDuel(0); return false;
+}
+function paintDuel(u){
+  const D=DUEL; if(!D)return;
+  $("dhP").textContent="ODYSSEUS "+H(D.php)+(player.holding?" · "+player.holding.a.name.slice(0,14):"");
+  $("dhN").textContent=H(D.nhp)+" "+D.n.a.name;
+  $("dhPhase").textContent=D.phase.toUpperCase()+" · "+(D.note||"");
+  const bar=$("parry"),fill=bar.firstElementChild;
+  const uu=clamp(u==null?(perfNow()-D.t0)/D.dur:u,0,1);
+  fill.style.width=Math.round(uu*100)+"%";
+  const win=(D.phase==="wind"&&uu>=PARRY_LO);
+  bar.classList.toggle("win",win);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CHAT — a panel, not a caption: portrait, history, input, voice.
+   The system prompt is built from the atlas: the asset's own prompt,
+   that character's scored turns in THIS scene, and their authored
+   spoken lines — so the character talks like themselves.
+   ══════════════════════════════════════════════════════════════ */
+let CHAT=null;
 function chatPool(n,seg){
   if(n._pool)return n._pool;
   const lines=[];
@@ -318,222 +814,307 @@ function chatPool(n,seg){
   n._pool=lines.length?lines:["…"]; n._ci=0;
   return n._pool;
 }
-function nearestNpc(range=260){
-  const seg=segAt(player.wx);if(!seg)return null;
-  let best=null,bd=range;
-  for(const n of seg.npcs){const d=Math.abs(n.wx-player.wx);if(d<bd){bd=d;best=n;}}
-  return best&&{n:best,seg};
+function sysPromptFor(n,seg){
+  const tns=turnsFor(seg.scene.id,n.a.id);
+  const spoken=tns.map(t=>(LINES[t.id]||{}).line).filter(Boolean);
+  const scored=tns.map(t=>t.act+": "+t.payload+(t.delivery?" ["+t.delivery+"]":""));
+  const mood=n.mood==="yielded"?" You have JUST BEEN BEATEN by this traveller in a fight and yielded; you are winded, wary, and your pride is hurt."
+    :n.mood==="victor"?" You have JUST BEATEN this traveller in a fight; you are flushed with the win."
+    :n.gift?" This traveller has just given you a cup — guest-right is between you now.":"";
+  return "You are "+n.a.name+" in Homer's Odyssey, in scene "+seg.scene.id+" — "+(seg.scene.title||"")+"."
+    +" What is happening: "+((seg.scene.beats||[]).join(" ")||"").slice(0,420)
+    +" Who you are: "+String(n.a.prompt||"").replace(/\s+/g," ").slice(0,420)
+    +(scored.length?" Your scored turns in this scene: "+scored.join(" / ").slice(0,600):"")
+    +(spoken.length?" Lines you actually speak here: "+spoken.join(" / ").slice(0,500):"")
+    +mood
+    +" Answer the traveller in ONE or TWO short sentences, spoken words only —"
+    +" no narration, no stage directions, no quotation marks. Stay in the world of the poem.";
 }
-async function chat(){
-  const hit=nearestNpc();if(!hit){hideCaption();return;}
-  const {n,seg}=hit;
-  talkNPC=n; n.talking=perfNow()+6; foleyTalk(7);
-  /* REAL TALK: a connected model answers in character (kit MODEL button);
-     otherwise the atlas genome speaks */
+function drawPortrait(n){
+  const c=$("chatHead").querySelector("canvas"), ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);
+  try{
+    const nn=normNodes(n.mod);
+    const head=nn.find(x=>/portrait|head|face|neutral|front|speak|address/i.test(x.key))||nn[0];
+    const cut=inkCutout(n.mod,{...(head?head.prev():{}),t:1},"portrait");
+    const s=Math.min(c.width/cut.w,c.height/cut.h);
+    ctx.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,
+      (c.width-cut.w*s)/2,(c.height-cut.h*s)/2,cut.w*s,cut.h*s);
+  }catch(e){}
+}
+function renderChatLog(){
+  if(!CHAT)return;
+  const n=CHAT.n, el=$("chatLog");
+  el.innerHTML=(n._hist||[]).map(m=>{
+    if(m.role==="user")return '<div class="m me"><b>ODYSSEUS</b>'+esc(m.content)+'</div>';
+    return '<div class="m"><b>'+esc(n.a.name)+(m.turn?" · "+esc(m.turn):"")+'</b>'+esc(m.content)
+      +(m.dir?'<i>'+esc(m.dir)+'</i>':'')+'</div>';
+  }).join("")||'<div class="m"><i>…</i></div>';
+  el.scrollTop=el.scrollHeight;
+}
+const esc=s=>String(s==null?"":s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function openChat(n,seg){
+  if(!n)return false;
+  CHAT={n,seg}; n._hist=n._hist||[];
+  document.body.classList.add("chatting");
+  $("chat").classList.add("on");
+  $("chatWho").innerHTML=esc(n.a.name)+"<em>"+esc(seg.scene.id)+" · "
+    +esc(n.a.type||"")+(n.mood?" · "+n.mood.toUpperCase():"")
+    +(window.kitLLMReady&&window.kitLLMReady()?" · LIVE MODEL":" · SCORED LINES")+"</em>";
+  drawPortrait(n);
+  renderChatLog();
+  if(!n._hist.length)chatReply("");
+  return true;
+}
+function closeChat(){
+  CHAT=null;document.body.classList.remove("chatting");
+  const el=$("chat");if(el)el.classList.remove("on");
+}
+async function chatReply(userText){
+  if(!CHAT)return null;
+  const {n,seg}=CHAT;
+  n._hist=n._hist||[];
+  if(userText){n._hist.push({role:"user",content:userText});renderChatLog();}
+  n.talking=perfNow()+5;
+  const tns=turnsFor(seg.scene.id,n.a.id);
   if(window.kitLLMReady&&window.kitLLMReady()&&!n._busy){
     n._busy=true;
-    showCaption(n.a.name,"…");
+    const ph={role:"assistant",content:"…"};n._hist.push(ph);renderChatLog();
     try{
-      n._hist=n._hist||[];
-      const tns=turnsFor(seg.scene.id,n.a.id).map(t=>(LINES[t.id]||{}).line||t.payload);
-      const sys="You are "+n.a.name+" in Homer's Odyssey, scene "+seg.scene.id+" ("+(seg.scene.title||"")+"). "
-        +"Character: "+String(n.a.prompt||"").slice(0,500)+" "
-        +"Your scored lines in this scene: "+tns.join(" / ").slice(0,600)+" "
-        +"Speak ONE short in-character reply (1-2 sentences), spoken words only, no narration, no quotes.";
-      const line=await window.kitLLM([{role:"system",content:sys}].concat(n._hist.slice(-6))
-        .concat([{role:"user",content:"A traveler stands before you on the road. Speak to them."}]),
-        {maxTokens:90,temperature:.9});
-      n._hist.push({role:"assistant",content:line});
-      showCaption(n.a.name+" · LIVE",line+"<br><span style='color:#8a8a86'>C AGAIN · F DUEL</span>");
-      speakCap(n.a.id,line);
+      const msgs=[{role:"system",content:sysPromptFor(n,seg)}]
+        .concat(n._hist.filter(m=>m!==ph).slice(-8).map(m=>({role:m.role,content:m.content})));
+      if(!userText)msgs.push({role:"user",content:"A traveller stands before you on the road. Speak to them."});
+      const line=await window.kitLLM(msgs,{maxTokens:110,temperature:.9});
+      const i=n._hist.indexOf(ph);
+      n._hist[i<0?n._hist.length:i]={role:"assistant",content:line,live:true};
+      renderChatLog(); foleyTalk(6);
+      LAST_SPOKEN={who:n.a.id,text:line,turnId:null};
+      voiceFor(n.a.id,line,null);
+      return line;
     }catch(err){
-      showCaption(n.a.name,"("+err.message+")<br><span style='color:#8a8a86'>check MODEL in the header</span>");
+      const i=n._hist.indexOf(ph);
+      const msg="("+err.message+" — check MODEL in the header)";
+      n._hist[i<0?n._hist.length:i]={role:"assistant",content:msg};
+      renderChatLog();
+      return msg;
     }finally{n._busy=false;}
-    return;
   }
-  const pool=chatPool(n,seg);
-  const line=pool[n._ci%pool.length]; n._ci++;
-  showCaption(n.a.name+" · "+((n._ci)%pool.length+1)+"/"+pool.length, line+
-    "<br><span style='color:#8a8a86'>C AGAIN · F DUEL · add MODEL for real talk</span>");
-  speakCap(n.a.id,line);
+  /* no model configured: their own scored lines, in order, with the studio voice */
+  let words,turnId=null,dir=null;
+  if(tns.length){
+    n._tx=(n._tx||0)%tns.length;
+    const t=tns[n._tx++];
+    const sl=LINES[t.id]||{};
+    words=sl.line||t.payload; turnId=t.id; dir=sl.direction||t.delivery||null;
+  }else{
+    const pool=chatPool(n,seg);
+    n._ci=(n._ci||0);
+    words=pool[n._ci%pool.length]; n._ci++;
+  }
+  n._hist.push({role:"assistant",content:words,turn:turnId,dir});
+  renderChatLog(); foleyTalk(5);
+  LAST_SPOKEN={who:n.a.id,text:words,turnId};
+  voiceFor(n.a.id,words,turnId);
+  return words;
+}
+function chat(){
+  const h=nearestNpc(300);
+  if(!h){flash("NO ONE TO TALK TO");return false;}
+  return openChat(h.n,h.seg);
+}
+/* ── talk (E on a body): one scored performance turn, spoken ── */
+function talk(){
+  const h=nearestNpc(260);
+  if(!h){hideCaption();talkNPC=null;return false;}
+  const best=h.n,seg=h.seg;
+  talkNPC=best; best.talking=perfNow()+6; foleyTalk(5);
+  const tns=turnsFor(seg.scene.id,best.a.id);
+  if(tns.length){
+    best._tx=((best._tx||0))%tns.length;
+    const t=tns[best._tx++];
+    const sl=LINES[t.id]||{};
+    const words=sl.line||t.payload;
+    showCaption(best.a.name+" · "+t.act,
+      words+"<br><span style='color:#8a8a86'>"+(sl.direction||t.delivery||"")+" · C FOR CHAT</span>");
+    LAST_SPOKEN={who:best.a.id,text:words,turnId:t.id};
+    voiceFor(best.a.id,words,t.id);
+    return true;
+  }
+  const perf=(best.a.perfs||[]).find(p=>p.scene===seg.scene.id);
+  const words=perf?perf.perf:((seg.scene.beats&&seg.scene.beats[0])||"…");
+  showCaption(best.a.name,words+"<br><span style='color:#8a8a86'>C FOR CHAT</span>");
+  LAST_SPOKEN={who:best.a.id,text:words,turnId:null};
+  voiceFor(best.a.id,words,null);
+  return true;
+}
+$("chatX").onclick=()=>closeChat();
+$("chatForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const inp=$("chatIn"),v=inp.value.trim();
+  if(!v||!CHAT)return;
+  inp.value="";
+  chatReply(v);
+});
+$("chatSay").onclick=()=>sayAgain();
+$("held").onclick=()=>{ if(player&&player.holding)useHeld(); };
+function paintHeld(){
+  const el=$("held");
+  if(!player||!player.holding){el.classList.remove("on");return;}
+  const o=player.holding;
+  el.classList.add("on");
+  el.querySelector("span").innerHTML=esc(o.a.name)+"<i>"+(RX_BOW.test(o.a.id)?"TAP · DRAW"
+    :RX_CUP.test(o.a.id)?"TAP · OFFER":"TAP · USE / DROP")+"</i>";
+  const c=el.querySelector("canvas"),ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
+  try{
+    const cut=inkCutout(o.mod,baseState(o),"held");
+    const s=Math.min(c.width/cut.w,c.height/cut.h);
+    ctx.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,
+      (c.width-cut.w*s)/2,(c.height-cut.h*s)/2,cut.w*s,cut.h*s);
+  }catch(e){}
 }
 
-/* ── duel: tension inside the circle — first to 0 hearts yields ── */
-let DUEL=null;
-const H=(k)=>"♥".repeat(k)+"·".repeat(3-k);
-function duel(){
-  const hit=nearestNpc(300);
-  if(!hit){DUEL=null;hideCaption();return;}
-  const {n,seg}=hit;
-  if(!DUEL||DUEL.n!==n){ DUEL={n,php:3,nhp:3}; n.talking=0;
-    showCaption("DUEL · ODYSSEUS "+H(3)+" vs "+H(3)+" "+n.a.name,
-      "The circle is drawn. F STRIKES. Walk away to break the spell.");
-    return; }
-  // a strike round
-  const pn=normNodes(player.mod);
-  const strike=pn.find(x=>/strike|draw|aim|attack|swing|fight|raise|defi|bow|spear/i.test(x.key))||pn[Math.floor(Math.random()*pn.length)];
-  if(strike){player.gesture=strike.prev();player.gestureUntil=perfNow()+1.1;}
-  const nn=normNodes(n.mod);
-  const hitLanded=Math.random()<.62, counter=Math.random()<.45;
-  if(hitLanded){DUEL.nhp=Math.max(0,DUEL.nhp-1);foleyStrike();}
-  if(counter){DUEL.php=Math.max(0,DUEL.php-1);setTimeout(foleyHurt,150);}
-  const react=nn.find(x=>/recoil|fear|fall|plea|defend|flinch|grief|wound/i.test(x.key))||nn[Math.floor(Math.random()*nn.length)];
-  if(react){n.forced=react; n.forcedUntil=perfNow()+1.2;}
-  if(DUEL.nhp<=0){
-    const perf=(n.a.perfs||[])[0];
-    foleyWin();
-    showCaption(n.a.name+" YIELDS", (perf?perf.perf:"The circle closes; order returns.")+
-      "<br><span style='color:#8a8a86'>the game is over — the world resumes</span>");
-    DUEL=null; return;
-  }
-  if(DUEL.php<=0){
-    foleyLose();
-    showCaption("ODYSSEUS FALLS", "The road picks him back up — the play-world endures."+
-      "<br><span style='color:#8a8a86'>F to draw the circle again</span>");
-    DUEL=null; return;
-  }
-  showCaption("DUEL · ODYSSEUS "+H(DUEL.php)+" vs "+H(DUEL.nhp)+" "+n.a.name,
-    hitLanded?(counter?"Blows trade — both reel.":"A clean strike!"):(counter?"Countered!":"Both miss — the tension holds."));
-}
-
-window.__game={ get player(){return player}, get SEGS(){return SEGS},
-  chat:()=>chat(), duel:()=>duel(), talk:()=>talk() };
 /* ── input ── */
 const keys={};
-addEventListener("keydown",e=>{
-  if(e.target&&/INPUT|SELECT/.test(e.target.tagName))return;
-  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
-  keys[K]=true;
-  if(K==="e"||K==="E")talk();
-  if(K==="c"||K==="C")chat();
-  if(K==="f"||K==="F")duel();
-  if(/^[1-5]$/.test(K)){
+function actKey(K){
+  if(K==="e"||K==="E")use();
+  else if(K==="c"||K==="C")chat();
+  else if(K==="f"||K==="F")duel();
+  else if(K===" "||K==="Spacebar"||K==="jump")jump();
+  else if(K==="q"||K==="Q")dropHeld();
+  else if(/^[1-5]$/.test(K)){
     const pn=normNodes(player.mod);
     const node=pn[Math.min(+K-1,pn.length-1)];
     if(node){player.gesture=node.prev();player.gestureUntil=perfNow()+2.2;}
   }
+}
+addEventListener("keydown",e=>{
+  if(e.target&&/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
+  if(K===" ")e.preventDefault();
+  keys[K]=true;
+  actKey(K);
+});
+addEventListener("keyup",e=>{
+  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
+  keys[K]=false;
 });
 document.querySelectorAll("#touch button").forEach(b=>{
   const k=b.dataset.k;
   const dn=e=>{e.preventDefault();
-    if(k==="e")talk(); else if(k==="c")chat(); else if(k==="f")duel();
-    else keys[k]=true;};
+    if(k.startsWith("Arrow"))keys[k]=true; else actKey(k);};
   const up=e=>{e.preventDefault(); if(k.startsWith("Arrow"))keys[k]=false;};
   b.addEventListener("pointerdown",dn);
   b.addEventListener("pointerup",up);
   b.addEventListener("pointercancel",up);
   b.addEventListener("pointerleave",up);
 });
-addEventListener("keyup",e=>{
-  const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
-  keys[K]=false;
-});
-let pendingNpc=null, npcLpT=null, lastTapNpc=null;
-function npcAt(wx){
-  const seg=segAt(wx); if(!seg)return null;
-  let best=null,bd=140;
-  for(const n of seg.npcs){const d=Math.abs(n.wx-wx);if(d<bd){bd=d;best=n;}}
+let pendingNpc=null, npcLpT=null, lastTapNpc=null, pendingObj=null;
+function thingAt(wx){
+  const si=clamp(Math.floor(wx/SEGW),0,SEGS.length-1);
+  let best=null,bd=150;
+  for(let i=Math.max(0,si-1);i<=Math.min(SEGS.length-1,si+1);i++){
+    for(const n of SEGS[i].npcs){const d=Math.abs(n.wx-wx);if(d<bd){bd=d;best={kind:"npc",n,seg:SEGS[i]};}}
+    for(const o of SEGS[i].objects){if(o.taken)continue;const d=Math.abs(o.wx-wx);if(d<bd){bd=d;best={kind:"obj",o};}}
+  }
   return best;
 }
 cv.addEventListener("pointerdown",e=>{
+  if(!SEGS.length||!player)return;
   const r=cv.getBoundingClientRect();
   const fx=(e.clientX-r.left)/r.width;
   const wx=camX+fx*VW;
-  const npc=npcAt(wx);
+  const T=thingAt(wx);
   clearTimeout(npcLpT); npcLpT=null;
-  if(npc){
-    const near=Math.abs(npc.wx-player.wx)<260;
-    if(near){
-      npcLpT=setTimeout(()=>{npcLpT=null;duel();},480);   // hold = draw the circle
-    } else {
-      player.walkTo=npc.wx-100; pendingNpc=npc; lastTapNpc=null;
-      showCaption(npc.a.name,"walking over…");
-    }
+  if(T&&T.kind==="npc"){
+    if(Math.abs(T.n.wx-player.wx)<260)npcLpT=setTimeout(()=>{npcLpT=null;duel();},480);
+    else{player.walkTo=T.n.wx-100;pendingNpc=T.n;pendingObj=null;lastTapNpc=null;
+      showCaption(T.n.a.name,"walking over…");}
     return;
   }
-  pendingNpc=null;
+  if(T&&T.kind==="obj"){
+    if(Math.abs(T.o.wx-player.wx)<180)interact(T.o);
+    else{player.walkTo=T.o.wx-70;pendingObj=T.o;pendingNpc=null;
+      flash("WALKING TO "+T.o.a.name);}
+    return;
+  }
+  pendingNpc=null;pendingObj=null;
   player.walkTo=wx;
 });
 cv.addEventListener("pointerup",e=>{
-  if(!npcLpT)return;                                     // long-press already fired (duel)
+  if(!npcLpT)return;
   clearTimeout(npcLpT); npcLpT=null;
   const r=cv.getBoundingClientRect();
   const wx=camX+((e.clientX-r.left)/r.width)*VW;
-  const npc=npcAt(wx); if(!npc)return;
-  if(Math.abs(npc.wx-player.wx)<260){
-    if(lastTapNpc===npc)chat(); else {talk(); lastTapNpc=npc;}
+  const T=thingAt(wx); if(!T||T.kind!=="npc")return;
+  if(Math.abs(T.n.wx-player.wx)<260){
+    if(lastTapNpc===T.n)openChat(T.n,T.seg); else {talk(); lastTapNpc=T.n;}
   }
 });
-const perfNow=()=>performance.now()/1000;
 
-/* ── talk: the nearest NPC answers with their real atlas performance ── */
-function talk(){
-  const seg=segAt(player.wx);if(!seg)return;
-  let best=null,bd=260;
-  for(const n of seg.npcs){const d=Math.abs(n.wx-player.wx);if(d<bd){bd=d;best=n;}}
-  if(!best){hideCaption();talkNPC=null;return;}
-  talkNPC=best; best.talking=perfNow()+6; foleyTalk(5);
-  const tns=turnsFor(seg.scene.id,best.a.id);
-  if(tns.length){
-    best._tx=((best._tx||0))%tns.length;
-    const t=tns[best._tx++];
-    /* the authored SPOKEN line, not the stage direction */
-    const sl=LINES[t.id]||{};
-    const words=sl.line||t.payload;
-    showCaption(best.a.name+" · "+t.act,
-      words+"<br><span style='color:#8a8a86'>"+(sl.direction||t.delivery||"")+"</span>");
-    if(!(window.kitVO&&kitVO.tryTurn(t.id)))speakCap(best.a.id,sl.line||"");
-    return;
-  }
-  const perf=(best.a.perfs||[]).find(p=>p.scene===seg.scene.id);
-  showCaption(best.a.name, perf?perf.perf:(seg.scene.beats&&seg.scene.beats[0])||"…");
-}
-
-/* ── NPC state: idle rotation, face the player when near, speak when talking ── */
+/* ── NPC state: crossfaded idles, face the player, poses on the beats ── */
 function npcState(n,now,seg){
   const nodes=normNodes(n.mod);
-  let node=null;
-  const near=Math.abs(n.wx-player.wx)<300;
-  if(n.forced&&now<n.forcedUntil){ node=n.forced; }
-  else if(now<n.talking){
-    node=nodes.find(x=>/speak|address|tell|plea|greet|hail/i.test(x.key))||nodes[1]||nodes[0];
-  }else if(nodes.length>1){
-    node=nodes[(Math.floor(seedOf(n.a.id)*97)+Math.floor(now/4.2))%nodes.length];
-  }else node=nodes[0];
-  const st={...(n.mod.preview?n.mod.preview():{}),...(node?node.prev():{}),t:now};
-  if(near){
-    st.gaze={x:clamp((player.wx-n.wx)/300,-1,1)*.6,y:.05};
-  }
-  delete st.status;delete st.progress;
-  return st;
+  if(!nodes.length)return {t:now};
+  let key=null;
+  if(n.forced&&now<n.forcedUntil)key="__forced";
+  else if(now<n.talking)
+    key=(nodes.find(x=>/speak|address|tell|plea|greet|hail|torso_open/i.test(x.key))||nodes[1]||nodes[0]).key;
+  else if(n.mood==="yielded")
+    key=(nodes.find(x=>/plea|kneel|yield|fall|grief|wound|lower|bow/i.test(x.key))||nodes[0]).key;
+  else if(nodes.length>1)
+    key=nodes[pidx(Math.floor(sd(n.a.id)*97)+Math.floor(now/4.6+sd(n.a.id)*3),nodes.length)].key;
+  else key=nodes[0].key;
+  if(key!==n.node){n.prev=n.node;n.node=key;n.mix=0;}
+  const of=k=>k==="__forced"?(n.forced||{}):((nodes.find(x=>x.key===k)||nodes[0]).prev());
+  const base={...(n.mod.preview?n.mod.preview():{})};
+  const mk=k=>{const st={...base,...of(k),t:now};
+    if(Math.abs(n.wx-player.wx)<320)st.gaze={x:clamp((player.wx-n.wx)/300,-1,1)*.6,y:.05};
+    delete st.status;delete st.progress;return st;};
+  return {cur:mk(n.node),prev:n.prev?mk(n.prev):null,mix:clamp(n.mix,0,1)};
 }
 
-/* ── loop ── */
-let last=0;
-function loop(ms){
-  requestAnimationFrame(loop);
-  const now=ms/1000, dt=Math.min(.06,now-last||.016); last=now;
+/* ══════════════════════════════════════════════════════════════
+   STEP — the whole simulation, independent of rendering, so the
+   world keeps its own time and can be driven headlessly.
+   ══════════════════════════════════════════════════════════════ */
+const SPEED=430;
+function step(dt){
   if(!SEGS.length||!player)return;
+  dt=Math.min(.06,Math.max(0,dt));
+  GT+=dt;
+  const now=GT;
 
-  /* move */
-  const SPEED=430;
+  /* ── walk. The gait is driven by DISTANCE, not by the wall clock, so the
+     legs and the footfalls belong to the movement instead of sliding. ── */
   let dir=0;
   if(keys.ArrowRight||keys.d||keys.D)dir=1;
   if(keys.ArrowLeft||keys.a||keys.A)dir=-1;
   if(dir!==0)player.walkTo=null;
   if(pendingNpc&&Math.abs(player.wx-pendingNpc.wx)<250){
-    player.walkTo=null; const n=pendingNpc; pendingNpc=null; lastTapNpc=n; talk();
+    player.walkTo=null;const n=pendingNpc;pendingNpc=null;lastTapNpc=n;talk();
+  }
+  if(pendingObj&&Math.abs(player.wx-pendingObj.wx)<170){
+    player.walkTo=null;const o=pendingObj;pendingObj=null;interact(o);
   }
   if(player.walkTo!=null){
-    stepT+=dt; if(stepT>.27){stepT=0;foleyStep();}
     const dx=player.walkTo-player.wx;
-    if(Math.abs(dx)<12)player.walkTo=null;
-    else dir=Math.sign(dx);
+    if(Math.abs(dx)<12)player.walkTo=null; else dir=Math.sign(dx);
   }
   const maxX=SEGS.length*SEGW-160;
   if(dir!==0){
-    player.wx=clamp(player.wx+dir*SPEED*dt,120,maxX);
-    stepT+=dt; if(stepT>.27){stepT=0;foleyStep();}
+    const nx=clamp(player.wx+dir*SPEED*dt,120,maxX);
+    const dist=Math.abs(nx-player.wx);
+    if(moveTo(nx)){
+      /* 480 world px per full stride cycle → q advances with the ground */
+      const q0=player.gait; player.gait+=dist/480*Math.PI*2;
+      if(player.grounded&&Math.floor(q0/Math.PI)!==Math.floor(player.gait/Math.PI))foleyStep();
+    }else if(player.blockedBy){
+      flash("JUMP OVER "+player.blockedBy.a.name);
+    }
+    player.faceLeft=dir<0;
+    if(talkNPC){hideCaption();talkNPC=null;}
     if(player.wx>=maxX-4&&dir>0&&!buildBook._busy){
       const books=[...new Set(MAN.scenes.map(s=>s.book))].sort((a,b)=>a-b);
       const bi=books.indexOf(book);
@@ -541,21 +1122,100 @@ function loop(ms){
       const next=books[(bi+1)%books.length];
       showCaption("ROAD'S END","BOOK "+ROMAN[next]+" begins…");
       foleyBook();
-      setTimeout(async()=>{ book=next; $("bookSel").value=book;
-        await buildBook(book); buildBook._busy=false; },900);
+      setTimeout(async()=>{book=next;$("bookSel").value=book;
+        await buildBook(book);buildBook._busy=false;},900);
     }
-    player.faceLeft=dir<0;
-    if(talkNPC){hideCaption();talkNPC=null;}
   }
   player.moving=dir!==0;
+  stepPhysics(dt);
+
+  /* arrows */
+  for(let i=ARROWS.length-1;i>=0;i--){
+    const ar=ARROWS[i];
+    ar.wx+=ar.dir*1500*dt;
+    let gone=now-ar.t>1.6;
+    const h=nearestNpcTo(ar.wx,46);
+    if(h){ h.impact=now; foleyStrike(); npcPose(h,/recoil|stagger|wound|fall|flinch/i);
+      if(DUEL&&DUEL.n===h){DUEL.nhp=Math.max(0,DUEL.nhp-1);DUEL.note="STRUCK BY THE SHAFT";
+        if(DUEL.nhp<=0)duelEnd("WIN");}
+      gone=true; }
+    if(gone)ARROWS.splice(i,1);
+  }
+
+  /* sound sources speak when you come near */
+  eachObj(o=>{
+    if(o.kind!=="sound_source"||o.taken)return;
+    if(Math.abs(o.wx-player.wx)<300&&now-o.lastSnd>6){
+      o.lastSnd=now;o.acted=(o.acted||0)+1;
+      if(o.nodes.length>1)o.si=(o.si+1)%o.nodes.length;
+      foleySource(o);
+    }
+  });
+
+  /* object animation channels */
+  eachObj(o=>{
+    if(o.mix<1)o.mix=clamp(o.mix+dt/.45,0,1);
+    if(o.tipping){const u=clamp((now-o.tipping)/.5,0,1);o.tilt=.92*(u*u*(3-2*u));if(u>=1)o.tipping=0;}
+    if(o.opening!=null&&o.openTo!=null){
+      const d=Math.sign(o.openTo-o.openU);
+      if(d!==0){o.openU=clamp(o.openU+d*dt/.55,0,1);if(o.openU===o.openTo)o.openTo=null;}
+    }
+  },2);
+
+  /* npc facing + crossfade + impact decay */
+  const si=segIdxNow();
+  for(let i=Math.max(0,si-1);i<=Math.min(SEGS.length-1,si+1);i++)
+    for(const n of SEGS[i].npcs){
+      const near=Math.abs(n.wx-player.wx)<380;
+      const want=near?(player.wx>=n.wx?1:-1):1;
+      const rate=dt*3.6;
+      n.faceT=want;
+      n.face+=clamp(want-n.face,-rate,rate);
+      if(n.mix<1)n.mix=clamp(n.mix+dt/.45,0,1);
+    }
+
+  duelStep(now);
   camX=clamp(player.wx-VW*.45,0,Math.max(0,SEGS.length*SEGW-VW));
   showTitle();
+  if(now-(step._pt||0)>.12){step._pt=now;updatePrompt();}
+}
+function nearestNpcTo(wx,range){
+  const si=clamp(Math.floor(wx/SEGW),0,SEGS.length-1);
+  let best=null,bd=range;
+  for(let i=Math.max(0,si-1);i<=Math.min(SEGS.length-1,si+1);i++)
+    for(const n of SEGS[i].npcs){const d=Math.abs(n.wx-wx);if(d<bd){bd=d;best=n;}}
+  return best;
+}
+function updatePrompt(){
+  const el=$("prompt"),now=perfNow();
+  if(promptUntil>now){el.innerHTML=promptMsg;el.classList.add("on");return;}
+  if(player.blockedBy&&player.grounded&&player.moving){
+    el.innerHTML="⤒ <b>JUMP</b> — "+esc(player.blockedBy.a.name)+" blocks the road";
+    el.classList.add("on");return;}
+  const T=currentTarget();
+  if(T&&T.kind==="obj"){
+    el.innerHTML="E · <b>"+T.o.verb+"</b> — "+esc(T.o.a.name)
+      +(T.o.solid?" <span style='color:#8a8a86'>· ⤒ to stand on it</span>":"");
+    el.classList.add("on");return;}
+  if(T&&T.kind==="npc"){
+    el.innerHTML="E · <b>SPEAK</b> — "+esc(T.n.a.name)+" <span style='color:#8a8a86'>· C CHAT · F DUEL</span>";
+    el.classList.add("on");return;}
+  if(player.holding){
+    el.innerHTML="HELD <b>"+esc(player.holding.a.name)+"</b> — E TO USE · Q TO DROP";
+    el.classList.add("on");return;}
+  el.classList.remove("on");
+}
 
-  /* ── compose the frame ── */
+/* ══════════════════════════════════════════════════════════════
+   RENDER — one composite, one halftone. Depth by kind, then dotify.
+   ══════════════════════════════════════════════════════════════ */
+const ZOF={environment:0,set_piece:1,vehicle:2,sound_source:3,npc:4,prop:5,wearable:5,divine_fx:6,player:7};
+function render(){
+  if(!SEGS.length||!player)return;
+  const now=GT;
   const seg=segAt(player.wx), segIdx=SEGS.indexOf(seg);
   og.fillStyle="#ffffff";og.fillRect(0,0,VW,VH);
   if(seg.loc){
-    // gentle parallax: the set slides slower than the road
     const u=(player.wx-segIdx*SEGW)/SEGW;
     const shift=(u-.5)*140;
     og.imageSmoothingEnabled=true;
@@ -566,60 +1226,195 @@ function loop(ms){
     og.beginPath();og.moveTo(0,VH*.52);og.lineTo(VW,VH*.52);og.stroke();
   }
   const groundY=VH*.93;
-
-  /* NPCs of this segment and neighbors */
   const draws=[];
   for(let si=Math.max(0,segIdx-1);si<=Math.min(SEGS.length-1,segIdx+1);si++){
     for(const n of SEGS[si].npcs){
-      const sx=n.wx-camX;
-      if(sx<-300||sx>VW+300)continue;
-      draws.push({kind:"npc",n,sx});
+      const sx=n.wx-camX; if(sx<-340||sx>VW+340)continue;
+      draws.push({z:ZOF.npc,kind:"npc",n,sx,seg:SEGS[si]});
+    }
+    for(const o of SEGS[si].objects){
+      if(o.taken)continue;
+      const sx=o.wx-camX; if(sx<-420||sx>VW+420)continue;
+      draws.push({z:ZOF[o.kind]==null?5:ZOF[o.kind],kind:"obj",o,sx});
     }
   }
-  draws.push({kind:"player",sx:player.wx-camX});
+  draws.push({z:ZOF.player,kind:"player",sx:player.wx-camX});
+  draws.sort((a,b)=>a.z-b.z);
   for(const d of draws){
-    if(d.kind==="npc"){
-      const n=d.n, h=VH*.50, w=h*660/880;
-      og.fillStyle="rgba(20,20,20,.13)";
-      og.beginPath();og.ellipse(d.sx,groundY,w*.32,w*.07,0,0,7);og.fill();
-      const st=npcState(n,now,seg);
-      try{
-        const keyed=keyedModuleCanvas(n.mod,w,h,st,"game");
-        og.drawImage(keyed,d.sx-w/2,groundY-h);
-      }catch(e){}
-      // name over the near one
-      if(Math.abs(n.wx-player.wx)<300){
-        og.fillStyle="#141414";
-        og.font="700 15px "+getComputedStyle(document.body).fontFamily;
-        og.textAlign="center";
-        og.fillText(n.a.name,d.sx,groundY-h-14);
-      }
-    }else{
-      /* the player — the real rig, walking */
-      const h=VH*.56, w=h*660/880;
-      og.fillStyle="rgba(20,20,20,.16)";
-      og.beginPath();og.ellipse(d.sx,groundY,w*.30,w*.07,0,0,7);og.fill();
-      let st;
-      if(player.gesture&&now<player.gestureUntil){
-        st={...player.gesture,t:now};
-      }else if(player.moving){
-        st={pose:"walk_neutral",band:"profile",t:now};
-      }else{
-        st={...(player.mod.preview?player.mod.preview():{}),t:now};
-      }
-      delete st.status;delete st.progress;
-      og.save();
-      og.translate(d.sx,groundY);
-      if(player.faceLeft&&player.moving)og.scale(-1,1);
-      og.translate(-w/2,-h);
-      try{player.mod.draw(og,w,h,{...st,card:false});}catch(e){}
-      og.restore();
-    }
+    if(d.kind==="obj")drawObject(d.o,d.sx,groundY,now);
+    else if(d.kind==="npc")drawNpc(d.n,d.sx,groundY,now,d.seg);
+    else drawPlayer(d.sx,groundY,now);
+  }
+  /* arrows in flight */
+  og.strokeStyle="#141414";og.lineWidth=3;
+  for(const ar of ARROWS){
+    const x=ar.wx-camX,y=groundY-ar.y;
+    og.beginPath();og.moveTo(x,y);og.lineTo(x-ar.dir*46,y+3);og.stroke();
   }
   dotify();
   $("prog").textContent="BOOK "+ROMAN[book]+" · SCENE "+(segIdx+1)+"/"+SEGS.length
-    +(segIdx===SEGS.length-1&&player.wx>maxX-200?" · END OF BOOK →":"");
+    +" · "+seg.npcs.length+" BODIES "+seg.objects.length+" THINGS"
+    +(segIdx===SEGS.length-1&&player.wx>maxXNow()-200?" · END OF BOOK →":"");
 }
+const maxXNow=()=>SEGS.length*SEGW-160;
+
+function drawObject(o,sx,groundY,now){
+  const d=dims(o);
+  const float=(o.kind==="divine_fx")?VH*.26:0;
+  const L=liveness("obj:"+o.a.id,now,{gain:o.kind==="divine_fx"?1.6:o.kind==="sound_source"?1:.35});
+  let cur=null,prv=null;
+  try{cur=inkCutout(o.mod,{...baseState(o),t:now},"gm");}catch(e){}
+  if(o.mix<1&&o.prevSi!==o.si){
+    const pn=o.nodes[o.prevSi];
+    try{prv=inkCutout(o.mod,{...(o.mod.preview?o.mod.preview():{}),...(pn?pn.prev():{}),t:now},"gm");}catch(e){}
+  }
+  if(!cur)return;
+  const H0=d.h, W0=H0*(cur.ar||1);
+  /* contact shadow */
+  if(!float){og.fillStyle="rgba(20,20,20,.10)";
+    og.beginPath();og.ellipse(sx,groundY,W0*.34,W0*.055,0,0,7);og.fill();}
+  og.save();
+  og.translate(sx+L.dx*VW+(o.openU?o.openU*W0*.42:0), groundY-float+L.dy*VH);
+  if(o.tilt)og.rotate(o.tilt);
+  else og.rotate(L.tilt*.6);
+  const blit=(c,a)=>{if(!c)return;og.globalAlpha=a;
+    og.drawImage(c.cv,c.x,c.y,c.w,c.h,-W0/2,-H0,W0,H0);og.globalAlpha=1;};
+  if(prv)blit(prv,1-o.mix);
+  blit(cur,prv?o.mix:1);
+  og.restore();
+  /* name the ones you can act on */
+  if(Math.abs(o.wx-player.wx)<220){
+    og.fillStyle="#141414";
+    og.font="700 13px "+getComputedStyle(document.body).fontFamily;
+    og.textAlign="center";
+    og.fillText(o.a.name.toUpperCase(),sx,groundY-float-H0-10);
+  }
+}
+function drawNpc(n,sx,groundY,now,seg){
+  const h=VH*.50, w=h*660/880;
+  const speaking=now<n.talking;
+  const near=Math.abs(n.wx-player.wx)<320;
+  const imp=n.impact?clamp((now-n.impact)/.5,0,1):0;
+  const L=liveness(n.a.id,now,{speaking,listening:near&&!speaking,
+    u:speaking?clamp(1-(n.talking-now)/6,0,1):0, impact:imp<1?imp:0});
+  og.fillStyle="rgba(20,20,20,.13)";
+  og.beginPath();og.ellipse(sx,groundY,w*.32,w*.07,0,0,7);og.fill();
+  const S=npcState(n,now,seg);
+  /* the turn: the body squashes through profile and comes back — a turn,
+     not a flip. |face| is the horizontal scale; its sign is the facing. */
+  const fx=(n.face<0?-1:1)*Math.max(.22,Math.abs(n.face));
+  const lean=(near&&L.lean)?L.lean*VW*(player.wx>=n.wx?1:-1):0;
+  og.save();
+  og.translate(sx+L.dx*VW+lean, groundY+L.dy*VH);
+  og.rotate(L.tilt);
+  og.scale(fx,1);
+  const HH=h*L.scale;
+  try{
+    if(S.prev&&S.mix<1){
+      og.globalAlpha=1-S.mix;
+      og.drawImage(keyedModuleCanvas(n.mod,w,h,S.prev,"game"),-w/2,-HH);
+      og.globalAlpha=S.mix;
+    }
+    og.drawImage(keyedModuleCanvas(n.mod,w,h,S.cur,"game"),-w/2,-HH);
+    og.globalAlpha=1;
+  }catch(e){og.globalAlpha=1;}
+  og.restore();
+  if(near){
+    og.fillStyle="#141414";
+    og.font="700 15px "+getComputedStyle(document.body).fontFamily;
+    og.textAlign="center";
+    og.fillText(n.a.name+(n.mood==="yielded"?" · YIELDED":n.mood==="victor"?" · VICTOR":""),
+      sx,groundY-h-14);
+  }
+}
+function drawPlayer(sx,groundY,now){
+  const h=VH*.56, w=h*660/880;
+  const y=groundY-player.y;
+  const imp=player.hurt>-90?clamp((now-player.hurt)/.5,0,1):0;
+  const airborne=!player.grounded;
+  const L=liveness(player.id||"character.odysseus",now,
+    {speaking:!!(CHAT&&false),listening:false,impact:imp<1?imp:0,gain:player.moving?.35:1});
+  og.fillStyle="rgba(20,20,20,"+(0.16*(1-clamp(player.y/220,0,.75)))+")";
+  og.beginPath();og.ellipse(sx,groundY,w*.30*(1-clamp(player.y/300,0,.4)),w*.07,0,0,7);og.fill();
+  let st,tilt=L.tilt;
+  if(player.gesture&&now<player.gestureUntil){
+    st={...player.gesture,t:now};
+  }else if(airborne){
+    const pn=normNodes(player.mod);
+    const jn=pn.find(x=>/leap|jump|reach|raise|stride|run|walk/i.test(x.key));
+    st={...(jn?jn.prev():{pose:"walk_neutral",band:"profile"}),t:player.gait/5.2};
+    tilt=(player.vy>0?-1:1)*.06;
+  }else if(player.moving){
+    /* gait: the rig's walk action reads q = t*5.2, so feeding it gait/5.2
+       makes the legs a function of ground covered instead of wall time */
+    st={pose:"walk_neutral",band:"profile",t:player.gait/5.2};
+    tilt=(player.faceLeft?-1:1)*.045;
+  }else{
+    st={...(player.mod.preview?player.mod.preview():{}),t:now};
+  }
+  delete st.status;delete st.progress;
+  const landU=clamp((now-player.land)/.28,0,1);
+  const squash=player.grounded&&landU<1?1-.10*(1-landU):1;
+  og.save();
+  og.translate(sx+L.dx*VW, y+(player.moving?0:L.dy*VH));
+  og.rotate(tilt);
+  if(player.faceLeft&&(player.moving||airborne))og.scale(-1,1);
+  og.scale(1,squash*(player.moving?1:L.scale));
+  og.translate(-w/2,-h);
+  try{player.mod.draw(og,w,h,{...st,card:false});}catch(e){}
+  og.restore();
+  /* what he carries, in hand */
+  const o=player.holding;
+  if(o){
+    try{
+      const cut=inkCutout(o.mod,baseState(o),"held");
+      const hh=VH*.13, ww=hh*(cut.ar||1);
+      const hx=sx+(player.faceLeft?-1:1)*w*.30, hy=y-h*.52;
+      og.save();og.translate(hx,hy);
+      og.rotate((player.faceLeft?-1:1)*(RX_BOW.test(o.a.id)?0:.22));
+      if(player.faceLeft)og.scale(-1,1);
+      og.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,-ww/2,-hh/2,ww,hh);
+      og.restore();
+    }catch(e){}
+  }
+}
+
+/* ── loop ── */
+let last=0;
+function loop(ms){
+  requestAnimationFrame(loop);
+  const now=ms/1000, dt=Math.min(.06,(now-last)||.016); last=now;
+  step(dt); render();
+}
+
+/* ── DEBUG HANDLE — everything the verifier needs without a live rAF ── */
+window.__game={
+  get player(){return player}, get SEGS(){return SEGS}, get book(){return book},
+  get DUEL(){return DUEL}, get CHAT(){return CHAT}, get ARROWS(){return ARROWS},
+  get time(){return GT},
+  counts(){return SEGS.map(s=>({scene:s.scene.id,npcs:s.npcs.length,objects:s.objects.length,
+    kinds:s.objects.reduce((m,o)=>((m[o.kind]=(m[o.kind]||0)+1),m),{})}));},
+  totals(){return {scenes:SEGS.length,
+    npcs:SEGS.reduce((a,s)=>a+s.npcs.length,0),
+    objects:SEGS.reduce((a,s)=>a+s.objects.length,0)};},
+  objects(){const out=[];SEGS.forEach(s=>s.objects.forEach(o=>out.push(o)));return out;},
+  objInfo(){return this.objects().map(o=>({id:o.a.id,kind:o.kind,verb:o.verb,wx:Math.round(o.wx),
+    si:o.si,states:o.nodes.length,acted:o.acted,taken:o.taken,solid:o.solid,
+    platH:Math.round(dims(o).platH)}));},
+  step(dt){step(dt==null?1/60:dt);return {t:GT,y:player&&player.y};},
+  render(){render();},
+  goto(wx){player.wx=wx;player.walkTo=null;camX=clamp(wx-VW*.45,0,Math.max(0,SEGS.length*SEGW-VW));},
+  target(){const T=currentTarget();return T&&(T.kind==="obj"?{kind:"obj",id:T.o.a.id,verb:T.o.verb}:{kind:"npc",id:T.n.a.id});},
+  use:()=>use(), interact:o=>interact(o), jump:()=>jump(), drop:()=>dropHeld(),
+  useHeld:()=>useHeld(), held:()=>player&&player.holding&&player.holding.a.id,
+  chat:()=>chat(), openChat:(i)=>{const h=nearestNpc(1e9);return openChat(h&&h.n,h&&h.seg);},
+  sendChat:t=>chatReply(t), closeChat:()=>closeChat(),
+  talk:()=>talk(), duel:()=>duel(), duelState:()=>DUEL&&{phase:DUEL.phase,php:DUEL.php,nhp:DUEL.nhp,
+    round:DUEL.round,note:DUEL.note,who:DUEL.n.a.id,u:(GT-DUEL.t0)/DUEL.dur},
+  get lastVoice(){return VOICE_LOG}, sayAgain:()=>sayAgain(),
+  liveness:(id,t)=>liveness(id,t),
+  buildBook:b=>buildBook(b),
+};
 
 /* ── boot ── */
 (async()=>{
@@ -635,12 +1430,11 @@ function loop(ms){
   book=books.includes(want)?want:books[0];
   $("bookSel").value=book;
   fit();
+  GT=performance.now()/1000;
   await buildBook(book);
+  window.__gameReady=true;
   requestAnimationFrame(loop);
 })();
-
-
-
 
 
 

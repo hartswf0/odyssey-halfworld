@@ -134,7 +134,11 @@ export function seedOf(id){
   /* avalanche (murmur3 finalizer) — spreads neighbouring inputs apart */
   h ^= h >>> 16; h = Math.imul(h, 2246822507) >>> 0;
   h ^= h >>> 13; h = Math.imul(h, 3266489909) >>> 0;
-  h ^= h >>> 16;
+  /* the final xor-shift drops back to a SIGNED 32-bit int, so without this
+     >>> 0 the seed can come out negative (character.athena was -0.214).
+     Harmless inside liveness() — it only feeds sines — but it breaks any
+     caller that uses the seed to index an array. Keep the cast. */
+  h = (h ^ (h >>> 16)) >>> 0;
   return h / 4294967296;
 }
 
