@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HALFWORLD — the rule, the five, the index</title>
+<meta name="description" content="HALFWORLD: one rule, five contracts, nine organs. The title, the onboarding and the index are one continuous object.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f4f0'/%3E%3Crect x='3' y='11' width='26' height='2.2' fill='%23141414'/%3E%3Crect x='3' y='18' width='26' height='2.2' fill='%23141414'/%3E%3Crect x='5' y='6' width='2.2' height='20' fill='%23e01b1b'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#f4f4f0; --ink:#141414; --red:#e01b1b;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:var(--paper);color:var(--ink);
+    font:12px/1.5 var(--mono);overflow:hidden;overscroll-behavior:none}
+  #app{position:fixed;inset:0}
+  .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+  /* ── the stage: one canvas, full bleed, nothing else on it ── */
+  canvas#stage{position:absolute;inset:0;display:block;width:100%;height:100%;background:var(--paper)}
+
+  /* ── the index: the rule become navigation. Real links, always focusable. ── */
+  #spine{position:absolute;left:0;right:0;display:flex;align-items:stretch;
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    opacity:0;pointer-events:none;transition:opacity .5s linear}
+  #spine::-webkit-scrollbar{display:none}
+  body.idx #spine{opacity:1;pointer-events:auto}
+  /* eleven stations fit a 1200px frame at the minimum basis and grow to fill a
+     wider one; below that the line simply runs past the edge and you travel it */
+  #spine a{flex:1 0 104px;scroll-snap-align:center;display:flex;flex-direction:column;
+    justify-content:flex-start;align-items:center;gap:3px;
+    max-width:220px;min-height:58px;padding:14px 6px 8px;
+    color:var(--ink);text-decoration:none;text-align:center;line-height:1.3;
+    font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    transform:translateY(0);transition:transform .16s ease-out}
+  #spine a .role{font-size:8.5px;font-weight:400;letter-spacing:.14em;
+    text-transform:none;opacity:0;transition:opacity .16s linear}
+  #spine a:hover,#spine a:focus-visible{transform:translateY(-7px);outline:none}
+  #spine a:hover .role,#spine a:focus-visible .role{opacity:1}
+  #spine a:focus-visible{text-decoration:underline;text-underline-offset:5px;
+    text-decoration-color:var(--red);text-decoration-thickness:2px}
+
+  /* ── the gate (audio needs a gesture) ── */
+  #gate{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;gap:22px;
+    align-items:center;justify-content:center;background:var(--paper);padding:26px;text-align:center}
+  #gate.gone{display:none}
+  #gate .rule{width:min(420px,62vw);height:3px;background:var(--ink);position:relative}
+  #gate .rule i{position:absolute;left:0;top:-11px;width:3px;height:25px;background:var(--red)}
+  #gate p{font-size:10px;letter-spacing:.3em;text-transform:uppercase}
+  #gate p.err{color:var(--red);letter-spacing:.06em;text-transform:none}
+  #gate .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+  /* ── controls ── */
+  button,.btn{font:inherit;color:var(--ink);background:transparent;border:1.5px solid var(--ink);
+    padding:0 16px;min-height:52px;cursor:pointer;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;font-size:10px;white-space:nowrap;display:inline-flex;
+    align-items:center;justify-content:center;text-decoration:none}
+  button.pri{background:var(--ink);color:var(--paper)}
+  button.on{border-color:var(--red);color:var(--red)}
+  button:focus-visible,#spine a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  #bar{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;gap:6px;align-items:center;
+    padding:8px 10px;padding-bottom:calc(8px + env(safe-area-inset-bottom));flex-wrap:wrap}
+  #bar button{min-height:44px;padding:0 12px;border-color:rgba(20,20,20,.30)}
+  #bar #skip{min-height:52px;border-color:var(--ink)}
+  #scrub{flex:1 1 160px;min-width:110px;height:44px;accent-color:var(--red);background:transparent}
+  #tc{font-size:10px;letter-spacing:.12em;min-width:64px;text-align:right}
+  #note{position:absolute;left:10px;bottom:calc(64px + env(safe-area-inset-bottom));
+    font-size:9px;letter-spacing:.16em;text-transform:uppercase;pointer-events:none}
+  body.idx #bar .tp{display:none}
+  @media (max-width:700px){
+    #bar{padding:6px}
+    #scrub{flex-basis:100%;order:-1;height:52px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    #spine a{transition:none}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="stage" width="1280" height="720"></canvas>
+  <h1 class="vh">HALFWORLD — one rule, five contracts, eleven worlds</h1>
+
+  <nav id="spine" aria-label="HALFWORLD index"></nav>
+
+  <div id="bar">
+    <button id="skip">index</button>
+    <button id="pp" class="pri tp">play</button>
+    <input id="scrub" class="tp" type="range" min="0" max="45.8" step="0.01" value="0" aria-label="title position">
+    <span id="tc" class="tp">00:00.0</span>
+    <button id="frames">frames</button>
+    <button id="plan">plan</button>
+  </div>
+  <div id="note"></div>
+
+  <div id="gate">
+    <div class="rule"><i></i></div>
+    <p id="gmsg">loading</p>
+    <div class="btns">
+      <button id="go" class="pri" disabled>begin</button>
+      <button id="gskip">skip to the index</button>
+    </div>
+  </div>
+</div>
+<script type="module">
+/* ============================================================================
+   HALFWORLD — the landing · "THE RULE, THE FIVE, THE INDEX"
+   ----------------------------------------------------------------------------
+   Sibling to odyssey-title-line.html. The line is the STUDIO's signature; the
+   Odyssey title is what happens when that rule enters one world. This page is
+   the same rule EARLIER in its life:
+
+     I   THE RULE    one stroke on cream, alone, still
+     II  THE FIVE    it splits into five phase-shifted strands — CAST, STAGE,
+                     SCORE, MIND, MEMORY. The contracts ARE a harmonic family:
+                     one idea, five offsets.
+     III THE WORLDS  the strands converge and deliver one world at a time,
+                     full bleed, hard cut in
+     IV  THE NAME    the strands collapse and the rule breaks into HALFWORLD
+     V   THE INDEX   and the title does not end: the rule stays on screen and
+                     becomes the navigation. Every world is a station on it.
+
+   THE JOIN: choosing ODYSSEY hands the rule's exact live geometry to
+   odyssey-title-line.html in ?line=y…,t…,x…-…,p…,m… so the stroke continues
+   across the page boundary uninterrupted.
+
+   DETERMINISM: no Math.random anywhere. Every stagger, hold and dot is a pure
+   function of an id through seedOf(). Verify with window.__hw.determinism().
+
+   QUERY
+     ?w=1920 ?h=1080   master canvas override (default: width 1280, viewport ar)
+     ?track=9          album track (or ?track=titans-descent:3)
+     ?silent=1         no audio; the nominal (unsnapped) score
+     ?nosnap=1         load audio but do not snap cuts to onsets
+     ?index=1          open in the index state (also what the skip control does)
+     ?line=…&from=…    the reverse join, coming back from a world
+     ?t=32             open parked at a time
+   ========================================================================== */
+import { seedOf } from "./engine/liveness.mjs";
+
+const Q = new URLSearchParams(location.search);
+const FPS = 30;
+const SILENT = Q.get("silent") === "1";
+const NOSNAP = Q.get("nosnap") === "1";
+const OPEN_INDEX = Q.get("index") === "1";
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const PAPER = "#f4f4f0";       // the paper
+const INK   = "#141414";       // the ink
+const RED   = "#e01b1b";       // the one accent — nothing else has colour
+
+/* ── small pure helpers ─────────────────────────────────────────────────────── */
+const TAU = Math.PI * 2;
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, u) => a + (b - a) * u;
+const ease = u => { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); };
+const easeIn = u => { u = clamp(u, 0, 1); return u * u * u; };
+const R1 = (id, salt) => seedOf(String(id) + "|" + salt);      // deterministic 0..1
+
+/* ── the frame ──────────────────────────────────────────────────────────────── */
+const vpW = Math.max(320, innerWidth || 1280), vpH = Math.max(320, innerHeight || 800);
+const CW = Math.max(480, Math.min(3840, +(Q.get("w") || 1280) || 1280));
+const CH = Q.get("h")
+  ? Math.max(320, Math.min(4320, Math.round(+Q.get("h")) || 720))
+  : Math.round(clamp(CW * vpH / vpW, CW * 0.50, CW * 2.20));
+/* every magnitude in the piece is a fraction of the SHORT side, so the same
+   drawing survives a 16:9 desktop and a tall phone without re-tuning */
+const VU = Math.min(CW, CH);
+
+const cv = document.getElementById("stage");
+cv.width = CW; cv.height = CH;
+const g = cv.getContext("2d", { willReadFrequently: true });
+
+const $ = id => document.getElementById(id);
+const gate = $("gate"), gmsg = $("gmsg"), goBtn = $("go"), gskipBtn = $("gskip");
+const railEl = $("spine"), ppBtn = $("pp"), scrub = $("scrub"), tcEl = $("tc"),
+      skipBtn = $("skip"), framesBtn = $("frames"), planBtn = $("plan"), noteEl = $("note");
+
+const S = {
+  ready: false, t: 0, playing: false, indexOpen: false, hover: -1,
+  beats: [], bpm: 0, snapped: false, track: null, audio: null,
+  bytes: 0, requests: 0, imageBytes: 0, err: null, still: null,
+};
+window.__hw = S;
+
+/* ============================================================================
+   1 · THE FIVE, AND THE WORLDS THEY BELONG TO
+   ----------------------------------------------------------------------------
+   The five contracts are the product, so they are the only type in the title
+   besides the final word. Every world description below is quoted from the
+   HALFWORLD index (hartswf0.github.io/halfworld/halfworld-index.html); nothing
+   here is invented about what those studios do.
+   ========================================================================== */
+const CONTRACTS = [
+  { n: "CAST",   role: "who exists" },
+  { n: "STAGE",  role: "what exists, where" },
+  { n: "SCORE",  role: "when it happens" },
+  { n: "MIND",   role: "who decides" },
+  { n: "MEMORY", role: "what persists" },
+];
+
+const HW = "https://hartswf0.github.io/halfworld/";
+
+/* `still` is a real image in this repo. Everything else is a typographic plate:
+   there is no imagery for those studios here and none was invented. */
+const WORLDS = [
+  { id: "odyssey", label: "ODYSSEY", role: "the worked example", plate: 1,
+    name: "ODYSSEY",
+    desc: "24 books · 152 scenes · 403 cast · 2,056 score rows",
+    href: "odyssey-title-line.html", local: true,
+    still: "viewer/title-line-stills/scene__OD-B09-S08__t0.15.webp" },
+
+  { id: "studio", label: "STUDIO", role: "enter the studio", plate: 0,
+    name: "HALFWORLD STUDIO",
+    desc: "v0.3 · real rig · film → BEFLIX",
+    href: HW + "halfworld-studio.html" },
+
+  { id: "halftrack", label: "HALFTRACK", role: "organ 01 · cast", plate: 2,
+    name: "HALFTRACK",
+    desc: "“A cast · scenes · worlds.”",
+    href: HW + "halftrack-stage%20(2).html" },
+
+  { id: "worldsmith", label: "WORLDSMITH", role: "organ 02 · world", plate: 3,
+    name: "WORLDSMITH",
+    desc: "“Start with nothing.”",
+    href: HW + "worldsmith.html" },
+
+  { id: "atlantis", label: "ATLANTIS", role: "organ 02 · world", plate: 4,
+    name: "ATLANTIS",
+    desc: "The Recursive World Engine.",
+    href: HW + "atlantis-world-studio.html" },
+
+  { id: "whispers", label: "WHISPERS", role: "organ 03 · score & mind", plate: 5,
+    name: "SYNTHCINE WHISPERS",
+    desc: "“A room to think in.”",
+    href: HW + "synthcine-whispers%20(5).html" },
+
+  { id: "bodyrig", label: "BODY RIG", role: "organ 03 · score & mind", plate: 0,
+    name: "SYNTHCINE CALL",
+    desc: "Scene 06 as live halftone puppetry with a real transport.",
+    href: HW + "SYNTHCINE_CALL_BODY_RIG_REBUILT%20(1).html" },
+
+  { id: "virentis", label: "VIRENTIS", role: "organ 04 · worldtext", plate: 6,
+    name: "VIRENTIS",
+    desc: "A 31×31 tile field with fog-of-war.",
+    href: HW + "virentis-field-icaro.html" },
+
+  { id: "oneroom", label: "ONE ROOM", role: "organ 05 · façades", plate: 7,
+    name: "FAÇADE — ONE ROOM",
+    desc: "The call grid overtaken by a single isometric halftone living room.",
+    href: HW + "synthcine-facade-beflix-room-v2.html" },
+
+  { id: "worldengine", label: "WORLD ENGINE", role: "organ 05 · façades", plate: 0,
+    name: "FAÇADE — WORLD ENGINE",
+    desc: "“One continuous social room.”",
+    href: HW + "synthcine-facade-world-engine.html" },
+
+  { id: "comedy", label: "COMEDY", role: "organ 05 · façades", plate: 0,
+    name: "FAÇADE — COMEDY ENGINE",
+    desc: "The call grid plus a live social-drama dock.",
+    href: HW + "synthcine-facade-comedy-engine.html" },
+];
+/* the seven the title actually shows, in order. `plate` is the seed index. */
+const SHOWN = ["odyssey", "halftrack", "worldsmith", "atlantis", "whispers", "virentis"];
+
+/* ============================================================================
+   2 · THE SCORE — five sections, world cuts, and the onsets they land on
+   ----------------------------------------------------------------------------
+   Nothing on screen ever names a section. The title runs ~43s and then rests
+   in the index state indefinitely.
+   ========================================================================== */
+/* THE WORLDS is the long one on purpose. Six worlds inside 21s is a cut every
+   3.36s, which leaves the family half a second to a second of open harmonic
+   life BETWEEN images. At the first tuning it carried seven inside 16.4s — the
+   convergence into one world and the release out of the next met in the middle,
+   the frame fell to 0.08% ink, and it read as a slideshow. The point of the
+   section is that the strands wander, and the wandering has to be visible
+   between the worlds, not only underneath them. FAÇADE lost its plate to buy
+   that air; it is still a station on the index. */
+const NOMINAL = [0, 4.6, 13.2, 34.2, 40.4, 45.8];
+let B = NOMINAL.slice();
+let DURATION = B[5];
+let ISLANDS = [];
+const APPROACH = 0.80;         // the knot converging on a point
+const RELEASE  = 0.45;         // and coming apart again
+const WIPE     = 0.13;         // a fast hard-edged wipe out (never a dissolve)
+
+function cutsIn(t0, t1, n, pad0, pad1) {
+  if (n <= 0) return [];
+  const a = t0 + pad0, b = t1 - pad1;
+  const out = [];
+  for (let i = 0; i < n; i++) out.push(a + (b - a) * (n === 1 ? 0.5 : i / (n - 1)));
+  return out;
+}
+
+function buildScore() {
+  const shown = SHOWN.map(id => WORLDS.find(w => w.id === id));
+  const list = cutsIn(B[2], B[3], shown.length, 2.30, 1.90).map((t, i) => ({
+    world: shown[i], at: t,
+    /* 1.05–1.65s — long enough to be read, deterministic per id */
+    hold: +(1.05 + 0.60 * R1(shown[i].id, "hold")).toFixed(3),
+    /* every world CUTS in; about half of them WIPE out on a hard edge */
+    wipe: R1(shown[i].id, "wipe") < 0.5,
+  }));
+  /* the Odyssey is the worked example, so it is held longest and never wiped */
+  list[0].hold = 1.60; list[0].wipe = false;
+  ISLANDS = list;
+  clipWindows();
+}
+
+/* Approach and release windows are CLIPPED against their neighbours, so however
+   tight the cutting gets the knot never jumps: the convergence always reaches 1
+   exactly on the cut, and always unwinds from wherever it actually was. */
+function clipWindows() {
+  let prevEnd = -Infinity;
+  for (let i = 0; i < ISLANDS.length; i++) {
+    const isl = ISLANDS[i];
+    const nextAt = i + 1 < ISLANDS.length ? ISLANDS[i + 1].at : Infinity;
+    isl.a0 = Math.max(isl.at - APPROACH, prevEnd + 0.04);
+    if (isl.a0 >= isl.at) isl.a0 = isl.at - 0.12;
+    isl.hEnd = isl.at + isl.hold;
+    isl.r1 = Math.min(isl.hEnd + RELEASE, nextAt - 0.12);
+    if (isl.r1 <= isl.hEnd) isl.r1 = isl.hEnd + 0.05;
+    prevEnd = isl.r1;
+  }
+}
+
+/* ── onsets ──────────────────────────────────────────────────────────────────
+   Cheap RMS-flux peak picking. Same file → same envelope → same cuts. */
+function detectOnsets(ab) {
+  const ch = ab.getChannelData(0), sr = ab.sampleRate;
+  const hop = Math.round(sr * 0.01161);
+  const n = Math.floor(Math.min(ch.length, sr * (DURATION + 6)) / hop);
+  const env = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    let s = 0; const a0 = i * hop, a1 = a0 + hop;
+    for (let j = a0; j < a1; j++) { const v = ch[j]; s += v * v; }
+    env[i] = Math.sqrt(s / hop);
+  }
+  const flux = new Float32Array(n);
+  for (let i = 1; i < n; i++) flux[i] = Math.max(0, env[i] - env[i - 1]);
+  const on = []; const win = 14;
+  for (let i = win; i < n - win; i++) {
+    let mean = 0, peak = true;
+    for (let j = i - win; j <= i + win; j++) { mean += flux[j]; if (flux[j] > flux[i]) peak = false; }
+    mean /= (win * 2 + 1);
+    if (peak && flux[i] > mean * 1.7 && flux[i] > 0.0035) {
+      const t = i * hop / sr;
+      if (!on.length || t - on[on.length - 1] > 0.16) on.push(+t.toFixed(4));
+    }
+  }
+  const gaps = [];
+  for (let i = 1; i < on.length; i++) gaps.push(on[i] - on[i - 1]);
+  gaps.sort((a, b) => a - b);
+  const med = gaps.length ? gaps[Math.floor(gaps.length / 2)] : 0;
+  S.bpm = med > 0.05 ? Math.round(60 / med) : 0;
+  return on;
+}
+
+const snap = (t, tol) => {
+  let best = null, bd = Infinity;
+  for (const b of S.beats) { const d = Math.abs(b - t); if (d < bd) { bd = d; best = b; } }
+  return bd <= tol ? +best.toFixed(3) : null;
+};
+
+/* every section boundary and every world cut lands on a detected onset, so the
+   cuts feel struck rather than floated */
+function snapScore() {
+  if (NOSNAP || !S.beats.length) { S.snapped = false; return false; }
+  const out = B.slice();
+  for (let i = 1; i <= 4; i++) {
+    const s = snap(NOMINAL[i], 0.85);
+    if (s != null && s > out[i - 1] + 2.4) out[i] = s;
+  }
+  B = out;
+  const s5 = snap(NOMINAL[5], 0.9);
+  DURATION = +clamp(s5 != null && s5 > B[4] + 4.6 ? s5 : NOMINAL[5], 35, 50).toFixed(3);
+  B[5] = DURATION;
+  buildScore();
+  let hit = 0;
+  for (const isl of ISLANDS) {
+    const s = snap(isl.at, 0.55);
+    if (s != null) { isl.at = s; hit++; }
+  }
+  ISLANDS.sort((a, b) => a.at - b.at);
+  clipWindows();
+  S.snapped = true; S.worldsOnOnset = hit;
+  return true;
+}
+
+async function getJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(url + " " + r.status);
+  const txt = await r.text();
+  S.bytes += txt.length; S.requests++;
+  return JSON.parse(txt);
+}
+
+async function loadAudio() {
+  const albums = (await getJSON("audio/albums.json")).albums || [];
+  const want = Q.get("track");
+  let album = albums.find(a => a.id === "titans-descent") || albums[0];
+  let track = null;
+  if (want) {
+    const [ma, mn] = want.includes(":") ? want.split(":") : [null, want];
+    if (ma) { const a = albums.find(x => x.id === ma); if (a) album = a; }
+    const num = +mn;
+    track = Number.isFinite(num) && num > 0
+      ? (album.tracks.find(t => t.num === num) || album.tracks[num - 1])
+      : album.tracks.find(t => (t.title || "").toLowerCase().includes(String(want).toLowerCase()));
+  }
+  if (!track) track = album.tracks.find(t => t.num === 1) || album.tracks[0];
+  const url = album.dir.split("/").map(encodeURIComponent).join("/") + "/" + encodeURIComponent(track.file);
+  S.track = { album: album.name, title: track.title, num: track.num, url };
+  try {
+    const resp = await fetch(url);
+    const buf = await resp.arrayBuffer();
+    S.audioBytes = buf.byteLength; S.requests++;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ac = new AC();
+    const ab = await ac.decodeAudioData(buf.slice(0));
+    S.beats = detectOnsets(ab);
+    if (ac.close) ac.close();
+  } catch (e) { S.beats = []; S.audioErr = String(e.message || e); }
+  const a = new Audio();
+  a.preload = "auto";
+  a.src = url;                     /* src set here — play() is never called on an empty src */
+  S.audio = a;
+  return S.track;
+}
+
+/* the verification path can build the musical score without ever playing */
+S.loadScore = async () => {
+  if (S.scoreLoaded) return S.scoreLoaded;
+  S.scoreLoaded = (async () => {
+    if (SILENT) { buildScore(); return false; }
+    await loadAudio();
+    return snapScore();
+  })();
+  return S.scoreLoaded;
+};
+
+/* ============================================================================
+   3 · THE CURVE — one parametric line under transformation
+   ----------------------------------------------------------------------------
+   For copy k of N the phase offset is k·Δ. Sampled along u ∈ [0,1] the curve is
+   drawn twice — once STRAIGHT (a rule with a harmonic displacement, so copies
+   beat against each other as moiré) and once WOUND (the same harmonic in polar,
+   so copies at incremental angular offsets bloom into a rosette) — and mixed by
+   `wind`. That mix is the whole vocabulary of the piece, and it is the same
+   device odyssey-title-line.html uses for wandering. Here it carries the five
+   contracts: one idea, five offsets.
+   ========================================================================== */
+const cx = () => CW * 0.5;
+const homeY = () => CH * 0.560;
+const homeSpan = () => CW * 0.740;
+const strokeWeight = st => clamp(VU * 0.0108 / Math.pow(Math.max(1, st.N), 0.42), VU * 0.0026, VU * 0.0135);
+const RULE_W = () => strokeWeight({ N: 1 });
+
+/* where a moment sits relative to a world: approaching, held, or releasing */
+function islandPhase(t) {
+  for (const isl of ISLANDS) {
+    if (t < isl.a0 || t >= isl.r1) continue;
+    if (t < isl.at) return { isl, mode: "approach", u: ease((t - isl.a0) / (isl.at - isl.a0)) };
+    if (t < isl.hEnd) return { isl, mode: "hold", u: (t - isl.at) / isl.hold };
+    return { isl, mode: "release", u: ease((t - isl.hEnd) / (isl.r1 - isl.hEnd)) };
+  }
+  return null;
+}
+
+/* the phase the harmonic is frozen at when the family collapses — this is the
+   number handed across the page boundary as `p`, so the rule keeps its phase */
+const rotFreeze = () => +((B[3] * 0.0740) % TAU).toFixed(4);
+
+/* the full state of the line at time t — this is the layout, and it is pure */
+function stateAt(t) {
+  const st = {
+    N: 1, delta: 0, wind: 0, turns: 1, harm: 5, amp: 0, R: VU * 0.30,
+    spread: 0, hAmp: VU * 0.10, span: homeSpan(), y: homeY(), rot: 0,
+    alpha: 1, section: 0, converge: 0, five: 0,
+  };
+
+  if (t < B[1]) {
+    /* I · THE RULE — one stroke on cream, alone, and then almost too still. */
+    st.section = 0;
+    if (t < 0.80) st.alpha = 0;
+    const grow = ease((t - 0.80) / 2.30);                    // right end travels
+    const free = ease((t - 2.55) / 1.35);                    // left end lets go
+    st.explicit = { xL: lerp(0, cx() - homeSpan() / 2, free),
+                    xR: lerp(0, cx() + homeSpan() / 2, grow) };
+    return st;
+  }
+
+  if (t < B[2]) {
+    /* II · THE FIVE — the rule splits into five phase-shifted strands. It stays
+       close to straight: this is moiré, not the rosette. The names ride it. */
+    st.section = 1;
+    const u = ease((t - B[1]) / 2.90);
+    st.N = 1 + Math.round(4 * u);
+    st.five = u;
+    st.spread = VU * 0.0640 * u;
+    st.delta = 0.170 * u;
+    st.wind  = 0.150 * u;
+    st.amp   = (0.085 + 0.030 * Math.sin(t * 0.3100)) * u;
+    st.harm  = 3 + 1.20 * Math.sin(t * 0.1730);
+    st.turns = 1;
+    st.rot   = t * 0.0740;
+    st.y = homeY() + VU * 0.006 * Math.sin(t * 0.19) * u;
+    return st;
+  }
+
+  if (t < B[3]) {
+    /* III · THE WORLDS — the five wind up into the full harmonic family, and
+       converge on a point to deliver ONE world at a time. */
+    st.section = 2;
+    const u = ease((t - B[2]) / 3.20);
+    st.N = Math.max(1, Math.round(lerp(5, 15, u)));
+    st.wind = clamp(lerp(0.150, 0.880, u), 0, 1);
+    st.delta = lerp(0.170, 0.205 + 0.150 * Math.sin(t * 0.2110 + 0.6), u);
+    st.turns = lerp(1, 1 + 0.52 * (1 + Math.sin(t * 0.3700 + 2.1)), u);
+    st.harm  = 5 + 2.40 * Math.sin(t * 0.1630);
+    st.amp   = lerp(0.085, 0.155 + 0.130 * Math.sin(t * 0.2900 + 1.1), u);
+    st.R     = VU * (0.300 + 0.055 * Math.sin(t * 0.1270 + 0.4));
+    st.spread = VU * 0.0640 * (1 - u) * (1 - st.wind);
+    st.rot   = t * 0.0740;
+    st.y = homeY() + VU * 0.012 * Math.sin(t * 0.19);
+    return st;
+  }
+
+  if (t < B[4]) {
+    /* IV · THE NAME — the offsets converge back toward zero and the family
+       collapses to one rule where it began. The phase is NOT zeroed: it is
+       frozen, and that frozen phase is what travels to the next page. */
+    st.section = 3;
+    const u = ease((t - B[3]) / 2.40);
+    const p = stateAt(B[3] - 0.001);
+    st.N = Math.max(1, Math.round(lerp(p.N, 1, easeIn(u * 1.05))));
+    st.delta = p.delta * (1 - u);
+    st.wind = p.wind * (1 - ease(clamp((u - 0.10) / 0.80, 0, 1)));
+    st.turns = lerp(p.turns, 1, u);
+    st.harm = lerp(p.harm, 3, u);
+    st.amp = p.amp * (1 - ease(clamp(u / 0.85, 0, 1)));
+    st.R = lerp(p.R, VU * 0.10, u);
+    st.spread = p.spread * (1 - u);
+    st.rot = rotFreeze();
+    st.y = lerp(p.y, homeY(), ease(u));
+    return st;
+  }
+
+  /* V · THE INDEX — a single dead-still rule; the stations take it from here */
+  st.section = 4;
+  st.rot = rotFreeze();
+  return st;
+}
+
+/* sample copy k of the curve at time t into a flat [x,y,x,y,…] array */
+function sampleCopy(st, k, M) {
+  const phi = k * st.delta;
+  const off = (k - (st.N - 1) / 2);
+  const CXc = cx(), CYc = st.y;
+  const pts = new Float64Array(M * 2);
+  const conv = st.converge || 0;
+  for (let i = 0; i < M; i++) {
+    const u = i / (M - 1);
+    const th = TAU * st.turns * u + st.rot;
+    const wob = st.amp * Math.sin(st.harm * th + phi);
+    const sx = CXc + (u - 0.5) * st.span;                        // straight form
+    const sy = CYc + wob * st.hAmp + off * st.spread;
+    const rr = st.R * (1 + wob);                                 // wound form
+    const wx = CXc + rr * Math.cos(th + phi);
+    const wy = CYc + rr * Math.sin(th + phi) * 0.90;
+    let x = lerp(sx, wx, st.wind), y = lerp(sy, wy, st.wind);
+    if (conv > 0) { x = lerp(x, CXc, conv); y = lerp(y, CYc, conv); }
+    pts[i * 2] = x; pts[i * 2 + 1] = y;
+  }
+  return pts;
+}
+
+/* ============================================================================
+   4 · THE LETTERFORMS — the rule breaks and the pieces settle into HALFWORLD
+   ----------------------------------------------------------------------------
+   Each glyph is a handful of strokes in a unit box (y down, cap height 1). The
+   word is 30 pieces, and the rule is cut into 30 sub-segments left to right, so
+   the left end of the line becomes the H and the right end the D. Every piece
+   OVERRUNS its neighbours by about half a stroke: butt caps on a flat alphabet
+   leave notches at corners and hairline seams between arcs.
+   ========================================================================== */
+const SW = 0.20;                                   // stroke weight, cap heights
+const L = (x1, y1, x2, y2) => s => [x1 + (x2 - x1) * s, y1 + (y2 - y1) * s];
+const A = (ax, ay, r, a0, a1) => s => {
+  const a = (a0 + (a1 - a0) * s) * Math.PI / 180;
+  return [ax + r * Math.cos(a), ay + r * Math.sin(a)];
+};
+const GLYPH = {
+  H: { adv: 0.86, st: [L(0.10, 0.00, 0.10, 1.00), L(0.66, 0.00, 0.66, 1.00),
+                       L(0.00, 0.50, 0.76, 0.50)] },
+  /* the pointed letters overshoot the cap line: two butt caps meeting at an
+     apex leave a notch, and a notched A is the thing that gives the trick away */
+  A: { adv: 0.86, st: [L(0.00, 1.00, 0.384, -0.066), L(0.84, 1.00, 0.456, -0.066),
+                       L(0.13, 0.66, 0.71, 0.66)] },
+  L: { adv: 0.72, st: [L(0.10, 0.00, 0.10, 0.90), L(0.00, 0.90, 0.62, 0.90)] },
+  F: { adv: 0.78, st: [L(0.10, 0.00, 0.10, 1.00), L(0.00, 0.10, 0.68, 0.10),
+                       L(0.00, 0.50, 0.58, 0.50)] },
+  W: { adv: 1.06, st: [L(0.02, 0.00, 0.26, 1.04), L(0.24, 1.04, 0.497, 0.145),
+                       L(0.443, 0.145, 0.70, 1.04), L(0.68, 1.04, 0.92, 0.00)] },
+  O: { adv: 0.92, st: [A(0.46, 0.50, 0.36, -94, 4), A(0.46, 0.50, 0.36, -4, 94),
+                       A(0.46, 0.50, 0.36, 86, 184), A(0.46, 0.50, 0.36, 176, 274)] },
+  R: { adv: 0.84, st: [L(0.10, 0.00, 0.10, 1.00), L(0.00, 0.10, 0.36, 0.10),
+                       L(0.00, 0.52, 0.36, 0.52), A(0.36, 0.31, 0.21, -96, 96),
+                       L(0.30, 0.50, 0.70, 1.00)] },
+  D: { adv: 0.92, st: [L(0.10, 0.00, 0.10, 1.00), L(0.00, 0.10, 0.42, 0.10),
+                       L(0.00, 0.90, 0.42, 0.90), A(0.42, 0.50, 0.40, -96, 96)] },
+};
+const WORD = "HALFWORLD";
+const TRACK = 0.14;                                // letter spacing, cap heights
+
+function buildWord() {
+  let adv = 0;
+  const glyphs = [];
+  for (const ch of WORD) { glyphs.push({ ch, x: adv, ...GLYPH[ch] }); adv += GLYPH[ch].adv + TRACK; }
+  const unitW = adv - TRACK;
+  const cap = (CW * 0.860) / unitW;
+  const x0 = (CW - unitW * cap) / 2;
+  const y0 = homeY() - cap / 2;
+  const P = 26;
+  const pieces = [];
+  glyphs.forEach((gl, gi) => gl.st.forEach((fn, si) => {
+    const pts = new Float64Array(P * 2);
+    let mx = 0;
+    for (let i = 0; i < P; i++) {
+      const [ux, uy] = fn(i / (P - 1));
+      pts[i * 2] = x0 + (gl.x + ux) * cap;
+      pts[i * 2 + 1] = y0 + uy * cap;
+      mx += pts[i * 2];
+    }
+    pieces.push({ key: `${gl.ch}${gi}.${si}`, pts, P, mx: mx / P });
+  }));
+  /* left to right, so the left end of the rule really does become the H */
+  pieces.sort((a, b) => a.mx - b.mx || (a.key < b.key ? -1 : 1));
+  return { pieces, cap, weight: SW * cap, unitW, x0, y0 };
+}
+let WORDGEO = null;
+const wordGeo = () => (WORDGEO || (WORDGEO = buildWord()));
+
+/* the rule the word comes out of (span-wide) and the SPINE it becomes
+   (edge to edge — an index does not stop at the margin), each cut into as many
+   sub-segments as there are pieces */
+function segmentsFor(n, xa, xb, y) {
+  /* the segments OVERLAP by a hair: abutting butt caps on a stroke this heavy
+     leave anti-aliased seams, and a rule with 29 seams in it is not a rule */
+  const o = RULE_W() * 0.5;
+  const segs = [];
+  for (let i = 0; i < n; i++) {
+    segs.push([xa + (xb - xa) * (i / n) - o, xa + (xb - xa) * ((i + 1) / n) + o, y]);
+  }
+  return segs;
+}
+const ruleSegments = n => segmentsFor(n, cx() - homeSpan() / 2, cx() + homeSpan() / 2, homeY());
+const spineSegments = n => segmentsFor(n, 0, CW, homeY());
+
+/* ============================================================================
+   5 · TYPE — the house letterspaced caps, drawn a character at a time
+   ========================================================================== */
+const FONT = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+function tracked(text, xc, y, px, weight, trackEm, align) {
+  g.font = `${weight} ${px}px ${FONT}`;
+  g.textBaseline = "alphabetic";
+  const tr = px * trackEm;
+  const chars = [...text];
+  let w = -tr;
+  for (const c of chars) w += g.measureText(c).width + tr;
+  let x = align === "left" ? xc : xc - w / 2;
+  for (const c of chars) { g.fillText(c, x, y); x += g.measureText(c).width + tr; }
+  return w;
+}
+/* shrink to fit the frame rather than ever letting a description run off it */
+function trackedFit(text, xc, y, px, weight, trackEm, maxW) {
+  let p = px;
+  for (let i = 0; i < 14; i++) {
+    g.font = `${weight} ${p}px ${FONT}`;
+    const tr = p * trackEm;
+    let w = -tr;
+    for (const c of text) w += g.measureText(c).width + tr;
+    if (w <= maxW) break;
+    p *= 0.92;
+  }
+  return tracked(text, xc, y, p, weight, trackEm, "center");
+}
+
+/* ============================================================================
+   6 · THE WORLDS ON SCREEN — one at a time, full bleed
+   ----------------------------------------------------------------------------
+   The Odyssey has a real still in this repo. The others have NO imagery here,
+   and none was invented for them: each is a typographic plate — the name, one
+   line quoted from the HALFWORLD index, and a dot-field, which is the law of
+   the dot stated plainly. Drop a real still into `still` to replace one.
+   ========================================================================== */
+const CHROME_INSET = 0.085;   /* the engine draws a card: label, id, meter, a
+     frame. Crop it off. */
+
+function drawStill(im, alpha, wipe) {
+  const sx = im.naturalWidth * CHROME_INSET, sy = im.naturalHeight * CHROME_INSET;
+  const sw = im.naturalWidth - sx * 2, sh = im.naturalHeight - sy * 2;
+  const scale = Math.max(CW / sw, CH / sh);          // cover
+  const dw = sw * scale, dh = sh * scale;
+  g.save();
+  if (wipe > 0) { g.beginPath(); g.rect(0, 0, CW * (1 - wipe), CH); g.clip(); }
+  g.globalAlpha = alpha;
+  g.globalCompositeOperation = "multiply";           // white → paper, black → ink
+  g.imageSmoothingEnabled = true; g.imageSmoothingQuality = "high";
+  g.drawImage(im, sx, sy, sw, sh, (CW - dw) / 2, (CH - dh) / 2, dw, dh);
+  g.restore();
+}
+
+/* a dot-field: 32 columns, the corpus grid, square cells, eight ink levels.
+   Every dot is a pure function of (world id, i, j). No noise table, no random. */
+function drawPlate(w, wipe) {
+  g.save();
+  if (wipe > 0) { g.beginPath(); g.rect(0, 0, CW * (1 - wipe), CH); g.clip(); }
+  g.globalCompositeOperation = "source-over";
+  g.globalAlpha = 1;
+  g.fillStyle = PAPER; g.fillRect(0, 0, CW, CH);
+
+  const COLS = 32, cell = CW / COLS, ROWS = Math.max(8, Math.round(CH / cell));
+  const fa = 0.34 + 0.52 * R1(w.id, "fa"), fb = 0.18 + 0.44 * R1(w.id, "fb");
+  const fc = 0.26 + 0.50 * R1(w.id, "fc"), fd = 0.12 + 0.38 * R1(w.id, "fd");
+  const p1 = R1(w.id, "p1") * TAU, p2 = R1(w.id, "p2") * TAU;
+  const hy = (0.30 + 0.44 * R1(w.id, "hy")) * ROWS;   // a horizon, per world
+  const hw = (0.22 + 0.26 * R1(w.id, "hw")) * ROWS;
+  /* the type sits in cleared paper: a dot that would fall in the band is not
+     drawn and then covered — it is never drawn, so no dot is ever cut in half */
+  const band0 = homeY() - VU * 0.215, band1 = homeY() + VU * 0.020;
+  g.fillStyle = INK;
+  for (let j = 0; j < ROWS; j++) {
+    const m = ease(1 - Math.abs(j - hy) / hw);        // the field has a body
+    if (m <= 0) continue;
+    const cy = (j + 0.5) * cell;
+    for (let i = 0; i < COLS; i++) {
+      let v = 0.5 + 0.30 * Math.sin(i * fa + j * fb + p1) + 0.20 * Math.cos(j * fc - i * fd + p2);
+      v = clamp(v, 0, 1) * m;
+      const q = Math.floor(v * 7.999) / 7;            // eight levels, ink 0–7
+      if (q <= 0) continue;
+      const r = cell * 0.46 * q;
+      if (cy + r > band0 && cy - r < band1) continue;
+      g.beginPath();
+      g.arc((i + 0.5) * cell, cy, r, 0, TAU);
+      g.fill();
+    }
+  }
+  g.fillStyle = INK;
+  trackedFit(w.name, CW / 2, homeY() - VU * 0.098, VU * 0.062, 900, 0.14, CW * 0.90);
+  trackedFit(w.desc, CW / 2, homeY() - VU * 0.036, VU * 0.0215, 400, 0.10, CW * 0.86);
+  g.restore();
+}
+
+/* ============================================================================
+   7 · RENDER
+   ========================================================================== */
+function render(t) {
+  t = clamp(t, 0, DURATION);
+  const st = stateAt(t);
+  const isl = islandPhase(t);
+
+  g.globalCompositeOperation = "source-over";
+  g.globalAlpha = 1;
+  g.fillStyle = PAPER;
+  g.fillRect(0, 0, CW, CH);
+
+  let wipeW = 0;
+  if (isl && isl.mode === "hold") {
+    const left = isl.isl.hEnd - t;
+    wipeW = isl.isl.wipe && left < WIPE ? 1 - clamp(left / WIPE, 0, 1) : 0;
+    const w = isl.isl.world;
+    if (w.still && S.still) drawStill(S.still, 1, wipeW);
+    else drawPlate(w, wipeW);
+  }
+
+  g.strokeStyle = INK;
+  g.lineCap = "butt";
+  g.lineJoin = "miter";
+
+  if (t >= B[4]) {
+    drawIndex(t);
+  } else if (t >= B[3]) {
+    drawName(t, st);
+  } else if (!(isl && isl.mode === "hold")) {
+    drawLine(t, st, isl);
+  } else if (wipeW > 0) {
+    /* the wipe uncovers the knot already waiting behind the world */
+    g.save();
+    g.beginPath(); g.rect(CW * (1 - wipeW), 0, CW * wipeW, CH); g.clip();
+    drawLine(t, st, { isl: isl.isl, mode: "release", u: 0 });
+    g.restore();
+  }
+
+  drawContracts(t, st);
+  drawAccent(t, st, isl);
+}
+
+function drawLine(t, st, isl) {
+  if (st.alpha <= 0) return;
+
+  let conv = 0;
+  if (isl && isl.mode === "approach") conv = isl.u;
+  if (isl && isl.mode === "release") conv = 1 - isl.u;
+  const sst = { ...st, converge: conv * 0.94 };
+  if (conv > 0) {
+    sst.delta = st.delta * (1 - conv * 0.92);
+    sst.R = st.R * (1 - conv * 0.80);
+    sst.amp = st.amp * (1 - conv * 0.85);
+    sst.wind = lerp(st.wind, 1, conv * 0.7);
+    sst.span = st.span * (1 - conv * 0.75);
+  }
+
+  g.lineWidth = strokeWeight(sst) * (1 + conv * 0.6);
+  g.globalAlpha = st.alpha;
+
+  if (sst.explicit) {                       /* THE RULE: a plain rule, drawn flat */
+    const { xL, xR } = sst.explicit;
+    if (xR - xL > 0.5) {
+      g.lineWidth = RULE_W();
+      g.beginPath(); g.moveTo(xL, sst.y); g.lineTo(xR, sst.y); g.stroke();
+    }
+    g.globalAlpha = 1;
+    return;
+  }
+
+  const M = clamp(Math.round(72 + sst.turns * 78 + sst.wind * 90), 72, 460);
+  g.beginPath();
+  for (let k = 0; k < sst.N; k++) {
+    const pts = sampleCopy(sst, k, M);
+    g.moveTo(pts[0], pts[1]);
+    for (let i = 1; i < M; i++) g.lineTo(pts[i * 2], pts[i * 2 + 1]);
+  }
+  g.stroke();
+  g.globalAlpha = 1;
+}
+
+/* the five names ride their own strand — derived from the line, not labelled
+   onto it. Strand k is sampled at its own u, so the five sit as a stair. */
+function drawContracts(t, st) {
+  if (st.five === undefined || st.five <= 0 || st.N < 2) return;
+  const M = 129;
+  /* the names are sized off the SPAN, not the frame: on a phone the line is
+     the same length in fractions but a third the pixels, and a name set to the
+     frame would have collided with its neighbour (CAST ran into STAGE) */
+  const px = clamp(homeSpan() * 0.0325, VU * 0.0150, VU * 0.0270);
+  g.globalCompositeOperation = "source-over";
+  g.fillStyle = INK;
+  for (let k = 0; k < Math.min(st.N, 5); k++) {
+    const on = ease((t - (B[1] + 1.55 + k * 0.42)) / 0.60)
+             * (1 - ease((t - (B[2] - 0.75)) / 0.75));
+    if (on <= 0.01) continue;
+    const uu = 0.130 + 0.185 * k;
+    const pts = sampleCopy({ ...st, converge: 0 }, k, M);
+    const i = clamp(Math.round(uu * (M - 1)), 0, M - 1);
+    g.globalAlpha = on;
+    tracked(CONTRACTS[k].n, pts[i * 2], pts[i * 2 + 1] - VU * 0.0215, px, 700, 0.26, "center");
+    g.globalAlpha = 1;
+  }
+}
+
+/* IV · the pieces fly from the rule into the letterforms of HALFWORLD */
+function drawName(t, st) {
+  const { pieces, weight } = wordGeo();
+  const segs = ruleSegments(pieces.length);
+  const FLY0 = B[3] + 2.60, FLY = 2.20, STAG = 0.55;
+  g.lineCap = "butt";
+  /* until the fly begins the family is still collapsing — draw it */
+  if (t < FLY0) { drawLine(t, st, null); if (t < FLY0 - 0.25) return; }
+  for (let i = 0; i < pieces.length; i++) {
+    const pc = pieces[i];
+    const u = ease((t - FLY0 - R1(pc.key, "fly") * STAG) / FLY);
+    if (u <= 0) continue;
+    const [a, b, y] = segs[i];
+    const lift = (1 - Math.abs(u * 2 - 1)) * VU * 0.055 * (R1(pc.key, "arc") - 0.5) * 2;
+    g.lineWidth = lerp(RULE_W(), weight, ease(clamp((u - 0.25) / 0.75, 0, 1)));
+    g.beginPath();
+    for (let j = 0; j < pc.P; j++) {
+      const s = j / (pc.P - 1);
+      const x = lerp(lerp(a, b, s), pc.pts[j * 2], u);
+      const yy = lerp(y, pc.pts[j * 2 + 1], u) + lift * Math.sin(Math.PI * s) * (1 - u);
+      if (j === 0) g.moveTo(x, yy); else g.lineTo(x, yy);
+    }
+    g.stroke();
+  }
+}
+
+/* ============================================================================
+   8 · THE INDEX — the title does not end; the rule becomes the navigation
+   ----------------------------------------------------------------------------
+   The letterforms fuse back into one rule, edge to edge, and every world is a
+   station struck on it. The stations are real links in the DOM from the first
+   frame, so the index works with no canvas interaction at all.
+   ========================================================================== */
+const TICK_H = () => VU * 0.030;
+
+function stationX() {
+  const rect = cv.getBoundingClientRect();
+  const kids = railEl.children;
+  if (rect.width > 4 && kids.length) {
+    const out = [];
+    for (const k of kids) {
+      const r = k.getBoundingClientRect();
+      out.push((r.left + r.width / 2 - rect.left) * CW / rect.width);
+    }
+    if (out.every(Number.isFinite) && Math.abs(out[out.length - 1] - out[0]) > 4) return out;
+  }
+  return WORLDS.map((_, i) => CW * (i + 0.5) / WORLDS.length);   // degenerate frame
+}
+
+/* the word does not vanish when it becomes the rule — it is kept, small, above
+   the spine, in its own letterforms rather than reset in the mono. This is the
+   same 30 pieces at 0.30 scale, so the mark and the title are one alphabet. */
+function drawMark(alpha) {
+  if (alpha <= 0.01) return;
+  const W = wordGeo(), k = 0.30;
+  g.save();
+  g.globalAlpha = alpha;
+  g.translate(CW / 2, homeY() - VU * 0.235);
+  g.scale(k, k);
+  g.translate(-CW / 2, -homeY());
+  g.strokeStyle = INK; g.lineWidth = W.weight; g.lineCap = "butt"; g.lineJoin = "miter";
+  for (const pc of W.pieces) {
+    g.beginPath();
+    for (let j = 0; j < pc.P; j++) {
+      const x = pc.pts[j * 2], y = pc.pts[j * 2 + 1];
+      if (j === 0) g.moveTo(x, y); else g.lineTo(x, y);
+    }
+    g.stroke();
+  }
+  g.restore();
+  g.globalAlpha = 1;
+}
+
+function drawIndex(t) {
+  if (S.settleU != null) { drawSettle(S.settleU); return; }
+  const { pieces, weight } = wordGeo();
+  const segs = spineSegments(pieces.length);
+  const M0 = B[4] + 0.20, MD = 1.70, STAG = 0.42;
+  g.lineCap = "butt";
+  for (let i = 0; i < pieces.length; i++) {
+    const pc = pieces[i];
+    const u = ease((t - M0 - R1(pc.key, "idx") * STAG) / MD);
+    const [a, b, y] = segs[i];
+    g.lineWidth = lerp(weight, RULE_W(), ease(u));
+    g.beginPath();
+    for (let j = 0; j < pc.P; j++) {
+      const s = j / (pc.P - 1);
+      const x = lerp(pc.pts[j * 2], lerp(a, b, s), u);
+      const yy = lerp(pc.pts[j * 2 + 1], y, u);
+      if (j === 0) g.moveTo(x, yy); else g.lineTo(x, yy);
+    }
+    g.stroke();
+  }
+  const tu = ease((t - (B[4] + 1.95)) / 1.20);
+  if (tu <= 0) return;
+  drawMark(tu);
+  drawTicks(homeY(), tu);
+}
+
+function drawTicks(y, tu) {
+  const xs = stationX(), h = TICK_H();
+  g.strokeStyle = INK; g.lineWidth = RULE_W(); g.lineCap = "butt";
+  g.beginPath();
+  for (let i = 0; i < xs.length; i++) {
+    const lift = i === S.hover ? 2.05 : 1;
+    g.moveTo(xs[i], y); g.lineTo(xs[i], y + h * tu * lift);
+  }
+  g.stroke();
+}
+
+/* the reverse join: a world hands the rule back, and the spine SETTLES from
+   that geometry rather than being there already. Same trick, other direction. */
+function drawSettle(u) {
+  const e = ease(u);
+  const y = lerp(BACK.y, homeY(), e);
+  S.settleY = y;
+  g.strokeStyle = INK; g.lineCap = "butt";
+  g.lineWidth = lerp(BACK.t || RULE_W(), RULE_W(), e);
+  g.beginPath();
+  g.moveTo(lerp(BACK.x0, 0, e), y); g.lineTo(lerp(BACK.x1, CW, e), y);
+  g.stroke();
+  drawMark(e);
+  drawTicks(y, e);
+}
+
+/* the one accent: a red mark holding the place the line began — and, once the
+   index is up, the place the line is about to take you. */
+function drawAccent(t, st, isl) {
+  g.globalCompositeOperation = "source-over";
+  const y = homeY();
+  if (isl && isl.mode === "hold") {
+    g.fillStyle = RED;
+    g.fillRect(0, y - Math.max(1, VU * 0.0022), CW, Math.max(2, VU * 0.0044));
+  }
+  const hh = VU * 0.030, ww = Math.max(2, VU * 0.0062);
+  const tu = S.settleU != null ? ease(S.settleU)
+           : t >= B[4] ? ease((t - (B[4] + 1.95)) / 1.20) : 0;
+  if (tu > 0.02) {
+    const xs = stationX();
+    const i = clamp(S.hover < 0 ? 0 : S.hover, 0, xs.length - 1);
+    const yy = S.settleU != null ? (S.settleY || y) : y;
+    S.accentX = xs[i];
+    g.globalAlpha = tu; g.fillStyle = RED;
+    g.fillRect(xs[i] - ww / 2, yy - hh, ww, hh * 2);
+    g.globalAlpha = 1;
+    return;
+  }
+  const on = ease((t - 0.40) / 0.85);
+  if (on > 0) {
+    S.accentX = CW * 0.0455;
+    g.globalAlpha = on; g.fillStyle = RED;
+    g.fillRect(CW * 0.0455 - ww / 2, (st.explicit ? st.y : y) - hh, ww, hh * 2);
+    g.globalAlpha = 1;
+  }
+}
+
+/* ── THE JOIN ────────────────────────────────────────────────────────────────
+   The rule's exact live geometry, in the URL: y as a fraction of frame height,
+   thickness in px, x span in px, the frozen harmonic phase, and the accent
+   mark's x as a fraction. `fw`/`fh` let the far side normalise the pixels.
+   odyssey-title-line.html reads these and starts its departure rule there, so
+   the stroke continues across the page boundary uninterrupted. */
+function lineParam() {
+  const y = (homeY() / CH).toFixed(4);
+  const th = Math.max(1, Math.round(RULE_W()));
+  const m = ((S.accentX == null ? CW * 0.0455 : S.accentX) / CW).toFixed(4);
+  return `line=y${y},t${th},x0-${CW},p${rotFreeze()},m${m}&fw=${CW}&fh=${CH}&from=halfworld`;
+}
+function refreshJoin() {
+  const a = railEl.querySelector('a[data-id="odyssey"]');
+  if (a) a.href = "odyssey-title-line.html?" + lineParam();
+  S.join = lineParam();
+}
+
+function buildRail() {
+  railEl.textContent = "";
+  WORLDS.forEach((w, i) => {
+    const a = document.createElement("a");
+    a.href = w.local ? "odyssey-title-line.html" : w.href;
+    a.dataset.id = w.id;
+    if (!w.local) { a.rel = "noopener"; a.target = "_top"; }
+    const nm = document.createElement("span"); nm.className = "nm"; nm.textContent = w.label;
+    const ro = document.createElement("span"); ro.className = "role"; ro.textContent = w.role;
+    a.append(nm, ro);
+    const lift = () => { S.hover = i; refreshJoin(); if (!S.playing) render(S.t); };
+    a.addEventListener("pointerenter", lift);
+    a.addEventListener("pointerleave", () => { S.hover = -1; if (!S.playing) render(S.t); });
+    /* tabbing into the index IS a way of asking for the index */
+    a.addEventListener("focus", () => { if (!S.indexOpen) goIndex(); lift(); });
+    a.addEventListener("blur", () => { S.hover = -1; if (!S.playing) render(S.t); });
+    railEl.appendChild(a);
+  });
+  railEl.addEventListener("scroll", () => { if (!S.playing) render(S.t); }, { passive: true });
+  placeRail();
+  refreshJoin();
+}
+/* the rail hangs off the rule itself — its top edge IS the spine */
+function placeRail() {
+  railEl.style.top = (homeY() / CH * 100).toFixed(3) + "%";
+}
+
+function goIndex() {
+  if (S.indexOpen) return;
+  S.indexOpen = true;
+  pause();
+  gate.classList.add("gone");
+  document.body.classList.add("idx");
+  S.t = DURATION; base = S.t;
+  render(S.t); syncUI(); refreshJoin();
+  if (BACK && !REDUCED) {
+    const t0 = performance.now(), dur = 900;
+    S.settleU = 0;
+    const step = () => {
+      S.settleU = clamp((performance.now() - t0) / dur, 0, 1);
+      render(S.t);
+      if (S.settleU < 1) requestAnimationFrame(step);
+      else { S.settleU = null; S.settleY = null; render(S.t); }
+    };
+    requestAnimationFrame(step);
+  }
+}
+S.goIndex = goIndex;
+
+/* ============================================================================
+   9 · TRANSPORT
+   ========================================================================== */
+let raf = 0, t0 = 0, base = 0;
+function frame() {
+  if (!S.playing) return;
+  const now = performance.now();
+  let t = base + (now - t0) / 1000;
+  if (S.audio && !S.audio.paused && S.audio.currentTime > 0.05) t = S.audio.currentTime;
+  if (t >= DURATION) { t = DURATION; S.t = t; render(t); syncUI(); pause(); openIndexQuietly(); return; }
+  S.t = t; render(t); syncUI();
+  raf = requestAnimationFrame(frame);
+}
+/* the title does not end — when it reaches the index it simply stays there */
+function openIndexQuietly() {
+  S.indexOpen = true;
+  document.body.classList.add("idx");
+  refreshJoin();
+}
+function play() {
+  if (S.playing) return;
+  if (S.t >= DURATION - 0.01) S.t = 0;
+  S.playing = true; base = S.t; t0 = performance.now();
+  if (S.audio && S.audio.src) { try { S.audio.currentTime = S.t; S.audio.play().catch(() => {}); } catch {} }
+  ppBtn.textContent = "pause";
+  raf = requestAnimationFrame(frame);
+}
+function pause() {
+  S.playing = false; cancelAnimationFrame(raf);
+  if (S.audio) { try { S.audio.pause(); } catch {} }
+  ppBtn.textContent = "play";
+}
+function seek(t) {
+  S.t = clamp(t, 0, DURATION); base = S.t; t0 = performance.now();
+  if (S.audio && S.audio.src) { try { S.audio.currentTime = S.t; } catch {} }
+  render(S.t); syncUI();
+}
+function syncUI() {
+  scrub.value = String(S.t);
+  const m = Math.floor(S.t / 60), s = S.t - m * 60;
+  tcEl.textContent = `${String(m).padStart(2, "0")}:${s.toFixed(1).padStart(4, "0")}`;
+}
+ppBtn.onclick = () => S.playing ? pause() : play();
+scrub.oninput = () => { pause(); seek(+scrub.value); };
+skipBtn.onclick = () => goIndex();
+gskipBtn.onclick = () => goIndex();
+addEventListener("keydown", e => {
+  if (e.target && /^(INPUT|A|BUTTON)$/.test(e.target.tagName) && e.key === " ") return;
+  if (e.key === " ") { e.preventDefault(); S.playing ? pause() : play(); }
+  if (e.key === "ArrowRight" && e.target === document.body) seek(S.t + (e.shiftKey ? 1 : 1 / FPS));
+  if (e.key === "ArrowLeft" && e.target === document.body) seek(S.t - (e.shiftKey ? 1 : 1 / FPS));
+});
+S.seek = seek; S.play = play; S.pause = pause; S.render = render;
+
+/* the frame follows the viewport on rotate, but only when the shape really
+   changed — a keyboard opening must not re-lay the whole piece */
+let lastAR = vpW / vpH;
+addEventListener("resize", () => {
+  const ar = Math.max(320, innerWidth) / Math.max(320, innerHeight);
+  if (Math.abs(ar - lastAR) / lastAR < 0.18) return;
+  lastAR = ar;
+  placeRail(); refreshJoin();
+  if (!S.playing) render(S.t);
+});
+
+/* ============================================================================
+   10 · EXPORT
+   ========================================================================== */
+function download(blobOrStr, name, type) {
+  const blob = blobOrStr instanceof Blob ? blobOrStr : new Blob([blobOrStr], { type: type || "application/json" });
+  const u = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = u; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(u), 4000);
+}
+function shotPlan() {
+  return {
+    title: "HALFWORLD — the landing · THE RULE, THE FIVE, THE INDEX",
+    built: new Date().toISOString(),
+    canvas: { w: CW, h: CH, fps: FPS, duration: DURATION },
+    idea: "one horizontal rule: alone, split into five contracts, wound into worlds, broken into the name, and left standing as the index",
+    palette: { paper: PAPER, ink: INK, accent: RED },
+    music: S.track ? { album: S.track.album, title: S.track.title, num: S.track.num,
+                       bpm: S.bpm, onsets: S.beats.length, snapped: S.snapped,
+                       worldsOnOnset: S.worldsOnOnset || 0 } : null,
+    sections: [
+      { n: 1, name: "THE RULE",   t0: B[0], t1: B[1] },
+      { n: 2, name: "THE FIVE",   t0: B[1], t1: B[2], type: CONTRACTS.map(c => c.n) },
+      { n: 3, name: "THE WORLDS", t0: B[2], t1: B[3] },
+      { n: 4, name: "THE NAME",   t0: B[3], t1: B[4] },
+      { n: 5, name: "THE INDEX",  t0: B[4], t1: DURATION, rests: true },
+    ],
+    nominal: NOMINAL,
+    worlds: ISLANDS.map(i => ({ at: +i.at.toFixed(3), hold: i.hold, id: i.world.id,
+                                plate: !i.world.still, still: i.world.still || null })),
+    stations: WORLDS.map(w => ({ id: w.id, label: w.label, href: w.href })),
+    join: S.join || null,
+  };
+}
+planBtn.onclick = () => download(JSON.stringify(shotPlan(), null, 1), "halfworld-landing-plan.json");
+
+let stopExport = false;
+async function exportFrames() {
+  if (S.exporting) { stopExport = true; return; }
+  pause();
+  S.exporting = true; stopExport = false;
+  framesBtn.textContent = "stop"; framesBtn.classList.add("on");
+  download(JSON.stringify(shotPlan(), null, 1), "halfworld-landing-plan.json");
+  const total = Math.round(DURATION * FPS);
+  for (let f = 0; f < total && !stopExport; f++) {
+    render(f / FPS);
+    const blob = await new Promise(res => cv.toBlob(res, "image/png"));
+    download(blob, `halfworld-landing-${String(f).padStart(5, "0")}.png`, "image/png");
+    noteEl.textContent = `frame ${f + 1} / ${total} — press stop to abort`;
+    await new Promise(r => setTimeout(r, 55));
+  }
+  S.exporting = false; framesBtn.textContent = "frames"; framesBtn.classList.remove("on");
+  noteEl.textContent = "";
+  seek(S.t);
+}
+framesBtn.onclick = exportFrames;
+S.exportFrames = exportFrames; S.shotPlan = shotPlan;
+
+/* ============================================================================
+   11 · VERIFICATION HANDLE
+   ========================================================================== */
+const hash = arr => {                            // FNV-1a over a float stream
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < arr.length; i++) {
+    const v = Math.round(arr[i] * 1000) | 0;
+    h ^= v & 255; h = Math.imul(h, 16777619) >>> 0;
+    h ^= (v >> 8) & 255; h = Math.imul(h, 16777619) >>> 0;
+    h ^= (v >> 16) & 255; h = Math.imul(h, 16777619) >>> 0;
+  }
+  return ("00000000" + h.toString(16)).slice(-8);
+};
+
+/* the geometry the piece would draw at t, flattened — no canvas involved */
+function layoutAt(t) {
+  const out = [];
+  const st = stateAt(t);
+  const isl = islandPhase(t);
+  out.push(st.N, st.delta, st.wind, st.turns, st.harm, st.amp, st.R, st.spread, st.rot, st.y, st.span, st.five);
+  if (st.explicit) out.push(st.explicit.xL, st.explicit.xR);
+  const W = wordGeo();
+  if (t >= B[4]) {
+    const segs = spineSegments(W.pieces.length);
+    W.pieces.forEach((pc, i) => {
+      const u = ease((t - (B[4] + 0.20) - R1(pc.key, "idx") * 0.42) / 1.70);
+      const [a, b, y] = segs[i];
+      for (let j = 0; j < pc.P; j++) {
+        const s = j / (pc.P - 1);
+        out.push(lerp(pc.pts[j * 2], lerp(a, b, s), u), lerp(pc.pts[j * 2 + 1], y, u));
+      }
+    });
+  } else if (t >= B[3]) {
+    const segs = ruleSegments(W.pieces.length);
+    W.pieces.forEach((pc, i) => {
+      const u = ease((t - (B[3] + 2.60) - R1(pc.key, "fly") * 0.55) / 2.20);
+      const [a, b, y] = segs[i];
+      for (let j = 0; j < pc.P; j++) {
+        const s = j / (pc.P - 1);
+        out.push(lerp(lerp(a, b, s), pc.pts[j * 2], u), lerp(y, pc.pts[j * 2 + 1], u));
+      }
+    });
+  } else if (!(isl && isl.mode === "hold")) {
+    let conv = 0;
+    if (isl && isl.mode === "approach") conv = isl.u;
+    if (isl && isl.mode === "release") conv = 1 - isl.u;
+    const sst = { ...st, converge: conv * 0.94 };
+    if (conv > 0) {
+      sst.delta = st.delta * (1 - conv * 0.92); sst.R = st.R * (1 - conv * 0.80);
+      sst.amp = st.amp * (1 - conv * 0.85); sst.wind = lerp(st.wind, 1, conv * 0.7);
+      sst.span = st.span * (1 - conv * 0.75);
+    }
+    if (!sst.explicit) {
+      const M = 96;
+      for (let k = 0; k < sst.N; k++) { const p = sampleCopy(sst, k, M); for (let i = 0; i < p.length; i++) out.push(p[i]); }
+    }
+  }
+  return out;
+}
+S.layoutHash = t => hash(layoutAt(t));
+S.determinism = (n = 24) => {
+  const ts = Array.from({ length: n }, (_, i) => +(DURATION * i / (n - 1)).toFixed(4));
+  const a = ts.map(t => S.layoutHash(t));
+  WORDGEO = null;                                  // force a full rebuild for pass 2
+  const b = ts.map(t => S.layoutHash(t));
+  return { times: ts, passA: hash(a.join("").split("").map(c => c.charCodeAt(0))),
+           passB: hash(b.join("").split("").map(c => c.charCodeAt(0))),
+           identical: a.every((h, i) => h === b[i]), hashes: a };
+};
+
+function measure(t) {
+  render(t);
+  const d = g.getImageData(0, 0, CW, CH).data;
+  let sum = 0, ink = 0, n = 0;
+  const GX = 40, GY = 24, grid = new Float64Array(GX * GY), gn = new Float64Array(GX * GY);
+  const step = 2;
+  for (let y = 0; y < CH; y += step) for (let x = 0; x < CW; x += step) {
+    const i = (y * CW + x) * 4;
+    const l = (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255;
+    sum += l; if (l < 0.5) ink++; n++;
+    const c = ((y * GY / CH) | 0) * GX + ((x * GX / CW) | 0);
+    grid[c] += l; gn[c]++;
+  }
+  for (let i = 0; i < grid.length; i++) grid[i] = gn[i] ? grid[i] / gn[i] : 0;
+  return { t: +t.toFixed(3), meanLum: +(sum / n).toFixed(4), ink: +(ink / n).toFixed(4),
+           pix: hash(grid), hash: S.layoutHash(t) };
+}
+S.measure = measure;
+S.motion = (n = 8) => {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const t = +(DURATION * (i + 0.5) / n).toFixed(3);
+    const a = measure(t), b = measure(t + 0.2);
+    const p = islandPhase(t), q = islandPhase(t + 0.2);
+    out.push({ t, ink: a.ink, meanLum: a.meanLum, section: stateAt(t).section,
+               /* a world HELD full-bleed is a still: it is supposed not to move,
+                  so the flag is reported rather than silently failing the check */
+               held: !!(p && p.mode === "hold" && q && q.mode === "hold" && p.isl === q.isl),
+               world: p && p.mode === "hold" ? p.isl.world.id : null,
+               differsFromNext: a.pix !== b.pix, nextInk: b.ink });
+  }
+  render(S.t);
+  return out;
+};
+
+/* the name: is HALFWORLD unambiguous? mask coverage and inside/outside contrast */
+S.nameContrast = (t) => {
+  const tt = t == null ? B[4] - 0.55 : t;
+  render(tt);
+  const d = g.getImageData(0, 0, CW, CH).data;
+  const W = wordGeo();
+  const m = document.createElement("canvas"); m.width = CW; m.height = CH;
+  const mg = m.getContext("2d", { willReadFrequently: true });
+  mg.fillStyle = "#000"; mg.fillRect(0, 0, CW, CH);
+  mg.strokeStyle = "#fff"; mg.lineWidth = W.weight; mg.lineCap = "butt"; mg.lineJoin = "miter";
+  for (const pc of W.pieces) {
+    mg.beginPath();
+    for (let j = 0; j < pc.P; j++) { const x = pc.pts[j * 2], y = pc.pts[j * 2 + 1]; if (j === 0) mg.moveTo(x, y); else mg.lineTo(x, y); }
+    mg.stroke();
+  }
+  const md = mg.getImageData(0, 0, CW, CH).data;
+  let inN = 0, inInk = 0, inSum = 0, outN = 0, outInk = 0, outSum = 0;
+  for (let y = 0; y < CH; y += 2) for (let x = 0; x < CW; x += 2) {
+    const i = (y * CW + x) * 4;
+    const l = (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255;
+    if (md[i] > 128) { inN++; inSum += l; if (l < 0.5) inInk++; }
+    else { outN++; outSum += l; if (l < 0.5) outInk++; }
+  }
+  render(S.t);
+  const inMean = inSum / inN, outMean = outSum / outN;
+  return { t: +tt.toFixed(3),
+           maskCoveredByInk: +(inInk / inN * 100).toFixed(2),
+           inkOutsideMask: +(outInk / outN * 100).toFixed(2),
+           insideMeanLum: +inMean.toFixed(4), outsideMeanLum: +outMean.toFixed(4),
+           contrast: +(outMean - inMean).toFixed(4),
+           weberContrast: +((outMean - inMean) / Math.max(outMean, 1e-6)).toFixed(4) };
+};
+
+S.stations = () => [...railEl.children].map((a, i) => ({
+  i, label: a.querySelector(".nm").textContent, role: a.querySelector(".role").textContent,
+  href: a.getAttribute("href"), absolute: a.href, tag: a.tagName,
+  focusable: a.tagName === "A" && a.hasAttribute("href") && a.tabIndex >= 0,
+  tabIndex: a.tabIndex,
+}));
+S.payload = () => ({ jsonBytes: S.bytes, imageBytes: S.imageBytes, audioBytes: S.audioBytes || 0,
+                     requests: S.requests });
+S.stats = () => ({
+  duration: DURATION, canvas: { w: CW, h: CH, vu: VU },
+  sections: shotPlan().sections,
+  worlds: ISLANDS.map(i => ({ at: +i.at.toFixed(3), hold: i.hold, id: i.world.id,
+                              plate: !i.world.still })),
+  platesWithoutStills: WORLDS.filter(w => !w.still).map(w => w.id),
+  onsets: S.beats.length, bpm: S.bpm, snapped: S.snapped,
+  worldsOnOnset: S.worldsOnOnset || 0,
+  track: S.track ? `${S.track.album} — ${S.track.title}` : null,
+  join: S.join, indexOpen: S.indexOpen, audio: !!S.audio,
+});
+
+/* ============================================================================
+   12 · BOOT
+   ========================================================================== */
+function loadImage(url) {
+  return new Promise((res, rej) => {
+    const im = new Image();
+    im.decoding = "async";
+    im.onload = () => { S.requests++; res(im); };
+    im.onerror = () => rej(new Error("img " + url));
+    im.src = url;
+  });
+}
+
+/* the reverse join: coming back from a world, the spine settles from the
+   geometry that world handed us rather than snapping into place */
+const BACK = (() => {
+  const raw = Q.get("line");
+  if (!raw) return null;
+  const m = { };
+  for (const part of raw.split(",")) {
+    const k = part[0], v = part.slice(1);
+    if (k === "x") { const [a, b] = v.split("-"); m.x0 = +a; m.x1 = +b; }
+    else m[k] = +v;
+  }
+  const fw = +(Q.get("fw") || CW), fh = +(Q.get("fh") || CH);
+  if (!Number.isFinite(m.y)) return null;
+  return { y: m.y * CH, t: (m.t || 0) / fh * CH,
+           x0: (m.x0 || 0) / fw * CW, x1: (m.x1 == null ? fw : m.x1) / fw * CW,
+           p: m.p || 0, m: m.m == null ? 0.0455 : m.m, from: Q.get("from") || null };
+})();
+S.handoffIn = BACK;
+
+async function boot() {
+  try {
+    buildRail();
+    buildScore();
+    scrub.max = String(DURATION);
+
+    gmsg.textContent = "one rule";
+    const od = WORLDS.find(w => w.still);
+    try {
+      S.still = await loadImage(od.still);
+      /* the weight is read off resource timing — a HEAD just to count bytes
+         would be a whole extra round-trip on a page whose point is being light */
+      const e = performance.getEntriesByType("resource").find(r => r.name.endsWith(od.still));
+      S.imageBytes = e ? (e.encodedBodySize || 0) : 0;
+    } catch (e) { S.still = null; }   /* a missing still just falls back to a plate */
+
+    S.ready = true;
+    render(0);
+    refreshJoin();
+    gmsg.textContent = SILENT ? "silent — no score" : "the rule · the five · the index";
+    goBtn.disabled = false;
+
+    const park = +(Q.get("t") || 0);
+    if (OPEN_INDEX || REDUCED) { goIndex(); }
+    else if (park > 0) { gate.classList.add("gone"); seek(park); }
+  } catch (e) {
+    S.err = String(e && e.message || e);
+    gmsg.className = "err";
+    gmsg.textContent = S.err;
+    console.error(e);
+  }
+}
+
+goBtn.onclick = async () => {
+  goBtn.disabled = true;
+  gmsg.textContent = "finding the onsets";
+  try { await S.loadScore(); } catch (e) { /* silence is survivable */ }
+  scrub.max = String(DURATION);
+  refreshJoin();
+  gate.classList.add("gone");
+  seek(0);
+  play();                                    /* inside the gesture */
+};
+
+boot();
+</script>
+</body>
+</html>

@@ -25,6 +25,19 @@
   #gate{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;gap:18px;
     align-items:center;justify-content:center;background:rgba(8,8,10,.94);padding:24px;text-align:center}
   #gate.gone{display:none}
+  /* arriving on a continued stroke, the gate must not hide the stroke */
+  #gate.join{background:transparent;justify-content:flex-end;padding-bottom:7vh;
+    pointer-events:none}
+  #gate.join>*{pointer-events:auto}
+  #gate.join .rule{display:none}
+  #gate.join p{color:var(--txt);text-shadow:0 0 6px var(--bg)}
+  /* the way back: offered only in the final dissolve, only if you came from there */
+  #back{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:5;
+    display:none;align-items:center;justify-content:center;min-height:52px;
+    padding:0 18px;border:1.5px solid #141414;background:#f4f4f0;color:#141414;
+    font:700 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+    text-decoration:none}
+  #back.on{display:inline-flex}
   #gate .rule{width:min(360px,64vw);height:2px;background:var(--txt);position:relative}
   #gate .rule i{position:absolute;left:0;top:-9px;width:2px;height:20px;background:var(--red)}
   #gate p{font-size:10.5px;letter-spacing:.26em;color:var(--dim);text-transform:uppercase}
@@ -55,6 +68,7 @@
 <div id="app">
   <div id="wrap">
     <canvas id="stage" width="1920" height="1080"></canvas>
+    <a id="back" href="halfworld-landing.html?index=1">back to the index</a>
     <div id="gate">
       <div class="rule"><i></i></div>
       <p id="gmsg">loading</p>
@@ -97,6 +111,15 @@
      ?silent=1        no audio; the nominal (unsnapped) score
      ?nosnap=1        load audio but do not snap cuts to onsets
      ?t=32            open parked at a time
+
+   THE JOIN (additive; absent these params NOTHING below changes)
+     ?line=y0.56,t8,x0-1280,p2.53,m0.0455&fw=1280&fh=720&from=halfworld
+                      halfworld-landing.html hands over the exact live geometry
+                      of its rule — y as a fraction of frame height, thickness
+                      and x span in the sender's pixels (normalised by fw/fh),
+                      the frozen harmonic phase, and the accent mark's x. The
+                      departure begins AT that geometry and travels to its own,
+                      so the stroke continues across the page boundary.
    ========================================================================== */
 import { seedOf } from "./engine/liveness.mjs";
 
@@ -110,6 +133,33 @@ const NOSNAP = Q.get("nosnap") === "1";
 const PAPER = "#f4f4f0";       // the paper (engine's PAPER)
 const INK   = "#141414";       // the ink   (engine's INK)
 const RED   = "#e01b1b";       // the one accent — nothing else has colour
+
+/* ── THE JOIN ────────────────────────────────────────────────────────────────
+   Null unless ?line= is present, and every use of it below is guarded, so the
+   unparameterised render is bit-for-bit what it always was. */
+const HAND = (() => {
+  const raw = Q.get("line");
+  if (!raw) return null;
+  const m = {};
+  for (const part of raw.split(",")) {
+    const k = part[0], v = part.slice(1);
+    if (k === "x") { const [a, b] = v.split("-"); m.x0 = +a; m.x1 = +b; }
+    else m[k] = +v;
+  }
+  if (!Number.isFinite(m.y)) return null;
+  const fw = +(Q.get("fw") || 0) || null, fh = +(Q.get("fh") || 0) || null;
+  return {
+    yF: Math.min(1, Math.max(0, m.y)),
+    /* px on the sender's frame → px on ours; without fw/fh they are taken as
+       already being in our own pixels */
+    w: Math.max(1, (m.t || 0) * (fh ? CH / fh : 1)),
+    x0: (m.x0 || 0) * (fw ? CW / fw : 1),
+    x1: (m.x1 == null ? CW : m.x1) * (fw ? CW / fw : 1),
+    phase: Number.isFinite(m.p) ? m.p : 0,
+    markF: Number.isFinite(m.m) ? Math.min(1, Math.max(0, m.m)) : 0.0455,
+    from: Q.get("from") || null,
+  };
+})();
 
 const cv = document.getElementById("stage");
 cv.width = CW; cv.height = CH;
@@ -434,6 +484,19 @@ function stateAt(t) {
     /* 1 · DEPARTURE — one rule on an empty field. It breaks from the left edge,
        travels, and then is almost too still. */
     st.section = 0;
+    if (HAND) {
+      /* …unless it did not break from anywhere: it was already drawn, on the
+         previous page, and this is the same stroke continuing. It starts at the
+         handed geometry — already there at t=0, no fade — and travels to its
+         own home over the departure. */
+      const u = ease(t / Math.max(0.8, B[1] - 0.55));
+      st.explicit = { xL: lerp(HAND.x0, cx() - homeSpan() / 2, u),
+                      xR: lerp(HAND.x1, cx() + homeSpan() / 2, u) };
+      st.explicitW = lerp(HAND.w, RULE_W(), u);
+      st.y = lerp(HAND.yF * CH, homeY(), u);
+      st.amp = 0;
+      return st;
+    }
     const grow = ease((t - 1.10) / 3.30);                    // right end travels
     const free = ease((t - 4.20) / 1.30);                    // left end lets go
     if (t < 1.10) { st.alpha = 0; }
@@ -462,7 +525,9 @@ function stateAt(t) {
     st.amp   = (0.155 + 0.130 * Math.sin(d * 0.2900 + 1.1)) * lerp(0.2, 1, openU);
     st.R     = CH * (0.300 + 0.055 * Math.sin(d * 0.1270 + 0.4)) * lerp(1, 0.86, homeU);
     st.spread = CH * 0.0125 * (1 - st.wind) * lerp(0, 1, openU);
-    st.rot   = d * 0.0740;
+    /* the harmonic keeps the phase it had when the previous page's family
+       collapsed — the continuation is of the curve, not only of the stroke */
+    st.rot   = d * 0.0740 + (HAND ? HAND.phase : 0);
     st.y = homeY() + CH * 0.012 * Math.sin(d * 0.19);
     return st;
   }
@@ -671,7 +736,15 @@ function render(t) {
   }
 
   drawAccent(t, st, isl, diss);
+  if (BACK_EL) BACK_EL.classList.toggle("on", diss > 0.15);
 }
+/* the reverse join: the final dissolve offers the way back, and hands the rule
+   back at the geometry it rests in here, so the landing's spine settles from it */
+const BACK_EL = (() => {
+  const el = document.getElementById("back");
+  if (!el || !HAND || HAND.from !== "halfworld") return null;
+  return el;
+})();
 
 function drawLine(t, st, isl) {
   if (st.alpha <= 0) return;
@@ -695,7 +768,7 @@ function drawLine(t, st, isl) {
   if (sst.explicit) {                       /* DEPARTURE: a plain rule, drawn flat */
     const { xL, xR } = sst.explicit;
     if (xR - xL > 0.5) {
-      g.lineWidth = RULE_W();
+      g.lineWidth = sst.explicitW || RULE_W();
       g.beginPath(); g.moveTo(xL, sst.y); g.lineTo(xR, sst.y); g.stroke();
     }
     g.globalAlpha = 1;
@@ -746,13 +819,16 @@ function drawRecognition(t, diss) {
 function drawAccent(t, st, isl, diss) {
   g.globalCompositeOperation = "source-over";
   const y = homeY();
-  const markX = CW * 0.0455;
-  const on = ease((t - 0.50) / 0.85);
+  /* joined: the mark is already lit, and it walks in from wherever the previous
+     page had left it, on the same clock as the rule */
+  const ju = HAND ? ease(t / Math.max(0.8, B[1] - 0.55)) : 0;
+  const markX = HAND ? lerp(HAND.markF * CW, CW * 0.0455, ju) : CW * 0.0455;
+  const on = HAND ? 1 : ease((t - 0.50) / 0.85);
   if (on > 0 && diss < 0.9) {
     g.globalAlpha = on * (1 - diss);
     g.fillStyle = RED;
     const hh = CH * 0.030, ww = Math.max(2, CH * 0.0062);
-    g.fillRect(markX - ww / 2, y - hh, ww, hh * 2);
+    g.fillRect(markX - ww / 2, (HAND && t < B[1] ? st.y : y) - hh, ww, hh * 2);
     g.globalAlpha = 1;
   }
   if (isl && isl.mode === "hold") {
@@ -1064,6 +1140,15 @@ function statusLine() {
 
 async function boot() {
   try {
+    if (HAND) {
+      gate.classList.add("join");
+      if (BACK_EL) {
+        const p = [`y${(homeY() / CH).toFixed(4)}`, `t${Math.max(1, Math.round(RULE_W()))}`,
+                   `x${Math.round(cx() - homeSpan() / 2)}-${Math.round(cx() + homeSpan() / 2)}`,
+                   `p0`, `m0.0455`].join(",");
+        BACK_EL.href = `halfworld-landing.html?index=1&line=${p}&fw=${CW}&fh=${CH}&from=odyssey`;
+      }
+    }
     gmsg.textContent = "reading the shortlist";
     S.picks = await loadPicks();
     if (!S.picks.length) throw new Error("no picks");
