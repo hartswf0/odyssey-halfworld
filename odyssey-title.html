@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>THE ASSEMBLY — ODYSSEY main title</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0c'/%3E%3Crect x='3' y='3' width='7' height='7' fill='%23f2f1ec'/%3E%3Crect x='12' y='3' width='7' height='7' fill='%23ffd75e'/%3E%3Crect x='21' y='3' width='7' height='7' fill='%23f2f1ec'/%3E%3Crect x='3' y='12' width='7' height='7' fill='%23ffd75e'/%3E%3Crect x='12' y='12' width='7' height='7' fill='%23f2f1ec'/%3E%3Crect x='21' y='12' width='7' height='7' fill='%23ffd75e'/%3E%3Crect x='3' y='21' width='7' height='7' fill='%23f2f1ec'/%3E%3Crect x='12' y='21' width='7' height='7' fill='%23ffd75e'/%3E%3Crect x='21' y='21' width='7' height='7' fill='%23f2f1ec'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0a0a0c; --paper:#f4f4f0; --ink:#141414; --txt:#f2f2ee;
+    --dim:rgba(242,242,238,.45); --line:rgba(242,242,238,.16);
+    --gold:#ffd75e; --red:#e0451b; --blue:#7fb0ff;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:var(--bg);color:var(--txt);font:13px/1.5 var(--mono);overflow:hidden}
+  #app{position:fixed;inset:0;display:flex;flex-direction:column}
+
+  /* ── THE STAGE — full bleed, one canvas, nothing else ── */
+  #stageWrap{position:relative;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;background:#000}
+  canvas#stage{display:block;width:100%;height:auto;max-height:100%;max-width:100%;
+    aspect-ratio:16/9;background:#f4f4f0;image-rendering:auto}
+
+  /* ── overlays ── */
+  #veil{position:absolute;inset:0;display:flex;flex-direction:column;gap:14px;
+    align-items:center;justify-content:center;background:rgba(10,10,12,.92);text-align:center;padding:24px;z-index:5}
+  #veil.gone{display:none}
+  #veil h1{font-size:12px;letter-spacing:.42em;font-weight:900;color:var(--gold)}
+  #veil p{font-size:11px;letter-spacing:.1em;color:var(--dim);max-width:56ch;line-height:1.8}
+  #veil p.err{color:var(--red);letter-spacing:.06em}
+  #bar{width:min(420px,72vw);height:3px;background:var(--line);position:relative}
+  #bar i{position:absolute;inset:0 auto 0 0;width:0%;background:var(--gold);display:block}
+  #veil button{min-height:52px;min-width:172px;margin-top:6px}
+
+  /* ── controls ── */
+  #ctl{flex:0 0 auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+    padding:7px 9px;border-top:1px solid var(--line);background:var(--bg)}
+  button,select{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);
+    padding:0 12px;min-height:38px;cursor:pointer;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;font-size:10.5px;white-space:nowrap}
+  button:hover{border-color:var(--gold);color:var(--gold)}
+  button.pri{background:var(--gold);color:#141414;border-color:var(--gold);font-weight:900}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  button:disabled{opacity:.35;cursor:default}
+  .mv{min-width:40px;padding:0 8px}
+  #scrub{flex:1 1 200px;min-width:120px;height:38px;accent-color:var(--gold);background:transparent}
+  #tc{font-size:10px;letter-spacing:.1em;color:var(--dim);min-width:104px;text-align:right}
+  .sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
+  #note{font-size:9px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;
+    padding:0 9px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media (max-width:820px){
+    button,select{min-height:52px;font-size:11px;padding:0 13px}
+    .mv{min-width:52px}
+    #scrub{height:52px;flex-basis:100%;order:-1}
+    #tc{min-width:88px}
+    #ctl{padding:6px}
+  }
+  @media (orientation:portrait){ #stageWrap{align-items:center} }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stageWrap">
+    <canvas id="stage" width="1920" height="1080"></canvas>
+    <div id="veil">
+      <h1>THE ASSEMBLY</h1>
+      <p id="vmsg">reading the corpus…</p>
+      <div id="bar"><i></i></div>
+      <button id="go" class="pri" disabled>PLAY THE TITLE</button>
+    </div>
+  </div>
+  <div id="ctl">
+    <button id="pp" class="pri">PLAY</button>
+    <input id="scrub" type="range" min="0" max="33" step="0.01" value="0">
+    <span id="tc">00:00.00 · I</span>
+    <span class="sep"></span>
+    <button class="mv" data-m="0">I</button>
+    <button class="mv" data-m="1">II</button>
+    <button class="mv" data-m="2">III</button>
+    <button class="mv" data-m="3">IV</button>
+    <span class="sep"></span>
+    <button id="seams">SHOW THE SEAMS</button>
+    <button id="frames">FRAMES</button>
+    <button id="plan">PLAN JSON</button>
+  </div>
+  <div id="note">—</div>
+</div>
+
+<script type="module">
+/* ============================================================================
+   THE ASSEMBLY — a main title that builds the word ODYSSEY out of this
+   project's own renders. Four movements: COLLAGE · PHOTOMONTAGE · COMPOSITE ·
+   PHOTO MOSAIC. Every tile on screen is a real render from renders/tiles,
+   carries its asset id, and the seams stay visible until the last moment.
+
+   ADDITIVE: this file reads viewer/title-tiles.json, renders/, audio/ and
+   engine/liveness.mjs. It writes nothing.
+
+   DETERMINISM: there is no Math.random in this file. Every scatter, rotation,
+   ordering and stagger is a pure function of an id through seedOf(), so the
+   sequence renders identically every run and can be re-recorded frame for
+   frame. Verify with window.__title.determinism().
+   ========================================================================== */
+
+/* ── seedOf: prefer the engine's own hash so the title shares the film's
+      liveness seeds. Fall back to a byte-identical inline copy if the module
+      cannot be imported (file:// with no server). ── */
+function seedOfLocal(id){
+  const s = String(id == null ? "" : id);
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  h ^= h >>> 16; h = Math.imul(h, 2246822507) >>> 0;
+  h ^= h >>> 13; h = Math.imul(h, 3266489909) >>> 0;
+  h = (h ^ (h >>> 16)) >>> 0;
+  return h / 4294967296;
+}
+let seedOf = seedOfLocal, SEED_SOURCE = "inline-fallback";
+try{
+  const m = await import("./engine/liveness.mjs");
+  if (typeof m.seedOf === "function"){ seedOf = m.seedOf; SEED_SOURCE = "engine/liveness.mjs"; }
+}catch(e){ /* keep the fallback */ }
+
+/* ── constants ─────────────────────────────────────────────────────────── */
+/* W,H are the DESIGN space every drawing routine works in. The canvas itself
+   may be a different pixel size (?w=1920 by default — standard delivery;
+   ?w=2400 for a bigger master); render() applies the one transform that maps
+   design units onto canvas pixels, so nothing else has to know. */
+const W = 2400, H = 1350;
+const PAPER = "#f4f4f0", INK = "#141414", ACCENT = "#0033cc", DIM = "#8a8a86";
+const Q = new URLSearchParams(location.search);
+const CW = Math.max(640, Math.min(3840, +Q.get("w") || 1920)), CH = Math.round(CW * H / W);
+const KX = CW / W, KY = CH / H;
+const TILES_URL = Q.get("tiles") || "viewer/title-tiles.json";
+const LIMIT = Q.get("limit") ? Math.max(8, +Q.get("limit")) : 0;
+const NOSNAP = Q.get("nosnap") === "1";
+const FPS = 30;
+
+const CONTENT = { x: 84, y: 150, w: W - 168, h: H - 150 - 128 };
+const WORD = "ODYSSEY";
+const PUNCH_LETTER = 1;                      // the D — punch in on it at the end
+
+/* nominal movement boundaries in seconds; snapped to the track's beats below */
+const NOMINAL = [0, 6, 13, 20, 30];
+let B = NOMINAL.slice();                     // [I0, II0, III0, IV0, OUT0]
+let DURATION = 33;
+
+/* a stable 0..1 from (id, salt) — the only source of "randomness" here */
+const R = (id, salt) => seedOf(id + "" + salt);
+
+const clamp = (v,a,b)=> v<a?a:(v>b?b:v);
+const clamp01 = v => clamp(v,0,1);
+const lerp = (a,b,t)=> a + (b-a)*t;
+const smooth = t => { t = clamp01(t); return t*t*(3-2*t); };
+const easeInOut = t => { t = clamp01(t); return t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; };
+const easeOut = t => { t = clamp01(t); return 1 - Math.pow(1-t, 3); };
+
+/* ── DOM ───────────────────────────────────────────────────────────────── */
+const cv = document.getElementById("stage");
+cv.width = CW; cv.height = CH;                 // explicit pixel size, always
+const ctx = cv.getContext("2d", { alpha:false, willReadFrequently:true });
+/* a 2400×1350 surface plus ~1,300 bitmaps is enough for the browser to drop
+   the 2D context under memory pressure; say so instead of showing a black
+   frame, and repaint the moment it comes back */
+cv.addEventListener("contextlost", e => { e.preventDefault();
+  if (noteEl) noteEl.textContent = "CANVAS CONTEXT LOST — restoring…"; });
+cv.addEventListener("contextrestored", () => {
+  if (noteEl) noteEl.textContent = statusLine(); render(S.t); });
+const veil = document.getElementById("veil"), vmsg = document.getElementById("vmsg");
+const barI = document.querySelector("#bar i"), goBtn = document.getElementById("go");
+const ppBtn = document.getElementById("pp"), scrub = document.getElementById("scrub");
+const tcEl = document.getElementById("tc"), noteEl = document.getElementById("note");
+const seamsBtn = document.getElementById("seams"), framesBtn = document.getElementById("frames");
+const planBtn = document.getElementById("plan");
+
+/* ── state ─────────────────────────────────────────────────────────────── */
+const S = {
+  tiles: [], live: [], byKind: {}, ready:false, err:null,
+  mask:null, mosaic:null, seams:false, t:0, playing:false, exporting:false,
+  audio:null, track:null, beats:[], bpm:0, firstFrame:null, snapped:false,
+  loaded:0, failed:0, meanPolarity:"luminance"
+};
+window.__title = S;
+
+/* ============================================================================
+   1 · THE CORPUS
+   ========================================================================== */
+async function loadManifest(){
+  let doc;
+  try{
+    const res = await fetch(TILES_URL, { cache:"no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    doc = await res.json();
+  }catch(e){
+    throw new Error("Cannot read " + TILES_URL + " — " + e.message);
+  }
+  if (!doc || !Array.isArray(doc.tiles) || !doc.tiles.length)
+    throw new Error(TILES_URL + " has no tiles[]");
+  S.built = doc.built || "?";
+  let tiles = doc.tiles.map((t,i)=>({
+    file: t.file, id: t.id || t.file, kind: t.kind || "asset", type: t.type || "?",
+    book: (+t.book) || 1, t: (t.t == null ? null : +t.t),
+    mean: (typeof t.mean === "number" ? t.mean : 0.8),
+    w: +t.w || 220, h: +t.h || 220, idx: i
+  }));
+  if (LIMIT) tiles = tiles.filter((_,i)=> i % Math.ceil(tiles.length/LIMIT) === 0);
+  S.tiles = tiles;
+  return tiles;
+}
+
+/* MEMORY. 886 tiles × two sizes × a crushed copy is more bitmap than a 2D
+   canvas heap will hold — hold them as ImageBitmaps (texture memory, not
+   canvas quota) and let createImageBitmap do the downscale. Keeping these as
+   <canvas> is what makes Chrome drop the 2D context mid-sequence. */
+const THUMB_MAX = 168, MICRO_MAX = 40;
+const fitTo = (w,h,max) => { const s = Math.min(1, max/Math.max(w,h));
+  return [Math.max(1,Math.round(w*s)), Math.max(1,Math.round(h*s))]; };
+
+const scratch = document.createElement("canvas");
+scratch.width = scratch.height = 48;
+const sctx = scratch.getContext("2d", { willReadFrequently:true });
+/* mean luminance of an image source, 0=black 1=white */
+function measure(img){
+  sctx.fillStyle = PAPER; sctx.fillRect(0,0,48,48);
+  sctx.drawImage(img, 0, 0, 48, 48);
+  const d = sctx.getImageData(0,0,48,48).data;
+  let s = 0; for (let i=0;i<d.length;i+=4) s += (d[i]*.299 + d[i+1]*.587 + d[i+2]*.114);
+  return s / (48*48) / 255;
+}
+
+async function loadImages(tiles, onProgress){
+  let next = 0;
+  async function worker(){
+    for(;;){
+      const k = next++; if (k >= tiles.length) return;
+      const T = tiles[k];
+      try{
+        const res = await fetch(T.file, { cache:"force-cache" });
+        if (!res.ok) throw new Error(res.status);
+        const blob = await res.blob();
+        const probe = await createImageBitmap(blob);
+        T.w = probe.width; T.h = probe.height;
+        const [tw,th] = fitTo(T.w, T.h, THUMB_MAX), [mw,mh] = fitTo(T.w, T.h, MICRO_MAX);
+        T.thumb = await createImageBitmap(probe, { resizeWidth:tw, resizeHeight:th, resizeQuality:"high" });
+        T.micro = await createImageBitmap(probe, { resizeWidth:mw, resizeHeight:mh, resizeQuality:"high" });
+        probe.close && probe.close();
+        T.lumMeasured = measure(T.micro);
+        S.loaded++;
+      }catch(e){ T.missing = true; S.failed++; }
+      onProgress(S.loaded + S.failed, tiles.length);
+    }
+  }
+  await Promise.all(Array.from({length:8}, worker));
+}
+
+/* The manifest's `mean` may be mean LUMINANCE or mean INK depending on who
+   wrote it. Decide once, by correlating it against luminance we measured
+   ourselves, and record the verdict rather than guessing silently. */
+function resolveMeanPolarity(live){
+  let sx=0, sy=0, n=0;
+  for (const T of live){ if (T.lumMeasured == null) continue; sx += T.mean; sy += T.lumMeasured; n++; }
+  if (!n) return;
+  const mx = sx/n, my = sy/n; let cov = 0;
+  for (const T of live){ if (T.lumMeasured == null) continue; cov += (T.mean-mx)*(T.lumMeasured-my); }
+  S.meanPolarity = cov >= 0 ? "luminance" : "ink";
+  for (const T of live) T.lum = clamp01(S.meanPolarity === "luminance" ? T.mean : 1 - T.mean);
+}
+
+/* ============================================================================
+   2 · LAYOUTS — grid (I), montage (II), composite (III). All deterministic.
+   ========================================================================== */
+function drawBox(T, boxW, boxH){                       // fit keeping aspect
+  const a = (T.w || 1) / (T.h || 1);
+  let w = boxW, h = w / a;
+  if (h > boxH){ h = boxH; w = h * a; }
+  return { w, h };
+}
+
+const KIND_DEPTH = {                                   // rooms behind, bodies in front
+  environment:0, location:.06, set_piece:.16, scene:.26, vehicle:.38,
+  sound_source:.46, prop:.55, wearable:.62, creature:.70, ensemble:.78,
+  divine_fx:.86, character:.94
+};
+
+function buildLayouts(live){
+  const n = live.length;
+
+  /* — I · the strict grid, in corpus order — */
+  const cols = Math.max(1, Math.ceil(Math.sqrt(n * CONTENT.w / CONTENT.h)));
+  const rows = Math.ceil(n / cols);
+  const cw = CONTENT.w / cols, ch = CONTENT.h / rows;
+  const gridPad = Math.min(cw, ch) * 0.10;
+
+  /* — II · book clusters, 6 across × 4 down — */
+  const BC = 6, BR = 4;
+  const bw = CONTENT.w / BC, bh = CONTENT.h / BR;
+
+  live.forEach((T, i) => {
+    const r = Math.floor(i / cols), c = i % cols;
+    const box = drawBox(T, cw - gridPad*2, ch - gridPad*2);
+    T.grid = { x: CONTENT.x + (c+.5)*cw, y: CONTENT.y + (r+.5)*ch, w: box.w, h: box.h, rot:0 };
+    /* accelerating cadence: single tiles you can read at the head, hundreds a
+       second at the tail, the whole catalogue standing complete for the last
+       ~0.8s of the movement before it is torn up */
+    T.appear = (B[1] - 0.8) * Math.pow(i / Math.max(1, n-1), 0.35);
+    T.col = c; T.row = r;
+
+    /* montage */
+    const b = clamp(T.book, 1, 24) - 1;
+    const bc = b % BC, br = Math.floor(b / BC);
+    const jx = R(T.id, "mx") - .5, jy = R(T.id, "my") - .5;
+    const grow = lerp(1.55, 2.45, R(T.id, "mg"));
+    const mbox = drawBox(T, (cw - gridPad*2) * grow, (ch - gridPad*2) * grow);
+    T.mont = {
+      x: CONTENT.x + (bc + .5) * bw + jx * bw * .97,
+      y: CONTENT.y + (br + .5) * bh + jy * bh * .90,
+      w: mbox.w, h: mbox.h,
+      rot: (R(T.id, "mr") - .5) * 0.19
+    };
+    T.mz = (KIND_DEPTH[T.type] != null ? KIND_DEPTH[T.type] : .5) + R(T.id,"mzz")*.05;
+
+    /* composite — one ground plane, depth from kind, x spread by book */
+    const d = clamp01(T.mz * .82 + R(T.id, "cd") * .18);
+    const gy = lerp(CONTENT.y + CONTENT.h * .13, CONTENT.y + CONTENT.h * .995, Math.pow(d, 1.18));
+    const sc = lerp(1.15, 2.55, Math.pow(d, 1.1));
+    const cbox = drawBox(T, (cw - gridPad*2) * sc, (ch - gridPad*2) * sc);
+    const bx = (b + R(T.id, "cx")) / 24;
+    T.comp = {
+      x: CONTENT.x + CONTENT.w * (0.035 + bx * 0.93),
+      y: gy - cbox.h * .5,
+      w: cbox.w, h: cbox.h, rot: (R(T.id, "cr") - .5) * 0.028, d
+    };
+    T.breakV = { x: (R(T.id,"bx")-.5) * 260, y: (R(T.id,"by")-.5) * 180 };
+  });
+
+  S.drawOrderMont = live.map((T,i)=>i).sort((a,b)=>
+    (live[a].mz - live[b].mz) || (live[a].id < live[b].id ? -1 : 1));
+  S.drawOrderComp = live.map((T,i)=>i).sort((a,b)=>
+    (live[a].comp.d - live[b].comp.d) || (live[a].id < live[b].id ? -1 : 1));
+  S.gridDims = { cols, rows, cw, ch };
+}
+
+/* ============================================================================
+   3 · THE LETTERFORM MASK
+   ========================================================================== */
+const FONT = (px) => `900 ${px}px "Helvetica Neue", Helvetica, "Arial Black", Arial, sans-serif`;
+
+function buildMask(){
+  const m = document.createElement("canvas"); m.width = W; m.height = H;
+  const g = m.getContext("2d", { willReadFrequently:true });
+  g.fillStyle = "#fff"; g.fillRect(0,0,W,H);
+
+  const TRACK = 0.185;                                  // letterspacing, em
+  const widthAt = (s) => {
+    g.font = FONT(s);
+    let w = 0; for (const ch of WORD) w += g.measureText(ch).width;
+    return w + TRACK * s * (WORD.length - 1);
+  };
+  let size = 400;
+  size = size * (W * 0.945) / widthAt(size);            // one linear fit is exact
+  g.font = FONT(size);
+  const mm = g.measureText("H");
+  const cap = (mm.actualBoundingBoxAscent || size*0.72);
+  const total = widthAt(size);
+  const x0 = (W - total) / 2, baseline = H/2 + cap/2;
+
+  g.fillStyle = "#000"; g.textBaseline = "alphabetic"; g.textAlign = "left";
+  const letters = []; let x = x0;
+  for (const ch of WORD){
+    const w = g.measureText(ch).width;
+    g.fillText(ch, x, baseline);
+    letters.push({ ch, x0:x, x1:x+w, y0: baseline - cap, y1: baseline });
+    x += w + TRACK * size;
+  }
+  const px = g.getImageData(0,0,W,H).data;
+  return { canvas:m, data:px, letters, size, cap, baseline, x0, total };
+}
+
+/* ============================================================================
+   4 · THE MOSAIC
+   ---------------------------------------------------------------------------
+   THE TONAL PROBLEM. This corpus is warm paper with a hard black contour, so
+   in aggregate it reads LIGHT: median mean luminance 0.76, exactly one tile
+   below 0.4. Choosing tiles by nearest mean against the letterform mask would
+   give a soft grey word on a slightly-less-grey ground — a mosaic on paper, a
+   smudge on screen.
+
+   THE FIX, which the corpus itself supports:
+     · the LETTER STROKES are built from SCENE FRAMES — crowded stages, ordered
+       dots filling the field, the dark reservoir — and each stroke tile is
+       drawn from a pre-crushed copy (contrast+brightness) so its edges land
+       hard;
+     · the surrounding GROUND is built from ASSET tiles — one figure on paper,
+       the light reservoir — drawn untreated and faded, on a coarser grid.
+   The separation between a treated stroke reservoir and an untreated ground
+   reservoir IS the legibility; verify it with __title.contrast().
+
+   ASPECT. Asset tiles are 165×220 and scene tiles 220×149. Cells are square,
+   so every tile is CENTRE-CROPPED to square (cover, never letterboxed) —
+   decided once here so the mosaic grid stays a true grid.
+   ========================================================================== */
+const DARK_MIN = 0.14;                                  // stroke-cell ink floor
+const GROUND_MAX = 0.02;                                // ground-cell ink ceiling
+const GROUND_MULT = 3.15;                               // ground grid is coarser
+
+/* crush a tile toward the stroke look: hard black, paper burnt out.
+   Returns an ImageBitmap — the working canvas is reused and thrown away. */
+const crushCv = document.createElement("canvas");
+const crushG = crushCv.getContext("2d");
+async function crush(src){
+  crushCv.width = src.width; crushCv.height = src.height;
+  crushG.fillStyle = PAPER; crushG.fillRect(0,0,src.width,src.height);
+  crushG.filter = "grayscale(1) contrast(1.85) brightness(0.58)";
+  crushG.drawImage(src, 0, 0);
+  crushG.filter = "none";
+  return await createImageBitmap(crushCv);
+}
+
+function sampleGrid(mask, cell, keep){
+  const cols = Math.floor(W / cell), rows = Math.floor(H / cell);
+  const ox = (W - cols*cell)/2, oy = (H - rows*cell)/2;
+  const cells = []; const step = Math.max(1, Math.floor(cell/4));
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++){
+    const px0 = Math.floor(ox + c*cell), py0 = Math.floor(oy + r*cell);
+    let ink = 0, n = 0;
+    for (let y=py0; y<py0+cell; y+=step) for (let x=px0; x<px0+cell; x+=step){
+      if (x<0||y<0||x>=W||y>=H) { n++; continue; }
+      ink += 1 - mask.data[(y*W + x)*4] / 255; n++;
+    }
+    ink = n ? ink/n : 0;
+    if (keep(ink)) cells.push({ c, r, ink,
+      x: ox + (c+.5)*cell, y: oy + (r+.5)*cell, size: cell });
+  }
+  return cells;
+}
+
+/* deterministic scattered visiting order — each pass of a reservoir spreads
+   across the whole word instead of banding one row at a time */
+const visitOrder = cells => cells.map((_,i)=>i)
+  .sort((a,b)=> R(cells[a].c+":"+cells[a].r, "ord") - R(cells[b].c+":"+cells[b].r, "ord") || (a-b));
+
+function reservoirs(live){
+  const isScene = T => T.kind === "scene" || T.type === "scene";
+  let dark = live.map((T,i)=>i).filter(i => isScene(live[i]));
+  let light = live.map((T,i)=>i).filter(i => !isScene(live[i]));
+  let how = "kind: scene→strokes, asset→ground";
+  if (dark.length < 24 || light.length < 24){          // manifest without scenes
+    const s = live.map((T,i)=>i).sort((a,b)=> live[a].lum - live[b].lum);
+    const half = Math.floor(s.length/2);
+    dark = s.slice(0, Math.max(1,half)); light = s.slice(Math.max(1,half));
+    how = "fallback: median luminance split";
+  }
+  return { dark, light, how };
+}
+
+function buildMosaic(mask, live){
+  /* adaptive cell size: land the stroke-cell count inside 3,000–6,000 */
+  let lo = 3.0, hi = 22.0, cell = 8, cells = [];
+  const keepDark = ink => ink >= DARK_MIN;
+  for (let it=0; it<16; it++){
+    cell = (lo + hi) / 2;
+    cells = sampleGrid(mask, cell, keepDark);
+    if (cells.length > 5200) lo = cell; else if (cells.length < 3600) hi = cell; else break;
+    if (hi - lo < 0.05) break;
+  }
+  const ground = sampleGrid(mask, cell * GROUND_MULT, ink => ink <= GROUND_MAX);
+
+  const res = reservoirs(live);
+  const order = visitOrder(cells), gorder = visitOrder(ground);
+  const assign  = assignTiles(cells,  order,  res.dark,  live, T => T.lumDark);
+  const gassign = assignTiles(ground, gorder, res.light, live, T => T.lum);
+
+  const wire = (cl, ti, saltA, tShift, durA, durB) => {
+    const T = live[ti];
+    cl.tile = ti; cl.tileId = T.id; cl.book = T.book;
+    const key = saltA + cl.c + ":" + cl.r;
+    cl.key = key;
+    cl.sx = T.comp.x + (R(key,"sx") - .5) * T.comp.w * .9;
+    cl.sy = T.comp.y + T.comp.h*.5 + (R(key,"sy") - .5) * T.comp.h * .9;
+    cl.arcK = (R(key,"arc") - .5) * 0.42;
+    cl.dur = lerp(durA, durB, R(key,"dur"));
+    const wave = (cl.x / W) * 2.35;                     // the left-to-right wave
+    let start = B[3] + tShift + wave + R(key,"jit") * 0.26;
+    let arrive = start + cl.dur;
+    const snapped = snapToBeat(arrive, 0.22);           // land on a beat
+    if (snapped != null){ arrive = snapped; start = arrive - cl.dur; }
+    cl.t0 = start; cl.t1 = arrive;
+  };
+  cells.forEach((cl,i)=> wire(cl, assign[i], "S", 0.80, 1.15, 1.60));
+  ground.forEach((cl,i)=> wire(cl, gassign[i], "G", 0.20, 0.95, 1.35));
+
+  const draw  = cells.map((_,i)=>i).sort((a,b)=> cells[a].t1 - cells[b].t1 || (a-b));
+  const gdraw = ground.map((_,i)=>i).sort((a,b)=> ground[a].t1 - ground[b].t1 || (a-b));
+  const used = new Set([...cells.map(c=>c.tile), ...ground.map(c=>c.tile)]);
+  return { cell, cells, ground, order, gorder, drawOrder:draw, groundOrder:gdraw,
+    reservoirs: { how: res.how, stroke: res.dark.length, ground: res.light.length },
+    distinct: new Set(cells.map(c=>c.tile)).size,
+    distinctGround: new Set(ground.map(c=>c.tile)).size,
+    distinctAll: used.size,
+    lastArrival: cells.reduce((m,c)=>Math.max(m,c.t1), 0) };
+}
+
+/* The assignment itself, isolated so it can be run twice and compared.
+   `pool` is a list of indices into `live` — one reservoir. Nothing repeats
+   until the whole reservoir has been spent, then it refills. */
+function assignTiles(cells, order, poolIdx, live, lumOf){
+  const sorted = poolIdx.slice().sort((a,b)=>
+    (lumOf(live[a]) - lumOf(live[b])) || (live[a].id < live[b].id ? -1 : 1));
+  let pool = sorted.slice();
+  const out = new Array(cells.length);
+  for (const i of order){
+    if (!pool.length) pool = sorted.slice();               // cycle the reservoir
+    const target = clamp01(1 - cells[i].ink);              // wanted luminance
+    let lo = 0, hi = pool.length - 1;
+    while (lo < hi){ const mid = (lo+hi) >> 1; if (lumOf(live[pool[mid]]) < target) lo = mid+1; else hi = mid; }
+    let best = lo;
+    if (lo > 0 && Math.abs(lumOf(live[pool[lo-1]]) - target) <= Math.abs(lumOf(live[pool[lo]]) - target)) best = lo-1;
+    out[i] = pool[best];
+    pool.splice(best, 1);
+  }
+  return out;
+}
+
+/* ============================================================================
+   5 · MUSIC — one album track, cheap RMS onset detection, boundaries snapped
+   ========================================================================== */
+function snapToBeat(t, tol){
+  if (!S.beats.length) return null;
+  let best = null, bd = Infinity;
+  for (const b of S.beats){ const d = Math.abs(b - t); if (d < bd){ bd = d; best = b; } }
+  return bd <= tol ? best : null;
+}
+
+async function loadAudio(){
+  let albums;
+  try{ albums = (await (await fetch("audio/albums.json")).json()).albums || []; }
+  catch(e){ return null; }
+  const want = Q.get("track");
+  let album = albums.find(a=>a.id === "bronze-council") || albums[0];
+  let track = null;
+  if (want){
+    const [maybeAlbum, maybeNum] = want.includes(":") ? want.split(":") : [null, want];
+    if (maybeAlbum){ const a = albums.find(a=>a.id === maybeAlbum); if (a) album = a; }
+    const num = +maybeNum;
+    track = Number.isFinite(num) && num > 0
+      ? (album.tracks.find(t=>t.num === num) || album.tracks[num-1])
+      : album.tracks.find(t => (t.title||"").toLowerCase().includes(String(want).toLowerCase()));
+  }
+  if (!track) track = album.tracks.find(t=>t.num === 1) || album.tracks[0];
+  if (!track) return null;
+  const url = album.dir.split("/").map(encodeURIComponent).join("/") + "/" + encodeURIComponent(track.file);
+  S.track = { album: album.name, title: track.title, num: track.num, url };
+
+  /* decode for onsets — decodeAudioData works on a suspended context, so this
+     needs no gesture. play() is never called here; see arm(). */
+  try{
+    const buf = await (await fetch(url)).arrayBuffer();
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ac = new AC();
+    const ab = await ac.decodeAudioData(buf.slice(0));
+    S.beats = detectBeats(ab);
+    ac.close && ac.close();
+  }catch(e){ S.beats = []; }
+
+  const a = new Audio();
+  a.preload = "auto"; a.src = url;                    // src set BEFORE any play()
+  S.audio = a;
+  return S.track;
+}
+
+/* RMS envelope → local peaks → onsets, plus a crude tempo from the modal gap */
+function detectBeats(ab){
+  const ch = ab.getChannelData(0), sr = ab.sampleRate;
+  const hop = Math.round(sr * 0.01161);                 // ~86 frames/s
+  const n = Math.floor(Math.min(ch.length, sr * 45) / hop);
+  const env = new Float32Array(n);
+  for (let i=0;i<n;i++){
+    let s = 0; const a0 = i*hop, a1 = a0+hop;
+    for (let j=a0;j<a1;j++){ const v = ch[j]; s += v*v; }
+    env[i] = Math.sqrt(s/hop);
+  }
+  const flux = new Float32Array(n);
+  for (let i=1;i<n;i++) flux[i] = Math.max(0, env[i] - env[i-1]);
+  const beats = []; const win = 18;
+  for (let i=win;i<n-win;i++){
+    let mean = 0, peak = true;
+    for (let j=i-win;j<=i+win;j++){ mean += flux[j]; if (flux[j] > flux[i]) peak = false; }
+    mean /= (win*2+1);
+    if (peak && flux[i] > mean * 1.85 && flux[i] > 0.004){
+      const t = i*hop/sr;
+      if (!beats.length || t - beats[beats.length-1] > 0.17) beats.push(+t.toFixed(4));
+    }
+  }
+  const gaps = [];
+  for (let i=1;i<beats.length;i++) gaps.push(beats[i]-beats[i-1]);
+  gaps.sort((a,b)=>a-b);
+  const med = gaps.length ? gaps[Math.floor(gaps.length/2)] : 0;
+  S.bpm = med > 0.05 ? Math.round(60/med) : 0;
+  return beats;
+}
+
+/* snap the four boundaries to the nearest onset — musical seconds, not wall
+   seconds. Deterministic: same track file → same envelope → same boundaries. */
+function snapBoundaries(){
+  if (NOSNAP || !S.beats.length) return false;
+  const out = NOMINAL.slice();
+  for (let i=1;i<out.length;i++){
+    const s = snapToBeat(NOMINAL[i], 0.8);
+    if (s != null && (i === 1 || s > out[i-1] + 2.5)) out[i] = +s.toFixed(3);
+  }
+  B = out; DURATION = +(B[4] + 3).toFixed(3);
+  scrub.max = String(DURATION);
+  return true;
+}
+
+/* ============================================================================
+   6 · DRAWING
+   ========================================================================== */
+function poseOf(T, t){
+  if (t < B[1]){
+    if (t < T.appear) return null;
+    const p = smooth((t - T.appear) / 0.20);
+    return { x:T.grid.x, y:T.grid.y, w:T.grid.w*(1+.13*(1-p)), h:T.grid.h*(1+.13*(1-p)),
+             rot:0, a:p, phase:0 };
+  }
+  const s = R(T.id, "st");
+  const u1 = smooth((t - (B[1] + s*2.15)) / 1.45);
+  const g = T.grid, m = T.mont, c = T.comp;
+  let x = lerp(g.x, m.x, u1), y = lerp(g.y, m.y, u1);
+  let w = lerp(g.w, m.w, u1), h = lerp(g.h, m.h, u1);
+  let rot = lerp(0, m.rot, u1), phase = u1;
+  if (t >= B[2]){
+    const u2 = smooth((t - (B[2] + R(T.id,"st2")*1.55)) / 1.70);
+    x = lerp(x, c.x, u2); y = lerp(y, c.y + c.h*.5, u2);
+    w = lerp(w, c.w, u2); h = lerp(h, c.h, u2);
+    rot = lerp(rot, c.rot, u2); phase = 1 + u2;
+  }
+  if (t > B[3] - 1.4){                                  // begin to break apart
+    const u3 = smooth((t - (B[3] - 1.4)) / 1.4);
+    x += T.breakV.x * u3; y += T.breakV.y * u3;
+    rot += (R(T.id,"br")-.5) * .12 * u3;
+    phase = 2 + u3;
+  }
+  let a = 1;
+  if (t >= B[3]) a = 1 - smooth((t - (B[3] + 0.2)) / 2.2);
+  return a <= 0 ? null : { x, y, w, h, rot, a, phase };
+}
+
+const LBL_FONT = Array.from({length:18}, (_,i)=> `700 ${i}px ui-monospace,Menlo,monospace`);
+function drawTileAt(g, T, p, opts){
+  const img = T.thumb; if (!img) return;
+  g.save();
+  g.globalAlpha = p.a * (opts.alpha == null ? 1 : opts.alpha);
+  g.translate(p.x, p.y);
+  if (p.rot) g.rotate(p.rot);
+  const w = p.w, h = p.h, x = -w/2, y = -h/2;
+  if (opts.shadow){
+    /* hard shadow, no blur — and only the two bands that actually show past
+       the tile. A full rect under an opaque tile is pure wasted fill, and at
+       ~900 tiles a frame fill rate is the whole cost of this sequence. */
+    const d = opts.shadow;
+    g.fillStyle = "rgba(18,18,18,.42)";
+    g.fillRect(x + w, y + d, d, h);
+    g.fillRect(x + d, y + h, w, d);
+  }
+  /* NOTE: no PAPER backing rect and no imageSmoothingQuality="high". The tile
+     PNGs are fully opaque so the rect never shows, and asking for the
+     high-quality resample on ~900 drawImages costs ~170ms a frame — it is the
+     difference between 5fps and 60fps in movements II and III. */
+  g.drawImage(img, x, y, w, h);
+  if (opts.border > 0){
+    g.globalAlpha = p.a * opts.border;
+    g.strokeStyle = INK; g.lineWidth = Math.max(1, w*0.006);
+    g.strokeRect(x, y, w, h);
+  }
+  if (opts.label && h > 22){
+    /* quantised to whole px and pulled from a fixed table: assigning a NEW
+       font string ~1,800 times a frame costs ~80ms in Chrome, because every
+       distinct string is re-parsed. Nine strings, reused, costs nothing. */
+    const fs = Math.round(clamp(h * 0.085, 5, 13));
+    g.globalAlpha = p.a * clamp01(opts.border + .25);
+    g.fillStyle = INK; g.font = LBL_FONT[fs];
+    g.textAlign = "left"; g.textBaseline = "top";
+    const s = shortId(T.id);
+    g.fillText(s, x + fs*.35, y + fs*.3, w - fs*.7);
+    if (opts.book){
+      g.fillStyle = ACCENT; g.textAlign = "right";
+      g.fillText(roman(T.book), x + w - fs*.35, y + fs*.3);
+    }
+  }
+  g.restore();
+}
+
+function shortId(id){
+  const s = String(id);
+  const dot = s.lastIndexOf(".");
+  return (dot >= 0 ? s.slice(dot+1) : s).slice(0, 18);
+}
+/* the shortest id that is still an id — "OD-B11-S04" → "B11-S04" */
+const tinyId = id => String(id).replace(/^OD-/, "").replace(/^[a-z_]+\./, "").slice(0, 9);
+const ROMAN = ["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV",
+  "XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
+const roman = n => ROMAN[clamp(n|0,0,24)] || String(n);
+
+function drawCorpus(g, t){
+  const live = S.live;
+  const seams = S.seams;
+  const inComp = t >= B[2] + 0.6;
+  let border = 1, label = t < B[2] + 1.2, shadow = 0, alpha = 1;
+  if (t >= B[1]){ shadow = clamp(smooth((t - B[1]) / 1.6) * 16, 0, 16); }
+  if (t >= B[2]){
+    const k = smooth((t - B[2] - .4) / 2.1);
+    border = seams ? 1 : 1 - k*0.94;
+    shadow = shadow * (1 - k);
+    label = seams;
+  }
+  if (t >= B[3]) alpha = 1 - smooth((t - (B[3] + 0.2)) / 2.2);
+  if (alpha <= 0) return;
+
+  /* the ground plane the composite resolves onto */
+  if (t >= B[2] + .3){
+    const k = smooth((t - B[2] - .3) / 1.5) * alpha;
+    g.save(); g.globalAlpha = k * .5;
+    g.strokeStyle = INK; g.lineWidth = 3;
+    const hy = CONTENT.y + CONTENT.h * .13;
+    g.beginPath(); g.moveTo(CONTENT.x, hy); g.lineTo(CONTENT.x + CONTENT.w, hy); g.stroke();
+    g.globalAlpha = k * .12; g.fillStyle = INK;
+    for (let i=0;i<9;i++){
+      const yy = hy + Math.pow(i/9, 1.7) * (CONTENT.h*.86);
+      g.fillRect(CONTENT.x, yy, CONTENT.w, 1.5);
+    }
+    g.restore();
+  }
+
+  const order = t >= B[2] ? S.drawOrderComp : (t >= B[1] ? S.drawOrderMont : null);
+  g.save();
+  if (inComp && !seams) g.globalCompositeOperation = "multiply";
+  const seq = order || live.map((_,i)=>i);
+  for (const i of seq){
+    const T = live[i];
+    const p = poseOf(T, t); if (!p) continue;
+    drawTileAt(g, T, p, {
+      border: t < B[1] ? (S.seams ? 1 : .55) : border,
+      label, shadow: t >= B[1] && t < B[2]+1.2 ? shadow : 0,
+      alpha, book: t >= B[1]
+    });
+  }
+  g.restore();
+}
+
+/* cover-crop a tile canvas into a square cell */
+function drawSquare(g, img, x, y, s){
+  const hs = s/2, ia = img.width / img.height;
+  let sw = img.width, sh = img.height, sx = 0, sy = 0;
+  if (ia > 1){ sw = img.height; sx = (img.width - sw)/2; }
+  else if (ia < 1){ sh = img.width; sy = (img.height - sh)/2; }
+  g.drawImage(img, sx, sy, sw, sh, x-hs, y-hs, s, s);
+}
+
+function flightPos(cl, p){
+  if (p >= 1) return { x:cl.x, y:cl.y, sz:cl.size };
+  const mx = (cl.sx + cl.x)/2, my = (cl.sy + cl.y)/2;
+  const dx = cl.x - cl.sx, dy = cl.y - cl.sy;
+  const kx = mx - dy * cl.arcK, ky = my + dx * cl.arcK;
+  const q = 1 - p;
+  return { x: q*q*cl.sx + 2*q*p*kx + p*p*cl.x,
+           y: q*q*cl.sy + 2*q*p*ky + p*p*cl.y,
+           sz: lerp(cl.size * 3.6, cl.size, p) };
+}
+
+function drawMosaic(g, t){
+  const M = S.mosaic; if (!M) return;
+  const zoom = punchZoom(t);
+  g.save();
+  if (zoom.k > 1.0001){
+    g.translate(W/2, H/2); g.scale(zoom.k, zoom.k); g.translate(-zoom.cx, -zoom.cy);
+  }
+  const vis = zoom.k > 1.0001
+    ? { x0: zoom.cx - W/(2*zoom.k) - 60, x1: zoom.cx + W/(2*zoom.k) + 60,
+        y0: zoom.cy - H/(2*zoom.k) - 60, y1: zoom.cy + H/(2*zoom.k) + 60 }
+    : { x0:-60, x1:W+60, y0:-60, y1:H+60 };
+  const px = M.cell * zoom.k, bigEnough = px > 26;
+  /* THE REVEAL. The stroke crush exists to make the word read at a distance.
+     Once the camera is inside one letter the word no longer has to read, so
+     the treatment lifts and each tile comes back as the render it actually
+     is — which is the entire argument of this title. */
+  const reveal = clamp01((zoom.k - 3.0) / 2.2) * 0.85;
+  let drawn = 0;
+
+  /* — THE GROUND: asset tiles, untreated, faded, coarse. It must stay light;
+       the contrast against the crushed strokes is what makes the word read. — */
+  const gAlpha = S.seams ? 0.72 : 0.40;
+  for (const i of M.groundOrder){
+    const cl = M.ground[i];
+    if (t < cl.t0) continue;
+    const p = easeInOut((t - cl.t0) / cl.dur);
+    const f = flightPos(cl, p);
+    if (p >= 1 && (f.x < vis.x0 || f.x > vis.x1 || f.y < vis.y0 || f.y > vis.y1)) continue;
+    const T = S.live[cl.tile];
+    const img = (p >= 1 && cl.size*zoom.k > 26 && T.thumb) ? T.thumb : (T.micro || T.thumb);
+    if (!img) continue;
+    g.globalAlpha = gAlpha * (p < 1 ? 0.55 + 0.45*p : 1);
+    drawSquare(g, img, f.x, f.y, f.sz * 1.02);
+    g.globalAlpha = 1;
+    if (S.seams && p >= 1){
+      g.globalAlpha = .30; g.strokeStyle = INK; g.lineWidth = Math.max(.4, .9/zoom.k);
+      g.strokeRect(f.x - f.sz/2, f.y - f.sz/2, f.sz, f.sz); g.globalAlpha = 1;
+    }
+    drawn++;
+  }
+
+  /* — THE STROKES: scene frames, crushed hard, fine. — */
+  for (const i of M.drawOrder){
+    const cl = M.cells[i];
+    if (t < cl.t0) continue;
+    const p = easeInOut((t - cl.t0) / cl.dur);
+    const f = flightPos(cl, p);
+    if (p >= 1 && (f.x < vis.x0 || f.x > vis.x1 || f.y < vis.y0 || f.y > vis.y1)) continue;
+    const T = S.live[cl.tile];
+    const img = (p >= 1 && bigEnough) ? (T.thumbD || T.thumb) : (T.microD || T.micro || T.thumb);
+    if (!img) continue;
+    const s = f.sz * 1.06, hs = s/2;
+    drawSquare(g, img, f.x, f.y, s);
+    if (reveal > 0 && p >= 1 && T.thumb){          // lift the crush on the way in
+      g.globalAlpha = reveal; drawSquare(g, T.thumb, f.x, f.y, s); g.globalAlpha = 1;
+    }
+    /* ink correction — the photomosaic's tonal match. Small, because the
+       crushed stroke reservoir has already done most of the work and the
+       punch-in has to still read each tile as the render it is. */
+    const want = clamp01(1 - cl.ink), have = T.lumDark;
+    const d = want - have;
+    const cap = (S.seams ? 0.22 : 0.34) * (1 - reveal * 0.85);
+    if (d < -0.01){ g.globalAlpha = clamp(-d * 1.1, 0, cap); g.fillStyle = INK;
+      g.fillRect(f.x-hs, f.y-hs, s, s); g.globalAlpha = 1; }
+    else if (d > 0.02){ g.globalAlpha = clamp(d * .7, 0, cap*.8); g.fillStyle = PAPER;
+      g.fillRect(f.x-hs, f.y-hs, s, s); g.globalAlpha = 1; }
+    if (S.seams && p >= 1){
+      g.globalAlpha = .55; g.strokeStyle = ACCENT; g.lineWidth = Math.max(.35, .7/zoom.k);
+      g.strokeRect(f.x-hs, f.y-hs, s, s); g.globalAlpha = 1;
+    }
+    /* ids surface under the punch-in — on a deterministic third of the cells,
+       so the letterform is not riddled with label bars */
+    if (p >= 1 && px > 22 && (S.seams ? R(cl.key,"lab") < .55 : R(cl.key,"lab") < .26)){
+      const fs = Math.min(cl.size * 0.34, 13 / zoom.k);   // ≈13px on screen, crisp
+      g.globalAlpha = .72; g.fillStyle = "#ffffff";
+      g.fillRect(f.x-hs, f.y+hs-fs*1.30, s, fs*1.30);
+      g.globalAlpha = 1; g.fillStyle = INK;
+      g.font = `700 ${fs}px ui-monospace,Menlo,monospace`;
+      g.textAlign = "left"; g.textBaseline = "bottom";
+      g.fillText(tinyId(cl.tileId), f.x-hs+fs*.2, f.y+hs-fs*.2, s-fs*.4);
+    }
+    drawn++;
+  }
+  g.restore();
+  S.lastMosaicDrawn = drawn;
+  if (zoom.k > 1.4) drawPunchMargin(g, t, zoom);
+}
+
+/* the punch-in: slowly into one letter until the parts are legible */
+function punchZoom(t){
+  const M = S.mosaic, L = S.mask.letters[PUNCH_LETTER];
+  const cx = (L.x0 + L.x1)/2, cy = (L.y0 + L.y1)/2;
+  const t0 = B[4] - 4.0, t1 = B[4];
+  if (t < t0) return { k:1, cx:W/2, cy:H/2 };
+  const p = easeInOut(clamp01((t - t0) / (t1 - t0)));
+  /* go in until a stroke cell is ~56 canvas px — big enough that the render
+     inside it is unmistakably a render, and its id fits under it */
+  const kMax = clamp(56 / Math.max(2, M ? M.cell : 8), 4, 9);
+  return { k: lerp(1, kMax, p), cx: lerp(W/2, cx, p), cy: lerp(H/2, cy, p) };
+}
+
+function drawPunchMargin(g, t, zoom){
+  const M = S.mosaic; if (!M) return;
+  const near = [];
+  for (const cl of M.cells){
+    const d = Math.hypot(cl.x - zoom.cx, cl.y - zoom.cy);
+    if (d < W/(2*zoom.k)) near.push([d, cl]);
+  }
+  near.sort((a,b)=> a[0]-b[0] || (a[1].key < b[1].key ? -1 : 1));
+  const pick = near.slice(0, 6);
+  const a = clamp01((zoom.k - 1.4) / 1.2);
+  g.save(); g.globalAlpha = a;
+  g.fillStyle = "rgba(244,244,240,.90)";
+  g.fillRect(W - 560, H - 250, 520, 210);
+  g.strokeStyle = INK; g.lineWidth = 2; g.strokeRect(W - 560, H - 250, 520, 210);
+  g.fillStyle = DIM; g.font = `900 15px ui-monospace,Menlo,monospace`;
+  g.textAlign = "left"; g.textBaseline = "top";
+  g.fillText("M A D E   O F", W - 540, H - 236);
+  g.font = `700 17px ui-monospace,Menlo,monospace`;
+  pick.forEach(([, cl], i) => {
+    const T = S.live[cl.tile];
+    g.fillStyle = INK; g.fillText(String(cl.tileId).slice(0, 34), W - 540, H - 208 + i*27);
+    g.fillStyle = ACCENT; g.textAlign = "right";
+    g.fillText(roman(T.book), W - 56, H - 208 + i*27);
+    g.textAlign = "left";
+  });
+  g.restore();
+}
+
+/* ── chrome: the movement titles, the clock, the ticker ── */
+const MOVES = [
+  { n:"I",   name:"COLLAGE",      sub:"SIDE BY SIDE" },
+  { n:"II",  name:"PHOTOMONTAGE", sub:"CUT AND OVERLAPPED" },
+  { n:"III", name:"COMPOSITE",    sub:"BLENDED INTO ONE" },
+  { n:"IV",  name:"PHOTO MOSAIC", sub:"THE NAME, MADE OF ITS OWN PARTS" }
+];
+function movementAt(t){
+  if (t >= B[4]) return 3;
+  for (let i=3;i>=0;i--) if (t >= B[i]) return i;
+  return 0;
+}
+
+function drawChrome(g, t){
+  const mi = movementAt(t), M = MOVES[mi];
+  const since = t - B[mi];
+  const a = clamp01(smooth(since/0.55)) * (1 - clamp01(smooth((since - 2.9)/0.9)));
+  g.save();
+  g.textBaseline = "alphabetic";
+  if (a > 0.002){
+    g.globalAlpha = a;
+    g.fillStyle = INK; g.textAlign = "left";
+    g.font = `900 30px ui-monospace,Menlo,monospace`;
+    g.fillText(M.n, CONTENT.x, 74);
+    g.font = `900 30px ui-monospace,Menlo,monospace`;
+    g.fillText(spaced(M.name), CONTENT.x + 74, 74);
+    g.fillStyle = DIM; g.font = `700 19px ui-monospace,Menlo,monospace`;
+    g.fillText(spaced(M.sub), CONTENT.x + 74, 108);
+    g.fillStyle = ACCENT;
+    g.fillRect(CONTENT.x, 88, 56, 5);
+  }
+  /* running head — always on, small */
+  g.globalAlpha = .5; g.fillStyle = INK;
+  g.font = `700 16px ui-monospace,Menlo,monospace`;
+  g.textAlign = "right";
+  g.fillText(spaced("THE ASSEMBLY"), W - CONTENT.x, 74);
+  g.font = `700 14px ui-monospace,Menlo,monospace`;
+  g.fillText(`${S.live.length} RENDERS · ${S.mosaic ? S.mosaic.cells.length : 0} CELLS`,
+             W - CONTENT.x, 100);
+  /* ticker */
+  g.globalAlpha = .8; g.textAlign = "left"; g.fillStyle = INK;
+  g.font = `700 17px ui-monospace,Menlo,monospace`;
+  g.fillText(tickerLine(t), CONTENT.x, H - 44);
+  g.globalAlpha = .35;
+  g.fillRect(CONTENT.x, H - 74, (W - CONTENT.x*2) * clamp01(t / DURATION), 3);
+  g.restore();
+}
+const spaced = s => s.split("").join(" ");
+
+function tickerLine(t){
+  if (t < B[1]){
+    const n = S.live.length;
+    let k = 0;
+    for (let i=n-1;i>=0;i--) if (S.live[i].appear <= t){ k = i; break; }
+    const T = S.live[k];
+    return `${String(k+1).padStart(4,"0")} / ${n}   ${T.id}   BOOK ${roman(T.book)}`;
+  }
+  if (t < B[2]) return `CUT · ${S.live.length} SHEETS · CLUSTERED BY BOOK I–XXIV`;
+  if (t < B[3]) return `COMPOSITE · ONE PLATE · MULTIPLY · THE WHOLE POEM AT ONCE`;
+  if (S.mosaic){
+    const arrived = S.mosaic.cells.reduce((n,c)=> n + (t >= c.t1 ? 1 : 0), 0);
+    return `MOSAIC · ${arrived} / ${S.mosaic.cells.length} STROKE CELLS PLACED · ${S.mosaic.distinctAll} DISTINCT RENDERS`;
+  }
+  return "";
+}
+
+function drawOutro(g, t){
+  const p = clamp01((t - B[4]) / 2.6);
+  const ff = S.firstFrame;
+  g.save();
+  g.globalAlpha = smooth(p);
+  g.fillStyle = PAPER; g.fillRect(0,0,W,H);
+  let bottom = H - 88;
+  if (ff){
+    /* CONTAIN, not cover — this is the film's own first frame and the film's
+       own aspect; letterbox it on paper rather than crop the poem's first shot */
+    const a = ff.width/ff.height;
+    const boxW = W - 200, boxH = H - 250;
+    let w = boxW, h = w/a; if (h > boxH){ h = boxH; w = h*a; }
+    const x = (W-w)/2, y = (H - 90 - h)/2 + 20;
+    g.drawImage(ff, x, y, w, h);
+    g.strokeStyle = INK; g.lineWidth = 3; g.globalAlpha *= .55;
+    g.strokeRect(x, y, w, h); g.globalAlpha = smooth(p);
+    bottom = y + h + 56;
+  }
+  g.globalAlpha = smooth(p) * clamp01((t - B[4] - 1.1)/1.0);
+  g.fillStyle = INK; g.textAlign = "center"; g.textBaseline = "middle";
+  g.font = `900 26px ui-monospace,Menlo,monospace`;
+  g.fillText(spaced("BOOK I · OD-B01-S01"), W/2, bottom);
+  g.restore();
+}
+
+function render(t){
+  const g = ctx;
+  g.setTransform(KX,0,0,KY,0,0);                // design units → canvas pixels
+  g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+  g.fillStyle = PAPER; g.fillRect(0,0,W,H);
+  if (!S.ready){
+    g.fillStyle = INK; g.font = `900 34px ui-monospace,Menlo,monospace`;
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText(S.err || "READING THE CORPUS…", W/2, H/2);
+    return;
+  }
+  if (t < B[3] + 2.6) drawCorpus(g, t);
+  if (t >= B[3]) drawMosaic(g, t);
+  drawChrome(g, t);
+  if (t >= B[4]) drawOutro(g, t);
+  S.t = t;
+}
+S.render = render;
+
+/* ============================================================================
+   7 · TRANSPORT
+   ========================================================================== */
+let raf = 0, last = 0;
+/* THE CLOCK. When the track is running the audio element IS the clock — rAF
+   stalls whenever the tab is hidden, and a wall-clock would silently drift out
+   of the score. Wall clock only when there is no audio. */
+function tick(now){
+  raf = requestAnimationFrame(tick);
+  if (!S.playing || S.exporting) { last = now; return; }
+  const a = S.audio;
+  let t;
+  if (a && !a.paused && a.readyState > 1) t = a.currentTime;
+  else { t = S.t + Math.min(0.1, (now - last)/1000); }
+  last = now;
+  if (t >= DURATION){ t = DURATION; pause(); }
+  seek(t, true);
+}
+S._tick = tick;
+function seek(t, fromClock){
+  S.t = clamp(t, 0, DURATION);
+  render(S.t);
+  scrub.value = String(S.t);
+  const mi = movementAt(S.t);
+  tcEl.textContent = fmt(S.t) + " · " + MOVES[mi].n;
+  if (!fromClock && S.audio && !S.audio.paused){ try{ S.audio.currentTime = S.t; }catch(e){} }
+}
+S.seek = seek;
+const fmt = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(Math.floor(s%60)).padStart(2,"0")}.${String(Math.floor((s%1)*100)).padStart(2,"0")}`;
+
+function play(){
+  if (!S.ready) return;
+  if (S.t >= DURATION) S.t = 0;
+  S.playing = true; ppBtn.textContent = "PAUSE";
+  if (S.audio && S.audio.src){                 // never play() an empty src
+    try{ S.audio.currentTime = Math.min(S.t, 1e6); S.audio.play().catch(()=>{}); }catch(e){}
+  }
+  last = performance.now();
+}
+function pause(){
+  S.playing = false; ppBtn.textContent = "PLAY";
+  if (S.audio) { try{ S.audio.pause(); }catch(e){} }
+}
+S.play = play; S.pause = pause;
+
+ppBtn.onclick = () => S.playing ? pause() : play();
+scrub.oninput = () => { seek(+scrub.value, false); };
+document.querySelectorAll(".mv").forEach(b => b.onclick = () => {
+  seek(B[+b.dataset.m] + 0.01, false);
+});
+seamsBtn.onclick = () => {
+  S.seams = !S.seams; seamsBtn.classList.toggle("on", S.seams); render(S.t);
+};
+goBtn.onclick = () => { veil.classList.add("gone"); play(); };
+addEventListener("keydown", e => {
+  if (e.code === "Space"){ e.preventDefault(); S.playing ? pause() : play(); }
+  if (e.code === "ArrowRight") seek(S.t + (e.shiftKey ? 1 : 1/FPS), false);
+  if (e.code === "ArrowLeft")  seek(S.t - (e.shiftKey ? 1 : 1/FPS), false);
+});
+
+/* ============================================================================
+   8 · EXPORT — numbered PNGs at a fixed dt, plus the shot plan
+   ========================================================================== */
+function download(blobOrStr, name, type){
+  const blob = blobOrStr instanceof Blob ? blobOrStr : new Blob([blobOrStr], { type: type||"application/json" });
+  const u = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = u; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u), 4000);
+}
+function shotPlan(){
+  const M = S.mosaic;
+  return {
+    title: "THE ASSEMBLY — ODYSSEY main title",
+    built: new Date().toISOString(),
+    source: { tiles: TILES_URL, manifestBuilt: S.built, seedOf: SEED_SOURCE },
+    canvas: { design:{ w:W, h:H }, pixels:{ w:CW, h:CH }, fps:FPS, duration:DURATION },
+    music: S.track ? { album:S.track.album, title:S.track.title, num:S.track.num,
+                       bpm:S.bpm, beats:S.beats.length, boundariesSnapped:S.snapped } : null,
+    movements: MOVES.map((m,i)=>({ n:m.n, name:m.name, sub:m.sub,
+      t0: B[i], t1: (i<3 ? B[i+1] : B[4]), nominal: NOMINAL[i] })),
+    outro: { t0: B[4], t1: DURATION, shot: "OD-B01-S01" },
+    corpus: { count:S.live.length, byKind:S.byKind, meanPolarity:S.meanPolarity,
+              reservoirs: M ? M.reservoirs : null, aspect:"centre-cropped to square" },
+    mosaic: M ? { cell:+M.cell.toFixed(3), groundCell:+(M.cell*GROUND_MULT).toFixed(3),
+      strokeCells:M.cells.length, groundCells:M.ground.length,
+      distinctStroke:M.distinct, distinctGround:M.distinctGround, distinctAll:M.distinctAll,
+      punchLetter: WORD[PUNCH_LETTER],
+      strokeAssignments: M.cells.map(c=>({ col:c.c, row:c.r, x:+c.x.toFixed(2), y:+c.y.toFixed(2),
+        size:+c.size.toFixed(3), ink:+c.ink.toFixed(4), tile:c.tileId,
+        t0:+c.t0.toFixed(3), t1:+c.t1.toFixed(3) })),
+      groundAssignments: M.ground.map(c=>({ col:c.c, row:c.r, x:+c.x.toFixed(2), y:+c.y.toFixed(2),
+        size:+c.size.toFixed(3), tile:c.tileId, t0:+c.t0.toFixed(3), t1:+c.t1.toFixed(3) }))
+    } : null
+  };
+}
+planBtn.onclick = () => download(JSON.stringify(shotPlan(), null, 1), "odyssey-title-shotplan.json");
+
+let stopExport = false;
+async function exportFrames(){
+  if (S.exporting){ stopExport = true; return; }
+  pause();
+  S.exporting = true; stopExport = false;
+  framesBtn.textContent = "STOP"; framesBtn.classList.add("on");
+  download(JSON.stringify(shotPlan(), null, 1), "odyssey-title-shotplan.json");
+  const total = Math.round(DURATION * FPS);
+  for (let f=0; f<total && !stopExport; f++){
+    const t = f / FPS;
+    render(t);
+    const blob = await new Promise(res => cv.toBlob(res, "image/png"));
+    download(blob, `odyssey-title-${String(f).padStart(5,"0")}.png`, "image/png");
+    noteEl.textContent = `EXPORTING FRAME ${f+1} / ${total} — click STOP to abort`;
+    await new Promise(r => setTimeout(r, 55));
+  }
+  S.exporting = false; framesBtn.textContent = "FRAMES"; framesBtn.classList.remove("on");
+  noteEl.textContent = statusLine();
+  seek(S.t, false);
+}
+framesBtn.onclick = exportFrames;
+S.exportFrames = exportFrames; S.shotPlan = shotPlan;
+
+/* ============================================================================
+   9 · VERIFICATION HANDLE — everything the build brief asks to be proved
+   ========================================================================== */
+S.stats = () => ({
+  manifest: TILES_URL, built: S.built, seedOf: SEED_SOURCE,
+  declared: S.tiles.length, loaded: S.loaded, failed: S.failed,
+  usable: S.live.length, byKind: S.byKind,
+  byType: S.live.reduce((o,T)=>(o[T.type]=(o[T.type]||0)+1,o),{}),
+  meanPolarity: S.meanPolarity, reservoirs: S.reservoirHow,
+  lumRange: S.live.length ? [+Math.min(...S.live.map(t=>t.lum)).toFixed(4),
+                             +Math.max(...S.live.map(t=>t.lum)).toFixed(4)] : null,
+  crushedStrokeLumRange: S.lumDarkRange || null,
+  boundaries: B, nominal: NOMINAL, snapped: S.snapped, duration: DURATION,
+  track: S.track ? `${S.track.album} ${S.track.num} — ${S.track.title}` : null,
+  bpm: S.bpm, beats: S.beats.length
+});
+S.mosaicStats = () => {
+  const M = S.mosaic; if (!M) return null;
+  const counts = new Map();
+  for (const c of M.cells) counts.set(c.tile, (counts.get(c.tile)||0)+1);
+  const gcounts = new Map();
+  for (const c of M.ground) gcounts.set(c.tile, (gcounts.get(c.tile)||0)+1);
+  return { cell:+M.cell.toFixed(3), groundCell:+(M.cell*GROUND_MULT).toFixed(3),
+    strokeCells:M.cells.length, groundCells:M.ground.length,
+    totalCells:M.cells.length + M.ground.length,
+    distinctStrokeTiles:M.distinct, distinctGroundTiles:M.distinctGround,
+    distinctTilesUsed:M.distinctAll,
+    corpus:S.live.length, coverageOfCorpus:+(M.distinctAll/S.live.length).toFixed(4),
+    reservoirs:M.reservoirs, aspect:"centre-cropped to square (cover)",
+    strokeReuse:[Math.min(...counts.values()), Math.max(...counts.values())],
+    groundReuse:[Math.min(...gcounts.values()), Math.max(...gcounts.values())],
+    firstArrival:+Math.min(...M.cells.map(c=>c.t1)).toFixed(3),
+    lastArrival:+M.lastArrival.toFixed(3) };
+};
+S.determinism = () => {
+  const M = S.mosaic, res = reservoirs(S.live);
+  const hash = arr => { let h = 2166136261>>>0;
+    for (const v of arr){ h ^= v; h = Math.imul(h, 16777619)>>>0; } return h>>>0; };
+  const a = assignTiles(M.cells, M.order, res.dark, S.live, T=>T.lumDark);
+  const b = assignTiles(M.cells, M.order, res.dark, S.live, T=>T.lumDark);
+  const ga = assignTiles(M.ground, M.gorder, res.light, S.live, T=>T.lum);
+  const gb = assignTiles(M.ground, M.gorder, res.light, S.live, T=>T.lum);
+  const liveA = M.cells.map(c=>c.tile), liveG = M.ground.map(c=>c.tile);
+  const eq = (p,q) => { let d=0; for (let i=0;i<p.length;i++) if (p[i]!==q[i]) d++; return d; };
+  return { runs:2,
+    stroke:{ cells:a.length, hashA:hash(a), hashB:hash(b), hashLive:hash(liveA),
+             mismatchesAB:eq(a,b), mismatchesVsLive:eq(a,liveA) },
+    ground:{ cells:ga.length, hashA:hash(ga), hashB:hash(gb), hashLive:hash(liveG),
+             mismatchesAB:eq(ga,gb), mismatchesVsLive:eq(ga,liveG) },
+    identical: eq(a,b)===0 && eq(a,liveA)===0 && eq(ga,gb)===0 && eq(ga,liveG)===0 };
+};
+const pixels = () => ctx.getImageData(0,0,CW,CH).data;
+function inkOf(){
+  const d = pixels();
+  let ink = 0, n = 0;
+  for (let i=0;i<d.length;i+=4*37){ ink += 1 - (d[i]*.299+d[i+1]*.587+d[i+2]*.114)/255; n++; }
+  return ink/n;
+}
+function frameSig(){
+  const d = pixels();
+  let h = 2166136261>>>0;
+  for (let i=0;i<d.length;i+=4*13){ h ^= d[i]; h = Math.imul(h,16777619)>>>0; }
+  return h>>>0;
+}
+S.frameStats = (t) => { render(t); return { t, ink:+inkOf().toFixed(5), sig:frameSig() }; };
+S.motion = (t, dt=0.2) => {
+  const a = S.frameStats(t), b = S.frameStats(t+dt);
+  return { t, ink:a.ink, inkNext:b.ink, sigA:a.sig, sigB:b.sig, differs:a.sig !== b.sig };
+};
+/* legibility — sample the FINISHED mosaic frame against the letterform mask
+   and report what fraction of dark-mask cells actually received a tile. */
+S.legibility = (t) => {
+  const M = S.mosaic; if (!M) return null;
+  const tt = t == null ? (B[4] - 4.4) : t;
+  render(tt);
+  const d = pixels();
+  /* design coords → canvas pixels */
+  const lumAt = (x,y) => { const i=(clamp(Math.round(y*KY),0,CH-1)*CW + clamp(Math.round(x*KX),0,CW-1))*4;
+    return (d[i]*.299 + d[i+1]*.587 + d[i+2]*.114)/255; };
+  let hit = 0, miss = 0;
+  const missIds = [];
+  for (const c of M.cells){
+    /* a cell "received a tile" if its centre is no longer bare paper */
+    if (lumAt(c.x, c.y) < 0.90) hit++;
+    else { miss++; if (missIds.length < 6) missIds.push(c.tileId); }
+  }
+  return { t:tt, darkMaskCells:M.cells.length, cellsWithTile:hit, empty:miss,
+    pct:+(100*hit/M.cells.length).toFixed(2), sampleMisses:missIds };
+};
+
+/* contrast — the number that actually decides whether ODYSSEY reads. Mean
+   luminance of the pixels INSIDE the letterforms vs OUTSIDE them, measured on
+   the rendered frame, not on the plan. */
+S.contrast = (t) => {
+  const M = S.mosaic, mask = S.mask; if (!M || !mask) return null;
+  const tt = t == null ? (B[4] - 4.4) : t;
+  render(tt);
+  const d = pixels();
+  let inS = 0, inN = 0, outS = 0, outN = 0;
+  for (let y=0; y<H; y+=3) for (let x=0; x<W; x+=3){
+    const px = Math.min(CW-1, (x*KX)|0), py = Math.min(CH-1, (y*KY)|0);
+    const i = (py*CW + px)*4;
+    const l = (d[i]*.299 + d[i+1]*.587 + d[i+2]*.114)/255;
+    const ink = 1 - mask.data[(y*W + x)*4]/255;
+    if (ink > 0.75){ inS += l; inN++; }
+    else if (ink < 0.02){ outS += l; outN++; }
+  }
+  const inside = inN ? inS/inN : 1, outside = outN ? outS/outN : 1;
+  return { t:tt, insideLum:+inside.toFixed(4), outsideLum:+outside.toFixed(4),
+    delta:+(outside - inside).toFixed(4),
+    ratio:+(outside / Math.max(1e-4, inside)).toFixed(3),
+    michelson:+((outside - inside) / Math.max(1e-4, outside + inside)).toFixed(4),
+    verdict: (outside - inside) > 0.30 ? "reads as a word"
+           : (outside - inside) > 0.18 ? "reads, but soft" : "TOO WEAK — grey on grey" };
+};
+S.report = () => ({ stats:S.stats(), mosaic:S.mosaicStats(), determinism:S.determinism(),
+  motion:[B[0]+2.5, B[1]+3.5, B[2]+3.5, B[3]+3.0].map(t=>S.motion(t)),
+  legibility:S.legibility(), contrast:S.contrast() });
+
+/* ============================================================================
+   10 · BOOT
+   ========================================================================== */
+function statusLine(){
+  const m = S.mosaic;
+  return [
+    `${S.live.length} RENDERS`,
+    S.failed ? `${S.failed} MISSING` : null,
+    m ? `${m.cells.length} STROKE + ${m.ground.length} GROUND CELLS · ${m.distinctAll} DISTINCT · ${m.cell.toFixed(1)}px` : null,
+    S.track ? `${S.track.album} ${S.track.num} “${S.track.title}”` : "NO AUDIO",
+    S.bpm ? `${S.bpm} BPM · ${S.beats.length} ONSETS${S.snapped ? " · BOUNDARIES SNAPPED" : ""}` : null,
+    `SEED ${SEED_SOURCE}`
+  ].filter(Boolean).join("  ·  ");
+}
+
+async function boot(){
+  render(0);
+  let tiles;
+  try{
+    tiles = await loadManifest();
+  }catch(e){
+    S.err = "NO CORPUS";
+    vmsg.innerHTML = `<span class="err">${e.message}</span><br><br>` +
+      `This title is assembled from <b>${TILES_URL}</b>, which another build step writes. ` +
+      `Run that build, or pass <b>?tiles=</b>path to point at one. Serve the repo over HTTP ` +
+      `(file:// cannot fetch).`;
+    render(0);
+    noteEl.textContent = "MISSING " + TILES_URL;
+    ppBtn.disabled = framesBtn.disabled = planBtn.disabled = seamsBtn.disabled = true;
+    return;
+  }
+  vmsg.textContent = `loading ${tiles.length} renders…`;
+  await loadImages(tiles, (done, total) => {
+    barI.style.width = (100*done/total).toFixed(1) + "%";
+    if (done % 40 === 0 || done === total) vmsg.textContent = `loading renders… ${done} / ${total}`;
+  });
+
+  S.live = tiles.filter(t => !t.missing && t.thumb);
+  if (!S.live.length){
+    S.err = "NO IMAGES";
+    vmsg.innerHTML = `<span class="err">The manifest listed ${tiles.length} tiles but none of the files loaded.</span>`;
+    render(0); return;
+  }
+  S.byKind = S.live.reduce((o,T)=>(o[T.kind]=(o[T.kind]||0)+1,o),{});
+  resolveMeanPolarity(S.live);
+
+  /* crush the stroke reservoir once, and remeasure it — the crushed luminance
+     is what the letterform assignment matches against */
+  vmsg.textContent = "crushing the stroke reservoir…";
+  for (const T of S.live) T.lumDark = T.lum;
+  const res0 = reservoirs(S.live);
+  S.reservoirHow = res0.how;
+  for (const i of res0.dark){
+    const T = S.live[i];
+    T.thumbD = await crush(T.thumb); T.microD = await crush(T.micro);
+    T.lumDark = measure(T.microD);
+  }
+  S.lumDarkRange = [
+    +Math.min(...res0.dark.map(i=>S.live[i].lumDark)).toFixed(4),
+    +Math.max(...res0.dark.map(i=>S.live[i].lumDark)).toFixed(4)];
+
+  vmsg.textContent = "scoring…";
+  await loadAudio();
+  S.snapped = snapBoundaries();
+
+  vmsg.textContent = "cutting the letterforms…";
+  S.mask = buildMask();
+  buildLayouts(S.live);
+  S.mosaic = buildMosaic(S.mask, S.live);
+
+  /* the first frame of the film, for the dissolve out */
+  try{
+    const r = await fetch("renders/scene__OD-B01-S01.png", { cache:"force-cache" });
+    if (r.ok){
+      const b = await createImageBitmap(await r.blob());
+      const [fw,fh] = fitTo(b.width, b.height, 1400);
+      S.firstFrame = await createImageBitmap(b, { resizeWidth:fw, resizeHeight:fh, resizeQuality:"high" });
+      b.close && b.close();
+    }
+  }catch(e){
+    const t = S.live.find(t => String(t.id).includes("OD-B01-S01"));
+    if (t) S.firstFrame = t.thumb;
+  }
+
+  S.ready = true;
+  goBtn.disabled = false;
+  vmsg.textContent = `${S.live.length} renders · ${S.mosaic.cells.length} stroke cells + ` +
+    `${S.mosaic.ground.length} ground cells · ${S.mosaic.distinctAll} distinct renders used`;
+  noteEl.textContent = statusLine();
+  seek(0, false);
+  raf = requestAnimationFrame(tick);
+  window.dispatchEvent(new Event("title-ready"));
+}
+boot();
+</script>
+</body>
+</html>
