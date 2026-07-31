@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Film Is the Program — a working paper</title>
+<meta name="description" content="Procedural epic, the algorithmic camera, and the drift toward description. A working paper on reconstructing Homer's Odyssey as executable code in ordered-dot halftone.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f4f0'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23141414'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#f4f4f0; --ink:#141414; --dim:#6b6b66; --faint:#d9d8d1;
+    --accent:#e01b1b; --measure:34rem;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --paper:#131312; --ink:#eceae2; --dim:#8d8b84; --faint:#2c2c29; --accent:#ff5a3c; }
+  }
+  :root[data-theme="dark"]{ --paper:#131312; --ink:#eceae2; --dim:#8d8b84; --faint:#2c2c29; --accent:#ff5a3c; }
+  :root[data-theme="light"]{ --paper:#f4f4f0; --ink:#141414; --dim:#6b6b66; --faint:#d9d8d1; --accent:#e01b1b; }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:16.5px/1.62 var(--serif);
+    padding:0 1.25rem 6rem;
+    text-rendering:optimizeLegibility}
+
+  /* the dot rule — the paper's own substrate, at 8 ink levels */
+  .dotrule{height:10px;margin:2.4rem 0;
+    background-image:radial-gradient(var(--ink) 34%,transparent 36%);
+    background-size:7px 7px;opacity:.5}
+  .dotrule.thin{opacity:.28;margin:1.6rem 0}
+
+  header,main,footer{max-width:var(--measure);margin:0 auto}
+  header{padding:4.5rem 0 0}
+  .kicker{font:600 10.5px/1.5 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+  .kicker b{color:var(--accent);font-weight:600}
+  h1{font:400 clamp(1.9rem,5.4vw,2.7rem)/1.16 var(--serif);margin:1rem 0 .5rem;letter-spacing:-.012em}
+  .sub{font:400 clamp(1rem,2.6vw,1.2rem)/1.4 var(--serif);color:var(--dim);font-style:italic;margin:0 0 1.6rem}
+  .byline{font:11px/1.7 var(--mono);letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+
+  h2{font:600 11px/1.5 var(--mono);letter-spacing:.24em;text-transform:uppercase;
+    margin:3.2rem 0 .9rem;color:var(--ink)}
+  h2 .n{color:var(--accent);margin-right:.7em}
+  h3{font:600 15px/1.4 var(--serif);margin:2rem 0 .5rem;font-style:italic;color:var(--ink)}
+
+  p{margin:0 0 1.05rem}
+  .lede{font-size:1.08em}
+  .lede::first-letter{float:left;font-size:3.1em;line-height:.84;padding:.06em .09em 0 0;font-weight:400}
+
+  a{color:var(--ink);text-decoration:none;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-size:100% 1px;background-repeat:no-repeat;background-position:0 92%;
+    padding-bottom:.06em}
+  a:hover{color:var(--accent)}
+  a.plain{background:none;color:var(--accent)}
+
+  blockquote{margin:1.4rem 0;padding:0 0 0 1.1rem;border-left:2px solid var(--accent);
+    font-style:italic;color:var(--ink)}
+  blockquote p{margin:0}
+
+  .abstract{border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);
+    padding:1.3rem 0;margin:2rem 0}
+  .abstract p{font-size:.95em}
+
+  code,.mono{font:.86em/1.5 var(--mono)}
+  .fig{margin:1.8rem 0;padding:1rem 1.1rem;border:1px solid var(--faint);background:transparent}
+  .fig .cap{font:10.5px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.6rem}
+  .fig .cap b{color:var(--accent);font-weight:600}
+  .fig pre{margin:0;font:12.5px/1.65 var(--mono);white-space:pre-wrap;word-break:break-word}
+
+  table{width:100%;border-collapse:collapse;margin:1.4rem 0;font:12.5px/1.5 var(--mono)}
+  th,td{text-align:left;padding:.5rem .5rem .5rem 0;border-bottom:1px solid var(--faint);vertical-align:top}
+  th{font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:10.5px;color:var(--dim)}
+  td.num{text-align:right;white-space:nowrap;padding-right:1.2rem}
+  td b{color:var(--accent);font-weight:600}
+
+  .works{list-style:none;padding:0;margin:1.2rem 0}
+  .works li{border-bottom:1px solid var(--faint);padding:.85rem 0}
+  .works .t{font:600 13px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .works .d{font-size:.92em;color:var(--dim);margin-top:.2rem}
+
+  ol.refs{font-size:.9em;padding-left:1.3rem}
+  ol.refs li{margin-bottom:.6rem}
+
+  .note{font-size:.88em;color:var(--dim)}
+  footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--faint);
+    font:11px/1.8 var(--mono);letter-spacing:.06em;color:var(--dim)}
+
+  #themeBtn{position:fixed;right:.9rem;top:.9rem;z-index:9;
+    font:10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+    background:var(--paper);color:var(--dim);border:1px solid var(--faint);
+    padding:.6rem .7rem;cursor:pointer;border-radius:0}
+  #themeBtn:hover{color:var(--accent);border-color:var(--accent)}
+
+  @media print{
+    #themeBtn{display:none}
+    body{background:#fff;color:#000;font-size:10.5pt;padding:0}
+    a{background:none;color:#000}
+    .dotrule{opacity:.35}
+  }
+</style>
+</head>
+<body>
+<button id="themeBtn" type="button">◑ theme</button>
+
+<header>
+  <div class="kicker"><b>■</b> Working paper &middot; practice-based research &middot; 2026</div>
+  <h1>The Film Is the Program</h1>
+  <p class="sub">Procedural epic, the algorithmic camera, and the drift toward description</p>
+  <div class="byline">Prepared for submission &middot; Histories of Media Art, Science and Technology</div>
+
+  <div class="dotrule"></div>
+
+  <div class="abstract">
+    <p>An epic — Homer's <i>Odyssey</i>, all twenty-four books — was reconstructed not as recorded
+    images but as executable code. One hundred and fifty-two scenes and four hundred and thirty
+    visual assets exist as procedural modules: short programs that regenerate their pictures on
+    demand, in ordered-dot halftone, from rules a reader can inspect. The result is a 164-minute
+    film whose entire archive is source text. This paper reports what the attempt taught, including
+    three failures that took months to see.</p>
+  </div>
+</header>
+
+<main>
+
+<h2><span class="n">1</span>The proposition</h2>
+
+<p class="lede">In 1963 at Bell Laboratories, Kenneth Knowlton wrote BEFLIX, a language for making
+films. The moving image was not captured; it was <i>notated</i> — written as instructions that a
+machine executed into frames of dots. The proposition embedded there has been largely abandoned:
+that a film can be a readable program, and therefore a teachable one.</p>
+
+<p>This project takes that proposition literally and asks what happens when it meets contemporary
+generative systems — when the notation is written not by one author at a console but by orchestrated
+language models, and when the corpus grows faster than any individual can inspect it.</p>
+
+<p>Every image in the work is code. A scene is roughly two hundred lines declaring who is present,
+where they stand, and what happens over time; it draws itself when asked. Nothing is a photograph of
+a render. The archive is the source, and the film is what the source does.</p>
+
+<div class="fig">
+  <div class="cap"><b>Fig. 1</b> — the atom of the system</div>
+  <pre>scene OD-B16-S03 · "The Father Reveals Himself"
+  cast      odysseus (guise: beggar → king), telemachus, hut
+  blocking  stations from _plans/eumaeus-hut.mjs — never pixel coordinates
+  t=9       guise ramp begins;  t=11  garment snaps;  fx covers the discontinuity
+  t=44      centre_l / centre_r — a contact pair, so two bodies never
+            resolve to one point
+  exit      computed, not asserted — the next scene opens where this one ended</pre>
+</div>
+
+<div class="dotrule thin"></div>
+
+<h2><span class="n">2</span>Method</h2>
+
+<p>The system is organised around five interchange contracts governing who exists (<span class="mono">CAST</span>),
+where things stand (<span class="mono">STAGE</span>), when events occur (<span class="mono">SCORE</span>),
+who decides (<span class="mono">MIND</span>), and what persists (<span class="mono">MEMORY</span>).
+Each is plain JSON. A governing rule holds that a machine actor receives exactly the powers a hand
+receives: the same verbs, the same validation, the same clamps.</p>
+
+<p>Assets and scenes were produced by fleets of agents running a mandatory loop — write the module,
+render it, <i>read the rendered image</i>, revise — with two standing constraints. All generation is
+<b>additive</b>: earlier work is never modified, only extended. And all generation is
+<b>deterministic</b>: the same source yields the same film, so the work can be re-recorded frame for
+frame rather than merely replayed.</p>
+
+<p>Speech, blocking and camera are derived rather than authored shot by shot. Because the system
+knows who speaks, exactly when (from measured audio), and where that body stands (from a room
+authored once in top-down plan space), a camera becomes a computable crop rather than a hand
+animation.</p>
+
+<div class="dotrule thin"></div>
+
+<h2><span class="n">3</span>Three findings</h2>
+
+<h3>3.1 Generation at scale drifts toward description</h3>
+
+<p>The characters, driven directly by machine-generated performance data, did not speak. They
+narrated stage directions about themselves. Seven hundred and six dramatic turns carried
+instructions of the form <i>"Athena redirects the council toward Odysseus"</i> in the place where an
+utterance belonged — and, more consequentially, the synthesised voice track spoke those instructions
+aloud, in character, with feeling.</p>
+
+<p>The defect was invisible to every automated check: the data was well-formed, complete, and
+semantically accurate. It was wrong only in the sense that matters. Repair required authoring a
+separate corpus of first-person speech for all 706 turns, then re-recording every voice.</p>
+
+<blockquote><p>Language models asked to produce a performance reliably produce an <i>account</i> of a
+performance. The difference is inaudible to validation and obvious to an ear.</p></blockquote>
+
+<h3>3.2 Abundance produces inventory, not composition</h3>
+
+<p>The title sequence was built three times. The first assembled all 886 available renders into a
+photographic mosaic of the work's name: complete, verifiable, inert. At roughly eight pixels per
+tile, no image could be seen — the archive was hidden by its own abundance. The second abandoned the
+corpus entirely for a reductive graphic line, and threw away the material.</p>
+
+<p>Only the third succeeded, by treating the corpus as <i>material</i> rather than as evidence. It is
+a canonical BEFLIX frame — 128 × 96 cells at eight ink levels — in which every dot is a live scene,
+cycling its own moments. The cells then migrate: a true permutation, nothing substituted, every
+instance present at the start still present at the end, until the tonal pattern precipitates into the
+title. Legibility measured 99.2% against the letterform mask, with contrast a third higher than the
+exhaustive version.</p>
+
+<blockquote><p>Completeness and composition were found to be actively opposed. The corpus became
+legible only when it was permitted to reorganise rather than merely to accumulate.</p></blockquote>
+
+<h3>3.3 Constraint produces access</h3>
+
+<p>The commitment that all geometry bottoms out in ink dots yields artefacts of unusual lightness.
+The exhaustive title required 886 network requests and 36 megabytes; on an emulated 4&nbsp;Mbit/s link
+at 100&nbsp;ms latency it never finished loading — 505 of 893 files after fifteen minutes. Recomposed
+as sprite atlases, the same sequence loads in fifteen seconds at 3.3 megabytes, and the final BEFLIX
+title is 590 kilobytes across three requests.</p>
+
+<p>Where synthetic visual culture increasingly assumes abundant bandwidth, a dot-matrix substrate is
+not nostalgia but infrastructure. The claim is advanced cautiously, and with figures.</p>
+
+<div class="dotrule thin"></div>
+
+<h2><span class="n">4</span>Two failures of machine perception</h2>
+
+<p>Both persisted for months. Both were invisible to validation and visible only to sustained
+looking.</p>
+
+<p><b>The effects were frozen.</b> Fifty-six of sixty effect modules expect a normalised progress
+value across their active window; every caller handed them the scene clock in seconds. Each internal
+clamp therefore pinned at its maximum after the first second. For the entire history of the project,
+every flare, corridor and sweep displayed only its final frame. They were never badly drawn; they
+had simply never been advanced.</p>
+
+<p><b>The camera followed the wrong body.</b> The performance corpus attributes roughly three
+quarters of its segments to a narrator, because the narrator performs the action beats. A camera
+keyed to the nominal speaker would therefore have sat in wide shot for most of the film — technically
+correct, cinematically dead. The true subject had to be recovered from a different layer of the same
+data.</p>
+
+<div class="dotrule thin"></div>
+
+<h2><span class="n">5</span>Measurements</h2>
+
+<table>
+  <tr><th>Quantity</th><th class="num" style="text-align:right">Value</th></tr>
+  <tr><td>Books · scenes · asset modules</td><td class="num">24 · 152 · 430</td></tr>
+  <tr><td>Dramatic turns · authored spoken lines</td><td class="num">706 · <b>706</b></td></tr>
+  <tr><td>Film duration (studio-performance clock)</td><td class="num">164.6 min</td></tr>
+  <tr><td>Title grid · ink levels · live scene cells</td><td class="num">128×96 · 0–7 · 8,208</td></tr>
+  <tr><td>Title legibility vs letterform mask</td><td class="num"><b>99.24%</b></td></tr>
+  <tr><td>Title contrast ratio (mosaic → BEFLIX)</td><td class="num">2.74 → <b>3.75</b></td></tr>
+  <tr><td>Cold payload, exhaustive → atlased title</td><td class="num">36 MB → <b>3.3 MB</b></td></tr>
+  <tr><td>Requests, exhaustive → atlased</td><td class="num">886 → <b>5</b></td></tr>
+  <tr><td>Load at 4 Mbit/s, 100 ms RTT</td><td class="num">never → <b>15.0 s</b></td></tr>
+  <tr><td>Effects frozen at end-state (undetected)</td><td class="num"><b>56 / 60</b></td></tr>
+  <tr><td>Segments attributed to the narrator</td><td class="num">~76%</td></tr>
+  <tr><td>Corpus median luminance (light-biased)</td><td class="num">0.761</td></tr>
+  <tr><td>Ported to studio contracts: cast · score rows</td><td class="num">403 · 2,056</td></tr>
+</table>
+
+<p class="note">All figures are measured from the running system rather than estimated. Renders are
+deterministic; the same source reproduces the same frames, and the numbers above are reproducible
+from the repository.</p>
+
+<div class="dotrule thin"></div>
+
+<h2><span class="n">6</span>The artefacts</h2>
+
+<p>The paper's claims are checkable because the work is running. Each of the following is a single
+self-contained page.</p>
+
+<ul class="works">
+  <li>
+    <a class="t" href="odyssey-title-beflix.html">The dot law, literally →</a>
+    <div class="d">A 128×96 BEFLIX frame in which every dot is a live scene. The corpus opens in the
+    film's own order, then migrates until the ink pattern becomes the work's name; descending into a
+    single letter resolves the dots back into full renders.</div>
+  </li>
+  <li>
+    <a class="t" href="odyssey-title-line.html">The line →</a>
+    <div class="d">The reductive counter-proposal: one rule as the voyage, a harmonic family for the
+    wandering, an inversion for the underworld, and a return measured to be pixel-identical to the
+    departure.</div>
+  </li>
+  <li>
+    <a class="t" href="odyssey-syncwatch.html">All cuts, one clock →</a>
+    <div class="d">Every rendering of the poem playing simultaneously against a single master clock —
+    the scene's own composition, the unified restage, an algorithmic camera that follows the speaker,
+    and the performance view — so the grammars can be compared rather than argued about.</div>
+  </li>
+  <li>
+    <a class="t" href="odyssey-drive.html">The long listen →</a>
+    <div class="d">The work as audio: 152 studio-voiced scenes on one clock, scored, built for a car
+    on a road with no signal.</div>
+  </li>
+  <li>
+    <a class="t" href="odyssey-game.html">Walk the book →</a>
+    <div class="d">The same corpus as a walkable world, in which the props, set pieces and sound
+    sources are affordances rather than scenery.</div>
+  </li>
+  <li>
+    <a class="t" href="index.html">Methods, figure by figure →</a>
+    <div class="d">The dot law, keying, restage, camera and reassembly, each as a live figure rather
+    than a diagram of one.</div>
+  </li>
+  <li>
+    <a class="t" href="halfworld-landing.html">The studio →</a>
+    <div class="d">The five contracts as a harmonic family; the title that becomes its own index.</div>
+  </li>
+</ul>
+
+<p class="note">Source, including every scene module and the build harness:
+<a href="https://github.com/hartswf0/odyssey-halfworld">the corpus repository</a> ·
+<a href="https://github.com/hartswf0/halfworld">the studio repository</a> ·
+<a href="https://hartswf0.github.io/halfworld/halfworld-index.html">the studio index</a>.</p>
+
+<div class="dotrule thin"></div>
+
+<h2><span class="n">7</span>Limits, and what is not claimed</h2>
+
+<p>No decolonial method is claimed. The material is canonical European; the tooling depends on
+commercial inference infrastructure concentrated in the Global North; the voices are synthesised by a
+proprietary model. These are dependencies the project names rather than resolves, and they bound what
+the third finding can mean.</p>
+
+<p>Nor is the corpus finished in any strong sense. Ninety-nine of one hundred and fifty-two stages
+are reconstructions rather than authored blocking, and are flagged as such in the data so that a
+reconstruction is never mistaken for a decision. When ported to the studio's contracts, the rooms did
+not survive: the receiving specification has no field for a backdrop, so the port yields the right
+bodies standing in the right places in an empty ground. It is, for now, a cast-and-blocking corpus
+rather than a world — which is itself a finding about what such contracts must grow.</p>
+
+<p>What the work offers is narrower than a manifesto and, it hopes, more useful: a demonstration that
+a computationally generated moving image can be archived as its own source, distributed under severe
+bandwidth constraint, and read — and modified — by anyone able to read a page of code.</p>
+
+<div class="dotrule"></div>
+
+<h2><span class="n">8</span>References and lineage</h2>
+
+<ol class="refs">
+  <li>Knowlton, K. (1964). A computer technique for producing animated movies.
+    <i>AFIPS Conference Proceedings</i>. — The BEFLIX language; the film as notation.</li>
+  <li>Knowlton, K. &amp; Schwartz, L. — collaborative computer films of the late 1960s, in which
+    the dot-matrix substrate becomes an expressive rather than merely technical constraint.</li>
+  <li>Whitney, J. (1980). <i>Digital Harmony: On the Complementarity of Music and Visual Art</i>.
+    — Harmonic families and phase; motion as the content rather than the carrier.</li>
+  <li>Bass, S. — title sequences of the 1950s–60s, in which one graphic idea is developed rather
+    than illustrated, and form resolves into type.</li>
+  <li>Manovich, L. (2001). <i>The Language of New Media</i>. — Database and narrative as competing
+    cultural forms; the question this project answers with a permutation.</li>
+</ol>
+
+</main>
+
+<footer>
+  <div class="dotrule thin"></div>
+  <p><b>Colophon.</b> This page is a single HTML file with no external requests, no fonts, and no
+  scripts beyond a theme toggle. Its rules are halftone dots drawn by the same law as the film —
+  ink on paper, at a resolution the page can afford. Set in the reader's own serif.</p>
+  <p>Figures and measurements are reproducible from the repository. Corrections welcome.</p>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById("themeBtn"), r=document.documentElement, K="paper.theme";
+  try{ var s=localStorage.getItem(K); if(s) r.setAttribute("data-theme",s); }catch(e){}
+  b.addEventListener("click",function(){
+    var cur=r.getAttribute("data-theme");
+    if(!cur) cur = matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light";
+    var next = cur==="dark" ? "light" : "dark";
+    r.setAttribute("data-theme",next);
+    try{ localStorage.setItem(K,next); }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
