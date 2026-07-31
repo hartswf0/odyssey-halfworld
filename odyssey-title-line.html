@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ODYSSEY — main title (THE LINE)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f4f0'/%3E%3Crect x='3' y='15' width='26' height='2.6' fill='%23141414'/%3E%3Crect x='3' y='9' width='2.2' height='14' fill='%23e01b1b'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#08080a; --paper:#f4f4f0; --ink:#141414; --red:#e01b1b;
+    --txt:#eceae4; --dim:rgba(236,234,228,.42); --line:rgba(236,234,228,.15);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:var(--bg);color:var(--txt);font:12px/1.5 var(--mono);overflow:hidden}
+  #app{position:fixed;inset:0;display:flex;flex-direction:column}
+
+  /* ── the stage: one canvas, full bleed, nothing else on it ── */
+  #wrap{position:relative;flex:1 1 auto;min-height:0;display:flex;align-items:center;
+        justify-content:center;background:#000}
+  canvas#stage{display:block;width:100%;height:auto;max-width:100%;max-height:100%;
+    aspect-ratio:16/9;background:#f4f4f0}
+
+  /* ── the gate (audio needs a gesture) ── */
+  #gate{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;gap:18px;
+    align-items:center;justify-content:center;background:rgba(8,8,10,.94);padding:24px;text-align:center}
+  #gate.gone{display:none}
+  #gate .rule{width:min(360px,64vw);height:2px;background:var(--txt);position:relative}
+  #gate .rule i{position:absolute;left:0;top:-9px;width:2px;height:20px;background:var(--red)}
+  #gate p{font-size:10.5px;letter-spacing:.26em;color:var(--dim);text-transform:uppercase}
+  #gate p.err{color:var(--red);letter-spacing:.08em;text-transform:none}
+  #go{min-height:56px;min-width:220px}
+
+  /* ── controls ── */
+  #ctl{flex:0 0 auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+    padding:7px 9px;border-top:1px solid var(--line);background:var(--bg)}
+  button{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);
+    padding:0 14px;min-height:40px;cursor:pointer;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;font-size:10px;white-space:nowrap}
+  button:hover{border-color:var(--red);color:var(--txt)}
+  button.pri{background:var(--txt);color:#08080a;border-color:var(--txt);font-weight:900}
+  button.on{border-color:var(--red);color:var(--red)}
+  #scrub{flex:1 1 220px;min-width:130px;height:40px;accent-color:var(--red);background:transparent}
+  #tc{font-size:10px;letter-spacing:.12em;color:var(--dim);min-width:78px;text-align:right}
+  #note{font-size:9px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;
+    padding:0 10px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media (max-width:860px){
+    button{min-height:52px;font-size:11px;padding:0 15px}
+    #scrub{height:52px;flex-basis:100%;order:-1}
+    #ctl{padding:6px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="wrap">
+    <canvas id="stage" width="1920" height="1080"></canvas>
+    <div id="gate">
+      <div class="rule"><i></i></div>
+      <p id="gmsg">loading</p>
+      <button id="go" class="pri" disabled>begin</button>
+    </div>
+  </div>
+  <div id="ctl">
+    <button id="pp" class="pri">play</button>
+    <input id="scrub" type="range" min="0" max="58.2" step="0.01" value="0">
+    <span id="tc">00:00.0</span>
+    <button id="frames">frames</button>
+    <button id="plan">plan</button>
+  </div>
+  <div id="note">—</div>
+</div>
+
+<script type="module">
+/* ============================================================================
+   ODYSSEY — MAIN TITLE · "THE LINE"
+   ----------------------------------------------------------------------------
+   ONE graphic idea: a horizontal rule is the voyage. It leaves the left edge,
+   multiplies into a Whitney harmonic family (N phase-shifted copies of a single
+   parametric curve), converges on a point to deliver ONE full-bleed render at a
+   time, inverts through the underworld, collapses back to a single rule in its
+   original position, and finally breaks into the letterforms of ODYSSEY.
+
+   There are no captions. The only type in the piece is the word ODYSSEY.
+
+   ADDITIVE: reads viewer/title-line-picks.json, viewer/title-line-stills/,
+   audio/albums.json and engine/liveness.mjs. Writes nothing.
+
+   DETERMINISM: no Math.random anywhere. Every stagger, hold length and phase
+   offset is a pure function of an id through seedOf(). Verify with
+   window.__line.determinism().
+
+   QUERY
+     ?w=2400          master width (16:9 is enforced); default 1920
+     ?picks=a,b,c     override the shortlist with explicit tile ids
+     ?track=9         album track (or ?track=homecoming:3)
+     ?silent=1        no audio; the nominal (unsnapped) score
+     ?nosnap=1        load audio but do not snap cuts to onsets
+     ?t=32            open parked at a time
+   ========================================================================== */
+import { seedOf } from "./engine/liveness.mjs";
+
+const Q = new URLSearchParams(location.search);
+const CW = Math.max(640, Math.min(3840, +(Q.get("w") || 1920) || 1920));
+const CH = Math.round(CW * 9 / 16);
+const FPS = 30;
+const SILENT = Q.get("silent") === "1";
+const NOSNAP = Q.get("nosnap") === "1";
+
+const PAPER = "#f4f4f0";       // the paper (engine's PAPER)
+const INK   = "#141414";       // the ink   (engine's INK)
+const RED   = "#e01b1b";       // the one accent — nothing else has colour
+
+const cv = document.getElementById("stage");
+cv.width = CW; cv.height = CH;
+const g = cv.getContext("2d", { willReadFrequently: true });
+
+const $ = id => document.getElementById(id);
+const gate = $("gate"), gmsg = $("gmsg"), goBtn = $("go");
+const ppBtn = $("pp"), scrub = $("scrub"), tcEl = $("tc"),
+      framesBtn = $("frames"), planBtn = $("plan"), noteEl = $("note");
+
+/* ── small pure helpers ─────────────────────────────────────────────────────── */
+const TAU = Math.PI * 2;
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, u) => a + (b - a) * u;
+const ease = u => { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); };
+const easeIn = u => { u = clamp(u, 0, 1); return u * u * u; };
+const easeOut = u => { u = clamp(u, 0, 1); return 1 - Math.pow(1 - u, 3); };
+const R1 = (id, salt) => seedOf(String(id) + "|" + salt);      // deterministic 0..1
+
+/* ============================================================================
+   1 · THE SHORTLIST — 8..14 stills, the strongest images in the repo
+   ========================================================================== */
+const S = {
+  ready: false, t: 0, playing: false, picks: [], images: new Map(),
+  beats: [], bpm: 0, snapped: false, track: null, audio: null,
+  bytes: 0, requests: 0, err: null,
+};
+window.__line = S;
+
+async function loadPicks() {
+  const override = Q.get("picks");
+  if (override) {
+    /* a human said "no, use this one instead" — resolve ids against the full
+       tile corpus (only fetched on this path, so the default load stays small) */
+    const tiles = (await getJSON("viewer/title-tiles.json")).tiles;
+    const out = [];
+    for (const raw of override.split(",").map(s => s.trim()).filter(Boolean)) {
+      const [id, tStr] = raw.split("@");
+      const want = tStr != null ? +tStr : null;
+      const hit = tiles.find(x => x.id === id && (want == null || x.t === want))
+               || tiles.find(x => x.id === id);
+      if (hit) out.push({ ...hit, still: null });
+    }
+    if (out.length >= 4) return out.sort((a, b) => (a.book || 0) - (b.book || 0));
+  }
+  const j = await getJSON("viewer/title-line-picks.json");
+  return j.picks.slice();
+}
+
+async function getJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(url + " " + r.status);
+  const txt = await r.text();
+  S.bytes += txt.length; S.requests++;
+  return JSON.parse(txt);
+}
+
+function loadImage(url) {
+  return new Promise((res, rej) => {
+    const im = new Image();
+    im.onload = () => { S.requests++; res(im); };
+    im.onerror = () => rej(new Error("img " + url));
+    im.src = url;
+  });
+}
+
+/* ============================================================================
+   2 · THE SCORE — sections, island cuts, and the onsets they land on
+   ----------------------------------------------------------------------------
+   Six sections. DEPARTURE · WANDERING · UNDERWORLD · WANDERING(homeward) ·
+   RETURN · RECOGNITION. Nothing on screen ever names them.
+   ========================================================================== */
+const NOMINAL = [0, 6.6, 21.4, 29.6, 45.0, 49.6, 58.2];
+let B = NOMINAL.slice();
+let DURATION = B[6];
+let ISLANDS = [];              // { at, hold, pick, img, key, a0, r1, wipe }
+let UNDERWORLD = null;
+const APPROACH = 0.80;         // the knot converging on a point
+const RELEASE  = 0.45;         // and coming apart again
+const WIPE     = 0.13;         // a fast hard-edged wipe out (never a dissolve)
+
+/* the poem decides which still goes where: Book I is the frame the title
+   dissolves INTO (the first frame of the film); the still nearest Book XI is
+   the underworld; everything earlier is the wandering, everything later is the
+   voyage home. */
+function assignPicks(picks) {
+  const p = picks.slice().sort((a, b) => (a.book || 0) - (b.book || 0));
+  const first = p.shift();                                   // the outro frame
+  let uwIdx = 0, best = Infinity;
+  p.forEach((x, i) => { const d = Math.abs((x.book || 0) - 11); if (d < best) { best = d; uwIdx = i; } });
+  const uw = p[uwIdx];
+  const before = p.slice(0, uwIdx);
+  const after = p.slice(uwIdx + 1);
+  return { first, uw, before, after };
+}
+
+/* spread N cuts inside a window, leaving air at both ends */
+function cutsIn(t0, t1, n, pad0, pad1) {
+  if (n <= 0) return [];
+  const a = t0 + pad0, b = t1 - pad1;
+  const out = [];
+  for (let i = 0; i < n; i++) out.push(a + (b - a) * (n === 1 ? 0.5 : i / (n - 1)));
+  return out;
+}
+
+function buildScore() {
+  const { first, uw, before, after } = assignPicks(S.picks);
+  S.outroPick = first;
+  const mk = (pick, at) => ({
+    pick, at,
+    /* 0.85–1.35s — long enough to actually be looked at, deterministic per id */
+    hold: +(0.85 + 0.50 * R1(pick.id + (pick.t ?? ""), "hold")).toFixed(3),
+    key: pick.file,
+    /* every island CUTS in; about half of them WIPE out on a hard edge */
+    wipe: R1(pick.id + (pick.t ?? ""), "wipe") < 0.5,
+  });
+  const list = [];
+  cutsIn(B[1], B[2], before.length, 2.6, 1.7).forEach((t, i) => list.push(mk(before[i], t)));
+  const uwAt = B[2] + (B[3] - B[2]) * 0.36;
+  UNDERWORLD = { pick: uw, at: uwAt, hold: 1.90, key: uw.file,        // held longest
+                 wipe: false };
+  list.push(UNDERWORLD);
+  cutsIn(B[3], B[4], after.length, 1.5, 1.7).forEach((t, i) => list.push(mk(after[i], t)));
+  ISLANDS = list.sort((a, b) => a.at - b.at);
+  clipWindows();
+  attachImages();
+}
+
+/* buildScore() is called again after the onsets land, which replaces every
+   island object — so re-binding the loaded images belongs HERE, not at the call
+   site. (It did not, once, and the whole scored path ran with no pictures.) */
+function attachImages() {
+  for (const isl of ISLANDS) isl.img = S.images.get(isl.key) || null;
+  S.outroImg = S.outroPick ? (S.images.get(S.outroPick.file) || null) : null;
+}
+S.attachImages = attachImages;
+
+/* Approach and release windows are CLIPPED against their neighbours, so however
+   tight the cutting gets the knot never jumps: the convergence always reaches 1
+   exactly on the cut, and always unwinds from wherever it actually was. */
+function clipWindows() {
+  let prevEnd = -Infinity;
+  for (let i = 0; i < ISLANDS.length; i++) {
+    const isl = ISLANDS[i];
+    const nextAt = i + 1 < ISLANDS.length ? ISLANDS[i + 1].at : Infinity;
+    isl.a0 = Math.max(isl.at - APPROACH, prevEnd + 0.04);
+    if (isl.a0 >= isl.at) isl.a0 = isl.at - 0.12;
+    isl.hEnd = isl.at + isl.hold;
+    isl.r1 = Math.min(isl.hEnd + RELEASE, nextAt - 0.12);
+    if (isl.r1 <= isl.hEnd) isl.r1 = isl.hEnd + 0.05;
+    prevEnd = isl.r1;
+  }
+}
+
+/* ── onsets ──────────────────────────────────────────────────────────────────
+   Cheap RMS-flux peak picking. Same file → same envelope → same cuts. */
+function detectOnsets(ab) {
+  const ch = ab.getChannelData(0), sr = ab.sampleRate;
+  const hop = Math.round(sr * 0.01161);
+  const n = Math.floor(Math.min(ch.length, sr * (DURATION + 6)) / hop);
+  const env = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    let s = 0; const a0 = i * hop, a1 = a0 + hop;
+    for (let j = a0; j < a1; j++) { const v = ch[j]; s += v * v; }
+    env[i] = Math.sqrt(s / hop);
+  }
+  const flux = new Float32Array(n);
+  for (let i = 1; i < n; i++) flux[i] = Math.max(0, env[i] - env[i - 1]);
+  const on = []; const win = 14;
+  for (let i = win; i < n - win; i++) {
+    let mean = 0, peak = true;
+    for (let j = i - win; j <= i + win; j++) { mean += flux[j]; if (flux[j] > flux[i]) peak = false; }
+    mean /= (win * 2 + 1);
+    if (peak && flux[i] > mean * 1.7 && flux[i] > 0.0035) {
+      const t = i * hop / sr;
+      if (!on.length || t - on[on.length - 1] > 0.16) on.push(+t.toFixed(4));
+    }
+  }
+  const gaps = [];
+  for (let i = 1; i < on.length; i++) gaps.push(on[i] - on[i - 1]);
+  gaps.sort((a, b) => a - b);
+  const med = gaps.length ? gaps[Math.floor(gaps.length / 2)] : 0;
+  S.bpm = med > 0.05 ? Math.round(60 / med) : 0;
+  return on;
+}
+
+const snap = (t, tol) => {
+  let best = null, bd = Infinity;
+  for (const b of S.beats) { const d = Math.abs(b - t); if (d < bd) { bd = d; best = b; } }
+  return bd <= tol ? +best.toFixed(3) : null;
+};
+
+/* every section boundary and every island cut lands on a detected onset, so the
+   cuts feel struck rather than floated */
+function snapScore() {
+  if (NOSNAP || !S.beats.length) { S.snapped = false; return false; }
+  const out = B.slice();
+  for (let i = 1; i <= 5; i++) {
+    const s = snap(NOMINAL[i], 0.85);
+    if (s != null && s > out[i - 1] + 2.4) out[i] = s;
+  }
+  B = out;
+  const s6 = snap(NOMINAL[6], 0.9);
+  DURATION = +clamp(s6 != null && s6 > B[5] + 6 ? s6 : NOMINAL[6], 45, 60).toFixed(3);
+  B[6] = DURATION;
+  buildScore();
+  let hit = 0;
+  for (const isl of ISLANDS) {
+    const s = snap(isl.at, 0.55);
+    if (s != null) { isl.at = s; hit++; }
+  }
+  ISLANDS.sort((a, b) => a.at - b.at);
+  clipWindows();
+  S.snapped = true; S.islandsOnOnset = hit;
+  return true;
+}
+
+async function loadAudio() {
+  const albums = (await getJSON("audio/albums.json")).albums || [];
+  const want = Q.get("track");
+  let album = albums.find(a => a.id === "homecoming") || albums[0];
+  let track = null;
+  if (want) {
+    const [ma, mn] = want.includes(":") ? want.split(":") : [null, want];
+    if (ma) { const a = albums.find(x => x.id === ma); if (a) album = a; }
+    const num = +mn;
+    track = Number.isFinite(num) && num > 0
+      ? (album.tracks.find(t => t.num === num) || album.tracks[num - 1])
+      : album.tracks.find(t => (t.title || "").toLowerCase().includes(String(want).toLowerCase()));
+  }
+  if (!track) track = album.tracks.find(t => t.num === 1) || album.tracks[0];
+  const url = album.dir.split("/").map(encodeURIComponent).join("/") + "/" + encodeURIComponent(track.file);
+  S.track = { album: album.name, title: track.title, num: track.num, url };
+  try {
+    const resp = await fetch(url);
+    const buf = await resp.arrayBuffer();
+    S.audioBytes = buf.byteLength; S.requests++;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ac = new AC();
+    const ab = await ac.decodeAudioData(buf.slice(0));
+    S.beats = detectOnsets(ab);
+    if (ac.close) ac.close();
+  } catch (e) { S.beats = []; S.audioErr = String(e.message || e); }
+  const a = new Audio();
+  a.preload = "auto";
+  a.src = url;                       /* src set here — play() is never called on an empty src */
+  S.audio = a;
+  return S.track;
+}
+
+/* the verification path can build the musical score without ever playing */
+S.loadScore = async () => {
+  if (S.scoreLoaded) return S.scoreLoaded;
+  S.scoreLoaded = (async () => {
+    if (SILENT) { buildScore(); return false; }
+    await loadAudio();
+    return snapScore();
+  })();
+  return S.scoreLoaded;
+};
+
+/* ============================================================================
+   3 · THE CURVE — one parametric line under transformation
+   ----------------------------------------------------------------------------
+   For copy k of N the phase offset is k·Δ. Sampled along u ∈ [0,1] the curve is
+   drawn twice — once STRAIGHT (a rule with a harmonic displacement, so copies
+   beat against each other as moiré) and once WOUND (the same harmonic in polar,
+   so copies at incremental angular offsets bloom into a rosette) — and mixed by
+   `wind`. That mix is the whole vocabulary of the piece.
+   ========================================================================== */
+const cx = () => CW * 0.5;
+const homeY = () => CH * 0.560;
+const homeSpan = () => CW * 0.740;
+
+/* the underworld runs SLOWER: a piecewise-linear drift clock, closed form */
+function driftTime(t) {
+  const s = B[2], e = B[3], k = 0.45;
+  if (t <= s) return t;
+  if (t <= e) return s + (t - s) * k;
+  return s + (e - s) * k + (t - e);
+}
+
+/* where a moment sits relative to an island: approaching, held, or releasing */
+function islandPhase(t) {
+  for (const isl of ISLANDS) {
+    if (t < isl.a0 || t >= isl.r1) continue;
+    if (t < isl.at) return { isl, mode: "approach", u: ease((t - isl.a0) / (isl.at - isl.a0)) };
+    if (t < isl.hEnd) return { isl, mode: "hold", u: (t - isl.at) / isl.hold };
+    return { isl, mode: "release", u: ease((t - isl.hEnd) / (isl.r1 - isl.hEnd)) };
+  }
+  return null;
+}
+
+/* the full state of the line at time t — this is the layout, and it is pure */
+function stateAt(t) {
+  const d = driftTime(t);
+  const st = {
+    N: 1, delta: 0, wind: 0, turns: 1, harm: 5, amp: 0, R: CH * 0.30,
+    spread: 0, hAmp: CH * 0.10, span: homeSpan(), y: homeY(), rot: 0,
+    u0: 0, u1: 1, alpha: 1, invert: false, section: 0, converge: 0,
+  };
+
+  if (t < B[1]) {
+    /* 1 · DEPARTURE — one rule on an empty field. It breaks from the left edge,
+       travels, and then is almost too still. */
+    st.section = 0;
+    const grow = ease((t - 1.10) / 3.30);                    // right end travels
+    const free = ease((t - 4.20) / 1.30);                    // left end lets go
+    if (t < 1.10) { st.alpha = 0; }
+    const xL = lerp(0, cx() - homeSpan() / 2, free);
+    const xR = lerp(0, cx() + homeSpan() / 2, grow);
+    st.explicit = { xL, xR };
+    st.amp = 0;
+    return st;
+  }
+
+  if (t < B[4]) {
+    /* 2 · WANDERING (and, past the underworld, the voyage home). N phase-shifted
+       copies of one curve. The family tightens and loosens; it never resolves. */
+    const inUW = t >= B[2] && t < B[3];
+    st.section = inUW ? 2 : (t < B[2] ? 1 : 3);
+    st.invert = inUW;
+
+    const openU = ease((t - B[1]) / 3.4);                    // the line multiplies
+    const homeU = ease((t - B[3]) / (B[4] - B[3]));          // homeward: it contracts
+    const Nmax = lerp(19, 11, homeU);
+    st.N = Math.max(1, Math.round(lerp(1, Nmax, openU)));
+    st.wind = clamp(lerp(0, 0.88, openU) * lerp(1, 0.80, homeU), 0, 1);
+    st.delta = (0.205 + 0.150 * Math.sin(d * 0.2110 + 0.6)) * lerp(0.15, 1, openU) * lerp(1, 0.72, homeU);
+    st.turns = 1 + 0.52 * (1 + Math.sin(d * 0.3700 + 2.1));
+    st.harm  = 5 + 2.40 * Math.sin(d * 0.1630);
+    st.amp   = (0.155 + 0.130 * Math.sin(d * 0.2900 + 1.1)) * lerp(0.2, 1, openU);
+    st.R     = CH * (0.300 + 0.055 * Math.sin(d * 0.1270 + 0.4)) * lerp(1, 0.86, homeU);
+    st.spread = CH * 0.0125 * (1 - st.wind) * lerp(0, 1, openU);
+    st.rot   = d * 0.0740;
+    st.y = homeY() + CH * 0.012 * Math.sin(d * 0.19);
+    return st;
+  }
+
+  if (t < B[5]) {
+    /* 5 · THE RETURN — the phase offsets converge back toward zero and the family
+       collapses to fewer and fewer lines, until it is one rule where it began. */
+    st.section = 4;
+    const u = ease((t - B[4]) / (B[5] - B[4]));
+    const p = stateAt(B[4] - 0.001);
+    st.N = Math.max(1, Math.round(lerp(p.N, 1, easeIn(u * 1.05))));
+    st.delta = p.delta * (1 - u);
+    st.wind = p.wind * (1 - ease(clamp((u - 0.10) / 0.80, 0, 1)));
+    st.turns = lerp(p.turns, 1, u);
+    st.harm = lerp(p.harm, 3, u);
+    st.amp = p.amp * (1 - ease(clamp(u / 0.85, 0, 1)));
+    st.R = lerp(p.R, CH * 0.10, u);
+    st.spread = p.spread * (1 - u);
+    st.rot = lerp(p.rot, 0, ease(u));
+    st.y = lerp(p.y, homeY(), ease(u));
+    return st;
+  }
+
+  /* 6 · RECOGNITION — a single dead-still rule; the letterforms take it from here */
+  st.section = 5;
+  return st;
+}
+
+/* sample copy k of the curve at time t into a flat [x,y,x,y,…] array */
+function sampleCopy(st, k, M) {
+  const phi = k * st.delta;
+  const off = (k - (st.N - 1) / 2);
+  const CXc = cx(), CYc = st.y;
+  const pts = new Float64Array(M * 2);
+  const conv = st.converge || 0;
+  for (let i = 0; i < M; i++) {
+    const u = i / (M - 1);
+    const th = TAU * st.turns * u + st.rot;
+    const wob = st.amp * Math.sin(st.harm * th + phi);
+    /* straight form — a rule with a harmonic displacement */
+    const sx = CXc + (u - 0.5) * st.span;
+    const sy = CYc + wob * st.hAmp + off * st.spread;
+    /* wound form — the same harmonic in polar, this copy rotated by its phase */
+    const rr = st.R * (1 + wob);
+    const wx = CXc + rr * Math.cos(th + phi);
+    const wy = CYc + rr * Math.sin(th + phi) * 0.90;
+    let x = lerp(sx, wx, st.wind), y = lerp(sy, wy, st.wind);
+    if (conv > 0) { x = lerp(x, CXc, conv); y = lerp(y, CYc, conv); }
+    pts[i * 2] = x; pts[i * 2 + 1] = y;
+  }
+  return pts;
+}
+
+function strokeWeight(st) {
+  return clamp(CH * 0.0108 / Math.pow(Math.max(1, st.N), 0.42), CH * 0.0026, CH * 0.0135);
+}
+/* the weight of ONE rule — the departure, the return and the pre-flight rule in
+   the recognition all use this, so "it is one rule again, where it began" is
+   literally the same drawing, not a near miss */
+const RULE_W = () => strokeWeight({ N: 1 });
+
+/* ============================================================================
+   4 · THE LETTERFORMS — the rule breaks and the pieces settle into ODYSSEY
+   ----------------------------------------------------------------------------
+   Each glyph is a handful of strokes in a unit box (y down, cap height 1). The
+   whole word is 24 pieces, and the rule is cut into 24 sub-segments left to
+   right, so the left end of the line becomes the O and the right end the last Y.
+   ========================================================================== */
+const SW = 0.20;                                   // stroke weight, cap heights
+const L = (x1, y1, x2, y2) => s => [x1 + (x2 - x1) * s, y1 + (y2 - y1) * s];
+const A = (ax, ay, r, a0, a1) => s => {
+  const a = (a0 + (a1 - a0) * s) * Math.PI / 180;
+  return [ax + r * Math.cos(a), ay + r * Math.sin(a)];
+};
+/* Every piece OVERRUNS its neighbours by half a stroke: butt caps on a flat
+   alphabet leave notches at corners and hairline seams between arcs, and a
+   notched O is the one thing that would give the trick away. */
+const GLYPH = {
+  O: { adv: 0.92, st: [A(0.46, 0.50, 0.36, -94, 4), A(0.46, 0.50, 0.36, -4, 94),
+                       A(0.46, 0.50, 0.36, 86, 184), A(0.46, 0.50, 0.36, 176, 274)] },
+  D: { adv: 0.92, st: [L(0.10, 0.00, 0.10, 1.00), L(0.00, 0.10, 0.42, 0.10),
+                       L(0.00, 0.90, 0.42, 0.90), A(0.42, 0.50, 0.40, -96, 96)] },
+  Y: { adv: 0.92, st: [L(0.10, 0.10, 0.50, 0.555), L(0.82, 0.10, 0.42, 0.555),
+                       L(0.46, 0.42, 0.46, 0.90)] },
+  S: { adv: 0.78, st: [A(0.44, 0.34, 0.24, -20, -216), L(0.2145, 0.4221, 0.665, 0.578),
+                       A(0.44, 0.66, 0.24, -36, 170)] },
+  E: { adv: 0.80, st: [L(0.10, 0.00, 0.10, 1.00), L(0.00, 0.10, 0.70, 0.10),
+                       L(0.00, 0.50, 0.60, 0.50), L(0.00, 0.90, 0.70, 0.90)] },
+};
+const WORD = "ODYSSEY";
+const TRACK = 0.14;                                // letter spacing, cap heights
+
+/* one flat list of pieces, each already in canvas pixels */
+function buildWord() {
+  let adv = 0;
+  const glyphs = [];
+  for (const ch of WORD) { glyphs.push({ ch, x: adv, ...GLYPH[ch] }); adv += GLYPH[ch].adv + TRACK; }
+  const unitW = adv - TRACK;
+  const cap = (CW * 0.760) / unitW;
+  const x0 = (CW - unitW * cap) / 2;
+  const y0 = homeY() - cap / 2;
+  const P = 26;
+  const pieces = [];
+  glyphs.forEach((gl, gi) => gl.st.forEach((fn, si) => {
+    const pts = new Float64Array(P * 2);
+    for (let i = 0; i < P; i++) {
+      const [ux, uy] = fn(i / (P - 1));
+      pts[i * 2] = x0 + (gl.x + ux) * cap;
+      pts[i * 2 + 1] = y0 + uy * cap;
+    }
+    pieces.push({ key: `${gl.ch}${gi}.${si}`, pts, P });
+  }));
+  return { pieces, cap, weight: SW * cap, unitW, x0, y0 };
+}
+let WORDGEO = null;
+
+/* the rule, cut into as many sub-segments as there are pieces */
+function ruleSegments(n) {
+  const xa = cx() - homeSpan() / 2, xb = cx() + homeSpan() / 2, y = homeY();
+  const segs = [];
+  for (let i = 0; i < n; i++) {
+    const a = xa + (xb - xa) * (i / n), b = xa + (xb - xa) * ((i + 1) / n);
+    segs.push([a, b, y]);
+  }
+  return segs;
+}
+
+/* ============================================================================
+   5 · THE IMAGES — one at a time, full bleed, big enough to be looked at
+   ========================================================================== */
+const CHROME_INSET = 0.085;   /* the engine draws a card: label top-left, id and
+     meter bottom-left, a frame. Crop it off. The only type in this piece is the
+     word ODYSSEY. */
+
+function drawStill(im, alpha, wipe) {
+  const sx = im.naturalWidth * CHROME_INSET, sy = im.naturalHeight * CHROME_INSET;
+  const sw = im.naturalWidth - sx * 2, sh = im.naturalHeight - sy * 2;
+  const scale = Math.max(CW / sw, CH / sh);          // cover
+  const dw = sw * scale, dh = sh * scale;
+  g.save();
+  if (wipe > 0) {                                    // a hard edge, not a fade
+    g.beginPath(); g.rect(0, 0, CW * (1 - wipe), CH); g.clip();
+  }
+  g.globalAlpha = alpha;
+  g.globalCompositeOperation = "multiply";           // white → paper, black → ink
+  g.imageSmoothingEnabled = true; g.imageSmoothingQuality = "high";
+  g.drawImage(im, sx, sy, sw, sh, (CW - dw) / 2, (CH - dh) / 2, dw, dh);
+  g.restore();
+}
+
+/* ============================================================================
+   6 · RENDER
+   ========================================================================== */
+function render(t) {
+  t = clamp(t, 0, DURATION);
+  const st = stateAt(t);
+  const isl = islandPhase(t);
+  const inUW = t >= B[2] && t < B[3];
+
+  g.globalCompositeOperation = "source-over";
+  g.globalAlpha = 1;
+  g.fillStyle = PAPER;
+  g.fillRect(0, 0, CW, CH);
+
+  /* — the outro: the only soft dissolve in the piece — */
+  const dissStart = DURATION - 3.4;
+  /* the ONLY soft transition in the piece — and it is linear, so it reads as a
+     dissolve the whole way through rather than sitting invisible for a second */
+  const diss = t > dissStart ? clamp((t - dissStart) / 3.4, 0, 1) : 0;
+
+  /* — an island is held: the image is the whole frame, nothing else on it — */
+  let wipeW = 0;
+  if (isl && isl.mode === "hold" && isl.isl.img) {
+    const left = isl.isl.hEnd - t;
+    wipeW = isl.isl.wipe && left < WIPE ? 1 - clamp(left / WIPE, 0, 1) : 0;
+    drawStill(isl.isl.img, 1, wipeW);
+  } else if (diss > 0 && S.outroImg) {
+    drawStill(S.outroImg, diss, 0);
+  }
+
+  g.strokeStyle = INK;
+  g.lineCap = "butt";
+  g.lineJoin = "miter";
+
+  if (t >= B[5]) {
+    /* RECOGNITION — the pieces fly from the rule into the letterforms */
+    drawRecognition(t, diss);
+  } else if (!(isl && isl.mode === "hold")) {
+    drawLine(t, st, isl);
+  } else if (wipeW > 0) {
+    /* the wipe uncovers the knot already waiting behind the image */
+    g.save();
+    g.beginPath(); g.rect(CW * (1 - wipeW), 0, CW * wipeW, CH); g.clip();
+    drawLine(t, st, { isl: isl.isl, mode: "release", u: 0 });
+    g.restore();
+  }
+
+  /* — the underworld: ink and paper swap. Everything above inverts; the accent
+       does not, because the accent is the one thing that never changes. — */
+  if (inUW) {
+    g.save();
+    g.globalCompositeOperation = "difference";
+    g.fillStyle = "#ffffff";
+    g.fillRect(0, 0, CW, CH);
+    g.restore();
+  }
+
+  drawAccent(t, st, isl, diss);
+}
+
+function drawLine(t, st, isl) {
+  if (st.alpha <= 0) return;
+
+  /* the island approach: the knot converges on a single point, then releases */
+  let conv = 0;
+  if (isl && isl.mode === "approach") conv = isl.u;
+  if (isl && isl.mode === "release") conv = 1 - isl.u;
+  const sst = { ...st, converge: conv * 0.94 };
+  if (conv > 0) {
+    sst.delta = st.delta * (1 - conv * 0.92);
+    sst.R = st.R * (1 - conv * 0.80);
+    sst.amp = st.amp * (1 - conv * 0.85);
+    sst.wind = lerp(st.wind, 1, conv * 0.7);
+    sst.span = st.span * (1 - conv * 0.75);
+  }
+
+  g.lineWidth = strokeWeight(sst) * (1 + conv * 0.6);
+  g.globalAlpha = st.alpha;
+
+  if (sst.explicit) {                       /* DEPARTURE: a plain rule, drawn flat */
+    const { xL, xR } = sst.explicit;
+    if (xR - xL > 0.5) {
+      g.lineWidth = RULE_W();
+      g.beginPath(); g.moveTo(xL, sst.y); g.lineTo(xR, sst.y); g.stroke();
+    }
+    g.globalAlpha = 1;
+    return;
+  }
+
+  const M = clamp(Math.round(72 + sst.turns * 78 + sst.wind * 90), 72, 460);
+  g.beginPath();
+  for (let k = 0; k < sst.N; k++) {
+    const pts = sampleCopy(sst, k, M);
+    g.moveTo(pts[0], pts[1]);
+    for (let i = 1; i < M; i++) g.lineTo(pts[i * 2], pts[i * 2 + 1]);
+  }
+  g.stroke();
+  g.globalAlpha = 1;
+}
+
+function drawRecognition(t, diss) {
+  if (!WORDGEO) WORDGEO = buildWord();
+  const { pieces, weight } = WORDGEO;
+  const segs = ruleSegments(pieces.length);
+  const FLY0 = B[5] + 0.40, FLY = 2.20, STAG = 0.55;
+  g.globalAlpha = 1 - diss;
+  g.lineCap = "butt";
+  for (let i = 0; i < pieces.length; i++) {
+    const pc = pieces[i];
+    const delay = R1(pc.key, "fly") * STAG;
+    const u = ease((t - FLY0 - delay) / FLY);
+    const [a, b, y] = segs[i];
+    const lift = (1 - Math.abs(u * 2 - 1)) * CH * 0.055 * (R1(pc.key, "arc") - 0.5) * 2;
+    g.lineWidth = lerp(RULE_W(), weight, ease(clamp((u - 0.25) / 0.75, 0, 1)));
+    g.beginPath();
+    for (let j = 0; j < pc.P; j++) {
+      const s = j / (pc.P - 1);
+      const sx = lerp(a, b, s), sy = y;
+      const x = lerp(sx, pc.pts[j * 2], u);
+      const yy = lerp(sy, pc.pts[j * 2 + 1], u) + lift * Math.sin(Math.PI * s) * (1 - u);
+      if (j === 0) g.moveTo(x, yy); else g.lineTo(x, yy);
+    }
+    g.stroke();
+  }
+  g.globalAlpha = 1;
+}
+
+/* the one accent: a red mark at the left margin marking where the line began,
+   and — while an image is held — a red hairline holding the sea-line across it.
+   The line never actually leaves the frame. */
+function drawAccent(t, st, isl, diss) {
+  g.globalCompositeOperation = "source-over";
+  const y = homeY();
+  const markX = CW * 0.0455;
+  const on = ease((t - 0.50) / 0.85);
+  if (on > 0 && diss < 0.9) {
+    g.globalAlpha = on * (1 - diss);
+    g.fillStyle = RED;
+    const hh = CH * 0.030, ww = Math.max(2, CH * 0.0062);
+    g.fillRect(markX - ww / 2, y - hh, ww, hh * 2);
+    g.globalAlpha = 1;
+  }
+  if (isl && isl.mode === "hold") {
+    g.fillStyle = RED;
+    g.fillRect(0, y - Math.max(1, CH * 0.0022), CW, Math.max(2, CH * 0.0044));
+  }
+}
+
+/* ============================================================================
+   7 · TRANSPORT
+   ========================================================================== */
+let raf = 0, t0 = 0, base = 0;
+function frame() {
+  if (!S.playing) return;
+  const now = performance.now();
+  let t = base + (now - t0) / 1000;
+  if (S.audio && !S.audio.paused && S.audio.currentTime > 0.05) t = S.audio.currentTime;
+  if (t >= DURATION) { t = DURATION; render(t); S.t = t; syncUI(); pause(); return; }
+  S.t = t; render(t); syncUI();
+  raf = requestAnimationFrame(frame);
+}
+function play() {
+  if (S.playing) return;
+  if (S.t >= DURATION - 0.01) S.t = 0;
+  S.playing = true; base = S.t; t0 = performance.now();
+  if (S.audio && S.audio.src) { try { S.audio.currentTime = S.t; S.audio.play().catch(() => {}); } catch {} }
+  ppBtn.textContent = "pause";
+  raf = requestAnimationFrame(frame);
+}
+function pause() {
+  S.playing = false; cancelAnimationFrame(raf);
+  if (S.audio) { try { S.audio.pause(); } catch {} }
+  ppBtn.textContent = "play";
+}
+function seek(t) {
+  S.t = clamp(t, 0, DURATION); base = S.t; t0 = performance.now();
+  if (S.audio && S.audio.src) { try { S.audio.currentTime = S.t; } catch {} }
+  render(S.t); syncUI();
+}
+function syncUI() {
+  scrub.value = String(S.t);
+  const m = Math.floor(S.t / 60), s = S.t - m * 60;
+  tcEl.textContent = `${String(m).padStart(2, "0")}:${s.toFixed(1).padStart(4, "0")}`;
+}
+ppBtn.onclick = () => S.playing ? pause() : play();
+scrub.oninput = () => { pause(); seek(+scrub.value); };
+addEventListener("keydown", e => {
+  if (e.key === " ") { e.preventDefault(); S.playing ? pause() : play(); }
+  if (e.key === "ArrowRight") seek(S.t + (e.shiftKey ? 1 : 1 / FPS));
+  if (e.key === "ArrowLeft") seek(S.t - (e.shiftKey ? 1 : 1 / FPS));
+});
+S.seek = seek; S.play = play; S.pause = pause; S.render = render;
+
+/* ============================================================================
+   8 · EXPORT
+   ========================================================================== */
+function download(blobOrStr, name, type) {
+  const blob = blobOrStr instanceof Blob ? blobOrStr : new Blob([blobOrStr], { type: type || "application/json" });
+  const u = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = u; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(u), 4000);
+}
+function shotPlan() {
+  return {
+    title: "ODYSSEY — main title · THE LINE",
+    built: new Date().toISOString(),
+    canvas: { w: CW, h: CH, fps: FPS, duration: DURATION },
+    idea: "one horizontal rule, under transformation, for the whole piece",
+    palette: { paper: PAPER, ink: INK, accent: RED },
+    music: S.track ? { album: S.track.album, title: S.track.title, num: S.track.num,
+                       bpm: S.bpm, onsets: S.beats.length, snapped: S.snapped,
+                       islandsOnOnset: S.islandsOnOnset || 0 } : null,
+    sections: [
+      { n: 1, name: "DEPARTURE",   t0: B[0], t1: B[1] },
+      { n: 2, name: "WANDERING",   t0: B[1], t1: B[2] },
+      { n: 3, name: "UNDERWORLD",  t0: B[2], t1: B[3], inverted: true },
+      { n: 4, name: "HOMEWARD",    t0: B[3], t1: B[4] },
+      { n: 5, name: "RETURN",      t0: B[4], t1: B[5] },
+      { n: 6, name: "RECOGNITION", t0: B[5], t1: DURATION },
+    ],
+    nominal: NOMINAL,
+    islands: ISLANDS.map(i => ({ at: +i.at.toFixed(3), hold: i.hold, id: i.pick.id,
+                                 book: i.pick.book, t: i.pick.t, file: i.pick.still || i.pick.file })),
+    outro: S.outroPick ? { id: S.outroPick.id, book: S.outroPick.book,
+                           file: S.outroPick.still || S.outroPick.file } : null,
+  };
+}
+planBtn.onclick = () => download(JSON.stringify(shotPlan(), null, 1), "odyssey-title-line-plan.json");
+
+let stopExport = false;
+async function exportFrames() {
+  if (S.exporting) { stopExport = true; return; }
+  pause();
+  S.exporting = true; stopExport = false;
+  framesBtn.textContent = "stop"; framesBtn.classList.add("on");
+  download(JSON.stringify(shotPlan(), null, 1), "odyssey-title-line-plan.json");
+  const total = Math.round(DURATION * FPS);
+  for (let f = 0; f < total && !stopExport; f++) {
+    render(f / FPS);
+    const blob = await new Promise(res => cv.toBlob(res, "image/png"));
+    download(blob, `odyssey-title-line-${String(f).padStart(5, "0")}.png`, "image/png");
+    noteEl.textContent = `exporting frame ${f + 1} / ${total} — press stop to abort`;
+    await new Promise(r => setTimeout(r, 55));
+  }
+  S.exporting = false; framesBtn.textContent = "frames"; framesBtn.classList.remove("on");
+  noteEl.textContent = statusLine();
+  seek(S.t);
+}
+framesBtn.onclick = exportFrames;
+S.exportFrames = exportFrames; S.shotPlan = shotPlan;
+
+/* ============================================================================
+   9 · VERIFICATION HANDLE
+   ========================================================================== */
+const hash = arr => {                            // FNV-1a over a float stream
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < arr.length; i++) {
+    const v = Math.round(arr[i] * 1000) | 0;
+    h ^= v & 255; h = Math.imul(h, 16777619) >>> 0;
+    h ^= (v >> 8) & 255; h = Math.imul(h, 16777619) >>> 0;
+    h ^= (v >> 16) & 255; h = Math.imul(h, 16777619) >>> 0;
+  }
+  return ("00000000" + h.toString(16)).slice(-8);
+};
+
+/* the geometry the piece would draw at t, flattened — no canvas involved */
+function layoutAt(t) {
+  const out = [];
+  const st = stateAt(t);
+  const isl = islandPhase(t);
+  out.push(st.N, st.delta, st.wind, st.turns, st.harm, st.amp, st.R, st.spread, st.rot, st.y, st.span);
+  if (st.explicit) out.push(st.explicit.xL, st.explicit.xR);
+  if (t >= B[5]) {
+    if (!WORDGEO) WORDGEO = buildWord();
+    const segs = ruleSegments(WORDGEO.pieces.length);
+    WORDGEO.pieces.forEach((pc, i) => {
+      const u = ease((t - (B[5] + 0.40) - R1(pc.key, "fly") * 0.55) / 2.20);
+      const [a, b, y] = segs[i];
+      for (let j = 0; j < pc.P; j++) {
+        const s = j / (pc.P - 1);
+        out.push(lerp(lerp(a, b, s), pc.pts[j * 2], u), lerp(y, pc.pts[j * 2 + 1], u));
+      }
+    });
+  } else if (!(isl && isl.mode === "hold")) {
+    let conv = 0;
+    if (isl && isl.mode === "approach") conv = isl.u;
+    if (isl && isl.mode === "release") conv = 1 - isl.u;
+    const sst = { ...st, converge: conv * 0.94 };
+    if (conv > 0) {
+      sst.delta = st.delta * (1 - conv * 0.92); sst.R = st.R * (1 - conv * 0.80);
+      sst.amp = st.amp * (1 - conv * 0.85); sst.wind = lerp(st.wind, 1, conv * 0.7);
+      sst.span = st.span * (1 - conv * 0.75);
+    }
+    if (!sst.explicit) {
+      const M = 96;
+      for (let k = 0; k < sst.N; k++) { const p = sampleCopy(sst, k, M); for (let i = 0; i < p.length; i++) out.push(p[i]); }
+    }
+  }
+  return out;
+}
+S.layoutHash = t => hash(layoutAt(t));
+S.determinism = (n = 24) => {
+  const ts = Array.from({ length: n }, (_, i) => +(DURATION * i / (n - 1)).toFixed(4));
+  const a = ts.map(t => S.layoutHash(t));
+  WORDGEO = null;                                  // force a full rebuild for pass 2
+  const b = ts.map(t => S.layoutHash(t));
+  return { times: ts, passA: hash(a.join("").split("").map(c => c.charCodeAt(0))),
+           passB: hash(b.join("").split("").map(c => c.charCodeAt(0))),
+           identical: a.every((h, i) => h === b[i]), hashes: a };
+};
+
+/* pixel measurement */
+function measure(t) {
+  render(t);
+  const d = g.getImageData(0, 0, CW, CH).data;
+  let sum = 0, ink = 0, n = 0;
+  const GX = 40, GY = 24, grid = new Float64Array(GX * GY), gn = new Float64Array(GX * GY);
+  const step = 2;                                  // every 2nd pixel, both axes
+  for (let y = 0; y < CH; y += step) for (let x = 0; x < CW; x += step) {
+    const i = (y * CW + x) * 4;
+    const l = (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255;
+    sum += l; if (l < 0.5) ink++; n++;
+    const c = ((y * GY / CH) | 0) * GX + ((x * GX / CW) | 0);
+    grid[c] += l; gn[c]++;
+  }
+  for (let i = 0; i < grid.length; i++) grid[i] = gn[i] ? grid[i] / gn[i] : 0;
+  return { t: +t.toFixed(3), meanLum: +(sum / n).toFixed(4), ink: +(ink / n).toFixed(4),
+           /* a real PIXEL signature — 40×24 tile means — so "did the frame change"
+              is answered by the image, not by the geometry that produced it */
+           pix: hash(grid), hash: S.layoutHash(t) };
+}
+S.measure = measure;
+S.motion = (n = 8) => {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const t = +(DURATION * (i + 0.5) / n).toFixed(3);
+    const a = measure(t), b = measure(t + 0.2);
+    out.push({ t, ink: a.ink, meanLum: a.meanLum, section: stateAt(t).section,
+               inverted: t >= B[2] && t < B[3],
+               differsFromNext: a.pix !== b.pix,       // pixels, not geometry
+               nextInk: b.ink });
+  }
+  render(S.t);
+  return out;
+};
+/* does the field actually flip? average the luminance over each section rather
+   than trusting one sample, so an island held at the sample moment cannot skew it */
+S.underworldCheck = () => {
+  const avg = (t0, t1, n = 9) => {
+    let s = 0;
+    for (let i = 0; i < n; i++) s += measure(t0 + (t1 - t0) * (i + 0.5) / n).meanLum;
+    return +(s / n).toFixed(4);
+  };
+  const before = avg(B[1], B[2]), during = avg(B[2], B[3]), after = avg(B[3], B[4]);
+  render(S.t);
+  return { beforeMeanLum: before, duringMeanLum: during, afterMeanLum: after,
+           inverted: during < 0.5 && before > 0.5 && after > 0.5 };
+};
+
+/* "one rule again, in its original position" — measure the actual ink, not the
+   intent: leftmost and rightmost ink column, the ink centroid row, and the
+   stroke thickness, at the departure and again at the return. The red accent is
+   excluded by hue so it cannot flatter the numbers. */
+S.homeCheck = () => {
+  const geomOf = (t) => {
+    render(t);
+    const d = g.getImageData(0, 0, CW, CH).data;
+    let x0 = CW, x1 = -1, ySum = 0, n = 0, rows = new Set();
+    for (let y = 0; y < CH; y++) for (let x = 0; x < CW; x++) {
+      const i = (y * CW + x) * 4, R = d[i], G = d[i + 1], Bl = d[i + 2];
+      if (R - Math.max(G, Bl) > 40) continue;                 // the accent, skipped
+      if ((0.2126 * R + 0.7152 * G + 0.0722 * Bl) / 255 >= 0.5) continue;
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      ySum += y; n++; rows.add(y);
+    }
+    return { t: +t.toFixed(3), x0, x1, width: x1 - x0 + 1,
+             yCentroid: +(ySum / Math.max(n, 1)).toFixed(2), thickness: rows.size, inkPx: n };
+  };
+  const dep = geomOf(B[1] - 0.4);              // the rule, settled, before it multiplies
+  const ret = geomOf(B[5] + 0.15);             // the rule again, before it breaks into type
+  render(S.t);
+  return { departure: dep, returned: ret,
+           dx0: ret.x0 - dep.x0, dx1: ret.x1 - dep.x1,
+           dy: +(ret.yCentroid - dep.yCentroid).toFixed(2),
+           samePosition: Math.abs(ret.x0 - dep.x0) <= 1 && Math.abs(ret.x1 - dep.x1) <= 1
+                      && Math.abs(ret.yCentroid - dep.yCentroid) <= 0.5 };
+};
+
+/* the ending: is the word unambiguous? */
+S.contrast = (t) => {
+  const tt = t == null ? DURATION - 4.2 : t;
+  render(tt);
+  const d = g.getImageData(0, 0, CW, CH).data;
+  if (!WORDGEO) WORDGEO = buildWord();
+  const m = document.createElement("canvas"); m.width = CW; m.height = CH;
+  const mg = m.getContext("2d", { willReadFrequently: true });
+  mg.fillStyle = "#000"; mg.fillRect(0, 0, CW, CH);
+  mg.strokeStyle = "#fff"; mg.lineWidth = WORDGEO.weight; mg.lineCap = "butt"; mg.lineJoin = "miter";
+  for (const pc of WORDGEO.pieces) {
+    mg.beginPath();
+    for (let j = 0; j < pc.P; j++) { const x = pc.pts[j * 2], y = pc.pts[j * 2 + 1]; if (j === 0) mg.moveTo(x, y); else mg.lineTo(x, y); }
+    mg.stroke();
+  }
+  const md = mg.getImageData(0, 0, CW, CH).data;
+  let inN = 0, inInk = 0, inSum = 0, outN = 0, outInk = 0, outSum = 0;
+  for (let y = 0; y < CH; y += 2) for (let x = 0; x < CW; x += 2) {
+    const i = (y * CW + x) * 4;
+    const l = (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255;
+    if (md[i] > 128) { inN++; inSum += l; if (l < 0.5) inInk++; }
+    else { outN++; outSum += l; if (l < 0.5) outInk++; }
+  }
+  render(S.t);
+  const inMean = inSum / inN, outMean = outSum / outN;
+  return {
+    t: +tt.toFixed(3),
+    maskCoveredByInk: +(inInk / inN * 100).toFixed(2),
+    inkOutsideMask: +(outInk / outN * 100).toFixed(2),
+    insideMeanLum: +inMean.toFixed(4), outsideMeanLum: +outMean.toFixed(4),
+    contrast: +(outMean - inMean).toFixed(4),
+    weberContrast: +((outMean - inMean) / Math.max(outMean, 1e-6)).toFixed(4),
+  };
+};
+S.payload = () => ({ jsonBytes: S.bytes, imageBytes: S.imageBytes || 0,
+                     requests: S.requests, audioBytes: S.audioBytes || 0 });
+S.stats = () => ({
+  duration: DURATION, canvas: { w: CW, h: CH },
+  sections: shotPlan().sections,
+  picks: S.picks.map(p => ({ id: p.id, book: p.book, t: p.t, kind: p.kind,
+                             range: p.range, edge: p.edge, mean: p.mean, score: p.score,
+                             file: p.still || p.file })),
+  islands: ISLANDS.map(i => ({ at: +i.at.toFixed(3), hold: i.hold, id: i.pick.id, book: i.pick.book })),
+  outro: S.outroPick ? { id: S.outroPick.id, book: S.outroPick.book } : null,
+  onsets: S.beats.length, bpm: S.bpm, snapped: S.snapped,
+  islandsOnOnset: S.islandsOnOnset || 0,
+  track: S.track ? `${S.track.album} — ${S.track.title}` : null,
+});
+
+/* ============================================================================
+   10 · BOOT
+   ========================================================================== */
+function statusLine() {
+  const b = S.picks.map(p => p.book).filter(x => x != null);
+  return `${ISLANDS.length} islands · ${new Set(b).size} books · ${DURATION.toFixed(1)}s`
+       + (S.track ? ` · ${S.track.title}` : "") + (S.snapped ? ` · ${S.beats.length} onsets` : " · unsnapped");
+}
+
+async function boot() {
+  try {
+    gmsg.textContent = "reading the shortlist";
+    S.picks = await loadPicks();
+    if (!S.picks.length) throw new Error("no picks");
+    buildScore();
+
+    gmsg.textContent = "loading the stills";
+    let bytes = 0;
+    await Promise.all(S.picks.map(async p => {
+      const url = p.still || p.file;
+      try {
+        const im = await loadImage(url);
+        S.images.set(p.file, im);
+        bytes += (im.naturalWidth * im.naturalHeight) / 900;   // rough, replaced below
+      } catch (e) { /* a missing still is survivable — the island just holds paper */ }
+    }));
+    attachImages();
+    S.imageBytes = bytes;
+
+    scrub.max = String(DURATION);
+    S.ready = true;
+    render(0);
+    noteEl.textContent = statusLine();
+    gmsg.textContent = SILENT ? "silent — no score" : "with sound";
+    goBtn.disabled = false;
+    goBtn.textContent = "begin";
+
+    const park = +(Q.get("t") || 0);
+    if (park > 0) { gate.classList.add("gone"); seek(park); }
+  } catch (e) {
+    S.err = String(e && e.message || e);
+    gmsg.className = "err";
+    gmsg.textContent = S.err;
+    console.error(e);
+  }
+}
+
+goBtn.onclick = async () => {
+  goBtn.disabled = true;
+  gmsg.textContent = "finding the onsets";
+  try { await S.loadScore(); } catch (e) { /* silence is survivable */ }
+  scrub.max = String(DURATION);
+  noteEl.textContent = statusLine();
+  gate.classList.add("gone");
+  seek(0);
+  play();                                    /* inside the gesture */
+};
+
+boot();
+</script>
+</body>
+</html>
