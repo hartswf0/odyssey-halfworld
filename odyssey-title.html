@@ -170,6 +170,27 @@ cv.addEventListener("contextlost", e => { e.preventDefault();
 cv.addEventListener("contextrestored", () => {
   if (noteEl) noteEl.textContent = statusLine(); render(S.t); });
 const veil = document.getElementById("veil"), vmsg = document.getElementById("vmsg");
+
+/* ── FAIL LOUDLY ─────────────────────────────────────────────────────────
+   This page used to sit on "reading the corpus…" forever whenever anything
+   threw before the loader started — a module that would not parse, an API the
+   browser does not implement. A frozen message tells the viewer nothing and
+   tells us nothing. Surface every error, and time out the boot. */
+function fatal(what, e){
+  const msg = (e && (e.message || e.reason && e.reason.message || e.reason)) || e || "unknown";
+  if (vmsg) vmsg.innerHTML = '<span class="err">' + what + '</span><br><br>' +
+    String(msg).slice(0,300) +
+    '<br><br>If this browser is older Safari, try Chrome — this page needs ' +
+    'createImageBitmap with resize options and WebP.';
+  console.error("[title]", what, e);
+}
+addEventListener("error", e => fatal("SCRIPT ERROR", e.error || e));
+addEventListener("unhandledrejection", e => fatal("UNHANDLED REJECTION", e));
+setTimeout(() => {
+  if (!(window.__title && window.__title.ready) && vmsg &&
+      /reading the corpus/i.test(vmsg.textContent))
+    fatal("BOOT STALLED", "Nothing loaded within 25s. The corpus manifest never resolved.");
+}, 25000);
 const barI = document.querySelector("#bar i"), goBtn = document.getElementById("go");
 const ppBtn = document.getElementById("pp"), scrub = document.getElementById("scrub");
 const tcEl = document.getElementById("tc"), noteEl = document.getElementById("note");
@@ -233,6 +254,22 @@ const scratch = document.createElement("canvas");
 scratch.width = scratch.height = 48;
 const sctx = scratch.getContext("2d", { willReadFrequently:true });
 /* mean luminance of a sprite, 0=black 1=white */
+/* Safari (<17) ignores or rejects createImageBitmap's resize options, which
+   silently cost us every tile. Probe once, then downscale via canvas if needed. */
+let _cibResize = null;
+async function bitmapResized(src, w, h){
+  if (_cibResize === null){
+    try{
+      const t = await createImageBitmap(src, { resizeWidth:2, resizeHeight:2, resizeQuality:"high" });
+      _cibResize = (t.width === 2 && t.height === 2); t.close && t.close();
+    }catch(_){ _cibResize = false; }
+  }
+  if (_cibResize) return createImageBitmap(src, { resizeWidth:w, resizeHeight:h, resizeQuality:"high" });
+  const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+  cv.getContext("2d").drawImage(src, 0, 0, w, h);
+  return createImageBitmap(cv);
+}
+
 function measure(sp){
   sctx.fillStyle = PAPER; sctx.fillRect(0,0,48,48);
   sctx.drawImage(sp.img, sp.sx, sp.sy, sp.sw, sp.sh, 0, 0, 48, 48);
@@ -352,8 +389,8 @@ async function loadImages(tiles, onProgress){
         const probe = await createImageBitmap(blob);
         T.w = probe.width; T.h = probe.height;
         const [tw,th] = fitTo(T.w, T.h, THUMB_MAX), [mw,mh] = fitTo(T.w, T.h, MICRO_MAX);
-        T.thumb = SP(await createImageBitmap(probe, { resizeWidth:tw, resizeHeight:th, resizeQuality:"high" }));
-        T.micro = SP(await createImageBitmap(probe, { resizeWidth:mw, resizeHeight:mh, resizeQuality:"high" }));
+        T.thumb = SP(await bitmapResized(probe, tw, th));
+        T.micro = SP(await bitmapResized(probe, mw, mh));
         probe.close && probe.close();
         T.lumMeasured = measure(T.micro);
         S.loaded++;
@@ -1498,7 +1535,7 @@ async function boot(){
     if (r.ok){
       const b = await createImageBitmap(await r.blob());
       const [fw,fh] = fitTo(b.width, b.height, 1400);
-      S.firstFrame = SP(await createImageBitmap(b, { resizeWidth:fw, resizeHeight:fh, resizeQuality:"high" }));
+      S.firstFrame = SP(await bitmapResized(b, fw, fh));
       b.close && b.close();
     }
   }catch(e){
