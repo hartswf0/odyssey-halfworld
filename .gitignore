@@ -1,7 +1,11 @@
 .DS_Store
 nohup.out
 *.log
-renders/
+renders/*
 harness/.gemini-key
 harness/.drive-batch-state.json
 drive/voice/.resp-*.jsonl
+
+# the title sequence's tile corpus IS a deliverable — the page 404s without it
+!renders/tiles/
+!renders/tiles/**

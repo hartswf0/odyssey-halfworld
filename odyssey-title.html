@@ -234,7 +234,14 @@ async function loadImages(tiles, onProgress){
       const k = next++; if (k >= tiles.length) return;
       const T = tiles[k];
       try{
-        const res = await fetch(T.file, { cache:"force-cache" });
+        /* a dead fetch must not stall the corpus forever — the page used to sit
+           on "reading the corpus…" when the tiles were absent (renders/ is
+           gitignored, so a deploy without them 404s every single tile). */
+        const ac = new AbortController();
+        const to = setTimeout(()=>ac.abort(), 15000);
+        let res;
+        try { res = await fetch(T.file, { cache:"force-cache", signal:ac.signal }); }
+        finally { clearTimeout(to); }
         if (!res.ok) throw new Error(res.status);
         const blob = await res.blob();
         const probe = await createImageBitmap(blob);
