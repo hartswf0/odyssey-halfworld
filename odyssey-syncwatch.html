@@ -30,8 +30,11 @@
   a.suiteLn:hover{color:var(--gold);border-color:var(--gold)}
   main{max-width:1500px;margin:0 auto;padding:12px 12px 150px}
 
-  /* ── THE FOUR PANES ── */
+  /* ── THE FIVE PANES — 2 wide × 3 tall. SPEAKERS takes the full-width
+     bottom band because a two-hander needs the horizontal room. ── */
   #grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #grid .pane[data-k="E"]{grid-column:1 / -1}
+  #grid .pane[data-k="E"] canvas{aspect-ratio:1000/476}
   #grid.soloing .pane{display:none}
   #grid.soloing .pane.solo{display:block;grid-column:1 / -1}
   .pane{border:1px solid var(--line);background:#0e0e10;position:relative;min-width:0}
@@ -75,6 +78,7 @@
   @media(max-width:820px){
     main{padding:10px 8px 172px}
     #grid{grid-template-columns:1fr}
+    #grid .pane[data-k="E"]{grid-column:auto}
     #grid.soloing .pane.solo{grid-column:auto}
     .plab{min-height:52px;align-items:center}
     #bar button{min-height:52px;min-width:52px;padding:8px 10px}
@@ -111,6 +115,9 @@
     <div class="pane" data-k="D"><div class="plab"><span class="k">D</span>
       <span class="n">Performance</span><span class="d" id="dD">the drive view</span></div>
       <canvas id="cvD" width="700" height="476"></canvas></div>
+    <div class="pane" data-k="E"><div class="plab"><span class="k">E</span>
+      <span class="n">Speakers</span><span class="d" id="dE">who is talking · who is being talked to</span></div>
+      <canvas id="cvE" width="1000" height="476"></canvas></div>
   </div>
 
   <section id="cap">
@@ -135,6 +142,7 @@
 
 <script type="module">
 import * as E from "./engine/halfworld-engine.mjs";
+import { liveness, seedOf as liveSeed } from "./engine/liveness.mjs";
 const $ = s => document.getElementById(s);
 const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV",
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
@@ -289,10 +297,219 @@ const offA=document.createElement("canvas"); offA.width=SW; offA.height=SH;
 const ogA=offA.getContext("2d",{willReadFrequently:true});
 const offR=document.createElement("canvas"); offR.width=SW; offR.height=SH;
 const ogR=offR.getContext("2d",{willReadFrequently:true});
-const CV={A:$("cvA"),B:$("cvB"),C:$("cvC"),D:$("cvD")};
+const CV={A:$("cvA"),B:$("cvB"),C:$("cvC"),D:$("cvD"),E:$("cvE")};
 const G={A:CV.A.getContext("2d"),B:CV.B.getContext("2d"),
-         C:CV.C.getContext("2d"),D:CV.D.getContext("2d",{willReadFrequently:true})};
+         C:CV.C.getContext("2d"),D:CV.D.getContext("2d",{willReadFrequently:true}),
+         E:CV.E.getContext("2d",{willReadFrequently:true})};
 for(const k in G){G[k].fillStyle="#fdfdfa";G[k].fillRect(0,0,CV[k].width,CV[k].height);}
+
+/* ══════════════════════════════════════════════════════════════════════
+   3b. LIVENESS — the same staging, but breathing.
+
+   WHY THIS RE-IMPLEMENTS THE RESTAGE ACTOR LOOP. makeRestage().stage() is
+   correct and must stay bit-identical — it is a tracked engine file and pane
+   A/its own render is the control. But its draw loop hands each cutout
+   straight to drawImage at the laid-out (x,y,h): there is no seam to inject a
+   per-body offset, a scale multiplier or a tilt through. So this file drives
+   the PUBLIC parts of the restage — rs.loc, rs.layout(), and the exported
+   inkCutout — and re-runs the same compositing with liveness folded in.
+   Everything below the liveness lines is a faithful copy of the engine's
+   own loop (shadow, attention gaze, blend law, ink-fit) so that pane B
+   differs from pane A only by the motion, never by the staging.
+
+   Pane A deliberately calls the scene module's own stage() and gets NONE of
+   this. That is the comparison: one honest pane, one alive one.
+   ══════════════════════════════════════════════════════════════════════ */
+/* WALL time drives the motion, not the compressed scene clock. A body whose
+   breath speeds up because the edit is compressing the scene reads as a
+   fast-forward, which is worse than standing still. */
+let WALL = 0;
+
+const _opsCache = new WeakMap();
+function opsOf(B){
+  if(!B.mod) return [];
+  let o=_opsCache.get(B.mod);
+  if(!o){ o=(B.mod.timeline||[]).filter(x=>x.op!=="timeline.capture")
+            .slice().sort((a,b)=>a.at-b.at); _opsCache.set(B.mod,o); }
+  return o;
+}
+/* the engine's own instance hash, reproduced so undirected figures pick the
+   SAME state node here as they do in pane A. Do not "improve" it. */
+const engSeed = s => { let h=0; for(const ch of String(s)) h=(h*31+ch.charCodeAt(0))|0;
+  return (h>>>0)/4294967295; };
+const isFigureT = ty => /character|ensemble/.test(ty);
+
+function stateForLive(B, p, t){
+  const mod=B.mod, dur=(mod&&mod.duration)||36, beats=(mod&&mod.beats)||[];
+  const mine = opsOf(B).filter(o=>o.target===p.instance);
+  let pose=p.it.c.pose, gaze=p.it.c.gaze, extra=null, sig="cast";
+  for(const o of mine){
+    if(o.at>t) break;
+    if(o.args&&o.args.pose){ pose=o.args.pose; sig="op:"+o.args.pose; }
+    if(o.args&&o.args.gaze) gaze=o.args.gaze;
+  }
+  const nodes=E.normStateNodes(p.it.mod);
+  if(isFigureT(p.type) && nodes.length>1 && !mine.length){
+    const beatN=Math.max(1,beats.length||4);
+    const bi=Math.min(beatN-1, Math.floor(t/dur*beatN));
+    const node=nodes[(Math.floor(engSeed(p.instance)*97)+bi)%nodes.length];
+    extra={...node.prev()}; if(extra.pose)pose=extra.pose; sig="node:"+node.key;
+  }
+  return {pose,gaze,extra,sig};
+}
+
+/* ── FX PHASE. Every divine_fx module in the atlas reads state.t as a 0..1
+   progress through its own event (`const u = clamp01(state.t ?? 0)`), and
+   most of them draw NOTHING outside that window — that is the absence
+   contract. The restage passes the scene clock in SECONDS, so from t=1s
+   onward every one of them is pinned at u=1: a flare that has already
+   finished, sitting there. Give it a real ramp instead.
+
+   The window is taken from the timeline ops that target the instance when
+   there are any (the scene told us when the event is), and is the whole
+   scene otherwise. Eased at both ends so the corridor opens and closes
+   rather than switching on. ── */
+/* NOT EVERY FX SPEAKS THE SAME DIALECT. Most read state.t as a 0..1 progress
+   through their own event; a few read it as free-running SECONDS (a tableau
+   that shimmers forever has no event to be a fraction of). Handing the second
+   kind a 0..1 ramp would freeze it — the exact bug this section exists to fix,
+   in reverse. So probe the module once: render it at t=.25 and t=.75 and see
+   whether anything moved. If nothing did, it has no 0..1 window and keeps the
+   seconds clock it already had. Two small renders per module, cached forever. */
+const _fxWindowed=new Map();
+function fxTakesWindow(mod){
+  const id=(mod&&(mod.id||mod.name))||"?";
+  if(_fxWindowed.has(id)) return _fxWindowed.get(id);
+  let out=false;
+  try{
+    const S=200, cv=document.createElement("canvas"); cv.width=S; cv.height=S;
+    const g=cv.getContext("2d",{willReadFrequently:true});
+    const shot=t=>{ g.setTransform(1,0,0,1,0,0); g.fillStyle="#fff"; g.fillRect(0,0,S,S);
+      try{ mod.draw(g,S,S,{...(mod.preview?mod.preview():{}), t, card:false}); }catch(e){}
+      return g.getImageData(0,0,S,S).data; };
+    const a=shot(.25), b=shot(.75);
+    for(let i=0;i<a.length;i+=4) if(a[i]!==b[i]){ out=true; break; }
+  }catch(e){ out=false; }
+  _fxWindowed.set(id,out); return out;
+}
+
+const _fxWinCache=new Map();
+function fxWindow(B,inst){
+  const k=(B.mod&&B.mod.id||"?")+"|"+inst;
+  if(_fxWinCache.has(k)) return _fxWinCache.get(k);
+  const dur=(B.mod&&B.mod.duration)||36;
+  const mine=opsOf(B).filter(o=>o.target===inst);
+  /* The window RUNS TO THE END OF THE SCENE. An op on an fx instance marks
+     when the event STARTS — a god arriving, a memory surfacing — never when
+     it is spent; scenes do not author fx out. Closing the window a few
+     seconds after the last op pinned most of these at u=1 for four fifths of
+     the take, which is the sitting-still bug wearing a different hat. */
+  const w = mine.length ? { a:Math.max(0, mine[0].at-1.5), b:dur } : { a:0, b:dur };
+  if(w.b-w.a < 2) w.a = Math.max(0, w.b-2);
+  _fxWinCache.set(k,w); return w;
+}
+function fxPhase(B,inst,t){
+  const w=fxWindow(B,inst);
+  return E.clamp((t-w.a)/Math.max(.001,w.b-w.a), 0, 1);
+}
+
+/* ── who is doing what, this instant ─────────────────────────────────────
+   `speaking` is the turn's TRUE subject (subjectOf resolves the narrator
+   proxy), `listening` is the turn's addressee (`ad`). u is progress through
+   the LINE, so the gesture decays with the sentence and not with the scene. */
+function rolesFor(B, seg, local){
+  const d=seg&&seg.d, tn=turnOf(d);
+  const spk=d?subjectOf(d):null;
+  const ad=(tn&&tn.ad)||null;
+  const spInst=instanceFor(B,spk), adInst=instanceFor(B,ad);
+  let u=0;
+  if(seg&&seg.v&&seg.v.dur>0) u=E.clamp((local-seg.v.start)/seg.v.dur,0,1);
+  /* IMPACT, sparingly: only the subject of an EMBODIED_ACTION turn, only for
+     the first 0.8 s of it. A blow, a fall, a body hitting a table. */
+  let impact=0;
+  if(tn && tn.act==="EMBODIED_ACTION" && seg && seg.v && seg.exact){
+    const el=local-seg.v.start;
+    if(el>=0 && el<0.8) impact=el/0.8;
+  }
+  return { spk, ad, spInst, adInst, u, impact };
+}
+
+function stageLive(og, B, W, H, tS, R){
+  const rs=B.rs;
+  /* ── the one background (unchanged from the engine) ── */
+  if(rs.loc){
+    try{ rs.loc.mod.draw(og,W,H,{...(rs.loc.mod.preview?rs.loc.mod.preview():{}),
+      t:Math.min(tS,3), card:false, key:false}); }catch(e){}
+    og.fillStyle="rgba(255,255,255,.20)"; og.fillRect(0,0,W,H);
+  }else{
+    og.fillStyle="#ffffff"; og.fillRect(0,0,W,H);
+    og.strokeStyle="#c9c7c0"; og.lineWidth=2;
+    og.beginPath(); og.moveTo(0,H*.52); og.lineTo(W,H*.52); og.stroke();
+  }
+  const placed=rs.layout(W,H,tS);
+  let att=null;
+  for(const o of opsOf(B)){ if(o.at<=tS && tS<o.at+4){
+    const p=placed.find(q=>q.instance===o.target); if(p)att=p; } }
+  /* which way is "toward the addressee"? Whoever is further right leans left.
+     Resolved once from the layout so both bodies lean at each other. */
+  const pSpk=R.spInst?placed.find(q=>q.instance===R.spInst.instance):null;
+  const pAd =R.adInst ?placed.find(q=>q.instance===R.adInst.instance ):null;
+  const leanSign=(p)=>{
+    if(!pSpk||!pAd||pSpk===pAd) return 0;
+    if(p===pSpk) return pAd.x>=pSpk.x?1:-1;
+    if(p===pAd ) return pSpk.x>=pAd.x?1:-1;
+    return 0;
+  };
+
+  for(const p of placed){
+    const speaking =!!(pSpk&&p===pSpk), listening=!!(pAd&&p===pAd&&!speaking);
+    /* only bodies breathe. A bench does not, and a location is the field. */
+    const L = p.figure
+      ? liveness(p.instance, WALL, { speaking, listening, u:R.u,
+          impact: speaking?R.impact:0 })
+      : null;
+    const ox=L?L.dx*W:0, oy=L?L.dy*H:0, sc=L?L.scale:1;
+    const lx=L?L.lean*W*leanSign(p):0;
+    const cx=p.x+ox+lx, cy=p.y+oy;
+
+    /* the shadow stays ON THE GROUND: it follows the body sideways but never
+       leaves the floor line, which is what sells the breath as vertical. */
+    og.fillStyle="rgba(20,20,20,.13)";
+    og.beginPath(); og.ellipse(cx, p.y+2, p.w*.33, p.w*.075, 0, 0, 7); og.fill();
+
+    const st=stateForLive(B,p,tS);
+    let gaze=st.gaze;
+    if(att && att!==p && p.figure && !gaze)
+      gaze={x:E.clamp((att.x-p.x)/W*3,-.6,.6), y:E.clamp((att.y-p.y)/H*2,-.3,.3)};
+    const state={...(st.extra||{}), pose:st.pose, band:p.it.c.band, gaze, t:tS};
+    const gz=gaze?"g"+Math.round(gaze.x*4)+","+Math.round(gaze.y*4):"";
+    let sigX=st.sig+gz;
+    /* ── FX ALIVE: hand the module a travelling phase, and put that phase in
+       the cutout signature at 1/60 resolution — inkCutout otherwise buckets
+       state.t at 0.25, which over a 0..1 window is four frames of animation. */
+    if(p.type==="divine_fx" && fxTakesWindow(p.it.mod)){
+      const u=fxPhase(B,p.instance,tS);
+      state.t=u; state.u=u; sigX+="|u"+Math.round(u*60);
+    }
+    const thr=p.o.key||.895;
+    const defBlend=/character|creature/.test(p.type)?"source-over":"darken";
+    let saved=false;
+    try{
+      const cut=E.inkCutout(p.it.mod,state,sigX,thr);
+      let dh=p.h*sc, dw=dh*cut.ar;
+      if(dw>W*.92){ dw=W*.92; dh=dw/cut.ar; }
+      og.save(); saved=true;
+      og.globalCompositeOperation=p.o.blend||defBlend;
+      if(p.o.alpha!=null) og.globalAlpha=E.clamp(p.o.alpha,.05,1);
+      if(p.o.flip){ og.translate(p.x*2,0); og.scale(-1,1); }
+      /* micro-tilt pivots on the FEET — a figure that rotated about its
+         middle would slide its own soles across the floor. */
+      if(L&&L.tilt){ og.translate(cx,cy); og.rotate(L.tilt); og.translate(-cx,-cy); }
+      og.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h, cx-dw/2, cy-dh, dw, dh);
+      og.restore(); saved=false;
+    }catch(e){ if(saved)og.restore(); og.globalCompositeOperation="source-over"; }
+  }
+}
 
 /* ══════════════════════════════════════════════════════════════════════
    4. PANE C — the proposed one-cut grammar.
@@ -392,6 +609,128 @@ function drawPerf(seg){
 }
 
 /* ══════════════════════════════════════════════════════════════════════
+   5b. PANE E — SPEAKERS. Only the people talking and being talked to.
+
+   No room, no props, no set dressing. The other four panes all answer "what
+   does this moment look like"; this one answers "WHO IS TALKING TO WHOM",
+   which in a poem that is nine-tenths direct speech is the thing you most
+   often cannot see. Two ink cutouts on warm paper, the speaker large at
+   centre-left, the addressee smaller and facing him, both breathing —
+   speaking and listening carry visibly different motion, which is the whole
+   reason liveness distinguishes them.
+   ══════════════════════════════════════════════════════════════════════ */
+const PAPER="#f2f1ec", PLATE="#fdfdfa", DARK="#141414";
+/* the house letterspaced caps. ctx.letterSpacing is not everywhere, so the
+   tracking is drawn by hand — deterministic, and identical in every engine. */
+function tracked(g,text,cx,y,size,track,weight){
+  const s=String(text||"").toUpperCase();
+  g.font=(weight||900)+" "+size+"px ui-monospace,Menlo,monospace";
+  const w=[...s].reduce((a,ch)=>a+g.measureText(ch).width+track,-track);
+  let x=cx-w/2;
+  g.textAlign="left";
+  for(const ch of s){ g.fillText(ch,x,y); x+=g.measureText(ch).width+track; }
+  return w;
+}
+/* a display name for an addressee. The turn ledger carries spName but no
+   adName, so the manifest's own asset name is the authority; ids that predate
+   the manifest fall back to a de-slugged form of the id. */
+function nameOf(aid){
+  if(!aid) return "";
+  if(/^PERFORMER\./.test(aid)) return "NARRATOR";
+  if(/^AUDIENCE\./.test(aid)) return "THE HEARERS";
+  const e=assetEntry(aid);
+  if(e&&e.name) return e.name;
+  return String(aid).split(".").slice(1).join(".").replace(/[-_]/g," ");
+}
+/* draw one cutout inside a plate, with liveness applied. Returns nothing;
+   the caller owns the name plate under it. */
+function drawFigureCard(g,cut,box,L,sign,W,H){
+  g.fillStyle=PLATE; g.fillRect(box.x,box.y,box.w,box.h);
+  g.strokeStyle=DARK; g.lineWidth=2.5; g.strokeRect(box.x,box.y,box.w,box.h);
+  const ox=L.dx*W+L.lean*W*sign, oy=L.dy*H;
+  g.save();
+  g.beginPath(); g.rect(box.x+1,box.y+1,box.w-2,box.h-2); g.clip();
+  if(cut&&cut.cv){
+    const s=Math.min(box.w*.86/cut.w, box.h*.88/cut.h)*L.scale;
+    const dw=cut.w*s, dh=cut.h*s;
+    const cx=box.x+box.w/2+ox, cy=box.y+box.h-8+oy;      // feet on the plate floor
+    if(sign<0){ g.translate(cx*2,0); g.scale(-1,1); }    // face the other body
+    if(L.tilt){ g.translate(cx,cy); g.rotate(L.tilt); g.translate(-cx,-cy); }
+    g.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h, cx-dw/2, cy-dh, dw, dh);
+  }else{
+    nineDots(g, box.x+box.w/2+ox, box.y+box.h/2+oy, Math.min(box.w,box.h)*.16);
+  }
+  g.restore();
+}
+function drawSpeakers(seg, local, R){
+  const g=G.E, W=CV.E.width, H=CV.E.height;
+  g.setTransform(1,0,0,1,0,0);
+  g.fillStyle=PAPER; g.fillRect(0,0,W,H);
+  g.strokeStyle=DARK; g.lineWidth=3; g.strokeRect(1.5,1.5,W-3,H-3);
+
+  const d=seg&&seg.d, tn=turnOf(d);
+  const spId=R.spk||subjectOf(d), adId=R.ad;
+  const spName=(tn&&tn.spName)||(d&&d.speakerName)||"—";
+  const adName=nameOf(adId);
+  /* ONE body, many guises: character.odysseus addressing
+     character.odysseus-revealed is a man addressing himself as far as this
+     pane is concerned. Compare the BASE name, the same way instanceFor()
+     folds guises onto one cast member, or the pane prints him twice. */
+  const base=a=>String(a||"").split(".").slice(1).join(".").split("-")[0];
+  const solo = !adId || adId===spId || base(adId)===base(spId);
+
+  /* SPEAKER large, centre-left. ADDRESSEE smaller, to his right, facing him.
+     The size difference is the hierarchy: you should never have to read the
+     plates to know which one has the floor. */
+  /* BOTH PLATES SHARE A FOOT LINE. Two boxes floating at different heights
+     read as two portraits; two boxes standing on one line read as two people
+     in a room together, which is the whole claim of this pane. */
+  const spH=H*.705, top=26, foot=top+spH, adH=spH*.78;
+  const spBox={ x:W*.050, y:top,        w:W*.250, h:spH };
+  const adBox={ x:W*.360, y:foot-adH,   w:W*.180, h:adH };
+
+  const Ls=liveness(spId, WALL, {speaking:true, u:R.u, impact:R.impact});
+  const La=liveness(adId||"—", WALL, {listening:true});
+  drawFigureCard(g, cutCache.get(spId), spBox, Ls, +1, W, H);
+  if(!solo) drawFigureCard(g, cutCache.get(adId), adBox, La, -1, W, H);
+
+  g.fillStyle=DARK;
+  tracked(g, spName.slice(0,26), spBox.x+spBox.w/2, foot+28, 16, 2.6, 900);
+  tracked(g, "SPEAKING",         spBox.x+spBox.w/2, foot+48, 9,  3.2, 700);
+  if(!solo){
+    tracked(g, adName.slice(0,26), adBox.x+adBox.w/2, foot+28, 13, 2.0, 900);
+    tracked(g, "LISTENING",        adBox.x+adBox.w/2, foot+48, 9,  3.2, 700);
+    /* the address: a hard rule from the speaker to the one addressed. This is
+       the only non-figure mark in the pane, and it is the relationship. */
+    const y=top+spH*.26;
+    g.strokeStyle=DARK; g.lineWidth=2;
+    g.beginPath(); g.moveTo(spBox.x+spBox.w+12,y); g.lineTo(adBox.x-12,y); g.stroke();
+    g.beginPath(); g.moveTo(adBox.x-8,y); g.lineTo(adBox.x-22,y-6);
+      g.lineTo(adBox.x-22,y+6); g.closePath(); g.fillStyle=DARK; g.fill();
+  }
+
+  /* the line, set large, in the right third. */
+  const txt=lineOf(d)||(d&&d.text)||"";
+  const isLine=!!lineOf(d);
+  const lx=W*.585, lw=W*.360;
+  g.textAlign="left";
+  g.fillStyle=DARK;
+  tracked(g,"THE LINE",lx+42,52,9,3.2,700);
+  g.strokeStyle="rgba(20,20,20,.35)"; g.lineWidth=1;
+  g.beginPath(); g.moveTo(lx,62); g.lineTo(lx+lw,62); g.stroke();
+  g.font=(isLine?"600 ":"italic 500 ")+(isLine?24:18)+"px ui-monospace,Menlo,monospace";
+  g.fillStyle=isLine?DARK:"#5c5c58";
+  const lines=wrap(g,txt,lw).slice(0,9);
+  let y=94;
+  for(const L of lines){ g.fillText(L,lx,y); y+=(isLine?32:26); }
+  /* how far through the line we are — the same u that decays the gesture */
+  g.fillStyle="rgba(20,20,20,.14)"; g.fillRect(lx,foot+42,lw,6);
+  g.fillStyle=DARK; g.fillRect(lx,foot+42,lw*R.u,6);
+  tracked(g,"LINE PROGRESS",lx+lw/2,foot+30,8,3.0,700);
+  g.textAlign="left";
+}
+
+/* ══════════════════════════════════════════════════════════════════════
    6. AUDIO — one voice element carries the clock, one bed plays under it.
    ══════════════════════════════════════════════════════════════════════ */
 const voice=$("voice"), bed=$("bed");
@@ -448,7 +787,7 @@ function setPlay(on){
    7. ONE CLOCK, ONE LOOP.
    ══════════════════════════════════════════════════════════════════════ */
 const CLOCK={t:0};
-let last=performance.now(), acc=0, lastSegKey="", curSeg=null, drawing=false;
+let last=performance.now(), acc=0, lastSegKey="", curSeg=null, drawing=false, ROLES=null;
 const RENDER_MS=1000/12;
 
 function renderCaption(sc,seg,local){
@@ -477,9 +816,13 @@ async function drawPanes(){
   if(drawing) return; drawing=true;
   const sc=sceneAt(CLOCK.t), local=CLOCK.t-sc.offset;
   const seg=segAt(sc,local); curSeg=seg;
+  /* the motion clock. WALL is film seconds, so breath runs at real speed no
+     matter how the scene program's own clock is compressed onto the take. */
+  WALL=CLOCK.t;
   try{
     const B=await sceneBundle(sc);
     if(sceneAt(CLOCK.t)!==sc){ drawing=false; return; }
+    const R=rolesFor(B,seg,local); ROLES=R;
     const dur=(B.mod&&B.mod.duration)||36;
     /* the scene program is authored on its own ~36s clock; the studio take runs
        longer. Map the take onto the program proportionally so every pane shows
@@ -495,7 +838,10 @@ async function drawPanes(){
     /* ── B + C share ONE restage render ── */
     if(B.rs){
       ogR.setTransform(1,0,0,1,0,0); ogR.fillStyle="#ffffff"; ogR.fillRect(0,0,SW,SH);
-      try{ B.rs.stage(ogR,SW,SH,tS); }catch(e){}
+      /* B and C share this one render — so the camera pane inherits the
+         liveness for free, and cannot drift out of sync with the restage. */
+      try{ stageLive(ogR,B,SW,SH,tS,R); }catch(e){ console.warn("stageLive",e);
+        try{ B.rs.stage(ogR,SW,SH,tS); }catch(e2){} }
       const src=ogR.getImageData(0,0,SW,SH).data;
       dotBlit(G.B, src, SW,SH, {x:0,y:0,w:SW,h:SH}, CV.B.width,CV.B.height,3.5);
 
@@ -538,6 +884,13 @@ async function drawPanes(){
     await cutFor(spId);
     drawPerf(seg);
     $("dD").textContent=(seg&&seg.d?seg.d.kind.replace(/_/g," ").toLowerCase():"—");
+
+    /* ── E · SPEAKERS ── */
+    if(R.ad) await cutFor(R.ad);
+    drawSpeakers(seg, local, R);
+    $("dE").textContent = R.ad&&R.ad!==R.spk
+      ? (nameOf(R.spk)+" ▸ "+nameOf(R.ad)).slice(0,64)
+      : nameOf(R.spk)+" · no addressee";
   }catch(e){ console.warn("draw",e); }
   drawing=false;
 }
@@ -643,9 +996,24 @@ window.__sync={
       start:seg.v.start, dur:seg.v.dur, exact:seg.exact}:null; },
   get shot(){return {size:CAM.size,rect:{x:+CAM.x.toFixed(1),y:+CAM.y.toFixed(1),
     w:+CAM.w.toFixed(1),h:+CAM.h.toFixed(1)},subject:CAM.subject,instance:CAM.inst};},
+  /* who pane E is showing, right now */
+  get speakers(){ const R=ROLES; if(!R) return null;
+    const sc=sceneAt(CLOCK.t), seg=segAt(sc,CLOCK.t-sc.offset);
+    return { scene:sc.id, speaker:R.spk, speakerName:nameOf(R.spk),
+      addressee:R.ad, addresseeName:nameOf(R.ad),
+      line:lineOf(seg&&seg.d), u:+R.u.toFixed(3), impact:+R.impact.toFixed(3),
+      speakerInstance:R.spInst?R.spInst.instance:null,
+      addresseeInstance:R.adInst?R.adInst.instance:null,
+      speakerCutout:!!cutCache.get(R.spk), addresseeCutout:!!cutCache.get(R.ad) }; },
+  /* the motion layer, exposed so determinism can be checked from the console */
+  liveness, liveSeed, get wall(){return WALL;}, set wall(v){WALL=v;},
+  fxPhase, fxWindow, fxTakesWindow, rolesFor, stageLive, nameOf, drawSpeakers, assetMod,
   panes:CV, sceneAt, segAt, seek, stepScene, setPlay, drawPanes, inkOf,
   FILM, TOTAL, BOOKS, sceneBundle, instanceFor, lineOf, TURN, subjectOf,
   ink(){ const o={}; for(const k in CV) o[k]=inkOf(CV[k]); return o; },
+  /* a raw pixel snapshot of one pane, for frame-to-frame diffing */
+  snap(k){ const cv=CV[k], g=cv.getContext("2d",{willReadFrequently:true});
+    return g.getImageData(0,0,cv.width,cv.height).data.slice(); },
 };
 console.log("[SYNCWATCH] "+FILM.length+" scenes · "+(TOTAL/60).toFixed(1)+" min · "
   +BOOKS.length+" books");
