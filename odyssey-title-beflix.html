@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ODYSSEY — BEFLIX main title</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f1e8'/%3E%3Crect x='4' y='4' width='6' height='6' fill='%23141210'/%3E%3Crect x='13' y='4' width='6' height='6' fill='%23141210' opacity='.55'/%3E%3Crect x='22' y='4' width='6' height='6' fill='%23141210' opacity='.2'/%3E%3Crect x='4' y='13' width='6' height='6' fill='%23141210' opacity='.2'/%3E%3Crect x='13' y='13' width='6' height='6' fill='%23e01b1b'/%3E%3Crect x='22' y='13' width='6' height='6' fill='%23141210' opacity='.55'/%3E%3Crect x='4' y='22' width='6' height='6' fill='%23141210' opacity='.55'/%3E%3Crect x='13' y='22' width='6' height='6' fill='%23141210' opacity='.2'/%3E%3Crect x='22' y='22' width='6' height='6' fill='%23141210'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0b0b0c; --paper:#f4f1e8; --ink:#141210; --txt:#eceae4;
+    --dim:rgba(236,234,228,.45); --line:rgba(236,234,228,.15);
+    --accent:#e01b1b;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:var(--bg);color:var(--txt);font:13px/1.5 var(--mono);overflow:hidden}
+  #app{position:fixed;inset:0;display:flex;flex-direction:column}
+  #stageWrap{position:relative;flex:1 1 auto;min-height:0;display:flex;align-items:center;
+    justify-content:center;background:#000}
+  canvas#stage{display:block;width:100%;height:auto;max-height:100%;max-width:100%;
+    aspect-ratio:16/9;background:#f4f1e8}
+  #veil{position:absolute;inset:0;display:flex;flex-direction:column;gap:15px;align-items:center;
+    justify-content:center;background:rgba(11,11,12,.93);text-align:center;padding:24px;z-index:5}
+  #veil.gone{display:none}
+  #veil h1{font-size:11px;letter-spacing:.5em;font-weight:900;color:var(--paper)}
+  #veil p{font-size:11px;letter-spacing:.09em;color:var(--dim);max-width:58ch;line-height:1.85}
+  #veil p.err{color:var(--accent);letter-spacing:.05em}
+  #bar{width:min(420px,72vw);height:2px;background:var(--line);position:relative}
+  #bar i{position:absolute;inset:0 auto 0 0;width:0%;background:var(--accent);display:block}
+  #veil button{min-height:52px;min-width:190px;margin-top:4px}
+  #ctl{flex:0 0 auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+    padding:7px 9px;border-top:1px solid var(--line);background:var(--bg)}
+  button,select{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);
+    padding:0 12px;min-height:38px;cursor:pointer;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;font-size:10.5px;white-space:nowrap}
+  button:hover{border-color:var(--paper);color:var(--paper)}
+  button.pri{background:var(--paper);color:#141210;border-color:var(--paper);font-weight:900}
+  button.on{border-color:var(--accent);color:var(--accent)}
+  button:disabled{opacity:.35;cursor:default}
+  .mv{min-width:42px;padding:0 8px}
+  #scrub{flex:1 1 200px;min-width:120px;height:38px;accent-color:var(--accent);background:transparent}
+  #tc{font-size:10px;letter-spacing:.1em;color:var(--dim);min-width:96px;text-align:right}
+  .sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
+  #note{font-size:9px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;
+    padding:0 9px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media (max-width:820px){
+    button,select{min-height:52px;font-size:11px;padding:0 13px}
+    .mv{min-width:52px}
+    #scrub{height:52px;flex-basis:100%;order:-1}
+    #tc{min-width:84px}
+    #ctl{padding:6px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stageWrap">
+    <canvas id="stage" width="1920" height="1080"></canvas>
+    <div id="veil">
+      <h1>O D Y S S E Y</h1>
+      <p id="vmsg">reading the corpus…</p>
+      <div id="bar"><i></i></div>
+      <button id="go" class="pri" disabled>PLAY</button>
+    </div>
+  </div>
+  <div id="ctl">
+    <button id="pp" class="pri">PLAY</button>
+    <input id="scrub" type="range" min="0" max="34" step="0.01" value="0">
+    <span id="tc">00:00.00</span>
+    <span class="sep"></span>
+    <button class="mv" data-m="0">I</button>
+    <button class="mv" data-m="1">II</button>
+    <button class="mv" data-m="2">III</button>
+    <button class="mv" data-m="3">IV</button>
+    <button class="mv" data-m="4">V</button>
+    <span class="sep"></span>
+    <button id="frames">FRAMES</button>
+    <button id="plan">PLAN</button>
+  </div>
+  <div id="note">—</div>
+</div>
+
+<script type="module">
+/* ============================================================================
+   ODYSSEY — BEFLIX MAIN TITLE
+
+   THE LAW OF THE DOT, taken literally. A canonical BEFLIX frame — 128 x 96
+   cells, ink quantized to eight levels 0..7, on paper — where every DOT IS A
+   SCENE. The atom of the image is another image. The whole film plays inside
+   its own title.
+
+   FIVE MOVEMENTS
+     I   THE FIELD IS ALIVE   the corpus laid out in the film's own order,
+                              every scene cell cycling its three moments,
+                              ink from each tile's own measured luminance.
+     II  THE SCENES MAKE THEMSELVES  the cells reorganise — a sort by
+                              luminance — and the word precipitates out of it.
+     III HOLD                 the word, made of the film, still playing.
+     IV  THE PUNCH-IN         descend into the D until the dots resolve into
+                              recognisable frames.
+     V   EXIT                 dissolve to the film's first frame.
+
+   ADDITIVE. Reads viewer/title-tiles.json, viewer/title-atlas.json + its
+   sheets, renders/tiles/*.png (a handful, lazily, at the deepest zoom),
+   audio/albums.json and engine/liveness.mjs. Writes nothing.
+
+   DETERMINISM. No Math.random and no Date in the layout. Every choice is a
+   pure function of an id through seedOf(). Verify: __beflix.determinism().
+
+   PERFORMANCE. 12,288 cells cannot be redrawn per frame. The grid lives in an
+   offscreen buffer at exactly one cell-pixel per cell; each frame does ONE
+   blit of that buffer plus (a) the few dozen cells whose cycling moment just
+   changed and (b) the cells currently in flight. Ink levels are baked into
+   EIGHT pre-veiled copies of the micro sheet — one per ink level — so drawing
+   a cell is a single sub-rect drawImage with no per-cell filter or fill.
+   Verify: __beflix.perf().
+   ========================================================================== */
+
+/* ── seedOf: the engine's own hash, with a byte-identical inline fallback ── */
+function seedOfLocal(id){
+  const s = String(id == null ? "" : id);
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  h ^= h >>> 16; h = Math.imul(h, 2246822507) >>> 0;
+  h ^= h >>> 13; h = Math.imul(h, 3266489909) >>> 0;
+  h = (h ^ (h >>> 16)) >>> 0;
+  return h / 4294967296;
+}
+let seedOf = seedOfLocal, SEED_SOURCE = "inline-fallback";
+try{
+  const m = await import("./engine/liveness.mjs");
+  if (typeof m.seedOf === "function"){ seedOf = m.seedOf; SEED_SOURCE = "engine/liveness.mjs"; }
+}catch(e){ /* keep the fallback */ }
+const R = (a, b) => seedOf(a + "" + b);
+
+/* ── the BEFLIX frame ────────────────────────────────────────────────────── */
+const COLS = 128, ROWS = 96, N = COLS * ROWS;          // 12,288 cells
+const INKS = 8;                                         // ink 0..7
+const PAPER = "#f4f1e8", INK = "#141210", ACCENT = "#e01b1b";
+const PAPER_LUM = 0.941, INK_LUM = 0.073;               // measured off the hexes
+/* ink 7 is 0.19, not 0.06: a letterform pushed to solid black stops being made
+   of anything. At 0.19 the crushed scene frames inside the strokes keep their
+   own structure and the word still reads at a luminance ratio near 5. */
+const LUM_HI = 0.955, LUM_LO = 0.172;                   // ink 0 and ink 7 targets
+const LUM_OF_INK = k => LUM_HI - (LUM_HI - LUM_LO) * k / (INKS - 1);
+const CRUSH = "grayscale(1) contrast(1.85) brightness(0.58)";
+const CRUSH_FROM = 4;                                   // ink >= 4 draws the crushed sheet
+
+const Q = new URLSearchParams(location.search);
+const SMALL = Math.min(innerWidth, innerHeight) < 560 || innerWidth < 820;
+const CW = Math.max(480, Math.min(3840, +Q.get("w") || (SMALL ? 1280 : 1920)));
+const CH = Math.round(CW * 9 / 16);
+/* one cell = one integer number of canvas pixels, so the grid blits 1:1 and
+   there is no resampling anywhere in the hot path */
+const CP = Math.max(2, Math.min(Math.floor(CH * 0.945 / ROWS),
+                                Math.floor(CW * 0.96 / COLS)));
+const GW = COLS * CP, GH = ROWS * CP;
+const OX = Math.round((CW - GW) / 2), OY = Math.round((CH - GH) / 2);
+
+const TILES_URL = Q.get("tiles") || "viewer/title-tiles.json";
+const ATLAS_URL = Q.get("atlas") || "viewer/title-atlas.json";
+const WORD = "ODYSSEY";
+const PUNCH_LETTER = 1;                                 // the D
+const FPS = 30;
+const SCENE_COPIES = 18, ASSET_COPIES = 10;             // instances per tile
+const START_STRETCH = 1.55;                             // contrast of the opening field
+
+/* nominal movement boundaries, seconds; snapped to onsets when a track loads */
+const NOMINAL = [0, 6.2, 17.4, 22.6, 30.4, 34.6];       // I II III IV V end
+let B = NOMINAL.slice(), DURATION = NOMINAL[5];
+
+const clamp = (v,a,b)=> v<a?a:(v>b?b:v);
+const clamp01 = v => clamp(v,0,1);
+const lerp = (a,b,t)=> a + (b-a)*t;
+const smooth = t => { t = clamp01(t); return t*t*(3-2*t); };
+const easeInOut = t => { t = clamp01(t); return t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; };
+
+/* ── DOM ─────────────────────────────────────────────────────────────────── */
+const cv = document.getElementById("stage");
+cv.width = CW; cv.height = CH;
+const ctx = cv.getContext("2d", { alpha:false, willReadFrequently:true });
+ctx.imageSmoothingEnabled = false;                      // BEFLIX: no resampling
+const veil = document.getElementById("veil"), vmsg = document.getElementById("vmsg");
+const barI = document.querySelector("#bar i"), goBtn = document.getElementById("go");
+const ppBtn = document.getElementById("pp"), scrub = document.getElementById("scrub");
+const tcEl = document.getElementById("tc"), noteEl = document.getElementById("note");
+const framesBtn = document.getElementById("frames"), planBtn = document.getElementById("plan");
+
+function fatal(what, e){
+  const msg = (e && (e.message || e.reason && e.reason.message || e.reason)) || e || "unknown";
+  if (vmsg) vmsg.innerHTML = '<span class="err">' + what + '</span><br><br>' + String(msg).slice(0,300);
+  console.error("[beflix]", what, e);
+}
+addEventListener("error", e => fatal("SCRIPT ERROR", e.error || e));
+addEventListener("unhandledrejection", e => fatal("UNHANDLED REJECTION", e));
+
+/* ── state ───────────────────────────────────────────────────────────────── */
+const S = {
+  ready:false, t:0, playing:false, exporting:false,
+  tiles:[], scenes:null, atlas:null, sheets:null, thumbs:null, thumbsWanted:false,
+  grid:null, mask:null, audio:null, track:null, beats:[], bpm:0, snapped:false,
+  bytes:{ cold:0, warm:0, requests:0, warmRequests:0 }, full:new Map(), firstFrame:null,
+  timing:{ frames:0, ms:0 }
+};
+window.__beflix = S;
+
+/* ============================================================================
+   1 · THE CORPUS + THE SHEETS
+   ========================================================================== */
+async function grab(url, kind){
+  const r = await fetch(url, { cache:"no-store" });
+  if (!r.ok) throw new Error(url + " HTTP " + r.status);
+  const buf = await r.arrayBuffer();
+  if (kind === "cold"){ S.bytes.cold += buf.byteLength; S.bytes.requests++; }
+  else { S.bytes.warm += buf.byteLength; S.bytes.warmRequests++; }
+  return buf;
+}
+const asJSON = buf => JSON.parse(new TextDecoder().decode(buf));
+/* A fresh ImageBitmap costs its GPU upload on the first drawImage that uses
+   it — which, without this, lands in the middle of the punch-in. Touch every
+   bitmap once, off screen, at the moment it arrives. */
+const upload = document.createElement("canvas");
+upload.width = upload.height = 2;
+const uploadG = upload.getContext("2d");
+const warmBitmap = bm => { try{ uploadG.drawImage(bm, 0, 0, 2, 2); }catch(e){} return bm; };
+/* GREYSCALE ONCE, AT LOAD. ctx.filter is applied per drawImage call, and the
+   punch-in draws up to 400 cells a frame — filtering there cost 150 ms
+   hitches at the top of the descent. Every bitmap the punch draws from is
+   converted the moment it arrives, so the hot path has no filter at all.
+   (The corpus is monochrome except the engine's blue card mark, which is the
+   one thing this has to remove — the palette is cream, ink and one accent.) */
+const greyCv = document.createElement("canvas");
+async function greyBitmap(bm){
+  greyCv.width = bm.width; greyCv.height = bm.height;
+  const g = greyCv.getContext("2d");
+  g.filter = "grayscale(1)"; g.drawImage(bm, 0, 0); g.filter = "none";
+  const out = warmBitmap(await createImageBitmap(greyCv));
+  bm.close && bm.close();
+  return out;
+}
+
+async function loadCorpus(){
+  const doc = asJSON(await grab(TILES_URL, "cold"));
+  if (!doc || !Array.isArray(doc.tiles) || !doc.tiles.length)
+    throw new Error(TILES_URL + " has no tiles[]");
+  S.built = doc.built || "?";
+  S.tiles = doc.tiles.map((t,i)=>({
+    idx:i, file:t.file, id:t.id || t.file, kind:t.kind || "asset", type:t.type || "?",
+    book:(+t.book) || 1, tt:(t.t == null ? null : +t.t),
+    mean:(typeof t.mean === "number" ? t.mean : 0.8), w:+t.w || 220, h:+t.h || 220
+  }));
+  /* 152 scenes x 3 moments — the three-frame loop every scene cell cycles */
+  const byScene = new Map();
+  for (const T of S.tiles){
+    if (T.kind !== "scene") continue;
+    if (!byScene.has(T.id)) byScene.set(T.id, []);
+    byScene.get(T.id).push(T);
+  }
+  const moments = [], sceneOf = new Int32Array(S.tiles.length).fill(-1);
+  for (const [id, arr] of byScene){
+    arr.sort((a,b)=> (a.tt||0) - (b.tt||0));
+    const slot = moments.length;
+    moments.push(arr.map(t=>t.idx));
+    for (const t of arr) sceneOf[t.idx] = slot;
+  }
+  S.scenes = { moments, sceneOf, count:byScene.size,
+    momentCounts: moments.reduce((o,m)=>(o[m.length]=(o[m.length]||0)+1,o),{}) };
+  return S.tiles;
+}
+
+/* THE EIGHT INK SHEETS. The micro atlas is one 720x720 sprite sheet of the
+   whole corpus at 24px. Crushing and veiling are per-pixel filters, so doing
+   them ONCE to the sheet is identical to doing them 12,288 times to cells —
+   for 1/1500 of the work. Eight sheets, one per ink level; drawing a cell is
+   then a single drawImage with no state changes at all. */
+async function loadSheets(onProgress){
+  const doc = asJSON(await grab(ATLAS_URL, "cold"));
+  if (!doc || !doc.micro || !doc.thumb) throw new Error("atlas malformed");
+  S.atlas = doc;
+  const buf = await grab(doc.micro.file, "cold");
+  onProgress && onProgress(0.5);
+  const micro = await createImageBitmap(new Blob([buf], { type:"image/webp" }));
+  S.microSheet = micro;
+  S.micro = { cell:doc.micro.cell, cols:doc.micro.cols };
+  return micro;
+}
+
+/* build the eight sheets once the assignment is known — each level's veil is
+   solved from the MEDIAN luminance of the tiles that level actually receives,
+   so a level's cells land on their target ink instead of near it */
+async function buildSheets(medianLum){
+  const micro = S.microSheet;
+  const w = micro.width, h = micro.height;
+  const c = document.createElement("canvas"); c.width = w; c.height = h;
+  const g = c.getContext("2d");
+  const sheets = [], recipe = [];
+  for (let k=0;k<INKS;k++){
+    const crushed = k >= CRUSH_FROM;
+    const target = LUM_OF_INK(k);
+    let plain = medianLum[k];
+    if (!(plain > 0)) plain = 0.76;
+    const Lm = crushed ? plain * 0.62 : plain;          // the crush, measured: 0.689 -> 0.436
+    const solve = L => L > target
+      ? [clamp((1 - target / L) / (1 - INK_LUM), 0, 0.90), 0]
+      : [0, clamp((target - L) / Math.max(1e-3, PAPER_LUM - L), 0, 0.985)];
+    const [mu, alpha] = solve(Lm);
+    /* the punch-in draws from UNCRUSHED thumbs and renders, so it needs its
+       own veil to land on the same ink — otherwise the frame jumps a stop
+       brighter the moment the zoom swaps sources */
+    const [tmu, talpha] = solve(plain);
+    g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+    g.fillStyle = PAPER; g.fillRect(0,0,w,h);
+    g.filter = crushed ? CRUSH : "grayscale(1)";
+    g.drawImage(micro, 0, 0);
+    g.filter = "none";
+    if (mu > 0){ g.globalCompositeOperation = "multiply"; g.globalAlpha = mu;
+      g.fillStyle = INK; g.fillRect(0,0,w,h); }
+    else if (alpha > 0){ g.globalAlpha = alpha; g.fillStyle = PAPER; g.fillRect(0,0,w,h); }
+    g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+    sheets.push(await createImageBitmap(c));
+    recipe.push({ ink:k, target:+target.toFixed(4), crushed,
+      sourceMedianLum:+Lm.toFixed(4), multiply:+mu.toFixed(4), paperVeil:+alpha.toFixed(4),
+      plainMedianLum:+plain.toFixed(4), thumbMultiply:+tmu.toFixed(4), thumbPaperVeil:+talpha.toFixed(4) });
+  }
+  S.sheets = sheets; S.recipe = recipe;
+}
+
+/* the 96px thumb sheets — fetched only when the punch-in is coming, and only
+   the sheets the letter being descended into actually needs (they are 1–2 MB
+   each; the descent usually touches two of the three) */
+async function loadThumbs(need){
+  if (S.thumbsWanted) return S.thumbs;
+  S.thumbsWanted = true;
+  try{
+    const d = S.atlas.thumb;
+    const sheets = [];
+    for (let k=0;k<d.files.length;k++){
+      if (need && !need.has(k)){ sheets.push(null); continue; }
+      sheets.push(await greyBitmap(await createImageBitmap(
+        new Blob([await grab(d.files[k], "warm")], { type:"image/webp" }))));
+    }
+    S.thumbs = { sheets, cell:d.cell, cols:d.cols, per:d.perSheet,
+      sheetsLoaded: sheets.filter(Boolean).length, sheetsTotal: d.files.length };
+  }catch(e){ S.thumbs = null; console.warn("[beflix] thumbs unavailable", e.message); }
+  return S.thumbs;
+}
+/* which thumb sheets the descent will touch, and the full renders for the
+   bottom of it — both computed from the punch window, never guessed */
+function punchWindow(z, pad){
+  const P = punchTarget(), out = [];
+  const nc = Math.ceil(CW / (CP*z) / 2) + pad, nr = Math.ceil(CH / (CP*z) / 2) + pad;
+  for (let dr=-nr; dr<=nr; dr++) for (let dc=-nc; dc<=nc; dc++){
+    const r = Math.round(P.r + dr), c = Math.round(P.c + dc);
+    if (r<0||r>=ROWS||c<0||c>=COLS) continue;
+    out.push([Math.abs(dr)+Math.abs(dc), r*COLS+c]);
+  }
+  out.sort((a,b)=>(a[0]-b[0]) || (a[1]-b[1]));
+  return out;
+}
+/* the film's first frame, for the dissolve out — the full render if it is
+   there, the 220px tile if it is not. Lazy: nothing needs it until movement V. */
+async function loadFirstFrame(){
+  if (S._ffWanted) return; S._ffWanted = true;
+  for (const f of ["renders/scene__OD-B01-S01.png",
+                   "renders/tiles/scene__OD-B01-S01__t0.15.png"]){
+    try{
+      const src = await createImageBitmap(new Blob([await grab(f, "warm")], { type:"image/png" }));
+      /* resize ONCE, here. Left at 2240x1520 this bitmap costs a full
+         downscale on every frame of the dissolve. */
+      const s = Math.min(1, (CW * 0.92) / src.width, (CH * 0.92) / src.height);
+      S.firstFrame = s < 1
+        ? await createImageBitmap(src, { resizeWidth:Math.round(src.width*s),
+            resizeHeight:Math.round(src.height*s), resizeQuality:"high" })
+        : src;
+      S.firstFrameFile = f; return;
+    }catch(e){ /* try the next */ }
+  }
+}
+/* one full-res render, for the very bottom of the zoom */
+function wantFull(idx){
+  if (S.full.has(idx)) return S.full.get(idx);
+  S.full.set(idx, null);
+  const T = S.tiles[idx];
+  (async ()=>{
+    try{
+      const b = await grab(T.file, "warm");
+      S.full.set(idx, await greyBitmap(await createImageBitmap(new Blob([b], { type:"image/png" }))));
+    }catch(e){ S.full.set(idx, null); }
+  })();
+  return null;
+}
+
+/* ============================================================================
+   2 · THE LETTERFORM — sampled to ink levels, not to pixels
+   ---------------------------------------------------------------------------
+   The word is rasterised at 8x the cell grid and each cell takes the MEAN
+   coverage of its 64 samples. Coverage then quantizes straight into ink 3..7,
+   so the antialiased edge of the letterform becomes a genuine gradation of
+   ink levels — which is exactly what BEFLIX did with its eight-symbol
+   alphabet, and is why the word holds its shape at 128 cells wide.
+   The ground is ink 0..2, with a two-cell paper halo reversed out around
+   every letter: the halo is doing most of the legibility work.
+   ========================================================================== */
+const MSS = 8;                                          // mask supersample
+function buildMask(){
+  const mw = COLS * MSS, mh = ROWS * MSS;
+  const c = document.createElement("canvas"); c.width = mw; c.height = mh;
+  const g = c.getContext("2d", { willReadFrequently:true });
+  g.fillStyle = "#fff"; g.fillRect(0,0,mw,mh);
+  const FONT = px => `900 ${px}px Impact, Haettenschweiler, "Arial Narrow Bold", "Arial Black", "Helvetica Neue", sans-serif`;
+  const TRACK = 0.045;
+  const widthAt = s => { g.font = FONT(s);
+    let w = 0; for (const ch of WORD) w += g.measureText(ch).width;
+    return w + TRACK * s * (WORD.length - 1); };
+  let size = 300;
+  size = size * (mw * 0.955) / widthAt(size);
+  size = size * (mw * 0.955) / widthAt(size);           // two passes: exact
+  g.font = FONT(size);
+  const mm = g.measureText("H");
+  const cap = mm.actualBoundingBoxAscent || size * 0.72;
+  const total = widthAt(size);
+  const x0 = (mw - total) / 2, baseline = mh * 0.54 + cap / 2;
+  g.fillStyle = "#000"; g.textAlign = "left"; g.textBaseline = "alphabetic";
+  const letters = []; let x = x0;
+  for (const ch of WORD){
+    const w = g.measureText(ch).width;
+    g.fillText(ch, x, baseline);
+    letters.push({ ch, c0:x/MSS, c1:(x+w)/MSS, r0:(baseline-cap)/MSS, r1:baseline/MSS });
+    x += w + TRACK * size;
+  }
+  /* cell coverage */
+  const px = g.getImageData(0,0,mw,mh).data;
+  const cov = new Float32Array(N);
+  for (let r=0;r<ROWS;r++) for (let cc=0;cc<COLS;cc++){
+    let s = 0;
+    for (let y=0;y<MSS;y++){
+      let o = ((r*MSS+y)*mw + cc*MSS) * 4;
+      for (let xx=0;xx<MSS;xx++, o+=4) s += 1 - px[o]/255;
+    }
+    cov[r*COLS+cc] = s / (MSS*MSS);
+  }
+  /* two-cell paper halo around every inked cell */
+  const halo = new Uint8Array(N);
+  const HR = 2;
+  for (let r=0;r<ROWS;r++) for (let cc=0;cc<COLS;cc++){
+    if (cov[r*COLS+cc] > 0.02) continue;
+    let near = false;
+    for (let dr=-HR; dr<=HR && !near; dr++) for (let dc=-HR; dc<=HR; dc++){
+      const rr = r+dr, ccc = cc+dc;
+      if (rr<0||rr>=ROWS||ccc<0||ccc>=COLS) continue;
+      if (cov[rr*COLS+ccc] > 0.05){ near = true; break; }
+    }
+    if (near) halo[r*COLS+cc] = 1;
+  }
+  return { cov, halo, letters, size:+size.toFixed(2), capCells:+(cap/MSS).toFixed(2),
+    inked: cov.reduce((n,v)=> n + (v > 0.5 ? 1 : 0), 0),
+    touched: cov.reduce((n,v)=> n + (v > 0.02 ? 1 : 0), 0),
+    haloCells: halo.reduce((a,b)=>a+b,0) };
+}
+
+/* the target ink of every cell at the HOLD */
+function endInks(mask){
+  const lv = new Uint8Array(N);
+  for (let i=0;i<N;i++){
+    const cvg = mask.cov[i];
+    if (cvg > 0.02){
+      /* the interior is dithered between ink 6 and 7 — a solid stroke would
+         hide the frames it is made of, and BEFLIX letterforms were never one
+         symbol deep anyway */
+      let v = Math.round(2.6 + cvg * 4.6);
+      if (v >= 7 && R(i, "dith") > 0.78) v = 6;
+      lv[i] = clamp(v, 3, 7);
+    }
+    else if (mask.halo[i]) lv[i] = 0;
+    else {
+      /* the ground keeps a tonal texture of its own — ink 0..2, low frequency
+         so it reads as paper grain and never competes with the word */
+      const c = i % COLS, r = (i / COLS) | 0;
+      const v = R(((c/5)|0) + ":" + ((r/5)|0), "gnd") * 0.48 + R(c + ":" + r, "gn2") * 0.52;
+      lv[i] = v > 0.76 ? 2 : (v > 0.34 ? 1 : 0);
+    }
+  }
+  return lv;
+}
+
+/* ============================================================================
+   3 · THE GRID — the instance pool, the two arrangements, the migration
+   ---------------------------------------------------------------------------
+   THE PIECE IS A SORT. One multiset of tile instances (each corpus tile
+   repeated a fixed number of times) is laid out TWICE:
+
+     the OPEN   — in the film's own order: book I first, book XXIV last,
+                  read left to right, top to bottom. Ink comes from each
+                  tile's own measured luminance, so movement I is the
+                  corpus's true tonal texture with the film's shape in it.
+     the HOLD   — sorted by luminance into the ink the letterform asks for:
+                  the darkest instances land inside ODYSSEY, the lightest on
+                  the ground.
+
+   Movement II is the permutation between them, cell by cell. Nothing is
+   substituted and nothing is thrown away — every instance that is on screen
+   at second 0 is still on screen at second 30, somewhere else. That is what
+   makes it a self-organisation and not a wipe.
+
+   The veils are deliberately CAPPED (multiply <= 0.90), so a light asset card
+   physically cannot reach ink 7. The sort is therefore load-bearing: the dark
+   scene frames have to actually travel into the letters.
+   ========================================================================== */
+function buildGrid(mask){
+  const tiles = S.tiles;
+  /* the instance pool */
+  const inst = [];
+  for (const T of tiles){
+    const n = T.kind === "scene" ? SCENE_COPIES : ASSET_COPIES;
+    for (let k=0;k<n;k++) inst.push({ tile:T.idx, copy:k, mean:T.mean, book:T.book, id:T.id });
+  }
+  /* keep the darkest N — the light tail is the only thing the frame cannot use */
+  inst.sort((a,b)=> (a.mean - b.mean) || (a.tile - b.tile) || (a.copy - b.copy));
+  const pool = inst.slice(0, N);
+
+  /* ── the HOLD arrangement: sort cells by wanted ink, darkest first ── */
+  const endLv = endInks(mask);
+  const keyOf = new Float64Array(N);
+  for (let i=0;i<N;i++) keyOf[i] = -endLv[i] + R(i, "scatter") * 0.97;  // scattered within a level
+  const cellOrder = Array.from({length:N}, (_,i)=>i).sort((a,b)=> (keyOf[a] - keyOf[b]) || (a-b));
+  const endTile = new Int32Array(N), endInst = new Int32Array(N);
+  for (let k=0;k<N;k++){ const cell = cellOrder[k]; endInst[cell] = k; endTile[cell] = pool[k].tile; }
+
+  /* ── the OPEN arrangement: the film in order ──
+     BOOK first, so the field has the shape of the poem in it — book I top
+     left, book XXIV bottom right. Then COPY, so the eighteen instances of one
+     render are eighteen separate passes over its book instead of a run of
+     eighteen identical cells (which read as a barcode). Then a hash, so each
+     pass scatters that book's renders differently. */
+  const openOrder = pool.map((_,k)=>k);
+  const okey = pool.map(p => R(p.id + ":" + p.copy, "open"));
+  openOrder.sort((a,b)=>{
+    const A = pool[a], Bx = pool[b];
+    return (A.book - Bx.book) || (A.copy - Bx.copy) || (okey[a] - okey[b]) || (a - b);
+  });
+  const startTile = new Int32Array(N), startInst = new Int32Array(N), startLv = new Uint8Array(N);
+  const step = (LUM_HI - LUM_LO) / (INKS - 1);
+  for (let cell=0; cell<N; cell++){
+    const k = openOrder[cell];
+    startInst[cell] = k; startTile[cell] = pool[k].tile;
+    startLv[cell] = clamp(Math.round((LUM_HI - pool[k].mean) / step * START_STRETCH), 0, INKS-1);
+  }
+
+  /* ── the bijection: where does the instance in end-cell j come from? ──
+     Copies of one tile are interchangeable, so pair them by proximity —
+     the structural travel (a dark frame from book XII crossing to the D)
+     stays, the pointless crossing does not. */
+  const cellOfInst = new Int32Array(N);
+  for (let cell=0; cell<N; cell++) cellOfInst[startInst[cell]] = cell;
+  const fromCell = new Int32Array(N).fill(-1);
+  const byTileStart = new Map(), byTileEnd = new Map();
+  for (let cell=0; cell<N; cell++){
+    const ts = startTile[cell]; if (!byTileStart.has(ts)) byTileStart.set(ts, []);
+    byTileStart.get(ts).push(cell);
+    const te = endTile[cell]; if (!byTileEnd.has(te)) byTileEnd.set(te, []);
+    byTileEnd.get(te).push(cell);
+  }
+  for (const [tile, ends] of byTileEnd){
+    const starts = byTileStart.get(tile).slice();
+    const used = new Uint8Array(starts.length);
+    for (const e of ends){
+      const er = (e / COLS) | 0, ec = e % COLS;
+      let best = -1, bd = Infinity;
+      for (let k=0;k<starts.length;k++){
+        if (used[k]) continue;
+        const s = starts[k], sr = (s / COLS) | 0, sc = s % COLS;
+        const d = (sr-er)*(sr-er) + (sc-ec)*(sc-ec);
+        if (d < bd){ bd = d; best = k; }
+      }
+      used[best] = 1; fromCell[e] = starts[best];
+    }
+  }
+
+  /* ── the schedule ── */
+  const t0 = new Float32Array(N), t1 = new Float32Array(N), depAt = new Float32Array(N);
+  const span = B[2] - B[1];
+  for (let e=0;e<N;e++){
+    const ec = e % COLS;
+    const u = clamp01(0.65 * R(e, "u") + 0.35 * (ec / COLS));   // scattered, faintly left-to-right
+    let arrive = B[1] + span * (0.16 + 0.78 * u);
+    const dur = 0.85 + 1.75 * R(e, "dur");
+    const snapped = snapToBeat(arrive, 0.16);
+    if (snapped != null) arrive = snapped;
+    t1[e] = arrive;
+    t0[e] = Math.max(B[1] + 0.02, arrive - dur);
+    depAt[fromCell[e]] = t0[e];
+  }
+  /* cycling: period and phase per cell, from its id — the cap on the redraw
+     rate is this period, not a frame budget */
+  const period = new Float32Array(N), phase = new Float32Array(N);
+  for (let i=0;i<N;i++){ period[i] = 1.15 + 1.05 * R(i, "per"); phase[i] = R(i, "pha") * 3; }
+
+  const lastArrival = t1.reduce((m,v)=>Math.max(m,v), 0);
+  let lastCell = 0; for (let i=0;i<N;i++) if (t1[i] === lastArrival) { lastCell = i; break; }
+
+  /* median source luminance per ink level, for the sheet veils */
+  const byLevel = Array.from({length:INKS}, ()=>[]);
+  for (let cell=0; cell<N; cell++) byLevel[endInks_(endLv, cell)].push(pool[endInst[cell]].mean);
+  const medianLum = byLevel.map(a => a.length ? a.sort((x,y)=>x-y)[a.length>>1] : 0);
+
+  const scenesLive = (()=>{ let n=0; for (let i=0;i<N;i++) if (S.scenes.sceneOf[startTile[i]] >= 0) n++; return n; })();
+  return { pool, endLv, startLv, startTile, endTile, startInst, endInst, fromCell,
+    t0, t1, depAt, period, phase, cellOrder, medianLum, lastArrival, lastCell, scenesLive,
+    distinct: new Set([...startTile]).size };
+}
+const endInks_ = (lv, cell) => lv[cell];
+
+/* ============================================================================
+   4 · THE BUFFER — one blit a frame
+   ---------------------------------------------------------------------------
+   `base` holds every SETTLED cell at exactly one cell-pixel per cell. Each
+   frame we walk the 12,288 cells once (pure arithmetic, ~0.15 ms) and repaint
+   only those whose settled content actually changed — a cycling cell whose
+   moment advanced, a cell that just departed, a cell that just arrived. A
+   seek backwards is handled by the same walk with no special case: the diff
+   is simply larger for one frame.
+   ========================================================================== */
+const base = document.createElement("canvas");
+base.width = GW; base.height = GH;
+const bg = base.getContext("2d", { alpha:false });
+bg.imageSmoothingEnabled = true; bg.imageSmoothingQuality = "medium";
+const cellTile = new Int32Array(N), cellInk = new Int8Array(N);
+let baseValid = false;
+
+const MICRO = 24, MCOLS = 30;
+function paintCell(i, tile, ink){
+  const sx = (tile % MCOLS) * MICRO, sy = ((tile / MCOLS) | 0) * MICRO;
+  bg.drawImage(S.sheets[ink], sx, sy, MICRO, MICRO, (i % COLS) * CP, ((i / COLS) | 0) * CP, CP, CP);
+}
+function clearCell(i){
+  bg.fillStyle = PAPER;
+  bg.fillRect((i % COLS) * CP, ((i / COLS) | 0) * CP, CP, CP);
+}
+function resetBase(){
+  bg.fillStyle = PAPER; bg.fillRect(0,0,GW,GH);
+  cellTile.fill(-1); cellInk.fill(-1); baseValid = true;
+}
+
+/* the moment a scene cell is showing at t — this is the aliveness */
+function momentOf(G, i, tile, t){
+  const s = S.scenes.sceneOf[tile];
+  if (s < 0) return tile;
+  const m = S.scenes.moments[s];
+  if (m.length < 2) return tile;
+  let k = Math.floor(t / G.period[i] + G.phase[i]) % m.length;
+  if (k < 0) k += m.length;
+  return m[k];
+}
+/* the settled content of a cell at t: [tile, ink] or null while in flight */
+function settled(G, i, t){
+  if (t >= G.t1[i]) return [momentOf(G, i, G.endTile[i], t), G.endLv[i]];
+  if (t < G.depAt[i]) return [momentOf(G, i, G.startTile[i], t), G.startLv[i]];
+  return null;
+}
+S.tileAt = (i, t) => { const s = settled(S.grid, i, t); return s ? s[0] : -1; };
+
+let flightN = 0;
+const flight = new Int32Array(N);
+function syncBase(t){
+  const G = S.grid;
+  if (!baseValid) resetBase();
+  let redraws = 0; flightN = 0;
+  for (let i=0;i<N;i++){
+    /* in flight? (indexed by DESTINATION cell) */
+    if (t >= G.t0[i] && t < G.t1[i]) flight[flightN++] = i;
+    const s = settled(G, i, t);
+    if (s === null){
+      if (cellTile[i] !== -1){ clearCell(i); cellTile[i] = -1; cellInk[i] = -1; redraws++; }
+    } else if (cellTile[i] !== s[0] || cellInk[i] !== s[1]){
+      paintCell(i, s[0], s[1]); cellTile[i] = s[0]; cellInk[i] = s[1]; redraws++;
+    }
+  }
+  return redraws;
+}
+
+/* the flight itself — the tile is drawn straight onto the frame, over the
+   blitted buffer, so nothing has to be un-drawn afterwards */
+function drawFlights(g, t){
+  const G = S.grid;
+  for (let k=0;k<flightN;k++){
+    const e = flight[k], s = G.fromCell[e];
+    const p = easeInOut((t - G.t0[e]) / Math.max(1e-3, G.t1[e] - G.t0[e]));
+    const sx = (s % COLS) * CP, sy = ((s / COLS) | 0) * CP;
+    const ex = (e % COLS) * CP, ey = ((e / COLS) | 0) * CP;
+    /* a shallow arc, deterministic per cell — keeps the churn from reading as
+       a grid of straight lines */
+    const arc = (R(e, "arc") - 0.5) * 0.34;
+    const mx = (sx + ex) / 2 + (sy - ey) * arc, my = (sy + ey) / 2 + (ex - sx) * arc;
+    const q = 1 - p;
+    const x = q*q*sx + 2*q*p*mx + p*p*ex, y = q*q*sy + 2*q*p*my + p*p*ey;
+    const ink = clamp(Math.round(lerp(G.startLv[s], G.endLv[e], p)), 0, INKS-1);
+    const tile = momentOf(G, e, p < 0.5 ? G.startTile[s] : G.endTile[e], t);
+    const tx = (tile % MCOLS) * MICRO, ty = ((tile / MCOLS) | 0) * MICRO;
+    g.drawImage(S.sheets[ink], tx, ty, MICRO, MICRO, OX + (x|0), OY + (y|0), CP, CP);
+  }
+}
+
+/* ============================================================================
+   5 · THE PUNCH-IN
+   ---------------------------------------------------------------------------
+   The zoom does not magnify the buffer past the point where a cell is bigger
+   than its 24px source. Above that it re-draws the visible cells from the
+   96px thumb sheets, and at the bottom of the move from the full renders —
+   and it eases the ink veil off as it goes, so the dots stop being dots and
+   become the frames they always were. The micro sheet is a CENTRE-CROPPED
+   SQUARE of each tile; the thumb contains the whole tile, so the last thing
+   the zoom does is open the square out to the render's own aspect.
+   ========================================================================== */
+/* the descent lands where the letter is DENSEST — the middle of a stroke, so
+   the bottom of the zoom is full of frames and not of counter */
+let _target = null;
+function punchTarget(){
+  if (_target) return _target;
+  const L = S.mask.letters[PUNCH_LETTER], G = S.grid;
+  let best = null, bs = -1;
+  for (let r = Math.ceil(L.r0)+2; r <= Math.floor(L.r1)-2; r++)
+    for (let c = Math.ceil(L.c0)+1; c <= Math.floor(L.c1)-1; c++){
+      let s = 0;
+      for (let dr=-2; dr<=2; dr++) for (let dc=-3; dc<=3; dc++){
+        const rr = clamp(r+dr,0,ROWS-1), cc = clamp(c+dc,0,COLS-1);
+        s += G.endLv[rr*COLS+cc];
+      }
+      if (s > bs){ bs = s; best = { c: c + 0.5, r: r + 0.5 }; }
+    }
+  _target = best || { c:(L.c0+L.c1)/2, r:(L.r0+L.r1)/2 };
+  return _target;
+}
+const ZMAX = () => (CH * 0.34) / CP;
+/* progress through the descent — everything in movement IV is keyed off this,
+   not off the zoom, so the reveal cannot lag behind the magnification */
+const punchP = t => clamp01((t - B[3]) / Math.max(0.1, B[4] - B[3]));
+function punchZoom(t){
+  if (t < B[3]) return 1;
+  const p = punchP(t);
+  /* constant-rate in log space with the brake at the end: the frames arrive
+     early enough to be looked at */
+  return Math.pow(ZMAX(), 1 - (1-p)*(1-p));
+}
+/* the cells that will fill the frame at the bottom of the zoom — fetched as
+   real PNGs, because a 96px thumb blown up to 370px is not "looked at" */
+function prefetchPunch(){
+  if (S._prefetched || !S.grid) return; S._prefetched = true;
+  const want = punchWindow(ZMAX(), 1);
+  const set = new Set();
+  for (const [, i] of want){
+    const s = S.scenes.sceneOf[S.grid.endTile[i]];
+    const add = s >= 0 ? S.scenes.moments[s] : [S.grid.endTile[i]];
+    for (const m of add){ if (set.size < 42) set.add(m); }   // ~1.5 MB, lazy
+    if (set.size >= 42) break;
+  }
+  for (const m of set) wantFull(m);
+}
+/* the thumb path starts at z = 7 — that window, plus every moment each of its
+   cells will cycle through, is exactly the set of sheets to fetch */
+function neededThumbSheets(){
+  const per = S.atlas.thumb.perSheet, need = new Set();
+  for (const [, i] of punchWindow(7, 1)){
+    const s = S.scenes.sceneOf[S.grid.endTile[i]];
+    const tiles = s >= 0 ? S.scenes.moments[s] : [S.grid.endTile[i]];
+    for (const m of tiles) need.add((m / per) | 0);
+  }
+  return need;
+}
+function tileBoxInThumb(T, cell){
+  const s = Math.min(cell / T.w, cell / T.h);
+  const w = T.w * s, h = T.h * s;
+  return { x:(cell - w)/2, y:(cell - h)/2, w, h };
+}
+function drawPunch(g, t, z){
+  const P = punchTarget();
+  const cx = P.c * CP, cy = P.r * CP;
+  const p = punchP(t);
+  /* REVEAL — keyed to the descent, not to the zoom, and deliberately late:
+     it happens entirely inside the thumb path, where the cells are large and
+     few. The crush comes off with the veil, because a frame still under
+     contrast(1.85) brightness(0.58) is not a frame anyone can look at — which
+     is exactly what the first cut of this movement got wrong. */
+  const reveal = smooth((p - 0.42) / 0.40);
+  const uncrop = smooth((p - 0.68) / 0.30);
+  const spread = 1 + 0.50 * uncrop;
+
+  /* THREE RESOLUTIONS, in order of how big a cell has become on screen:
+       z < 2.4   the buffer, magnified — the dot is still a dot
+       z < 7     the eight veiled micro sheets, one drawImage per cell, so the
+                 magnification stops resampling an already-resampled buffer
+       z >= 7    the 96px thumbs, and the real PNGs where they have arrived */
+  if (z < 2.4){
+    g.imageSmoothingEnabled = false;
+    g.save(); g.translate(CW/2, CH/2); g.scale(z, z); g.translate(-cx, -cy);
+    g.drawImage(base, 0, 0); g.restore();
+    return;
+  }
+  const useThumb = z >= 7 && S.thumbs;
+  const size = CP * z, span = size * spread;
+  g.fillStyle = PAPER; g.fillRect(0,0,CW,CH);
+  const c0 = Math.max(0, Math.floor(P.c - (CW/2)/span) - 1);
+  const c1 = Math.min(COLS-1, Math.ceil(P.c + (CW/2)/span) + 1);
+  const r0 = Math.max(0, Math.floor(P.r - (CH/2)/span) - 1);
+  const r1 = Math.min(ROWS-1, Math.ceil(P.r + (CH/2)/span) + 1);
+
+  /* COLLECT FIRST, DRAW IN PASSES. ctx.filter is a pipeline rebuild every
+     time it is assigned; setting it per cell cost 30 ms a frame here. Sorting
+     the cells into a crushed pass and a plain pass sets it exactly twice. */
+  const vis = [];
+  const TH = S.thumbs;
+  for (let r=r0;r<=r1;r++) for (let c=c0;c<=c1;c++){
+    const i = r*COLS + c;
+    const tile = cellTile[i], ink = cellInk[i];
+    if (tile < 0) continue;
+    const T = S.tiles[tile];
+    const x = CW/2 + (c*CP - cx) * z * spread, y = CH/2 + (r*CP - cy) * z * spread;
+    if (x > CW + size || y > CH + size || x + size*1.7 < 0 || y + size*1.7 < 0) continue;
+    if (!useThumb){
+      vis.push({ tile, ink, img:null, dx:x, dy:y, dw:size, dh:size,
+        sx:(tile % MCOLS)*MICRO, sy:((tile / MCOLS)|0)*MICRO, sw:MICRO, sh:MICRO, micro:true });
+      continue;
+    }
+    /* the square crop the micro sheet made, opening out to the render's own
+       frame — the dot becomes the picture it always was. The spacing opens
+       with it, so the grid turns into a contact sheet instead of overlapping. */
+    const box = tileBoxInThumb(T, TH.cell);
+    const side = Math.min(box.w, box.h);
+    const sw = lerp(side, box.w, uncrop), sh = lerp(side, box.h, uncrop);
+    const sx0 = box.x + (box.w - sw)/2, sy0 = box.y + (box.h - sh)/2;
+    const dw = size * (sw / side), dh = size * (sh / side);
+    const dx = x + (size - dw)/2, dy = y + (size - dh)/2;
+    const full = S.full.get(tile) || null;
+    if (!full && z > 9) wantFull(tile);
+    const sheet = full ? null : TH.sheets[(tile / TH.per) | 0];
+    if (!full && !sheet) continue;                       // that sheet is still loading
+    const si = tile % TH.per;
+    const bx = (si % TH.cols) * TH.cell, by = ((si / TH.cols) | 0) * TH.cell;
+    vis.push(full
+      ? { tile, ink, img:full, dx, dy, dw, dh, micro:false,
+          sx:(sx0-box.x)/box.w*T.w, sy:(sy0-box.y)/box.h*T.h,
+          sw:sw/box.w*T.w, sh:sh/box.h*T.h, id:T.id, tt:T.tt }
+      : { tile, ink, img:sheet, dx, dy, dw, dh, micro:false,
+          sx:bx+sx0, sy:by+sy0, sw, sh, id:T.id, tt:T.tt });
+  }
+
+  g.imageSmoothingEnabled = true;
+  if (!useThumb){
+    /* the micro sheets already carry their paper and their veil */
+    for (const v of vis) g.drawImage(S.sheets[v.ink], v.sx, v.sy, v.sw, v.sh, v.dx, v.dy, v.dw, v.dh);
+    return;
+  }
+  /* pass 1 — the page under every frame */
+  g.fillStyle = PAPER;
+  for (const v of vis) g.fillRect(v.dx, v.dy, v.dw, v.dh);
+  /* pass 2 — the frames themselves. Already greyscale, so no filter. */
+  for (const v of vis) g.drawImage(v.img, v.sx, v.sy, v.sw, v.sh, v.dx, v.dy, v.dw, v.dh);
+  /* pass 3 — the ink veils, lifting off. This is the whole reveal: the cells
+     keep their ink until the descent has committed, then the veil comes away
+     and what is left is the render. */
+  const strength = 1 - reveal;
+  if (strength > 0.001){
+    let mode = null;
+    for (const v of vis){
+      const rec = S.recipe[v.ink];
+      if (rec.thumbMultiply > 0.001){
+        if (mode !== "m"){ g.globalCompositeOperation = "multiply"; g.fillStyle = INK; mode = "m"; }
+        g.globalAlpha = rec.thumbMultiply * strength;
+      } else if (rec.thumbPaperVeil > 0.001){
+        if (mode !== "p"){ g.globalCompositeOperation = "source-over"; g.fillStyle = PAPER; mode = "p"; }
+        g.globalAlpha = rec.thumbPaperVeil * strength;
+      } else continue;
+      g.fillRect(v.dx, v.dy, v.dw, v.dh);
+    }
+    g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+  }
+  /* the ids, quietly — the only text on the frame, and only at the bottom of
+     the zoom, where the point is that these are real renders */
+  if (z > 9){
+    const a = clamp01((z - 9) / 6) * 0.8;
+    g.font = `700 ${Math.round(CW*0.0092)}px ui-monospace,Menlo,monospace`;
+    g.textAlign = "left"; g.textBaseline = "top";
+    g.globalAlpha = a; g.fillStyle = ACCENT;
+    let n = 0;
+    for (const v of vis){
+      if (v.dw < CW * 0.13 || n >= 6) continue;
+      n++;
+      g.fillText(String(v.id).replace(/^OD-/, "") + (v.tt != null ? "  t" + v.tt : ""),
+        v.dx + CW*0.006, v.dy + v.dh + CW*0.005);
+    }
+    g.globalAlpha = 1;
+  }
+}
+
+/* ============================================================================
+   6 · MUSIC — optional, and only ever a schedule input
+   ========================================================================== */
+function snapToBeat(t, tol){
+  if (!S.beats.length) return null;
+  let best = null, bd = Infinity;
+  for (const b of S.beats){ const d = Math.abs(b - t); if (d < bd){ bd = d; best = b; } }
+  return bd <= tol ? best : null;
+}
+/* SCORING IS OPT-IN, and the reason is the cold payload. Detecting onsets
+   means downloading and decoding the whole track — 2.7 MB before the first
+   frame can be laid out, which blows the mobile budget six times over for a
+   page whose entire corpus is 590 KB. So: the track is always THERE to play,
+   but it streams on demand; ?track= (or ?snap=1) says "score it", and only
+   then is the file fetched, decoded, and the schedule snapped to its onsets. */
+const WANT_SNAP = Q.has("track") || Q.get("snap") === "1";
+async function loadAudio(){
+  if (Q.get("track") === "none") return null;
+  let albums;
+  try{ albums = asJSON(await grab("audio/albums.json", "warm")).albums || []; }catch(e){ return null; }
+  const want = Q.get("track");
+  let album = albums.find(a=>a.id === "bronze-council") || albums[0];
+  let track = null;
+  if (want){
+    const [ma, mn] = want.includes(":") ? want.split(":") : [null, want];
+    if (ma){ const a = albums.find(a=>a.id === ma); if (a) album = a; }
+    const num = +mn;
+    track = Number.isFinite(num) && num > 0
+      ? (album.tracks.find(t=>t.num === num) || album.tracks[num-1])
+      : album.tracks.find(t => (t.title||"").toLowerCase().includes(String(want).toLowerCase()));
+  }
+  if (!track) track = album.tracks.find(t=>t.num === 1) || album.tracks[0];
+  if (!track) return null;
+  const url = album.dir.split("/").map(encodeURIComponent).join("/") + "/" + encodeURIComponent(track.file);
+  S.track = { album:album.name, title:track.title, num:track.num, url, scored:WANT_SNAP };
+  if (WANT_SNAP){
+    try{
+      const buf = await grab(url, "warm");
+      const AC = window.AudioContext || window.webkitAudioContext;
+      const ac = new AC();
+      S.beats = detectBeats(await ac.decodeAudioData(buf.slice(0)));
+      ac.close && ac.close();
+    }catch(e){ S.beats = []; }
+  }
+  const a = new Audio(); a.preload = WANT_SNAP ? "auto" : "none"; a.src = url; S.audio = a;
+  return S.track;
+}
+function detectBeats(ab){
+  const ch = ab.getChannelData(0), sr = ab.sampleRate;
+  const hop = Math.round(sr * 0.01161);
+  const n = Math.floor(Math.min(ch.length, sr * 48) / hop);
+  const env = new Float32Array(n);
+  for (let i=0;i<n;i++){ let s=0; const a0=i*hop, a1=a0+hop;
+    for (let j=a0;j<a1;j++){ const v=ch[j]; s+=v*v; } env[i] = Math.sqrt(s/hop); }
+  const flux = new Float32Array(n);
+  for (let i=1;i<n;i++) flux[i] = Math.max(0, env[i]-env[i-1]);
+  const beats = [], win = 18;
+  for (let i=win;i<n-win;i++){
+    let mean = 0, peak = true;
+    for (let j=i-win;j<=i+win;j++){ mean += flux[j]; if (flux[j] > flux[i]) peak = false; }
+    mean /= (win*2+1);
+    if (peak && flux[i] > mean*1.85 && flux[i] > 0.004){
+      const t = i*hop/sr;
+      if (!beats.length || t - beats[beats.length-1] > 0.17) beats.push(+t.toFixed(4));
+    }
+  }
+  const gaps = []; for (let i=1;i<beats.length;i++) gaps.push(beats[i]-beats[i-1]);
+  gaps.sort((a,b)=>a-b);
+  const med = gaps.length ? gaps[gaps.length>>1] : 0;
+  S.bpm = med > 0.05 ? Math.round(60/med) : 0;
+  return beats;
+}
+function snapBoundaries(){
+  if (!S.beats.length || Q.get("nosnap") === "1") return false;
+  const out = NOMINAL.slice();
+  for (let i=1;i<5;i++){
+    const s = snapToBeat(NOMINAL[i], 0.75);
+    if (s != null && s > out[i-1] + 2.2) out[i] = +s.toFixed(3);
+  }
+  out[5] = +(out[4] + 4.2).toFixed(3);
+  B = out; DURATION = out[5]; scrub.max = String(DURATION);
+  return true;
+}
+
+/* ============================================================================
+   7 · THE FRAME
+   ========================================================================== */
+function render(t){
+  const g = ctx;
+  g.setTransform(1,0,0,1,0,0);
+  g.globalAlpha = 1; g.globalCompositeOperation = "source-over"; g.filter = "none";
+  g.fillStyle = PAPER; g.fillRect(0,0,CW,CH);
+  if (!S.ready){
+    g.fillStyle = INK; g.font = `700 ${Math.round(CW*0.014)}px ui-monospace,Menlo,monospace`;
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText(S.err || "READING THE CORPUS", CW/2, CH/2);
+    return;
+  }
+  syncBase(t);
+  const z = punchZoom(t);
+  g.imageSmoothingEnabled = false;
+  if (z <= 1.0005){
+    g.drawImage(base, OX, OY);
+    drawFlights(g, t);
+    /* the word completes: one frame of accent on the last cell to land */
+    const G = S.grid;
+    if (t >= G.lastArrival && t < G.lastArrival + 0.34){
+      const i = G.lastCell, a = 1 - (t - G.lastArrival)/0.34;
+      g.globalAlpha = a * 0.9; g.fillStyle = ACCENT;
+      g.fillRect(OX + (i%COLS)*CP, OY + ((i/COLS)|0)*CP, CP, CP);
+      g.globalAlpha = 1;
+    }
+  } else {
+    drawPunch(g, t, z);
+  }
+  if (t >= B[4]) drawExit(g, t);
+  S.t = t;
+}
+S.render = render;
+
+function drawExit(g, t){
+  const p = smooth((t - B[4]) / Math.max(0.4, (DURATION - B[4]) * 0.62));
+  g.globalAlpha = p; g.fillStyle = PAPER; g.fillRect(0,0,CW,CH);
+  const img = S.firstFrame;
+  if (img){
+    const s = Math.min(CW / img.width, CH / img.height, 1);
+    const w = img.width * s, h = img.height * s;
+    g.globalAlpha = smooth((t - B[4] - (DURATION-B[4])*0.22) / Math.max(0.4,(DURATION-B[4])*0.55));
+    g.imageSmoothingEnabled = true;
+    g.drawImage(img, (CW-w)/2, (CH-h)/2, w, h);
+  }
+  g.globalAlpha = 1;
+}
+
+/* ============================================================================
+   8 · TRANSPORT
+   ========================================================================== */
+let raf = 0, last = 0;
+function tick(now){
+  raf = requestAnimationFrame(tick);
+  if (!S.playing || S.exporting){ last = now; return; }
+  const a = S.audio;
+  let t;
+  if (a && !a.paused && a.readyState > 1) t = a.currentTime;
+  else t = S.t + Math.min(0.1, (now - last)/1000);
+  last = now;
+  if (t >= DURATION){ t = DURATION; pause(); }
+  seek(t, true);
+}
+function seek(t, fromClock){
+  S.t = clamp(t, 0, DURATION);
+  const t0 = performance.now();
+  render(S.t);
+  S.timing.ms += performance.now() - t0; S.timing.frames++;
+  scrub.value = String(S.t);
+  tcEl.textContent = fmt(S.t) + " · " + ["I","II","III","IV","V"][movementAt(S.t)];
+  if (!fromClock && S.audio && !S.audio.paused){ try{ S.audio.currentTime = S.t; }catch(e){} }
+  /* start fetching the descent's material a whole movement early — 2.5 s was
+     not enough runway for 3 MB of sheets plus forty renders, and the cost of
+     arriving late is a hitch in the middle of the zoom */
+  if (S.t > B[2] - 1){ if (!S.thumbsWanted) loadThumbs(neededThumbSheets()); prefetchPunch(); loadFirstFrame(); }
+}
+S.seek = seek;
+const movementAt = t => t < B[1] ? 0 : t < B[2] ? 1 : t < B[3] ? 2 : t < B[4] ? 3 : 4;
+const fmt = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(Math.floor(s%60)).padStart(2,"0")}.${String(Math.floor((s%1)*100)).padStart(2,"0")}`;
+function play(){
+  if (!S.ready) return;
+  if (S.t >= DURATION) S.t = 0;
+  S.playing = true; ppBtn.textContent = "PAUSE";
+  if (S.audio && S.audio.src){ try{ S.audio.currentTime = Math.min(S.t, 1e6); S.audio.play().catch(()=>{}); }catch(e){} }
+  last = performance.now();
+}
+function pause(){ S.playing = false; ppBtn.textContent = "PLAY";
+  if (S.audio){ try{ S.audio.pause(); }catch(e){} } }
+S.play = play; S.pause = pause;
+ppBtn.onclick = () => S.playing ? pause() : play();
+scrub.oninput = () => seek(+scrub.value, false);
+document.querySelectorAll(".mv").forEach(b => b.onclick = () => seek(B[+b.dataset.m] + 0.02, false));
+goBtn.onclick = () => { veil.classList.add("gone"); play(); };
+addEventListener("keydown", e => {
+  if (e.code === "Space"){ e.preventDefault(); S.playing ? pause() : play(); }
+  if (e.code === "ArrowRight") seek(S.t + (e.shiftKey ? 1 : 1/FPS), false);
+  if (e.code === "ArrowLeft")  seek(S.t - (e.shiftKey ? 1 : 1/FPS), false);
+});
+
+/* ============================================================================
+   9 · EXPORT
+   ========================================================================== */
+function download(blobOrStr, name, type){
+  const blob = blobOrStr instanceof Blob ? blobOrStr : new Blob([blobOrStr], { type:type||"application/json" });
+  const u = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = u; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u), 4000);
+}
+function shotPlan(){
+  const G = S.grid;
+  return {
+    title: "ODYSSEY — BEFLIX main title",
+    law: "128x96 cells, ink 0-7, every dot is a scene",
+    source: { tiles:TILES_URL, atlas:ATLAS_URL, built:S.built, seedOf:SEED_SOURCE },
+    canvas: { w:CW, h:CH, cellPx:CP, grid:[GW,GH], fps:FPS, duration:DURATION },
+    movements: ["FIELD","MIGRATION","HOLD","PUNCH-IN","EXIT"].map((n,i)=>({
+      n, t0:B[i], t1:B[i+1], nominal:NOMINAL[i] })),
+    music: S.track ? { album:S.track.album, num:S.track.num, title:S.track.title,
+      bpm:S.bpm, onsets:S.beats.length, snapped:S.snapped } : null,
+    grid: S.gridStats(), inkRecipe: S.recipe,
+    mask: { font:S.mask.size, capCells:S.mask.capCells, inkedCells:S.mask.inked,
+      touchedCells:S.mask.touched, haloCells:S.mask.haloCells,
+      letters:S.mask.letters.map(l=>({ ch:l.ch, c0:+l.c0.toFixed(1), c1:+l.c1.toFixed(1) })) },
+    punch: { letter:WORD[PUNCH_LETTER], target:punchTarget(), maxZoom:+punchZoom(B[4]).toFixed(2) }
+  };
+}
+planBtn.onclick = () => download(JSON.stringify(shotPlan(), null, 1), "odyssey-title-beflix-plan.json");
+let stopExport = false;
+async function exportFrames(){
+  if (S.exporting){ stopExport = true; return; }
+  pause(); S.exporting = true; stopExport = false;
+  framesBtn.textContent = "STOP"; framesBtn.classList.add("on");
+  await loadThumbs(neededThumbSheets()); prefetchPunch(); await loadFirstFrame();
+  download(JSON.stringify(shotPlan(), null, 1), "odyssey-title-beflix-plan.json");
+  const total = Math.round(DURATION * FPS);
+  for (let f=0; f<total && !stopExport; f++){
+    render(f / FPS);
+    const blob = await new Promise(res => cv.toBlob(res, "image/png"));
+    download(blob, `odyssey-title-beflix-${String(f).padStart(5,"0")}.png`, "image/png");
+    noteEl.textContent = `EXPORTING ${f+1} / ${total} — STOP TO ABORT`;
+    await new Promise(r => setTimeout(r, 55));
+  }
+  S.exporting = false; framesBtn.textContent = "FRAMES"; framesBtn.classList.remove("on");
+  noteEl.textContent = statusLine(); seek(S.t, false);
+}
+framesBtn.onclick = exportFrames;
+S.exportFrames = exportFrames; S.shotPlan = shotPlan;
+/* used by the verification harness so movement IV is measured with the sheets
+   it actually plays with */
+S.warm = async () => { await loadThumbs(neededThumbSheets()); prefetchPunch(); await loadFirstFrame();
+  for (let k=0;k<40 && [...S.full.values()].some(v=>v===null); k++)
+    await new Promise(r=>setTimeout(r,120));
+  return { thumbs: !!S.thumbs, fullLoaded:[...S.full.values()].filter(Boolean).length }; };
+
+/* ============================================================================
+   10 · VERIFICATION
+   ========================================================================== */
+const HOLD = () => B[2] + (B[3] - B[2]) * 0.55;
+const pixels = () => ctx.getImageData(0,0,CW,CH).data;
+const lumOfPx = (d,i) => (d[i]*0.299 + d[i+1]*0.587 + d[i+2]*0.114)/255;
+/* a cell's MEAN rendered luminance — the ink a cell is actually carrying is
+   the average over its whole square, not the one pixel in the middle of it */
+const SAMP = [];
+for (let y=1;y<CP;y+=Math.max(1,(CP/4)|0)) for (let x=1;x<CP;x+=Math.max(1,(CP/4)|0)) SAMP.push([x,y]);
+function cellLum(d, i){
+  const bx = OX + (i%COLS)*CP, by = OY + ((i/COLS)|0)*CP;
+  let s = 0;
+  for (const [x,y] of SAMP) s += lumOfPx(d, ((by+y)*CW + bx+x)*4);
+  return s / SAMP.length;
+}
+
+S.gridStats = () => {
+  const G = S.grid;
+  const hist = new Array(INKS).fill(0);
+  for (let i=0;i<N;i++) hist[G.endLv[i]]++;
+  const openHist = new Array(INKS).fill(0);
+  for (let i=0;i<N;i++) openHist[G.startLv[i]]++;
+  const quantized = Array.from(G.endLv).every(v => Number.isInteger(v) && v >= 0 && v < INKS);
+  let sceneCells = 0, sceneDark = 0, dark = 0;
+  for (let i=0;i<N;i++){
+    if (S.scenes.sceneOf[G.startTile[i]] >= 0) sceneCells++;
+    if (G.startLv[i] >= 3){ dark++; if (S.scenes.sceneOf[G.startTile[i]] >= 0) sceneDark++; }
+  }
+  const letterTiles = new Set(), letterScenes = new Set();
+  for (let i=0;i<N;i++) if (G.endLv[i] >= 5){ letterTiles.add(G.endTile[i]);
+    if (S.scenes.sceneOf[G.endTile[i]] >= 0) letterScenes.add(G.endTile[i]); }
+  return { cols:COLS, rows:ROWS, cells:N, cellPx:CP,
+    distinctTilesInPlay:G.distinct, corpus:S.tiles.length,
+    scenes:S.scenes.count, sceneMomentCounts:S.scenes.momentCounts,
+    inkLevels:INKS, inkQuantized:quantized,
+    inkHistogramHOLD:hist, inkHistogramOPEN:openHist,
+    cellsHoldingSceneFrames:sceneCells,
+    pctCellsAlive:+(100*sceneCells/N).toFixed(1),
+    pctOfInkedOpenCellsAlive:+(100*sceneDark/Math.max(1,dark)).toFixed(1),
+    letterCells:hist.slice(5).reduce((a,b)=>a+b,0),
+    distinctTilesInLetters:letterTiles.size, ofWhichScenes:letterScenes.size,
+    instancePool:{ sceneCopies:SCENE_COPIES, assetCopies:ASSET_COPIES, kept:N } };
+};
+
+/* 1 · ink is genuinely quantized — read back the ACTUAL rendered frame and
+   bucket every cell's measured luminance against the eight ink targets */
+S.inkHistogram = (t) => {
+  render(t == null ? HOLD() : t);
+  const d = pixels(), hist = new Array(INKS).fill(0), planned = new Array(INKS).fill(0);
+  let err = 0;
+  for (let i=0;i<N;i++){
+    const l = cellLum(d, i);
+    let best = 0, bd = Infinity;
+    for (let k=0;k<INKS;k++){ const dd = Math.abs(LUM_OF_INK(k) - l); if (dd < bd){ bd = dd; best = k; } }
+    hist[best]++; planned[S.grid.endLv[i]]++;
+    err += Math.abs(best - S.grid.endLv[i]);
+  }
+  return { t:S.t, measuredInkHistogram:hist, plannedInkHistogram:planned,
+    meanInkError:+(err/N).toFixed(3), levels:LUM_OF_INK ? Array.from({length:INKS},(_,k)=>+LUM_OF_INK(k).toFixed(3)) : null };
+};
+
+/* 2 · legibility — polarity coverage + inside/outside luminance, measured on
+      the rendered pixels, not on the plan */
+S.legibility = (t) => {
+  const tt = t == null ? HOLD() : t;
+  render(tt);
+  const d = pixels(), M = S.mask;
+  let inS=0, inN=0, outS=0, outN=0, right=0, tot=0;
+  const DARK = (LUM_OF_INK(4) + LUM_OF_INK(5)) / 2;
+  for (let i=0;i<N;i++){
+    const l = cellLum(d, i);
+    const cvg = M.cov[i];
+    if (cvg > 0.5){ inS += l; inN++; tot++; if (l < DARK) right++; }
+    else if (cvg < 0.02){ outS += l; outN++; }
+  }
+  const inside = inN ? inS/inN : 1, outside = outN ? outS/outN : 1;
+  return { t:+tt.toFixed(3), maskCells:tot, correctPolarity:right,
+    pctCorrectPolarity:+(100*right/Math.max(1,tot)).toFixed(2),
+    insideLum:+inside.toFixed(4), outsideLum:+outside.toFixed(4),
+    delta:+(outside-inside).toFixed(4), ratio:+(outside/Math.max(1e-4,inside)).toFixed(3),
+    michelson:+((outside-inside)/Math.max(1e-4,outside+inside)).toFixed(4),
+    benchmarkTHEASSEMBLY:{ inside:0.32, outside:0.89, ratio:2.74 } };
+};
+
+/* 3 · aliveness — the same cell, 0.6 s apart, is showing a different frame */
+S.aliveness = (t, dt) => {
+  const tt = t == null ? HOLD() : t, d = dt == null ? 0.6 : dt;
+  const G = S.grid;
+  let changed = 0, alive = 0;
+  const samples = [];
+  for (let i=0;i<N;i++){
+    const a = S.tileAt(i, tt), b = S.tileAt(i, tt + d);
+    if (S.scenes.sceneOf[G.endTile[i]] >= 0) alive++;
+    if (a !== b && a >= 0 && b >= 0){ changed++;
+      if (samples.length < 5) samples.push({ cell:i, col:i%COLS, row:(i/COLS)|0,
+        at_t:S.tiles[a].id + " t" + S.tiles[a].tt, at_t_plus:S.tiles[b].id + " t" + S.tiles[b].tt }); }
+  }
+  /* changes per second, analytically: each scene cell advances once a period */
+  let rate = 0;
+  for (let i=0;i<N;i++) if (S.scenes.sceneOf[G.endTile[i]] >= 0) rate += 1/G.period[i];
+  return { t:+tt.toFixed(3), dt:d, cellsHoldingScenes:alive,
+    cellsChangedInWindow:changed, pctChanged:+(100*changed/N).toFixed(1),
+    cellChangesPerSecond:Math.round(rate),
+    redrawsPerFrameAt60:+(rate/60).toFixed(1), samples };
+};
+
+/* 4 · the migration reads — six samples across movement II */
+S.migration = (n) => {
+  const k = n || 6, out = [];
+  for (let s=0;s<k;s++){
+    const t = B[1] + (B[2] - B[1]) * (s / (k - 1)) * 0.999 + (s === k-1 ? 0.4 : 0);
+    const L = S.legibility(Math.min(t, B[3] - 0.2));
+    out.push({ t:L.t, pctMaskCorrectlyInked:L.pctCorrectPolarity,
+      insideLum:L.insideLum, outsideLum:L.outsideLum, ratio:L.ratio });
+  }
+  const b0 = S.legibility(B[0] + 1.5);
+  /* the open field already inks part of the mask by chance — that base rate,
+     not zero, is where the climb starts, and it DIPS first as the field
+     dissolves before the word precipitates. Both numbers are reported. */
+  const from = out.findIndex((v,i)=> i > 0 && v.pctMaskCorrectlyInked > out[i-1].pctMaskCorrectlyInked);
+  return { openFieldBaseRate:b0.pctCorrectPolarity, samples:out,
+    dipsBeforeItClimbs: out[1].pctMaskCorrectlyInked < out[0].pctMaskCorrectlyInked,
+    monotonicOnceClimbing: out.slice(Math.max(0,from-1)).every((v,i,a)=> i === 0 ||
+      v.pctMaskCorrectlyInked >= a[i-1].pctMaskCorrectlyInked - 0.5),
+    finalPct: out[out.length-1].pctMaskCorrectlyInked };
+};
+
+/* 5 · determinism — rebuild the whole layout twice, hash both */
+const hash32 = arr => { let h = 2166136261>>>0;
+  for (let i=0;i<arr.length;i++){ h ^= (arr[i] & 255); h = Math.imul(h,16777619)>>>0;
+    h ^= (arr[i] >>> 8) & 255; h = Math.imul(h,16777619)>>>0; } return h>>>0; };
+S.determinism = () => {
+  const m1 = buildMask(), g1 = buildGrid(m1);
+  const m2 = buildMask(), g2 = buildGrid(m2);
+  const H = g => ({ endTile:hash32(g.endTile), startTile:hash32(g.startTile),
+    endLv:hash32(g.endLv), startLv:hash32(g.startLv), fromCell:hash32(g.fromCell),
+    t1:hash32(Array.from(g.t1, v=>Math.round(v*1000))) });
+  const a = H(g1), b = H(g2), live = H(S.grid);
+  const same = (p,q) => Object.keys(p).every(k => p[k] === q[k]);
+  return { runs:2, forcedRebuild:true, a, b, live,
+    identicalAB:same(a,b), identicalVsLive:same(a,live), seedOf:SEED_SOURCE };
+};
+
+/* 6 · frame time */
+S.perf = (n) => {
+  const k = n || 90;
+  const spans = { I:[B[0], B[1]], II:[B[1], B[2]], III:[B[2], B[3]], IV:[B[3], B[4]] };
+  const out = {};
+  for (const [name, [a, b]] of Object.entries(spans)){
+    render(a);                                            // warm the buffer
+    const t0 = performance.now();
+    for (let i=0;i<k;i++) render(a + (b-a) * i/k);
+    out[name] = +((performance.now() - t0)/k).toFixed(2);
+  }
+  const worst = Math.max(...Object.values(out));
+  return { canvas:[CW,CH], cellPx:CP, gridPx:[GW,GH], msPerFrameByMovement:out,
+    worstMs:worst, worstFps:Math.round(1000/worst), framesSampledPerMovement:k };
+};
+S.payload = () => ({ coldBytes:S.bytes.cold, coldRequests:S.bytes.requests,
+  coldKB:+(S.bytes.cold/1024).toFixed(1),
+  lazyBytes:S.bytes.warm, lazyRequests:S.bytes.warmRequests,
+  lazyKB:+(S.bytes.warm/1024).toFixed(1),
+  note:"cold = everything needed for the first frame and the whole of I-III; lazy = thumb sheets, full renders, audio" });
+
+S.report = () => ({
+  file:"odyssey-title-beflix.html", seedOf:SEED_SOURCE, built:S.built,
+  boundaries:B, nominal:NOMINAL, duration:DURATION,
+  track:S.track ? `${S.track.album} ${S.track.num} — ${S.track.title}` : null,
+  bpm:S.bpm, onsets:S.beats.length, boundariesSnapped:S.snapped,
+  grid:S.gridStats(), ink:S.inkHistogram(), legibility:S.legibility(),
+  aliveness:S.aliveness(), migration:S.migration(), determinism:S.determinism(),
+  perf:S.perf(), payload:S.payload(), inkRecipe:S.recipe
+});
+
+/* ============================================================================
+   11 · BOOT
+   ========================================================================== */
+function statusLine(){
+  const G = S.grid;
+  return [ `${COLS}×${ROWS} = ${N} CELLS · INK 0–7 · ${CP}PX`,
+    `${G.distinct} DISTINCT RENDERS IN PLAY`,
+    `${S.scenes.count} SCENES × 3 MOMENTS`,
+    S.track ? `${S.track.album} ${S.track.num}${S.track.scored ? "" : " · UNSCORED (?track= TO SCORE)"}` : "SILENT",
+    S.bpm ? `${S.bpm} BPM · ${S.beats.length} ONSETS${S.snapped?" · SNAPPED":""}` : null,
+    `SEED ${SEED_SOURCE}` ].filter(Boolean).join("  ·  ");
+}
+async function boot(){
+  render(0);
+  try{
+    vmsg.textContent = "reading the corpus…"; barI.style.width = "8%";
+    await loadCorpus();
+    vmsg.textContent = "unpacking the dot sheet…"; barI.style.width = "34%";
+    await loadSheets(()=> barI.style.width = "52%");
+  }catch(e){
+    S.err = "NO CORPUS";
+    vmsg.innerHTML = `<span class="err">${e.message}</span><br><br>` +
+      `This title is a BEFLIX frame of <b>${TILES_URL}</b> drawn through ` +
+      `<b>${ATLAS_URL}</b>. Serve the repo over HTTP — file:// cannot fetch.`;
+    render(0); return;
+  }
+  vmsg.textContent = "cutting the letterforms…"; barI.style.width = "62%";
+  S.mask = buildMask();
+  vmsg.textContent = "scoring…"; barI.style.width = "70%";
+  await loadAudio();
+  S.snapped = snapBoundaries();
+  vmsg.textContent = "sorting 12,288 dots…"; barI.style.width = "84%";
+  S.grid = buildGrid(S.mask);
+  await buildSheets(S.grid.medianLum);
+  barI.style.width = "94%";
+  barI.style.width = "100%";
+  S.ready = true; baseValid = false;
+  scrub.max = String(DURATION);
+  goBtn.disabled = false;
+  vmsg.textContent = `${N} cells · ${S.grid.distinct} renders · ` +
+    `${S.grid.scenesLive} cells holding a live scene`;
+  noteEl.textContent = statusLine();
+  seek(0, false);
+  raf = requestAnimationFrame(tick);
+  window.dispatchEvent(new Event("beflix-ready"));
+}
+boot();
+</script>
+</body>
+</html>
