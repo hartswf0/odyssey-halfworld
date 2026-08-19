@@ -1,0 +1,36 @@
+<canvas id="c"></canvas><script type="module">
+import * as E from "./engine/halfworld-engine.mjs";
+import * as G from "./engine/glyphs.mjs";
+import { ARTIFACTS } from "./scenes/_artifacts.mjs";
+import { FACES, drawCloseup, idleFace } from "./assets/character/_close/face.mjs";
+import * as DIR from "./scenes/_direction.mjs";
+let SPOKEN={}, SCRIPT=null;
+try{
+  SCRIPT = await fetch("./drive/drive-script.json").then(r=>r.json());
+  SPOKEN = (await fetch("./viewer/spoken-lines.json").then(r=>r.json())).lines||{};
+}catch(e){}
+const lineOf = d => (d && d.sourceTurnId && SPOKEN[d.sourceTurnId] && SPOKEN[d.sourceTurnId].line) || "";
+window.__sceneText = (id) => {
+  const sc = SCRIPT && SCRIPT.scenes.find(x=>x.id===id);
+  if(!sc) return "THE ODYSSEY ";
+  return (sc.segments||[]).map(d=>lineOf(d)||String(d.text||"")).filter(Boolean)
+    .join(" ").replace(/\s+/g," ").trim() || "THE ODYSSEY ";
+};
+window.__check = () => { G.calibrate(); return ["weight","greek","sea"].map(n => G.verifyMonotonic(n)); };
+window.__mosaic = (kind, id, u, px, opt) => {
+  const s = document.createElement("canvas"); s.width = px; s.height = px;
+  const sg = s.getContext("2d", { willReadFrequently: true });
+  sg.fillStyle="#fff"; sg.fillRect(0,0,px,px);
+  if (kind === "art") ARTIFACTS.find(a=>a.id===id).draw(sg, px, px, u);
+  else {
+    const st = { ...idleFace(u*4, id.length), ...(DIR.EMOTIONS[opt.emo]||{}) };
+    drawCloseup(sg, FACES[id], st, { cx:px*.5, cy:px*.47, R:px*.40 });
+  }
+  const src = sg.getImageData(0,0,px,px).data;
+  const o = document.createElement("canvas"); o.width = px; o.height = px;
+  G.glyphBlit(o.getContext("2d"), src, px, px, {x:0,y:0,w:px,h:px}, px, px,
+    opt.cell || 14, { set: opt.set, text: opt.text, grade: (d)=>E.INKLAW.grade(d) });
+  return o.toDataURL("image/png").split(",")[1];
+};
+window.__ready = true;
+</script>

@@ -1,0 +1,407 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><title>SPOKEN INTO BEING</title>
+<style>html,body{margin:0;background:#111;height:100%}canvas{display:block;margin:0 auto;background:#FBFAF4}</style>
+</head><body>
+<canvas id="cv"></canvas>
+<script type="module">
+/* ============================================================================
+   SPOKEN INTO BEING — the film page.
+
+   A short film in which the Odyssey prints itself out of its own words. The
+   whole cut is film/sundance-score.json — written by harness/build-sundance.mjs,
+   which also builds the soundtrack from the same derivation, so the picture
+   and the voice share one clock and cannot disagree.
+
+   CONTRACT. This page implements window.__title exactly as odyssey-title.html
+   does, so harness/render-title.mjs drives it unchanged: ready, pause(),
+   render(t) as a function of absolute film time, stats() with the duration,
+   and track naming the finished soundtrack for the mux.
+
+   PURITY. render(t) computes every frame from t alone. The MOVING cues need a
+   frame-to-frame difference, and rather than keep the previous frame as state
+   (which would make frame n depend on the render order), the diff is taken by
+   drawing the subject TWICE — at u and at u-1/fps — every frame. Twice the
+   vector work, none of the history.
+
+   EVERY IMAGE IS PRINTED FROM THE WORDS OF ITS OWN SCENE. Faces are printed
+   from the line they are speaking; things from the full text of the scene
+   they belong to. Nothing in this film is a texture.
+========================================================================== */
+import * as E from "./engine/halfworld-engine.mjs";
+import * as GLYPH from "./engine/glyphs.mjs";
+import * as SPEECH from "./engine/speech.mjs";
+import * as DIR from "./scenes/_direction.mjs";
+import { ARTIFACTS } from "./scenes/_artifacts.mjs";
+import { FACES, drawCloseup, idleFace } from "./assets/character/_close/face.mjs";
+
+const Q = new URLSearchParams(location.search);
+const CW = Math.max(640, Math.min(3840, +Q.get("w") || 1280));
+const CH = Math.round(CW * 9 / 16);
+const cv = document.getElementById("cv");
+cv.width = CW; cv.height = CH;
+const g = cv.getContext("2d", { willReadFrequently: true });
+
+const PAPER = "#FBFAF4", INK = "#141210";
+const FPS = 24;
+const CELL = Math.max(7, Math.round(CW / 170));       // the one grain of the film
+const grade = (d) => E.INKLAW.grade(d);
+const sm = (x) => x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x);
+const clamp01 = (x) => x < 0 ? 0 : x > 1 ? 1 : x;
+
+/* ---- the score, and everything it names, loaded BEFORE ready ------------- */
+const SCORE = await fetch("./film/sundance-score.json").then(r => r.json());
+const ART = Object.fromEntries(ARTIFACTS.map(a => [a.id, a]));
+
+/* ══ THE ATLAS IS THE SUBJECT ══════════════════════════════════════════════
+   The first cut of this film showed FIVE of the four hundred and thirty
+   assets — 1.2% — and every one of those came from a single staged scene.
+   Everything else on screen was material written the same afternoon: the
+   twenty-one authored artifacts and the twelve close-up faces. A film about a
+   world made of four hundred and forty procedural drawings that shows almost
+   none of them is a film about its own lens.
+
+   So the loader is general. Any scene in the manifest stages through the
+   engine's own makeRestage — the same call syncwatch uses — and any asset in
+   the manifest draws through its own module. The text printer stays exactly
+   what it was: a lens the atlas is seen through, not the thing being seen.
+═══════════════════════════════════════════════════════════════════════════ */
+const MF = await fetch("./viewer/manifest-lite.json").then(r => r.json());
+const byId = new Map(MF.assets.map(a => [a.id, a]));
+
+const _mods = new Map();
+async function modOf(id) {
+  if (_mods.has(id)) return _mods.get(id);
+  const a = byId.get(id);
+  let m = null;
+  if (a) { try { const im = await import("." + a.path); m = im.default || im.asset || im[Object.keys(im)[0]] || null; } catch (e) { } }
+  _mods.set(id, m); return m;
+}
+
+const _stages = new Map();
+async function stageOf(sceneId) {
+  if (_stages.has(sceneId)) return _stages.get(sceneId);
+  let rs = null;
+  try {
+    const im = await import(`./scenes/${sceneId}.mjs`);
+    const scMod = im.scene || im.default;
+    const mods = new Map();
+    await Promise.all((scMod.cast || []).map(async c => { mods.set(c.asset, await modOf(c.asset)); }));
+    rs = E.makeRestage(scMod, id => mods.get(id), id => String(id).split(".")[0], {});
+  } catch (e) { console.warn("restage", sceneId, e); }
+  _stages.set(sceneId, rs); return rs;
+}
+
+/* EVERY subject the score names is resolved BEFORE ready. render(t) must never
+   wait for a module: the renderer calls it 5,095 times in a row and a missing
+   asset would print as blank paper without raising anything. */
+for (const c of SCORE.cues) {
+  const S = c.subject;
+  if (S.kind === "scene") await stageOf(S.id);
+  else if (S.kind === "asset") await modOf(S.id);
+}
+
+/* viseme tracks per voiced cue, built once — memoisation, not state */
+const TRACKS = new Map();
+function trackFor(cue) {
+  if (TRACKS.has(cue.id)) return TRACKS.get(cue.id);
+  const dur = cue.voice.dur, HZ = 50;
+  const track = SPEECH.visemeTrack(cue.text || "", dur);
+  const env = new Float32Array(Math.max(1, Math.ceil(dur * HZ)));
+  for (let i = 0; i < env.length; i++) {
+    const tt = i / HZ, v = track.find(x => tt >= x.t0 && tt < x.t1);
+    const V = v ? (SPEECH.VISEMES[v.v] || SPEECH.VISEMES.REST) : SPEECH.VISEMES.REST;
+    env[i] = Math.min(1, 0.16 + V.jaw * 0.95);
+  }
+  const out = { track, env, HZ };
+  TRACKS.set(cue.id, out);
+  return out;
+}
+
+/* ---- offscreens ----------------------------------------------------------- */
+const off = document.createElement("canvas"); off.width = CW; off.height = CH;
+const og = off.getContext("2d", { willReadFrequently: true });
+const off2 = document.createElement("canvas"); off2.width = CW; off2.height = CH;
+const og2 = off2.getContext("2d", { willReadFrequently: true });
+const mskC = document.createElement("canvas"); mskC.width = CW; mskC.height = CH;
+const mg = mskC.getContext("2d", { willReadFrequently: true });
+const R = { x: 0, y: 0, w: CW, h: CH };
+
+function clearTo(ctx2) { ctx2.setTransform(1, 0, 0, 1, 0, 0); ctx2.fillStyle = "#ffffff"; ctx2.fillRect(0, 0, CW, CH); }
+
+/* ---- subjects ------------------------------------------------------------- */
+function drawArt(ctx2, id, u) { clearTo(ctx2); try { ART[id].draw(ctx2, CW, CH, ((u % 1) + 1) % 1); } catch (e) { } }
+
+function drawFace(ctx2, cue, t) {
+  clearTo(ctx2);
+  const local = t - cue.t0;
+  const vAt = cue.voice ? cue.voice.at - cue.t0 : 0;
+  const vLocal = local - vAt;
+  const emo = { ...(DIR.EMOTIONS[cue.subject.emo] || {}) };
+  const jawFloor = (emo.jaw || 0) * 0.45; delete emo.jaw;
+  /* the emotion arrives with the voice, not with the cut */
+  const k = sm(clamp01(vLocal / 0.6 + 0.15));
+  for (const key in emo) emo[key] *= k;
+  let st = { ...idleFace(t, cue.subject.face.length), ...emo };
+  if (cue.voice && vLocal >= 0 && vLocal <= cue.voice.dur) {
+    const tr = trackFor(cue);
+    const mouth = SPEECH.sampleMouth(tr.track, tr.env, tr.HZ, vLocal);
+    const car = SPEECH.speechCarriage(tr.env, tr.HZ, vLocal, cue.subject.face.length);
+    st = { ...st, ...mouth };
+    st.headPitch = (st.headPitch || 0) + car.pitch;
+    st.headYaw = (st.headYaw || 0) + car.yaw;
+    st.headRoll = (st.headRoll || 0) + car.roll;
+    st.browUp = (st.browUp || 0) + car.brow * 0.6;
+  }
+  if (jawFloor) st.jaw = Math.max(st.jaw || 0, jawFloor * k);
+  if (st.blink) st.eyeWide = (st.eyeWide || 0) * (1 - st.blink);
+  try { drawCloseup(ctx2, FACES[cue.subject.face], st, { cx: CW * 0.5, cy: CH * 0.47, R: CH * 0.40 }); } catch (e) { }
+}
+
+/* a staged scene: the film's own 672x456 world, letterboxed into the frame */
+function drawScene(ctx2, sceneId, tS) {
+  clearTo(ctx2);
+  const rs = _stages.get(sceneId);
+  if (!rs) return;
+  const SW = 672, SH = 456, s = CH / SH, ox = (CW - SW * s) / 2;
+  ctx2.save(); ctx2.translate(ox, 0); ctx2.scale(s, s);
+  try { rs.stage(ctx2, SW, SH, tS); } catch (e) { }
+  ctx2.restore();
+}
+
+/* ONE ASSET, KEYED. Drawing an atlas module raw fills the frame with its own
+   ground — measured, these cards run 55% to 100% ink, because a location paints
+   its sky and its floor. Printed straight, that is a solid black field with no
+   paper for a sentence to sit on, and the first cut of these cues came back as
+   dark slabs.
+
+   inkCutout is what the film itself puts every asset through: it draws the
+   module, region-keys the ground away from the border, and returns the ink
+   with its true bounding box. Same call, same threshold, same result as a
+   staged frame — the asset arrives on paper instead of on its own backdrop. */
+function drawAsset(ctx2, id, u) {
+  clearTo(ctx2);
+  const m = _mods.get(id);
+  if (!m || typeof m.draw !== "function") return;
+  let cut = null;
+  try { cut = E.inkCutout(m, { t: u, u }, "sundance", 0.895); } catch (e) { return; }
+  if (!cut) return;
+  const box = Math.min(CW, CH) * 0.92;
+  let dw = box * (cut.ar || 1), dh = box;
+  if (dw > CW * 0.94) { dw = CW * 0.94; dh = dw / (cut.ar || 1); }
+  ctx2.drawImage(cut.cv, cut.x, cut.y, cut.w, cut.h, (CW - dw) / 2, (CH - dh) / 2, dw, dh);
+}
+
+/* the darkest third of a frame, as a mask — the eye already goes there */
+function inkMask(fromCtx) {
+  const d0 = fromCtx.getImageData(0, 0, CW, CH), q0 = d0.data;
+  for (let k = 0; k < q0.length; k += 4) {
+    const lum = (q0[k] * .299 + q0[k + 1] * .587 + q0[k + 2] * .114) / 255;
+    const on = lum < 0.42;
+    q0[k] = q0[k + 1] = q0[k + 2] = on ? 0 : 255; q0[k + 3] = 255;
+  }
+  mg.putImageData(d0, 0, 0);
+  return mg.getImageData(0, 0, CW, CH).data;
+}
+/* what changed between two renders of the same subject — the motion, pure */
+function diffMask(aCtx, bCtx) {
+  const A = aCtx.getImageData(0, 0, CW, CH).data;
+  const B = bCtx.getImageData(0, 0, CW, CH).data;
+  const d0 = mg.createImageData(CW, CH), q0 = d0.data;
+  for (let k = 0; k < A.length; k += 4) {
+    const a2 = A[k] * .299 + A[k + 1] * .587 + A[k + 2] * .114;
+    const b2 = B[k] * .299 + B[k + 1] * .587 + B[k + 2] * .114;
+    const moved = Math.abs(a2 - b2) > 22;
+    q0[k] = q0[k + 1] = q0[k + 2] = moved ? 0 : 255; q0[k + 3] = 255;
+  }
+  mg.putImageData(d0, 0, 0);
+  return mg.getImageData(0, 0, CW, CH).data;
+}
+
+const spokenTo = (cue, t) => !cue.voice ? 0 :
+  clamp01((t - cue.voice.at) / Math.max(0.4, cue.voice.dur));
+
+/* ---- the frame ------------------------------------------------------------ */
+function render(t) {
+  t = Math.max(0, Math.min(SCORE.total - 0.001, t));
+  const cue = SCORE.cues.find(c => t >= c.t0 && t < c.t0 + c.dur) || SCORE.cues[SCORE.cues.length - 1];
+  const local = t - cue.t0;
+  const sp = spokenTo(cue, t);
+  const material = cue.subject.kind === "face" ? (cue.text || cue.sceneText) : cue.sceneText;
+
+  /* ── SUBJECT ── draw whatever this cue names, at u, into ctx.
+     Scenes advance on their own clock; assets and artifacts take u directly. */
+  const paint = (ctx2, u) => {
+    const S = cue.subject;
+    if (S.kind === "scene") drawScene(ctx2, S.id, 4 + u * 26);
+    else if (S.kind === "asset") drawAsset(ctx2, S.id, u);
+    else if (S.kind === "art") drawArt(ctx2, S.art, u);
+    else if (S.kind === "face") drawFace(ctx2, cue, cue.t0 + u * cue.dur);
+    else clearTo(ctx2);
+  };
+
+  switch (cue.id) {
+    case "cold": {
+      /* the page assembles out of paper: prose, no image yet */
+      drawArt(og, "bed", 0);               // any source; emerge 0 shows none of it
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL, { text: cue.sceneText, emerge: 0, grade, paper: PAPER, ink: INK });
+      const a = 1 - sm(clamp01(local / 4));
+      if (a > 0) { g.fillStyle = PAPER; g.globalAlpha = a; g.fillRect(0, 0, CW, CH); g.globalAlpha = 1; }
+      break;
+    }
+    case "invoke": {
+      drawScene(og, cue.subject.id, 4 + local * 0.8);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL, { text: cue.sceneText, emerge: sm(sp), grade, paper: PAPER, ink: INK });
+      break;
+    }
+    case "council": {
+      drawFace(og, cue, t);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.breathBlit(g, data, CW, CH, R, CW, CH, CELL,
+        { text: material, grade, paper: PAPER, ink: INK,
+          wave: { dir: 0.55, len: 0.55, phase: sp * 1.4 - 0.2 } });
+      break;
+    }
+    case "shroud": {
+      /* THE PAGE IS THE CLOTH. The first cut printed the loom drawing in
+         breath mode and got 28 near-empty seconds — the loom is a thin frame,
+         and a sparse drawing gives the printer nothing to say. But the trick
+         Antinous is describing is not a picture of weaving, it is text
+         becoming cloth and cloth becoming text again — which is pageBlit's
+         whole mechanism. So: the full page of the scene, EMERGING into the
+         woven shroud as she weaves and unravelling back into prose as she
+         unweaves, one full cycle across his telling of it. The mode is the
+         trick, told in the trick's own material. */
+      const u = clamp01(sp);
+      drawArt(og, "shroud", u);
+      const woven = u < 0.5 ? sm(u * 2) : sm((1 - u) * 2);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL,
+        { text: material, emerge: woven, grade, paper: PAPER, ink: INK });
+      break;
+    }
+    /* ── MOVEMENT WRITES ── the event runs once at the speed of its telling,
+       and the letters land only where the picture changed. Works for a staged
+       scene, an atlas asset or an authored artifact without knowing which. */
+    case "cave": case "blind": case "storm": case "bow": {
+      const u = sm(sp) * 0.96;
+      paint(og, u);
+      paint(og2, Math.max(0, u - 1.8 / FPS));
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.mixBlit(g, data, diffMask(og, og2), CW, CH, R, CW, CH, CELL,
+        { text: material, grade, paper: PAPER, ink: INK });
+      break;
+    }
+    /* ── STILLNESS WRITES ── the inverse, and the stranger one: what holds is
+       legible and what moves is not. For the wreck and the hall of death, the
+       thing that will not move is the point. */
+    case "hall": {
+      const u = sm(sp) * 0.96;
+      paint(og, u);
+      paint(og2, Math.max(0, u - 1.8 / FPS));
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.mixBlit(g, data, diffMask(og, og2), CW, CH, R, CW, CH, CELL,
+        { text: material, grade, paper: PAPER, ink: INK, invert: true });
+      break;
+    }
+    /* ── THE PAGE BECOMES THE PLACE ── prose at the top of the line, the
+       location by the end of it */
+    case "horsein": case "pit": case "wreck": {
+      paint(og, clamp01(sp));
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL,
+        { text: material, emerge: sm(sp), grade, paper: PAPER, ink: INK });
+      break;
+    }
+    /* ── A STAGED SCENE, BREATHED ── Tiresias names the cost while the
+       underworld arrives through the front of the wave */
+    case "tiresias": case "horse": {
+      paint(og, clamp01(sp));
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.breathBlit(g, data, CW, CH, R, CW, CH, CELL,
+        { text: material, grade, paper: PAPER, ink: INK,
+          wave: { dir: 0.55, len: 0.55, phase: sm(sp) * 1.4 - 0.2 } });
+      break;
+    }
+    case "cyclops": {
+      drawFace(og, cue, t);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.breathBlit(g, data, CW, CH, R, CW, CH, CELL,
+        { text: material, grade, paper: PAPER, ink: INK, back: true,
+          wave: { dir: 0.55, len: 0.55, phase: sp * 1.4 - 0.2 } });
+      break;
+    }
+    case "scar": {
+      /* the seam writes itself in as her palm finds it: the scar's own ink is
+         the mask, and the wavefront is the narrator's voice */
+      const u = sm(sp) * 0.96;
+      drawArt(og, "scar", u);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      const mask = inkMask(og);
+      GLYPH.mixBlit(g, data, mask, CW, CH, R, CW, CH, CELL,
+        { text: cue.text, grade, paper: PAPER, ink: INK, spokenTo: sp, flow: "toText" });
+      break;
+    }
+    case "dogs": case "bed1": {
+      drawFace(og, cue, t);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      const mask = inkMask(og);
+      GLYPH.mixBlit(g, data, mask, CW, CH, R, CW, CH, CELL,
+        { text: cue.text, grade, paper: PAPER, ink: INK, spokenTo: sp });
+      break;
+    }
+    case "bedact": {
+      drawArt(og, "bed", (local / 9) % 1);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL, { text: cue.sceneText, emerge: sm(sp), grade, paper: PAPER, ink: INK });
+      break;
+    }
+    case "bed2": {
+      drawArt(og, "bed", (local / 9) % 1);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL, { text: cue.sceneText, emerge: 1, grade, paper: PAPER, ink: INK });
+      break;
+    }
+    case "exhale": {
+      /* the film breathes out: the bed returns to prose, then the title */
+      const back = sm(clamp01(local / 9));
+      drawArt(og, "bed", ((cue.t0 / 9) + local / 9) % 1);
+      const data = og.getImageData(0, 0, CW, CH).data;
+      GLYPH.pageBlit(g, data, CW, CH, R, CW, CH, CELL, { text: cue.sceneText, emerge: 1 - back, grade, paper: PAPER, ink: INK });
+      const tA = sm(clamp01((local - 11) / 2.5));
+      if (tA > 0) {
+        g.fillStyle = PAPER; g.globalAlpha = tA * 0.92; g.fillRect(0, 0, CW, CH); g.globalAlpha = 1;
+        g.fillStyle = INK; g.textAlign = "center"; g.textBaseline = "middle";
+        g.globalAlpha = tA;
+        g.font = `600 ${Math.round(CW / 26)}px ui-monospace, Menlo, monospace`;
+        g.fillText(SCORE.title, CW / 2, CH * 0.44);
+        g.font = `400 ${Math.round(CW / 70)}px ui-monospace, Menlo, monospace`;
+        g.fillText(SCORE.subtitle, CW / 2, CH * 0.54);
+        g.font = `400 ${Math.round(CW / 96)}px ui-monospace, Menlo, monospace`;
+        g.fillStyle = "#6E6A62";
+        g.fillText("every image printed from the words of its own scene", CW / 2, CH * 0.63);
+        g.fillText("voices: the film's own studio recordings · bed: Bronze Council, Aegean Resolve", CW / 2, CH * 0.67);
+        g.globalAlpha = 1;
+      }
+      const out = sm(clamp01((local - (cue.dur - 2.5)) / 2.5));
+      if (out > 0) { g.fillStyle = PAPER; g.globalAlpha = out; g.fillRect(0, 0, CW, CH); g.globalAlpha = 1; }
+      break;
+    }
+  }
+}
+
+/* ---- the contract --------------------------------------------------------- */
+GLYPH.calibrate();
+render(0);
+window.__title = {
+  ready: true,
+  pause() { },
+  render,
+  seek: render,
+  stats: () => ({ duration: SCORE.total, declared: SCORE.cues.length, loaded: SCORE.cues.length, failed: 0 }),
+  track: { url: "/film/sundance-audio.m4a", album: "SPOKEN INTO BEING", num: 1, title: "voice, and five movements of Bronze Council beneath it" },
+};
+console.log(`[sundance] ${SCORE.cues.length} cues · ${SCORE.total}s · ${CW}x${CH} · cell ${CELL}`);
+</script>
+</body></html>

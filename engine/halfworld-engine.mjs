@@ -132,6 +132,47 @@ export function directField(g, source, CW, CH){
   g.imageSmoothingEnabled=true; g.imageSmoothingQuality="high";
   g.drawImage(source,0,0,source.width,source.height,r.ox,r.oy,r.w,r.h); g.restore();
 }
+
+/* ---------------- THE INK LAW ----------------------------------------------
+   Measured, not guessed. A frame of the sibling film reads 86% paper, 3%
+   mid-gray, 7% solid ink — two values and a little texture. The same frame
+   grammar here read 55% paper and 18% mid-gray: SIX TIMES the mush. The
+   halftone stage is byte-identical between the two, so the difference is not
+   the printer, it is what the assets paint. Four hundred and forty procedural
+   assets fill their shapes with mid-grays, and a mid-gray dot at this pitch
+   carries no shape information at all — it only lowers the contrast of every
+   contour that does. Stack eight of them and the frame is a gray tangle.
+
+   Rewriting 440 assets is not the move. Every pixel in the film passes through
+   dotifyField, so the grade belongs here: one S-curve about MID that pushes
+   fills toward paper and contour toward solid, monotonic and continuous so
+   nothing inverts. This is a printing decision — harder paper, more bite — not
+   a change to any drawing.
+
+   grade(0)=0 and grade(1)=1 always; only the middle moves.
+
+   Swept against the sibling frame over three shots, and CHOSEN BY LOOKING —
+   the histogram is only a proxy and it has already lied once in this session:
+     k=1.0  (ungraded)  paper 64%  mush 15%
+     k=2.1              paper 73%  mush  9%
+     k=2.6  ← this      paper 75%  mush  8%
+     k=3.2              paper 78%  mush  6%
+     k=3.8              paper 80%  mush  6%
+   The sibling reads 86/3. Chasing it further crushes the garment tones that
+   still separate one body from another, so this stops short on purpose.
+--------------------------------------------------------------------------- */
+export const INKLAW = {
+  floor: 0.20,   // below this, no dot at all — the faintest fills become paper
+  mid:   0.58,   // the pivot the curve turns about
+  k:     2.60,   // how hard the middle is pushed apart
+  grade(d){
+    const { mid, k } = this;
+    return d < mid
+      ? mid * Math.pow(d / mid, k)
+      : 1 - (1 - mid) * Math.pow((1 - d) / (1 - mid), k);
+  },
+};
+
 export function dotifyField(g, src, SW, SH, CW, CH, post, DPR=1, big=false){
   const r=containRect(SW,SH,CW,CH), cell=Math.max(3, post.cell*DPR*(big?.82:.68));
   g.save(); g.globalAlpha=1; g.setTransform(1,0,0,1,0,0);
@@ -150,7 +191,9 @@ export function dotifyField(g, src, SW, SH, CW, CH, post, DPR=1, big=false){
     const sy=Math.max(0,Math.min(SH-1,Math.floor((y-r.oy)/r.s)));
     for(let x=x0;x<=x1;x+=cell){
       const sx=Math.max(0,Math.min(SW-1,Math.floor((x-r.ox)/r.s))), i=(sy*SW+sx)*4;
-      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255, d=1-lum; if(d<.10) continue;
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255; let d=1-lum;
+      if(d<INKLAW.floor) continue;
+      d = INKLAW.grade(d);
       g.beginPath(); g.arc(x,y,Math.pow(d,.9)*cell*.62*post.gain,0,7); g.fill();
     }
   }
@@ -491,22 +534,65 @@ export function borderKey(kctx, w, h, thr=.895){
   const id = kctx.getImageData(0,0,w,h), d = id.data, N = w*h;
   const visited = new Uint8Array(N);
   const stack = new Int32Array(N); let sp = 0;
-  const passable = i => {
+
+  /* ── THE FIELD KEY ──────────────────────────────────────────────────────
+     The original rule cleared only NEAR-WHITE paint connected to the border.
+     Perfect for anything drawn on paper — 0 of 43 characters, 0 of 9 props and
+     0 of 4 creatures kept a background. Useless for an asset that paints its
+     own ground: every set piece and environment, 93% of locations and half the
+     ensembles and divine effects arrived with the whole 560x560 card opaque
+     and the key removing exactly 0%. Those rectangles were pasted onto the
+     stage, which is why a crowded scene reads as a collage of grey boxes
+     instead of a drawing.
+
+     First attempt keyed a single field colour sampled from the four corners.
+     It barely helped, and the reason is obvious in hindsight: a landscape has
+     SKY at the top corners and GROUND at the bottom, so the corners disagree
+     and the test bails on exactly the assets that needed it.
+
+     So the flood grows REGIONS instead. Each border pixel seeds with its own
+     colour, and the fill spreads while neighbours stay within tolerance of the
+     colour it came from. Flat quantized tones — which is all this world is
+     allowed, gradients being forbidden — clear out to the hard contour and
+     stop there. Sky clears as sky, ground clears as ground, and the drawing
+     keeps its edge.
+  ────────────────────────────────────────────────────────────────────────── */
+  const TOL = 26;                       // sum of |dr|+|dg|+|db| across one step
+  const seedR = new Uint8Array(N), seedG = new Uint8Array(N), seedB = new Uint8Array(N);
+  const near = (i, r, g, b) =>
+    Math.abs(d[i*4]-r) + Math.abs(d[i*4+1]-g) + Math.abs(d[i*4+2]-b) < TOL;
+
+  /* push a pixel, carrying the colour of the region we are growing from.
+     from<0 means this is a border seed and it becomes its own reference. */
+  const push = (i, from) => {
+    if (visited[i]) return;
     const a = d[i*4+3];
-    if (a < 10) return 1;                       // unpainted: pass through
+    if (a < 10){                                  // unpainted: pass through
+      visited[i] = 1; stack[sp++] = i;
+      if (from >= 0){ seedR[i]=seedR[from]; seedG[i]=seedG[from]; seedB[i]=seedB[from]; }
+      else { seedR[i]=255; seedG[i]=255; seedB[i]=255; }
+      return;
+    }
     const al = a/255;
     const lum = ((d[i*4]*.299 + d[i*4+1]*.587 + d[i*4+2]*.114)/255)*al + (1-al);
-    return lum >= thr ? 2 : 0;                  // 2 = light paint: clear it
+    let clear = lum >= thr;                       // paper: always
+    if (!clear && from >= 0) clear = near(i, seedR[from], seedG[from], seedB[from]);
+    else if (!clear && from < 0) clear = lum > 0.20;   // a seed dark enough to be ink is drawing
+    visited[i] = 1;
+    if (!clear) return;                           // a contour: the fill stops here
+    if (from >= 0){ seedR[i]=seedR[from]; seedG[i]=seedG[from]; seedB[i]=seedB[from]; }
+    else { seedR[i]=d[i*4]; seedG[i]=d[i*4+1]; seedB[i]=d[i*4+2]; }
+    d[i*4+3] = 0;
+    stack[sp++] = i;
   };
-  const push = i => { if (!visited[i]){ const p = passable(i); if (p){ visited[i]=1; if(p===2)d[i*4+3]=0; stack[sp++]=i; } else visited[i]=1; } };
-  for (let x=0;x<w;x++){ push(x); push((h-1)*w+x); }
-  for (let y=0;y<h;y++){ push(y*w); push(y*w+w-1); }
+  for (let x=0;x<w;x++){ push(x,-1); push((h-1)*w+x,-1); }
+  for (let y=0;y<h;y++){ push(y*w,-1); push(y*w+w-1,-1); }
   while (sp>0){
     const i = stack[--sp], x = i%w, y = (i-x)/w;
-    if (x>0) push(i-1);
-    if (x<w-1) push(i+1);
-    if (y>0) push(i-w);
-    if (y<h-1) push(i+w);
+    if (x>0) push(i-1,i);
+    if (x<w-1) push(i+1,i);
+    if (y>0) push(i-w,i);
+    if (y<h-1) push(i+w,i);
   }
   kctx.putImageData(id,0,0);
 }

@@ -273,12 +273,111 @@ export function makeHeroFigure(spec={}){
       // sandal strap ink on a bare shin
       if(bare){ctx.strokeStyle=C.ink;ctx.lineWidth=2.5;for(let i=1;i<=2;i++){const t=i/3,cx=k.x+(a.x-k.x)*t,cy=k.y+(a.y-k.y)*t;ctx.beginPath();ctx.moveTo(cx-d.pelvis*.16,cy-d.pelvis*.05);ctx.lineTo(cx+d.pelvis*.16,cy+d.pelvis*.05);ctx.stroke();}}
     }
-    function drawHand(side,pose,node){const p=node.point(),flip=side==="L"?-1:1;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(node.w.r);ctx.scale(flip,1);const S=d.hand;ctx.fillStyle=C.skin;ctx.strokeStyle=C.ink;ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(0,S*.1,S*.31,S*.38,0,0,TAU);ctx.fill();ctx.stroke();const f=(x,y1,y2,bend=0)=>fingerPath([[x,S*.02],[x+bend,y1],[x+bend*.6,y2]],S*.1);
-      if(pose==="fist"){ctx.beginPath();ctx.roundRect(-S*.31,-S*.18,S*.62,S*.48,S*.18);ctx.fill();ctx.stroke();for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(i*S*.16,-S*.12);ctx.lineTo(i*S*.16,S*.1);ctx.stroke();}}
-      else if(pose==="point"){f(-S*.12,-S*.42,-S*.95);f(S*.06,-S*.18,-S*.3,.06);f(S*.19,-S*.12,-S*.22,.08);fingerPath([[-S*.25,S*.1],[-S*.48,-S*.05]],S*.1);}
-      else if(pose==="offering"||pose==="palm_up"){for(let i=-2;i<=2;i++){const x=i*S*.13;f(x,-S*(.3-Math.abs(i)*.02),-S*(.55-Math.abs(i)*.06),i*S*.13);}fingerPath([[-S*.28,S*.08],[-S*.46,-S*.02],[-S*.5,-S*.28]],S*.11);}
-      else{const spread=pose==="open_palm"||pose==="stop"?.16:.09;for(let i=-2;i<=2;i++){const x=i*S*.13;f(x,-S*(.35-Math.abs(i)*.03),-S*(.72-Math.abs(i)*.08),i*S*spread);}fingerPath([[-S*.28,S*.08],[-S*.5,-S*.12],[-S*.62,-S*.42]],S*.11);}
-      ctx.restore();}
+    /* ---- hands -------------------------------------------------------------
+       Rewritten. The original had two anatomical bugs that shipped in every
+       frame: it looped i=-2..2, drawing FIVE fingers and then a thumb on top —
+       six digits per hand — and it grew the fingers in -y while seating the
+       palm in +y, so on a hanging arm they splayed back up the forearm.
+
+       In this node's local space +y is DISTAL: away from the wrist, down the
+       arm. Fingers grow along +y from a knuckle line; the palm sits between
+       the wrist and that line. Four fingers, one thumb, middle longest and
+       little shortest.
+    ------------------------------------------------------------------------ */
+    function drawHand(side,pose,node){
+      const p=node.point(),flip=side==="L"?-1:1;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(node.w.r);ctx.scale(flip,1);
+      const S=d.hand, OUT=5;
+
+      // Geometry is COLLECTED first, then drawn in two passes — every part in
+      // ink, then every part in skin. Stroking each digit with its own outline
+      // is what made the hand read as a bundle of separate sausages; batching
+      // the passes merges palm, fingers and thumb under ONE hard contour, which
+      // is the law this whole world is drawn under.
+      const LEN=[.90,1,.94,.76];            // index, middle, ring, little
+      const halfP=S*.33;                    // palm half-width
+      const pitch=S*.163, fw=S*.076;        // finger pitch and half-width
+      const KNb=S*.28;                      // palm ends here
+      const web=KNb+S*.055;                 // fingers stay fused this far — webbing
+      const cx=(i)=>(i-1.5)*pitch;
+
+      let curl=.40, spread=.02, longIndex=0, fist=false, thumbOut=.6, thumbDist=-.22;
+      if(pose==="fist"){ fist=true; thumbOut=.7; thumbDist=-.55; }
+      else if(pose==="point"){ curl=.88; spread=0; longIndex=2.05; thumbOut=.6; thumbDist=-.4; }
+      else if(pose==="offering"||pose==="palm_up"){ curl=.08; spread=.07; thumbOut=1.05; thumbDist=.06; }
+      else if(pose==="open_palm"||pose==="stop"){ curl=.04; spread=.09; thumbOut=.95; thumbDist=0; }
+
+      const tipY=(i)=>{
+        const len = (longIndex && i===0) ? longIndex : LEN[i];
+        const c   = (longIndex && i===0) ? 0 : curl;
+        return web + S*.40*len*(1-c*.55);
+      };
+      const bendOf=(i)=>(i-1.5)*spread*S;
+
+      // ONE closed outline: up the palm, around each finger, notching back down
+      // between them, and home. The fingers are part of the shape, not objects
+      // stuck onto it — which is the whole difference between a hand and a nub
+      // with carrots taped to it.
+      const handPath=()=>{
+        ctx.beginPath();
+        // the wrist is narrower than the palm — taper in rather than cutting
+        // the hand off with a flat edge as wide as the knuckles
+        ctx.moveTo(-S*.235,-S*.12);
+        ctx.quadraticCurveTo(-halfP,-S*.02,-halfP, KNb);
+        if(fist){
+          ctx.quadraticCurveTo(-halfP, web+S*.16, -halfP*.62, web+S*.20);
+          ctx.lineTo(halfP*.62, web+S*.20);
+          ctx.quadraticCurveTo(halfP, web+S*.16, halfP, KNb);
+        } else {
+          for(let i=0;i<4;i++){
+            const b=bendOf(i), L=cx(i)-fw+b, R=cx(i)+fw+b, T=tipY(i), C0=cx(i)+b;
+            ctx.lineTo(i===0 ? -halfP : L, i===0 ? KNb : web);
+            ctx.lineTo(L, T-fw*.95);
+            ctx.quadraticCurveTo(L, T, C0, T);              // round the tip
+            ctx.quadraticCurveTo(R, T, R, T-fw*.95);
+            ctx.lineTo(R, i===3 ? KNb : web);
+            if(i===3) ctx.lineTo(halfP, KNb);
+          }
+        }
+        ctx.quadraticCurveTo(halfP,-S*.02,S*.235,-S*.12);
+        ctx.closePath();
+      };
+
+      // The thumb is a lobe off the palm's edge, merged into the same silhouette.
+      const thumbPath=()=>{
+        const ox=-halfP+S*.03, oy=S*.02;
+        const tx=ox-S*.30*thumbOut, ty=S*(.20+.22*thumbDist);
+        ctx.beginPath();
+        ctx.moveTo(ox,oy-S*.10);
+        ctx.quadraticCurveTo(tx-S*.06, ty-S*.14, tx, ty);
+        ctx.quadraticCurveTo(tx+S*.07, ty+S*.10, tx+S*.15, ty+S*.02);
+        ctx.quadraticCurveTo(ox+S*.06, oy+S*.16, ox+S*.04, oy+S*.02);
+        ctx.closePath();
+      };
+
+      // Two passes over BOTH shapes: everything in ink, then everything in skin.
+      // The overlap merges, so the result carries a single hard contour.
+      ctx.lineJoin="round"; ctx.lineCap="round";
+      ctx.fillStyle=C.ink; ctx.strokeStyle=C.ink; ctx.lineWidth=OUT;
+      handPath();  ctx.fill(); ctx.stroke();
+      thumbPath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle=C.skin;
+      handPath();  ctx.fill();
+      thumbPath(); ctx.fill();
+
+      // creases: the notch valleys, and the thumb web
+      ctx.strokeStyle=C.ink; ctx.lineWidth=Math.max(1.8,S*.032);
+      if(!fist) for(let i=0;i<3;i++){
+        const x=(cx(i)+cx(i+1))/2+(bendOf(i)+bendOf(i+1))/2;
+        ctx.beginPath();ctx.moveTo(x,web);ctx.lineTo(x,web-S*.115);ctx.stroke();
+      } else for(let i=-1;i<=1;i++){
+        ctx.beginPath();ctx.moveTo(i*S*.155,web-S*.02);ctx.lineTo(i*S*.155,web+S*.16);ctx.stroke();
+      }
+      ctx.beginPath();ctx.moveTo(-halfP+S*.02,S*.06);
+      ctx.quadraticCurveTo(-halfP+S*.13,S*.16,-halfP+S*.10,S*.26);ctx.stroke();
+
+      ctx.restore();
+    }
     function drawArm(side){const sh=side==="L"?rig.shL:rig.shR,fo=side==="L"?rig.foL:rig.foR,wr=side==="L"?rig.wrL:rig.wrR;const a=sh.point(),b=fo.point(),c=wr.point();
       const sleeveDeep = spec.garment==="bare"?C.skinDeep:C.shirtDeep;
       pathCapsule(a,b,d.headR*.34,sleeveDeep);pathCapsule(b,c,d.headR*.27,C.skin);ellipseAt(sh,d.headR*.26,d.headR*.31,spec.garment==="bare"?C.skin:C.shirt);drawHand(side,side==="L"?handL:handR,side==="L"?rig.haL:rig.haR);}

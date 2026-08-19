@@ -1,0 +1,26 @@
+<canvas id="c"></canvas><script type="module">
+import * as E from "./engine/halfworld-engine.mjs";
+window.__probe = async (paths) => {
+  const out = [];
+  for (const w of paths) {
+    try {
+      const m = await import(`./assets/${w}.mjs`);
+      const mod = m.default || m.asset || m[Object.keys(m)[0]];
+      if (!mod || typeof mod.draw !== "function") { out.push({w, ok:false, why:"no draw"}); continue; }
+      const inks = [];
+      for (const t of [0,.25,.5,.75]) {
+        const cv=document.createElement("canvas"); cv.width=300; cv.height=300;
+        const g=cv.getContext("2d",{willReadFrequently:true});
+        g.fillStyle="#fff"; g.fillRect(0,0,300,300);
+        try{ mod.draw(g,300,300,{...(mod.preview?mod.preview():{}),t,u:t,card:false}); }catch(e){}
+        const d=g.getImageData(0,0,300,300).data; let n=0;
+        for(let i=0;i<d.length;i+=4) if(d[i]<200) n++;
+        inks.push(n);
+      }
+      out.push({w, ok:true, inks, animates:new Set(inks).size>1});
+    } catch(e){ out.push({w, ok:false, why:String(e).slice(0,50)}); }
+  }
+  return out;
+};
+window.__ready = true;
+</script>

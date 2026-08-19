@@ -1,0 +1,8 @@
+<canvas id="c"></canvas>
+<script type="module">
+import { FACES, drawCloseup, closeGeom, idleFace } from "./assets/character/_close/face.mjs";
+import { visemeTrack, sampleMouth } from "./engine/speech.mjs";
+import * as E from "./engine/halfworld-engine.mjs";
+window.__F={FACES,drawCloseup,closeGeom,idleFace,visemeTrack,sampleMouth,E};
+console.log("faces ready", Object.keys(FACES).length);
+</script>

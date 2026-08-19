@@ -149,6 +149,37 @@ const ROMAN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","X
   "XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV"];
 
 /* ══════════════════════════════════════════════════════════════════════
+   0. ?render=1 — THE OFFLINE FILM PASS. Additive and inert by default.
+
+   harness/render-film.mjs drives this page headlessly to make an actual mp4
+   of pane C. Everything below is gated on the query flag; with the flag
+   absent RENDER is false, every guard falls through to the code that was
+   here before, and the page you open in a browser is byte-for-byte the page
+   that was here before. Nothing in this block runs unless you ask for it.
+
+   What the flag changes, and why each one is necessary:
+     · the clock becomes writable (__sync.clock = t). The normal path moves
+       the clock through seek(), which sets CAM.scene=null and SNAPS the
+       frame — correct for scrubbing, fatal for a linear render, where the
+       camera ease is the whole point.
+     · rAF/tick and all <audio> loading stop. A render frame must be a pure
+       function of n; and the film's audio is built separately by
+       harness/build-film-audio.mjs from the same manifest.
+     · panes A, B, D, E and the media panes stop drawing. Only pane C is the
+       film. Drawing the other four costs ~3x the frame time for pixels that
+       are thrown away.
+     · the camera rectangle can take the OUTPUT aspect instead of the pane's
+       4:2.72. Height still frames the shot exactly as before — a WIDE is
+       still the whole stage height — the frame is simply wider, and pads
+       with paper where the stage runs out.
+     · the ease constant becomes settable, because .34 is tuned for the
+       live page's ~13 Hz redraw and would move twice as fast at 24 fps.
+   ══════════════════════════════════════════════════════════════════════ */
+const RQ=new URLSearchParams(location.search);
+const RENDER=RQ.get("render")==="1";
+const RCFG={ ease:.34, aspect:0 };      // aspect 0 = the pane's own
+
+/* ══════════════════════════════════════════════════════════════════════
    1. THE MASTER CLOCK — the performance IS the clock.
    152 studio scenes concatenated in id order make one ~2.7h film.
    ══════════════════════════════════════════════════════════════════════ */
@@ -284,7 +315,13 @@ function dotBlit(g,src,SW,SH,R,CW,CH,cell){
     for(let x=cell/2;x<CW;x+=cell){
       const fx=(x-ox)/s+R.x; if(fx<0||fx>=SW)continue;
       const i=(row+(fx|0))*4;
-      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255, d=1-lum; if(d<.10)continue;
+      /* THE INK LAW, applied here and not in the engine's dotifyField.
+         dotifyField is the ATLAS printer; this is the FILM's, a local copy —
+         so a grade installed in the engine changed nothing at all in the film
+         and the histogram came back byte-identical. Measure, then believe. */
+      const lum=(src[i]*.299+src[i+1]*.587+src[i+2]*.114)/255; let d=1-lum;
+      if(d<E.INKLAW.floor)continue;
+      d=E.INKLAW.grade(d);
       buckets[Math.min(NB-1,Math.floor(Math.pow(d,.9)*NB*.999))].push(x,y);
     }
   }
@@ -309,8 +346,13 @@ const ogA=offA.getContext("2d",{willReadFrequently:true});
 const offR=document.createElement("canvas"); offR.width=SW; offR.height=SH;
 const ogR=offR.getContext("2d",{willReadFrequently:true});
 const CV={A:$("cvA"),B:$("cvB"),C:$("cvC"),D:$("cvD"),E:$("cvE")};
+/* pane C is the only one the film pass reads back, once per frame. Asking for
+   a CPU-backed raster there turns a GPU→CPU stall (tens of ms at 1280×720)
+   into a memcpy. The browser page never calls getImageData on C, so it keeps
+   the accelerated context it has always had. */
 const G={A:CV.A.getContext("2d"),B:CV.B.getContext("2d"),
-         C:CV.C.getContext("2d"),D:CV.D.getContext("2d",{willReadFrequently:true}),
+         C:CV.C.getContext("2d",RENDER?{willReadFrequently:true}:undefined),
+         D:CV.D.getContext("2d",{willReadFrequently:true}),
          E:CV.E.getContext("2d",{willReadFrequently:true})};
 for(const k in G){G[k].fillStyle="#fdfdfa";G[k].fillRect(0,0,CV[k].width,CV[k].height);}
 
@@ -445,13 +487,156 @@ function rolesFor(B, seg, local){
   return { spk, ad, spInst, adInst, u, impact };
 }
 
+/* ══ AUTHORED SCENES ═══════════════════════════════════════════════════════
+   One scene in this film is not assembled. See scenes/_authored/bed.mjs for
+   why: the bed is carved from a living olive tree still rooted in the ground,
+   and it is the one object in the poem that cannot be moved, copied or faked,
+   which is the whole reason Penelope can use it to know a man who lies for a
+   living. Pasting it together out of cards would be the film contradicting its
+   own climax. So for its window it is drawn — one closed path, once.
+
+   The window is the recognition itself. The assembled hall plays either side
+   of it, so the cut into the drawing is the cut into being known. ── */
+const AUTHORED={ "OD-B23-S04":{ mod:"./scenes/_authored/bed.mjs", at:.34, hold:.42 } };
+/* LOADED AT BOOT, NOT ON DEMAND. A lazy import returns null on the first
+   frame that needs it, so a single-frame render — which is how every still and
+   every scan is taken — drew the assembled hall and the drawing never appeared
+   at all. A frame must be a pure function of t, and "have you asked for this
+   scene before?" is not t. */
+/* ══ THE SPEAKING FACE ══════════════════════════════════════════════════════
+   Twelve faces carry 75% of everything said on screen. When the camera is
+   CLOSE on one of them, it stops cropping the stage and draws the face —
+   which is what a close-up is, and what the crop could never become.
+
+   The mouth is driven by the same viseme engine the sibling film uses. Its
+   ENVELOPE — the "is anyone actually making noise right now" gate — is
+   normally measured off the recorded wav. The render pass runs muted with no
+   audio decoded, so the envelope is synthesised from the viseme track itself:
+   vowels carry energy, stops do not. It is a proxy, and it is honest about
+   being one; the mouth opens on the right syllables and the amplitude is
+   plausible rather than true. Wiring the measured envelope in is a later job
+   and it changes only how hard the jaw drops, not when.
+══════════════════════════════════════════════════════════════════════════ */
+let FACE=null, SPEECH=null, RIG=null, DIR=null;
+await Promise.all([
+  import("./assets/character/_close/face.mjs").then(m=>FACE=m).catch(e=>console.warn("face",e)),
+  import("./engine/speech.mjs").then(m=>SPEECH=m).catch(e=>console.warn("speech",e)),
+  import("./engine/figure-hero.mjs").then(m=>RIG=m).catch(e=>console.warn("rig",e)),
+  import("./scenes/_direction.mjs").then(m=>DIR=m).catch(e=>console.warn("direction",e)),
+]);
+/* speaker id -> face. "character.odysseus-as-beggar" is still Odysseus. */
+function faceFor(spId){
+  if(!FACE||!spId||/^PERFORMER\./.test(spId)) return null;
+  const key=String(spId).split(".").slice(1).join(".").split("-")[0].replace(/s$/,"");
+  for(const n of Object.keys(FACE.FACES)) if(n===key||n.startsWith(key)||key.startsWith(n)) return n;
+  return null;
+}
+/* ══ THE PERFORMANCE WAS ALREADY DIRECTED ═══════════════════════════════════
+   The face reads eighteen channels. The film was feeding eight, all mechanical
+   — three blinks-and-gaze from idleFace, five visemes from the mouth — and
+   never once touched browUp, browKnit, frown, smile, eyeWide, eyeNarrow or the
+   head's own pitch, yaw and roll. Every character therefore played every line
+   with the same neutral expression. Athena grieving over Odysseus and Antinous
+   sneering at his son were the same face with different mouths.
+
+   And the direction for all of it already existed. figure-hero exports POSES,
+   an authored table in which "grief" is {browUp:.5, browKnit:.5, frown:.5,
+   headPitch:.4} and "confrontation" is {browKnit:.7, eyeNarrow:.35, frown:.45}
+   — the exact channels drawCloseup wants — and the scene timelines have been
+   assigning a pose to each character at each beat this whole time. The bodies
+   have been acting for a hundred and fifty-two scenes. Only the close-up was
+   not listening.
+
+   So this reads the speaker's CURRENT pose off the scene, lifts the facial
+   channels out of it, and hands them to the face. No new authoring: the
+   performance is the one the scene already asked for.
+══════════════════════════════════════════════════════════════════════════ */
+const FACE_CH = ["browUp","browKnit","frown","smile","eyeWide","eyeNarrow",
+                 "headPitch","headYaw","headRoll","cheek","mouthPucker","mouthAsym"];
+function emotionOf(poseId){
+  if(!RIG||!poseId) return null;
+  const id = RIG.POSE_ALIAS && RIG.POSE_ALIAS[poseId] ? RIG.POSE_ALIAS[poseId] : poseId;
+  const P = RIG.POSES && RIG.POSES[id];
+  if(!P||!P.n) return null;
+  const out={};
+  for(const k of FACE_CH) if(P.n[k]!=null) out[k]=P.n[k];
+  /* the body's jaw is a shout, not a syllable — the visemes own the mouth, so
+     a pose's jaw is folded in as a FLOOR the speech can exceed but not lose */
+  if(P.n.jaw!=null) out.__jawFloor=P.n.jaw*0.45;
+  return Object.keys(out).length?out:null;
+}
+const _trk=new Map();
+function speechAt(text,dur,local){
+  if(!SPEECH) return null;
+  const k=text+"|"+dur.toFixed(2);
+  let e=_trk.get(k);
+  if(!e){
+    const HZ=50, track=SPEECH.visemeTrack(text,dur);
+    const env=new Float32Array(Math.max(1,Math.ceil(dur*HZ)));
+    for(let i=0;i<env.length;i++){
+      const t=i/HZ;
+      const seg=track.find(v=>t>=v.t0&&t<v.t1);
+      const V=seg?(SPEECH.VISEMES[seg.v]||SPEECH.VISEMES.REST):SPEECH.VISEMES.REST;
+      env[i]=E.clamp(0.16+V.jaw*0.95,0,1);
+    }
+    e={track,env,HZ}; if(_trk.size>60) _trk.clear();
+    _trk.set(k,e);
+  }
+  return SPEECH.sampleMouth(e.track,e.env,e.HZ,local);
+}
+const _authored=new Map();
+await Promise.all(Object.entries(AUTHORED).map(([id,a])=>
+  import(a.mod).then(m=>_authored.set(id,m)).catch(e=>console.warn("authored",id,e))));
+function authoredFor(sc,local){
+  const a=AUTHORED[sc.id]; if(!a) return null;
+  const t0=a.at*sc.total, t1=t0+a.hold*sc.total;
+  if(local<t0||local>=t1) return null;
+  const m=_authored.get(sc.id);
+  return m?{mod:m,t:local-t0,dur:t1-t0}:null;
+}
 function stageLive(og, B, W, H, tS, R){
+  if(CAM.authored){ CAM.authored.mod.draw(og,W,H,CAM.authored.t,CAM.authored.dur); return; }
+  /* A CLOSE-UP ON A FACE IS A FACE, NOT A TIGHTER CROP */
+  if(CAM.face && FACE){
+    og.setTransform(1,0,0,1,0,0);
+    og.fillStyle="#ffffff"; og.fillRect(0,0,W,H);
+    const em = CAM.emote ? {...CAM.emote} : null;
+    const floor = em && em.__jawFloor || 0; if(em) delete em.__jawFloor;
+    const st={...FACE.idleFace(CAM.faceT||0, CAM.face.length), ...(em||{}), ...(CAM.mouth||{})};
+    if(floor) st.jaw = Math.max(st.jaw||0, floor);
+    /* an expression narrows the eyes; a blink still has to close them */
+    if(st.blink) st.eyeWide = (st.eyeWide||0)*(1-st.blink);
+    /* closeGeom is the ATLAS card's framing — a head sitting politely inside a
+       square. A close-up in a film fills the frame: the head runs 2.2R, so R at
+       0.40 of frame height puts the crown near the top edge and the chin near
+       the bottom, which is what a close-up is for. */
+    try{ FACE.drawCloseup(og, FACE.FACES[CAM.face], st, { cx: W*0.5, cy: H*0.47, R: H*0.40 }); }
+    catch(e){ console.warn("drawCloseup", e); }
+    return;
+  }
   const rs=B.rs;
   /* ── the one background (unchanged from the engine) ── */
   if(rs.loc){
     try{ rs.loc.mod.draw(og,W,H,{...(rs.loc.mod.preview?rs.loc.mod.preview():{}),
       t:Math.min(tS,3), card:false, key:false}); }catch(e){}
-    og.fillStyle="rgba(255,255,255,.20)"; og.fillRect(0,0,W,H);
+    /* ── THE CLOSE-UP EXCLUDES ────────────────────────────────────────────
+       A CLOSE here was only ever a tighter CROP of the same stage — 0.34 of
+       stage height — so it magnified the set instead of isolating anybody.
+       Measured over all 152 key beats: 80% of CLOSE frames read as tangled
+       or slabbed against 5% of WIDEs, and every key beat is a CLOSE by
+       construction. The film was putting its worst frame on its most
+       important line, 152 times.
+       The faces were never the problem — they print fine. The background
+       was: a full-frame mid-gray dither with no paper anywhere for the eye
+       to rest. So in a close-up the field drops back to a suggestion. This
+       is not tone-for-depth (which this world forbids); it is the set
+       LEAVING, the way a set leaves when a camera pushes in. ── */
+    og.fillStyle = CAM.size==="INSERT"
+                 ? "rgba(255,255,255,"+(CAM.ins&&CAM.ins.field!=null?CAM.ins.field:.80).toFixed(2)+")"
+                 : CAM.size==="CLOSE" ? "rgba(255,255,255,.68)"
+                 : CAM.size==="MID"   ? "rgba(255,255,255,.36)"
+                 :                      "rgba(255,255,255,.20)";
+    og.fillRect(0,0,W,H);
   }else{
     og.fillStyle="#ffffff"; og.fillRect(0,0,W,H);
     og.strokeStyle="#c9c7c0"; og.lineWidth=2;
@@ -472,8 +657,30 @@ function stageLive(og, B, W, H, tS, R){
     return 0;
   };
 
-  for(const p of placed){
+  /* ---- DEPTH ------------------------------------------------------------
+     The list came out of layout() in authoring order and was drawn in that
+     order, so a figure standing behind another could be painted over it. On a
+     ground plane the painter's order is simply the feet line: the higher the
+     feet sit in frame, the further away the body is, so draw it first. The
+     field (location/environment) is not on the ground plane — it IS the
+     ground plane — so it stays behind everything regardless.
+  ------------------------------------------------------------------------ */
+  const depth=(q)=>/location|environment/.test(q.type)?-1e9:(q.y||0);
+  const ordered=placed.slice().sort((a,b)=>depth(a)-depth(b));
+  /* who the close-up is actually ABOUT. Without a speaker we cannot exclude
+     anybody safely — dropping every figure would empty the frame — so the
+     policy only arms when there is someone to be close ON. */
+  const CU = (CAM.size==="CLOSE" && !!pSpk) || CAM.size==="INSERT";
+  const INS = CAM.size==="INSERT" ? CAM.ins : null;
+  for(const p of ordered){
     const speaking =!!(pSpk&&p===pSpk), listening=!!(pAd&&p===pAd&&!speaking);
+    /* B02-S03 put SIX bodies inside a tight crop at the same scale, all
+       overlapping. A close-up is defined by what it leaves out. */
+    /* on an INSERT the subject is the OBJECT: it is kept at full ink and
+       everything else recedes, including whoever is talking. */
+    const isSubj = INS ? (p.instance===INS.on || p.instance===INS.with) : (speaking||listening);
+    if(CU && p.figure && !isSubj && !(INS && (speaking||listening))) continue;
+    const recede = CU && !isSubj ? (INS ? .26 : .38) : 1;
     /* only bodies breathe. A bench does not, and a location is the field. */
     const L = p.figure
       ? liveness(p.instance, WALL, { speaking, listening, u:R.u,
@@ -503,7 +710,20 @@ function stageLive(og, B, W, H, tS, R){
       state.t=u; state.u=u; sigX+="|u"+Math.round(u*60);
     }
     const thr=p.o.key||.895;
-    const defBlend=/character|creature/.test(p.type)?"source-over":"darken";
+    /* ---- WHY THIS IS NOT `darken` ANY MORE --------------------------------
+       Everything that was not a character or creature composited with
+       `darken`, which takes min(src,dst) per channel. inkCutout already keys
+       its background to alpha via borderKey(), so nothing needed a blend mode
+       to be transparent — but `darken` meant that wherever two inked things
+       overlapped, the overlap came out DARKER than either of them. Occlusion
+       is the one cue that says "this is in front of that", and darken made it
+       do the opposite: a pillar crossing a bench produced a third, blacker
+       shape belonging to neither. Stack six set pieces in a hall and the frame
+       converges on solid ink, which is exactly the muddiness that made these
+       scenes unreadable.
+       With alpha already correct, source-over is what "in front of" means.
+    ---------------------------------------------------------------------- */
+    const defBlend="source-over";
     let saved=false;
     try{
       const cut=E.inkCutout(p.it.mod,state,sigX,thr);
@@ -511,7 +731,7 @@ function stageLive(og, B, W, H, tS, R){
       if(dw>W*.92){ dw=W*.92; dh=dw/cut.ar; }
       og.save(); saved=true;
       og.globalCompositeOperation=p.o.blend||defBlend;
-      if(p.o.alpha!=null) og.globalAlpha=E.clamp(p.o.alpha,.05,1);
+      og.globalAlpha = (p.o.alpha!=null?E.clamp(p.o.alpha,.05,1):1) * recede;
       if(p.o.flip){ og.translate(p.x*2,0); og.scale(-1,1); }
       /* micro-tilt pivots on the FEET — a figure that rotated about its
          middle would slide its own soles across the floor. */
@@ -526,6 +746,105 @@ function stageLive(og, B, W, H, tS, R){
    4. PANE C — the proposed one-cut grammar.
    ══════════════════════════════════════════════════════════════════════ */
 const SHOT={WIDE:1, MID:.62, CLOSE:.34};
+
+/* ══ THE SHOTS THIS FILM DID NOT HAVE ══════════════════════════════════════
+   Measured over 152 key beats: TWO shot sizes, CLOSE and WIDE, and 135 of the
+   152 frames landing inside a single ten-point band of ink. Every beat framed
+   a standing person at eye level from the same distance. Readable, and the
+   same — which is worse than readable and varied, because nobody watches a
+   composition for three hours.
+
+   The spectacle was already drawn and never looked at. In B09-S07 Polyphemus
+   is laid out at 2.71 TIMES the frame height and the camera is pointed at
+   Odysseus beside him. The raft, the stake, the bag of winds, the scar: all
+   authored, all off-camera, because camTarget could only ever aim at whoever
+   was speaking.
+
+   An INSERT aims at a THING, and sizes the frame from the thing rather than
+   from the stage — `fill` is the fraction of frame height the subject takes.
+   That one inversion buys the two shots the film was missing at opposite
+   ends: fill 0.95 on a giant is a LOOM, fill 0.55 on a scar is a DETAIL, and
+   fill 0.10 on a man at sea is a VOID he cannot get out of.
+═════════════════════════════════════════════════════════════════════════ */
+/* `field` is how far the LOCATION is washed back, and it is per-insert
+   because it is the difference between two opposite shots. A DETAIL wants the
+   room gone so the object is alone on paper. A VOID wants the room ENTIRELY
+   PRESENT — the sea around the raft is not background, it is the subject; wash
+   it out and a man alone at sea becomes a dot on nothing. The first cut of
+   this table used one wash for both and turned Book 5 into an empty page.
+
+   `with` names a second body that must stay in frame. A giant by himself is
+   not big — he is just a figure, filling the frame the way anything fills a
+   frame when you point a camera at it. Scale is a COMPARISON, so the loom
+   shot has to hold the small man in the same rectangle. That was obvious the
+   moment I looked at the frame and not before. */
+const INSERTS={
+  "OD-B09-S07":[{at:.52,on:"polyphemus_01",fill:1.00,with:"odysseus_01",field:.45,hold:3.2,why:"the cyclops, with a man for scale"}],
+  "OD-B09-S08":[{at:.58,on:"stake_01",     fill:.80,field:.62,hold:2.6,why:"the stake, before it is used"}],
+  "OD-B05-S04":[{at:.50,on:"raft_01",      fill:.30,field:.02,hold:3.0,why:"the raft, and the sea it is nothing against"}],
+  "OD-B10-S08":[{at:.45,on:"wind_01",      fill:.95,field:.35,hold:2.8,why:"the bag of winds"}],
+  "OD-B11-S02":[{at:.55,on:"oar_01",       fill:.72,field:.55,hold:2.6,why:"carry it until they call it a winnowing fan"}],
+  "OD-B11-S03":[{at:.50,on:"path_01",      fill:.90,field:.30,hold:2.8,why:"the way home, shown"}],
+  "OD-B19-S04":[{at:.62,on:"scar_01",      fill:.62,field:.92,hold:3.0,why:"the scar — the recognition of the whole poem"}],
+  "OD-B23-S01":[{at:.40,on:"scar_01",      fill:.58,field:.92,hold:2.6,why:"and again, for Penelope"}],
+  "OD-B21-S07":[{at:.48,on:"bow_01",       fill:.85,field:.70,hold:2.6,why:"the bow, drawn"}],
+  "OD-B12-S03":[{at:.50,on:"mast_01",      fill:.88,with:"odysseus_01",field:.30,hold:2.6,why:"bound to the mast"}],
+};
+/* ══ THE CUT ═══════════════════════════════════════════════════════════════
+   Measured before writing a line of this: the film had 152 cuts in 165
+   minutes. An average shot length of SIXTY-FIVE SECONDS. Dunkirk runs about
+   3.6s, Oppenheimer under 3; even Tarkovsky averages 25. And 3.45% of the
+   frame changed per frame — the signature of a locked-off tripod on a talking
+   head, held for two and three quarter hours.
+
+   The camera was never the problem and neither were the hands or the ink. The
+   film simply was not EDITED. camTarget could already produce every framing
+   it needed; it eased between them instead of cutting, so 152 scenes played as
+   152 unbroken minute-long takes.
+
+   Cutting is motion. A hard cut to a reaction, then to the object in someone's
+   hand, then back wide, moves an audience more than any amount of added limb
+   animation — and it costs nothing to render, because those frames were being
+   drawn anyway.
+
+   PURE FUNCTION OF t. The plan is not accumulated frame to frame; it is
+   recomputed from the clock every time, so frame n is frame n whatever order
+   the renderer asks for. That rule has already been broken once in this file
+   (the staging read the previous frame's shot size) and it cost a whole scan.
+═════════════════════════════════════════════════════════════════════════ */
+const RHYTHM={
+  fast:[1.6,2.4,1.2,2.0,3.0,1.4],     // the hall, the storm, the blinding
+  mid: [3.2,4.4,2.4,5.0,3.6,2.8],     // ordinary speech
+  slow:[6.0,8.5,5.0,9.5,7.0],         // the island, the underworld, the bed
+};
+/* which books breathe and which ones snap */
+const FAST=new Set([9,10,12,16,17,20,21,22]), SLOW=new Set([5,6,11,13,19,23]);
+function tempoOf(sc){ return FAST.has(sc.book)?"fast":SLOW.has(sc.book)?"slow":"mid"; }
+/* the shot order. Deliberately not random: a film has a grammar, and the
+   reaction is the shot this one never had at all. */
+const GRAMMAR=["SPK","REACT","SPK","OBJ","WIDE","SPK","REACT","SPK","WIDE","OBJ"];
+function hash32(str){ let h=2166136261>>>0;
+  for(let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h; }
+/* where are we in the cut, computed from the clock alone */
+function cutAt(sc,seg,local){
+  if(!seg||!seg.v) return null;
+  const R=RHYTHM[tempoOf(sc)], seed=hash32(sc.id+":"+seg.gi);
+  const t0=seg.v.start, end=t0+Math.max(.8,seg.v.dur);
+  let t=t0, i=0;
+  while(t<end && i<64){
+    const d=R[(seed+i*7)%R.length];
+    if(local>=t && local<t+d) return { i, t0:t, dur:d, kind:GRAMMAR[(seed+i*3)%GRAMMAR.length] };
+    t+=d; i++;
+  }
+  return { i:Math.max(0,i-1), t0:t, dur:2, kind:"SPK" };
+}
+function insertAt(sc,local){
+  const list=INSERTS[sc.id]; if(!list) return null;
+  for(const x of list){ const t0=x.at*sc.total;
+    if(local>=t0 && local<t0+(x.hold||2.5)) return x; }
+  return null;
+}
+const HEADROOM=0.15;   // the head sits this far down from the top of the frame
 const CAM={x:0,y:0,w:SW,h:SH,size:"WIDE",spk:null,scene:null};
 function instanceFor(bundle,speakerId){
   const cast=(bundle&&bundle.cast)||[]; if(!cast.length) return null;
@@ -546,14 +865,60 @@ function shotFor(sc,seg,local,inst){
   if(sc.keyGi>=0 && seg.gi===sc.keyGi) return "CLOSE"; // the scene's key beat
   return "MID";
 }
-function camTarget(rs,placed,inst,size){
-  const f=SHOT[size]||1, w=SW*f, h=SH*f;
+function camTarget(rs,placed,inst,size,ins){
+  /* AN INSERT SIZES THE FRAME FROM ITS SUBJECT, NOT FROM THE STAGE.
+     Every other shot here is "some fraction of stage height", which is why a
+     thing drawn at 2.7x the frame and a thing drawn at 0.15 both ended up
+     looking the same size — mid. Solve for the window that makes the subject
+     `fill` of the frame, and the giant looms and the scar is enormous. */
+  if(ins && placed){
+    const p=placed.find(q=>q.instance===ins.on);
+    const q2=ins.with?placed.find(q=>q.instance===ins.with):null;
+    if(p && p.h>0){
+      let h=Math.max(18,p.h/Math.max(.04,ins.fill));
+      let cy=p.y-p.h*0.5;                       // the middle of the thing
+      if(q2){                                    // hold both, so scale can be read
+        const top=Math.min(p.y-p.h,q2.y-q2.h), bot=Math.max(p.y,q2.y);
+        h=Math.max(h,(bot-top)*1.12); cy=(top+bot)/2;
+      }
+      const w=RENDER&&RCFG.aspect ? h*RCFG.aspect : h*(SW/SH);
+      const cl=(c,span,ext)=> span>=ext ? (ext-span)/2 : Math.max(0,Math.min(ext-span,c-span/2));
+      const cx=q2?(p.x+q2.x)/2:p.x;
+      return { x:cl(cx,w,SW), y:cl(cy,h,SH), w, h };
+    }
+  }
+  const f=SHOT[size]||1;
+  /* HEIGHT IS THE SHOT. The shot size has always meant "this fraction of the
+     stage's height"; the width only ever followed from the pane. For the film
+     pass the width follows from the OUTPUT frame instead, so a 16:9 master
+     shows the same amount of person and simply sees further sideways. */
+  let h=SH*f, w=RENDER&&RCFG.aspect ? h*RCFG.aspect : SW*f;
   let cx=SW/2, cy=SH/2;
   if(inst && placed){
     const p=placed.find(q=>q.instance===inst.instance);
-    if(p){ cx=p.x; cy=p.y-p.h*.46; }                 // p.y is the feet line
+    if(p){
+      cx=p.x;
+      /* HEADROOM, not the waist.
+         This used to be `p.y - p.h*.46` — the centre of the window placed 46%
+         up the body from the feet, i.e. somewhere around the belt. That is
+         fine for a WIDE, where the window is the whole stage height and the
+         figure fits inside it whatever you aim at. It is wrong for anything
+         tighter: a CLOSE window is 0.34 of stage height, so centring it on the
+         waist puts the head far above the top edge. The film was cutting the
+         heads off its own characters, in every MID and every CLOSE, for two
+         hours forty.
+         The frame should be placed relative to the HEAD, because that is what
+         a shot of a person is of. Put the head 15% down from the top of the
+         window — ordinary headroom — and let the size decide the rest. */
+      const head = p.y - p.h;                        // p.y is the feet line
+      cy = head + h*(0.5 - HEADROOM);
+    }
   }
-  return { x:Math.max(0,Math.min(SW-w,cx-w/2)), y:Math.max(0,Math.min(SH-h,cy-h/2)), w, h };
+  /* a window WIDER than the stage centres on the stage and pads with paper —
+     Math.min(SW-w,…) would otherwise shove all the padding to one side. */
+  const clampAx=(c,span,ext)=> span>=ext ? (ext-span)/2
+    : Math.max(0,Math.min(ext-span,c-span/2));
+  return { x:clampAx(cx,w,SW), y:clampAx(cy,h,SH), w, h };
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -767,10 +1132,14 @@ function setBed(book){
 function loadScene(sc,local=0,autoplay=PLAY){
   curScene=sc;
   const url=sc.file.replace(/^\//,"");
-  if(!voice.src.endsWith(url.split("/").pop())){ voice.src=url; }
-  try{ voice.currentTime=Math.max(0,Math.min(local, sc.total-.05)); }catch(e){}
+  /* the film pass never sounds: its audio master is built offline from the
+     same manifest, so pulling 78 MB of m4a through the render is waste. */
+  if(!RENDER){
+    if(!voice.src.endsWith(url.split("/").pop())){ voice.src=url; }
+    try{ voice.currentTime=Math.max(0,Math.min(local, sc.total-.05)); }catch(e){}
+  }
   CLOCK.t=sc.offset+Math.max(0,local);
-  setBed(sc.book);
+  if(!RENDER) setBed(sc.book);
   CAM.scene=null;                                   // new scene → snap the frame
   $("chipScene").textContent=sc.id;
   $("bookSel").value=String(sc.book);
@@ -828,6 +1197,7 @@ function renderPos(sc,local){
    this scene sits beside the procedural renders. Absent manifest = no panes. */
 let MEDIA_PANES=[];
 (async()=>{ try{
+  if(RENDER) return;                 // the film is pane C alone
   const man=await loadMediaManifest();
   if(!man) return;
   MEDIA_PANES=makeAllMediaPanes(man);
@@ -856,22 +1226,25 @@ async function drawPanes(){
     const tS=sc.total>0 ? Math.min(dur,(local/sc.total)*dur) : 0;
 
     /* ── A · SCENE PROGRAM ── */
+    if(!RENDER){
     ogA.setTransform(1,0,0,1,0,0); ogA.fillStyle="#ffffff"; ogA.fillRect(0,0,SW,SH);
     if(B.mod&&typeof B.mod.stage==="function"){ try{ B.mod.stage(ogA,SW,SH,tS); }catch(e){} }
     dotBlit(G.A, ogA.getImageData(0,0,SW,SH).data, SW,SH, {x:0,y:0,w:SW,h:SH},
       CV.A.width,CV.A.height,3.5);
+    }
 
     /* ── B + C share ONE restage render ── */
     if(B.rs){
-      ogR.setTransform(1,0,0,1,0,0); ogR.fillStyle="#ffffff"; ogR.fillRect(0,0,SW,SH);
-      /* B and C share this one render — so the camera pane inherits the
-         liveness for free, and cannot drift out of sync with the restage. */
-      try{ stageLive(ogR,B,SW,SH,tS,R); }catch(e){ console.warn("stageLive",e);
-        try{ B.rs.stage(ogR,SW,SH,tS); }catch(e2){} }
-      const src=ogR.getImageData(0,0,SW,SH).data;
-      dotBlit(G.B, src, SW,SH, {x:0,y:0,w:SW,h:SH}, CV.B.width,CV.B.height,3.5);
-
-      /* ── C · PLAN CAMERA ── */
+      /* ── DECIDE THE SHOT BEFORE PAINTING IT ─────────────────────────────
+         The camera used to be chosen AFTER stageLive had already painted the
+         stage, so the staging read the PREVIOUS frame's CAM.size. While the
+         film played linearly that was an invisible one-frame lag. The moment
+         the close-up policy started depending on the shot size it became a
+         real bug, and a random-access scan made it obvious: some CLOSE frames
+         got the policy and some got whatever size the last frame happened to
+         leave behind. A frame must be a pure function of t; anything that
+         reads state left over from the frame before is not.
+      ------------------------------------------------------------------- */
       let placed=null; try{ placed=B.rs.layout(SW,SH,tS); }catch(e){}
       const spk=seg&&seg.d?subjectOf(seg.d):null;
       let inst=instanceFor(B,spk);
@@ -884,24 +1257,117 @@ async function drawPanes(){
          which is the one push-in the grammar is allowed regardless of who
          holds the floor. The rectangle itself is always eased, never cut. */
       const isKey = sc.keyGi>=0 && !!seg && seg.gi===sc.keyGi;
-      if(CAM.scene!==sc.id || CAM.spk!==spk || CAM.key!==isKey){
-        CAM.size=shotFor(sc,seg,local,inst); CAM.spk=spk; CAM.key=isKey;
+      /* a drawn scene outranks every camera rule it has: no crop, no cutting,
+         no push-in. It was composed as a whole frame and is shown as one. */
+      CAM.authored=authoredFor(sc,local);
+      const ins=CAM.authored?null:insertAt(sc,local);
+      CAM.ins=ins||null;
+      let cut=null, camInst=inst;
+      if(CAM.authored){ CAM.size="WIDE"; CAM.ins=null; CAM.spk=spk; CAM.key=isKey; }
+      else if(ins){ CAM.size="INSERT"; CAM.spk=spk; CAM.key=isKey; }
+      else {
+        cut=cutAt(sc,seg,local);
+        const ad=R&&R.adInst?R.adInst:null;
+        /* the biggest thing in the scene that is not a person — the object
+           shot, which this film had no way of asking for */
+        /* ROTATE the object. Taking "the biggest prop in the scene" gave the
+           same insert every time it came round, so a cut sequence read
+           object / face / THE SAME OBJECT / wide. Rank them and step through
+           by cut index — a scene with three things in it should show three. */
+        let obj=null;
+        if(placed){
+          const objs=placed.filter(q=>!q.figure&&q.h>0).sort((a,b)=>b.h-a.h).slice(0,4);
+          if(objs.length) obj=objs[(cut?cut.i:0)%objs.length];
+        }
+        let kind=cut?cut.kind:"SPK";
+        if(kind==="REACT" && !ad) kind="SPK";
+        if(kind==="OBJ" && !obj) kind="WIDE";
+        if(kind==="SPK" && !inst) kind="WIDE";
+        if(isKey && kind!=="OBJ") kind="SPK";          // the key beat holds the speaker
+        if(kind==="REACT"){ CAM.size="CLOSE"; camInst=ad; }
+        else if(kind==="OBJ"){ CAM.size="INSERT"; CAM.ins={on:obj.instance,fill:.66,field:.72}; }
+        else if(kind==="WIDE") CAM.size="WIDE";
+        else CAM.size=shotFor(sc,seg,local,inst);
+        CAM.spk=spk; CAM.key=isKey;
       }
-      const tgt=camTarget(B.rs,placed,inst,CAM.size);
-      if(CAM.scene!==sc.id){ Object.assign(CAM,tgt); CAM.scene=sc.id; }
-      else { const k=.34;                              // ~0.5s ease at 13Hz
+      /* A HARD CUT. Everything below eases; a new shot index does not. */
+      /* who, if anyone, this shot is a face OF */
+      CAM.face=null; CAM.mouth=null; CAM.emote=null; CAM.emoteName=null; CAM.faceT=local;
+      if(!CAM.authored && CAM.size==="CLOSE"){
+        const who = cut && cut.kind==="REACT" && R && R.ad ? R.ad : spk;
+        const fn = faceFor(who);
+        if(fn){
+          CAM.face=fn;
+          /* the pose the scene has this body playing right now */
+          CAM.emote=null; CAM.emoteName=null;
+          try{
+            const pi = placed && camInst ? placed.find(q=>q.instance===camInst.instance) : null;
+            if(pi){ const st2=stateForLive(B,pi,tS); CAM.emote=emotionOf(st2&&st2.pose); }
+          }catch(e){}
+          /* AUTHORED DIRECTION WINS ON THE KEY BEAT. The scene's pose is
+             direction for a BODY standing in a hall — `neutral_front` is a
+             perfectly good instruction to a figure and says nothing at all
+             about a face. On the beat the film itself nominates as the
+             scene's most important line, the face plays what the line asks
+             for, hand-directed in scenes/_direction.mjs. Everywhere else the
+             body's own pose still carries it. */
+          if(isKey && DIR && who===spk){
+            const e2=DIR.beatEmotion(sc.id);
+            if(e2){ CAM.emote={...(CAM.emote||{}), ...e2}; CAM.emoteName=DIR.beatName(sc.id); }
+          }
+          const talking = who===spk && seg && seg.d;
+          CAM.mouth = talking
+            ? speechAt(String(lineOf(seg.d)||""), Math.max(.6,seg.v.dur), local-seg.v.start)
+            : null;
+        }
+      }
+      /* CUTTING TO A FACE IS A CUT. The face was armed but the camera kept
+         easing toward its target, so the rectangle arrived at some fraction of
+         the way there and printed a blank patch of a portrait drawn at stage
+         scale. Whose face the shot is OF belongs in the cut identity — change
+         it and the rectangle snaps, which is what a cut is. */
+      const cutId=(CAM.authored?("auth"+sc.id):ins?("ins"+sc.id)
+                  :(sc.id+"#"+(seg?seg.gi:-1)+"."+(cut?cut.i:0)))+"|"+(CAM.face||"");
+      const isCut = CAM.cutId!==cutId; CAM.cutId=cutId;
+
+      ogR.setTransform(1,0,0,1,0,0); ogR.fillStyle="#ffffff"; ogR.fillRect(0,0,SW,SH);
+      /* B and C share this one render — so the camera pane inherits the
+         liveness for free, and cannot drift out of sync with the restage. */
+      try{ stageLive(ogR,B,SW,SH,tS,R); }catch(e){ console.warn("stageLive",e);
+        try{ B.rs.stage(ogR,SW,SH,tS); }catch(e2){} }
+      const src=ogR.getImageData(0,0,SW,SH).data;
+      if(!RENDER) dotBlit(G.B, src, SW,SH, {x:0,y:0,w:SW,h:SH}, CV.B.width,CV.B.height,3.5);
+      let tgt=camTarget(B.rs,placed,camInst,CAM.size,CAM.ins);
+      /* A FACE SHOT IS ALREADY FRAMED. drawCloseup composes a portrait across
+         the whole stage canvas; the camera then cropped a CLOSE window out of
+         it — 0.34 of stage height aimed at wherever the body happened to
+         stand — and printed a blank patch of cheek, or missed the head
+         entirely and printed paper. The first render of this came back as an
+         empty frame. When the face is drawn, the camera shows all of it. */
+      if(CAM.face){
+        const h=SH, w=RENDER&&RCFG.aspect ? h*RCFG.aspect : SW;
+        tgt={ x:(SW-w)/2, y:0, w, h };
+      }
+      if(CAM.scene!==sc.id || isCut){ Object.assign(CAM,tgt); CAM.scene=sc.id; }
+      else { const k=RENDER?RCFG.ease:.34;             // ~0.5s ease at 13Hz
         CAM.x+=(tgt.x-CAM.x)*k; CAM.y+=(tgt.y-CAM.y)*k;
         CAM.w+=(tgt.w-CAM.w)*k; CAM.h+=(tgt.h-CAM.h)*k; }
       CAM.inst=inst?inst.instance:null;
+      /* the dot cell scales with the crop so a CLOSE prints bigger dots, not
+         more of them. In the film pass the canvas is much larger than the
+         pane, so the cell scales with it too or a 1280-wide frame would be a
+         fog of pinpricks. */
+      const zoom = RENDER ? Math.max(1, CV.C.height/476) : 1;
       dotBlit(G.C, src, SW,SH, {x:CAM.x,y:CAM.y,w:CAM.w,h:CAM.h},
-        CV.C.width,CV.C.height, 3.5*Math.max(.55,CAM.w/SW));
+        CV.C.width,CV.C.height, 3.5*Math.max(.55,CAM.w/SW)*zoom);
       $("dC").innerHTML="<span class='shot'>"+CAM.size+"</span> · "
         +(inst?inst.instance:"no subject");
     } else {
-      G.B.fillStyle="#fdfdfa"; G.B.fillRect(0,0,CV.B.width,CV.B.height);
+      if(!RENDER){ G.B.fillStyle="#fdfdfa"; G.B.fillRect(0,0,CV.B.width,CV.B.height); }
       G.C.fillStyle="#fdfdfa"; G.C.fillRect(0,0,CV.C.width,CV.C.height);
       $("dC").textContent="no restage";
     }
+    if(RENDER){ drawing=false; return; }
     $("dA").textContent=sc.id+" · t "+tS.toFixed(1)+"s / "+dur+"s";
     $("dB").textContent=(B.cast?B.cast.length:0)+" cast · one ground plane";
 
@@ -1010,11 +1476,36 @@ addEventListener("keydown",e=>{
    9. BOOT + the debug handle
    ══════════════════════════════════════════════════════════════════════ */
 loadScene(FILM[0],0,false);
-requestAnimationFrame(tick);
+/* the film pass owns the clock frame by frame; a running rAF would race it */
+if(!RENDER) requestAnimationFrame(tick);
 await drawPanes();
 
 window.__sync={
+  /* the ink law, live — so it can be swept in one browser session instead of
+     one film boot per setting */
+  INKLAW:E.INKLAW,
+  get FACEDBG(){return FACE?Object.keys(FACE.FACES).length:0;},
+  get camFace(){return CAM.face;},
+  get camEmote(){return CAM.emote;},
+  get camEmoteName(){return CAM.emoteName;},
+  get FACEGEOM(){return FACE?FACE.closeGeom(SW,SH):null;},
+  get FACEMOD(){return FACE;},
+  faceFor,
   get clock(){return CLOCK.t;},
+  /* WRITABLE ONLY IN THE FILM PASS. seek() is the browser's way in and it
+     snaps the camera on purpose; the renderer needs the clock to move without
+     touching anything else, so that frame n is exactly frame n. */
+  set clock(v){ if(RENDER) CLOCK.t=Math.max(0,Math.min(TOTAL-.001,+v||0)); },
+  get render(){ return RENDER?{
+    cfg:RCFG,
+    /* the renderer calls this and nothing else, once per frame */
+    async frame(t){ CLOCK.t=Math.max(0,Math.min(TOTAL-.001,+t||0)); await drawPanes();
+      const sc=sceneAt(CLOCK.t);
+      return { scene:sc.id, book:sc.book, shot:CAM.size, subject:CAM.subject||null }; },
+    size(w,h){ CV.C.width=w; CV.C.height=h; RCFG.aspect=w/h;
+      G.C.fillStyle="#fdfdfa"; G.C.fillRect(0,0,w,h); },
+    ease(k){ RCFG.ease=k; },
+  }:null; },
   get playing(){return PLAY;},
   get curSegment(){ const sc=sceneAt(CLOCK.t), seg=segAt(sc,CLOCK.t-sc.offset);
     return seg?{scene:sc.id, gi:seg.gi, kind:seg.d.kind, speakerId:seg.d.speakerId,

@@ -1,0 +1,15 @@
+<canvas id="c"></canvas><script type="module">
+import * as E from "./engine/halfworld-engine.mjs";
+import { ARTIFACTS } from "./scenes/_artifacts.mjs";
+window.__shoot = (id, u, px) => {
+  const a = ARTIFACTS.find(x=>x.id===id);
+  const s=document.createElement("canvas"); s.width=px; s.height=px;
+  const sg=s.getContext("2d",{willReadFrequently:true});
+  a.draw(sg,px,px,u);
+  const o=document.createElement("canvas"); o.width=px; o.height=px;
+  E.compositePipeline(o.getContext("2d"), s, sg, px, px, E.RENDER_PIPELINES.MESH, 1, true);
+  return o.toDataURL("image/png").split(",")[1];
+};
+window.__ids = ARTIFACTS.map(a=>a.id);
+window.__ready = true;
+</script>

@@ -994,6 +994,10 @@ addEventListener("keydown",e=>{
   const K=e.key==="Right"?"ArrowRight":e.key==="Left"?"ArrowLeft":e.key;
   if(K===" ")e.preventDefault();
   keys[K]=true;
+  /* T cycles the text plane: on, faint, off. It is a reading surface behind a
+     game, so it has to be dismissable — but the default is ON, because the
+     whole idea is that you are walking through the book. */
+  if(K==="t"||K==="T"){ textPlane = textPlane===true ? "faint" : textPlane==="faint" ? false : true; }
   actKey(K);
 });
 addEventListener("keyup",e=>{
@@ -1210,6 +1214,63 @@ function updatePrompt(){
    RENDER — one composite, one halftone. Depth by kind, then dotify.
    ══════════════════════════════════════════════════════════════ */
 const ZOF={environment:0,set_piece:1,vehicle:2,sound_source:3,npc:4,prop:5,wearable:5,divine_fx:6,player:7};
+let DSCRIPT=null;
+/* ══ THE TEXT PLANE ═════════════════════════════════════════════════════════
+   You are walking through a book. Behind the road, at a slower parallax than
+   everything else, the book is actually there — the scene's own passage, set
+   as readable lines, drifting past at about a third of walking speed.
+
+   It sits between the location and the actors, which is the only place it can
+   go: in front of the set it would be a title card, behind it it would be
+   invisible. Between them it is a PLANE, and walking past it does what walking
+   past any far plane does — it lags, so the reading and the moving happen at
+   different rates and you can do either one.
+
+   Three depths now: the location drifts at 140px across a segment, the text at
+   about a third of the camera, and the actors at full speed. That is what
+   makes it a dimension rather than a wallpaper.
+══════════════════════════════════════════════════════════════════════════ */
+const _sceneText=new Map();
+function sceneText(id){
+  if(_sceneText.has(id))return _sceneText.get(id);
+  let out="";
+  const sc=DSCRIPT&&DSCRIPT.scenes.find(x=>x.id===id);
+  if(sc){
+    out=(sc.segments||[]).map(d=>{
+      const L=d.sourceTurnId&&LINES&&LINES[d.sourceTurnId];
+      return (L&&L.line)||d.text||"";
+    }).filter(Boolean).join("  ").replace(/\s+/g," ").trim();
+  }
+  _sceneText.set(id,out);
+  return out;
+}
+let textPlane=true;
+function drawTextPlane(seg,camX){
+  if(!textPlane)return;
+  const t=sceneText(seg.scene.id); if(!t||t.length<20)return;
+  const SZ=Math.max(11,Math.round(VH*0.026));
+  const LH=SZ*1.72, COLW=SZ*0.60;
+  og.save();
+  og.font=`400 ${SZ}px ui-monospace, Menlo, monospace`;
+  og.textBaseline="middle"; og.textAlign="left";
+  /* light enough to sit behind the actors, dark enough to actually read —
+     this is the whole point, so it is not a watermark */
+  og.fillStyle = textPlane==="faint" ? "rgba(20,18,16,0.13)" : "rgba(20,18,16,0.30)";
+  const drift=-camX*0.34;
+  const cols=Math.ceil((VW+COLW*40)/COLW);
+  const rows=Math.floor(VH*0.72/LH);
+  for(let r=0;r<rows;r++){
+    /* each row starts further into the passage, so the plane reads DOWN as
+       well as across and no two lines are the same phrase */
+    const start=Math.floor(((r*cols*0.62)%t.length));
+    const line=(t+"  "+t).substr(start,cols);
+    const y=VH*0.14+r*LH;
+    const x=((drift*(1+r*0.012))%COLW)-COLW;
+    og.fillText(line,x,y);
+  }
+  og.restore();
+}
+
 function render(){
   if(!SEGS.length||!player)return;
   const now=GT;
@@ -1221,9 +1282,11 @@ function render(){
     og.imageSmoothingEnabled=true;
     og.drawImage(seg.loc,0,0,1120,760,-90-shift,0,VW+180,VH);
     og.fillStyle="rgba(255,255,255,.22)";og.fillRect(0,0,VW,VH);
+    drawTextPlane(seg,camX);
   }else{
     og.strokeStyle="#c9c7c0";og.lineWidth=2;
     og.beginPath();og.moveTo(0,VH*.52);og.lineTo(VW,VH*.52);og.stroke();
+    drawTextPlane(seg,camX);
   }
   const groundY=VH*.93;
   const draws=[];
@@ -1389,6 +1452,9 @@ function loop(ms){
 
 /* ── DEBUG HANDLE — everything the verifier needs without a live rAF ── */
 window.__game={
+  get textPlane(){return textPlane},
+  setTextPlane(v){textPlane=!!v},
+  sceneText,
   get player(){return player}, get SEGS(){return SEGS}, get book(){return book},
   get DUEL(){return DUEL}, get CHAT(){return CHAT}, get ARROWS(){return ARROWS},
   get time(){return GT},
@@ -1545,11 +1611,12 @@ let VOMAN=null,VOTURN=null,voDisabled=false;
 try{voDisabled=JSON.parse(localStorage.getItem("odyssey.vo.off")||"false");}catch(e){}
 const voEl=new Audio();voEl.preload="none";
 let voToken=0,voDuck=[];
+
 (async()=>{try{
   const [man,scr]=await Promise.all([
     fetch("drive/voice-manifest.json").then(r=>r.json()),
     fetch("drive/drive-script.json").then(r=>r.json())]);
-  VOMAN=man;VOTURN={};
+  VOMAN=man;VOTURN={};DSCRIPT=scr;
   for(const sc of scr.scenes){
     const m=man[sc.id];if(!m)continue;
     for(const tm of m.segments){

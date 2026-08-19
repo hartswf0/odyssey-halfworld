@@ -9,3 +9,11 @@ drive/voice/.resp-*.jsonl
 # the title sequence's tile corpus IS a deliverable — the page 404s without it
 !renders/tiles/
 !renders/tiles/**
+
+# THE FILM — gigabytes of rendered master. Rebuild with harness/build-film.mjs;
+# how, exactly, is written in film/README.md (which IS tracked).
+film/*
+!film/README.md
+
+# working backups the editors leave behind — the file beside them IS the file
+*.bak

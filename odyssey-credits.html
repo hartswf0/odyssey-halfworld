@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><title>ODYSSEY · end credits</title>
+<style>html,body{margin:0;background:#111;height:100%}canvas{display:block;margin:0 auto;background:#f4f4f0}</style>
+</head><body>
+<canvas id="cv"></canvas>
+<script type="module">
+/* ============================================================================
+   odyssey-credits.html — THE END ROLL.
+
+   Built to the SAME contract as odyssey-title.html so harness/render-title.mjs
+   drives it with no changes: it exposes window.__title = { ready, pause,
+   render(t), seek(t), stats() }. Reusing the driver rather than writing a
+   second one is the point — the title and the credits then leave the machine
+   through one code path, at one spec, and cannot drift apart.
+
+   WHY IT IS RENDERED AT THE FILM'S SPEC AND ENCODED LIKE A SEGMENT
+
+   The title was made as its own deliverable at 1920x1080/30 with its own
+   encoder settings, and then could not be joined to a 1280x720/24 film without
+   downscaling, re-encoding and a container fight — three attempts, none of
+   which produced a file that played everywhere. The lesson, which the user had
+   to point out: DO NOT MAKE A DELIVERABLE AND THEN TRY TO ATTACH IT. Make it
+   the same way the thing it attaches to was made, and attaching is a copy.
+
+   So this renders at the film's size and rate, and is encoded with the film's
+   exact ffmpeg invocation — h264_videotoolbox, -color_range pc, yuvj420p, the
+   same bitrate. It becomes segment 67. The concat is `-c copy` and there is
+   nothing to reconcile.
+
+   THE TYPE LAW. Dot-matrix paper cannot hold a hairline, so: no serif on
+   anything with lowercase in it, and nothing under 22px at this frame size.
+   Learned the hard way on the sibling world, three passes running.
+   ========================================================================= */
+const Q = new URLSearchParams(location.search);
+const W = 2400, H = 1350;                       // design space, as the title
+const CW = Math.max(640, Math.min(3840, +Q.get("w") || 1280));
+const CH = Math.round(CW * H / W);
+const cv = document.getElementById("cv");
+cv.width = CW; cv.height = CH;
+const g = cv.getContext("2d", { willReadFrequently: true });
+const S = W / 2400;
+
+const PAPER = "#f4f4f0", INK = "#141210";
+const SPEED = 46;                                // px/s in design space
+
+/* ---- the roll ------------------------------------------------------------
+   Every number below is read off the repository, not remembered:
+   152 scenes · 440 registered assets · 1044 rendered plates · 24 books ·
+   3 albums · 237,053 frames. */
+const H1 = (t) => ({ s: 78, w: 900, t, gap: 42, track: 0.06 });
+const HD = (t) => ({ s: 34, w: 900, t, gap: 20, track: 0.30, dim: 1 });
+const NM = (t) => ({ s: 52, w: 700, t, gap: 14 });
+const BD = (t) => ({ s: 40, w: 400, t, gap: 12 });
+const SP = (n = 50) => ({ s: 0, t: "", gap: n });
+const RULE = () => ({ rule: 1, gap: 40 });
+
+const ROLL = [
+  SP(200),
+  H1("THE ODYSSEY"),
+  SP(50), RULE(), SP(44),
+
+  HD("THE FILM"),
+  BD("152 scenes · 24 books · 2 hours 44 minutes"),
+  BD("237,053 frames at 24 per second"),
+  SP(54), RULE(), SP(40),
+
+  HD("MADE OF"),
+  NM("440 REGISTERED ASSETS"),
+  BD("characters, creatures, locations, props,"),
+  BD("ensembles, vehicles, set pieces, divine effects"),
+  SP(26),
+  NM("1,044 RENDERED PLATES"),
+  BD("every one procedural — no photographs,"),
+  BD("no footage, no scanned artwork"),
+  SP(54), RULE(), SP(40),
+
+  HD("MUSIC"),
+  NM("BRONZE COUNCIL"),
+  NM("HOMECOMING"),
+  NM("TITANS DESCENT"),
+  BD("one album mapped to each book,"),
+  BD("ducked under the voice by an envelope"),
+  BD("drawn in advance, not chased"),
+  SP(54), RULE(), SP(40),
+
+  HD("THE CLOCK"),
+  BD("The film's running time is not a decision."),
+  BD("It is the sum of 152 studio recordings"),
+  BD("taken in order. Picture and sound are built"),
+  BD("by different programs from that one list,"),
+  BD("and land 0.02 seconds apart."),
+  SP(54), RULE(), SP(40),
+
+  HD("THE CAMERA"),
+  BD("Every shot is chosen at render time:"),
+  BD("WIDE when nobody is speaking, MID on the"),
+  BD("speaker, CLOSE on the scene's key beat."),
+  BD("No shot list was written."),
+  SP(60), RULE(), SP(44),
+
+  NM("HALFWORLD"),
+  SP(240),
+];
+
+let Hc = 0;
+const LAID = ROLL.map((r) => { const y = Hc; Hc += (r.s || 0) + r.gap; return { ...r, y }; });
+const TRAVEL = Hc + H;
+const DURATION = +(TRAVEL / SPEED).toFixed(3);
+
+function track(s, y, size, weight, sp, dim) {
+  g.fillStyle = dim ? "#6e6a66" : INK;
+  g.font = `${weight} ${size}px Helvetica, Arial, sans-serif`;
+  g.textAlign = "left"; g.textBaseline = "middle";
+  const ch = [...s];
+  let wsum = 0; for (const c of ch) wsum += g.measureText(c).width + sp;
+  let x = W / 2 - (wsum - sp) / 2;
+  for (const c of ch) { g.fillText(c, x, y); x += g.measureText(c).width + sp; }
+}
+
+function render(t) {
+  const scroll = t * SPEED;
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.fillStyle = PAPER; g.fillRect(0, 0, CW, CH);
+  g.save(); g.scale(CW / W, CH / H);
+  for (const r of LAID) {
+    const y = H + r.y - scroll;
+    if (y < -120 || y > H + 60) continue;
+    if (r.rule) { g.strokeStyle = INK; g.lineWidth = 5;
+      g.beginPath(); g.moveTo(W * 0.34, y); g.lineTo(W * 0.66, y); g.stroke(); continue; }
+    if (!r.t) continue;
+    track(r.t, y, r.s, r.w, (r.track || 0) * r.s, r.dim);
+  }
+  g.restore();
+  ST.t = t;
+}
+
+/* ---- the contract render-title.mjs drives ------------------------------- */
+const ST = {
+  ready: false, t: 0, playing: false,
+  render, seek: (t) => render(t),
+  pause: () => { ST.playing = false; },
+  play:  () => { ST.playing = true; },
+  stats: () => ({ duration: DURATION, declared: LAID.length, loaded: LAID.length,
+                  failed: 0, track: null, rows: LAID.filter((r) => r.t).length,
+                  speed: SPEED, travel: TRAVEL }),
+};
+window.__title = ST;
+render(0);
+ST.ready = true;
+console.log(`credits ${DURATION}s · ${LAID.filter((r) => r.t).length} lines · ${TRAVEL}px at ${SPEED}px/s`);
+</script></body></html>

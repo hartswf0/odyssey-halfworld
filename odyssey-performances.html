@@ -1,0 +1,663 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ODYSSEY · Performances</title>
+<style>
+/* ============================================================================
+   The film has no colour: eight ink levels, cream paper, hard contour. So this
+   console has none either. Two voices, as everywhere in this project — mono
+   for the machine (scene ids, channels, timecode) and a serif for Homer.
+========================================================================== */
+:root{
+  --paper:#FBFAF4; --ink:#14120F; --ink6:#3A3630; --ink3:#6E6A62;
+  --ink1:#C7C3B8; --rule:#DCD8CC; --field:#F2F0E7;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root{--paper:#0E0D0B;--ink:#F2EFE6;--ink6:#C6C1B4;
+  --ink3:#8E8A80;--ink1:#403C35;--rule:#2A2721;--field:#191713;}}
+*{box-sizing:border-box}
+/* A class that sets `display` OUTRANKS the [hidden] attribute — .screen and
+   .bar are both display:flex, so setting el.hidden = true changed the DOM and
+   changed nothing on screen. The element reported hidden and kept rendering.
+   Caught by looking at the page instead of trusting the property. */
+[hidden]{display:none !important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:var(--mono)}
+a{color:inherit}
+header{padding:26px 24px 18px;border-bottom:1px solid var(--rule);display:flex;
+  flex-wrap:wrap;gap:14px 26px;align-items:baseline}
+h1{font-family:var(--mono);font-size:20px;letter-spacing:-.02em;margin:0}
+.sub{color:var(--ink3);font-size:13px;font-family:var(--mono)}
+.back{margin-left:auto;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);text-decoration:none;border:1px solid var(--ink1);
+  padding:6px 12px}
+.back:hover{color:var(--ink);border-color:var(--ink)}
+
+.wrap{display:grid;grid-template-columns:340px 1fr;gap:0;min-height:calc(100vh - 74px)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.list{border-right:1px solid var(--rule);overflow:auto;max-height:calc(100vh - 74px)}
+@media(max-width:900px){.list{max-height:none;border-right:none;border-bottom:1px solid var(--rule)}}
+.tabs{display:flex;border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:2}
+.tabs button{flex:1;background:none;border:0;border-right:1px solid var(--rule);
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  padding:11px 4px;color:var(--ink3);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);background:var(--field)}
+.row{display:block;width:100%;text-align:left;background:none;border:0;
+  border-bottom:1px solid var(--rule);padding:10px 14px;cursor:pointer;color:inherit}
+.row:hover{background:var(--field)}
+.row[aria-current="true"]{background:var(--field);box-shadow:inset 3px 0 0 var(--ink)}
+.row .id{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.06em}
+.row .who{font-family:var(--mono);font-size:12px;margin-left:8px}
+.row .emo{font-family:var(--mono);font-size:11px;float:right;color:var(--ink3)}
+.row .line{font-size:14px;color:var(--ink6);margin-top:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+.stage{padding:20px 24px 40px;display:flex;flex-direction:column;gap:16px}
+.screen{border:1px solid var(--rule);background:var(--field);padding:12px;
+  display:flex;justify-content:center}
+.call{display:grid;gap:8px;width:100%;justify-items:center}
+.call.n1{grid-template-columns:minmax(0,620px)}
+.call.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.call.n3,.call.n4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.call.n5,.call.n6{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tile{width:100%;border:1px solid var(--rule);background:var(--paper);position:relative}
+.tile canvas{width:100%;height:auto;display:block;image-rendering:pixelated}
+.tile .nm{position:absolute;left:0;bottom:0;font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;background:var(--paper);color:var(--ink3);
+  padding:3px 7px;border-top:1px solid var(--rule);border-right:1px solid var(--rule)}
+.tile[data-speaking="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.tile[data-speaking="true"] .nm{color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:var(--mono);font-size:12px}
+.bar button{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  background:none;border:1px solid var(--ink1);color:var(--ink);padding:7px 14px;cursor:pointer}
+.bar button:hover{border-color:var(--ink)}
+.bar button[disabled]{opacity:.4;cursor:default}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--ink)}
+.tc{color:var(--ink3);font-variant-numeric:tabular-nums}
+.spoken{font-size:19px;text-wrap:pretty;max-width:62ch}
+.meta{font-family:var(--mono);font-size:12px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 18px}
+.chip{border:1px solid var(--ink1);padding:2px 8px}
+.note{font-size:14px;color:var(--ink6);max-width:62ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px}
+.grid figure{margin:0;border:1px solid var(--rule);background:var(--field);padding:6px;cursor:pointer}
+.grid canvas{width:100%;height:auto;display:block;image-rendering:pixelated}
+.grid figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink3);margin-top:4px}
+.warn{font-family:var(--mono);font-size:12px;color:var(--ink3);border:1px dashed var(--ink1);padding:10px 12px}
+</style>
+</head><body>
+
+<header>
+  <h1>ODYSSEY · PERFORMANCES</h1>
+  <span class="sub" id="count">loading…</span>
+  <a class="back" href="index.html">← index</a>
+</header>
+
+<div class="wrap">
+  <nav class="list">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="beats">Beats</button>
+      <button role="tab" aria-selected="false" data-tab="cast">Cast</button>
+      <button role="tab" aria-selected="false" data-tab="emotions">Emotions</button>
+      <button role="tab" aria-selected="false" data-tab="things">Things</button>
+    </div>
+    <div id="rows"></div>
+  </nav>
+
+  <main class="stage">
+    <div class="screen"><div id="call" class="call"></div></div>
+
+    <div class="bar">
+      <button id="play">▶ Play</button>
+      <input type="range" id="scrub" min="0" max="1000" value="0">
+      <span class="tc" id="tc">0.00 / 0.00</span>
+      <button id="loop" aria-pressed="false">Loop</button>
+      <button id="print">print: dots</button>
+    </div>
+
+    <div class="mono" id="who" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)"></div>
+    <p class="spoken" id="line">Pick a performance.</p>
+    <div class="meta" id="meta"></div>
+    <p class="note" id="note"></p>
+    <div class="warn" id="warn" hidden></div>
+    <div class="grid" id="grid" hidden></div>
+  </main>
+</div>
+
+<audio id="au" preload="none"></audio>
+
+<script type="module">
+/* ============================================================================
+   PERFORMANCES — every directed beat, watchable.
+
+   This is not a mock-up of the film's faces; it imports the SAME modules the
+   render pass uses — assets/character/_close/face.mjs for the drawing,
+   engine/speech.mjs for the visemes, scenes/_direction.mjs for the direction —
+   and prints through the SAME halftone. If a face is wrong here it is wrong in
+   the film, which is the only reason to build a viewer at all.
+
+   SYNC. Each scene has its own recording (drive/voice/OD-*.m4a) and the voice
+   manifest gives every segment a start and a duration inside it. A beat plays
+   by seeking that file to the segment's own start — the scene's file begins at
+   the scene's own zero, so there is no master-clock arithmetic to get wrong.
+   The picture is driven by `audio.currentTime`, never by a timer running
+   alongside it, so the mouth cannot drift off the voice.
+========================================================================== */
+import * as FACEM from "./assets/character/_close/face.mjs";
+import * as SPEECH from "./engine/speech.mjs";
+import * as E from "./engine/halfworld-engine.mjs";
+import * as DIR from "./scenes/_direction.mjs";
+import * as GLYPH from "./engine/glyphs.mjs";
+import { ARTIFACTS } from "./scenes/_artifacts.mjs";
+
+const $ = (s) => document.querySelector(s);
+const au = $("#au");
+const src = document.createElement("canvas");
+const sg = src.getContext("2d", { willReadFrequently: true });
+const msk = document.createElement("canvas");
+const mg = msk.getContext("2d", { willReadFrequently: true });
+
+/* ---- THE TWO SOURCES, JOINED ON gi ---------------------------------------
+   drive/drive-script.json  · 152 scenes, each with segments carrying
+                              speakerId, speakerName and the spoken text
+   drive/voice-manifest.json· the same scenes with {gi, start, dur} per segment
+                              and a per-scene audio file
+
+   They join on `gi`, which is the film's own segment index — the same key the
+   renderer uses. Nothing here re-derives timing or re-guesses who is speaking;
+   both come from the files the film was built from.
+
+   The first draft of this page carried a hand-written table mapping scenes to
+   faces. It was ninety lines of duplicated truth that would rot the moment a
+   scene was recast. The speaker is in the script; the face comes off the
+   speaker, by the same rule the renderer uses.
+------------------------------------------------------------------------- */
+let SCRIPT = null, VOICE = null, SPOKEN = {}, DATA_ERR = null;
+try {
+  const [a1, b1, c1] = await Promise.all([
+    fetch("./drive/drive-script.json").then((r) => r.ok ? r.json() : Promise.reject(r.status)),
+    fetch("./drive/voice-manifest.json").then((r) => r.ok ? r.json() : Promise.reject(r.status)),
+    fetch("./viewer/spoken-lines.json").then((r) => r.ok ? r.json() : { lines: {} }).catch(() => ({ lines: {} })),
+  ]);
+  SCRIPT = a1; VOICE = b1; SPOKEN = (c1 && c1.lines) || {};
+} catch (e) { DATA_ERR = String(e); }
+
+const CAST = Object.keys(FACEM.FACES);
+const EMOS = Object.keys(DIR.EMOTIONS);
+
+/* speaker id -> face, the same rule the film uses (and disguises resolve:
+   "character.odysseus-as-beggar" is still Odysseus) */
+function faceFor(spId) {
+  if (!spId || /^PERFORMER\./.test(spId)) return null;
+  const key = String(spId).split(".").slice(1).join(".").split("-")[0].replace(/s$/, "");
+  for (const n of CAST) if (n === key || n.startsWith(key) || key.startsWith(n)) return n;
+  return null;
+}
+
+/* THE FILM'S OWN RULE, COPIED EXACTLY. keyGi is the segment carrying the
+   longest AUTHORED LINE — looked up in viewer/spoken-lines.json by
+   sourceTurnId — not the longest segment by duration and not the `text` field,
+   which for many segments is a stage direction. Guessing "longest duration"
+   put the Epic Narrator on Penelope's recognition and printed a stage
+   direction where her line should be. The direction file was authored against
+   the film's beats; the viewer has to resolve them the same way or it is
+   showing a different film. */
+const lineOf = (d) => (d && d.sourceTurnId && SPOKEN[d.sourceTurnId] && SPOKEN[d.sourceTurnId].line) || "";
+
+/* ── THE TEXT FILM ──────────────────────────────────────────────────────────
+   Knowlton's substance was electronic symbols and seashells — material that
+   argued with the picture. Here the material can be the SOURCE: every artifact
+   is drawn out of the words of the scene it belongs to. The shroud is written
+   in the lines about the loom, the stake in the lines about the eye, the bed
+   in the lines Penelope uses to test him.
+
+   Nothing is invented for this. The text comes from the same two files the
+   film speaks from — viewer/spoken-lines.json for authored lines and the
+   drive script for everything else — joined in segment order, so what you are
+   reading is what you would be hearing at that point in the film. */
+const _sceneText = new Map();
+function textOfScene(sceneId) {
+  if (_sceneText.has(sceneId)) return _sceneText.get(sceneId);
+  const sc = SCRIPT && SCRIPT.scenes.find((x) => x.id === sceneId);
+  let out = "";
+  if (sc) {
+    out = (sc.segments || []).map((d) => lineOf(d) || String(d.text || ""))
+      .filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  }
+  if (out.length < 40) out = "THE ODYSSEY ";
+  _sceneText.set(sceneId, out);
+  return out;
+}
+function keyBeatOf(sceneId) {
+  const sc = SCRIPT && SCRIPT.scenes.find((s) => s.id === sceneId);
+  const vm = VOICE && VOICE[sceneId];
+  if (!sc || !vm) return null;
+  let best = null, bestLen = 0;
+  for (const v of vm.segments || []) {
+    const d = (sc.segments || [])[v.gi];
+    if (!d || d.kind === "SPEAKER_CUE") continue;
+    const L = lineOf(d).length;
+    if (L > bestLen) { bestLen = L; best = v; }
+  }
+  if (!best) return null;
+  const d = (sc.segments || [])[best.gi];
+  return { file: vm.file, start: +best.start || 0, dur: Math.max(0.8, +best.dur || 0),
+           text: lineOf(d) || String(d.text || ""), speaker: d.speakerName || d.speakerId,
+           face: faceFor(d.speakerId), title: sc.title, book: sc.book };
+}
+
+const BEATS = [];
+for (const [scene, [emo, note]] of Object.entries(DIR.BEATS)) {
+  const k = keyBeatOf(scene);
+  BEATS.push({ scene, emo, note, ...(k || {}), face: (k && k.face) || "odysseus" });
+}
+
+/* ---- draw one face through the film's own halftone ---------------------- */
+function paint(target, faceName, st, size) {
+  const W = size, H = size;
+  src.width = W; src.height = H;
+  sg.setTransform(1, 0, 0, 1, 0, 0);
+  sg.fillStyle = "#ffffff"; sg.fillRect(0, 0, W, H);
+  try {
+    FACEM.drawCloseup(sg, FACEM.FACES[faceName], st, { cx: W * 0.5, cy: H * 0.47, R: H * 0.40 });
+  } catch (e) { }
+  const tg = target.getContext("2d");
+  target.width = W; target.height = H;
+  E.compositePipeline(tg, src, sg, W, H, E.RENDER_PIPELINES.MESH, 1, true);
+}
+
+/* ---- THE CALL ────────────────────────────────────────────────────────────
+   A performance was one face holding one expression for the length of a line,
+   and it was frozen for two reasons that had nothing to do with the drawing.
+
+   THE FIRST is that engine/speech.mjs already exports the two functions that
+   make a head alive and neither was being called. speechCarriage pitches the
+   head down as the voice lands on a stress, drifts it laterally on a phase
+   offset per character so two faces in one exchange never sway together, and
+   lifts the brow on emphasis — the most legible speech gesture there is.
+   listenCarriage gives the other person a NOD on the beats that land, arriving
+   a third of a second late because that is how long it takes to hear
+   something, a brow that rises on what was heard, and a blink gate that stops
+   people blinking while someone is talking at them.
+
+   THE SECOND is that a performance is not one person. It is a speaker and
+   whoever is listening, and until both are on screen there is nothing to
+   perform AT. So a scene now plays as a call: every character in it holds a
+   tile, the one with the floor is outlined and speaks, and everyone else
+   listens to the same envelope — reacting to the voice actually sounding,
+   not to a loop of their own.
+
+   The emotion ramps rather than switching: 0.35s in, held, 0.5s out. A face
+   that snaps to grief on a segment boundary is a lighting cue, not acting.
+------------------------------------------------------------------------- */
+let cur = null, raf = 0, looping = false, lastPaint = 0;
+
+function trackFor(text, dur) {
+  const HZ = 50, track = SPEECH.visemeTrack(text || "", dur);
+  const env = new Float32Array(Math.max(1, Math.ceil(dur * HZ)));
+  for (let i = 0; i < env.length; i++) {
+    const t = i / HZ, v = track.find((x) => t >= x.t0 && t < x.t1);
+    const V = v ? (SPEECH.VISEMES[v.v] || SPEECH.VISEMES.REST) : SPEECH.VISEMES.REST;
+    env[i] = Math.min(1, 0.16 + V.jaw * 0.95);
+  }
+  return { track, env, HZ };
+}
+
+/* THE ROOM, NOT JUST THE MOUTHS. B23-S04 has nine segments and only TWO are
+   dialogue — both Penelope. Everything else is the narrator describing what
+   Odysseus does. Building the call from who SPEAKS therefore put one woman
+   alone on screen for the recognition scene, with the man she is recognising
+   nowhere in it.
+
+   The scene module carries the real cast — location, characters, props — and
+   it is the same list the renderer stages from. So the call is the room: every
+   character present gets a tile whether or not they have a line, which is the
+   only way a reaction shot can exist at all. */
+const _castCache = new Map();
+async function castOf(sceneId) {
+  if (_castCache.has(sceneId)) return _castCache.get(sceneId);
+  let faces = [];
+  try {
+    const m = await import(`./scenes/${sceneId}.mjs`);
+    const sc = m.scene || m.default;
+    for (const c of (sc && sc.cast) || []) {
+      const f = faceFor(c.asset);
+      if (f && !faces.includes(f)) faces.push(f);
+    }
+  } catch (e) { /* a scene without a module still plays its speakers */ }
+  _castCache.set(sceneId, faces);
+  return faces;
+}
+
+/** every speaking turn in a scene, with a face, in film order */
+function buildScene(sceneId) {
+  const sc = SCRIPT && SCRIPT.scenes.find((x) => x.id === sceneId);
+  const vm = VOICE && VOICE[sceneId];
+  if (!sc || !vm) return null;
+  const keyEmo = DIR.BEATS[sceneId] ? DIR.BEATS[sceneId][0] : null;
+  let keyGi = -1, keyLen = 0;
+  for (const v of vm.segments || []) {
+    const d = (sc.segments || [])[v.gi];
+    if (!d || d.kind === "SPEAKER_CUE") continue;
+    const L = lineOf(d).length; if (L > keyLen) { keyLen = L; keyGi = v.gi; }
+  }
+  const turns = [];
+  for (const v of vm.segments || []) {
+    const d = (sc.segments || [])[v.gi]; if (!d) continue;
+    const face = faceFor(d.speakerId);
+    const text = lineOf(d) || String(d.text || "");
+    const dur = Math.max(0.5, +v.dur || 0);
+    turns.push({ gi: v.gi, start: +v.start || 0, dur, face, text,
+      speaker: d.speakerName || d.speakerId,
+      emo: v.gi === keyGi ? keyEmo : null, ...trackFor(text, dur) });
+  }
+  const cast = [];
+  for (const t of turns) if (t.face && !cast.includes(t.face)) cast.push(t.face);
+  return { id: sceneId, title: sc.title, book: sc.book, file: vm.file,
+           total: +vm.total || 0, turns, cast, keyGi };
+}
+
+/* the tiles */
+function layTiles(scene) {
+  const box = $("#call"); box.innerHTML = "";
+  box.className = "call n" + Math.max(1, scene.cast.length);
+  scene.tiles = {};
+  const px = scene.cast.length <= 1 ? 620 : scene.cast.length <= 4 ? 380 : 300;
+  for (const f of scene.cast) {
+    const d = document.createElement("div"); d.className = "tile"; d.dataset.face = f;
+    const c = document.createElement("canvas"); c.width = px; c.height = px;
+    const nm = document.createElement("span"); nm.className = "nm"; nm.textContent = f;
+    d.appendChild(c); d.appendChild(nm); box.appendChild(d);
+    scene.tiles[f] = { el: d, cv: c, px };
+  }
+}
+
+const ramp = (x) => x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x);
+
+let printMode = "dots";
+function paintTile(tile, faceName, st, words) {
+  const W = tile.px, H = tile.px;
+  src.width = W; src.height = H;
+  sg.setTransform(1, 0, 0, 1, 0, 0);
+  sg.fillStyle = "#ffffff"; sg.fillRect(0, 0, W, H);
+  try { FACEM.drawCloseup(sg, FACEM.FACES[faceName], st, { cx: W * .5, cy: H * .47, R: H * .40 }); }
+  catch (e) { }
+  if (printMode === "dots" || !words || !words.text) {
+    E.compositePipeline(tile.cv.getContext("2d"), src, sg, W, H, E.RENDER_PIPELINES.MESH, 1, true);
+    return;
+  }
+  /* ── SPOKEN INTO BEING ────────────────────────────────────────────────────
+     The mask is the face's own heaviest ink — hair, brow, beard, the aperture
+     — and the wavefront is the LINE ITSELF: `spokenTo` is how far into the
+     segment the audio has actually got. Letters ahead of the voice, dots
+     behind it. The face is a page when the line starts and a drawing by the
+     time it ends, and the boundary moves at the speed of the person talking.
+     Only the speaker gets it; the listeners stay pictures, because they are
+     not saying anything. */
+  const d0 = sg.getImageData(0, 0, W, H), q0 = d0.data;
+  for (let k = 0; k < q0.length; k += 4) {
+    const lum = (q0[k] * .299 + q0[k + 1] * .587 + q0[k + 2] * .114) / 255;
+    const on = lum < 0.42;
+    q0[k] = q0[k + 1] = q0[k + 2] = on ? 0 : 255; q0[k + 3] = 255;
+  }
+  msk.width = W; msk.height = H;
+  mg.putImageData(d0, 0, 0);
+  const sdata = sg.getImageData(0, 0, W, H).data;
+  const mdata = mg.getImageData(0, 0, W, H).data;
+  GLYPH.mixBlit(tile.cv.getContext("2d"), sdata, mdata, W, H, { x: 0, y: 0, w: W, h: H }, W, H, 9,
+    { text: words.text, spokenTo: words.at, flow: printMode === "toText" ? "toText" : "toDots",
+      grade: (d) => E.INKLAW.grade(d) });
+}
+
+function frame(fromTimer) {
+  if (!cur) return;
+  lastPaint = performance.now();
+  const playing = cur.file && !au.paused;
+  const t = playing ? au.currentTime : cur.scrub * Math.max(0.001, cur.total);
+  /* whose turn it is */
+  let act = null;
+  for (const q of cur.turns) if (t >= q.start && t < q.start + q.dur) { act = q; break; }
+  const local = act ? t - act.start : 0;
+
+  for (const f of cur.cast) {
+    const tile = cur.tiles[f];
+    const seed = f.length + f.charCodeAt(0);
+    const speaking = !!act && act.face === f;
+    let st;
+    if (speaking) {
+      const car = SPEECH.speechCarriage(act.env, act.HZ, local, seed);
+      const mouth = SPEECH.sampleMouth(act.track, act.env, act.HZ, local);
+      const emo = { ...(DIR.EMOTIONS[act.emo] || {}) };
+      const jawFloor = (emo.jaw || 0) * .45; delete emo.jaw;
+      /* in over 0.35s, out over the last 0.5s — acting, not a lighting cue */
+      const k = ramp(Math.min(local / 0.35, (act.dur - local) / 0.5, 1));
+      for (const key in emo) emo[key] *= k;
+      st = { ...FACEM.idleFace(t, seed), ...emo, ...mouth };
+      st.headPitch = (st.headPitch || 0) + car.pitch;
+      st.headYaw = (st.headYaw || 0) + car.yaw;
+      st.headRoll = (st.headRoll || 0) + car.roll;
+      st.browUp = (st.browUp || 0) + car.brow * 0.6;
+      if (jawFloor) st.jaw = Math.max(st.jaw || 0, jawFloor * k);
+    } else {
+      const lc = act ? SPEECH.listenCarriage(act.env, act.HZ, local, seed)
+                     : { pitch: 0, yaw: 0, roll: 0, brow: 0, press: .2, blinkGate: 1 };
+      const idle = FACEM.idleFace(t, seed);
+      st = { ...idle,
+        blink: (idle.blink || 0) * lc.blinkGate,
+        headPitch: lc.pitch, headYaw: lc.yaw, headRoll: lc.roll,
+        browUp: lc.brow, press: lc.press, jaw: 0 };
+    }
+    if (st.blink) st.eyeWide = (st.eyeWide || 0) * (1 - st.blink);
+    tile.el.dataset.speaking = String(speaking);
+    paintTile(tile, f, st, speaking && act ? { text: act.text, at: act.dur ? local / act.dur : 0 } : null);
+  }
+
+  $("#tc").textContent = `${t.toFixed(2)} / ${cur.total.toFixed(2)}`;
+  $("#line").textContent = act ? (act.text || "…") : "—";
+  $("#who").textContent = act ? (act.speaker + (act.emo ? " · " + act.emo : "")) : "";
+  if (playing) {
+    $("#scrub").value = String(Math.round(t / Math.max(0.001, cur.total) * 1000));
+    if (t >= cur.total - 0.05) { if (looping) au.currentTime = 0; else { au.pause(); $("#play").textContent = "▶ Play"; } }
+  }
+  if (!fromTimer) raf = requestAnimationFrame(frame);
+}
+
+async function select(b) {
+  cancelAnimationFrame(raf);
+  const scene = buildScene(b.scene);
+  if (!scene) { $("#warn").hidden = false; $("#warn").textContent = "Scene not in the script/voice manifest."; return; }
+  /* speakers first — they hold the floor — then everyone else in the room */
+  const room = await castOf(b.scene);
+  for (const f of room) if (!scene.cast.includes(f)) scene.cast.push(f);
+  scene.cast = scene.cast.slice(0, 6);
+  cur = { ...scene, scrub: 0 };
+  $(".screen").hidden = false; $(".bar").hidden = false; wallOn = false;
+  layTiles(cur);
+  $("#meta").innerHTML = `<span class="chip">${b.scene}</span>` +
+    (scene.book ? `<span class="chip">Book ${scene.book}</span>` : "") +
+    `<span class="chip">${scene.cast.length} on the call</span>` +
+    `<span class="chip">${scene.turns.length} turns</span>` +
+    `<span class="chip">${b.emo}</span>`;
+  $("#note").textContent = "— " + b.note;
+  $("#grid").hidden = true;
+  document.querySelectorAll(".row").forEach((r) => r.setAttribute("aria-current", String(r.dataset.scene === b.scene)));
+  $("#warn").hidden = !!scene.file;
+  if (!scene.file) $("#warn").textContent = "No recording for this scene — scrub the picture.";
+  $("#play").disabled = !scene.file;
+  if (scene.file) { const want = "./" + scene.file; if (!au.src.endsWith(scene.file)) au.src = want; }
+  frame(true);
+  raf = requestAnimationFrame(frame);
+}
+
+setInterval(() => { if (performance.now() - lastPaint > 140) frame(true); }, 60);
+
+/* ---- lists -------------------------------------------------------------- */
+function rowsFor(tab) {
+  const box = $("#rows"); box.innerHTML = "";
+  if (tab === "beats") {
+    for (const b of BEATS) {
+      const el = document.createElement("button");
+      el.className = "row"; el.dataset.scene = b.scene;
+      el.innerHTML = `<span class="id">${b.scene}</span><span class="who">${b.speaker || b.face}</span>` +
+        `<span class="emo">${b.emo}</span><div class="line">${(b.text || b.note).slice(0, 120)}</div>`;
+      el.onclick = () => select(b);
+      box.appendChild(el);
+    }
+    $("#count").textContent = `${BEATS.length} directed beats · ${CAST.length} faces · ${EMOS.length} emotions`;
+  } else if (tab === "cast") {
+    showGrid(CAST.map((f) => ({ face: f, emo: null, label: f })));
+  } else if (tab === "emotions") {
+    showGrid(EMOS.map((e) => ({ face: "odysseus", emo: e, label: e })));
+  } else {
+    showThings();
+  }
+}
+
+function showGrid(items) {
+  $(".screen").hidden = true; $(".bar").hidden = true;
+  $("#grid").hidden = false; $("#grid").innerHTML = "";
+  $("#rows").innerHTML = `<div style="padding:14px;font-family:var(--mono);font-size:12px;color:var(--ink3)">
+    Click any tile to load it into the player.</div>`;
+  for (const it of items) {
+    const fig = document.createElement("figure");
+    const c = document.createElement("canvas");
+    const st = { ...FACEM.idleFace(0.4, it.face.length), ...(it.emo ? DIR.EMOTIONS[it.emo] : {}) };
+    c.width = 260; c.height = 260;
+    paintTile({ cv: c, px: 260 }, it.face, st);
+    fig.appendChild(c);
+    const cap = document.createElement("figcaption"); cap.textContent = it.label;
+    fig.appendChild(cap);
+    fig.onclick = () => {
+      const b = BEATS.find((x) => (it.emo ? x.emo === it.emo : x.face === it.face)) || BEATS[0];
+      select(b);
+    };
+    $("#grid").appendChild(fig);
+  }
+}
+
+/* ── THE WALL ───────────────────────────────────────────────────────────────
+   Eight artifacts, all running at once, each on its own clock.
+
+   The atlas draws four hundred and forty objects and almost none of them move
+   — probed across a spread, only the ships and a fire animate. So the poem's
+   things had no performance, and a prop with no performance is set dressing
+   however well it is drawn. scenes/_artifacts.mjs gives eight of them one
+   argument each, and this is where you watch all eight at the same time: the
+   shroud going out and coming back, the scar gathering and staying, the bow
+   letting something go that does not return.
+
+   They deliberately do NOT share a clock. Each runs at its own period, so the
+   wall never falls into step and the loop lengths stay legible against each
+   other — which is the only way to see that one of them closes and the others
+   do not. */
+let wallOn = false, wallTiles = [], wallMode = "dots";
+function showThings() {
+  $(".screen").hidden = true; $(".bar").hidden = true;
+  $("#grid").hidden = false; $("#grid").innerHTML = "";
+  $("#grid").style.gridTemplateColumns = "repeat(auto-fill,minmax(190px,1fr))";
+  $("#rows").innerHTML = `<div style="padding:14px;font-family:var(--mono);font-size:12px;color:var(--ink3);line-height:1.7">
+    Twenty-one things the poem turns on, each performing the one thing it does.<br><br>
+    <button id="mode" style="font:inherit;background:none;border:1px solid var(--ink1);
+      color:var(--ink);padding:6px 10px;cursor:pointer;letter-spacing:.1em;text-transform:uppercase">
+      print: dots</button><br><br>
+    In TEXT the picture is printed out of the words of its own scene — the same
+    lines the film speaks at that moment.<br><br>
+    Click a tile to jump to the scene it belongs to.</div>`;
+  $("#mode").onclick = (e) => {
+    wallMode = wallMode === "dots" ? "text" : wallMode === "text" ? "greek" : "dots";
+    e.target.textContent = "print: " + wallMode;
+  };
+  wallTiles = [];
+  for (const a of ARTIFACTS) {
+    const fig = document.createElement("figure");
+    const c = document.createElement("canvas"); c.width = 300; c.height = 300;
+    fig.appendChild(c);
+    const cap = document.createElement("figcaption");
+    cap.innerHTML = `${a.title}<br><span style="text-transform:none;letter-spacing:0">${a.note}</span>`;
+    fig.appendChild(cap);
+    fig.title = a.scene;
+    fig.onclick = () => {
+      const beat = BEATS.find((x) => x.scene === a.scene);
+      if (beat) { document.querySelector('.tabs button[data-tab="beats"]').click(); select(beat); }
+    };
+    $("#grid").appendChild(fig);
+    /* a period per artifact, deliberately coprime-ish so the wall never syncs */
+    wallTiles.push({ a, c, period: 4.2 + wallTiles.length * 1.37 });
+  }
+  wallOn = true;
+}
+function wallFrame() {
+  if (!wallOn || $("#grid").hidden) return;
+  const now = performance.now() / 1000;
+  for (const t of wallTiles) {
+    const u = (now / t.period) % 1;
+    const px = t.c.width;
+    src.width = px; src.height = px;
+    sg.setTransform(1, 0, 0, 1, 0, 0);
+    try { t.a.draw(sg, px, px, u); } catch (e) { }
+    if (wallMode === "dots") {
+      E.compositePipeline(t.c.getContext("2d"), src, sg, px, px, E.RENDER_PIPELINES.MESH, 1, true);
+    } else {
+      const data = sg.getImageData(0, 0, px, px).data;
+      GLYPH.glyphBlit(t.c.getContext("2d"), data, px, px, { x: 0, y: 0, w: px, h: px }, px, px, 7,
+        wallMode === "text" ? { text: textOfScene(t.a.scene), grade: (d) => E.INKLAW.grade(d) }
+                            : { set: "greek", grade: (d) => E.INKLAW.grade(d) });
+    }
+  }
+}
+setInterval(wallFrame, 90);
+
+document.querySelectorAll(".tabs button").forEach((btn) => {
+  btn.onclick = () => {
+    document.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
+    wallOn = btn.dataset.tab === "things";
+    rowsFor(btn.dataset.tab);
+  };
+});
+
+/* SEEK ONLY ONCE THE FILE CAN BE SEEKED. Setting currentTime on an element
+   whose metadata has not loaded is silently ignored — the audio then played
+   from zero while the picture waited at the segment's start, so the clock
+   advanced, the mouth never moved, and nothing anywhere reported an error.
+   Wait for metadata, seek, then play. */
+async function seekAndPlay() {
+  if (!cur || !cur.file) return;
+  if (au.readyState < 1) {
+    au.load();
+    await new Promise((res) => {
+      const done = () => { au.removeEventListener("loadedmetadata", done); res(); };
+      au.addEventListener("loadedmetadata", done);
+      setTimeout(res, 4000);                       // never hang the button
+    });
+  }
+  au.currentTime = 0;
+  try { await au.play(); } catch (e) { /* autoplay policy — the user clicked, so this is rare */ }
+}
+$("#play").onclick = async () => {
+  if (!cur) return;
+  if (au.paused) { $("#play").textContent = "…"; await seekAndPlay(); $("#play").textContent = "❚❚ Pause"; }
+  else { au.pause(); $("#play").textContent = "▶ Play"; }
+};
+$("#print").onclick = (e) => {
+  printMode = printMode === "dots" ? "toDots" : printMode === "toDots" ? "toText" : "dots";
+  e.target.textContent = "print: " + (printMode === "dots" ? "dots"
+    : printMode === "toDots" ? "text → dots" : "dots → text");
+  frame(true);
+};
+$("#loop").onclick = (e) => {
+  looping = !looping; e.target.setAttribute("aria-pressed", String(looping));
+  e.target.textContent = looping ? "Loop ON" : "Loop";
+};
+$("#scrub").oninput = (e) => {
+  if (!cur) return;
+  cur.scrub = +e.target.value / 1000;
+  if (!au.paused) { au.currentTime = cur.scrub * cur.total; }
+  else frame(true);
+};
+
+rowsFor("beats");
+select(BEATS.find((b) => b.scene === "OD-B23-S04") || BEATS[0]);
+console.log(`[performances] ${BEATS.length} beats · ${CAST.length} faces · script ${SCRIPT ? "loaded" : "MISSING"} · voice ${VOICE ? "loaded" : "MISSING"}`);
+</script>
+</body></html>
