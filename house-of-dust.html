@@ -321,7 +321,7 @@ function draw(){
   // The scene remains the context; the selected object's own drawing gets the frame.
   wg.globalAlpha=.13;wg.drawImage(field,m.ox,m.oy,SW*m.s,SH*m.s);wg.globalAlpha=1;
   const vr=$("viewport").getBoundingClientRect(),hr=document.querySelector(".hud").getBoundingClientRect(),nr=document.querySelector(".notice").getBoundingClientRect();
-  const iy=Math.max(0,(hr.bottom-vr.top+12)*H/vr.height),ih=Math.max(30,(nr.top-vr.top-10)*H/vr.height-iy);
+  const iy=vr.width<600?Math.max(0,(hr.bottom-vr.top+12)*H/vr.height):0,ih=vr.width<600?Math.max(30,(nr.top-vr.top-10)*H/vr.height-iy):H;
   wg.save();wg.translate(0,iy);
   if(selected.face&&PERF){
    drawPerformer(wg,W,ih);
