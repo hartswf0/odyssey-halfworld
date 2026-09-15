@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f4f4f0">
-<title>House of Dust · Explore the Odyssey</title>
+<title>Odyssey Atlas · Explore the scenes</title>
 <meta name="description" content="Enter the Odyssey's authored scenes. Explore its pitchers, bowls, lyres, looms and rooted bed. Operate their states and hear the inhabitants perform.">
 <style>
 :root{color-scheme:light;--paper:#f4f4f0;--ink:#181916;--dim:#62625c;--line:#d0cfc7;--blue:#173ec4;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--paper);color:var(--ink)}
@@ -76,7 +76,7 @@ dialog::backdrop{background:rgba(18,18,15,.65)}
 </header>
 <main id="viewport" aria-label="Explore the scene">
 <canvas id="world" width="1120" height="760" aria-label="Odyssey scene. Drag to explore; tap an object to inspect. Arrow keys move the view."></canvas>
-<div class="hud"><div><span id="eyebrow">HOUSE OF DUST · ODYSSEY</span><h1 id="title">Opening the Odyssey</h1></div>
+<div class="hud"><div><span id="eyebrow">ODYSSEY · ATLAS</span><h1 id="title">Opening the Odyssey</h1></div>
 <div class="focusbar"><label id="stateLabel" for="states" hidden>STATE</label><select id="states" aria-label="Object state or character emotion" hidden></select><button id="perform" hidden>Perform</button><button id="hear" hidden>Hear voice</button></div></div>
 <div class="notice"><p id="status" role="status" aria-live="polite">Opening the atlas…</p><button id="retry" hidden>Retry</button></div>
 </main>
@@ -252,7 +252,7 @@ function sync(){
  $("back").disabled=busy||(!selected&&!history.length);
  $("back").textContent=selected?"← Scene":"← Back";
  $("title").textContent=selected?selected.name:(active?.entry.title||"Opening the Odyssey");
- $("eyebrow").textContent=selected?selected.type.replace(/_/g," ").toUpperCase()+" · BOOK "+active.entry.book:"HOUSE OF DUST · ODYSSEY";
+ $("eyebrow").textContent=selected?selected.type.replace(/_/g," ").toUpperCase()+" · BOOK "+active.entry.book:"ODYSSEY · ATLAS";
  $("states").hidden=!selected;$("stateLabel").hidden=!selected;
  $("timeLabel").textContent=selected?(performing?"Performance":"Transform"):"Scene time";
  $("time").disabled=busy||!!selected&&!performing&&selected.nodes.length<2;

@@ -18,7 +18,7 @@ footer{padding:4px max(12px,calc((100vw - 900px)/2));display:grid;grid-template-
 .line label{position:relative;display:flex;gap:12px;align-items:baseline;min-width:0;padding:3px 0;cursor:pointer}
 .line small{font-size:9px;letter-spacing:.08em;color:var(--dim);width:110px;flex:none}
 .line span{font:normal 19px/1.05 Georgia,serif;min-width:0}
-.line select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.line label:after{content:"⌄";position:absolute;right:0;top:50%;font:12px monospace;color:var(--dim);transform:translateY(-50%)}.line label{padding-right:17px}.line select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
 .line button{border:0;min-height:34px;padding:4px;font-size:10px;color:var(--dim)}
 .line button[aria-pressed=true]{color:var(--ink);background:#ded8c8;text-decoration:underline;text-underline-offset:4px}
 .foottools{display:flex;gap:14px;align-items:center;min-width:0;font-size:10px}.foottools button{border:0;min-height:30px;padding:3px 0;font-size:10px}.foottools a{font-size:10px}.foottools .credit{margin-left:auto;color:var(--dim);font-size:8px;letter-spacing:.08em}

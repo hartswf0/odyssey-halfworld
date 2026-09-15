@@ -6,6 +6,7 @@ const PAPER="#f4f1e8",mods=new Map(),past=[];
 let E,FACE=null,current=null,busy=false,serial=0,score={...INITIAL},held={},view="room",focus=null;
 let t=0,playing=!matchMedia("(prefers-reduced-motion: reduce)").matches,last=0,paint=0,dirty=true,hits=[],pan=0,drag=null;
 let lastAction="Change a line. Watch the dwelling change.",failure=null;
+const backgrounds=new Map();
 const limit=(x,a,b)=>Math.max(a,Math.min(b,x));
 const wait=p=>{let timer;return Promise.race([p,new Promise((_,r)=>timer=setTimeout(()=>r(Error("The drawing took too long to load.")),18000))]).finally(()=>clearTimeout(timer));};
 function status(s){lastAction=s;$("status").textContent=s;}
@@ -100,7 +101,12 @@ function room(){
  const W=raw.width,H=raw.height,r=current.recipe;
  rg.fillStyle=PAPER;rg.fillRect(0,0,W,H);
  const bg=current.map.get(r.setting);
- rg.save();rg.globalAlpha=.70;bg.draw(rg,W,H,bgState(score,bg));rg.restore();
+ const bgKey=score.place+":"+score.light;
+ let sheet=backgrounds.get(bgKey);
+ if(!sheet){sheet=document.createElement("canvas");sheet.width=1000;sheet.height=760;const ctx=sheet.getContext("2d");ctx.fillStyle=PAPER;ctx.fillRect(0,0,1000,760);bg.draw(ctx,1000,760,bgState(score,bg));backgrounds.set(bgKey,sheet);}
+ // A camera crops the authored room; phone proportions never stretch its geometry.
+ const bs=Math.max(W/1000,H/760);
+ rg.save();rg.globalAlpha=.70;rg.drawImage(sheet,(W-1000*bs)/2,H-760*bs,1000*bs,760*bs);rg.restore();
  // All movable things share a floor. The setting supplies the architecture.
  const narrow=W/H<1;
  const stations=narrow?[.19,.81]:[.25,.75];
@@ -141,7 +147,7 @@ function print(){
   const j=(Math.floor(y)*W+Math.floor(x))*4;let darkness=1-(d[j]*.299+d[j+1]*.587+d[j+2]*.114)/255;
   // Light grades the existing surfaces. It never adds a sun disc or glow overlay.
   if(kind==="door")darkness*=x/W>.32+y/H*.3?.92:.42;
-  if(kind==="fire")darkness*=Math.abs(x/W-.52)<.28&&y/H>.45?1:.42;
+  if(kind==="fire"){const dx=(x/W-.52)*1.2,dy=y/H-.94;darkness*=.45+.55/(1+5*(dx*dx+dy*dy));}
   if(kind==="moon")darkness*=.72;
   if(darkness<.08)continue;
   buckets[Math.min(8,Math.floor(darkness*9))].push(x,y);
