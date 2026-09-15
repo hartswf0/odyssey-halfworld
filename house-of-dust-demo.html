@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>House of Dust · Artifact World</title><style>
 :root{--p:#f6f4ec;--i:#1c1c17;--a:#ad3e29}*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--p);color:var(--i);font:12px ui-monospace,monospace}body{height:100dvh;display:flex;flex-direction:column}button,select,input{font:inherit;color:inherit}button,select{background:var(--p);border:1px solid #ccc8bd;min-height:38px;padding:6px 10px;cursor:pointer;border-radius:0}button:disabled{opacity:.35;cursor:default}button:focus-visible,select:focus-visible{outline:2px solid var(--a)}[hidden]{display:none!important}.on{background:var(--i)!important;color:var(--p)!important}main{position:relative;flex:1;min-height:100px;overflow:hidden}#world{display:block;width:100%;height:100%;touch-action:none}#shots{position:absolute;top:max(10px,env(safe-area-inset-top));left:10px;display:flex;gap:4px}#shots button,#live{background:#f6f4ecdf;font-size:10px;min-height:36px}#live{position:absolute;right:10px;top:max(10px,env(safe-area-inset-top))}#note{position:absolute;left:12px;right:12px;bottom:10px;font-size:10px;line-height:1.4;text-align:center;pointer-events:none;background:#f6f4ecce}#inspect{border-top:1px solid #d0cbbf;padding:6px 10px;flex:none}#selected{display:flex;align-items:center;gap:8px;margin-bottom:5px}#name{font-size:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1}#state{min-width:80px;max-width:46%;min-height:32px;font-size:10px;padding:4px}#tools{display:flex;gap:4px}#tools button{flex:1;min-width:0;font-size:11px;min-height:36px;padding:4px}#poem{padding:3px 10px;flex:none}.line{display:flex;align-items:center;height:37px;gap:4px}.word{display:flex;align-items:center;gap:9px;min-width:0;flex:1;border:0;border-bottom:1px solid #d5d0c4;min-height:36px;text-align:left;padding:0;background:transparent}.word canvas{width:31px;height:31px;flex:none}.word span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:11px}.lock{width:37px;min-height:34px;font-size:10px;padding:3px;border:0}.lock[aria-pressed=true]{color:var(--a);font-weight:bold}
 #bottom{display:flex;gap:5px;align-items:center;padding:6px 10px calc(6px + env(safe-area-inset-bottom));flex:none}#new{background:var(--i);color:var(--p);flex:1}#bottom button{font-size:11px;min-height:38px}#filmstrip{display:flex;gap:4px;overflow-x:auto;max-width:30vw}#filmstrip button{min-width:33px;padding:3px}dialog{width:min(95vw,720px);height:min(83dvh,680px);max-height:90dvh;padding:12px;background:var(--p);color:var(--i);border:1px solid #999;overflow:hidden}dialog::backdrop{background:#14140f80}.modal{height:100%;display:flex;flex-direction:column;gap:9px}.bar{display:flex;align-items:center;gap:6px}.bar b{flex:1;font-size:11px}#search{width:100%;min-height:37px;border:1px solid #ccc;background:var(--p);padding:7px}#gallery{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:6px}.tile{display:flex;flex-direction:column;min-width:0;min-height:0;padding:4px}.tile canvas{width:100%;height:calc(100% - 28px);min-height:0;object-fit:contain}.tile span{font-size:9px;line-height:1.3;height:28px;overflow:hidden;text-align:left}#pages{display:flex;align-items:center;justify-content:space-between}#details{white-space:pre-wrap;line-height:1.6;overflow:auto;flex:1}#modalLinks a{display:inline-block;margin:5px 12px 5px 0;color:inherit}#readout{font-size:10px;min-height:13px;color:#615e53}@media(min-width:850px){body{max-width:1300px;margin:auto}#poem{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;padding:5px 10vw}#inspect,#bottom{padding-left:10vw;padding-right:10vw}#tools button{max-width:100px}#selected{max-width:650px}#state{margin-left:auto}#filmstrip{max-width:300px}}@media(max-height:650px){.line{height:31px}.word,.lock{min-height:29px}.word canvas{width:25px;height:25px}#inspect{padding:3px 8px}#tools button{min-height:30px}#selected{margin-bottom:2px}#bottom{padding-top:3px}#bottom button{min-height:31px}}
-</style></head><body>
-<main id="stage"><canvas id="world" aria-label="Artifact dwelling. Tap an object to select it. Drag to arrange. Drag empty space to pan."></canvas><div id="shots"><button data-shot="wide" class="on">World</button><button data-shot="room">Room</button><button data-shot="detail">Object</button></div><button id="live">Pause</button><div id="note" role="status">Loading the Odyssey…</div></main>
-<section id="inspect" aria-label="Selected artifact controls"><div id="selected"><span id="name">Select an artifact</span><select id="state" aria-label="Performance state"></select></div><div id="tools"><button id="smaller" aria-label="Make selected artifact smaller">− size</button><button id="larger" aria-label="Make selected artifact larger">+ size</button><button id="flip">Flip</button><button id="copy">Copy</button><button id="remove">Remove</button><button id="source">Source</button></div></section>
+#callbar{display:flex;gap:5px;padding:8px 10px;border-top:1px solid #cec9bd;flex:none}#call{flex:1;min-width:0;background:var(--p);border:0;border-bottom:1px solid #bbb;padding:8px;font:inherit;font-size:12px}#callbar button{padding:6px;font-size:10px}#inspect,#poem{display:none}body.editing #inspect,body.editing #poem{display:block}#shots{max-width:calc(100% - 72px);flex-wrap:wrap}#shots button{padding:5px 7px}#bottom{border-top:1px solid #d5d0c4}#callbar:focus-within{border-top-color:var(--a)}@media(min-width:850px){body.editing #poem{display:grid}} </style></head><body>
+<main id="stage"><canvas id="world" aria-label="Artifact dwelling. Tap an object to select it. Drag to arrange. Drag empty space to pan."></canvas><div id="shots"><button data-shot="wide" class="on">World</button><button data-shot="room">Room</button><button data-shot="detail">Object</button><button data-shot="multi">4 cams</button><button data-shot="orb">Orb</button></div><button id="live">Pause</button><div id="note" role="status">Loading the Odyssey…</div></main>
+<form id="callbar"><input id="call" autocomplete="off" aria-label="Call an operation" placeholder="make a lyre · bigger · put that there"><button id="send" type="submit">Call</button><button id="edit" type="button">Tools</button><button id="trace" type="button">Trace</button></form><section id="inspect" aria-label="Selected artifact controls"><div id="selected"><span id="name">Select an artifact</span><select id="state" aria-label="Performance state"></select></div><div id="tools"><button id="smaller" aria-label="Make selected artifact smaller">− size</button><button id="larger" aria-label="Make selected artifact larger">+ size</button><button id="flip">Flip</button><button id="copy">Copy</button><button id="remove">Remove</button><button id="source">Source</button></div></section>
 <section id="poem" aria-label="House poem">
 <div class="line"><button class="word" data-slot="material"><canvas width="80" height="80"></canvas><span>A HOUSE OF…</span></button><button class="lock" data-slot="material" aria-label="Hold building artifact" aria-pressed="false">hold</button></div>
 <div class="line"><button class="word" data-slot="location"><canvas width="80" height="80"></canvas><span>AT…</span></button><button class="lock" data-slot="location" aria-label="Hold location" aria-pressed="false">hold</button></div>
@@ -66,15 +66,15 @@ function chosen(){return items.find(x=>x.key===selected);}
 async function assemble(nextItems){const ticket=++epoch;busy=true;controls();note('Composing artifacts…');
  try{const ids=[...new Set([spec.location,...nextItems.map(x=>x.id)])],loaded=await Promise.all(ids.map(load));if(ticket!==epoch)return false;
  const map=new Map(ids.map((id,i)=>[id,loaded[i]]));const field=document.createElement('canvas');field.width=1200;field.height=850;const c=field.getContext('2d');c.fillStyle='#f6f4ec';c.fillRect(0,0,1200,850);map.get(spec.location).draw(c,1200,850,{...base(map.get(spec.location)),t:2,card:false});
- items=nextItems;bg=field;for(const o of items){o.mod=map.get(o.id);o.nodes=states(o.mod);if(o.state<0)o.state=Math.max(0,o.nodes.findIndex(n=>n.key===o.mod.states?.initial));o.state=clamp(o.state,0,Math.max(0,o.nodes.length-1));}
+ items=nextItems;relations=relations.filter(r=>items.some(o=>o.key===r.from)&&items.some(o=>o.key===r.to));bg=field;for(const o of items){o.mod=map.get(o.id);o.nodes=states(o.mod);if(o.state<0)o.state=Math.max(0,o.nodes.findIndex(n=>n.key===o.mod.states?.initial));o.state=clamp(o.state,0,Math.max(0,o.nodes.length-1));}
  if(!items.some(o=>o.key===selected))selected=items.find(o=>o.role==='structure')?.key||items[0]?.key||null;
  cuts.clear();busy=false;sync();note('Tap an artifact. Drag to arrange.');return true;
  }catch(e){if(ticket!==epoch)return false;busy=false;controls();note('Could not load an artifact: '+e.message+' · choose another.');console.error(e);return false;}}
 /* Snapshot plain records: code modules and state-preview functions are runtime only. */
 function plain(o){const {mod,nodes,...rest}=o;return clone(rest);}
-function snap(){return {version:2,spec:clone(spec),items:items.map(plain),camera:clone(targetCamera),t};}
+function snap(){return {version:2,spec:clone(spec),items:items.map(plain),camera:clone(targetCamera),t,links:clone(relations),viewMode,orbYaw};}
 snapshot=snap;
-async function restore(s){spec=clone(s.spec);targetCamera=clone(s.camera);camera=clone(s.camera);t=s.t||0;serial=Math.max(serial,...s.items.map(x=>Number(x.key.slice(1))||0));return assemble(clone(s.items));}
+async function restore(s){relations=clone(s.links||[]);viewMode=s.viewMode||'flat';orbYaw=s.orbYaw||0;spec=clone(s.spec);targetCamera=clone(s.camera);camera=clone(s.camera);t=s.t||0;serial=Math.max(serial,...s.items.map(x=>Number(x.key.slice(1))||0));return assemble(clone(s.items));}
 async function change(slot,id){if(busy||playing)return;remember();spec[slot]=id;let next=items.map(plain);
  const role={material:'structure',inhabitants:'inhabitant',light:'light'}[slot];
  if(role){next=next.filter(o=>o.role!==role);next.push(...buildParts(role));if(slot==='material'){next=next.filter(o=>o.role!=='object');next.push(...buildParts('object'));}}
@@ -87,7 +87,7 @@ function syncSelected(){const o=chosen();$('name').textContent=o?assets.get(o.id
 async function thumb(canvas,id,token){const c=canvas.getContext('2d');c.fillStyle='#f6f4ec';c.fillRect(0,0,canvas.width,canvas.height);
  if(id==='natural'){c.fillStyle='#c4b68f';c.beginPath();c.arc(canvas.width/2,canvas.height/2,canvas.width*.2,0,7);c.fill();return;}
  try{const m=await load(id);if(token!==thumbsToken)return;const cut=E.inkCutout(m,{t:0},'dust-thumb'),s=Math.min((canvas.width-8)/cut.w,(canvas.height-8)/cut.h);c.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,(canvas.width-cut.w*s)/2,(canvas.height-cut.h*s)/2,cut.w*s,cut.h*s);}catch{c.fillStyle='#777';c.fillText('unavailable',3,canvas.height/2);}}
-function shot(mode){targetCamera.shot=mode;
+function shot(mode){viewMode=['multi','orb'].includes(mode)?mode:'flat';targetCamera.shot=mode;if(viewMode!=='flat'){document.querySelectorAll('[data-shot]').forEach(b=>b.classList.toggle('on',b.dataset.shot===mode));return;}
  if(mode==='wide')Object.assign(targetCamera,{x:.5,y:.5,z:1});
  else if(mode==='room')Object.assign(targetCamera,{x:.5,y:.68,z:1.6});
  else{const o=chosen();if(o)Object.assign(targetCamera,{x:o.x,y:o.y-o.s*.32,z:clamp(.70/o.s,1.3,3.3)});}
@@ -96,12 +96,12 @@ document.querySelectorAll('[data-shot]').forEach(b=>b.onclick=()=>{if(!busy){rem
 $('live').onclick=()=>{running=!running;$('live').textContent=running?'Pause':'Resume';};
 for(const [id,f] of [['smaller',o=>o.s=clamp(o.s*.87,.06,.95)],['larger',o=>o.s=clamp(o.s*1.15,.06,.95)],['flip',o=>o.flip=!o.flip]])$(id).onclick=()=>{const o=chosen();if(!o)return;remember();f(o);if(targetCamera.shot==='detail')shot('detail');};
 $('copy').onclick=()=>{const o=chosen();if(!o||items.length>=24){note('24 artifacts is the limit for this composition.');return;}remember();const p={...o,key:'i'+(++serial),x:clamp(o.x+.08,.04,.96),y:clamp(o.y+.025,.16,.96)};items.push(p);selected=p.key;syncSelected();};
-$('remove').onclick=()=>{if(!chosen())return;remember();items=items.filter(o=>o.key!==selected);selected=items[0]?.key||null;syncSelected();};
+$('remove').onclick=()=>{if(!chosen())return;remember();relations=relations.filter(r=>r.from!==selected&&r.to!==selected);items=items.filter(o=>o.key!==selected);selected=items[0]?.key||null;syncSelected();};
 $('state').onchange=()=>{const o=chosen();if(!o)return;remember();o.auto=$('state').value==='auto';if(!o.auto)o.state=+$('state').value;o.phase=0;cuts.delete(o.key);note(o.auto?'Playing authored states.':'Holding '+o.nodes[o.state]?.key);};
 $('undo').onclick=()=>{const s=undo.pop();if(s)restore(s);};
 $('new').onclick=async()=>{remember();const options=RECIPES.filter(r=>r.m!==spec.material&&assets.has(r.m)&&assets.has(r.l)&&assets.has(r.a)),r=options[Math.floor(Math.random()*options.length)]||RECIPES[0];
  if(!locks.material)spec.material=r.m;if(!locks.location)spec.location=r.l;if(!locks.inhabitants)spec.inhabitants=r.a;if(!locks.light)spec.light=Math.random()<.65?'natural':'divine-fx.athenas-golden-lamp';
- targetCamera={x:.5,y:.5,z:1,shot:'wide'};await assemble(initialItems());};
+ targetCamera={x:.5,y:.5,z:1,shot:'wide'};viewMode='flat';relations=[];await assemble(initialItems());};
 document.querySelectorAll('.lock').forEach(b=>b.onclick=()=>{locks[b.dataset.slot]=!locks[b.dataset.slot];b.setAttribute('aria-pressed',String(locks[b.dataset.slot]));b.textContent=locks[b.dataset.slot]?'held':'hold';});
 function toWorld(e){const r=cv.getBoundingClientRect();return {x:((e.clientX-r.left)/r.width-.5)/camera.z+camera.x,y:((e.clientY-r.top)/r.height-.5)/camera.z+camera.y};}
 cv.onpointerdown=e=>{if(!ready||busy||playing)return;const p=toWorld(e);const hit=[...hitboxes].reverse().find(b=>p.x>=b.x&&p.x<=b.x+b.w&&p.y>=b.y&&p.y<=b.y+b.h);
@@ -146,5 +146,89 @@ async function boot(){controls();try{E=await import('./engine/halfworld-engine.m
  for(const s of SLOTS)if(!banks[s].some(a=>a.id===spec[s]))spec[s]=banks[s][0].id;
  try{const x=JSON.parse(localStorage.getItem('odyssey.dust.artifacts.v2')||'[]');if(Array.isArray(x))saved=x.filter(s=>s?.version===2&&SLOTS.every(k=>banks[k].some(a=>a.id===s.spec?.[k]))&&Array.isArray(s.items)&&s.items.length<=24&&s.items.every(o=>assets.has(o.id)&&typeof o.key==='string'&&['x','y','s'].every(k=>Number.isFinite(o[k]))&&o.x>=0&&o.x<=1&&o.y>=0&&o.y<=1&&o.s>=.04&&o.s<=1)&&s.camera&&['x','y','z'].every(k=>Number.isFinite(s.camera[k]))&&s.camera.z>=1&&s.camera.z<=4).slice(0,30);}catch{}
  await assemble(initialItems());ready=true;drawFilm();window.__artifactWorld={snapshot,restore,change,shot,get items(){return items.map(plain)},get banks(){return banks},get saved(){return clone(saved)}};}catch(e){note('Could not start: '+e.message+'. Reload to retry.');console.error(e);}}
+
+/* Calls compile to bounded operations over explicit instance IDs. Local grammar,
+   not an LLM. The journal preserves branches, including calls that are refused. */
+let viewMode='flat',orbYaw=0,relations=[],journal=[],head=null,pointing=null,orbHits=[],camTiles=[],orbitDrag=null;
+const plainName=s=>String(s).toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+function target(text){const n=plainName(text);if(!n||/^(that|it|this|selected)$/.test(n)){if(!chosen())throw Error('Select an artifact first.');return chosen();}
+ const exact=items.filter(o=>plainName(o.key)===n||plainName(assets.get(o.id)?.name)===n);
+ const list=exact.length?exact:items.filter(o=>plainName(assets.get(o.id)?.name).includes(n));
+ if(list.length!==1)throw Error(list.length?'More than one matches. Tap the artifact you mean.':'No placed artifact matches '+text+'.');
+ return list[0];}
+function catalogTarget(text){const n=plainName(text).replace(/^(a|an|the) /,'');const exact=MF.assets.filter(a=>plainName(a.name)===n);
+ const list=exact.length?exact:MF.assets.filter(a=>a.type!=='location'&&plainName(a.name).includes(n));
+ if(list.length!==1)throw Error(list.length?'Several atlas entries match. Use the visual picker in Tools.':'No atlas artifact matches '+text+'.');
+ return list[0];}
+function compileCall(text){const raw=text.trim(),n=plainName(raw);
+ if(!n)throw Error('Name an operation.');
+ if(/^(world|room|object|orb|multicam|4 cams)$/.test(n))return {op:'camera',mode:{world:'wide',object:'detail',multicam:'multi','4 cams':'multi'}[n]||n};
+ if(/^(put|move) (that|it|this) there$/.test(n))return {op:'point',id:target('that').key};
+ if(/^(bigger|larger|make (that|it) (bigger|larger))$/.test(n))return {op:'scale',id:target('that').key,factor:1.18};
+ if(/^(smaller|make (that|it) smaller)$/.test(n))return {op:'scale',id:target('that').key,factor:.85};
+ let m=n.match(/^(copy|repeat|remove|flip|turn) (.+)$/);if(m)return {op:{repeat:'copy',turn:'flip'}[m[1]]||m[1],id:target(m[2]).key};
+ m=n.match(/^(?:make|add) (.+)$/);if(m)return {op:'make',asset:catalogTarget(m[1]).id};
+ m=n.match(/^(?:put|place|move) (.+?) (left of|right of|above|below|behind|beside) (.+)$/);
+ if(m)return {op:'place',id:target(m[1]).key,relation:m[2],anchor:target(m[3]).key};
+ m=n.match(/^(join|support) (.+?) (?:to|with) (.+)$/);if(m)return {op:'relate',kind:m[1]==='join'?'attached_to':'supports',from:target(m[2]).key,to:target(m[3]).key};
+ if(n==='test')return {op:'test'};
+ if(n==='undo')return {op:'undo'};
+ if(n==='keep')return {op:'keep'};
+ throw Error('Try: make demodocuss lyre; bigger; copy that; put that there; join that to i2; orb.');}
+function logCall(call,operation,before,after,outcome){const entry={id:'call-'+(journal.length+1),parent:head,call,operation:clone(operation||{}),outcome,before,after};journal.push(entry);head=entry.id;
+ try{localStorage.setItem('odyssey.dust.calls.v1',JSON.stringify(journal));}catch{note('Trace is session-only; export it from Trace.');}return entry;}
+async function executeCall(text){if(busy||playing){note('Call refused while assembling or playing. Stop playback or wait for assembly.');return;}if(pointing){logCall(pointing.text,{op:'point',id:pointing.id},pointing.before,snapshot(),'Cancelled by the next call.');pointing=null;}const before=snapshot();let op;
+ try{op=compileCall(text);
+ if(op.op==='point'){pointing={id:op.id,text,before};note('Point to THERE: tap a destination in World or Room.');if(viewMode!=='flat')shot('wide');return;}
+ if(op.op==='undo'){const previous=journal.find(e=>e.id===head);if(previous?.before){await restore(previous.before);head=previous.parent;note('Undone. The next call branches from this version.');return;}throw Error('No call to undo.');}
+ if(op.op==='test'){const bad=relations.filter(r=>!items.some(o=>o.key===r.from)||!items.some(o=>o.key===r.to));const result=items.length+' parts · '+relations.length+' declared relations · '+bad.length+' missing endpoints. No physical stability test is implemented.';logCall(text,op,before,snapshot(),result);note(result);return;}
+ remember();const o=items.find(o=>o.key===op.id);
+ if(op.op==='scale'){o.s=clamp(o.s*op.factor,.06,.95);}
+ else if(op.op==='copy'){if(items.length>=24)throw Error('This field holds 24 artifacts.');const q={...o,key:'i'+(++serial),x:clamp(o.x+.08,.03,.97),y:clamp(o.y+.035,.2,.97)};items.push(q);selected=q.key;}
+ else if(op.op==='remove'){items=items.filter(x=>x.key!==o.key);relations=relations.filter(r=>r.from!==o.key&&r.to!==o.key);selected=items[0]?.key||null;}
+ else if(op.op==='flip')o.flip=!o.flip;
+ else if(op.op==='make'){if(items.length>=24)throw Error('This field holds 24 artifacts.');const p=instance(op.asset,'object',.5,.86,.25);await load(op.asset);const ok=await assemble([...items.map(plain),p]);if(!ok)throw Error('The asset could not be assembled.');selected=p.key;}
+ else if(op.op==='place'){const a=items.find(x=>x.key===op.anchor);if(a===o)throw Error('An artifact cannot be placed relative to itself.');const gap=Math.max(.09,(a.s+o.s)*.17);o.x=clamp(a.x+(['right of','beside'].includes(op.relation)?gap:op.relation==='left of'?-gap:0),.03,.97);o.y=clamp(a.y+(op.relation==='above'||op.relation==='behind'?-gap:op.relation==='below'?gap:0),.2,.97);relations.push({from:o.key,to:a.key,kind:op.relation});}
+ else if(op.op==='relate'){if(op.from===op.to)throw Error('Choose two different artifacts.');relations.push({from:op.from,to:op.to,kind:op.kind});}
+ else if(op.op==='camera')shot(op.mode);
+ else if(op.op==='keep')$('keep').onclick();
+ syncSelected();const result=op.op==='relate'?'Relation recorded; this is not a physical joint.':text+' → '+op.op;
+ logCall(text,op,before,snapshot(),result);note(result);
+ }catch(e){logCall(text,op,before,snapshot(),'REFUSED: '+e.message);note(e.message);}}
+$('callbar').onsubmit=e=>{e.preventDefault();const v=$('call').value;$('call').value='';executeCall(v);};
+$('edit').onclick=()=>{document.body.classList.toggle('editing');resize();};
+$('trace').onclick=()=>{modal('Calls · relations · branches',false);$('details').textContent=journal.length?journal.map(e=>e.id+' ← '+(e.parent||'start')+'\n'+e.call+'\n'+JSON.stringify(e.operation)+'\n'+e.outcome).join('\n\n'):'The call surface uses a local bounded grammar. Select an artifact, then call “bigger” or “put that there”.\n\nNo hidden elephant, language model, physics solver or autonomous builders are running.';
+ const row=document.createElement('div');for(const e of journal.filter(e=>e.after)){const b=document.createElement('button');b.textContent=e.id;b.onclick=async()=>{await restore(e.after);head=e.id;$('dialog').close();note('Returned to '+e.id+'. The next call creates a branch.');};row.append(b);}$('modalLinks').append(row);
+ const b=document.createElement('button');b.textContent='Export construction graph + calls';b.onclick=()=>{const u=URL.createObjectURL(new Blob([JSON.stringify({version:3,world:snapshot(),journal,head},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='artifact-construction.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};$('modalLinks').append(b);};
+try{const old=JSON.parse(localStorage.getItem('odyssey.dust.calls.v1')||'[]');if(Array.isArray(old))journal=old.filter(e=>typeof e?.id==='string'&&typeof e.call==='string'&&e.after&&Array.isArray(e.after.items));}catch{}
+const flatCompose=compose;
+const previews=Array.from({length:4},()=>document.createElement('canvas'));
+function sphere(lon,lat){const a=lon+orbYaw;return {x:Math.cos(lat)*Math.sin(a),y:Math.sin(lat),z:Math.cos(lat)*Math.cos(a)};}
+function orbPaint(){g.fillStyle='#f6f4ec';g.fillRect(0,0,W,H);const R=Math.min(W,H)*.39,cx=W/2,cy=H*.52;
+ g.fillStyle='#e2e3d7';g.beginPath();g.arc(cx,cy,R,0,7);g.fill();g.strokeStyle='#b4b6a7';g.lineWidth=1;
+ for(let lat=-60;lat<=60;lat+=30){g.beginPath();let pen=false;for(let lon=-180;lon<=180;lon+=3){const p=sphere(lon*Math.PI/180,lat*Math.PI/180);if(p.z<0){pen=false;continue;}if(!pen)g.moveTo(cx+p.x*R,cy-p.y*R);else g.lineTo(cx+p.x*R,cy-p.y*R);pen=true;}g.stroke();}
+ for(let lon=-180;lon<180;lon+=30){g.beginPath();let pen=false;for(let lat=-89;lat<90;lat+=3){const p=sphere(lon*Math.PI/180,lat*Math.PI/180);if(p.z<0){pen=false;continue;}if(!pen)g.moveTo(cx+p.x*R,cy-p.y*R);else g.lineTo(cx+p.x*R,cy-p.y*R);pen=true;}g.stroke();}
+ const points=items.map(o=>({o,p:sphere((o.x-.5)*Math.PI*2,(.65-o.y)*Math.PI)})).sort((a,b)=>a.p.z-b.p.z);orbHits=[];
+ const positions=new Map(points.map(a=>[a.o.key,a.p]));g.strokeStyle='#9b513e';g.setLineDash([4,5]);
+ for(const r of relations){const a=positions.get(r.from),b=positions.get(r.to);if(a?.z>0&&b?.z>0){g.beginPath();g.moveTo(cx+a.x*R,cy-a.y*R);g.lineTo(cx+b.x*R,cy-b.y*R);g.stroke();}}g.setLineDash([]);
+ for(const {o,p} of points){if(p.z<0)continue;try{const cut=cutFor(o),size=R*(.15+o.s*.55)*(.55+p.z*.45),s=Math.min(size/cut.w,size/cut.h),w=cut.w*s,h=cut.h*s,x=cx+p.x*R,y=cy-p.y*R;
+ g.save();g.translate(x,y);if(o.flip)g.scale(-1,1);g.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,-w/2,-h*.8,w,h);g.restore();orbHits.push({key:o.key,x:x-w/2,y:y-h*.8,w,h});
+ if(o.key===selected){g.strokeStyle='#ad3e29';g.strokeRect(x-w/2-4,y-h*.8-4,w+8,h+8);}
+ }catch{}}
+ g.fillStyle='#615e53';g.font='14px monospace';g.textAlign='center';g.fillText('DRAG TO TURN · TAP AN ARTIFACT · OBJECT TO ENTER',cx,H-24);g.textAlign='left';}
+compose=function(){if(viewMode==='orb'){orbPaint();return;}if(viewMode!=='multi'){flatCompose();return;}
+ const old={...camera},o=chosen(),configs=[{x:.5,y:.5,z:1,shot:'wide'},{x:.5,y:.7,z:1.55,shot:'room'},{x:.25,y:.61,z:1.9,shot:'room'},o?{x:o.x,y:o.y-o.s*.32,z:clamp(.7/o.s,1.3,3.3),shot:'detail'}:{x:.75,y:.6,z:1.8,shot:'room'}],labels=['WORLD','ROOM','LEFT','SELECTED'];camTiles=[];
+ for(let i=0;i<4;i++){camera=configs[i];flatCompose();const c=previews[i];c.width=Math.floor(W/2);c.height=Math.floor(H/2);c.getContext('2d').drawImage(cv,0,0,c.width,c.height);}
+ camera=old;g.fillStyle='#f6f4ec';g.fillRect(0,0,W,H);for(let i=0;i<4;i++){const x=(i%2)*W/2,y=Math.floor(i/2)*H/2;g.drawImage(previews[i],x,y);g.strokeStyle='#f6f4ec';g.lineWidth=5;g.strokeRect(x,y,W/2,H/2);g.fillStyle='#f6f4ec';g.fillRect(x+8,y+48,92,23);g.fillStyle='#25251f';g.font='12px monospace';g.fillText(labels[i],x+13,y+64);camTiles.push({x,y,w:W/2,h:H/2,camera:configs[i]});}};
+const flatDown=cv.onpointerdown,flatMove=cv.onpointermove,flatUp=cv.onpointerup;
+cv.onpointerdown=e=>{if(!ready||busy||playing)return;const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,y=(e.clientY-r.top)/r.height*H;
+ if(pointing){const p=toWorld(e),o=items.find(x=>x.key===pointing.id);if(o){remember();o.x=clamp(p.x,.03,.97);o.y=clamp(p.y,.2,.97);logCall(pointing.text,{op:'place',id:o.key,x:o.x,y:o.y},pointing.before,snapshot(),'Point bound to world coordinates.');note('THAT → THERE');}pointing=null;return;}
+ if(viewMode==='multi'){const tile=camTiles.find(a=>x>=a.x&&x<a.x+a.w&&y>=a.y&&y<a.y+a.h);if(tile){remember();camera={...tile.camera};targetCamera={...tile.camera};viewMode='flat';sync();}return;}
+ if(viewMode==='orb'){const hit=[...orbHits].reverse().find(b=>x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h);if(hit){selected=hit.key;syncSelected();}orbitDrag={id:e.pointerId,x:e.clientX,yaw:orbYaw};cv.setPointerCapture(e.pointerId);return;}
+ flatDown(e);};
+cv.onpointermove=e=>{if(orbitDrag){orbYaw=orbitDrag.yaw+(e.clientX-orbitDrag.x)/cv.getBoundingClientRect().width*Math.PI*2;return;}flatMove(e);};
+cv.onpointerup=cv.onpointercancel=cv.onlostpointercapture=e=>{orbitDrag=null;flatUp(e);};
+window.__calls={compile:compileCall,execute:executeCall,get journal(){return clone(journal)},get relations(){return clone(relations)}};
+
 requestAnimationFrame(frame);boot();
 </script></body></html>
