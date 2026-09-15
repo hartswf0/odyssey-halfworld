@@ -1,103 +1,64 @@
-# House of Dust / Odyssey Halfworld
-
-I will first construct the <theory-of-the-program>, then generate <program text> only after the theory is explicit.
+# House of Dust / Odyssey scene exploration
 
 ## 1. <Initial Interpretation>
-
-A description can name a house without specifying its construction. This experiment lets a reader operate four lines while seeing the particular spatial interpretation made by the program.
-
-The program adapts the combinatorial structure of Alison Knowles and James Tenney's House of Dust to this repository's Odyssey atlas. The words are original adaptation, not Homer quotations. Historical context: https://reframingthehouseofdust.com/about/
-
-The user activity is composing, watching, keeping, scattering, and returning to possible dwellings. A passage supplies an initial relationship between shelter, host, stranger, and homecoming. Mixing lines creates deliberate departures from the epic.
+The user found the added house and lighting intrusive, and the scrolling interface concealed the existing atlas. The program is now an exploration surface for authored scenes, objects and inhabitants. Scene construction is supplied by existing scene modules.
 
 ## 2. <Theory Skeleton>
-
-<entities> := {score, vocabulary, material, site, light, inhabitants, passage, interpretation, atlas asset, printed field, history}
-
-[operations] := {choose passage, change line, hold line, cast, compose, print, scatter, return, undo, read, share, inspect sources}
-
-<states> := {opening atlas, composing candidate, active house, scattered field, paused field, failed candidate}
-
-<constraints> := {four categories, finite authored vocabulary, actual asset identifiers, bounded rendering resolution, at most two inhabitant modules}
-
-<invariants>:
-- Text and active construction commit together after required assets load.
-- Each material changes the dwelling's drawn surface; each site changes its actual backdrop; each light changes the composed field; each inhabitant choice changes its cast.
-- Holding a category preserves that category when casting.
-- A failed candidate retains the active house and reports the failure.
-- One final halftone pass prints the composed continuous-tone image.
-- Shared scores retain their version, vocabulary indices, random seed, and holds.
-- No generated poem or new behavior is attributed to Homer, Knowles, or Tenney.
-- Cached pose animation is not presented as recognition, autonomous choice, or a physical simulation.
+<entities> := {authored scene, atlas asset, object state, character face, recorded turn, source, camera}
+[operations] := {enter scene, pan, select object, transform, hear voice, perform, return, cast, inspect source}
+<states> := {loading, scene, object inspection, character close-up, artifact performance, source page, failed load}
+<constraints> := {fixed viewport, finite paginated shelf, actual atlas references}
+<invariants> := {no added house shell, no added sun/moon/light overlay, one final halftone pass, no document scrolling, explicit source attribution}
 
 ## 3. <Assumption Ledger>
-
-<safe>: Reuse the repository's engine, manifest, drawing modules, palette, and scene links.
-<safe>: Add a separate experiment and a link from the index.
-<safe>: Four-variable combinations may depart from narrative chronology.
-<uncertain>: A depicted dwelling is an adequate first construction medium; no structural physics is claimed.
-<uncertain>: Preset passages are useful entrances into a freely recombinable world.
-<requires-user-decision>: Any later expansion to free-language LLM interpretation or structural simulation requires a new contract. Neither blocks this implementation.
+<safe>: Preserve scene.stage choreography and its actual drawing modules.
+<safe>: Keep every object available through a paginated shelf.
+<safe>: Import the same close-up face, speech and direction modules as odyssey-performances.html.
+<uncertain>: Some scenes need a setting inherited from an earlier scene in their book; this is disclosed in Source.
+<requires-user-decision>: Further free-language recombination is outside this revision.
 
 ## 4. <Operational Description>
-
-<passage> [selects] <initial score>
-<reader> [changes or holds] <line>
-<score + authored mappings> [resolve] <location module + inhabitant modules + shell + light>
-<successful asset loading> [enables] <candidate becoming the active house>
-<continuous-tone field> [samples onto lattice] <printed dots>
-<pointer or scatter slider> [displaces] <printed dots>
-<return> [restores] <lattice positions>
-<undo> [restores] <previous score>
-<score> [serializes into URL] <reopenable composition>
-<source drawer> [exposes] <mapping decisions + original atlas prompts + scene>
+<scene selection> [loads] <authored scene + cast>
+<scene.stage> [draws] <continuous-tone field>
+<drawImage placement> [records] <actual object hit bounds>
+<tap or object shelf> [opens] <large original asset>
+<object state selection or slider> [changes] <asset channels>
+<supported character> [opens] <film close-up>
+<Hear voice> [plays] <recorded turn>; <audio.currentTime> [drives] <mouth and speech carriage>
+<Perform> [runs] <existing artifact motion score>
+<Source> [pages through] <score, original prompt, actual code>
+<Return> [restores] <scene exploration>
 
 ## 5. <Failure Description>
-
-Invalid scores are rejected before asset loading. Bad saved data returns to the Ithaca default. Failed network loads expose Retry. Candidate failure keeps the previous world; request tokens prevent stale loads replacing a newer choice. Missing clipboard permission exposes a selectable URL. Speech uses browser speech synthesis only after Read, and the button is disabled where the API is unavailable. Save operations use browser downloads.
-
-The engine's existing inkCutout helper can internally catch drawing errors; meaningful render verification remains necessary when adding new asset families. A pose appearing is evidence of a drawing, not proof that its dramatic meaning has been enacted.
+Unknown scenes and failed imports retain the last active scene and expose Retry. Scene construction is rendered before the candidate replaces the active scene. Request tokens discard stale scene and object loads. If a character has no close-up rig, the original atlas figure remains available. Voice playback errors are reported. Unsupported clipboard access exposes the address in Source.
 
 ## 6. <Change Test>
-
 What would change if the requirements changed?
-
-1. Change the renderer to LEGO. Keep the score and source records; replace the shell and asset adapters. Record brick and material substitutions.
-2. Replace authored interpretation with an LLM. Keep immutable source scores, but store the model identity, instructions, returned proposal, and schema validation before committing a candidate.
-3. Add another material. Add a vocabulary item and a renderer branch, then show that the image changes. A label without a drawing rule is incomplete.
-4. Change vocabulary ordering. Increment the score schema version or provide a migration. Existing shared indices must never silently point to different phrases.
+- New atlas objects enter through the manifest and authored cast; they need no new substitute geometry.
+- New character rigs enter through the film face module; unsupported figures retain their atlas drawing.
+- A smaller screen changes page capacity and camera framing, without introducing page scrolling.
+- An updated scene.stage retains its blocking because the explorer calls that authored function.
 
 ## 7. <Implementation Plan>
+house-of-dust.html is a single-page explorer. The document uses a fixed three-row viewport: scene navigation, the rendered world, and a paginated object shelf with transport. Source is a fixed dialog with explicit page navigation.
 
-A single new HTML page carries CSS, finite score data, pure score operations, browser state, and rendering. It imports the existing Halfworld engine and manifest on demand.
+The original renderer composes each scene. Module wrappers associate temporary canvases with asset IDs; observed drawImage destinations supply hit targets for those actual placements. Objects without a tracked image placement remain selectable through the shelf.
 
-The page first paints a procedural dwelling, then adds the selected atlas background and keyed character/creature cutouts. Asset imports and cutouts are cached. Pose samples change every six seconds; small positional sway continues while playing. A continuous-tone field is sampled at a 4.5-pixel lattice, then rendered in 12 batched radius groups. Touch displacement and the slider move these same printed dots.
-
-Mobile uses a vertical arrangement with full wrapped line text and native selects. Desktop places the score beside the world. Small screens may scroll; controls are not clipped to force a fixed-height screen. Reduced-motion preference starts paused.
+Inspection uses the original asset and its state previews. Character close-ups reuse assets/character/_close/face.mjs, engine/speech.mjs and scenes/_direction.mjs. Voice records join the drive script and voice manifest by segment index, using authored spoken text when available. Mouth tracks follow the performance page's existing text-derived timing method.
 
 ## 8. <Program Text>
-
-- house-of-dust.html: complete experience, vocabulary, score engine, and renderer.
-- .github/workflows/house-of-dust.yml: scoped browser verification and screenshots.
-- index.html: entry in the experiment index.
-
-Open house-of-dust.html from the repository's HTTP server or GitHub Pages. No API key, install step, or external frontend package is needed to use the page.
+house-of-dust.html
+.github/workflows/house-of-dust.yml
 
 ## 9. <Theory-Code Mapping>
-
-<types>: validated versioned score objects and named vocabulary categories.
-<functions>: validate, fromPreset, permute, choices, lines, assetIds, encode, decode.
-<functions>: apply and build implement candidate loading and atomic visual/text commit.
-<functions>: shell, light, compose, render implement the authored interpretation.
-<classes>: none required.
-<tests>: pure score validation, deterministic permutation, held categories, URL round trips, manifest references, and browser interaction/render checks.
-<comments>: distinguish continuous-tone composition from the final print and explain operational constraints.
-<configuration>: BANK and PRESETS retain vocabulary, material kind, scene association, book association, asset IDs, and interpretation notes.
+<types>: authored scene/asset contracts, face specification, recorded turn.
+<functions>: openScene, selectObject, renderScene, draw, currentState, turnsFor, drawPerformer.
+<classes>: none added.
+<tests>: four viewport sizes; no document or source-dialog scrolling; actual vessel states; URL reload; scene imports; film faces and animation; recorded playback; existing artifact performance.
+<comments>: explain canvas provenance tracking and the inspection framing.
+<configuration>: the manifest, scene modules and original object state definitions; SPECIAL maps known objects to existing artifact performances.
 
 ## 10. <Residual Human Theory>
+The four-line score is an original reading generated from the scene and selected object. It is not a quotation from Homer or Knowles. A rendered object state is an authored performance, not a material simulation. Close-up characters use the existing film performance rules; waveform-independent viseme tracks are approximate.
 
-The dwelling is an authored visual interpretation. Dust, salt, stone, cloth, and wood are drawing rules; they are not simulated structural materials. Inhabitants are atlas pose performances with breathing sway. They do not recognize, decide, admit, imprison, or converse.
-
-A maintainer must keep this distinction visible. The scene notes describe the associated epic passage; the interpretation notes describe what this program actually draws. Source links and prompts let those decisions be questioned.
-
-The URL preserves the score, not a frozen version of every upstream drawing module. Reproducing a historical image exactly also requires the repository commit and animation time.
+The main scene is a two-dimensional authored field with pan and crop, not a rebuilt 3D room. Bounding hit tests follow tracked image placements and can include transparent portions; the object shelf is the reliable alternate selection path. Shared links preserve scene, selected object, state and scene time, not frozen versions of upstream modules.

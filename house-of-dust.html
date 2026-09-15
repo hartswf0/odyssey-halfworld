@@ -1,451 +1,525 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f4f4f0">
-<meta name="description" content="A House of Dust for the Odyssey. Four lines become a halftone dwelling. Cast, hold, scatter, and return.">
-<title>HOUSE OF DUST · Odyssey Halfworld</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 16 16 5 28 16v13H4z' fill='%23141916'/%3E%3Cpath d='M13 29V19h6v10' fill='%23f4f4f0'/%3E%3C/svg%3E">
+<title>House of Dust · Explore the Odyssey</title>
+<meta name="description" content="Enter the Odyssey's authored scenes. Explore its pitchers, bowls, lyres, looms and rooted bed. Operate their states and hear the inhabitants perform.">
 <style>
-:root{--paper:#f4f4f0;--ink:#181916;--line:#d1d0c7;--dim:#606259;--blue:#193dc7;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--ink);background:var(--paper);font-synthesis:none}
-*{box-sizing:border-box}body{margin:0}button,select,input,textarea{font:inherit;color:inherit}button,a,select,input{touch-action:manipulation}button,select{cursor:pointer}
-button{border:1px solid var(--line);background:transparent;padding:10px 13px;min-height:44px;border-radius:2px}button:hover{border-color:var(--ink)}button:disabled{opacity:.42;cursor:default}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:12px 22px;font-size:10px;letter-spacing:.14em;min-height:49px}header a{color:var(--ink)}header span{color:var(--dim)}
-main{display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:calc(100svh - 50px)}
-.world-side{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:24px;position:relative}
-.eyebrow{font-size:10px;letter-spacing:.18em;color:var(--dim)}h1{font:normal clamp(28px,4vw,62px)/1 Georgia,serif;letter-spacing:-.035em;margin:12px 0 4px}
-.sub{font:italic 16px/1.5 Georgia,serif;color:var(--dim);margin:0}
-.viewport{width:100%;min-width:0;position:relative;margin:8px 0}canvas{display:block;width:100%;aspect-ratio:3/2;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
-.caption{display:flex;gap:20px;justify-content:space-between;align-items:flex-start;font-size:11px;line-height:1.55;max-width:100%;border-top:1px solid var(--line);padding-top:12px}.caption p{margin:0;max-width:47ch}.caption a{white-space:nowrap}
-.transport{display:flex;gap:8px;align-items:center;margin-top:15px;font-size:11px}.transport label{display:flex;align-items:center;gap:10px;flex:1;color:var(--dim)}input[type=range]{width:100%;min-width:40px;accent-color:var(--ink);height:36px}
-aside{border-left:1px solid var(--line);padding:28px 24px;display:flex;flex-direction:column;justify-content:center;gap:22px}
-.passage-label{font-size:10px;letter-spacing:.12em;color:var(--dim);display:block;margin-bottom:8px}
-#passage{width:100%;font-size:12px;border:0;border-bottom:1px solid var(--line);background:transparent;min-height:44px}
-.score{display:grid;gap:19px}.line-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.line-head label{font-size:10px;letter-spacing:.13em;color:var(--dim)}
-.hold{font-size:10px;min-height:36px;padding:6px 8px;border-color:transparent;color:var(--dim)}
-.hold[aria-pressed=true]{color:var(--blue);border-color:var(--blue)}
-.score select{appearance:none;-webkit-appearance:none;display:block;width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;font-size:13px;line-height:1.4;min-height:42px;padding:8px 15px 8px 0;white-space:normal}
-.select-wrap{position:relative}.select-wrap:after{content:"⌄";position:absolute;right:1px;top:10px;pointer-events:none;color:var(--dim)}
-.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);flex:1}.cast-row{display:flex;gap:8px}
-#status{font-size:10px;line-height:1.55;color:var(--dim);min-height:32px;margin:0}.error{color:#a82516!important}
-.tools{display:flex;flex-wrap:wrap;gap:6px;font-size:10px}.tools button{padding:8px 10px}
-.credit{font-size:9px;line-height:1.7;color:var(--dim);margin:0}.credit a{color:inherit;text-decoration:underline}
-dialog{background:var(--paper);color:var(--ink);border:1px solid var(--ink);width:min(680px,94vw);max-height:86svh;padding:24px}dialog::backdrop{background:rgba(24,25,22,.45)}
-.dialog-top{display:flex;align-items:center;justify-content:space-between;gap:20px;position:sticky;top:-24px;background:var(--paper);padding:8px 0}
-dialog h2{font:normal 27px Georgia,serif}dialog h3{font-size:12px;margin-top:25px}dialog p{font-size:12px;line-height:1.8;white-space:pre-wrap}dialog details{border-top:1px solid var(--line);padding:14px 0;font-size:12px}dialog summary{cursor:pointer;min-height:30px}dialog pre{font:11px/1.7 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
-#shareUrl{width:100%;min-height:120px;font-size:12px;padding:10px}
-@media(min-width:1500px){.world-side{padding:35px 65px}aside{padding:32px}}
-@media(max-width:800px){
- header{padding:10px 14px}header span{display:none}
- main{display:flex;flex-direction:column;min-height:0}.world-side{padding:16px 14px 10px;justify-content:flex-start}
- .eyebrow{font-size:9px}h1{font-size:34px;margin-top:7px}.sub{font-size:14px}
- .viewport{margin:3px 0}.caption{font-size:10px;gap:10px;padding-top:8px}.caption p{max-width:29ch}
- .caption a{font-size:9px;white-space:normal;max-width:110px;text-align:right}
- .transport{margin-top:8px;gap:5px}.transport button{padding:8px 10px}
- aside{border-left:0;border-top:1px solid var(--line);padding:14px;gap:14px}
- .score{gap:6px}.line-head{min-height:26px}.hold{min-height:32px}
- .score select{font-size:12px;min-height:39px}.passage-label{display:none}#passage{font-size:11px}
- .tools{gap:6px}.credit{font-size:9px}.cast-row button{font-size:12px}
+:root{color-scheme:light;--paper:#f4f4f0;--ink:#181916;--dim:#62625c;--line:#d0cfc7;--blue:#173ec4;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--paper);color:var(--ink)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+body{height:100dvh;display:grid;grid-template-rows:48px minmax(0,1fr) 142px}
+button,select,input{font:inherit;color:inherit;touch-action:manipulation}button,select{cursor:pointer}
+button{background:var(--paper);border:1px solid var(--line);min-width:36px;min-height:40px;padding:6px 10px;border-radius:2px}
+button:hover{border-color:var(--ink)}button:disabled{opacity:.35;cursor:default}button[aria-pressed=true]{border-color:var(--blue);color:var(--blue)}
+a{color:var(--blue);text-decoration:none}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:1px}
+header{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding:4px 10px;min-width:0;font-size:11px}
+.home{width:36px;flex:none;text-align:center;color:var(--ink);font-size:19px}
+select{min-width:0;min-height:38px;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:5px 7px;font-size:11px}
+#book{width:95px;flex:none}#scene{flex:1}header button{min-height:38px;padding:4px 10px}
+#viewport{position:relative;min-width:0;min-height:0;overflow:hidden}
+#world{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.hud{position:absolute;top:16px;left:20px;right:20px;pointer-events:none;display:flex;gap:15px;justify-content:space-between;align-items:start}
+#eyebrow{font-size:9px;letter-spacing:.18em;background:rgba(244,244,240,.88);padding:3px 0}
+h1{font:normal clamp(18px,2.6vw,28px)/1.15 Georgia,serif;margin:4px 0 0;max-width:600px;overflow-wrap:anywhere;text-wrap:balance}
+.focusbar{display:flex;align-items:center;gap:5px;pointer-events:auto;flex:none}
+#stateLabel{font-size:9px;color:var(--dim)}#states{max-width:160px}#perform,#hear{font-size:10px;padding:5px 9px}
+.notice{position:absolute;bottom:9px;left:20px;right:20px;display:flex;align-items:center;gap:10px;pointer-events:none}
+#status{font-size:11px;line-height:1.45;max-width:78ch;margin:0;padding:4px 7px;background:rgba(244,244,240,.93);max-height:42px;overflow:hidden}
+.error{color:#a32617}#retry{pointer-events:auto;font-size:11px}
+footer{border-top:1px solid var(--line);padding:0 10px 5px;display:grid;grid-template-rows:46px minmax(0,1fr);min-width:0;min-height:0}
+.toolbar{display:flex;align-items:center;gap:7px;font-size:10px;min-width:0}
+.toolbar button{font-size:11px;white-space:nowrap}#cast{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.scrub{display:flex;align-items:center;gap:8px;min-width:45px;flex:1}#timeLabel{font-size:9px;color:var(--dim);white-space:nowrap}
+input[type=range]{width:100%;min-width:32px;height:38px;accent-color:var(--ink)}#clock{font-size:9px;min-width:68px;text-align:right;color:var(--dim)}
+.shelf{display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:8px;min-height:0;position:relative}
+.shelf>button{align-self:center;min-width:30px;padding:4px;height:40px}
+#rail{display:flex;gap:8px;min-width:0;min-height:0;justify-content:center;overflow:hidden}
+.object{display:flex;flex-direction:column;flex:1;min-width:0;max-width:180px;padding:2px 6px 3px;min-height:0;overflow:hidden;border-color:transparent}
+.object canvas{height:calc(100% - 25px);max-height:62px;min-height:20px;width:100%;object-fit:contain;pointer-events:none}
+.object span{font-size:9px;line-height:11px;height:22px;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#count{position:absolute;right:0;bottom:0;font-size:7px;color:var(--dim);pointer-events:none}
+dialog{position:fixed;inset:8px;width:calc(100% - 16px);height:calc(100dvh - 16px);max-width:920px;max-height:none;margin:auto;padding:14px;border:1px solid var(--ink);background:var(--paper);overflow:hidden}
+dialog[open]{display:grid;grid-template-rows:46px 42px minmax(0,1fr) 46px;gap:9px}
+dialog::backdrop{background:rgba(18,18,15,.65)}
+.sourcehead{display:flex;gap:7px;align-items:center;min-width:0}.sourcehead h2{font:normal 19px/1.15 Georgia,serif;flex:1;margin:0;max-height:44px;overflow:hidden}
+.sourcehead button,.tabs button,.pagination button{font-size:11px}
+.tabs{display:flex;gap:7px;align-items:center}.tabs button{flex:1}.tabs span{font-size:10px;color:var(--dim)}
+#sourceText{font:12px/19px ui-monospace,monospace;white-space:pre;overflow:hidden;margin:0;min-height:0;min-width:0;tab-size:2}
+.pagination{display:flex;align-items:center;justify-content:center;gap:12px;font-size:11px}.pagination #copySource{margin-left:auto}
+@media(max-width:600px){
+ body{grid-template-rows:44px minmax(0,1fr) 133px}
+ header{gap:4px;padding:3px 6px}header button{min-width:30px;padding:4px 6px}#book{width:72px;font-size:10px}#scene{font-size:9px;padding:4px}.home{width:24px}
+ .hud{left:12px;right:12px;top:11px;display:block}h1{font-size:21px;max-width:100%;line-height:1.15}
+ .focusbar{margin-top:8px;justify-content:flex-start}#states{max-width:155px;min-height:34px}.focusbar button{min-height:34px}
+ .notice{left:10px;right:10px;bottom:5px}#status{font-size:10px;max-height:36px}
+ footer{padding:0 6px 4px;grid-template-rows:44px minmax(0,1fr)}.toolbar{gap:4px}.toolbar button{font-size:10px;padding:5px 7px}
+ #timeLabel,#clock{display:none}.scrub{gap:0;min-width:38px}#room{max-width:82px;white-space:normal;line-height:12px}
+ .shelf{gap:3px;grid-template-columns:28px minmax(0,1fr) 28px}.shelf>button{min-width:28px;padding:2px}#rail{gap:3px}
+ .object{padding:2px}.object span{font-size:9px}.object canvas{max-height:58px}
+ dialog{padding:10px;grid-template-rows:44px 40px minmax(0,1fr) 44px}.sourcehead{gap:3px}.sourcehead button{padding:4px 7px;font-size:10px}.sourcehead h2{font-size:16px}
 }
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
-
-.score .select-wrap span{display:flex;align-items:center;min-height:44px;padding:8px 20px 8px 0;font-size:13px;line-height:1.5;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
-.score .select-wrap select{position:absolute;inset:0;width:100%;height:100%;opacity:0;z-index:1}
-.select-wrap:focus-within{outline:3px solid var(--blue);outline-offset:3px}
+@media(max-height:480px){
+ body{grid-template-rows:40px minmax(0,1fr) 96px}header{padding:1px 7px}header button,header select{min-height:34px}
+ footer{grid-template-rows:40px minmax(0,1fr)}.toolbar button{min-height:34px}.object canvas{height:29px;max-height:29px}.object span{height:12px;-webkit-line-clamp:1;font-size:8px}
+ .hud{top:7px;left:12px;display:flex}h1{font-size:18px}.focusbar{margin-top:0}#eyebrow{font-size:8px}.notice{bottom:2px}#status{font-size:9px;max-height:30px}
+}
 </style>
 </head>
-<body>
-<header><a href="./index.html">← ODYSSEY HALFWORLD</a><span>FOUR LINES / ONE POSSIBLE DWELLING</span><button id="sources" style="font-size:10px;min-height:32px;padding:5px 8px">Score → world</button></header>
-<main>
-<section class="world-side" aria-label="The constructed world">
-<div class="eyebrow">AFTER KNOWLES + TENNEY</div>
-<h1>House of Dust</h1>
-<p class="sub">Every home is a possible return.</p>
-<div class="viewport"><canvas id="world" width="900" height="600" aria-label="A halftone house composed from four lines."></canvas></div>
-<div class="caption"><p id="caption"></p><a id="booklink" href="./odyssey-stage.html">Open Odyssey scene ↗</a></div>
-<div class="transport"><button id="play" aria-pressed="true">Pause</button><label for="scatter">Scatter <input id="scatter" type="range" min="0" max="100" value="0" aria-label="Scatter the world into dust"></label><button id="restore">Return</button></div>
-</section>
-<aside aria-label="Compose the house">
-<div><label class="passage-label" for="passage">BEGIN WITH A PASSAGE</label><select id="passage" data-edit aria-label="Choose a passage preset; resets held lines"><option value="">A house between passages</option></select></div>
-<div class="score">
-<div><div class="line-head"><label for="material">A HOUSE OF</label><button id="materialHold" class="hold" data-edit aria-label="Hold material" aria-pressed="false">Hold</button></div><div class="select-wrap"><span id="materialText" aria-hidden="true"></span><select id="material" data-edit></select></div></div>
-<div><div class="line-head"><label for="site">PLACE</label><button id="siteHold" class="hold" data-edit aria-label="Hold place" aria-pressed="false">Hold</button></div><div class="select-wrap"><span id="siteText" aria-hidden="true"></span><select id="site" data-edit></select></div></div>
-<div><div class="line-head"><label for="light">USING</label><button id="lightHold" class="hold" data-edit aria-label="Hold light" aria-pressed="false">Hold</button></div><div class="select-wrap"><span id="lightText" aria-hidden="true"></span><select id="light" data-edit></select></div></div>
-<div><div class="line-head"><label for="inhabitants">INHABITED BY</label><button id="inhabitantsHold" class="hold" data-edit aria-label="Hold inhabitants" aria-pressed="false">Hold</button></div><div class="select-wrap"><span id="inhabitantsText" aria-hidden="true"></span><select id="inhabitants" data-edit></select></div></div>
-</div>
-<div class="cast-row"><button id="shuffle" class="primary" data-edit>Cast another house ↗</button><button id="undo" disabled>Undo</button></div>
-<p id="status" role="status" aria-live="polite">Opening the Odyssey atlas…</p><button id="retry" hidden>Retry atlas</button>
-<div class="tools"><button id="read">Read</button><button id="share">Copy link</button><button id="print">Save print</button><button id="saveScore">Save score</button></div>
-<p class="credit">Original Odyssey scores, after Alison Knowles + James Tenney's <a href="https://reframingthehouseofdust.com/about/" target="_blank" rel="noopener">House of Dust</a>.<br>Drawn with the Odyssey atlas. <a href="./house-of-dust-theory.md">Theory and construction notes ↗</a></p>
-</aside>
+<body data-ready="false">
+<header aria-label="Scene navigation">
+<a class="home" href="./index.html" aria-label="Odyssey Halfworld home">←</a>
+<select id="book" aria-label="Book" data-nav></select><select id="scene" aria-label="Scene" data-nav></select>
+<button id="scenePrev" aria-label="Previous scene" data-nav>‹</button><button id="sceneNext" aria-label="Next scene" data-nav>›</button>
+<button id="sources" aria-label="Score, prompts and source code">Source</button>
+</header>
+<main id="viewport" aria-label="Explore the scene">
+<canvas id="world" width="1120" height="760" aria-label="Odyssey scene. Drag to explore; tap an object to inspect. Arrow keys move the view."></canvas>
+<div class="hud"><div><span id="eyebrow">HOUSE OF DUST · ODYSSEY</span><h1 id="title">Opening the Odyssey</h1></div>
+<div class="focusbar"><label id="stateLabel" for="states" hidden>STATE</label><select id="states" aria-label="Object state or character emotion" hidden></select><button id="perform" hidden>Perform</button><button id="hear" hidden>Hear voice</button></div></div>
+<div class="notice"><p id="status" role="status" aria-live="polite">Opening the atlas…</p><button id="retry" hidden>Retry</button></div>
 </main>
-<dialog id="sourceDialog"><div class="dialog-top"><h2>How the words become a house</h2><button data-close="sourceDialog">Close</button></div><div id="sourceBody"></div></dialog>
-<dialog id="shareDialog"><div class="dialog-top"><h2>Your house, in a link</h2><button data-close="shareDialog">Close</button></div><p>Copy this address to reopen the same score.</p><textarea id="shareUrl" readonly aria-label="Shareable score URL"></textarea></dialog>
-<noscript><p>This drawing needs JavaScript. <a href="./index.html">Read the Odyssey Halfworld project.</a></p></noscript>
+<footer>
+<div class="toolbar"><button id="back">← Back</button><button id="play" aria-pressed="true">Pause</button>
+<label class="scrub"><span id="timeLabel">Scene time</span><input id="time" aria-label="Scene time or object transformation" type="range" min="0" max="1000" value="0"></label><span id="clock"></span>
+<button id="room">Whole scene</button><button id="cast" data-nav>Cast ↗</button></div>
+<div class="shelf" aria-label="Objects and inhabitants in this scene"><button id="railPrev" aria-label="Previous objects">‹</button><div id="rail"></div><button id="railNext" aria-label="More objects">›</button><span id="count"></span></div>
+</footer>
+<dialog id="source" aria-label="Score and source">
+<div class="sourcehead"><h2 id="sourceTitle">The scene's source</h2><button id="share">Link</button><button id="save">Print</button><button id="sourceClose">Close</button></div>
+<div class="tabs"><button data-tab="score">Score</button><button data-tab="prompt">Prompt</button><button data-tab="code">Code</button></div>
+<pre id="sourceText"></pre>
+<div class="pagination"><button id="sourcePrev" aria-label="Previous source page">‹</button><span id="pageNumber"></span><button id="sourceNext" aria-label="Next source page">›</button><button id="copySource">Copy text</button></div>
+</dialog>
+<audio id="audio" preload="none"></audio>
 <script type="module">
-
-const VERSION = "odyssey-dust/1";
-const FIELDS = ["material","site","light","inhabitants"];
-const BANK = {
- material: [
-  {label:"DUST", kind:"dust", note:"Loose grains collect in walls and drift around the threshold."},
-  {label:"ROOTED OLIVE WOOD", kind:"wood", note:"Grain follows the walls; roots continue below the dwelling."},
-  {label:"UNFINISHED WEAVING", kind:"weave", note:"Warp and weft form the walls; loose threads hang from the roof."},
-  {label:"SEA SALT", kind:"salt", note:"Pale angular crystals gather into a porous shell."},
-  {label:"CAVE STONE", kind:"stone", note:"Large irregular courses form a heavy enclosure."},
-  {label:"COLD ASH", kind:"ash", note:"Dark flakes and a broken roof describe an exhausted hearth."}
- ],
- site: [
-  {label:"AT THE GATE OF ITHACA",asset:"location.palace-dung-heap-and-gate",scene:"OD-B17-S03",book:17,note:"The gate where Argos recognizes the returning man."},
-  {label:"ON CALYPSO'S ISLAND",asset:"location.ogygia-cavern-and-grove",scene:"OD-B05-S03",book:5,note:"Shelter and captivity occupy the same island."},
-  {label:"BEFORE THE CYCLOPS' CAVE",asset:"location.polyphemuss-cave",scene:"OD-B09-S06",book:9,note:"A dwelling becomes a trap when its entrance is sealed."},
-  {label:"IN CIRCE'S FOREST",asset:"location.circes-forest-palace",scene:"OD-B10-S04",book:10,note:"The host changes the bodies of her guests."},
-  {label:"AT THE SHORE OF THE DEAD",asset:"location.cimmerian-shore-and-underworld-pit",scene:"OD-B11-S04",book:11,note:"A son reaches for a mother he cannot hold."},
-  {label:"IN THE SWINEHERD'S YARD",asset:"location.eumaeuss-pig-farm",scene:"OD-B14-S01",book:14,note:"A stranger finds shelter before his name is known."},
-  {label:"AROUND THE ROOTED BED",asset:"location.marriage-chamber",scene:"OD-B23-S04",book:23,note:"The construction of a bed becomes a test of identity."},
-  {label:"IN THE PHAEACIAN GARDEN",asset:"location.phaeacian-orchard-and-garden",scene:"OD-B07-S02",book:7,note:"Abundance surrounds a traveler who still wants to leave."},
-  {label:"BESIDE PENELOPE'S LOOM",asset:"location.upper-chamber-and-stair",scene:"OD-B02-S02",book:2,note:"A fabric delays a decision by being made and unmade."}
- ],
- light: [
-  {label:"THE LAST LIGHT BEFORE HOMECOMING",kind:"dusk",note:"A low disc and long diagonal shadows cross the floor."},
-  {label:"A FIRE KEPT FOR A STRANGER",kind:"hearth",note:"A flickering hearth opens a light pool inside the door."},
-  {label:"MOONLIGHT ON THE WATER",kind:"moon",note:"A crescent and broken reflections illuminate the field."},
-  {label:"DAWN HELD BACK",kind:"dawn",note:"A low sun remains at the horizon while its rays breathe."},
-  {label:"NO SUN AT ALL",kind:"underworld",note:"A darkened field leaves the doorway and figures as pale traces."}
- ],
- inhabitants: [
-  {label:"A MAN AND THE DOG WHO KNOWS HIM",assets:["character.odysseus-as-beggar","creature.argos"],note:"The beggar stands beside Argos at the threshold."},
-  {label:"A WOMAN AND THE MAN SHE TESTS",assets:["character.penelope","character.odysseus-restored"],note:"Penelope and Odysseus stand across an open threshold."},
-  {label:"A GODDESS AND A MAN WHO WANTS TO LEAVE",assets:["character.calypso","character.odysseus"],note:"Calypso remains near the house; Odysseus occupies its outer edge."},
-  {label:"A HOST AND HIS UNINVITED GUEST",assets:["character.polyphemus","character.odysseus"],note:"The giant occupies more of the frame than the visitor."},
-  {label:"A HOSTESS AND HER CHANGED GUESTS",assets:["character.circe","creature.crew-to-swine-variants"],note:"Circe stands above the transformed crew."},
-  {label:"A SON AND HIS MOTHER'S SHADE",assets:["character.odysseus","character.anticleias-shade"],note:"The mother's cutout is translucent; the figures remain separated."},
-  {label:"A SWINEHERD AND AN UNKNOWN KING",assets:["character.eumaeus","character.odysseus-as-beggar"],note:"The host and stranger stand at a shared scale."},
-  {label:"A SON AND A GODDESS IN DISGUISE",assets:["character.telemachus","character.athena-as-mentes"],note:"Telemachus and the disguised Athena meet outside the dwelling."}
- ]
-};
-const PRESETS = [
- {name:"XVII · The dog at the gate", values:[0,0,0,0]},
- {name:"V · A shelter that holds you", values:[3,1,2,2]},
- {name:"IX · The door is a stone", values:[4,2,1,3]},
- {name:"X · The changed guests", values:[2,3,1,4]},
- {name:"XI · Three failed embraces", values:[5,4,4,5]},
- {name:"XIV · A stranger is admitted", values:[0,5,1,6]},
- {name:"XXIII · The bed cannot move", values:[1,6,3,1]},
- {name:"VII · A garden for a guest", values:[3,7,3,7]},
- {name:"II · Made and unmade", values:[2,8,2,1]}
-];
-const clamp = (n,a,b)=>Math.max(a,Math.min(b,n));
-function validate(input) {
- if (!input || input.version!==VERSION || !Number.isInteger(input.seed) ||
-     input.seed<1 || input.seed>4294967295) throw Error("This score has an unsupported version or seed.");
- const values={}, holds={};
- for (const key of FIELDS) {
-  const n=input.values?.[key];
-  if (!Number.isInteger(n) || n<0 || n>=BANK[key].length) throw Error("Invalid score field: "+key);
-  values[key]=n; holds[key]=input.holds?.[key]===true;
- }
- return {version:VERSION,seed:input.seed,values,holds};
-}
-function fromPreset(index,seed=1731) {
- const p=PRESETS[index]; if(!p)throw Error("Unknown passage.");
- return validate({version:VERSION,seed,values:Object.fromEntries(FIELDS.map((k,i)=>[k,p.values[i]]))});
-}
-function rng(seed) {let s=seed>>>0;return ()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};}
-function permute(input) {
- const out=validate(input), r=rng(out.seed);
- for (const key of FIELDS) if(!out.holds[key]) {
-  // Pick a different entry, so a cast always changes each unheld line.
-  out.values[key]=(out.values[key]+1+Math.floor(r()*(BANK[key].length-1)))%BANK[key].length;
- }
- out.seed=Math.max(1,Math.floor(r()*4294967296)); return validate(out);
-}
-function choices(s){return Object.fromEntries(FIELDS.map(k=>[k,BANK[k][s.values[k]]]));}
-function lines(s){const c=choices(s);return ["A HOUSE OF "+c.material.label,c.site.label,"USING "+c.light.label,"INHABITED BY "+c.inhabitants.label];}
-function assetIds(s){const c=choices(s);return [c.site.asset,...c.inhabitants.assets];}
-function encode(s){const v=validate(s);return "#dust="+encodeURIComponent(JSON.stringify(v));}
-function decode(hash){if(!hash.startsWith("#dust=")||hash.length>2500)throw Error("Invalid score link.");return validate(JSON.parse(decodeURIComponent(hash.slice(6))));}
-
-const $=id=>document.getElementById(id);
+const $=id=>document.getElementById(id), SW=1120,SH=760;
 const cv=$("world"),g=cv.getContext("2d");
-const off=document.createElement("canvas");off.width=900;off.height=600;
-const og=off.getContext("2d",{willReadFrequently:true});
-let E=null,manifest=null,entries=new Map(),moduleCache=new Map(),active=null;
-let score=fromPreset(0),history=[],loading=false,request=0,error=null;
-let T=0,playing=!matchMedia("(prefers-reduced-motion: reduce)").matches;
-let scatter=0,wind={x:.6,y:.4,down:false},dirty=true,last=0,lastComposite=-1,points=[];
-let speech=null;
-try {
- if(location.hash) score=decode(location.hash);
- else {const saved=localStorage.getItem(VERSION);if(saved)score=validate(JSON.parse(saved));}
-} catch(e) {error="The saved score could not be read. Starting at Ithaca."; }
-function status(message,bad=false){$("status").textContent=message;$("status").classList.toggle("error",bad);}
-function persist(){try{localStorage.setItem(VERSION,JSON.stringify(score));}catch{}}
-function setBusy(b){loading=b;document.querySelectorAll("[data-edit]").forEach(el=>el.disabled=b);$("undo").disabled=b||!history.length;}
-function option(text,value){const o=document.createElement("option");o.value=value;o.textContent=text;return o;}
-FIELDS.forEach(key=>{
- const select=$(key);BANK[key].forEach((v,i)=>select.append(option(v.label,i)));
- select.onchange=()=>{const next=validate(score);next.values[key]=+select.value;apply(next);};
- const hold=$(key+"Hold");
- hold.onclick=()=>{score.holds[key]=!score.holds[key];sync();persist();};
-});
-PRESETS.forEach((p,i)=>$("passage").append(option(p.name,i)));
-$("passage").onchange=()=>{if($("passage").value!=="")apply(fromPreset(+$("passage").value,score.seed));};
+const field=document.createElement("canvas");field.width=SW;field.height=SH;
+const fg=field.getContext("2d",{willReadFrequently:true});
+const work=document.createElement("canvas"),wg=work.getContext("2d",{willReadFrequently:true});
+const PAPER="#f4f4f0", KEY="odyssey-dust-explore/2";
+const canonical=id=>String(id).replace(/^([^.]+)\./,(_,p)=>p.toLowerCase().replace(/_/g,"-")+".");
+let E,MF,byId,active=null,selected=null,objects=[],modules=new Map(),busy=false,loadToken=0;
+let T=0,playing=!matchMedia("(prefers-reduced-motion: reduce)").matches,dirty=true,last=0,lastDraw=-1;
+let camera={x:SW/2,y:SH/2,zoom:1},hits=[],traceHits=[],canvasOwners=new WeakMap();
+let stateIndex=0,blend=0,railPage=0,railSize=4,performing=false,artifacts=null,artifact=null;
+let objectToken=0, PERF=null, voiceEnd=Infinity;
+const au=$("audio");
+let errorText="",sourceTab="score",sourcePage=0,sourceRaw="",sourcePages=[],sourceToken=0;
+let activePointer=null,drag=null,ignoreTap=false,history=[];
+const SPECIAL={
+ "prop.laertess-shroud-and-loom":"shroud","prop.olive-tree-marriage-bed":"bed",
+ "prop.odysseuss-bow":"bow","prop.olivewood-stake":"stake",
+ "prop.bag-of-winds":"winds","prop.elpenors-oar":"oar","creature.argos":"argos",
+ "creature.crew-to-swine-variants":"swine","creature.gold-and-silver-guardian-dogs":"goldenDogs"
+};
+const NOTES={
+ "prop.golden-pitcher-and-silver-basin":"Hospitality begins with water. Carry the pitcher, pour, and wash.",
+ "prop.cheese-racks-and-milk-vessels":"The cave is already a household: milk, vessels, racks, and a place to store food.",
+ "prop.helens-mixing-bowl":"A bowl changes the telling. Explore the vessel and its authored states.",
+ "prop.olive-tree-marriage-bed":"A living tree remains inside the bed. Its construction becomes evidence.",
+ "prop.laertess-shroud-and-loom":"Made by day, unmade by night. Move through the loom's states.",
+ "prop.foot-washing-basin":"Washing exposes the scar that a disguise cannot conceal.",
+ "prop.cave-blocking-stone":"The entrance closes. A household becomes a trap.",
+ "prop.odysseuss-bow":"A familiar object tests an unfamiliar man."
+};
+const START="OD-B01-S04";
+function say(text,bad=false){$("status").textContent=text;$("status").classList.toggle("error",bad);errorText=bad?text:"";}
+function option(label,value){const e=document.createElement("option");e.value=value;e.textContent=label;return e;}
+function limit(x,a,b){return Math.max(a,Math.min(b,x));}
+function delay(p){let id;return Promise.race([p,new Promise((_,reject)=>id=setTimeout(()=>reject(Error("Atlas loading timed out.")),20000))]).finally(()=>clearTimeout(id));}
+function setBusy(value){busy=value;document.querySelectorAll("[data-nav]").forEach(e=>e.disabled=value);$("retry").hidden=!errorText;sync();}
+function assetEntry(id){return byId.get(canonical(id));}
+async function getModule(id){
+ id=canonical(id);if(modules.has(id))return modules.get(id);
+ const entry=assetEntry(id);if(!entry)throw Error("Unknown atlas asset: "+id);
+ const promise=delay(import("./"+entry.path.replace(/^\/+/,""))).then(m=>{
+  const mod=m.default||m.asset;if(typeof mod?.draw!=="function")throw Error("Cannot draw "+id);
+  // Track the actual source canvases, so hit targets follow authored placement.
+  const draw=mod.draw;
+  mod.draw=function(ctx,...args){canvasOwners.set(ctx.canvas,id);return draw.call(this,ctx,...args);};
+  return mod;
+ }).catch(e=>{modules.delete(id);throw e;});
+ modules.set(id,promise);return promise;
+}
+const originalDrawImage=fg.drawImage.bind(fg);
+fg.drawImage=function(source,...args){
+ const id=canvasOwners.get(source);
+ if(id){
+  const d=args.length===8?args.slice(4):args.length===4?args:[args[0],args[1],source.width,source.height];
+  const [x,y,w,h]=d,m=fg.getTransform();
+  if([x,y,w,h].every(Number.isFinite)){
+   const corners=[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(([a,b])=>({x:m.a*a+m.c*b+m.e,y:m.b*a+m.d*b+m.f}));
+   traceHits.push({id,x:Math.min(...corners.map(p=>p.x)),y:Math.min(...corners.map(p=>p.y)),w:Math.max(...corners.map(p=>p.x))-Math.min(...corners.map(p=>p.x)),h:Math.max(...corners.map(p=>p.y))-Math.min(...corners.map(p=>p.y))});
+  }
+ }
+ return originalDrawImage(source,...args);
+};
+function sceneItems(entry,mod){
+ const ids=[...new Set([...(mod.cast||[]).map(c=>canonical(c.asset)),...(entry.assets||[]).map(canonical)])];
+ return ids.filter(id=>assetEntry(id));
+}
+function readLink(){
+ const p=new URLSearchParams(location.hash.slice(1));
+ if(p.has("dust")){
+  try{const old=JSON.parse(p.get("dust"));const map=["OD-B17-S03","OD-B05-S03","OD-B09-S06","OD-B10-S04","OD-B11-S04","OD-B14-S01","OD-B23-S04","OD-B07-S02","OD-B02-S02"];return {scene:map[old.values?.site]||START};}catch{return {scene:START};}
+ }
+ return {scene:p.get("scene")||START,object:p.get("object"),state:p.get("state"),time:Number(p.get("t")||0)};
+}
+function writeLink(){
+ if(!active)return;
+ const p=new URLSearchParams({scene:active.entry.id});
+ if(selected){p.set("object",selected.id);p.set("state",selected.nodes[stateIndex]?.key||"preview");}
+ p.set("t",String(Math.round(T*10)/10));
+ try{window.history.replaceState(null,"","#"+p);localStorage.setItem(KEY,JSON.stringify({scene:active.entry.id}));}catch{}
+}
+function sortedObjects(ids){
+ const rank=t=>/prop|set_piece/.test(t)?0:/vehicle|creature/.test(t)?1:/character/.test(t)?2:3;
+ return ids.map(id=>assetEntry(id)).filter(a=>a.type!=="location").sort((a,b)=>rank(a.type)-rank(b.type));
+}
+async function openScene(id,{object=null,state=null,time=0,push=true}={}){
+ if(!MF)return;const entry=MF.scenes.find(s=>s.id===id);if(!entry){say("This scene is not in the atlas.",true);return;}
+ const token=++loadToken;objectToken++;au.pause();setBusy(true);say("Opening "+entry.title.toLowerCase()+"…");
+ try{
+  const imported=await delay(import("./"+entry.path.replace(/^\/+/,"")));
+  const mod=imported.default||imported.scene;
+  if(typeof mod?.stage!=="function")throw Error("Scene has no authored stage.");
+  const ids=sceneItems(entry,mod);
+  await Promise.all(ids.map(getModule));
+  let locationId=ids.find(id=>assetEntry(id)?.type==="location"),context=null;
+  if(!locationId){
+   const earlier=MF.scenes.filter(s=>s.book===entry.book&&s.id<entry.id).reverse();
+   locationId=earlier.flatMap(s=>s.assets||[]).map(canonical).find(id=>assetEntry(id)?.type==="location");
+   if(!locationId&&entry.book===1)locationId="location.odysseuss-palace-threshold-and-hall";
+   if(locationId)context=await getModule(locationId);
+  }
+  if(token!==loadToken)return;
+  const candidate={entry,mod,ids,locationId,context,duration:Math.max(1,mod.duration||30)};
+  // Stage into a temporary field before replacing the active scene.
+  const test=document.createElement("canvas");test.width=SW;test.height=SH;
+  const tg=test.getContext("2d");tg.fillStyle=PAPER;tg.fillRect(0,0,SW,SH);
+  if(context)context.draw(tg,SW,SH,{...(context.preview?.()||{}),t:0,card:false});
+  mod.stage(tg,SW,SH,limit(time,0,candidate.duration));
+  if(push&&active)history.push({scene:active.entry.id,object:selected?.id,time:T});
+  active=candidate;objects=sortedObjects(ids);selected=null;performing=false;artifact=null;
+  T=limit(Number.isFinite(time)?time:0,0,active.duration);railPage=0;camera={x:SW/2,y:SH/2,zoom:1};lastDraw=-1;
+  rebuildScenes();buildRail();sync();renderScene();
+  if(object&&objects.some(a=>a.id===canonical(object)))await selectObject(canonical(object),state);
+  else say("Drag to explore. Tap a thing, or choose one below.");
+  dirty=true;writeLink();
+ }catch(e){if(token===loadToken)say(e.message+" Your previous scene is still available.",true);}
+ finally{if(token===loadToken)setBusy(false);}
+}
+function rebuildScenes(){
+ $("book").value=String(active.entry.book);$("scene").replaceChildren();
+ for(const s of MF.scenes.filter(s=>s.book===active.entry.book))$("scene").append(option(s.title,s.id));
+ $("scene").value=active.entry.id;
+}
+function currentState(){
+ if(!selected)return {};
+ const nodes=selected.nodes, a=nodes[stateIndex]?.prev()||selected.mod.preview?.()||{},b=nodes[Math.min(nodes.length-1,stateIndex+1)]?.prev()||a;
+ const s={...a};
+ for(const key of new Set([...Object.keys(a),...Object.keys(b)])){
+  if(typeof a[key]==="number"&&typeof b[key]==="number")s[key]=a[key]+(b[key]-a[key])*blend;
+  else if(blend>.5)s[key]=b[key]??a[key];
+ }
+ return {...s,t:T,card:false};
+}
+async function selectObject(id,state=null){
+ const a=objects.find(a=>a.id===id);if(!a)return;
+ const token=++objectToken;au.pause();
+ const mod=await getModule(id);if(token!==objectToken)return;
+ selected={...a,mod,nodes:E.normStateNodes(mod)};
+ if(a.type==="character"){
+  try{await loadPerformers();if(token!==objectToken)return;
+   const face=faceFor(a.id);if(face){selected.face=face;selected.nodes=[{key:"directed",prev:()=>PERF.DIR.beatEmotion(active.entry.id)||{}},...Object.entries(PERF.DIR.EMOTIONS).map(([key,value])=>({key,prev:()=>({...value})}))];}
+  }catch(e){say("Face performance unavailable; showing the atlas figure.",true);}
+ }
+ if(!selected.nodes.length)selected.nodes=[{key:"preview",prev:()=>mod.preview?.()||{}}];
+ stateIndex=Math.max(0,selected.nodes.findIndex(n=>n.key===state));blend=0;performing=false;artifact=null;
+ $("states").replaceChildren(...selected.nodes.map((n,i)=>option(n.key.replace(/[_-]/g," "),i)));
+ $("states").value=String(stateIndex);$("time").value=0;
+ railPage=Math.floor(objects.findIndex(a=>a.id===id)/railSize);
+ buildRail();sync();dirty=true;writeLink();
+ say(NOTES[id]||"Explore the original drawing and its "+selected.nodes.length+" authored state"+(selected.nodes.length===1?"":"s")+".");
+}
+function returnScene(){au.pause();objectToken++;T=limit(T,0,active.duration);selected=null;performing=false;artifact=null;blend=0;sync();buildRail();dirty=true;writeLink();say("Drag to explore. Tap a thing, or choose one below.");}
 function sync(){
- for(const key of FIELDS){
-  $(key).value=score.values[key];
-  $(key+"Text").textContent=BANK[key][score.values[key]].label;
-  $(key+"Hold").setAttribute("aria-pressed",String(score.holds[key]));
-  $(key+"Hold").textContent=score.holds[key]?"Held":"Hold";
- }
- const ix=PRESETS.findIndex(p=>p.values.every((v,i)=>score.values[FIELDS[i]]===v));
- $("passage").value=ix<0?"":String(ix);
- $("shuffle").disabled=loading||FIELDS.every(k=>score.holds[k]);
- $("undo").disabled=loading||!history.length;
- $("play").textContent=playing?"Pause":"Play";
- $("play").setAttribute("aria-pressed",String(playing));
- const c=choices(score);
- $("caption").textContent=c.site.note;
- $("booklink").textContent="Book "+c.site.book+" · open scene ↗";
- $("booklink").href="./odyssey-stage.html#"+c.site.scene;
- $("world").setAttribute("aria-label",lines(score).join(". ")+". Drag to scatter the printed world.");
- $("read").disabled=!("speechSynthesis" in window)||loading;
+ document.body.dataset.ready=String(!!active&&!busy);document.body.dataset.scene=active?.entry.id||"";document.body.dataset.object=selected?.id||"";document.body.dataset.face=selected?.face||"";document.body.dataset.performing=String(performing);
+ $("back").disabled=busy||(!selected&&!history.length);
+ $("back").textContent=selected?"← Scene":"← Back";
+ $("title").textContent=selected?selected.name:(active?.entry.title||"Opening the Odyssey");
+ $("eyebrow").textContent=selected?selected.type.replace(/_/g," ").toUpperCase()+" · BOOK "+active.entry.book:"HOUSE OF DUST · ODYSSEY";
+ $("states").hidden=!selected;$("stateLabel").hidden=!selected;
+ $("timeLabel").textContent=selected?(performing?"Performance":"Transform"):"Scene time";
+ $("time").disabled=busy||!!selected&&!performing&&selected.nodes.length<2;
+ $("clock").textContent=selected?(performing?"":selected.nodes[stateIndex]?.key||""):(Math.floor(T)+" / "+Math.floor(active?.duration||0)+"s");
+ $("play").textContent=playing?"Pause":"Play";$("play").setAttribute("aria-pressed",String(playing));
+ $("room").hidden=!!selected;$("room").textContent=camera.zoom===0?"Fill screen":"Whole scene";
+ $("hear").hidden=!selected?.face||!PERF?.voice[active?.entry.id];
+ $("hear").textContent=au.paused?"Hear voice":"Stop voice";
+ $("perform").hidden=!selected||!SPECIAL[selected.id];$("perform").textContent=performing?"Atlas drawing":"Perform";
+ $("scenePrev").disabled=busy||!active||MF.scenes.indexOf(active.entry)===0;
+ $("sceneNext").disabled=busy||!active||MF.scenes.indexOf(active.entry)===MF.scenes.length-1;
+ $("railPrev").disabled=busy||railPage===0;$("railNext").disabled=busy||(railPage+1)*railSize>=objects.length;
+ $("count").textContent=objects.length?Math.min(objects.length,railPage*railSize+1)+"–"+Math.min(objects.length,(railPage+1)*railSize)+" / "+objects.length:"";
+ $("retry").hidden=!errorText;
 }
-function timeout(p,ms=18000){let id;return Promise.race([p,new Promise((_,no)=>{id=setTimeout(()=>no(Error("The atlas took too long to load.")),ms);})]).finally(()=>clearTimeout(id));}
-async function loadModule(id){
- const a=entries.get(id);if(!a)throw Error("Asset absent from the atlas: "+id);
- if(!moduleCache.has(id)){
-  const promise=timeout(import("./"+a.path.replace(/^\/+/,""))).then(m=>{
-   const mod=m.default||m.asset;
-   if(typeof mod?.draw!=="function")throw Error("Asset cannot draw: "+id);
-   return mod;
-  }).catch(e=>{moduleCache.delete(id);throw e;});
-  moduleCache.set(id,promise);
- }
- return moduleCache.get(id);
-}
-function cutouts(mod){
- const nodes=E.normStateNodes(mod).slice(0,3);
- const states=nodes.length?nodes.map(n=>n.prev()):[mod.preview?.()||{}];
- return states.map((state,i)=>E.inkCutout(mod,{...state,t:i*.6,card:false},"dust-"+i));
-}
-async function build(next) {
- const ids=assetIds(next),mods=await Promise.all(ids.map(loadModule));
- const background=document.createElement("canvas");background.width=900;background.height=600;
- const bg=background.getContext("2d");bg.fillStyle=E.PAPER;bg.fillRect(0,0,900,600);
- mods[0].draw(bg,900,600,{...(mods[0].preview?.()||{}),t:0,card:false});
- return {background,actors:mods.slice(1).map((mod,i)=>({id:ids[i+1],cuts:cutouts(mod)}))};
-}
-async function apply(next,push=true) {
- if(!manifest||!E)return;
- const token=++request;setBusy(true);status("Composing the house…");
- try {
-  const candidate=validate(next),loaded=await build(candidate);
-  if(token!==request)return;
-  if(push){history.push(validate(score));if(history.length>40)history.shift();}
-  score=candidate;active=loaded;T=0;scatter=0;$("scatter").value=0;
-  lastComposite=-1;dirty=true;error=null;
-  if("speechSynthesis" in window)speechSynthesis.cancel();
-  $("read").textContent="Read";
-  persist();try{window.history.replaceState(null,"",encode(score));}catch{}
-  status("Drag the dust. Change a line. Hold what you want to keep.");
- }catch(e){if(token!==request)return;error=e.message;status(error+" Your previous house is still here.",true);}
- finally {if(token===request){setBusy(false);sync();$("retry").hidden=!error;}}
-}
-$("shuffle").onclick=()=>apply(permute(score));
-$("undo").onclick=async()=>{if(!history.length)return;const old=history.pop();await apply(old,false);if(error)history.push(old);sync();};
-$("play").onclick=()=>{playing=!playing;last=0;dirty=true;sync();};
-$("scatter").oninput=e=>{scatter=+e.target.value/100;dirty=true;};
-$("restore").onclick=()=>{scatter=0;$("scatter").value=0;wind.down=false;dirty=true;};
-$("read").onclick=()=>{
- if(!("speechSynthesis" in window))return;
- if(speechSynthesis.speaking){speechSynthesis.cancel();$("read").textContent="Read";return;}
- speech=new SpeechSynthesisUtterance(lines(score).join(".\n"));speech.rate=.8;
- $("read").textContent="Stop voice";
- speech.onend=speech.onerror=()=>{$("read").textContent="Read";};
- speechSynthesis.speak(speech);
-};
-function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);}
-$("share").onclick=async()=>{
- const url=new URL(location.href);url.hash=encode(score).slice(1);
- try{await navigator.clipboard.writeText(url.href);status("Link copied. It preserves all four lines and held choices.");}
- catch{$("shareUrl").value=url.href;$("shareDialog").showModal();$("shareUrl").select();}
-};
-$("saveScore").onclick=()=>download(new Blob([JSON.stringify({score,poem:lines(score),interpretation:choices(score),assets:assetIds(score),source:"https://hartswf0.github.io/odyssey-halfworld/"},null,2)],{type:"application/json"}),"odyssey-house-of-dust.json");
-$("print").onclick=()=>{
- const out=document.createElement("canvas");out.width=1200;out.height=1060;
- const p=out.getContext("2d");p.fillStyle="#f4f4f0";p.fillRect(0,0,out.width,out.height);
- p.drawImage(cv,40,40,1120,747);p.fillStyle="#141414";p.font="bold 19px monospace";
- lines(score).forEach((line,i)=>p.fillText(line,50,833+i*32));
- p.font="12px monospace";p.fillText("HOUSE OF DUST / ODYSSEY HALFWORLD · ORIGINAL ADAPTATION AFTER KNOWLES + TENNEY",50,1015);
- out.toBlob(blob=>{if(blob)download(blob,"odyssey-house-of-dust.png");else status("The print could not be saved.",true);},"image/png");
-};
-function sourcePanel(){
- const body=$("sourceBody");body.replaceChildren();
- const intro=document.createElement("p");intro.textContent="An original Odyssey adaptation of Alison Knowles and James Tenney's House of Dust. These lines are new scores, not quotations from Homer. The visual translations below are authored rules; no language model is called.";body.append(intro);
- const c=choices(score);
- FIELDS.forEach((key,i)=>{const h=document.createElement("h3");h.textContent=lines(score)[i];const p=document.createElement("p");p.textContent=c[key].note;body.append(h,p);});
- const lim=document.createElement("p");lim.textContent="Figures cycle through cached atlas poses and move with a small breathing sway. The scene does not simulate recognition, hospitality, choice, or structural physics.";body.append(lim);
- for(const id of assetIds(score)){
-  const a=entries.get(id);if(!a)continue;
-  const details=document.createElement("details"),summary=document.createElement("summary"),pre=document.createElement("pre"),link=document.createElement("a");
-  summary.textContent=a.name||id;pre.textContent=a.prompt||"No generation prompt recorded in this asset.";
-  link.href="https://github.com/hartswf0/odyssey-halfworld/blob/main/"+a.path.replace(/^\/+/,"");link.textContent="Drawing module ↗";link.target="_blank";link.rel="noopener";
-  details.append(summary,pre,link);body.append(details);
- }
- const s=manifest?.scenes.find(s=>s.id===c.site.scene);
- if(s){const h=document.createElement("h3");h.textContent=s.id+" · "+s.title;body.append(h);
- const p=document.createElement("p");p.textContent=(s.beats||[]).map(b=>typeof b==="string"?b:JSON.stringify(b)).join("\n");body.append(p);}
-}
-$("sources").onclick=()=>{sourcePanel();$("sourceDialog").showModal();};
-document.querySelectorAll("[data-close]").forEach(el=>el.onclick=()=>$(el.dataset.close).close());
-cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId);wind.down=true;move(e);});
-function move(e){const r=cv.getBoundingClientRect();wind.x=clamp((e.clientX-r.left)/r.width,0,1);wind.y=clamp((e.clientY-r.top)/r.height,0,1);dirty=true;}
-cv.addEventListener("pointermove",move);
-for(const event of ["pointerup","pointercancel","lostpointercapture"])cv.addEventListener(event,()=>{wind.down=false;dirty=true;});
-addEventListener("hashchange",()=>{try{const next=decode(location.hash);apply(next);}catch(e){status(e.message,true);}});
-document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden&&"speechSynthesis" in window){speechSynthesis.cancel();$("read").textContent="Read";}});
-const ro=new ResizeObserver(()=>{const r=cv.getBoundingClientRect();const width=Math.min(1400,Math.max(540,Math.round(r.width*Math.min(1.5,devicePixelRatio||1))));cv.width=width;cv.height=Math.round(width*2/3);dirty=true;});ro.observe(cv);
-
-// Every asset is composed in continuous tone. One batched lattice prints the whole field.
-function polygon(ctx,points,fill){
- ctx.beginPath();points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();
- if(fill){ctx.fillStyle=fill;ctx.fill();}ctx.strokeStyle="#292924";ctx.lineWidth=3;ctx.stroke();
-}
-function shell(c,t){
- const mat=c.material.kind,r=rng(score.seed),ctx=og;
- const walls=[[250,250],[540,250],[540,490],[250,490]];
- const roof=[[220,250],[400,128],[565,250]];
- const side=[[540,250],[650,190],[650,426],[540,490]];
- ctx.save();ctx.fillStyle="#b8b7af";ctx.beginPath();ctx.ellipse(464,498,242,30,0,0,Math.PI*2);ctx.fill();
- polygon(ctx,side,mat==="ash"?"#8c8b85":"#c2c0b6");
- polygon(ctx,[[400,128],[507,86],[650,190],[565,250]],"#d1cfc4");
- polygon(ctx,roof,mat==="weave"?"#e6e1d3":"#d7d5ca");
- // An even-odd wall leaves the doorway genuinely open to the chosen location.
- ctx.beginPath();walls.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();
- ctx.rect(358,326,92,164);ctx.fillStyle=mat==="ash"?"#a6a39b":mat==="salt"?"#eeece3":"#dbd7ca";ctx.fill("evenodd");
- ctx.strokeStyle="#292924";ctx.lineWidth=4;ctx.stroke();
- ctx.save();ctx.clip("evenodd");
- if(mat==="stone"){
-  for(let y=264;y<510;y+=38){ctx.beginPath();ctx.moveTo(235,y);ctx.lineTo(555,y);ctx.stroke();
-   for(let x=240+((y-264)/38%2)*32;x<565;x+=67){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+8,y+38);ctx.stroke();}}
- }else if(mat==="wood"){
-  ctx.lineWidth=2;for(let x=250;x<550;x+=12){ctx.beginPath();for(let y=245;y<500;y+=5){const xx=x+Math.sin(y*.025+x)*5;y===245?ctx.moveTo(xx,y):ctx.lineTo(xx,y);}ctx.stroke();}
- }else if(mat==="weave"){
-  ctx.lineWidth=3;for(let x=250;x<550;x+=13){ctx.beginPath();ctx.moveTo(x,245);ctx.lineTo(x+Math.sin(t*.3+x)*4,505);ctx.stroke();}
-  ctx.strokeStyle="#959185";for(let y=260;y<500;y+=12){ctx.beginPath();ctx.moveTo(245,y);ctx.lineTo(550,y);ctx.stroke();}
- }else {
-  ctx.lineWidth=1;for(let i=0;i<700;i++){const x=245+r()*315,y=245+r()*260,size=mat==="salt"?3+r()*7:1+r()*3;ctx.fillStyle=mat==="ash"?"#5b5853":"#aaa69b";
-   if(mat==="salt"){ctx.beginPath();ctx.moveTo(x,y-size);ctx.lineTo(x+size,y+size);ctx.lineTo(x-size,y+size);ctx.closePath();ctx.fill();}
-   else ctx.fillRect(x,y,size,size);}
- }
- ctx.restore();
- if(mat==="wood"){
-  ctx.lineWidth=5;ctx.strokeStyle="#625f53";
-  for(let i=0;i<9;i++){ctx.beginPath();ctx.moveTo(265+i*30,483);ctx.bezierCurveTo(270+i*30,510,200+i*44,508,194+i*50,543);ctx.stroke();}
- }
- if(mat==="weave"){ctx.lineWidth=2;for(let i=0;i<22;i++){const x=243+i*14;ctx.beginPath();ctx.moveTo(x,240);ctx.quadraticCurveTo(x+Math.sin(t+i)*8,270,x-5,290+r()*35);ctx.stroke();}}
- // Dust and ash collect outside the outline and remain part of the same print.
- if(mat==="dust"||mat==="ash"){
-  ctx.fillStyle=mat==="dust"?"#868278":"#66625b";
-  for(let i=0;i<400;i++){const x=230+r()*460,y=480+r()*Math.max(8,65-Math.abs(x-455)*.16);
-   ctx.fillRect(x+Math.sin(t*.4+i)*3,y,2+r()*3,2+r()*2);}
- }
- ctx.restore();
-}
-function light(c,t){
- const k=c.light.kind;
- og.save();
- if(k==="hearth"){
-  og.fillStyle="rgba(15,15,23,.20)";og.fillRect(0,0,900,600);
-  const rad=55+Math.sin(t*4)*3;
-  const gr=og.createRadialGradient(404,450,4,404,450,rad*2.2);gr.addColorStop(0,"rgba(255,251,229,.85)");gr.addColorStop(1,"rgba(255,251,229,0)");
-  og.fillStyle=gr;og.fillRect(250,285,320,260);
-  polygon(og,[[385,477],[405,425+Math.sin(t*6)*6],[425,477]],"#fcf9e9");
- }else if(k==="underworld"){
-  og.fillStyle="rgba(17,21,28,.38)";og.fillRect(0,0,900,600);
-  og.fillStyle="rgba(249,248,238,.35)";og.fillRect(361,328,86,159);
- }else if(k==="moon"){
-  og.fillStyle="rgba(35,39,55,.20)";og.fillRect(0,0,900,600);
-  og.fillStyle="#fdfdf2";og.beginPath();og.arc(730,90,30,.3,5.1);og.quadraticCurveTo(719,92,759,98);og.fill();
-  og.fillStyle="rgba(246,246,231,.7)";for(let i=0;i<9;i++)og.fillRect(672-i*5+Math.sin(t+i)*3,420+i*12,100+i*10,3);
- }else{
-  const dawn=k==="dawn";og.fillStyle=dawn?"#f8f6e8":"#bebbb0";og.beginPath();og.arc(dawn?150:738,dawn?258:165,dawn?47:37,0,7);og.fill();
-  og.strokeStyle=dawn?"rgba(255,253,237,.5)":"rgba(50,47,40,.15)";og.lineWidth=11;
-  for(let i=0;i<7;i++){og.beginPath();og.moveTo(dawn?150:738,dawn?258:165);og.lineTo(80+i*135,590);og.stroke();}
- }
- og.restore();
-}
-function compose(){
- const c=choices(score);og.setTransform(1,0,0,1,0,0);og.fillStyle="#f4f4f0";og.fillRect(0,0,900,600);
- if(active){og.drawImage(active.background,0,0);og.fillStyle="rgba(244,244,240,.53)";og.fillRect(0,0,900,600);}
- else{og.strokeStyle="#a6a59b";og.lineWidth=2;og.beginPath();og.moveTo(0,445);og.bezierCurveTo(250,410,650,480,900,420);og.stroke();}
- shell(c,T);light(c,T);
- active?.actors.forEach((actor,i)=>{
-  const giant=actor.id.includes("polyphemus"),animal=actor.id.startsWith("creature.");
-  const cut=actor.cuts[Math.floor(T/6)%actor.cuts.length];
-  const h=giant?292:animal?90:180,w=h*cut.ar;
-  const x=i===0?315:594,y=510+Math.sin(T*1.2+i)*1.6;
-  og.save();og.fillStyle="rgba(35,34,30,.14)";og.beginPath();og.ellipse(x,y+4,w*.31,8,0,0,7);og.fill();
-  if(actor.id.includes("shade"))og.globalAlpha=.45;
-  const dw=Math.min(w,giant?265:230),dh=dw/cut.ar;
-  og.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,x-dw/2,y-dh,dw,dh);og.restore();
- });
- const pixels=og.getImageData(0,0,900,600).data,cell=4.5;
- points=[];
- for(let y=cell/2;y<600;y+=cell)for(let x=cell/2;x<900;x+=cell){
-  const j=(Math.floor(y)*900+Math.floor(x))*4;
-  const d=1-(pixels[j]*.299+pixels[j+1]*.587+pixels[j+2]*.114)/255;
-  if(d<.10)continue;
-  const h=Math.sin(x*12.9898+y*78.233+score.seed*.001)*43758.5453,n=h-Math.floor(h);
-  points.push([x,y,Math.min(11,Math.floor(Math.pow(d,.9)*12)),n]);
- }
- lastComposite=T;
-}
-function render(){
- if(lastComposite<0||Math.abs(T-lastComposite)>.22)compose();
- const W=cv.width,H=cv.height,s=W/900;
- g.setTransform(1,0,0,1,0,0);g.fillStyle="#f4f4f0";g.fillRect(0,0,W,H);
+function printDots(ctx,source,W,H,cell=3){
+ const data=source.getContext("2d",{willReadFrequently:true}).getImageData(0,0,W,H).data;
+ ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=PAPER;ctx.fillRect(0,0,W,H);
  const buckets=Array.from({length:12},()=>[]);
- for(const [x,y,b,n] of points){
-  const dx=x-wind.x*900,dy=y-wind.y*600,dist=Math.hypot(dx,dy);
-  const local=wind.down?Math.max(0,1-dist/175):0;
-  const amount=Math.max(scatter,local*.7),spread=amount*amount;
-  const angle=n*Math.PI*2+Math.sin(T*.24+n*8)*.25;
-  const xx=x+spread*(Math.cos(angle)*330+(wind.x-.5)*400);
-  const yy=y+spread*(Math.sin(angle)*195-110*n);
-  buckets[b].push(xx*s,yy*s);
+ for(let y=cell/2;y<H;y+=cell)for(let x=cell/2;x<W;x+=cell){
+  const j=(Math.floor(y)*W+Math.floor(x))*4,d=1-(data[j]*.299+data[j+1]*.587+data[j+2]*.114)/255;
+  if(d<.10)continue;buckets[Math.min(11,Math.floor(d**.9*12))].push(x,y);
  }
- g.fillStyle="#181916";
- for(let b=0;b<12;b++){const p=buckets[b],rad=(b+.6)/12*4.5*.62*s;g.beginPath();
-  for(let i=0;i<p.length;i+=2){g.moveTo(p[i]+rad,p[i+1]);g.arc(p[i],p[i+1],rad,0,Math.PI*2);}g.fill();}
+ ctx.fillStyle="#141414";
+ buckets.forEach((p,i)=>{const r=(i+.6)/12*cell*.61;ctx.beginPath();for(let k=0;k<p.length;k+=2){ctx.moveTo(p[k]+r,p[k+1]);ctx.arc(p[k],p[k+1],r,0,Math.PI*2);}ctx.fill();});
+}
+function buildRail(){
+ $("rail").replaceChildren();railSize=innerWidth<600?3:innerWidth<1000?5:7;
+ railPage=limit(railPage,0,Math.max(0,Math.ceil(objects.length/railSize)-1));
+ const subset=objects.slice(railPage*railSize,(railPage+1)*railSize);
+ for(const a of subset){
+  const button=document.createElement("button");button.className="object";button.dataset.id=a.id;
+  button.setAttribute("aria-label","Inspect "+a.name);button.setAttribute("aria-pressed",String(a.id===selected?.id));
+  const canvas=document.createElement("canvas");canvas.width=150;canvas.height=100;
+  const label=document.createElement("span");label.textContent=a.name;
+  button.append(canvas,label);button.onclick=()=>{if(busy)return;selectObject(a.id).catch(e=>say(e.message,true));};$("rail").append(button);
+  getModule(a.id).then(mod=>{
+   if(!canvas.isConnected)return;
+   const cut=E.inkCutout(mod,{},"dust-explore-thumb"),s=Math.min(140/cut.w,90/cut.h);
+   const raw=document.createElement("canvas");raw.width=150;raw.height=100;const ctx=raw.getContext("2d");
+   ctx.fillStyle=PAPER;ctx.fillRect(0,0,150,100);ctx.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,(150-cut.w*s)/2,(100-cut.h*s)/2,cut.w*s,cut.h*s);
+   printDots(canvas.getContext("2d"),raw,150,100,1.7);
+  }).catch(e=>{label.textContent=a.name+" (unavailable)";});
+ }
+ sync();
+}
+function renderScene(){
+ if(!active)return;
+ fg.setTransform(1,0,0,1,0,0);fg.globalAlpha=1;fg.globalCompositeOperation="source-over";fg.fillStyle=PAPER;fg.fillRect(0,0,SW,SH);traceHits=[];
+ if(active.context){active.context.draw(fg,SW,SH,{...(active.context.preview?.()||{}),t:0,card:false});fg.fillStyle="rgba(244,244,240,.22)";fg.fillRect(0,0,SW,SH);}
+ active.mod.stage(fg,SW,SH,T);hits=traceHits.filter(h=>objects.some(a=>a.id===h.id));lastDraw=T;
+}
+function mapping(){
+ const W=work.width,H=work.height;
+ const s=(camera.zoom===0?Math.min(W/SW,H/SH):Math.max(W/SW,H/SH)*camera.zoom);
+ return {s,ox:W/2-camera.x*s,oy:H/2-camera.y*s};
+}
+function draw(){
+ if(!active){g.fillStyle=PAPER;g.fillRect(0,0,cv.width,cv.height);return;}
+ if(lastDraw<0||(!selected&&Math.abs(T-lastDraw)>.15))renderScene();
+ const W=work.width,H=work.height;
+ wg.setTransform(1,0,0,1,0,0);wg.globalAlpha=1;wg.globalCompositeOperation="source-over";wg.fillStyle=PAPER;wg.fillRect(0,0,W,H);
+ const m=mapping();
+ if(selected){
+  // The scene remains the context; the selected object's own drawing gets the frame.
+  wg.globalAlpha=.13;wg.drawImage(field,m.ox,m.oy,SW*m.s,SH*m.s);wg.globalAlpha=1;
+  if(selected.face&&PERF){
+   drawPerformer(wg,W,H);
+  }else if(performing&&artifact){
+   const ac=document.createElement("canvas");ac.width=720;ac.height=720;
+   artifact.draw(ac.getContext("2d"),720,720,(T%10)/10);
+   const size=Math.min(W*.94,H*.86);wg.drawImage(ac,(W-size)/2,(H-size)/2,size,size);
+  }else{
+   const st=currentState(),cut=E.inkCutout(selected.mod,st,"explore-state-"+stateIndex+"-"+Math.round(blend*30));
+   const s=Math.min(W*.9/cut.w,H*.82/cut.h),dw=cut.w*s,dh=cut.h*s;
+   wg.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,(W-dw)/2,(H-dh)/2,dw,dh);
+  }
+ }else wg.drawImage(field,m.ox,m.oy,SW*m.s,SH*m.s);
+ printDots(g,work,W,H,Math.max(2.3,Math.min(3.5,W/400)));
  dirty=false;
 }
-function frame(now){
+function resize(){
+ const r=$("viewport").getBoundingClientRect(),d=Math.min(1.3,devicePixelRatio||1);
+ const w=Math.max(2,Math.round(r.width*d)),h=Math.max(2,Math.round(r.height*d));
+ cv.width=work.width=w;cv.height=work.height=h;lastDraw=-1;dirty=true;
+ if(MF)buildRail();if($("source").open)paginate();
+}
+new ResizeObserver(resize).observe($("viewport"));
+function tick(now){
  if(!document.hidden){
-  if(!last)last=now;
-  const dt=Math.min(.08,(now-last)/1000);last=now;
-  if(playing){T+=dt;dirty=true;}
-  if(dirty)render();
- }else last=0;
- requestAnimationFrame(frame);
+  if(!last)last=now;const dt=Math.min(.06,(now-last)/1000);last=now;
+  if(!au.paused){T=au.currentTime;if(T>=voiceEnd){au.pause();playing=false;sync();}dirty=true;}
+  else if(playing&&active&&!busy){T+=dt;if(!selected&&T>active.duration)T=0;dirty=true;}
+  if(dirty&&now-(tick.paint||0)>80){
+   try{draw();tick.paint=now;}catch(e){playing=false;say("Drawing stopped: "+e.message,true);dirty=false;}
+  }
+  if(active&&!selected&&!drag)$("time").value=Math.round(T/active.duration*1000);
+  $("clock").textContent=selected?(performing?"":selected.nodes[stateIndex]?.key||""):(Math.floor(T)+" / "+Math.floor(active?.duration||0)+"s");
+ }
+ requestAnimationFrame(tick);
 }
+$("book").onchange=()=>{const s=MF.scenes.find(s=>s.book===+$("book").value);if(s)openScene(s.id);};
+$("scene").onchange=()=>openScene($("scene").value);
+for(const [id,delta] of [["scenePrev",-1],["sceneNext",1]])$(id).onclick=()=>{const s=MF.scenes[MF.scenes.indexOf(active.entry)+delta];if(s)openScene(s.id);};
+$("cast").onclick=()=>{
+ const candidates=MF.scenes.filter(s=>(s.assets||[]).some(id=>assetEntry(id)?.type==="prop")&&s.id!==active?.entry.id);
+ const r=crypto.getRandomValues(new Uint32Array(1))[0]/4294967296;openScene(candidates[Math.floor(r*candidates.length)].id);
+};
+$("back").onclick=()=>{if(selected)returnScene();else {const old=history.pop();if(old)openScene(old.scene,{...old,push:false});}};
+$("room").onclick=()=>{camera={x:SW/2,y:SH/2,zoom:camera.zoom===0?1:0};dirty=true;sync();};
+$("play").onclick=()=>{if(!au.paused){au.pause();playing=false;}else playing=!playing;last=0;sync();};
+$("states").onchange=()=>{stateIndex=+$("states").value;blend=0;performing=false;$("time").value=selected.nodes.length>1?stateIndex/(selected.nodes.length-1)*1000:0;dirty=true;sync();writeLink();};
+$("time").oninput=e=>{
+ const u=+e.target.value/1000;au.pause();playing=false;
+ if(selected){if(performing)T=u*9.999;else{const q=u*(selected.nodes.length-1);stateIndex=Math.min(selected.nodes.length-1,Math.floor(q));blend=q-stateIndex;$("states").value=String(stateIndex);}}
+ else T=u*active.duration;
+ lastDraw=-1;dirty=true;sync();
+};
+$("time").onchange=()=>writeLink();
+$("railPrev").onclick=()=>{railPage--;buildRail();};$("railNext").onclick=()=>{railPage++;buildRail();};
+$("perform").onclick=async()=>{
+ if(performing){performing=false;sync();dirty=true;return;}
+ const wanted=selected?.id;
+ try{if(!artifacts)artifacts=(await delay(import("./scenes/_artifacts.mjs"))).ARTIFACTS;
+ if(selected?.id!==wanted)return;
+ artifact=artifacts.find(a=>a.id===SPECIAL[wanted]);if(!artifact)throw Error("Performance unavailable.");
+ performing=true;T=0;playing=true;sync();dirty=true;say(artifact.note);
+ }catch(e){say(e.message,true);}
+};
+$("retry").onclick=()=>{if(MF)openScene(active?.entry.id||START,{push:false});else boot();};
+function pointerPosition(e){const r=cv.getBoundingClientRect();return {x:(e.clientX-r.left)*cv.width/r.width,y:(e.clientY-r.top)*cv.height/r.height};}
+cv.onpointerdown=e=>{if(selected||busy||!active)return;activePointer=e.pointerId;cv.setPointerCapture(e.pointerId);drag={start:pointerPosition(e),camera:{...camera},distance:0};};
+cv.onpointermove=e=>{
+ if(!drag||e.pointerId!==activePointer)return;const p=pointerPosition(e),m=mapping(),dx=p.x-drag.start.x,dy=p.y-drag.start.y;
+ drag.distance=Math.hypot(dx,dy);camera.x=limit(drag.camera.x-dx/m.s,0,SW);camera.y=limit(drag.camera.y-dy/m.s,0,SH);dirty=true;
+};
+cv.onpointerup=e=>{
+ if(!drag||e.pointerId!==activePointer)return;const was=drag;drag=null;activePointer=null;
+ if(was.distance>9)return;
+ const p=pointerPosition(e),m=mapping(),x=(p.x-m.ox)/m.s,y=(p.y-m.oy)/m.s;
+ const target=hits.filter(h=>x>=h.x&&x<=h.x+h.w&&y>=h.y&&y<=h.y+h.h).sort((a,b)=>a.w*a.h-b.w*b.h)[0];
+ if(target)selectObject(target.id).catch(e=>say(e.message,true));
+};
+cv.onpointercancel=cv.onlostpointercapture=()=>{drag=null;activePointer=null;};
+cv.onwheel=e=>{if(selected)return;e.preventDefault();camera.zoom=limit((camera.zoom||.7)*Math.exp(-e.deltaY*.001),.6,2.5);dirty=true;sync();};
+cv.addEventListener("wheel",()=>{},{passive:false});
+addEventListener("keydown",e=>{
+ if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)||$("source").open)return;
+ if(e.key==="Escape"&&selected)returnScene();
+ if(e.key===" "){e.preventDefault();$("play").click();}
+ if(!selected&&["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)){e.preventDefault();camera.x=limit(camera.x+(e.key==="ArrowRight"?55:e.key==="ArrowLeft"?-55:0),0,SW);camera.y=limit(camera.y+(e.key==="ArrowDown"?55:e.key==="ArrowUp"?-55:0),0,SH);dirty=true;}
+});
+function scoreLines(){
+ if(!active)return [];
+ const thing=selected||objects.find(a=>a.type==="prop")||objects[0];
+ const loc=assetEntry(active.locationId),people=objects.filter(a=>a.type==="character").slice(0,3).map(a=>a.name);
+ return ["A HOUSE OF "+(thing?.name||"RETURN").toUpperCase(),"IN "+(loc?.name||active.entry.bookTitle||"THE ODYSSEY").toUpperCase(),
+ "USING "+(selected?selected.nodes[stateIndex]?.key||"ITS DRAWING":"THE SCENE'S AUTHORED LIGHT").toUpperCase(),
+ "INHABITED BY "+(people.length?people.join(" AND "):"THE THINGS LEFT THERE").toUpperCase()];
+}
+function paginate(){
+ const area=$("sourceText"),r=area.getBoundingClientRect(),cols=Math.max(18,Math.floor(r.width/7.3)),rows=Math.max(3,Math.floor(r.height/19));
+ const wrapped=[];
+ for(const line of sourceRaw.split("\n")){
+  if(!line.length){wrapped.push("");continue;}
+  for(let i=0;i<line.length;i+=cols)wrapped.push(line.slice(i,i+cols));
+ }
+ sourcePages=[];for(let i=0;i<wrapped.length;i+=rows)sourcePages.push(wrapped.slice(i,i+rows).join("\n"));
+ if(!sourcePages.length)sourcePages=[""];sourcePage=limit(sourcePage,0,sourcePages.length-1);
+ area.textContent=sourcePages[sourcePage];$("pageNumber").textContent=(sourcePage+1)+" / "+sourcePages.length;
+ $("sourcePrev").disabled=sourcePage===0;$("sourceNext").disabled=sourcePage===sourcePages.length-1;
+}
+async function showSource(tab){
+ sourceTab=tab;sourcePage=0;const token=++sourceToken;
+ document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tab===tab)));
+ const a=selected||assetEntry(active?.locationId);
+ $("sourceTitle").textContent=selected?.name||active?.entry.title||"Score";
+ if(tab==="score")sourceRaw=scoreLines().join("\n\n")+"\n\n"+(NOTES[selected?.id]||"Original combinatorial score after Knowles and Tenney; not a quotation from Homer.")+"\n\nSCENE\n"+(active?.entry.beats||[]).join("\n\n");
+ if(tab==="prompt")sourceRaw=(a?.prompt||active?.entry.composePrompt||"No prompt recorded.")+"\n\n"+(active?.context?"Setting supplied by an earlier scene in this book.":"The authored scene supplies its own setting.");
+ if(tab==="code"){
+  sourceRaw="Loading the drawing's source…";paginate();
+  try{const path=selected?.face?"assets/character/_close/face.mjs":performing?"scenes/_artifacts.mjs":a?.path?.replace(/^\/+/,"")||active.entry.path.replace(/^\/+/,"");
+   const res=await delay(fetch("./"+path));if(!res.ok)throw Error("Source unavailable.");const text=await res.text();if(token!==sourceToken)return;sourceRaw=text;
+  }catch(e){sourceRaw=e.message;}
+ }
+ paginate();
+}
+$("sources").onclick=()=>{$("source").showModal();requestAnimationFrame(()=>showSource("score"));};
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>showSource(b.dataset.tab));
+$("sourcePrev").onclick=()=>{sourcePage--;paginate();};$("sourceNext").onclick=()=>{sourcePage++;paginate();};
+$("sourceClose").onclick=()=>$("source").close();
+$("copySource").onclick=async()=>{try{await navigator.clipboard.writeText(sourceRaw);$("copySource").textContent="Copied";setTimeout(()=>$("copySource").textContent="Copy text",1800);}catch{$("copySource").textContent="Copy unavailable";}};
+function save(blob,name){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+$("save").onclick=()=>cv.toBlob(b=>{if(b)save(b,"odyssey-"+(selected?.id||active.entry.id)+".png");});
+$("share").onclick=async()=>{writeLink();try{await navigator.clipboard.writeText(location.href);say("Scene link copied.");}catch{
+ $("source").showModal();sourceRaw=location.href;sourcePage=0;$("sourceTitle").textContent="Copy this scene address";requestAnimationFrame(paginate);
+}};
+addEventListener("hashchange",()=>{const s=readLink();openScene(s.scene,{object:s.object,state:s.state,time:s.time});});
+document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden){au.pause();sync();}});
 async function boot(){
- setBusy(true);status("Opening the Odyssey atlas…");$("retry").hidden=true;
+ setBusy(true);say("Opening the atlas…");
  try{
-  const [engine,m]=await Promise.all([
-   timeout(import("./engine/halfworld-engine.mjs")),
-   timeout(fetch("./viewer/odyssey-manifest.json").then(r=>{if(!r.ok)throw Error("Atlas request failed: "+r.status);return r.json();}))
-  ]);
-  E=engine;manifest=m;entries=new Map(m.assets.map(a=>[a.id,a]));
-  await apply(score,false);
- }catch(e){error=e.message;setBusy(true);$("retry").hidden=false;status(error+" Tap Retry to load the Odyssey assets.",true);}
+  const [engine,data]=await Promise.all([delay(import("./engine/halfworld-engine.mjs")),delay(fetch("./viewer/odyssey-manifest.json").then(r=>{if(!r.ok)throw Error("Atlas unavailable.");return r.json();}))]);
+  E=engine;MF=data;byId=new Map(MF.assets.map(a=>[canonical(a.id),a]));
+  $("book").replaceChildren();
+  for(const b of [...new Set(MF.scenes.map(s=>s.book))])$("book").append(option("Book "+b,b));
+  const link=readLink();await openScene(link.scene,{object:link.object,state:link.state,time:link.time,push:false});
+ }catch(e){say(e.message,true);setBusy(false);}
 }
-$("retry").onclick=()=>{if(manifest&&E)apply(score,false);else boot();};
-sync();requestAnimationFrame(frame);boot();
 
+async function loadPerformers(){
+ if(PERF)return;
+ const read=path=>delay(fetch("./"+path).then(r=>{if(!r.ok)throw Error(path+" unavailable");return r.json();}));
+ const [FACE,SPEECH,DIR,script,voice,spoken]=await Promise.all([
+  delay(import("./assets/character/_close/face.mjs")),delay(import("./engine/speech.mjs")),
+  delay(import("./scenes/_direction.mjs")),read("drive/drive-script.json"),read("drive/voice-manifest.json"),read("viewer/spoken-lines.json")
+ ]);
+ PERF={FACE,SPEECH,DIR,script,voice,spoken:spoken.lines||{},cache:new Map()};
+}
+function faceFor(id){
+ if(!PERF||!id||id.startsWith("PERFORMER."))return null;
+ const slug=id.split(".").slice(1).join(".").split("-")[0];
+ return Object.keys(PERF.FACE.FACES).find(k=>slug===k||slug.startsWith(k))||null;
+}
+function turnsFor(){
+ if(!PERF||!active)return [];
+ if(PERF.cache.has(active.entry.id))return PERF.cache.get(active.entry.id);
+ const script=PERF.script.scenes.find(s=>s.id===active.entry.id),voice=PERF.voice[active.entry.id];
+ const turns=(voice?.segments||[]).map(v=>{
+  const d=script?.segments?.[v.gi];if(!d)return null;
+  const text=PERF.spoken[d.sourceTurnId]?.line||d.text||"",dur=Math.max(.1,+v.dur||0);
+  const track=PERF.SPEECH.visemeTrack(text,dur),HZ=50,env=new Float32Array(Math.max(1,Math.ceil(dur*HZ)));
+  for(let i=0;i<env.length;i++){const v=track.find(v=>i/HZ>=v.t0&&i/HZ<v.t1),mouth=PERF.SPEECH.VISEMES[v?.v]||PERF.SPEECH.VISEMES.REST;env[i]=Math.min(1,.16+mouth.jaw*.95);}
+  return {start:+v.start||0,dur,face:faceFor(d.speakerId),text,track,env,HZ};
+ }).filter(Boolean);
+ PERF.cache.set(active.entry.id,turns);return turns;
+}
+function drawPerformer(ctx,W,H){
+ const name=selected.face,seed=name.length+name.charCodeAt(0),turn=turnsFor().find(q=>T>=q.start&&T<q.start+q.dur);
+ const local=turn?T-turn.start:0,voicing=!!turn&&turn.face===name&&!au.paused;
+ const idle=PERF.FACE.idleFace(T,seed);
+ let state={...idle,...currentState()};
+ if(voicing){
+  const car=PERF.SPEECH.speechCarriage(turn.env,turn.HZ,local,seed),mouth=PERF.SPEECH.sampleMouth(turn.track,turn.env,turn.HZ,local);
+  state={...state,...mouth,headPitch:(state.headPitch||0)+car.pitch,headYaw:(state.headYaw||0)+car.yaw,headRoll:(state.headRoll||0)+car.roll,browUp:(state.browUp||0)+car.brow*.6};
+ }else if(turn&&!au.paused){
+  const c=PERF.SPEECH.listenCarriage(turn.env,turn.HZ,local,seed);
+  state={...state,jaw:0,headPitch:c.pitch,headYaw:c.yaw,headRoll:c.roll,browUp:c.brow,press:c.press,blink:(idle.blink||0)*c.blinkGate};
+ }
+ const size=Math.min(W*.94,H*.92),raw=document.createElement("canvas");raw.width=raw.height=800;const p=raw.getContext("2d");
+ p.fillStyle=PAPER;p.fillRect(0,0,800,800);
+ PERF.FACE.drawCloseup(p,PERF.FACE.FACES[name],state,{cx:400,cy:376,R:320});
+ ctx.drawImage(raw,(W-size)/2,(H-size)/2,size,size);
+}
+$("hear").onclick=async()=>{
+ if(!au.paused){au.pause();playing=false;sync();return;}
+ const v=PERF?.voice[active?.entry.id];if(!v?.file)return;
+ const turns=turnsFor(),turn=turns.find(t=>t.face===selected.face)||turns[0];if(!turn)return;
+ try{
+  const src=new URL("./"+v.file,location.href).href;
+  if(au.src!==src)au.src=src;
+  voiceEnd=turn.start+turn.dur;au.currentTime=turn.start;T=turn.start;
+  await au.play();playing=true;sync();say(turn.text);
+ }catch(e){say("The recording could not play. "+e.message,true);sync();}
+};
+au.onended=()=>{playing=false;sync();};
+au.onerror=()=>{playing=false;say("The scene recording could not be loaded.",true);sync();};
+
+requestAnimationFrame(tick);boot();
 </script>
-</body>
-</html>
+</body></html>
