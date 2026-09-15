@@ -2,7 +2,8 @@ name: House of Dust browser checks
 on:
   push:
     paths:
-      - 'house-of-dust.html'
+      - 'house-of-dust*.html'
+      - 'house-of-dust*.mjs'
       - '.github/workflows/house-of-dust.yml'
   workflow_dispatch:
 permissions:
@@ -18,7 +19,7 @@ jobs:
           node-version: '22'
       - run: npm install --no-save playwright@1.51.1
       - run: npx playwright install --with-deps chrome
-      - name: Check rendered worlds and interaction
+      - name: Verify the poem constructs its world
         shell: bash
         run: |
           node harness/serve.mjs 8877 > /tmp/dust-server.log 2>&1 &
@@ -26,92 +27,72 @@ jobs:
           import { chromium } from 'playwright';
           import { mkdir } from 'node:fs/promises';
           import assert from 'node:assert/strict';
+          import {SLOTS,VOCAB,INITIAL,recipe,cast,encode,decode,poem} from './house-of-dust-score.mjs';
           await mkdir('dust-checks',{recursive:true});
-          const browser=await chromium.launch({channel:'chrome'});
-          const errors=[];
-          const shots=[];
-          try {
+          let total=0;
+          for(let matter=0;matter<VOCAB.matter.length;matter++)for(let place=0;place<VOCAB.place.length;place++)for(let light=0;light<VOCAB.light.length;light++)for(let people=0;people<VOCAB.people.length;people++){
+            const s={matter,place,light,people},r=recipe(s);total++;
+            assert.equal(poem(s).length,4);
+            assert.deepEqual(decode(encode(s,{matter:true})).score,s);
+            assert.equal(cast(s,{matter:true},()=>.5).matter,matter);
+            assert.equal(r.objects.length,3);assert.equal(r.inhabitants.length,2);
+          }
+          assert.equal(total,500);console.log('500 scores: four lines, complete recipes, held values, and URL round-trips passed');
+          const browser=await chromium.launch({channel:'chrome'}),shots=[],errors=[];
+          const base='http://127.0.0.1:8877/house-of-dust.html';
+          try{
             for(const [name,viewport] of [['desktop',{width:1365,height:900}],['mobile',{width:390,height:844}],['small',{width:360,height:640}],['landscape',{width:844,height:390}]]){
-              const context=await browser.newContext({viewport,deviceScaleFactor:1,reducedMotion:'reduce'});
-              const page=await context.newPage();
-              page.on('pageerror',e=>errors.push(name+': '+e.message));
-              await page.goto('http://127.0.0.1:8877/house-of-dust.html');
-              const ready=()=>page.waitForFunction(()=>document.body.dataset.ready==='true',null,{timeout:50000});
-              await ready();await page.waitForTimeout(400);
-              const fit=()=>page.evaluate(()=>({w:innerWidth,h:innerHeight,sw:document.documentElement.scrollWidth,sh:document.documentElement.scrollHeight,bh:document.body.scrollHeight}));
-              const dimensions=await fit();assert(dimensions.sw<=dimensions.w+1&&dimensions.sh<=dimensions.h+1&&dimensions.bh<=dimensions.h+1,'no document scrolling: '+JSON.stringify(dimensions));
-              const pixels=()=>page.locator('#world').evaluate(c=>{
-                const data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let ink=0,hash=2166136261;
-                for(let i=0;i<data.length;i+=4){if(data[i]<140)ink++;hash=Math.imul(hash^data[i],16777619)>>>0;}return {ink,hash};
-              });
-              assert((await pixels()).ink>2000,'real scene has ink');
-              if(name==='desktop'||name==='mobile'){
-                const b=await page.screenshot({path:'dust-checks/'+name+'-scene.jpg',type:'jpeg',quality:65});
-                shots.push([name.toUpperCase()+'_SCENE',b.toString('base64')]);
-              }
-              await page.locator('#rail [data-id="prop.golden-pitcher-and-silver-basin"]').click();
-              await page.waitForFunction(()=>document.body.dataset.object==='prop.golden-pitcher-and-silver-basin');await page.waitForTimeout(300);
-              assert.equal(await page.locator('#states option').count(),4,'pitcher has all four authored states');
-              const place=await pixels();
-              await page.locator('#states').selectOption({label:'pour'});await page.waitForTimeout(300);
-              assert.notEqual((await pixels()).hash,place.hash,'pour changes the original asset');
-              if(name==='mobile'){
-                const b=await page.screenshot({path:'dust-checks/mobile-pitcher.jpg',type:'jpeg',quality:65});
-                shots.push(['MOBILE_PITCHER',b.toString('base64')]);
-              }
-              const shared=page.url();await page.reload();await ready();
-              assert.equal(await page.locator('body').getAttribute('data-object'),'prop.golden-pitcher-and-silver-basin');
-              assert.equal(await page.locator('#states option:checked').textContent(),'pour','object state survives URL reload');
-              await page.locator('#sources').click();await page.locator('#source').waitFor({state:'visible'});
-              await page.locator('[data-tab=code]').click();
-              await page.waitForFunction(()=>document.querySelector('#sourceText').textContent.includes('hospitality')||document.querySelector('#sourceText').textContent.includes('golden-pitcher'),null,{timeout:20000});
-              assert.equal(await page.locator('#source').evaluate(e=>e.scrollHeight<=e.clientHeight+1),true,'source dialog does not scroll');
-              assert.equal(await page.locator('#sourceNext').isEnabled(),true,'source is paginated');
-              await page.locator('#sourceNext').click();
-              assert.match(await page.locator('#pageNumber').textContent(),/^2 \//);
-              await page.locator('#sourceClose').click();
-              await page.locator('#back').click();
-              await page.locator('#rail [data-id="character.athena-as-mentes"]').click();
-              await page.waitForFunction(()=>document.body.dataset.face==='athena',null,{timeout:45000});await page.waitForTimeout(300);
-              assert((await pixels()).ink>2000,'film close-up renders');
-              assert.equal(await page.locator('#hear').isVisible(),true,'recorded voice action appears');
+              const context=await browser.newContext({viewport,reducedMotion:'reduce',deviceScaleFactor:1});
+              const p=await context.newPage();p.on('pageerror',e=>errors.push(name+': '+e.message));
+              await p.goto(base);
+              const ready=()=>p.waitForFunction(()=>document.body.dataset.ready==='true',null,{timeout:45000});
+              const state=()=>p.evaluate(()=>({score:JSON.parse(document.body.dataset.score),recipe:JSON.parse(document.body.dataset.recipe)}));
+              const ink=()=>p.locator('#world').evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let n=0,h=2166136261;for(let i=0;i<d.length;i+=4){if(d[i]<150)n++;h=Math.imul(h^d[i],16777619)>>>0;}return {n,h};});
+              const fits=()=>p.evaluate(()=>{const e=document.documentElement,b=document.body,f=document.querySelector('footer').getBoundingClientRect();return {ok:e.scrollHeight<=innerHeight+1&&e.scrollWidth<=innerWidth+1&&b.scrollHeight<=innerHeight+1,foot:f.bottom<=innerHeight+1,stage:document.querySelector('#stage').clientHeight};});
+              const shot=async label=>{const b=await p.screenshot({path:'dust-checks/'+label+'.jpg',type:'jpeg',quality:70});shots.push([label.toUpperCase(),b.toString('base64')]);};
+              await ready();await p.waitForTimeout(250);
+              assert((await fits()).ok&& (await fits()).foot,'fixed viewport and visible poem');assert((await fits()).stage>150,'world has space');
+              assert((await ink()).n>2000,'world contains original drawing');
+              if(name==='desktop'||name==='mobile')await shot(name+'_initial');
+              const original=await state(),h0=(await ink()).h;
+              await p.selectOption('#light','1');await ready();await p.waitForTimeout(200);
+              let a=await state();assert.deepEqual(a.recipe.objects,original.recipe.objects);assert.deepEqual(a.recipe.inhabitants,original.recipe.inhabitants);assert.equal(a.recipe.setting,original.recipe.setting);assert.notEqual((await ink()).h,h0,'lighting has a visible effect');
+              if(name==='mobile')await shot('mobile_firelight');
+              await p.selectOption('#place','2');await ready();a=await state();assert.deepEqual(a.recipe.objects,original.recipe.objects);assert.deepEqual(a.recipe.inhabitants,original.recipe.inhabitants);
+              await p.selectOption('#people','2');await ready();a=await state();assert.equal(a.recipe.setting,VOCAB.place[2].id);assert.deepEqual(a.recipe.objects,original.recipe.objects);
+              await p.click('#hold-matter');await p.click('#hold-place');
+              const pre=(await state()).score;await p.click('#cast');await ready();const post=(await state()).score;
+              assert.equal(post.matter,pre.matter);assert.equal(post.place,pre.place);assert.notEqual(post.light,pre.light);assert.notEqual(post.people,pre.people);
+              await p.click('#undo');await ready();assert.deepEqual((await state()).score,pre,'previous restores the whole poem');
+              await p.click('#hold-light');await p.click('#hold-people');assert(await p.locator('#cast').isDisabled(),'all held blocks casting');
+              const saved=(await state()).score;await p.reload();await ready();assert.deepEqual((await state()).score,saved);assert.equal(await p.locator('#hold-matter').getAttribute('aria-pressed'),'true');
+              for(const k of SLOTS)await p.click('#hold-'+k);
+              await p.selectOption('#light','0');await ready();
+              for(let v=0;v<5;v++){await p.selectOption('#matter',String(v));await ready();await p.waitForTimeout(130);assert((await ink()).n>1000,'material '+v+' draws');}
+              await p.selectOption('#matter','3');await ready();const still=(await ink()).h;
+              await p.click('#play');await p.waitForTimeout(1200);await p.click('#play');assert.notEqual((await ink()).h,still,'inhabitants and pitcher perform over time');
+              await p.click('#things');await p.waitForFunction(()=>document.body.dataset.focus==='prop.golden-pitcher-and-silver-basin');await p.waitForTimeout(180);
+              assert.equal(await p.locator('#inspect option').count(),4);const placeHash=(await ink()).h;
+              await p.selectOption('#inspect',{label:'pour'});await p.waitForTimeout(180);assert.notEqual((await ink()).h,placeHash,'selected original state changes');
+              if(name==='mobile')await shot('mobile_pour');
+              await p.click('#return');
               if(name==='desktop'){
-                const before=await pixels();await page.locator('#play').click();await page.waitForTimeout(700);
-                assert.notEqual((await pixels()).hash,before.hash,'face animation changes the image');
-                await page.locator('#play').click();
-                const b=await page.screenshot({path:'dust-checks/desktop-athena.jpg',type:'jpeg',quality:65});
-                shots.push(['DESKTOP_ATHENA',b.toString('base64')]);
-                await page.locator('#hear').click();
-                try { await page.waitForFunction(()=>{const a=document.getElementById('audio');return !a.paused&&!a.seeking&&a.currentTime>=45.2;},null,{timeout:25000}); } catch(e) { console.log('AUDIO_DIAGNOSTIC',await page.locator('#audio').evaluate(a=>({src:a.src,time:a.currentTime,duration:a.duration,ready:a.readyState,network:a.networkState,paused:a.paused,seeking:a.seeking,error:a.error?.message,seekable:Array.from({length:a.seekable.length},(_,i)=>[a.seekable.start(i),a.seekable.end(i)])}))); throw e; }
-                const a=await page.locator('#audio').evaluate(a=>a.currentTime);await page.waitForTimeout(350);
-                assert((await page.locator('#audio').evaluate(a=>a.currentTime))>a,'recorded audio advances');
-                await page.locator('#hear').click();
+                for(let v=0;v<5;v++){await p.selectOption('#place',String(v));await ready();assert((await ink()).n>1000,'place '+v+' draws');}
+                for(let v=0;v<5;v++){await p.selectOption('#people',String(v));await ready();assert((await ink()).n>1000,'cast '+v+' draws');}
               }
-              await page.locator('#back').click();
-              for(const [book,scene] of [['2','OD-B02-S02'],['8','OD-B08-S02'],['9','OD-B09-S05'],['19','OD-B19-S04'],['23','OD-B23-S04']]){
-                await page.locator('#book').selectOption(book);await ready();
-                await page.locator('#scene').selectOption(scene);await ready();await page.waitForTimeout(250);
-                assert((await pixels()).ink>2000,scene+' draws its authored stage');
-                if(scene==='OD-B08-S02')assert(await page.locator('#rail [data-id="prop.demodocuss-lyre"]').count()>0,'lyre is directly explorable');
-                if(scene==='OD-B23-S04'){
-                  await page.locator('#rail [data-id="prop.olive-tree-marriage-bed"]').click();
-                  await page.waitForFunction(()=>document.body.dataset.object==='prop.olive-tree-marriage-bed');
-                  assert(await page.locator('#states option').count()>2,'bed has authored states');
-                  await page.locator('#perform').click();
-                  await page.waitForFunction(()=>document.body.dataset.performing==='true');
-                  await page.waitForTimeout(300);
-                  assert((await pixels()).ink>1000,'artifact performance renders');
-                }
-              }
-              assert((await fit()).sh<=viewport.height+1,'no scrolling after scene and artifact changes');
-              console.log(name+': no-scroll, scene art, vessel states, URL reload, source pagination, character close-up, 6 authored scenes and artifact performance passed');
+              assert((await fits()).ok,'no scrolling after changes');
+              console.log(name+': causal line changes, held lines, cast, previous, shared link, five materials, animation, original object states, and viewport fit passed');
               await context.close();
             }
-            assert.deepEqual(errors,[],'no uncaught browser errors');
-          } finally {
-            for(const [name,b64] of shots)console.log('DUST_IMAGE_'+name+':'+b64);
-            await browser.close();
-          }
+            const p=await browser.newPage();await p.goto(base);await p.waitForFunction(()=>document.body.dataset.ready==='true');
+            const before=await p.locator('body').getAttribute('data-score');
+            await p.route('**/assets/location/polyphemuss-cave.mjs',route=>route.abort());
+            await p.selectOption('#place','1');await p.waitForFunction(()=>document.querySelector('#status').textContent.includes('previous poem'));
+            assert.equal(await p.locator('body').getAttribute('data-score'),before,'failed load retains matching poem');
+            assert.equal(await p.locator('#place').inputValue(),'0','failed selector is rolled back');
+            await p.close();assert.deepEqual(errors,[]);
+            console.log('Failed import: previous poem and world retained; no uncaught browser errors');
+          }finally{for(const [name,b64]of shots)console.log('DUST3_IMAGE_'+name+':'+b64);await browser.close();}
           NODE
       - name: Upload review images
         if: always()

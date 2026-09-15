@@ -1,64 +1,67 @@
-# House of Dust / Odyssey scene exploration
+# House of Dust: operative permutation
 
 ## 1. <Initial Interpretation>
-The user found the added house and lighting intrusive, and the scrolling interface concealed the existing atlas. The program is now an exploration surface for authored scenes, objects and inhabitants. Scene construction is supplied by existing scene modules.
+The previous version replaced the generative poem with an atlas browser. It was technically interactive but did not implement House of Dust's central relation: permutation of a finite verbal vocabulary produces a different dwelling.
+
+The revised program makes four independently editable lines operate a composed household. This is an Odyssey adaptation after Knowles and Tenney, not a reconstruction of their historical installation.
 
 ## 2. <Theory Skeleton>
-<entities> := {authored scene, atlas asset, object state, character face, recorded turn, source, camera}
-[operations] := {enter scene, pan, select object, transform, hear voice, perform, return, cast, inspect source}
-<states> := {loading, scene, object inspection, character close-up, artifact performance, source page, failed load}
-<constraints> := {fixed viewport, finite paginated shelf, actual atlas references}
-<invariants> := {no added house shell, no added sun/moon/light overlay, one final halftone pass, no document scrolling, explicit source attribution}
+<entities> := {score, matter, place, light, inhabitants, original asset, held line, camera, performance time}
+[operations] := {choose a line, hold, cast, compose, inhabit, inspect, return, restore, share}
+<states> := {loading candidate, dwelling, inspecting, paused, load failed}
+<constraints> := {four lines remain visible, finite vocabulary, no API requirement, original asset modules}
+<invariants> := {score and world commit together; held lines survive cast; changing a slot preserves the other slot values; no document scrolling; geometry comes from existing drawings}
 
 ## 3. <Assumption Ledger>
-<safe>: Preserve scene.stage choreography and its actual drawing modules.
-<safe>: Keep every object available through a paginated shelf.
-<safe>: Import the same close-up face, speech and direction modules as odyssey-performances.html.
-<uncertain>: Some scenes need a setting inherited from an earlier scene in their book; this is disclosed in Source.
-<requires-user-decision>: Further free-language recombination is outside this revision.
+<safe>: Five vocabularies of household matter, five places, four lights, five pairs of inhabitants produce 500 scores.
+<safe>: A house can be organized around the things that sustain household activities.
+<uncertain>: Matter is interpreted as a household's organizing material or activity, not as a claim that all architectural surfaces physically consist of that material.
+<uncertain>: The inhabitants are possible encounters in an Odyssey permutation, not a claim of canonical co-presence.
+No additional user decision is required for this correction.
 
 ## 4. <Operational Description>
-<scene selection> [loads] <authored scene + cast>
-<scene.stage> [draws] <continuous-tone field>
-<drawImage placement> [records] <actual object hit bounds>
-<tap or object shelf> [opens] <large original asset>
-<object state selection or slider> [changes] <asset channels>
-<supported character> [opens] <film close-up>
-<Hear voice> [plays] <recorded turn>; <audio.currentTime> [drives] <mouth and speech carriage>
-<Perform> [runs] <existing artifact motion score>
-<Source> [pages through] <score, original prompt, actual code>
-<Return> [restores] <scene exploration>
+<four selected indices> [resolve] <recipe>
+<matter> [chooses] <three original household objects>
+<place> [chooses] <original architectural or landscape setting>
+<light> [grades] <surface visibility>; <firelight> [adds] <original hearth>
+<inhabitants> [choose] <two original figures and a four-beat performance>
+<recipe> [loads and validates] <asset modules>
+<validated candidate> [replaces together] <poem and dwelling>
+<held lines> [block] <their own permutation>
+<time> [drives] <pitcher lift, water, loom, lyre, gestures and listening turns>
+<tap or Things> [opens] <original drawing states and supported film face>
+<Return> [restores] <composed dwelling>
 
 ## 5. <Failure Description>
-Unknown scenes and failed imports retain the last active scene and expose Retry. Scene construction is rendered before the candidate replaces the active scene. Request tokens discard stale scene and object loads. If a character has no close-up rig, the original atlas figure remains available. Voice playback errors are reported. Unsupported clipboard access exposes the address in Source.
+A failed candidate retains the previous committed poem and scene. The selector rolls back and Retry appears. Request serials prevent a stale import from replacing a newer score. All four held lines disable Cast. Unknown URL values normalize to defaults. A missing optional film face retains its atlas drawing. Clipboard failure points to the shareable address.
 
 ## 6. <Change Test>
 What would change if the requirements changed?
-- New atlas objects enter through the manifest and authored cast; they need no new substitute geometry.
-- New character rigs enter through the film face module; unsupported figures retain their atlas drawing.
-- A smaller screen changes page capacity and camera framing, without introducing page scrolling.
-- An updated scene.stage retains its blocking because the explorer calls that authored function.
+- Changing the place changes the setting asset, while object and inhabitant IDs remain unchanged.
+- Changing inhabitants changes figure IDs and their performance beats, while the setting and household objects remain unchanged.
+- A new matter entry needs three existing object IDs and an activity description; the permutation mechanism stays unchanged.
+- A short landscape screen moves the poem beside the world; phone portrait keeps it underneath.
 
 ## 7. <Implementation Plan>
-house-of-dust.html is a single-page explorer. The document uses a fixed three-row viewport: scene navigation, the rendered world, and a paginated object shelf with transport. Source is a fixed dialog with explicit page navigation.
-
-The original renderer composes each scene. Module wrappers associate temporary canvases with asset IDs; observed drawImage destinations supply hit targets for those actual placements. Objects without a tracked image placement remain selectable through the shelf.
-
-Inspection uses the original asset and its state previews. Character close-ups reuse assets/character/_close/face.mjs, engine/speech.mjs and scenes/_direction.mjs. Voice records join the drive script and voice manifest by segment index, using authored spoken text when available. Mouth tracks follow the performance page's existing text-derived timing method.
+house-of-dust-score.mjs defines vocabulary, pure recipe construction, held permutations and URL encoding.
+house-of-dust-program.mjs loads existing drawing modules, composes them on a shared floor, runs their states and renders one final dot field.
+house-of-dust.html is a fixed viewport with a world and four-line operator surface.
+house-of-dust-atlas.html preserves the previous atlas explorer.
+The program loads drawings from the same paths as the existing Odyssey atlas. It never requires an API key.
 
 ## 8. <Program Text>
 house-of-dust.html
-.github/workflows/house-of-dust.yml
+house-of-dust-score.mjs
+house-of-dust-program.mjs
+house-of-dust-atlas.html
 
 ## 9. <Theory-Code Mapping>
-<types>: authored scene/asset contracts, face specification, recorded turn.
-<functions>: openScene, selectObject, renderScene, draw, currentState, turnsFor, drawPerformer.
+<types>: score and recipe objects express the distinct slot domains.
+<functions>: recipe, cast, encode, decode, construct, performer, propState, room and inspect implement their operations.
 <classes>: none added.
-<tests>: four viewport sizes; no document or source-dialog scrolling; actual vessel states; URL reload; scene imports; film faces and animation; recorded playback; existing artifact performance.
-<comments>: explain canvas provenance tracking and the inspection framing.
-<configuration>: the manifest, scene modules and original object state definitions; SPECIAL maps known objects to existing artifact performances.
+<tests>: 500 pure score round-trips and recipes; four browser viewports; causal line changes; held lines; undo; link reload; original states; animation; failed imports.
+<comments>: record atomic commit, shared floor, turn-taking and surface-light interpretation.
+<configuration>: VOCAB and ASSETS are the vocabulary and drawing provenance.
 
 ## 10. <Residual Human Theory>
-The four-line score is an original reading generated from the scene and selected object. It is not a quotation from Homer or Knowles. A rendered object state is an authored performance, not a material simulation. Close-up characters use the existing film performance rules; waveform-independent viseme tracks are approximate.
-
-The main scene is a two-dimensional authored field with pan and crop, not a rebuilt 3D room. Bounding hit tests follow tracked image placements and can include transparent portions; the object shelf is the reliable alternate selection path. Shared links preserve scene, selected object, state and scene time, not frozen versions of upstream modules.
+This remains a poetic household construction. It does not simulate load-bearing architecture, material mechanics or optical transport. The original assets retain their own abstractions and proportions. The compositor establishes a shared floor and ordering, not a collision-resolved 3D scene. Actors use authored gestures in a recurring four-beat score; they do not autonomously infer tasks. Close-up faces reuse the film rig. Source performances and recordings remain accessible in the preserved Atlas explorer.
