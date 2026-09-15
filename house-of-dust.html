@@ -105,6 +105,7 @@ let E,MF,byId,active=null,selected=null,objects=[],modules=new Map(),busy=false,
 let T=0,playing=!matchMedia("(prefers-reduced-motion: reduce)").matches,dirty=true,last=0,lastDraw=-1;
 let camera={x:SW/2,y:SH/2,zoom:1},hits=[],traceHits=[],canvasOwners=new WeakMap();
 let stateIndex=0,blend=0,railPage=0,railSize=4,performing=false,artifacts=null,artifact=null;
+let renderingScene=false;
 let objectToken=0, PERF=null, voiceEnd=Infinity;
 const au=$("audio");
 let errorText="",sourceTab="score",sourcePage=0,sourceRaw="",sourcePages=[],sourceToken=0;
@@ -126,7 +127,7 @@ const NOTES={
  "prop.odysseuss-bow":"A familiar object tests an unfamiliar man."
 };
 const START="OD-B01-S04";
-function say(text,bad=false){$("status").textContent=text;$("status").classList.toggle("error",bad);errorText=bad?text:"";}
+function say(text,bad=false){$("retry").hidden=!bad;$("status").textContent=text;$("status").classList.toggle("error",bad);errorText=bad?text:"";}
 function option(label,value){const e=document.createElement("option");e.value=value;e.textContent=label;return e;}
 function limit(x,a,b){return Math.max(a,Math.min(b,x));}
 function delay(p){let id;return Promise.race([p,new Promise((_,reject)=>id=setTimeout(()=>reject(Error("Atlas loading timed out.")),20000))]).finally(()=>clearTimeout(id));}
@@ -139,7 +140,7 @@ async function getModule(id){
   const mod=m.default||m.asset;if(typeof mod?.draw!=="function")throw Error("Cannot draw "+id);
   // Track the actual source canvases, so hit targets follow authored placement.
   const draw=mod.draw;
-  mod.draw=function(ctx,...args){canvasOwners.set(ctx.canvas,id);return draw.call(this,ctx,...args);};
+  mod.draw=function(ctx,...args){canvasOwners.set(ctx.canvas,id);if(renderingScene&&entry.type==="sound_source")return;return draw.call(this,ctx,...args);};
   return mod;
  }).catch(e=>{modules.delete(id);throw e;});
  modules.set(id,promise);return promise;
@@ -201,10 +202,10 @@ async function openScene(id,{object=null,state=null,time=0,push=true}={}){
   const test=document.createElement("canvas");test.width=SW;test.height=SH;
   const tg=test.getContext("2d");tg.fillStyle=PAPER;tg.fillRect(0,0,SW,SH);
   if(context)context.draw(tg,SW,SH,{...(context.preview?.()||{}),t:0,card:false});
-  mod.stage(tg,SW,SH,limit(time,0,candidate.duration));
+  renderingScene=true;try{mod.stage(tg,SW,SH,limit(time,0,candidate.duration));}finally{renderingScene=false;}
   if(push&&active)history.push({scene:active.entry.id,object:selected?.id,time:T});
   active=candidate;objects=sortedObjects(ids);selected=null;performing=false;artifact=null;
-  T=limit(Number.isFinite(time)?time:0,0,active.duration);railPage=0;camera={x:SW/2,y:SH/2,zoom:1};lastDraw=-1;
+  T=limit(Number.isFinite(time)?time:0,0,active.duration);railPage=0;camera={x:SW/2,y:SH/2,zoom:innerWidth>=700?0:1};lastDraw=-1;
   rebuildScenes();buildRail();sync();renderScene();
   if(object&&objects.some(a=>a.id===canonical(object)))await selectObject(canonical(object),state);
   else say("Drag to explore. Tap a thing, or choose one below.");
@@ -302,7 +303,8 @@ function renderScene(){
  if(!active)return;
  fg.setTransform(1,0,0,1,0,0);fg.globalAlpha=1;fg.globalCompositeOperation="source-over";fg.fillStyle=PAPER;fg.fillRect(0,0,SW,SH);traceHits=[];
  if(active.context){active.context.draw(fg,SW,SH,{...(active.context.preview?.()||{}),t:0,card:false});fg.fillStyle="rgba(244,244,240,.22)";fg.fillRect(0,0,SW,SH);}
- active.mod.stage(fg,SW,SH,T);hits=traceHits.filter(h=>objects.some(a=>a.id===h.id));lastDraw=T;
+ renderingScene=true;try{active.mod.stage(fg,SW,SH,T);}finally{renderingScene=false;}
+ hits=traceHits.filter(h=>objects.some(a=>a.id===h.id));lastDraw=T;
 }
 function mapping(){
  const W=work.width,H=work.height;
@@ -512,7 +514,12 @@ $("hear").onclick=async()=>{
  const turns=turnsFor(),turn=turns.find(t=>t.face===selected.face)||turns[0];if(!turn)return;
  try{
   const src=new URL("./"+v.file,location.href).href;
-  if(au.src!==src)au.src=src;
+  if(au.src!==src){au.preload="auto";au.src=src;au.load();}
+  if(au.readyState<1)await delay(new Promise((resolve,reject)=>{
+   const clean=()=>{au.removeEventListener("loadedmetadata",ready);au.removeEventListener("error",fail);};
+   const ready=()=>{clean();resolve();},fail=()=>{clean();reject(Error("Recording metadata unavailable."));};
+   au.addEventListener("loadedmetadata",ready,{once:true});au.addEventListener("error",fail,{once:true});
+  }));
   voiceEnd=turn.start+turn.dur;au.currentTime=turn.start;T=turn.start;
   await au.play();playing=true;sync();say(turn.text);
  }catch(e){say("The recording could not play. "+e.message,true);sync();}

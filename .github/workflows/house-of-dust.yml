@@ -82,7 +82,7 @@ jobs:
                 const b=await page.screenshot({path:'dust-checks/desktop-athena.jpg',type:'jpeg',quality:65});
                 shots.push(['DESKTOP_ATHENA',b.toString('base64')]);
                 await page.locator('#hear').click();
-                await page.waitForFunction(()=>!document.getElementById('audio').paused,null,{timeout:25000});
+                await page.waitForFunction(()=>{const a=document.getElementById('audio');return !a.paused&&!a.seeking&&a.currentTime>=45.2;},null,{timeout:25000});
                 const a=await page.locator('#audio').evaluate(a=>a.currentTime);await page.waitForTimeout(350);
                 assert((await page.locator('#audio').evaluate(a=>a.currentTime))>a,'recorded audio advances');
                 await page.locator('#hear').click();
