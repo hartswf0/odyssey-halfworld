@@ -1,0 +1,109 @@
+name: House of Dust browser checks
+on:
+  push:
+    paths:
+      - 'house-of-dust.html'
+      - '.github/workflows/house-of-dust.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright@1.51.1
+      - run: npx playwright install --with-deps chromium
+      - name: Check rendered worlds and interaction
+        shell: bash
+        run: |
+          python3 -m http.server 8877 --bind 127.0.0.1 > /tmp/dust-server.log 2>&1 &
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { mkdir } from 'node:fs/promises';
+          import assert from 'node:assert/strict';
+          await mkdir('dust-checks', {recursive:true});
+          const browser = await chromium.launch();
+          const errors=[];
+          try {
+            for (const [name,viewport] of [['desktop',{width:1365,height:900}],['mobile',{width:390,height:844}]]) {
+              const context=await browser.newContext({viewport,deviceScaleFactor:1,reducedMotion:'reduce'});
+              const page=await context.newPage();
+              page.on('pageerror',e=>errors.push(name+': '+e.message));
+              await page.goto('http://127.0.0.1:8877/house-of-dust.html');
+              const ready=()=>page.waitForFunction(()=>document.querySelector('#status').textContent.startsWith('Drag the dust'),null,{timeout:45000});
+              await ready();
+              await page.waitForTimeout(400);
+              const pixels=()=>page.locator('#world').evaluate(c=>{
+                const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
+                let dark=0,hash=2166136261;
+                for(let i=0;i<d.length;i+=4){if(d[i]<150)dark++;hash=Math.imul(hash^d[i],16777619)>>>0;}
+                return {dark,hash};
+              });
+              const first=await pixels();assert(first.dark>1500,'world must print substantial ink');
+              await page.screenshot({path:'dust-checks/'+name+'-ithaca.png',fullPage:true});
+              await page.locator('#materialHold').click();
+              await page.locator('#shuffle').click();await ready();
+              assert.equal(await page.locator('#material').inputValue(),'0','held material survives casting');
+              assert.notEqual(await page.locator('#site').inputValue(),'0','unheld place changes');
+              await page.locator('#undo').click();await ready();
+              assert.equal(await page.locator('#site').inputValue(),'0','undo restores place');
+              const seen=[];
+              for(let i=0;i<9;i++){
+                await page.locator('#passage').selectOption(String(i));await ready();await page.waitForTimeout(300);
+                const p=await pixels();assert(p.dark>1500,'passage '+i+' renders ink');seen.push(p.hash);
+              }
+              assert.equal(new Set(seen).size,9,'each passage produces a distinct printed world');
+              await page.screenshot({path:'dust-checks/'+name+'-loom.png',fullPage:true});
+              await page.locator('#passage').selectOption('0');await ready();await page.waitForTimeout(300);
+              const original=await pixels();
+              await page.locator('#scatter').evaluate(e=>{e.value='100';e.dispatchEvent(new Event('input',{bubbles:true}));});
+              await page.waitForTimeout(100);
+              assert.notEqual((await pixels()).hash,original.hash,'scatter changes the field');
+              await page.locator('#restore').click();await page.waitForTimeout(100);
+              assert.equal((await pixels()).hash,original.hash,'return restores the field while paused');
+              const lightHashes=[];
+              for(let i=0;i<5;i++){
+                await page.locator('#light').selectOption(String(i));await ready();await page.waitForTimeout(300);
+                lightHashes.push((await pixels()).hash);
+              }
+              assert.equal(new Set(lightHashes).size,5,'all lighting rules visibly differ');
+              const materialHashes=[];
+              for(let i=0;i<6;i++){
+                await page.locator('#material').selectOption(String(i));await ready();await page.waitForTimeout(300);
+                materialHashes.push((await pixels()).hash);
+              }
+              assert.equal(new Set(materialHashes).size,6,'all materials visibly differ');
+              const shared=page.url();const values=await page.locator('.score select').evaluateAll(es=>es.map(e=>e.value));
+              await page.reload();await ready();
+              assert.deepEqual(await page.locator('.score select').evaluateAll(es=>es.map(e=>e.value)),values,'shared score survives reload');
+              assert.equal(page.url(),shared,'stable serialized score');
+              await page.locator('#sources').click();
+              await page.locator('#sourceDialog').waitFor({state:'visible'});
+              assert.equal(await page.locator('#sourceBody details').count(),3,'three real atlas prompt records');
+              await page.locator('[data-close="sourceDialog"]').click();
+              assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no horizontal overflow');
+              await context.close();
+              console.log(name+': 9 passages, 6 materials, 5 lights, holds, undo, scatter, return, sources, URL reload, responsive width passed');
+            }
+            const page=await browser.newPage();
+            await page.route('**/viewer/odyssey-manifest.json',r=>r.abort());
+            await page.goto('http://127.0.0.1:8877/house-of-dust.html');
+            await page.locator('#retry').waitFor({state:'visible'});
+            await page.unroute('**/viewer/odyssey-manifest.json');
+            await page.locator('#retry').click();
+            await page.waitForFunction(()=>document.querySelector('#status').textContent.startsWith('Drag the dust'),null,{timeout:45000});
+            console.log('Manifest failure and retry passed');
+            assert.deepEqual(errors,[],'no uncaught page errors');
+          } finally {await browser.close();}
+          NODE
+      - name: Upload review images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: house-of-dust-review
+          path: dust-checks/
