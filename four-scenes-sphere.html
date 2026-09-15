@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Four scenes · One sphere</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f3f0e4;color:#20201b;font:12px ui-monospace,monospace}body{height:100dvh}canvas{width:100%;height:100%;display:block;touch-action:none}button,select,input{font:inherit;color:inherit}button{min-width:44px;min-height:44px;border:1px solid #34342d;background:#f8f6edee;padding:8px 13px;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #b14027}button.on{background:#26271e;color:#fff}#top{position:absolute;top:max(12px,env(safe-area-inset-top));right:12px;display:flex;gap:7px}#bottom{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px;display:flex;align-items:center;gap:7px}#place{flex:1;min-width:0;text-align:center;background:#f8f6eddd;padding:9px 4px;line-height:1.5}#place strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#hint{position:absolute;left:12px;bottom:80px;background:#f8f6eddd;padding:7px;max-width:calc(100% - 24px);pointer-events:none}dialog{border:1px solid #26271e;background:#f8f6ed;width:min(480px,calc(100% - 24px));max-height:85dvh;padding:16px}dialog::backdrop{background:#1118}dialog label{display:block;margin:16px 0}dialog select{display:block;width:100%;padding:10px;margin-top:5px}dialog input{width:100%}.row{display:flex;gap:8px;flex-wrap:wrap}#error{color:#a22;white-space:pre-wrap}a{color:inherit}
+</style></head><body>
+<canvas id="world" aria-label="Four Odyssey scenes around a shared sphere. Drag to turn; use the arrow buttons to travel between scenes."></canvas>
+<div id="top"><button id="outside">Sphere</button><button id="pause" aria-label="Pause all four scenes">Ⅱ</button><button id="menu">Menu</button></div>
+<div id="hint" role="status">Loading four Odyssey stages…</div>
+<div id="bottom"><button id="previous" aria-label="Previous scene">←</button><div id="place"><strong>FOUR SCENES</strong><span>ONE SPHERE</span></div><button id="next" aria-label="Next scene">→</button></div>
+<dialog id="dialog"><div class="row"><button id="close">Close</button><button id="reset">Reset camera</button><button id="save">Export world</button></div><div id="slots"></div>
+<label>Camera field of view <input id="fov" type="range" min="36" max="110" value="82"></label>
+<p>Drag to look around. Pinch or use the wheel to change scale. The arrows travel to neighboring scenes. Sphere steps outside this same world; Enter returns inside.</p>
+<p>Four animated stages occupy four 90° sectors. The shared clock continues when you turn away. Their existing artwork is projected onto the sphere; objects retain the depth composition of their source stage.</p>
+<p><a href="https://hartswf0.github.io/halfworld/common-orb-field-v11.html" target="_blank" rel="noopener">Spherical world reference</a> · <a href="./viewer/cards.html" target="_blank">Odyssey assets</a></p><div id="error"></div></dialog>
+<script type="module">
+import * as E from './engine/halfworld-engine.mjs';
+const $=id=>document.getElementById(id),cv=$('world'),g=cv.getContext('2d',{alpha:false}),TAU=Math.PI*2,Q=Math.PI/2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),wrap=a=>((a%TAU)+TAU)%TAU;
+const ids=['OD-B02-S01','OD-B01-S03','OD-B08-S02','OD-B05-S01'];
+const slots=ids.map((id,i)=>({id,lon:i*Q,version:0,texture:null,stage:null,error:null}));
+const camera={yaw:0,pitch:-.08,fov:82,outside:false},pointers=new Map();
+let manifest,assetMap,clock=8,running=true,ready=false,last=0,lastTexture=-1,lastPaint=0,targetYaw=null,projection=null,dirty=true,W=640,H=800,output;
+const modules=new Map();
+function moduleAt(path){const url='.'+path;if(!modules.has(url))modules.set(url,import(url).then(m=>m.default||m.scene||m).catch(e=>{modules.delete(url);throw e}));return modules.get(url);}
+function status(text){$('hint').textContent=text;}
+function active(){return Math.floor(wrap(camera.yaw+Q/2)/Q)%4;}
+function resize(){const r=cv.getBoundingClientRect();W=Math.min(640,Math.round(r.width*(devicePixelRatio||1)));H=Math.round(W*r.height/r.width);cv.width=W;cv.height=H;output=g.createImageData(W,H);projection=null;dirty=true;}
+addEventListener('resize',resize);
+function update(){const i=active(),s=slots[i],name=manifest?.scenes.find(x=>x.id===s.id)?.title||s.id;$('place').firstElementChild.textContent=name;$('place').lastElementChild.textContent=(i+1)+' / 4 · '+s.id;$('outside').textContent=camera.outside?'Enter':'Sphere';$('outside').classList.toggle('on',camera.outside);}
+function travel(delta){const i=(active()+delta+4)%4;let diff=wrap(slots[i].lon-camera.yaw+Math.PI)-Math.PI;targetYaw=camera.yaw+diff;status('Traveling to scene '+(i+1)+' · drag to look');}
+async function loadScene(index,id){const s=slots[index],version=++s.version;status('Loading '+id+'…');
+ try{const meta=manifest.scenes.find(x=>x.id===id);if(!meta)throw Error('Unknown scene '+id);
+ const scene=await moduleAt(meta.path),cast=scene.cast||[];
+ const pairs=await Promise.all(cast.map(async c=>{const a=assetMap.get(c.asset);if(!a)throw Error('Missing asset '+c.asset);return [c.asset,await moduleAt(a.path)];}));
+ if(version!==s.version)return;const mods=new Map(pairs),stage=E.makeRestage(scene,id=>mods.get(id),id=>assetMap.get(id)?.type);
+ const texture=document.createElement('canvas');texture.width=1024;texture.height=768;
+ Object.assign(s,{id,stage,texture,context:texture.getContext('2d',{willReadFrequently:true}),pixels:null,error:null});
+ paintTexture(s);$('error').textContent=slots.filter(s=>s.error).map(s=>s.error).join('\n');projection=null;dirty=true;update();status('Drag to look · arrows travel · Sphere steps outside');
+ }catch(e){if(version!==s.version)return;s.error=id+': '+e.message;$('error').textContent=slots.filter(s=>s.error).map(s=>s.error).join('\n');status('Scene could not load. Open Menu to retry or choose another.');}
+}
+function paintTexture(s){if(!s.stage)return;const c=s.context;c.fillStyle='#f3f0e4';c.fillRect(0,0,1024,768);s.stage.stage(c,1024,768,clock%s.stage.duration);s.pixels=c.getImageData(0,0,1024,768).data;}
+// Each complete stage is a BAND chart. Four angular addresses are durable;
+// camera orientation only changes the observer, never scene placement.
+function address(x,y,z){const lon=wrap(Math.atan2(x,z)),lat=Math.asin(clamp(y,-1,1)),index=Math.floor(wrap(lon+Q/2)/Q)%4;
+ let d=wrap(lon-index*Q+Math.PI)-Math.PI;
+ return {index,u:clamp(d/Q+.5,0,.99999),v:clamp(.5-lat/(Q*.75),0,.99999)};}
+function ray(x,y){let vx,vy,vz;
+ if(camera.outside){const R=Math.min(W,H)*.44;vx=(x-W/2)/R;vy=-(y-H/2)/R;const d=vx*vx+vy*vy;if(d>1)return null;vz=Math.sqrt(1-d);}
+ else{const ty=Math.tan(camera.fov*Math.PI/360);vx=(x/W*2-1)*ty*W/H;vy=(1-y/H*2)*ty;vz=1;const n=Math.hypot(vx,vy,vz);vx/=n;vy/=n;vz/=n;}
+ const cp=Math.cos(camera.pitch),sp=Math.sin(camera.pitch),cy=Math.cos(camera.yaw),sy=Math.sin(camera.yaw);
+ const yy=vy*cp+vz*sp,zz=vz*cp-vy*sp;return [vx*cy+zz*sy,yy,zz*cy-vx*sy];}
+function buildProjection(){projection=new Int32Array(W*H);projection.fill(-1);
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const r=ray(x+.5,y+.5);if(!r)continue;const a=address(...r),tx=Math.floor(a.u*1024),ty=Math.floor(a.v*768);
+ projection[y*W+x]=a.index*1024*768+ty*1024+tx;}}
+// Sampling the composed stage preserves aspect and avoids four flat cards.
+// One output image contains the entire spherical projection.
+function render(){if(!projection)buildProjection();const dst=output.data,N=1024*768;
+ for(let i=0;i<projection.length;i++){const q=projection[i],o=i*4;if(q<0){dst[o]=243;dst[o+1]=240;dst[o+2]=228;dst[o+3]=255;continue;}
+ const s=slots[Math.floor(q/N)],p=(q%N)*4,b=s.pixels;
+ if(b){dst[o]=b[p];dst[o+1]=b[p+1];dst[o+2]=b[p+2];}else{dst[o]=225;dst[o+1]=223;dst[o+2]=210;}dst[o+3]=255;}
+ g.putImageData(output,0,0);
+ if(camera.outside){g.strokeStyle='#464638';g.lineWidth=1;g.beginPath();g.arc(W/2,H/2,Math.min(W,H)*.44,0,TAU);g.stroke();}
+ dirty=false;}
+function tick(ms){requestAnimationFrame(tick);const dt=Math.min(.06,(ms-(last||ms))/1000);last=ms;if(!ready||document.hidden)return;
+ if(running)clock+=dt;if(targetYaw!==null){const d=targetYaw-camera.yaw;camera.yaw+=d*Math.min(1,dt*7);if(Math.abs(d)<.002){camera.yaw=targetYaw;targetYaw=null;}projection=null;dirty=true;update();}
+ if(Math.floor(clock*4)!==lastTexture){lastTexture=Math.floor(clock*4);for(const s of slots)paintTexture(s);dirty=true;}
+ if(dirty&&ms-lastPaint>65){lastPaint=ms;render();}}
+$('previous').onclick=()=>travel(-1);$('next').onclick=()=>travel(1);
+$('outside').onclick=()=>{camera.outside=!camera.outside;projection=null;dirty=true;update();status(camera.outside?'Four scenes on one sphere · drag to turn · Enter to look inside':'Drag to look · arrows travel between scenes');};
+$('pause').onclick=()=>{running=!running;$('pause').textContent=running?'Ⅱ':'▶';$('pause').setAttribute('aria-label',running?'Pause all four scenes':'Play all four scenes');};
+$('menu').onclick=()=>$('dialog').showModal();$('close').onclick=()=>$('dialog').close();
+$('reset').onclick=()=>{camera.pitch=-.08;camera.fov=82;camera.yaw=slots[active()].lon;targetYaw=null;$('fov').value=82;projection=null;dirty=true;update();};
+$('fov').oninput=e=>{camera.fov=+e.target.value;projection=null;dirty=true;};
+$('save').onclick=()=>{const blob=new Blob([JSON.stringify({version:1,scenes:slots.map(s=>({id:s.id,longitude:s.lon})),camera,clock},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='four-scenes-sphere.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+cv.onpointerdown=e=>{pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});cv.setPointerCapture(e.pointerId);targetYaw=null;};
+cv.onpointermove=e=>{const old=pointers.get(e.pointerId);if(!old)return;const r=cv.getBoundingClientRect(),others=[...pointers.entries()].filter(([id])=>id!==e.pointerId);
+ if(others.length){const p=others[0][1],before=Math.hypot(old.x-p.x,old.y-p.y),after=Math.hypot(e.clientX-p.x,e.clientY-p.y);if(before>5&&after>5)camera.fov=clamp(camera.fov*before/after,36,110);$('fov').value=camera.fov;}
+ else{const speed=camera.outside?Math.PI*2:camera.fov*Math.PI/180;camera.yaw-=(e.clientX-old.x)/r.height*speed;camera.pitch=clamp(camera.pitch+(e.clientY-old.y)/r.height*speed,-.65,.65);}
+ pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});projection=null;dirty=true;update();};
+cv.onpointerup=cv.onpointercancel=cv.onlostpointercapture=e=>pointers.delete(e.pointerId);
+cv.addEventListener('wheel',e=>{e.preventDefault();camera.fov=clamp(camera.fov+e.deltaY*.04,36,110);$('fov').value=camera.fov;projection=null;dirty=true;},{passive:false});
+addEventListener('keydown',e=>{if($('dialog').open||/INPUT|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowRight')travel(1);if(e.key==='ArrowLeft')travel(-1);});
+async function boot(){try{const r=await fetch('./viewer/odyssey-manifest.json');if(!r.ok)throw Error('Manifest '+r.status);manifest=await r.json();assetMap=new Map(manifest.assets.map(a=>[a.id,a]));
+ for(let i=0;i<4;i++){const label=document.createElement('label');label.textContent='Scene '+(i+1)+' · '+i*90+'°';const select=document.createElement('select');for(const s of manifest.scenes){const option=document.createElement('option');option.value=s.id;option.textContent=s.id+' · '+s.title;select.append(option);}select.value=slots[i].id;select.onchange=()=>loadScene(i,select.value);label.append(select);$('slots').append(label);}
+ await Promise.all(slots.map((s,i)=>loadScene(i,s.id)));ready=true;resize();update();window.__fourScenes={slots,camera,address,ray,loadScene,get clock(){return clock}};}catch(e){status('Could not start: '+e.message);}}
+resize();requestAnimationFrame(tick);boot();
+</script></body></html>
