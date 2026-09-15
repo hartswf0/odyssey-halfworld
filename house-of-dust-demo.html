@@ -114,7 +114,7 @@ function advance(o,dt){if(!o.auto||!o.nodes.length)return;o.phase+=dt;if(o.phase
 function cutFor(o){const nodeKey=o.nodes[o.state]?.key||'',dynamic=o.auto||o.role==='inhabitant'||/play|wind|weav|pour|flow|burn|flutter|turn|pluck/.test(nodeKey),stamp=o.state+':'+(dynamic?Math.floor(t*5):0);const hit=cuts.get(o.key);if(hit?.stamp===stamp)return hit.cut;const st=drawState(o);if(!dynamic)st.t=0;const cut=E.inkCutout(o.mod,st,'artifact-world:'+o.id+':'+o.state);cuts.set(o.key,{stamp,cut});return cut;}
 function compose(){ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#f6f4ec';ctx.fillRect(0,0,W,H);
  ctx.save();ctx.translate(W*.5,H*.5);ctx.scale(camera.z,camera.z);ctx.translate(-camera.x*W,-camera.y*H);
- if(bg){ctx.globalAlpha=.60;ctx.drawImage(bg,0,0,W,H);ctx.globalAlpha=1;}
+ if(bg){ctx.globalAlpha=.60;const fit=Math.max(W/bg.width,H/bg.height);ctx.drawImage(bg,(W-bg.width*fit)/2,(H-bg.height*fit)/2,bg.width*fit,bg.height*fit);ctx.globalAlpha=1;}
  // The artifacts supply every architectural contour. No house outline is overlaid.
  hitboxes=[];for(const o of [...items].sort((a,b)=>a.y-b.y)){try{const cut=cutFor(o),maxH=H*o.s,maxW=W*Math.min(.58,o.s*.95),s=Math.min(maxW/cut.w,maxH/cut.h),w=cut.w*s,h=cut.h*s,x=o.x*W,y=o.y*H;
  ctx.fillStyle='#24241a17';ctx.beginPath();ctx.ellipse(x,y+2,w*.32,Math.max(2,H*.005),0,0,7);ctx.fill();ctx.save();ctx.translate(x,y);if(o.flip)ctx.scale(-1,1);ctx.drawImage(cut.cv,cut.x,cut.y,cut.w,cut.h,-w/2,-h,w,h);ctx.restore();
