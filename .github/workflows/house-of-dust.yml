@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-save playwright@1.51.1
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chrome
       - name: Check rendered worlds and interaction
         shell: bash
         run: |
@@ -27,7 +27,7 @@ jobs:
           import { mkdir } from 'node:fs/promises';
           import assert from 'node:assert/strict';
           await mkdir('dust-checks',{recursive:true});
-          const browser=await chromium.launch();
+          const browser=await chromium.launch({channel:'chrome'});
           const errors=[];
           const shots=[];
           try {
