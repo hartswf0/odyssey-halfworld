@@ -385,6 +385,8 @@ async function renderSheet(kind,id){
       <div class="sub">${item.id} · BOOK ${ROMAN[item.book]} — ${item.bookTitle} · ${item.assets.length} required assets</div>
       <div class="linkRow">
         <a class="lbtn red" href="../odyssey-previs.html#${item.id}">▶ PREVIS THE CUT</a>
+        <a class="lbtn" href="https://hartswf0.github.io/tractor-dce-gyo/odyssey-forage.html#${encodeURIComponent(item.id)}">LDRAW BUILD</a>
+        <a class="lbtn" href="https://hartswf0.github.io/tractor-dce-gyo/play/hand-butter-odyssey.html?scene=${encodeURIComponent(item.id)}">OPEN IN HAND BUTTER</a>
         <a class="lbtn" href="../odyssey-stage.html#${item.id}">OPEN IN STAGE</a>
         <span class="lbtn" id="dlScenePng">⬇ SCENE PNG</span>
         <span class="lbtn" id="dlSceneAssets">⬇ ALL ASSETS</span>
@@ -428,6 +430,8 @@ async function renderSheet(kind,id){
       ${item.perfs&&item.perfs.length?`<h3>PERFORMANCES</h3>${item.perfs.slice(0,6).map(p=>
         `<div class="beat" data-n="${p.scene.slice(-2)}">${p.perf}</div>`).join("")}`:""}
       <div class="linkRow">
+        <a class="lbtn" href="https://hartswf0.github.io/tractor-dce-gyo/odyssey-forage.html#${encodeURIComponent(item.id)}">LDRAW BUILD</a>
+        <a class="lbtn" href="https://hartswf0.github.io/tractor-dce-gyo/play/hand-butter-odyssey.html?scene=${encodeURIComponent(item.id)}">OPEN IN HAND BUTTER</a>
         <span class="lbtn" id="dlAssetPng">⬇ PNG</span>
         <span class="lbtn" id="dlAssetJson">⬇ JSON</span>
       </div>
